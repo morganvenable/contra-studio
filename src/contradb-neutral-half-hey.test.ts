@@ -16,3 +16,8 @@ test('neutral half-hey choice cannot waive capability, timing, formation, should
  assert.equal(normalizeContraDbRow(row,'becket',choice,caps).resolved,false);
  assert.equal(normalizeContraDbRow(row,'duple-improper',{},caps).resolved,false);
 });
+
+test('Becket accepts only the neutral choice with its separately validated carried wrapper',()=>{
+ assert.equal(normalizeContraDbRow(row,'becket',choice,{...caps,stateCarryingBecketSlices:true}).resolved,true);
+ assert.equal(normalizeContraDbRow(row,'becket',{ordinaryHey:{sidePair:'neighbor',exit:'opposite-paired-swing'}},{...caps,stateCarryingBecketSlices:true,ordinaryHeySwingExits:true}).resolved,false);
+});

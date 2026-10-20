@@ -16,7 +16,7 @@ face across at exit. Neither reads a successor, source ID, title or whole sequen
   offsets. No mirrored-root shortcut or successor-specific spacing normalization.
 - New half exit is an explicit removable source choice: opposite-slots-facing-across.
   Existing prepared balance/swing/gyre and progression routes remain guarded.
-- Becket source admission remains gated pending wrapper and finite-end validation.
+- Neutral Becket half-hey choices require the separately validated carried slice wrapper.
   This does not implement diagonal, ricochet, pair-first or partial-encounter heys.
 
 The boundary carries roots/facing/contacts, not velocity. The existing connector
@@ -43,21 +43,37 @@ translated unequal offsets, held/stale rejection and continuous certificates.
 A synthetic 72-count whole dance composes half hey -> long lines -> half hey ->
 chain through complete three- and four-couple periods, including seams, waiting
 ends, relationships and closure. It is not presented as a source transcription.
+A synthetic Becket slice dance replaces one full hey with two half heys, preserving
+64 counts. Three/four-couple periods verify waiting, reentry, slice-only epochs,
+station restoration and public motion matching adapter-owned ingress facing.
 Existing full-hey sources 975, 1983 and 3214 retain their independent encounter
 oracles and complete odd/even-period checks. All 129 Ready defaults pass.
 TypeScript and an isolated production build pass. GPU/audio/body checks were not
 run for this change.
 
-Local source 3260 now resolves all eight rows with an explicit neighbor-side
-neutral half-hey choice, and compilation passes that hey. It still fails the later
-measured six-plus-two half-width envelope. This is zero new Ready admissions, not
-an unlocked-dance claim. Exact local probe: research/contradb/neutral-half-hey-3260.json.
+Source 3260 now compiles with all eight rows resolved. A legacy chain rule was
+unnecessarily compacting its exit before neutral heys; both neutral exits now
+preserve the ordinary chain stations, while prepared legacy exits retain their
+old spacing. No progression width or motion limits were raised.
+The exact acquired snapshot is retained as a regression fixture. Its actual
+64-count three/four-couple periods preserve both chain receiver maps, all seams,
+epochs and closure. At 1/64-count samples, half-hey maximum speed is 1.239805,
+yaw rate 3.925855 and minimum separation .592942. These are root/facing samples,
+not body, GPU or audio certification. No Ready archive was changed.
 
-Next investigate that later measured boundary and test neutral half-heys in the
-Becket wrapper before removing the source formation gate. The corpus's 140 exact
-half-hey clauses overlap other blockers; they are not promised admissions.
+Review suggestions use a preceding normalized chain/swing's named relationship
+only when no existing hey choice applies, and propose the neutral exit without
+examining the successor. The source role/shoulders remain literal. Runtime must
+prove actual geometry/people; clearing or remembering a blank choice still blocks.
+
+The original 140-source exact-clause half-hey cohort was re-reviewed: seven receive
+neutral suggestions; one (3260) imports, 139 remain interpretation-stage blocked
+by overlapping requirements. This is one newly compile-admitted candidate, not
+140 unlocked dances or a Ready admission. Local evidence: half-hey-after.json.
+Next use its remaining row-level blockers to choose the next shared capability;
+do not broaden arbitrary Becket formations or infer missing source choices.
 
 Code: role-hey-encounters.ts, neutral-role-hey-step.ts, compatibility wrapper
 neutral-full-hey-step.ts. Tests: matching encounter/step files,
-neutral-role-hey-sequence.test.ts and contradb-neutral-half-hey.test.ts
-(the latter filename has no spaces).
+neutral-role-hey-sequence.test.ts, neutral-half-hey-source.test.ts,
+neutral-half-hey-becket.test.ts and contradb-neutral-half-hey.test.ts.

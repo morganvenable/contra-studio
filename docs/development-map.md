@@ -56,7 +56,7 @@ npm run build
 
 Do not print the generated archive or catalogue to count records. Import
 `READY_LIBRARY` and inspect its length/IDs; parse catalogue JSON and inspect
-`records.length`. The inventory is 129 unique Ready IDs, 157 checked-in fixtures and 2,265 locally
+`records.length`. The inventory is 129 unique Ready IDs, 158 checked-in fixtures and 2,264 additional locally
 acquired snapshots covering all 2,422 discovery records (historical
 `reportedRecords`: 2,426). See `docs/source-acquisition.md` for local paths.
 
@@ -262,9 +262,15 @@ full exits return stations. No successor-specific motion or source dispatch.
 Odd/even complete synthetic periods through long lines and chain pass; existing
 full-hey source tests and all 129 Ready defaults pass. TypeScript and an isolated
 production build pass; no new GPU/audio/body verification or Ready admissions.
-Source 3260 now resolves eight rows and passes the hey, but still hits a later
-six-plus-two width hold. Next diagnose that measured boundary, then validate the
-Becket wrapper before relaxing the still-explicit formation gate.
+Source 3260 now compiles and its actual 64-count odd/even periods pass. The later
+width hold came from unnecessary legacy chain compaction before a neutral hey;
+neutral exits now preserve ordinary chain stations without widening limits.
+The exact source snapshot is now fixture158 (one existing local acquisition is
+shadowed). The neutral Becket slice wrapper also passes complete odd/even periods
+and direct public-motion/adapter checks. Seven of the original 140 half-hey
+sources receive neutral suggestions; only3260 newly imports, with139 still held
+by overlapping requirements. No Ready admission is implied. Next query the local
+half-hey-after.json row blockers to choose the next shared capability.
 The prior source1464 adapter-name assertion was corrected only after its existing
 full-period behavior checks passed, and now also asserts strict-carried policy.
 

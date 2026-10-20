@@ -61,6 +61,8 @@ export function compileChainFigure(figure:Figure,context:ChainContext):ChainPlan
  if(!Number.isFinite(figure.beats)||figure.beats<.25||figure.beats>64||figure.confidence==='unsupported')throw new Error('The chain timing or interpretation is unresolved.');
  if(figure.hands!==undefined||figure.underRole!==undefined||figure.direction!==undefined&&figure.direction!=='right'||figure.amount!==undefined||figure.notation!==undefined||figure.entry!==undefined||figure.exit!==undefined)throw new Error('The conventional right-hand chain adapter does not consume additional hand, amount, or entry/exit modifiers.');
  assertFigureArgumentsConsumed(figure);
- const next=context.next,compact=next?.kind==='hey'&&next.heyStartRole!==undefined&&next.entry==='paired-sidelines'&&next.who===figure.who;
+ // Neutral heys consume and preserve actual stations; only legacy prepared
+ // exits need the compact pair spacing requested by their transition contract.
+ const next=context.next,compact=next?.kind==='hey'&&next.heyStartRole!==undefined&&next.entry==='paired-sidelines'&&next.who===figure.who&&!['opposite-slots-facing-across','same-slots-facing-across'].includes(next.exit??'');
  return compileChain(context,{receiver:figure.who as 'partner'|'neighbor',hand:'right',courtesy:'left-front-right-waist',...(next?.kind==='ring-balance'?{exitRing:true}:compact?{exitSpacing:1.10}:{})});
 }

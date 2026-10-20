@@ -122,3 +122,9 @@ against contrasting whole dances with co-occurring requirements.
 Validation: 18 focused acquisition/inventory/cache tests pass. This work changes
 research tooling only; no new GPU/audio/browser or whole-period motion checks
 were run, no Ready interpretations were added, and the public preview is unchanged.
+
+Subsequent regression work copied acquired source 3260 byte-for-byte into the
+fixture set. There are now 158 fixture IDs and 2,264 additional acquired IDs;
+local acquisition still contains its original 2,265 files, with one intentionally
+shadowed by the authoritative fixture. The completed acquisition totals above
+record the original run.

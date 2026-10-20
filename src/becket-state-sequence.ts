@@ -45,7 +45,7 @@ export function compileBecketStateSequence(input:Dance,couples:number,capabiliti
   if(from===to)return undefined;
   const endings=new Map<string,HandContact[]>();
   const steps:BoundFigureStep[]=dance.figures.slice(from,to).map((figure,relative)=>{
-   const index=from+relative,continuity=figureContinuity(dance.figures,index),strict=figure.kind==='hey'&&figure.exit==='same-slots-facing-across';
+   const index=from+relative,continuity=figureContinuity(dance.figures,index),strict=figure.kind==='hey'&&['same-slots-facing-across','opposite-slots-facing-across'].includes(figure.exit??'');
    return{figure,entryFacingBeats:strict||continuity.swingEntry?0:Math.min(1,figure.beats*.125),compile(context){
     context={...context,next:dance.figures[index+1]};const groupKey=[...context.ids].sort((a,b)=>a-b).join(':'),raw=endings.get(groupKey)??[],incoming=captureSequenceBoundary(context,starts[index],raw),result=compileSequenceStep(figure,context,incoming,()=>compilePrimitiveFigure(figure,context.ids,context.start,context.dancers,dancers.filter(d=>d.role==='lark').map(d=>d.direction),continuity),capabilities),entry=sampleSequenceBoundary(context,result.plan,starts[index],0),exit=sampleSequenceBoundary(context,result.plan,starts[index]+figure.beats,1);
     if(result.boundaryPlan)assertSequenceHandoff(incoming,entry);
