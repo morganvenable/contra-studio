@@ -168,7 +168,7 @@ dancer/frame checks remain supporting evidence rather than a progress metric.
 
 ## Decision after the first census
 
-The offline census measures 2,422 catalogue records, 157 retained snapshots and
+The initial fixture-only census measures 2,422 catalogue records, 157 retained snapshots and
 129 saved Ready interpretations. The 2,265 metadata-only records cannot be
 classified by figure content. The retained set is heavily selected by prior
 development, so it cannot establish the most frequent missing figure across the
@@ -180,9 +180,17 @@ interpretation-stage holds and five later motion/validation failures. These are
 not new Ready admissions. Earlier stages also contain implementation gates;
 "interpretation-stage" does not mean that the author wrote something ambiguous.
 
-The next work is ordered as follows:
+Acquisition is now complete: [source-acquisition.md](source-acquisition.md)
+records all 2,422 catalogue instructions locally, including 2,265 new sources.
+The checked-in census remains the 157-fixture baseline. Its selected sample must
+no longer be the sole basis for prioritizing implementation. The broader review
+identifies repeated half-hey, wave, relationship and separately counted-action
+requirements with substantial co-occurrence. Specify these shared requirements
+against contrasting whole dances before implementing another adapter.
 
-1. **Establish broader evidence.** Acquire a bounded, resumable sample of the
+The initial decision order below is retained with acquisition marked complete:
+
+1. **Establish broader evidence ? completed.** Acquire a bounded, resumable sample of the
    metadata-only records through public source access, retaining canonical source
    provenance and fetching conservatively. Start with a reproducible selection
    across catalogue formations and authors, document nonresponses, and expand

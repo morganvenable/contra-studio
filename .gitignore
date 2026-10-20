@@ -3,3 +3,4 @@ dist/
 .npm-cache/
 .openai/
 *.log
+research/contradb/

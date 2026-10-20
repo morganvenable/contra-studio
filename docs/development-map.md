@@ -56,8 +56,9 @@ npm run build
 
 Do not print the generated archive or catalogue to count records. Import
 `READY_LIBRARY` and inspect its length/IDs; parse catalogue JSON and inspect
-`records.length`. The retained inventory is 129 unique Ready IDs, 154 source
-snapshots, 2,422 discovery records (historical `reportedRecords`: 2,426).
+`records.length`. The inventory is 129 unique Ready IDs, 157 checked-in fixtures and 2,265 locally
+acquired snapshots covering all 2,422 discovery records (historical
+`reportedRecords`: 2,426). See `docs/source-acquisition.md` for local paths.
 
 ## Next capability investigation
 
@@ -237,7 +238,7 @@ evidence requirements. The first research pass is complete:
   caller review open.
 - [Coverage audit](coverage-audit.md) is reproducible with
   `node --experimental-strip-types scripts/audit-coverage.mjs --write`.
-  It measures 2,422 catalogue records, 157 retained snapshots, 129 saved Ready
+  The initial fixture-only census measures 2,422 catalogue records, 157 snapshots, 129 saved Ready
   interpretations and 2,265 metadata-only records. Of 28 unsaved retained
   records, hypothetical suggestions yield two compile-admitted candidates,
   five motion/validation holds and 21 earlier-stage holds. Counts overlap
@@ -246,10 +247,18 @@ evidence requirements. The first research pass is complete:
   41-kind inventories and local document links were checked. This research
   does not alter production playback, saved choices or admission.
 
-Next follow the plan's ordered decisions: broaden retained source evidence,
-review candidates 8/2194, and specify the six-record hey cohort using encounter
-and exit requirements before adding another adapter. Do not promise six
-admissions from six related wording examples.
+Current checkpoint ? 20 October 2026, 06:24 UTC: acquisition is complete.
+All 2,422 catalogue IDs have valid local instructions (157 fixtures plus 2,265
+new snapshots), totaling 20,158 rows, with no missing or rejected records.
+See [source-acquisition.md](source-acquisition.md) for provenance, resume and
+cached-review commands. All 2,265 new records have offline reviews; hypothetical
+suggestions admit 11 candidates, not new Ready dances. Eighteen focused tooling
+tests pass. Existing fixtures and public playback are unchanged.
+
+Next use the completed corpus's overlapping half-hey, wave, relationship and
+smaller counted-action cohorts to specify shared semantics and whole-dance
+composition. Reassess the original six-record hey experiment against this broader
+evidence. Review admitted candidates separately before any Ready promotion.
 
 Keep context small: read the report for totals and query individual records in
 `coverage-audit.json`; do not dump its approximately 1 MB of choices and evidence.

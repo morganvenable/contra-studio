@@ -1,7 +1,36 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {readFileSync,readdirSync} from 'node:fs';
-import {availabilityCounts,summarizeResult,aggregateViews} from './audit-coverage.mjs';
+import {readFileSync,readdirSync,mkdtempSync,mkdirSync,writeFileSync,rmSync} from 'node:fs';
+import {join} from 'node:path';
+import {tmpdir} from 'node:os';
+import {availabilityCounts,summarizeResult,aggregateViews,loadSnapshots,inventorySnapshots} from './audit-coverage.mjs';
+test('local source inventory validates identity, keeps fixtures authoritative and rejects malformed additions',async()=>{
+ const temp=mkdtempSync(join(tmpdir(),'contra-inventory-')),fixtureDir=join(temp,'fixtures'),snapshotDir=join(temp,'local');
+ mkdirSync(fixtureDir);mkdirSync(snapshotDir);
+ const fixture=id=>readFileSync(new URL(`../test-data/contradb/${id}.json`,import.meta.url),'utf8');
+ try{
+  writeFileSync(join(fixtureDir,'110.json'),fixture(110));
+  writeFileSync(join(snapshotDir,'110.json'),'not valid JSON');
+  writeFileSync(join(snapshotDir,'179.json'),fixture(179));
+  writeFileSync(join(snapshotDir,'999.json'),fixture(179));
+  writeFileSync(join(snapshotDir,'998.json'),'{');
+  writeFileSync(join(snapshotDir,'997.json'),JSON.stringify({id:997,title:'metadata only'}));
+  writeFileSync(join(snapshotDir,'progress.json'),'{}');
+  const loaded=await loadSnapshots({fixtureDir,snapshotDir});
+  assert.deepEqual([...loaded.snapshots.keys()],['110','179']);
+  assert.equal(loaded.snapshots.get('110').kind,'fixture');
+  assert.equal(loaded.shadowed.length,1);
+  assert.equal(loaded.rejected.length,3);
+  assert.match(loaded.rejected.find(s=>s.id==='999').reason,/identity/);
+  const report=await inventorySnapshots({fixtureDir,snapshotDir});
+  assert.equal(report.schema,'contra-studio/source-inventory');
+  assert.equal(report.totals.validSnapshots,2);
+  assert.equal(report.totals.rejectedFiles,3);
+  assert.equal(report.sources.find(s=>s.id==='110').totalCounts,64);
+  assert.ok(report.sources.every(s=>s.instructions.length===s.rows&&s.snapshotId&&s.sourceUrl));
+  assert.equal(report.views,undefined);
+ }finally{rmSync(temp,{recursive:true,force:true});}
+});
 test('availability accounts for overlapping and outside-catalogue sources exactly once',()=>{
  const a=availabilityCounts(['1','2','2','3'],['2','4'],['2','5']);
  assert.deepEqual([a.catalogue,a.retainedSnapshots,a.savedReady,a.union,a.metadataOnly],[3,2,2,5,2]);

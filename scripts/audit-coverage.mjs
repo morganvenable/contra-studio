@@ -3,6 +3,7 @@
 import {readFileSync,readdirSync,writeFileSync} from 'node:fs';
 import {pathToFileURL,fileURLToPath} from 'node:url';
 import {execFileSync} from 'node:child_process';
+import {resolve,join} from 'node:path';
 const root=new URL('../',import.meta.url);
 const sorted=values=>[...new Set(values)].sort();
 export function provenance(runtimeMilliseconds){
@@ -48,18 +49,55 @@ export function availabilityCounts(catalogueIds,snapshotIds,readyIds){
  for(const id of all){const key=`catalogue:${catalogue.has(id)} snapshot:${snapshots.has(id)} saved:${ready.has(id)}`;categories[key]=(categories[key]??0)+1;}
  return {catalogue:catalogue.size,retainedSnapshots:snapshots.size,savedReady:ready.size,union:all.size,metadataOnly:[...catalogue].filter(id=>!snapshots.has(id)&&!ready.has(id)).length,categories};
 }
-export async function auditCoverage({onProgress=()=>{},maxMilliseconds=600000}={}){
+export async function loadSnapshots({snapshotDir,fixtureDir=fileURLToPath(new URL('test-data/contradb/',root))}={}){
+ const {readContraDbSource}=await import('../src/contradb-source.ts');
+ const snapshots=new Map(),rejected=[],shadowed=[];
+ const directories=[{path:resolve(fixtureDir),kind:'fixture'},...(snapshotDir?[{path:resolve(snapshotDir),kind:'local-acquisition'}]:[])];
+ for(const directory of directories){
+  for(const name of readdirSync(directory.path).sort()){
+   if(!/^[1-9]\d{0,9}\.json$/.test(name))continue;
+   const id=name.slice(0,-5),path=join(directory.path,name);
+   if(snapshots.has(id)){shadowed.push({id,path,preferredPath:snapshots.get(id).path});continue;}
+   try{
+    const input=readFileSync(path,'utf8'),payload=JSON.parse(input);
+    if(payload.schema!=='contra-studio/contradb-snapshot')throw Error('Expected canonical snapshot envelope.');
+    const parsed=readContraDbSource(input);
+    if(!parsed.structurallyValid||!parsed.record)throw Error(parsed.diagnostics.map(d=>d.code).join(', ')||'Invalid snapshot.');
+    if(parsed.record.sourceId!==id)throw Error('Filename and source identity disagree.');
+    snapshots.set(id,{input,record:parsed.record,path,kind:directory.kind});
+   }catch(error){rejected.push({id,path,reason:error.message});}
+  }
+ }
+ return {snapshots,datasets:directories,rejected,shadowed};
+}
+export async function inventorySnapshots(options={}){
+ const started=Date.now(),loaded=await loadSnapshots(options);
+ const catalogue=JSON.parse(readFileSync(new URL('public/contradb-index.json',root),'utf8'));
+ const sources=[...loaded.snapshots].sort(([a],[b])=>Number(a)-Number(b)).map(([id,{record:r,path,kind}])=>({
+  id,title:r.title,author:r.author,formation:r.formation,path,kind,sourceUrl:r.sourceUrl,snapshotId:r.snapshotId,retrievedAt:r.retrievedAt,
+  rows:r.rows.length,totalCounts:r.rows.every(row=>row.beats!==undefined)?r.rows.reduce((sum,row)=>sum+row.beats,0):null,
+  instructions:r.rows.map(row=>({index:row.index,phrase:row.phrase,counts:row.beats??null,text:row.text,progression:row.progression})),
+  publication:r.publication,provenance:r.provenance,
+ }));
+ const catalogueIds=new Set(catalogue.records.map(r=>String(r.id)));
+ return {schema:'contra-studio/source-inventory',version:1,provenance:{...provenance(Date.now()-started),datasets:loaded.datasets},
+  method:'Source parsing only. No interpretation, figure classification, motion compilation, Ready admission or animation validation.',
+  totals:{catalogue:catalogueIds.size,validSnapshots:sources.length,catalogueWithInstructions:sources.filter(s=>catalogueIds.has(s.id)).length,
+   catalogueWithoutInstructions:[...catalogueIds].filter(id=>!loaded.snapshots.has(id)).length,rows:sources.reduce((sum,s)=>sum+s.rows,0),rejectedFiles:loaded.rejected.length,shadowedFiles:loaded.shadowed.length},
+  rejected:loaded.rejected,shadowed:loaded.shadowed,sources};
+}
+export async function auditCoverage({onProgress=()=>{},maxMilliseconds=600000,snapshotDir}={}){
  const started=Date.now();
  const [{READY_LIBRARY},{readContraDbImport},{prepareContraDbReview}]=await Promise.all([import('../src/ready-library.ts'),import('../src/contradb-import.ts'),import('../src/source-review.ts')]);
  const catalogue=JSON.parse(readFileSync(new URL('public/contradb-index.json',root),'utf8'));
- const snapshotIds=readdirSync(new URL('test-data/contradb/',root)).filter(f=>/^\d+\.json$/.test(f)).map(f=>f.slice(0,-5));
+ const loaded=await loadSnapshots({snapshotDir}),snapshotIds=[...loaded.snapshots.keys()];
  const ready=new Map(READY_LIBRARY.map(s=>[String(s.id),s]));
  const sources=[];
  for(const id of sorted([...snapshotIds,...ready.keys()]).sort((a,b)=>Number(a)-Number(b))){
-  if(Date.now()-started>maxMilliseconds)throw Error('Census exceeded ten-minute default time budget; no reports written.');
+  if(Date.now()-started>maxMilliseconds)throw Error(`Census exceeded ${maxMilliseconds} ms time budget; no reports written.`);
   const source={id,retainedSnapshot:snapshotIds.includes(id),savedReady:ready.has(id)};
   if(source.retainedSnapshot){
-   const input=readFileSync(new URL(`test-data/contradb/${id}.json`,root),'utf8');
+   const {input,path,kind}=loaded.snapshots.get(id);source.snapshotPath=path;source.snapshotOrigin=kind;
    const raw=readContraDbImport(input);source.title=raw.record?.title;source.snapshotId=raw.record?.snapshotId;
    source.rawDefaults=summarizeResult(raw);
    const review=prepareContraDbReview(input);
@@ -69,7 +107,7 @@ export async function auditCoverage({onProgress=()=>{},maxMilliseconds=600000}={
   sources.push(source);
   if(sources.length%20===0)onProgress(sources.length);
  }
- return {schema:'contra-studio/coverage-audit',version:1,provenance:provenance(Date.now()-started),
+ return {schema:'contra-studio/coverage-audit',version:1,provenance:{...provenance(Date.now()-started),datasets:loaded.datasets},rejectedSnapshots:loaded.rejected,shadowedSnapshots:loaded.shadowed,
   method:{network:false,rawDefaults:'Retained snapshot imported with no new explicit choices.',conventionalSuggestions:'Independent hypothetical review using current conventional suggestions, never saved or treated as approved.',savedInterpretation:'Existing Ready archive and its saved choices, revalidated unchanged.',validation:'Existing importer validation (including its internal sampled checks) and six-couple compile gate; no additional full-period motion, body, browser, GPU or audio certification.',limitations:'Retained sources are a selected sample, not a random corpus sample. Metadata-only records have unknown choreography coverage. Diagnostic counts overlap; removing a blocker may reveal another. No projected unlock counts.'},
   availability:availabilityCounts(catalogue.records.map(r=>String(r.id)),snapshotIds,[...ready.keys()]),
   views:Object.fromEntries(['rawDefaults','conventionalSuggestions','savedInterpretation'].map(view=>[view,aggregateViews(sources,view)])),
@@ -115,11 +153,16 @@ export function renderMarkdown(report){
  return lines.join('\n');
 }
 if(process.argv[1]&&pathToFileURL(process.argv[1]).href===import.meta.url){
- if(process.argv.slice(2).some(a=>a!=='--write'))throw Error('Usage: node scripts/audit-coverage.mjs [--write]');
- const report=await auditCoverage({onProgress:n=>process.stderr.write(`Audited ${n} available sources.\n`)});
+ const args=process.argv.slice(2);
+ if(args.some(a=>a!=='--write'&&a!=='--inventory'&&!/^--(?:snapshot-dir|output)=.+/.test(a)))throw Error('Usage: node scripts/audit-coverage.mjs [--write | --inventory] [--snapshot-dir=PATH] [--output=PATH]');
+ const inventory=args.includes('--inventory'),snapshotDir=args.find(a=>a.startsWith('--snapshot-dir='))?.slice(15),output=args.find(a=>a.startsWith('--output='))?.slice(9);
+ if(inventory&&args.includes('--write'))throw Error('Inventory must use --output=PATH; --write is reserved for the full checked-in census.');
+ if(snapshotDir&&args.includes('--write'))throw Error('Additional local snapshots must use --output=PATH to preserve the reproducible fixture-only checked-in census.');
+ const report=inventory?await inventorySnapshots({snapshotDir}):await auditCoverage({snapshotDir,onProgress:n=>process.stderr.write(`Audited ${n} available sources.\n`)});
+ if(output)writeFileSync(resolve(output),JSON.stringify(report,null,2)+'\n');
  if(process.argv.includes('--write')){
   writeFileSync(new URL('docs/coverage-audit.json',root),JSON.stringify(report,null,2)+'\n');
   writeFileSync(new URL('docs/coverage-audit.md',root),renderMarkdown(report));
  }
- process.stdout.write(JSON.stringify({availability:report.availability,views:Object.fromEntries(Object.entries(report.views).map(([k,v])=>[k,{sources:v.sources,statuses:v.statuses}])),unsavedBlockers:report.unsavedSuggestionView.blockers},null,2)+'\n');
+ process.stdout.write(JSON.stringify(inventory?{totals:report.totals,datasets:report.provenance.datasets,rejected:report.rejected}:{availability:report.availability,views:Object.fromEntries(Object.entries(report.views).map(([k,v])=>[k,{sources:v.sources,statuses:v.statuses}])),unsavedBlockers:report.unsavedSuggestionView.blockers},null,2)+'\n');
 }

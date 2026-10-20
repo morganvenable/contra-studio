@@ -1,0 +1,45 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {mkdtemp,mkdir,readFile,writeFile,rm} from 'node:fs/promises';
+import {tmpdir} from 'node:os';
+import {join} from 'node:path';
+import {auditPass,parseArgs} from './audit-acquired-sources.mjs';
+const fixture=await readFile(new URL('../test-data/contradb/110.json',import.meta.url),'utf8');
+const view={status:'interpretation-blocked',figureKinds:['swing'],blockers:['choice']};
+test('incremental cache binds source bytes and engine, preserving separate hypothetical views',async t=>{
+ const dir=await mkdtemp(join(tmpdir(),'contra-review-'));t.after(()=>rm(dir,{recursive:true,force:true}));
+ const snapshotDir=join(dir,'snapshots'),outputDir=join(dir,'cache'),fixtureDir=join(dir,'fixtures');
+ await mkdir(snapshotDir);await mkdir(fixtureDir);await writeFile(join(snapshotDir,'110.json'),fixture);
+ let calls=0;const deps={fixtureDir,review:async()=>{calls++;return{rawDefaults:view,conventionalSuggestions:{...view,choiceStatus:'suggested-not-approved'}};}};
+ const options={snapshotDir,outputDir,signature:'engine-a'};
+ let report=await auditPass(options,deps);assert.equal(calls,1);assert.equal(report.statistics.reviewed,1);
+ const cached=JSON.parse(await readFile(join(outputDir,'110.json'),'utf8'));
+ assert.match(cached.snapshotFingerprint,/^contradb:110:/);assert.match(cached.inputSha256,/^[a-f0-9]{64}$/);
+ assert.equal(cached.conventionalSuggestions.choiceStatus,'suggested-not-approved');
+ report=await auditPass(options,deps);assert.equal(calls,1);assert.equal(report.statistics.reused,1);
+ await writeFile(join(snapshotDir,'110.json'),fixture+'\n');
+ await auditPass(options,deps);assert.equal(calls,2);
+ await auditPass({...options,signature:'engine-b'},deps);assert.equal(calls,3);
+ await writeFile(join(snapshotDir,'999.json'),fixture);
+ await writeFile(join(snapshotDir,'998.json'),'{');
+ report=await auditPass({...options,signature:'engine-b'},deps);assert.equal(report.errors.length,2);assert.equal(report.views.rawDefaults.sources,1);
+ await writeFile(join(fixtureDir,'110.json'),fixture);
+ report=await auditPass(options,deps);assert.equal(report.statistics.available,2);assert.equal(report.views.rawDefaults.sources,0);
+ report=await auditPass({...options,includeFixtures:true},deps);assert.equal(report.views.rawDefaults.sources,1);
+});
+test('failed review is isolated and retried, never reused as admission',async t=>{
+ const dir=await mkdtemp(join(tmpdir(),'contra-review-error-'));t.after(()=>rm(dir,{recursive:true,force:true}));
+ const snapshotDir=join(dir,'snapshots'),outputDir=join(dir,'cache'),fixtureDir=join(dir,'fixtures');
+ await mkdir(snapshotDir);await mkdir(fixtureDir);await writeFile(join(snapshotDir,'110.json'),fixture);
+ const options={snapshotDir,outputDir,signature:'engine'};
+ let report=await auditPass(options,{fixtureDir,review:()=>{throw Error('test failure');}});
+ assert.equal(report.statistics.errors,1);assert.equal(report.views.rawDefaults.sources,0);
+ report=await auditPass(options,{fixtureDir,review:()=>({rawDefaults:view,conventionalSuggestions:{...view,choiceStatus:'suggested-not-approved'}})});
+ assert.equal(report.statistics.errors,0);assert.equal(report.statistics.reviewed,1);
+});
+test('CLI defaults to finite once mode and rejects unknown options',()=>{
+ assert.equal(parseArgs([]).watch,false);
+ assert.equal(parseArgs(['--watch','--once']).watch,false);
+ assert.equal(parseArgs(['--watch','--include-fixtures']).includeFixtures,true);
+ assert.throws(()=>parseArgs(['--approve']));
+});
