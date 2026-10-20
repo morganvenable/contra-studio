@@ -1,4 +1,4 @@
-# Shared wave and box circulation
+﻿# Shared wave and box circulation
 
 Working implementation specification, 20 October 2026. The shared binding and
 carried-wave modules below are now implemented; the new source cohorts are not
@@ -14,7 +14,7 @@ must establish who crosses and which direction the loop travels. The
 explicitly includes right and left loops and warns that other formations need
 their dance-specific details.
 
-“Long wave” describes the connected formation; “box” describes the four people
+â€œLong waveâ€ describes the connected formation; â€œboxâ€ describes the four people
 whose stations circulate. They are not automatically two different movements.
 One long wave can connect people belonging to several circulation boxes.
 The [CALLERLAB box definition](https://teaching.callerlab.org/mainstream/circulate-split-and-box-definition/)
@@ -33,7 +33,7 @@ Changing a handhold does not automatically change a contra neighbor.
 - `wave-figures.ts::compileBoxCirculate` already accepts explicit four-ID
   station transfers, measured entry/exit constraints and wave graphs. It
   validates two inward crossers and two outward right-loopers, four counts,
-  a rectangular box, half-width 0.6–1.1 and half-depth 0.35–0.65 scene units.
+  a rectangular box, half-width 0.6â€“1.1 and half-depth 0.35â€“0.65 scene units.
   Crossers retain room-facing; loopers turn a half-turn right. The motion
   releases the old hands and acquires the resulting graph. Reuse this kernel.
 - `wave-figure-adapter.ts` provides separate balance/circulate operations and
@@ -53,9 +53,9 @@ Changing a handhold does not automatically change a contra neighbor.
   into another minor set. A long-wave bridge needs a full-set graph layer;
   silently filtering seam hands to fit the four-person boundary is invalid.
 - Short-wave formation and half-allemande adapters have different contracts:
-  fixed ±0.9 entry slots, unit-spaced short waves, two-count half turns and a
+  fixed Â±0.9 entry slots, unit-spaced short waves, two-count half turns and a
   particular twelve-count partner-swing exit. Do not route box circulation
-  through those names merely because both use the word “wave.”
+  through those names merely because both use the word â€œwave.â€
 
 ## Source cohort
 
@@ -65,10 +65,10 @@ circulate rows still need an explicit timing interpretation.
 
 | Record | Relevant actual composition | What it tests |
 | --- | --- | --- |
-| [1591, Bob the Surfer](https://contradb.com/dances/1591), existing baseline | Neighbor right allemande 1.5 → zero-count wave assertion → larks circulate → robins circulate → progression | Preserve established path, counts and full-wave seam contacts. |
-| [2152, Minimum Fuss, Maximum Fun](https://contradb.com/dances/2152), Dean Snipes | Neighbor balance/box-the-gnat 8 → larks balance/circulate 8 → robins balance/circulate 8 → neighbor swing 8 | Different producer and nonterminal exit. No wave assertion is printed; the actual box-the-gnat endpoint must establish the formation. |
-| [3265, Snap](https://contradb.com/dances/3265), Moose Flores | Lark-first full hey 16 → zero-count larks-in wave assertion → one larks balance/circulate 8 → partner swing 8 | Single circulation, hey producer and partner exit. Notes explicitly connect hey and wave formation; they do not authorize a zero-count teleport. |
-| [187, Nomad's Land](https://contradb.com/dances/187), Bill Olson | Preamble starts robins-in long waves → robins circulate → larks circulate → neighbor balance/swing; ending half hey progresses | Explicit initial topology, reversed role order, repeat-entry wave requirement. |
+| [1591, Bob the Surfer](https://contradb.com/dances/1591), existing baseline | Neighbor right allemande 1.5 â†’ zero-count wave assertion â†’ larks circulate â†’ robins circulate â†’ progression | Preserve established path, counts and full-wave seam contacts. |
+| [2152, Minimum Fuss, Maximum Fun](https://contradb.com/dances/2152), Dean Snipes | Neighbor balance/box-the-gnat 8 â†’ larks balance/circulate 8 â†’ robins balance/circulate 8 â†’ neighbor swing 8 | Different producer and nonterminal exit. No wave assertion is printed; the actual box-the-gnat endpoint must establish the formation. |
+| [3265, Snap](https://contradb.com/dances/3265), Moose Flores | Lark-first full hey 16 â†’ zero-count larks-in wave assertion â†’ one larks balance/circulate 8 â†’ partner swing 8 | Single circulation, hey producer and partner exit. Notes explicitly connect hey and wave formation; they do not authorize a zero-count teleport. |
+| [187, Nomad's Land](https://contradb.com/dances/187), Bill Olson | Preamble starts robins-in long waves â†’ robins circulate â†’ larks circulate â†’ neighbor balance/swing; ending half hey progresses | Explicit initial topology, reversed role order, repeat-entry wave requirement. |
 
 New snapshots are under `research/contradb/snapshots/`.
 Fingerprints: 2152 `contradb:2152:f3e7b19082779678`;
@@ -89,7 +89,7 @@ Do not replace these with a different dance bearing a similar name.
    right-looper reaches `(x,-z)`; destination IDs name the actual previous
    occupants of those stations. Position formulas validate a supplied box,
    not a nearest-person search. Derive relationship labels from the carried
-   maps rather than “first circulation” versus “second circulation.”
+   maps rather than â€œfirst circulationâ€ versus â€œsecond circulation.â€
 3. Execute one source-counted circulation at a time through the existing
    kernel. Balance preserves occupancy and graph; circulation permutes them.
    Compose 1, 2 or 3 calls without requiring a complementary pair or terminal
@@ -99,8 +99,9 @@ Do not replace these with a different dance bearing a similar name.
    formation row validates the reached producer endpoint. Any required motion
    must occur inside that producer's authored counts and be explicitly owned.
 
-Next retain the planner/kernel tests and 1591 regression, then implement the
-2152 producer→two circulations→neighbor-swing seam. In parallel, inspect whether
+Original investigation scope (superseded by the checkpoints below): retain the
+planner/kernel tests and 1591 regression, then investigate the
+2152 producerâ†’two circulationsâ†’neighbor-swing seam. In parallel, inspect whether
 3265's hey can reach a valid wave within its sixteen counts. Its current neutral
 across-facing hey exit does **not** establish the required role-facing wave.
 Keep 187 as the initial/repeat-topology contrast; do not claim its whole dance
@@ -221,12 +222,78 @@ the existing 1.3 speed / 4 yaw limits. It returns a released local boundary;
 complete next-wave hands and endpoint rebinding belong to the global wrapper.
 Tests include a real chain producer and translated, renumbered carried state.
 
-Fresh composition verification: 28 tests passed across initial formation,
+Earlier composition verification: 28 tests passed across initial formation,
 standalone wave balance, circulation, paired balance/swing handoffs and existing
 long-wave source/body regressions. The three wave-endpoint hey tests also pass.
 All 129 Ready defaults pass separately; TypeScript and an isolated production
 build pass. These are not new browser/GPU/audio checks.
 
-The finite wrapper, waiting/reentry path and author's wave-to-swing transition
-are under integration. No new Ready dance or source admission is claimed by
-these composition helpers.
+The finite wrapper now passes whole periods for 2â€“12 couples in both the
+retained paired-balance composition and a separately labeled synthetic wave-balance
+composition. The latter demonstrates wave-balance-to-swing capability; it does
+not resolve the author's printed count discrepancy.
+
+Retained source 187 now imports through the public compiler with a strict initial
+wave policy. Required choices, including the chain receiver and preparations, can
+be removed; remembered omissions stay omitted. Source preamble matching consumes
+the complete role-facing instruction and rejects appended actions. Changed titles
+and figure identifiers do not change motion. Public source tests validate complete
+3/4-couple periods, musical joins and endpoint-only relationship changes.
+
+Ready now contains 130 entries. Promotion generated the exact reviewed 187 archive;
+SHA-256 comparison confirms all previous 129 archive strings are unchanged.
+
+## Current CPU playback evidence
+
+The final production `initial-wave-body.test.ts` run passes all three tests.
+Synthetic wave-balance compositions with 3 and 4 couples exercise two complete
+repeats at eight samples/count and selected phases throughout their finite
+periods. Production Avatar cadence and fixed arm/leg lengths pass, and every
+sample has zero leg reach corrections. Full-strength wrist targets on the new
+wave, circulation, neighbor-swing and circle path agree within 5e-16. A separate
+public `prepareContraDbReview` -> `compileChoreography` check of retained source
+187 samples counts 12-24 at 32 samples/count: the paired-balance variant also has
+exact held wrists and no leg corrections. Its stance wrapper is included.
+The synthetic wave-balance program has no ordinary paired balance, so
+`withBalanceStance` is explicitly checked to leave it unchanged.
+
+Reach-aware timing is part of the motion contract. The released circle drops
+ring hands over counts 5-5.5, gathers to its actual prepared-swing endpoint over
+5.5-7.5 and acquires the reachable frame over 7.5-8. This replaces the sharp late
+reach-gated acquisition without adding counts. The wave-return half hey uses
+encounter gates [1.95, 3.575, 5.2, 6.9], retaining all six encounters, the source's
+eight counts and the existing 1.3 speed / 4 yaw bounds. Earlier timing caused leg
+reach corrections; final CPU checks pass without relaxing the rig assertions.
+
+The following legacy partner swing still has an approximately 0.0355 world-unit
+upper-arm wrist offset at count 46.25. The body test independently compares its
+roots and every contact with the unchanged standalone primitive on the same
+actual incoming state. This inherited frame limitation is recorded separately;
+the test does not claim exact wrists throughout the whole dance or validate a
+new buzzstep. These are sampled CPU rig checks, not a continuous mesh-intersection
+proof. Hardware GPU rendering, browser playback, audio synchronization and caller
+review have not been rerun for this checkpoint.
+
+Inventory remains 130 Ready entries and 159 checked-in fixtures. Broader variant
+counts below describe retained evidence, not additional playable dances.
+## Broader retained-source variant inventory
+
+A separate text scan of all 2,422 canonical retained records finds 99 sources
+with 182 circulation rows. This is broader than the exact standard right-loop
+cohort above, and is not a count of playable dances. The bounded local evidence
+is `research/contradb/wave-variant-inventory.json`.
+
+- Explicit left loops: 965, 966, 1846, 1856, 2033, 2329, 2916 and 3056
+  (ten rows).
+- Different participants or formations: shadow 1713; short-wave endpoint 1845;
+  corner selectors 942/2432; ones/twos 2244/2245; figure-eight circulation 2980;
+  three-person subset 3242.
+- Nonstandard row counts: 1188, 1372, 2244, 2245, 3342, 2328 and 2653.
+- Alternative wording, including 1256, 1429 and 1651, is retained separately
+  from unambiguous variants. No explicit all-eight clause was found by this scan;
+  that does not establish that none exists outside this retained corpus.
+
+These require separate semantic contracts. Do not map them to the implemented
+right-loop four-station operation merely because their text says circulate.
+
+

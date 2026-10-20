@@ -1,4 +1,5 @@
 import {compileBecketStateSequence} from './becket-state-sequence.ts';
+import {compileInitialWavePolicyDance} from './initial-wave-policy.ts';
 import {stateSequenceApplicability} from './sequence-admission.ts';
 import {compileStateSequence} from './state-sequence.ts';
 import {compileStarWhirlImproper,type StarWhirlDance} from './star-promenade-whirl-sequence.ts';
@@ -52,6 +53,10 @@ export function compileChoreography(dance: Dance, couples = 6, capabilities:Moti
 const compileOwnedProgram=createOwnedProgramCache(({dance,couples,capabilities}:{dance:Dance;couples:number;capabilities:MotionCapabilities})=>compileChoreographyUncached(dance,couples,capabilities));
 
 function compileChoreographyUncached(dance: Dance, couples: number, capabilities: MotionCapabilities): CompiledDance {
+  if(dance.initialWavePolicy!==undefined){
+    if(!capabilities.initialWaveSequences||!capabilities.longWaves||!capabilities.progressionEvents||!capabilities.ordinaryHalfHeys)throw new Error('Initial-wave compositions require their explicit carried-wave, half-hey and finite-event capabilities.');
+    return withBalanceStance(compileInitialWavePolicyDance(dance,couples));
+  }
   if(dance.figures.some(f=>f.kind==='becket-slice'))return withBalanceStance(compileBecketStateSequence(dance,couples,capabilities));
   if(capabilities.stateCarryingSequences&&stateSequenceApplicability(dance)==='applicable')return withBalanceStance(compileStateSequence(dance,couples,capabilities));
   if(dance.madRobinPolicy!==undefined||dance.figures.some(f=>f.kind==='mad-robin')){

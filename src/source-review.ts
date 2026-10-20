@@ -18,7 +18,7 @@ import {CONVENTIONAL_REVOLVING_DOOR,hasPartnerRevolvingDoorContext,REVOLVING_DOO
 import {sixTwoPassChoiceForSource,sixTwoPassDescription} from './source-six-two.ts';
 import {partnerSwingsForBothSummary} from './source-hook.ts';
 import {CONVENTIONAL_WHOLE_SET_OVAL,OVAL_CHOICE_DESCRIPTION} from './source-oval.ts';
-import {isDescriptiveSourceHook,isLeftProgressingBecketSetup,classifySourceProse,noChainVariantCredit,corroboratedTeachingSummary,linkedTitleProvenance} from './contradb-annotations.ts';
+import {initialWavePreamble,isDescriptiveSourceHook,isLeftProgressingBecketSetup,classifySourceProse,noChainVariantCredit,corroboratedTeachingSummary,linkedTitleProvenance} from './contradb-annotations.ts';
 import {corroboratedSourceHistory} from './source-history.ts';
 import type {MotionCapabilities} from './types.ts';
 import {readContraDbImport,CONVENTIONAL_PARTNER_PROMENADE,CONVENTIONAL_CALIFORNIA_TWIRL,CONVENTIONAL_PETRONELLA,CONVENTIONAL_HALF_POUSSETTE,CONVENTIONAL_GYRE_SWING,type ContraDbImportResult,type ContraDbInterpretation} from './contradb-import.ts';
@@ -172,6 +172,14 @@ export function prepareContraDbReview(input:string,remembered:readonly SourceCho
   const rows=interpretation.rows??={};rows[baseline.record.rows[2].id]={rightLeftThrough:{hand:'right',courtesyReceiver:'neighbor',courtesyLeader:'lark',crossingRelation:'partner'}};rows[baseline.record.rows[3].id]={chainReceiver:'partner'};
   for(let i=suggestions.length-1;i>=0;i--)if(suggestions[i].kind==='conventional-rlt'&&suggestions[i].rowId===baseline.record.rows[2].id)suggestions.splice(i,1);
   suggestions.push({kind:'qualifier-interpretation',message:DIAGONAL_HEY_CHOICE_DESCRIPTION},{kind:'formation-derived',message:'Review the complete diagonal-hey prefix: right-hand partner crossing with lark-led current-neighbor courtesy, then robin chain to persistent partners. These omitted receiver choices must agree with the actual whole-dance actor positions.'});
+ }
+ const initialInward=initialWavePreamble(baseline.record.preamble);
+ if(initialInward){const prepared=read(interpretation),last=prepared.rows.at(-1),preparations:NonNullable<ContraDbInterpretation['initialWave']>['preparations']={};
+  for(let i=0;i<prepared.rows.length;i++){const row=prepared.rows[i],figure=row.figures[0],next=prepared.rows[i+1]?.figures[0];
+   if(figure?.kind==='balance-box-circulate'&&next?.kind==='balance'&&next.who==='neighbor'&&next.beats===4)preparations[figure.id]={kind:'neighbor-balance',preparationBeats:2,pairSpacing:1.18,handAcquisitionBeats:.25};
+   if(figure?.kind==='robins-chain'||row.diagnostics.some(d=>d.code==='chain-receiver'))preparations[figure?.id??row.source.id]={kind:'receiver-yield',receiverYield:.3};
+  }
+  if(last?.figures[0]?.kind==='hey'&&last.figures[0].amount===.5&&last.figures[0].progression){interpretation.initialWave={inwardRole:initialInward,neighborHand:'right',halfWidth:.64,rowGap:1.28,waiting:{turnBeats:8,preparationBeats:8},preparations,terminal:{figureId:last.figures[0].id,exit:'next-long-wave'}};suggestions.push({kind:'conventional-wave',message:'Review initial right-hand neighbors with left-hand wave seams, compact 0.64 half-width / 1.28 row spacing, paired-exit and chain receiver preparations, and terminal wave return. Waiting couples turn at the same end over eight counts and prepare over the final eight. These are modeled choices, not additional source instructions; table and counts remain unchanged.'});}
  }
  let result=read(interpretation);
  // The next-cycle consumer can require an independently visible preparation

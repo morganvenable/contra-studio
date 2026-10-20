@@ -1,4 +1,4 @@
-# Development map
+﻿# Development map
 
 Read this as a navigation index, not a second specification. The root `HANDOFF.md`
 records release 0.42 and its holds. Older `next-*` documents may describe work
@@ -56,7 +56,7 @@ npm run build
 
 Do not print the generated archive or catalogue to count records. Import
 `READY_LIBRARY` and inspect its length/IDs; parse catalogue JSON and inspect
-`records.length`. The inventory is 129 unique Ready IDs, 158 checked-in fixtures and 2,264 additional locally
+`records.length`. The inventory is 130 unique Ready IDs, 159 checked-in fixtures and 2,263 additional locally
 acquired snapshots covering all 2,422 discovery records (historical
 `reportedRecords`: 2,426). See `docs/source-acquisition.md` for local paths.
 
@@ -66,7 +66,7 @@ The star-to-partner-gyre seam now has a bounded shared adapter in
 `src/star-gyre-step.ts`, selected by `src/sequence-registry.ts`. Its tests reproduce
 the old 5.126809 facing-rate rejection from a real primitive star endpoint: this
 is a fast body turn, not a wrapped-angle bookkeeping error. The star now releases
-hands over beats 5.6–6.56 and turns toward its actual partner over the remaining
+hands over beats 5.6â€“6.56 and turns toward its actual partner over the remaining
 1.44 counts. Its entry facing blends over 1.44 counts as well. Star root samples
 are unchanged; the following gyre/swing retains 4+12 counts and unchanged budgets.
 The sampled star facing peak is 2.903374 radians/count, below 3.2.
@@ -92,7 +92,7 @@ are subsequent separate slices. Their fixtures are also absent. Keep known holds
 110, 2987, 3310 and 3361 blocked; see the root handoff for exact reasons. This
 recommendation is an investigation scope, not admission of these sources.
 
-## Local checkpoint — 19 October 2026
+## Local checkpoint â€” 19 October 2026
 
 - Node 24.12.0, npm 11.6.2. Inventory independently confirmed: 129 unique Ready
   entries, each with a retained fixture; 154 snapshots; 2,422 catalogue records.
@@ -223,7 +223,7 @@ recommendation is an investigation scope, not admission of these sources.
   updating any expectation; this is not a green aggregate release. The verified
   public preview is unchanged.
 
-## Current direction — figure semantics and corpus coverage
+## Current direction â€” figure semantics and corpus coverage
 
 Morgan requested a researched figure foundation instead of continuing to choose
 individual failing dances as the main work queue. Start with
@@ -282,21 +282,52 @@ wrapper uses the shared operation; its legacy source setup and progression guard
 remain. Baseline 390 frames agree to floating-point precision, including seam hands.
 The prior CI accounting failure was fixed by regenerating the fixture-only census
 for 158 fixtures; all 29 script tests passed without weakening the assertion.
-Current verification: 23 focused tests pass, including all 129 Ready defaults,
+Earlier verification: 23 focused tests passed, including the then-current 129 Ready defaults,
 2-12-couple complete periods and articulated wave/body regressions; TypeScript
 and isolated Pages build pass. No new public deployment or GPU/audio check.
-Next source path: 187 Nomad's Land. Initial-wave declaration, full-wave balance
-and explicit circulate-to-paired-balance helpers are implemented separately.
+Source 187 Nomad's Land now imports through the public compiler and has a Ready
+archive. Existing 129 archive hashes are unchanged. Initial-wave declaration,
+full-wave balance and explicit circulate-to-paired-balance helpers are separate.
 The author's original page specifies a wave balance before the swing, unlike
 the retained ContraDB paired balance; its printed chain counts also differ.
 Preserve both versions and their unresolved timing rather than silently combine
-them. See the wave document for source links and contracts. Current next work:
-terminal hey into actual next-wave stations, global hand acquisition and finite
-waiting/reentry; independently measure wave-balance-to-swing for the author's
-version. Do not clear source context gates until the complete chosen path,
-actual endpoint and finite ends validate.
+them. See the wave document for source links and contracts. Both the retained
+paired-balance composition and the separately labeled synthetic wave-balance
+composition pass complete 2â€“12-couple periods. Public imported-source tests
+cover 3/4-couple periods and removable choices. The shared hey reaches the next
+wave physically; complete wave hands and finite waiting/reentry are retained.
+Compact chain receivers now have an explicit outward clearance preparation.
+The circle releases its ring before preparing and acquiring the actual swing
+frame. The CPU checkpoint below supersedes the earlier playback checks; choose
+the next measured initial-wave or left-loop variant from the bounded inventory.
+
+Current CPU playback checkpoint (20 October 2026): inventory is 130 Ready entries
+and 159 checked-in fixtures. All three `initial-wave-body.test.ts` checks pass on
+the production implementation. Synthetic wave-balance paths with 3/4 couples
+cover two full repeats at eight samples/count plus key-phase checkpoints through
+the finite period; cadence, fixed limb lengths and zero leg reach corrections
+pass. The new wave/circulation/neighbor-swing/circle full-strength wrists agree
+within 5e-16. A separate public imported-187 check covers counts 12-24 at 32
+samples/count, including the retained paired-balance handoff, with exact wrists
+and no leg corrections. This is CPU Avatar/IK evidence, not GPU rendering.
+
+The circle now releases ring hands at counts 5-5.5, prepares its actual swing
+endpoint over 5.5-7.5, then acquires the frame over 7.5-8. The wave-return hey's
+encounter gates are [1.95, 3.575, 5.2, 6.9]; counts, encounters, endpoints and the
+1.3 speed / 4 yaw bounds are unchanged. These timing changes remove the newly
+measured leg corrections without changing the rig or relaxing assertions.
+The subsequent legacy partner swing retains an approximately 0.0355 world-unit
+upper-arm wrist offset. Its roots and contacts at the offending frame match the
+standalone existing primitive exactly; it is an explicit inherited limitation,
+not an exact-wrist claim for the whole dance. Hardware GPU/browser playback,
+audio synchronization and caller review have not been rerun for these changes.
+Next: complete release/browser verification, then investigate the next measured
+initial-wave or left-loop variant; do not infer broader source admission.
 
 Keep context small: read the report for totals and query individual records in
 `coverage-audit.json`; do not dump its approximately 1 MB of choices and evidence.
 The census includes importer validation and existing internal samples, not a new
 independent whole-period or body-motion certification.
+
+
+
