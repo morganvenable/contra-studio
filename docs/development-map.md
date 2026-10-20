@@ -8,10 +8,18 @@ already delivered. Contracts and executable tests determine current behavior.
 
 | Workstream | Current checkpoint | Next action |
 | --- | --- | --- |
-| Ready admissions / release (lead) | 12 reviewed additions preparing 142-entry batch; original 130 archives preserved | Finish exact-artifact browser checks and publish |
-| Shared figure composition | Across-set gyre-to-swing boundary blocks 3506; circular hey plus mid-dance progression blocks 2352 | Establish carried entry/exit contract and contrasting source cases |
-| Coverage triage | Receiver inference already exists; source823 formation alias and3478 provenance review under investigation | Measure actual admission payoff; no title-based exceptions |
-| Animation | Approved default hold continuous in sampled phase seams; extreme outward twist has invalid routes | Establish safe parameter domain separately from main choreography |
+| Ready admissions / release (lead) | 142 Ready published from b87b380, artifact815a0b2, workflow39511705973; original130 archives preserved | Review next823/3478 admission branch |
+| Shared figure composition | 3506 held: both swing exit and final progression need interpretation;2352 circular hey held | Investigate bounded wave/left-loop variants independently |
+| Coverage triage | Receiver inference already exists;823 alias and3478 explicit provenance archive tested in work/formation-alias | Integrate reviewed branch and next admission batch |
+| Animation | Sampled safe frame domain50?70deg inward/.04?.08lean; extreme outward twist invalid | Integrate normal controls in work/frame-domain separately from choreography |
+
+Release evidence for the142-entry batch:33 focused acquired-candidate tests,
+three3260 source/finite-period tests, five census tests, TypeScript and Pages
+build pass. Generator replayed and compiled all142 archives; hashes of the
+prior130 are unchanged. All12 additions opened, scrubbed and played in the
+exact packaged software-WebGL browser build; public smoke covers3260 and188.
+No hardware-GPU/audio or comprehensive anatomical certification. Main has170
+retained fixtures; the complete2422-record acquired corpus remains local.
 
 ## How a dance becomes animation
 
