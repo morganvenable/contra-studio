@@ -329,7 +329,11 @@ comparison. The study exposes preparation lead, transition duration, response
 delay and recovery against an unchanged musical clock. It does not alter the
 130 Ready dances. Morgan clarified planted foot contacts and the fourth-step inward push.
 The lab now uses independent world-space feet, lifted steps and support cues;
-its prior body-attached markers slid. Next production work: inspect airborne
+its prior body-attached markers slid.
+The swing now uses a separate schematic buzz-step foot model: shared-center
+inside right feet, a right touchdown each count, one outside left push/recovery,
+and identical pelvis/torso orientation. Six focused tests and an independent
+contact-cadence/geometry audit pass; the main 3D engine remains unchanged. Next production work: inspect airborne
 balance foot paths and weight transfer, then parameterize count-sized ramps
 and carried velocity. Left-loop geometry remains queued. A measured CI balancing proposal
 is in ignored research/contradb/release-shard-plan.json; no tests were removed.

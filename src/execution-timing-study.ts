@@ -19,9 +19,9 @@ export const STUDY_PHASE_ANCHORS=Object.freeze({balanceStart:0,balanceTurn:2,swi
 const clamp=(x:number)=>Math.max(0,Math.min(1,x));
 const smooth=(x:number)=>{const t=clamp(x);return t*t*(3-2*t);};
 const cycle=(beat:number)=>((beat%16)+16)%16;
-export interface StudyFoot {side:'left'|'right';position:{x:number;z:number};yaw:number;lift:number;planted:boolean;supportWeight:number;}
+export interface StudyFoot {side:'left'|'right';position:{x:number;z:number};yaw:number;lift:number;planted:boolean;contact:'planted'|'pivot'|'airborne';supportWeight:number;stepBeat?:number;}
 export interface StudyPose {
- id:0|1;position:{x:number;z:number};yaw:number;
+ id:0|1;position:{x:number;z:number};yaw:number;pelvisYaw:number;torsoYaw:number;
  feet:[StudyFoot,StudyFoot];supportPoint:{x:number;z:number};
  bodyLean:{x:number;z:number};pushOff:number;stepIndex:number;
 }
@@ -54,8 +54,8 @@ function motionAt(beat:number,profile:ExecutionTimingProfile){
   const elapsed=local-4,closing=smooth(elapsed/profile.transitionCounts);
   radius=.82-(.82-.31)*closing;
   // Angular travel begins immediately while the pair closes, with no
-  // gather-then-start dead zone. This is a schematic, not buzzstep mechanics.
-  angle=Math.PI/2*elapsed;frameTurn=.6*closing;readiness=closing;
+  // gather-then-start dead zone. The closed frame puts the right side inward.
+  angle=Math.PI/2*elapsed;frameTurn=Math.PI/2*closing;readiness=closing;
  }else{
   phase='preparation';
   const finish=16-profile.anticipationCounts;
@@ -65,7 +65,7 @@ function motionAt(beat:number,profile:ExecutionTimingProfile){
   // to their original sides before the next balance.
   radius=.31+(.9-.31)*readiness;
   angle=4*Math.PI+2*Math.PI*smooth((local-12)/(finish-12));
-  frameTurn=.6*(1-readiness);
+  frameTurn=Math.PI/2*(1-readiness);
  }
  const poses=([0,1] as const).map(id=>{
   const sign=id===0?-1:1,x=sign*radius*Math.cos(angle),z=sign*radius*Math.sin(angle);
@@ -83,7 +83,7 @@ export function sampleStudy(musicBeat:number,profile:ExecutionTimingProfile):Exe
  const executionBeat=start+local,lag=musical-local,{poses:roots,readiness,phase}=motionAt(local,profile);
  const step=Math.floor(local),u=local-step,supportSide=step%2===0?'left':'right';
  const anchor=(id:0|1,side:'left'|'right',landing:number)=>{
-  const count=cycle(landing),root=motionAt(landing,profile).poses[id];
+  const count=cycle(landing),root=motionAt(count===15?16:landing,profile).poses[id];
   // During balance, the landing foot leads the body's weight transfer:
   // steps 1/2 go toward the other person, steps 3/4 go away.
   const balanceRadius=[.775,.65,.775,.9][count];
@@ -98,12 +98,50 @@ export function sampleStudy(musicBeat:number,profile:ExecutionTimingProfile):Exe
    const planted=side===supportSide;
    const from=anchor(root.id,side,planted?step:step-1),to=planted?from:anchor(root.id,side,step+1),weight=smooth(u);
    const turn=Math.atan2(Math.sin(to.yaw-from.yaw),Math.cos(to.yaw-from.yaw));
-   return{side,position:{x:from.x+(to.x-from.x)*weight,z:from.z+(to.z-from.z)*weight},yaw:from.yaw+turn*weight,lift:planted?0:.09*Math.sin(Math.PI*u)**2,planted,supportWeight:planted?1:0};
+   return{side,position:{x:from.x+(to.x-from.x)*weight,z:from.z+(to.z-from.z)*weight},yaw:from.yaw+turn*weight,lift:planted?0:.09*Math.sin(Math.PI*u)**2,planted,contact:planted?'planted' as const:'airborne' as const,supportWeight:planted?1:0};
   }) as [StudyFoot,StudyFoot];
-  const supportPoint={...feet.find(foot=>foot.planted)!.position};
+  if(local>=4){
+   // A deliberately simple buzz step: the right ball travels on the small
+   // inside circle and pivots with the whole body. The outside left foot has
+   // a lifted recovery followed by a short fixed-position push. Foot heading
+   // turns with pelvis/torso rather than winding the legs around a fixed shoe.
+   const offset=(r:typeof root,side:number)=>({x:r.position.x+side*Math.cos(r.yaw),z:r.position.z-side*Math.sin(r.yaw)});
+   const buzzStep=Math.floor(local),buzzU=local-buzzStep;
+   const stance=.8,fromRoot=motionAt(buzzStep,profile).poses[root.id],toRoot=motionAt(buzzStep+1,profile).poses[root.id];
+   const a=offset(fromRoot,.19),b=offset(toRoot,.19),q=smooth(buzzU/stance);
+   // Acquisition and opening out keep a bounded body-relative footprint;
+   // the settled swing uses a fixed outside support position during its push.
+   const outer=offset(root,.19),walking={x:a.x+(b.x-a.x)*q,z:a.z+(b.z-a.z)*q};
+   const settled=local>=12?0:smooth((local-(4+profile.transitionCounts))/.5);
+   const targets=[{x:outer.x+(walking.x-outer.x)*settled,z:outer.z+(walking.z-outer.z)*settled},offset(root,-.24)];
+   const entry=smooth((local-4)/.35),exit=smooth((local-15.5)/.5);
+   for(let i=0;i<2;i++){
+    const foot=feet[i],side=foot.side;
+    // Rotate the entry footprint as a unit with the dancer during acquisition.
+    const initial=anchor(root.id,side,side==='left'?4:3),entryRoot=motionAt(4,profile).poses[root.id];
+    const turn=root.yaw-entryRoot.yaw,dx=initial.x-entryRoot.position.x,dz=initial.z-entryRoot.position.z;
+    const start={x:root.position.x+dx*Math.cos(turn)+dz*Math.sin(turn),z:root.position.z-dx*Math.sin(turn)+dz*Math.cos(turn)};
+    const endpoint=anchor(root.id,side,side==='left'?0:15),endRoot=motionAt(16,profile).poses[root.id];
+    const endTurn=root.yaw-endRoot.yaw,ex=endpoint.x-endRoot.position.x,ez=endpoint.z-endRoot.position.z;
+    const end={x:root.position.x+ex*Math.cos(endTurn)+ez*Math.sin(endTurn),z:root.position.z-ex*Math.sin(endTurn)+ez*Math.cos(endTurn)};
+    foot.position={x:(start.x+(targets[i].x-start.x)*entry)*(1-exit)+end.x*exit,z:(start.z+(targets[i].z-start.z)*entry)*(1-exit)+end.z*exit};
+    foot.yaw=root.yaw;
+    foot.lift=i===0?.065*Math.sin(Math.PI*clamp(buzzU/stance))**2*entry*(1-exit):0;
+    foot.contact=i===1||buzzU>=stance?'pivot':'airborne';foot.planted=false;
+    foot.supportWeight=i===1?1:(buzzU>=stance?1:0);
+    if(i===1){
+     const reset=local%1;const lifting=reset>.8&&reset<1;
+     foot.stepBeat=Math.floor(local);
+     foot.lift=lifting?.025*Math.sin(Math.PI*(reset-.8)/.2)**2*entry*(1-exit):0;
+     foot.contact=lifting?'airborne':'pivot';foot.supportWeight=lifting?0:1;
+    }
+   }
+  }
+  const supported=feet.reduce((best,foot)=>foot.supportWeight>best.supportWeight?foot:best);
+  const supportPoint={...supported.position};
   // A bounded schematic torso lean, not a solved center of mass or force.
   const bodyLean={x:(root.position.x-supportPoint.x)*.22,z:(root.position.z-supportPoint.z)*.22};
-  return{...root,feet,supportPoint,bodyLean,pushOff,stepIndex:step};
+  return{...root,pelvisYaw:root.yaw,torsoYaw:root.yaw,feet,supportPoint,bodyLean,pushOff,stepIndex:step};
  }) as [StudyPose,StudyPose];
  return{musicBeat,executionBeat,lag,readiness,phase,musicalCount:Math.floor(musical)+1,cycleBeat:musical,executionCycleBeat:local,poses,phaseAnchors:STUDY_PHASE_ANCHORS,studyLabel:'Synthetic paired timing study — not source choreography or a validated body model'};
 }

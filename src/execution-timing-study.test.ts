@@ -11,8 +11,8 @@ test('balance advances twice, retreats twice and pushes inward late on step four
  assert.ok(Math.abs(sampleStudy(4.001,FLUENT_TIMING_PROFILE).poses[0].position.z)>0);
  assert.deepEqual(sampleStudy(0,FLUENT_TIMING_PROFILE).phaseAnchors,{balanceStart:0,balanceTurn:2,swingStart:4,preparationStart:12,cycleEnd:16});
 });
-test('support feet stay world-fixed; swing feet lift and land continuously',()=>{
- for(let step=0;step<32;step++){
+test('balance support feet stay world-fixed; stepping feet lift and land continuously',()=>{
+ for(let step=0;step<4;step++){
   const first=sampleStudy(step+.01,FLUENT_TIMING_PROFILE).poses;
   for(let i=2;i<64;i++){
    const poses=sampleStudy(step+i/64,FLUENT_TIMING_PROFILE).poses;
@@ -60,4 +60,43 @@ test('repeats and phase joins retain positions and orientation; anticipation is 
 test('rejects invalid beats and profile values',()=>{
  for(const beat of[NaN,Infinity,-Infinity])assert.throws(()=>sampleStudy(beat,FLUENT_TIMING_PROFILE));
  for(const change of[{anticipationCounts:-.1},{anticipationCounts:1.1},{transitionCounts:0},{transitionCounts:2.1},{responseDelayCounts:NaN},{recoveryCounts:1},{recoveryCounts:9},{unknown:1}])assert.throws(()=>sampleStudy(0,{...FLUENT_TIMING_PROFILE,...change}));
+});
+
+test('buzz feet share a small inside orbit, step right every count, and never twist away from the body',()=>{
+ for(const transitionCounts of [.25,.5,1.25,2])for(const anticipationCounts of [0,.75,1]){
+  const p={...FLUENT_TIMING_PROFILE,transitionCounts,anticipationCounts};
+  for(let tick=256;tick<1024;tick++){
+   const sample=sampleStudy(tick/64,p);
+   for(const r of sample.poses){
+    assert.equal(r.pelvisYaw,r.yaw);assert.equal(r.torsoYaw,r.yaw);
+    for(const f of r.feet){
+     const lateral=(f.position.x-r.position.x)*Math.cos(r.yaw)-(f.position.z-r.position.z)*Math.sin(r.yaw);
+     assert.ok(lateral*(f.side==='left'?1:-1)>0,`foot crossed body at ${tick/64}`);
+     assert.ok(Math.abs(Math.atan2(Math.sin(f.yaw-r.yaw),Math.cos(f.yaw-r.yaw)))<1e-10);
+     const side=f.side==='left'?.09:-.09;
+     assert.ok(Math.hypot(f.position.x-r.position.x-side*Math.cos(r.yaw),f.position.z-r.position.z+side*Math.sin(r.yaw))<.45);
+    }
+   }
+  }
+  for(const boundary of [4,12,16])for(let id=0;id<2;id++)for(let foot=0;foot<2;foot++){
+   const a=sampleStudy(boundary-1e-7,p).poses[id].feet[foot],b=sampleStudy(boundary+1e-7,p).poses[id].feet[foot];
+   assert.ok(Math.hypot(a.position.x-b.position.x,a.position.z-b.position.z)<1e-5,`join ${boundary}`);
+  }
+ }
+ for(let beat=6;beat<12;beat++){
+  const loaded=sampleStudy(beat+.25,FLUENT_TIMING_PROFILE),reset=sampleStudy(beat+.9,FLUENT_TIMING_PROFILE);
+  for(let id=0;id<2;id++){
+   const [left,right]=loaded.poses[id].feet;
+   assert.ok(Math.abs(Math.hypot(right.position.x,right.position.z)-.07)<1e-10);
+   assert.ok(Math.hypot(left.position.x,left.position.z)>.4);
+   assert.equal(right.contact,'pivot');assert.equal(right.stepBeat,beat);
+   assert.equal(reset.poses[id].feet[1].contact,'airborne');assert.ok(reset.poses[id].feet[1].lift>0);
+   assert.equal(reset.poses[id].feet[0].supportWeight,1);
+   assert.ok(sampleStudy(beat+1-1e-3,FLUENT_TIMING_PROFILE).poses[id].feet[1].lift>0);
+   assert.equal(sampleStudy(beat+1,FLUENT_TIMING_PROFILE).poses[id].feet[1].lift,0);
+   assert.equal(sampleStudy(beat+1,FLUENT_TIMING_PROFILE).poses[id].feet[1].contact,'pivot');
+   const pushA=sampleStudy(beat+.85,FLUENT_TIMING_PROFILE).poses[id].feet[0],pushB=sampleStudy(beat+.95,FLUENT_TIMING_PROFILE).poses[id].feet[0];
+   assert.deepEqual(pushA.position,pushB.position);
+  }
+ }
 });

@@ -65,7 +65,7 @@ Only then extend profiles across other adapters.
 
 Independent mistakes, missed steps, handhold negotiation and recovery between
 dancers require a contact-aware interaction model. This study does not implement
-those behaviors, nor does it change buzzstep footwork.
+those behaviors, nor does it change production buzzstep footwork.
 
 ## Foot-contact correction
 
@@ -80,3 +80,20 @@ maximum planted-foot drift 1.11e-16, zero IK foot corrections. That limited chec
 found no stance slip. Production airborne feet still follow the root trajectory
 with only 0.035 lift, which may look slippery; that needs separate visual work.
 Do not generalize the lab's defect to all production gait.
+
+## Simple buzz-step study
+
+Morgan clarified that both inside right feet sit side by side, approximately
+outside edge to outside edge, rotating about the same shared center. Each right
+foot steps on every count; each outside left foot pushes and recovers between
+those steps. The previous walking-foot planner was inappropriate during a
+rotating swing: its held headings could oppose the body by almost 180 degrees.
+
+The study uses a dedicated swing foot mode. The two right-foot centers trace
+opposing small circles about the pair midpoint; outside left-foot motion
+supplies a short push and recovery. Pelvis and torso share the root orientation,
+and leg links originate on that same pelvis frame. Foot contact distinguishes
+pivoting from fixed balance support and airborne recovery. Right-foot touchdown
+must coincide with each integer execution count, not merely repeat once/count.
+This is a schematic exploration, not a full force, joint or floor-friction model.
+The main studio's 3D choreography and gait are unchanged.
