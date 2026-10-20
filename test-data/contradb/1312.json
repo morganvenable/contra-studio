@@ -1,0 +1,20 @@
+{
+  "schema": "contra-studio/contradb-snapshot",
+  "version": 1,
+  "sourceUrl": "https://contradb.com/dances/1312",
+  "metadata": {
+    "id": 1312,
+    "title": "Never Enough",
+    "choreographer_id": 72,
+    "choreographer_name": "Don Flaherty",
+    "formation": "improper",
+    "hook": "",
+    "user_id": 183,
+    "user_name": "Don Flaherty",
+    "created_at": "2019-09-30T18:54:30.759Z",
+    "updated_at": "2019-09-30T19:02:08.125Z",
+    "publish": "everywhere",
+    "matching_figures_html": "whole dance"
+  },
+  "html": "<h1 class=\"dance-show-title\">Never Enough</h1>\n    </div>\n  </div>\n  <div class='row'>\n    <div class='col-sm-8 col-print-12'>\n      <p class=\"dance-show-choreographer\">by: <strong><a href=\"/choreographers/72\">Don Flaherty</a></strong></p>\n      <p class=\"dance-show-formation\">formation: improper </p>\n\n<div class=\"dance-show-preamble\"><div class='contra-markdown-block'><p>Please walk this dance thru before taking to the dance floor, any feed back would be appreciate you can E-mail <a href=\"mailto:do14flah@aol.com\">do14flah@aol.com</a><br>\nthanks Don Flaherty</p>\n</div></div>\n\n<table class=\"table table-bordered table-condensed contra-table-nonfluid\">\n         <tr class=\"a1b1 \">\n             <td>A1</td>\n             <td class=dance-show-beats>8</td>\n             <td><div class=\"show-figure\">ladles chain partner</div>\n</td></tr>\n</tr>         <tr class=\"a1b1 \">\n             <td></td>\n             <td class=dance-show-beats>8</td>\n             <td><div class=\"show-figure\">right left through</div>\n</td></tr>\n</tr>         <tr class=\"a2b2 \">\n             <td>A2</td>\n             <td class=dance-show-beats>8</td>\n             <td><div class=\"show-figure\">circle left 2 places <u>gentlespoons</u> roll neighbor across with half sashay</div>\n</td></tr>\n</tr>         <tr class=\"a2b2 \">\n             <td></td>\n             <td class=dance-show-beats>8</td>\n             <td><div class=\"show-figure\">circle left 2 places <u>gentlespoons</u> roll partner along the set with half sashay</div>\n</td></tr>\n</tr>         <tr class=\"a1b1 \">\n             <td>B1</td>\n             <td class=dance-show-beats>8</td>\n             <td><div class=\"show-figure\">gentlespoons do si do once back to partner</div>\n</td></tr>\n</tr>         <tr class=\"a1b1 \">\n             <td></td>\n             <td class=dance-show-beats>8</td>\n             <td><div class=\"show-figure\">partners swing</div>\n</td></tr>\n</tr>         <tr class=\"a2b2 \">\n             <td>B2</td>\n             <td class=dance-show-beats>8</td>\n             <td><div class=\"show-figure\">ladles allemande right 1½</div>\n</td></tr>\n</tr>         <tr class=\"a2b2 \">\n             <td></td>\n             <td class=dance-show-beats>8</td>\n             <td><div class=\"show-figure\">neighbors swing at the end of <u>swing</u> <u>ladles</u> look in line of progression for new <u>ladle</u> to <u>chain</u> too ⁋</div>\n</td></tr>\n</tr></table>\n\n<div class=\"dance-show-notes\"><div class='contra-markdown-block'><p>Please walk this dance thru before taking to the dance floor, any feed back would be appreciate you can E-mail <a href=\"mailto:do14flah@aol.com\">do14flah@aol.com</a><br>\nthanks Don Flaherty revise 9-30-19</p>\n</div></div>\n\n\n    </div>\n    <div class='col-sm-4 hidden-print'>\n      <div class='panel panel-default'>\n        <div class=\"panel-heading\">\n          <h2 class='panel-title'>Database</h2>\n        </div>\n        <div class='panel-body'>\n          <p class=\"dance-show-user\">user: <a href=\"/users/183\">Don Flaherty</a></p>\n          <p class=\"dance-show-publish\">\n            shared everywhere\n          </p>"
+}

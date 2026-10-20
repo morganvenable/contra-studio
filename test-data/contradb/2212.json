@@ -1,0 +1,21 @@
+{
+  "schema": "contra-studio/contradb-snapshot",
+  "version": 1,
+  "sourceUrl": "https://contradb.com/dances/2212",
+  "retrievedAt": "2026-10-18T18:14:00Z",
+  "metadata": {
+    "id": 2212,
+    "title": "Pigeon on the Jetway",
+    "choreographer_id": 413,
+    "choreographer_name": "Koren Wake",
+    "formation": "Becket double progression",
+    "hook": "hey to diagonal hey to ricochet hey chase sequence",
+    "user_id": 5267,
+    "user_name": "Koren A Wake",
+    "created_at": "2023-12-22T21:44:34.890Z",
+    "updated_at": "2025-09-30T00:41:30.970Z",
+    "publish": "everywhere",
+    "matching_figures_html": "whole dance"
+  },
+  "html": "<h1 class=\"dance-show-title\">Pigeon on the Jetway</h1>\n<p class=\"dance-show-hook\">hook: <u>hey</u> to diagonal <u>hey</u> to ricochet <u>hey</u> chase sequence</h2>\n      \n<p class=\"dance-show-choreographer\">by: <strong><a href=\"/choreographers/413\">Koren Wake</a></strong></p>\n<p class=\"dance-show-formation\">formation: Becket double progression </p>\n<div class=\"dance-show-preamble\"><div class='contra-markdown-block'></div></div>\n<table class=\"table table-bordered table-condensed contra-table-nonfluid\">\n         <tr class=\"a1b1 \">\n             <td>A1</td>\n             <td class=dance-show-beats>8</td>\n             <td><div class=\"show-figure\">long lines forward &amp; back</div>\n</td></tr>\n</tr>         <tr class=\"a1b1 \">\n             <td></td>\n             <td class=dance-show-beats>8</td>\n             <td><div class=\"show-figure\">gentlespoons allemande left once</div>\n</td></tr>\n</tr>         <tr class=\"a2b2 \">\n             <td>A2</td>\n             <td class=dance-show-beats>8</td>\n             <td><div class=\"show-figure\">partners gyre 1½</div>\n</td></tr>\n</tr>         <tr class=\"a2b2 \">\n             <td></td>\n             <td class=dance-show-beats>8</td>\n             <td><div class=\"show-figure\">ladles start a half hey - lefts in center, rights on ends, look to the right diagonal ⁋</div>\n</td></tr>\n</tr>         <tr class=\"a1b1 \">\n             <td>B1</td>\n             <td class=dance-show-beats>8</td>\n             <td><div class=\"show-figure\">ladles start a right diagonal half hey - lefts in center, rights on ends, look straight across ⁋</div>\n</td></tr>\n</tr>         <tr class=\"a1b1 \">\n             <td></td>\n             <td class=dance-show-beats>8</td>\n             <td><div class=\"show-figure\">ladles start a half hey - lefts in center, rights on ends  - ladles ricochet, gentlespoons ricochet</div>\n</td></tr>\n</tr>         <tr class=\"a2b2 dance-show-long-figure\">\n             <td>B2</td>\n             <td class=dance-show-beats>16</td>\n             <td><div class=\"show-figure\">partners balance &amp; swing</div>\n</td></tr>\n</tr></table>\n<div class=\"dance-show-notes\"><div class='contra-markdown-block'><p>See notes &amp; more readable choreography here:<br>\n<a href=\"https://www.korenwake.com/choreography#h.h5lwwkya238h\">https://www.korenwake.com/choreography#h.h5lwwkya238h</a></p>\n</div></div>\n<p class=\"dance-show-publish\">\n            shared everywhere\n          </p>\n"
+}

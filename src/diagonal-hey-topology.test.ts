@@ -1,0 +1,17 @@
+import test from 'node:test';import assert from 'node:assert/strict';
+import{createDiagonalHeyTopology,bindDiagonalHeySites,exchangeDiagonalHeySites,diagonalHeySitePoses,diagonalHeyTopologyKey}from'./diagonal-hey-topology.ts';
+test('1461 literal independent four-couple oracle changes diagonal actors before named across reentry',()=>{
+ const initial=createDiagonalHeyTopology(4),diag=bindDiagonalHeySites(initial,'left-diagonal',1);assert.deepEqual(diag.groups.map(g=>g.actors),[[0,1,6,7]]);assert.deepEqual(diag.waitingIds,[2,3,4,5]);
+ const after=exchangeDiagonalHeySites(initial,diag),across=bindDiagonalHeySites(after,'across',2);assert.deepEqual(across.groups.map(g=>g.actors),[[6,7,2,3],[4,5,0,1]]);assert.deepEqual(across.waitingIds,[]);
+ const end=exchangeDiagonalHeySites(after,across),pose=diagonalHeySitePoses(end),corner=(x:number,z:number)=>pose.find(p=>Math.abs(p.position.x-x)<1e-8&&Math.abs(p.position.z-z)<1e-8)!.id;
+ assert.deepEqual([corner(-.9,-2.7),corner(-.9,-.9),corner(.9,-2.7),corner(.9,-.9)],[6,7,3,2]);assert.deepEqual([corner(-.9,.9),corner(-.9,2.7),corner(.9,.9),corner(.9,2.7)],[4,5,1,0]);
+});
+test('literal finite two-hey site permutations close afterN repeats for2–12couples without end wrapping',t=>{
+ for(let n=2;n<=12;n++){let state=createDiagonalHeyTopology(n);const key=diagonalHeyTopologyKey(state),seen=new Set([key]),acrossEncounters=new Map<number,Set<number>>(),diagonalEncounters=new Map<number,Set<number>>();
+  const record=(m:Map<number,Set<number>>,b:ReturnType<typeof bindDiagonalHeySites>)=>{for(const g of b.groups){const a=state.dancers[g.actors[0]].couple,c=state.dancers[g.actors[2]].couple;m.set(a,new Set([...(m.get(a)??[]),c]));m.set(c,new Set([...(m.get(c)??[]),a]));}};
+  for(let r=0;r<n;r++){const a=bindDiagonalHeySites(state,'across',3*r);record(acrossEncounters,a);assert.equal(a.waitingIds.length,n%2?2:0);const d=bindDiagonalHeySites(state,'left-diagonal',3*r+1);record(diagonalEncounters,d);assert.equal(d.waitingIds.length,n%2?2:4);for(const id of d.waitingIds){const s=state.sites.find(s=>s.coupleId===state.dancers[id].couple)!;assert.ok(s.side==='west'&&s.row===0||s.side==='east'&&s.row===Math.floor(n/2)-1,'missing diagonal is at a named physical end');}state=exchangeDiagonalHeySites(state,d);const b=bindDiagonalHeySites(state,'across',3*r+2);state=exchangeDiagonalHeySites(state,b);const next=diagonalHeyTopologyKey(state);if(r<n-1){assert.ok(!seen.has(next));seen.add(next);}else assert.equal(next,key);}
+  for(let id=0;id<n;id++){const a=acrossEncounters.get(id)??new Set<number>(),d=diagonalEncounters.get(id)??new Set<number>();assert.equal(a.size,n%2?n-1:n/2);assert.equal(d.size,n%2?n-1:n/2-1);assert.equal(new Set([...a,...d]).size,n-1);assert.ok(!a.has(id)&&!d.has(id));}
+  t.diagnostic(JSON.stringify({couples:n,period:n,acrossCounts:[...acrossEncounters].sort(([a],[b])=>a-b).map(([id,s])=>[id,s.size]),diagonalCounts:[...diagonalEncounters].sort(([a],[b])=>a-b).map(([id,s])=>[id,s.size])}));
+ }
+});
+test('interior couple0 advances a full row through two literal halfhey exchanges, without extra translation',()=>{const state=createDiagonalHeyTopology(8),middle=exchangeDiagonalHeySites(state,bindDiagonalHeySites(state,'left-diagonal',1)),end=exchangeDiagonalHeySites(middle,bindDiagonalHeySites(middle,'across',2));assert.deepEqual(end.sites.find(s=>s.coupleId===0),{coupleId:0,side:'east',row:1});assert.deepEqual(bindDiagonalHeySites(middle,'across',2).groups[1].actors,[10,11,0,1]);});

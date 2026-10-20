@@ -1,0 +1,35 @@
+{
+  "scope": "Independent full-six-couple actual2964 released chain→cross-trails→next circle55.5–65at100samples/beat. Actual Avatar, fixed limb lengths, exact phase and every full-strength wrist target. Leg corrections disclosed; no GPU/audio hardware proof.",
+  "maxWrist": 4.577566798522237e-16,
+  "worstWrist": {
+    "beat": 64.97,
+    "id": 7,
+    "hand": "right",
+    "kind": "joined",
+    "a": 0,
+    "b": 7
+  },
+  "byFigure": {
+    "6:robins-chain": {
+      "maxClamp": 0,
+      "clamps": 0,
+      "worst": null
+    },
+    "7:cross-trails": {
+      "maxClamp": 0,
+      "clamps": 0,
+      "worst": null
+    },
+    "0:circle": {
+      "maxClamp": 0,
+      "clamps": 0,
+      "worst": null,
+      "maxWrist": 4.577566798522237e-16
+    }
+  },
+  "samples": 951,
+  "maximumJointEpsilon": 1.0174256384067288e-7,
+  "heldContactPassed": true,
+  "newMotionNoReachCorrection": true,
+  "newHeldWristsExact": true
+}

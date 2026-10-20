@@ -1,0 +1,13 @@
+# Carried mad-robin return and ordered circle completion
+
+The same `mad-robin-full-return` registry step now consumes actual incoming positions, facing, persistent partners, current neighbors, raw held contacts and source clock. It delegates the orbit unchanged to `compileMadRobin`, returns the same four stations and partner-facing state after eight counts, and imposes no successor-kind or whole-source signature. The figure's explicit world direction must agree with its named front role in the measured layout.
+
+The first two source compositions use opposite world rotations: Working Stiff (1102) reaches a counterclockwise robin-front orbit from a chain; Flirt Hurt (182) reaches a clockwise robin-front orbit from a complete circle. Working Stiff's omitted direction remains a removable source interpretation selected only when the actual composition validates uniquely. Flirt Hurt states clockwise explicitly.
+
+An ordinary circle producing the declared across-facing entry uses the existing final-count facing preparation. Its full root rotation and ordinary hand release remain intact. The raw boundary then enters the strict mad step. Established surrounding adapters still retain their explicitly recorded `established-acquisition` policy; this is not a claim that every legacy figure has migrated to strict contact-carrying admission.
+
+Flirt Hurt's final row and note additionally require a complete right circle before a turn toward one's partner while looking for the next neighbors. The separate reusable `ordered-circle-exit` step consumes an explicit `[7,1]` split: the unchanged full-circle root path occupies seven counts, and the final count changes facing only. The turn branch passes toward the actual persistent partner and finishes onward toward the next group. The final event, not this path or its winding, advances the neighbor epoch. The timing choice is reviewable and removable; no extra musical count or terminal root travel is added.
+
+The ordinary half-hey's full-width swing-entry case uses its measured 1.8 m sideline gap to allocate the first gate at 2.25 rather than 2 counts. The remaining gates and eight-count source budget are retained. Compact legacy entries keep their original schedule. This bounded internal allocation accommodates the actual mad-robin endpoint without moving it or modifying the literal named shoulder sequence.
+
+Verification is change-scoped: one shared boundary test, literal ordered-turn proof, representative odd/even complete periods and changed-boundary checks, source archives and removable choices, a public synthetic rearrangement, exact representative legacy 2693/ordinary-circle parity, and bundled offline playback. Detailed unchanged body and limb meshes are outside this batch's test scope.

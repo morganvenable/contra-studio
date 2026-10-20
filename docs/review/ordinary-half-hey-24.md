@@ -1,0 +1,13 @@
+# Ordinary half hey and Hay in the Barn #24
+
+Reviewed 2026-10-18. This entry concerns source, timing, identities and finite-set behavior separately from procedural body fidelity.
+
+The retained [ContraDB record](https://contradb.com/dances/24), credited to Chart Guthrie, specifies six rows totaling 64 counts. Its two half heys are led by robins, with right shoulders in the center and left shoulders at the ends. The first chain receives partners and the second receives current neighbors. The [CDSS Winter 2022 walkthrough](https://cdss.org/wp-content/uploads/publications/cdss-news-magazine/CDSS-News-Winter-2022.pdf), page 19, independently supports these relationships. [ContraLab’s hey definition](https://www.contralab.org/Definitions.html) describes four alternating pass layers for an eight-count half hey.
+
+The adapter retains all four layers. It resolves every named encounter against current immutable partner/neighbor bindings. The first hey ends with the same partners on the opposite sidelines for their balance. The final hey ends with the old neighbors on opposite sidelines and the couples in their single-progression slots, facing new neighbors. There is no appended progression movement or missing fourth pass.
+
+Physical held spacing is distinct from logical formation slots. The preceding chain ends at 1.10-unit pair spacing only when the explicit next half-hey contract requires it. The held hey exits at 1.18 spacing; the terminal hey restores 1.80 logical spacing. Exact eight-count schedules are [2,3.75,5.5,7.25] for held pass gates and [2.25,3.75,5.25,6.75] for the terminal path. These are declared timing interpretations within the source’s eight counts.
+
+The new tests cover complete corner and pass permutations, every line size from 2 through 12 couples over a full finite circulation, unique hand ownership, figure-boundary continuity, large deterministic seeks, immutable adapter inputs, and rejection of mixed notation, wrong shoulders, unsupported confidence and stale identities. Independent actual-source and archive checks passed with 19,712 frames and 218,504 contact checks.
+
+Actual Avatar tests preserve one footfall per musical beat and fixed limb lengths. The first held half hey and adjoining chain/balance have zero sampled leg reach corrections. The terminal half hey has a remaining maximum correction of about 0.0662 model units in the six-couple scene. That limit is explicitly budgeted below 0.070 in the regression, rather than concealed by extra steps or changing the source timing. This remains schematic rehearsal motion, not a biomechanically validated half-hey performance.

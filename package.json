@@ -1,0 +1,25 @@
+{
+  "name": "contra-flow-studio",
+  "version": "0.18.0",
+  "private": true,
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1",
+    "build": "npm run build:static && node scripts/build-worker.mjs",
+    "preview": "vite preview --host 0.0.0.0",
+    "test": "node --experimental-strip-types --test src/*.test.ts",
+    "build:static": "tsc --noEmit && vite build",
+    "build:pages": "tsc --noEmit && vite build --mode pages --base ./",
+    "test:server": "node --test worker/*.test.mjs"
+  },
+  "dependencies": {
+    "three": "^0.180.0"
+  },
+  "devDependencies": {
+    "@types/three": "^0.180.0",
+    "vite": "^7.1.7",
+    "typescript": "^5.9.3",
+    "@playwright/test": "^1.55.1"
+  }
+}

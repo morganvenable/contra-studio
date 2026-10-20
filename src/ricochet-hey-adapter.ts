@@ -1,0 +1,27 @@
+/** A reusable paired-sideline entry and same-person balance exit for the
+ * contact-bearing ricochet graph. No ID, title or source URL dispatch. */
+import {assertFigureArgumentsConsumed} from './figure-semantics.ts';
+import {compileRicochetHey,type Ricochet,type RicochetHeyPlan} from './ricochet-hey.ts';
+import {resolveBoundFigureRelation,type FigureContext,type MotionPlan} from './extended-figures.ts';
+import type {Figure,Role,Vec2} from './types.ts';
+export interface RicochetHeyFigure extends Omit<Figure,'kind'|'exit'> {kind:'ricochet-hey';amount:.5|1;heyStartRole:Role;centerShoulder:'left'|'right';endShoulder:'left'|'right';entry:'paired-sidelines';exit:'ricochet-paired-balance';who:'partner'|'neighbor';ricochetExitRelation:'partner'|'neighbor';ricochets:readonly Ricochet[];}
+const distance=(a:Vec2,b:Vec2)=>Math.hypot(a.x-b.x,a.z-b.z),heading=(a:Vec2,b:Vec2)=>Math.atan2(b.x-a.x,b.z-a.z);
+const allowed=new Set(['id','kind','beats','label','notes','confidence','progression','amount','heyStartRole','centerShoulder','endShoulder','entry','exit','who','ricochetExitRelation','ricochets']);
+export function compileRicochetHeyFigure(f:RicochetHeyFigure,context:FigureContext):MotionPlan & {ricochetPlan:RicochetHeyPlan} {
+ assertFigureArgumentsConsumed(f);
+ if(Object.keys(f).some(k=>!allowed.has(k)&&(f as unknown as Record<string,unknown>)[k]!==undefined))throw new Error('Ricochet hey does not consume additional figure modifiers.');
+ if(f.kind!=='ricochet-hey'||f.confidence==='unsupported'||f.progression||f.beats!==(f.amount===.5?8:f.amount===1?16:0)||!['lark','robin'].includes(f.heyStartRole)||!['left','right'].includes(f.centerShoulder)||!['left','right'].includes(f.endShoulder)||f.centerShoulder===f.endShoulder||f.entry!=='paired-sidelines'||f.exit!=='ricochet-paired-balance'||!['partner','neighbor'].includes(f.who)||!['partner','neighbor'].includes(f.ricochetExitRelation)||!Array.isArray(f.ricochets))throw new Error('Ricochet hey requires its complete role, shoulder, occurrence, timing, paired entry and balance-exit contract.');
+ if(context.next?.kind!=='balance'||context.next.beats!==4||context.next.who!==f.ricochetExitRelation)throw new Error('Ricochet hey exit requires the declared same-person four-beat balance.');
+ const partner=resolveBoundFigureRelation(context,'partner'),neighbor=resolveBoundFigureRelation(context,'neighbor'),incoming=f.who==='partner'?partner:neighbor,outgoing=f.ricochetExitRelation==='partner'?partner:neighbor,{ids,start,dancers}=context;
+ const center={x:ids.reduce((s,id)=>s+start[id].position.x,0)/4,z:ids.reduce((s,id)=>s+start[id].position.z,0)/4},first=f.heyStartRole,other=first==='lark'?'robin':'lark';
+ const select=(role:Role,side:number)=>{const matches=ids.filter(id=>dancers[id].role===role&&Math.sign(start[id].position.x-center.x)===side);if(matches.length!==1)throw new Error('Ricochet entry requires one of each role on each explicit sideline.');return matches[0];};
+ const west=select(first,-1),east=select(first,1),westOther=select(other,-1),eastOther=select(other,1),entryOrder=[westOther,west,east,eastOther],order=[...entryOrder];
+ for(const [a,b]of [[west,westOther],[east,eastOther]])if(incoming.get(a)!==b||Math.abs(start[a].position.x-start[b].position.x)>.001||Math.abs(Math.abs(start[a].position.x-center.x)-.9)>.001||distance(start[a].position,start[b].position)<1.05||distance(start[a].position,start[b].position)>1.801)throw new Error('Ricochet entry side pairs do not match their actual named actors and sideline positions.');
+ const sign=f.centerShoulder==='right'?1:-1;if(Math.sign(start[west].position.z-center.z)!==sign||Math.sign(start[east].position.z-center.z)!==-sign)throw new Error('Ricochet first shoulder contradicts incoming role order.');
+ const occurrence={lark:0,robin:0};for(let i=0;i<f.beats/2;i++){if(i%2===0){const role=dancers[order[1]].role,n=++occurrence[role];if(!f.ricochets.some(r=>r.role===role&&r.occurrence===n))[order[1],order[2]]=[order[2],order[1]];}else{[order[0],order[1]]=[order[1],order[0]];[order[2],order[3]]=[order[3],order[2]];}}
+ const end=new Map(order.map((id,slot)=>[id,{...start[entryOrder[slot]].position}]));
+ for(const [a,b]of [[order[0],order[1]],[order[2],order[3]]]){if(outgoing.get(a)!==b)throw new Error('Ricochet graph does not deliver the declared named exit pairs.');const A=end.get(a)!,B=end.get(b)!,mid={x:(A.x+B.x)/2,z:(A.z+B.z)/2},gap=distance(A,B);for(const id of [a,b]){const p=end.get(id)!;end.set(id,{x:mid.x+(p.x-mid.x)*1.18/gap,z:mid.z+(p.z-mid.z)*1.18/gap});}}
+ const p=compileRicochetHey({actors:ids.map(id=>({id,role:dancers[id].role,couple:dancers[id].couple})),entryOrder,partner,neighbor,epoch:context.relations.epoch,bindingEpoch:context.bindingEpoch,beats:f.beats as 8|16,passes:f.beats/2 as 4|8,centerShoulder:f.centerShoulder,endShoulder:f.endShoulder,ricochets:f.ricochets,entry:new Map(ids.map(id=>[id,{position:{...start[id].position},yaw:start[id].yaw}])),exit:new Map(ids.map(id=>[id,{position:end.get(id)!,yaw:heading(end.get(id)!,end.get(outgoing.get(id)!)!)}])),origin:center});
+ const beats=f.beats;const at=(id:number,t:number)=>{const pose=p.sample(t*beats).poses.find(a=>a.id===id);if(!pose)throw new Error('Actor outside this ricochet hey.');return pose;};
+ return Object.freeze({ricochetPlan:p,position:(id:number,t:number)=>at(id,t).position,facing:(id:number,t:number)=>at(id,t).yaw,contacts:(t:number)=>p.sample(t*beats).contacts});
+}

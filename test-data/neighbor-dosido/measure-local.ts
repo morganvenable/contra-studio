@@ -1,0 +1,19 @@
+/** One local root-motion measurement; the shared compiler owns the separate
+ * actual next-binding/public-stance and finite-line source proof. */
+import {readFileSync,writeFileSync} from 'node:fs';
+import {compileNeighborDosidoStep} from '../../src/neighbor-dosido-step.ts';
+import type {SequenceBoundary} from '../../src/sequence-boundary.ts';
+import type {Dancer,Pose,Figure} from '../../src/types.ts';
+import {distance,turn} from '../../src/ring-twirl-contract.ts';
+const packet=JSON.parse(readFileSync(new URL('./measured-ingress.json',import.meta.url),'utf8'));
+const figure:Figure={id:'named-neighbor-exchange',label:'Named neighbor do-si-do 1½',kind:'do-si-do',who:'neighbor',direction:'right',amount:1.5,beats:8,progression:true,exit:'progressed-neighbors',preparation:'next-neighbor-balance'};
+const records=packet.records.map((record:{sourceId:string;entry:SequenceBoundary})=>{
+ const boundary=record.entry,start:Pose[]=[],dancers:Dancer[]=[];
+ for(const a of boundary.actors){const p=boundary.poses.find(p=>p.id===a.id)!;start[a.id]={id:a.id,position:{...p.position},yaw:p.yaw,stride:0,lean:0,bounce:0,turn:0,activity:'circle'};dancers[a.id]={...a,name:`Actor ${a.id}`,direction:1,color:'#555'};}
+ const context={ids:boundary.actors.map(a=>a.id),start,dancers,bindingEpoch:boundary.relationshipEpoch,relations:{epoch:boundary.relationshipEpoch,partner:new Map(boundary.partner),neighbor:new Map(boundary.neighbor)}},plan=compileNeighborDosidoStep(figure,context,boundary),window=plan.exitPreparationWindow!,duration=window.sourceEnd-window.sourceStart,smooth=(raw:number)=>{const t=Math.max(0,Math.min(1,raw));return t*t*(3-2*t);},offset=.31;
+ const position=(id:number,beat:number,prepared:boolean)=>{const p=plan.position(id,(beat-boundary.sourceBeat)/8),weight=prepared?smooth((beat-window.sourceStart)/duration):0,yaw=plan.facing(id,1,[]);return{x:p.x+offset*weight*Math.sin(yaw),z:p.z+offset*weight*Math.cos(yaw)};};
+ const measure=(prepared:boolean)=>{let minimumClearance=Infinity,maximumSpeed=0,maximumYawRate=0;const beats=[...Array.from({length:129},(_,n)=>56+n/16),...plan.gates.map(g=>g.sourceBeat)];for(const beat of beats){const lo=Math.max(56,beat-1e-5),hi=Math.min(64,beat+1e-5);for(const a of boundary.actors){const p=position(a.id,beat,prepared);maximumSpeed=Math.max(maximumSpeed,distance(position(a.id,lo,prepared),position(a.id,hi,prepared))/(hi-lo));maximumYawRate=Math.max(maximumYawRate,Math.abs(turn(plan.facing(a.id,(hi-56)/8,[]),plan.facing(a.id,(lo-56)/8,[])))/(hi-lo));for(const b of boundary.actors)if(a.id<b.id)minimumClearance=Math.min(minimumClearance,distance(p,position(b.id,beat,prepared)));}}return{minimumClearance,maximumSpeed,maximumYawRate};};
+ return{sourceId:record.sourceId,entry:plan.entryState,exit:plan.exitState,namedPairs:plan.namedPairs,phases:plan.phases,gates:plan.gates,lastShoulderPass:plan.lastShoulderPass,release:plan.release,exitPreparationWindow:window,baseMetrics:measure(false),analyticBounds:{minimumClearance:plan.minimumClearanceBound,maximumSpeed:plan.maximumSpeedBound,maximumYawRate:plan.maximumYawRateBound},localTailFeasibility:{scope:'Hypothetical .31-unit forward stance offset after the final shoulder gate. This establishes local timing feasibility only; it does not identify future neighbors or verify the shared public wrapper.',offset,duration,metrics:measure(true)}};
+});
+writeFileSync(new URL('./local-motion-evidence.json',import.meta.url),JSON.stringify({scope:'Two measured source ingresses; one isolated reusable neighbor exchange. Root samples and exact gates only, no articulated or all-size sweep.',records},null,2)+'\n');
+console.log(JSON.stringify(records.map(r=>({sourceId:r.sourceId,gates:r.gates.map(g=>({kind:g.kind,sourceBeat:g.sourceBeat})),base:r.baseMetrics,bounds:r.analyticBounds,tail:r.localTailFeasibility})),null,2));

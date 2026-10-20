@@ -1,0 +1,12 @@
+import {c,dance} from './production-source.ts';import {Avatar,applyBodyContactAnchors} from '../../src/scene.ts';import {Vector3} from 'three';import type {StudioState} from '../../src/types.ts';
+globalThis.document={createElement:()=>({getContext:()=>new Proxy({},{get:()=>()=>{},set:()=>true})})} as unknown as Document;
+export function auditReleaseSpeed(start=36.8,end=38.8,critical=[37,37.15,37.35,37.45,37.55,37.75,38.65]){
+ const avatars=c.dancers.map(d=>new Avatar(d));
+ const sample=(beat:number)=>{const f=c.sample(beat);avatars.forEach(a=>a.update(f.poses[a.dancer.id],f,{dance,showLabels:false}as unknown as StudioState,c.sample));applyBodyContactAnchors(avatars,f);return avatars.flatMap(a=>{a.root.updateMatrixWorld(true);return a.arms.flatMap((arm,index)=>{const attr=arm.hand.geometry.attributes.position;return [{id:a.dancer.id,role:a.dancer.role,hand:index,kind:'wrist',point:arm.hand.getWorldPosition(new Vector3())},{id:a.dancer.id,role:a.dancer.role,hand:index,kind:'elbow',point:arm.elbow.getWorldPosition(new Vector3())},...Array.from({length:attr.count},(_,i)=>({id:a.dancer.id,role:a.dancer.role,hand:index,kind:'hand-vertex',point:new Vector3().fromBufferAttribute(attr,i).applyMatrix4(arm.hand.matrixWorld)}))];});});};
+ const byRoleHand:Record<string,Record<string,any>>={};
+ const out:Record<string,any>={wrist:{speed:0},elbow:{speed:0},'hand-vertex':{speed:0}};
+ const check=(beat:number,h:number)=>{if(beat<start||beat>end)return;const a=sample(beat-h),b=sample(beat+h);a.forEach((p,i)=>{const speed=p.point.distanceTo(b[i].point)/(2*h);const value={speed,beat,h,id:p.id,hand:p.hand};if(speed>out[p.kind].speed)out[p.kind]=value;const group=byRoleHand[`${p.role}:${p.hand===0?'right':'left'}`]??(byRoleHand[`${p.role}:${p.hand===0?'right':'left'}`]={});if(speed>(group[p.kind]?.speed??0))group[p.kind]=value;});};
+ for(let i=0;i<=Math.ceil((end-start)*200);i++)check(start+i/200,1e-5);for(const t of critical)for(const h of[1e-3,1e-4,1e-5,1e-6,1e-7])for(const sign of[-1,0,1])check(t+sign*h,h/10);
+ const coarse=structuredClone(out),adaptive=[];for(const center of new Set(Object.values(byRoleHand).flatMap(group=>Object.values(group).map(o=>o.beat))))for(const h of[1e-3,1e-4,1e-5,1e-6,1e-7]){for(let i=-10;i<=10;i++)check(center+i*h,h/10);adaptive.push({center,h,peaks:structuredClone(out)});}avatars.forEach(a=>a.dispose());return{window:[start,end],critical,coarse,peaks:out,byRoleHand,adaptive};
+}
+if(process.argv[1]?.endsWith('/production-release-speed.probe.ts'))console.log(JSON.stringify(auditReleaseSpeed(),null,2));

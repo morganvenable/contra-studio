@@ -1,0 +1,43 @@
+/** A common, monotone C2 source clock. It cannot change actors, pass order,
+ * shoulder geometry, endpoints or the total musical count. Raw interval bounds
+ * are required: sampled speed alone is never a certificate for the final path. */
+import type {PartialHeyTrajectory,PartialHeyFrame} from './partial-hey.ts';
+import type {BoundaryEncounterDiagnostic} from './diagonal-hey-path.ts';
+export interface ProjectionDiagnostic {beat:number;rawBeat?:number;actors:readonly[string,string];phase:'entry'|'exit';distance:number;A:PartialHeyFrame['poses'][number];B:PartialHeyFrame['poses'][number];}
+export interface BoundedHeyPath extends PartialHeyTrajectory {readonly boundaryDiagnostics?:readonly BoundaryEncounterDiagnostic[];readonly projectionDiagnostics?:readonly ProjectionDiagnostic[];motionBounds(from:number,to:number):Readonly<{maximumSpeed:number;maximumYawRate:number}>;}
+export interface HeyClockOptions {maximumSpeed:number;maximumYawRate:number;yawWeight:number;minimumClockRate?:number;samplesPerBeat?:number;}
+export interface RetimedHeyPath extends BoundedHeyPath {readonly clockKnots:readonly number[];rawBeat(beat:number):number;sourceBeat(rawBeat:number):number;}
+export function retimeHey(path:BoundedHeyPath,input:HeyClockOptions):RetimedHeyPath {
+ const freeze=<T>(value:T):T=>{if(value&&typeof value==='object'){for(const v of Object.values(value))freeze(v);Object.freeze(value);}return value;};
+ if(Object.keys(input).some(k=>!['maximumSpeed','maximumYawRate','yawWeight','minimumClockRate','samplesPerBeat'].includes(k)))throw new Error('Hey clock options contain an unconsumed modifier.');
+ const options={...input},beats=path.beats,rate=options.samplesPerBeat??100,floor=options.minimumClockRate??.15;
+ if(![beats,rate,floor,options.maximumSpeed,options.maximumYawRate,options.yawWeight].every(Number.isFinite)||beats<=0||beats>64||!Number.isInteger(rate)||rate<24||rate>1000||floor<=0||options.maximumSpeed<=0||options.maximumYawRate<=0||options.yawWeight<=0||typeof path.motionBounds!=='function')throw new Error('Hey retiming requires a bounded source duration, positive physical budgets and continuous raw interval bounds.');
+ if(!Object.isFrozen(path))throw new Error('The raw hey path must own frozen semantic and kinematic inputs.');
+ const rawSample=path.sample.bind(path),rawBounds=path.motionBounds.bind(path);
+ const initial=rawSample(0).poses,terminal=rawSample(beats).poses;if([...initial,...terminal].some(p=>Math.hypot(p.velocity.x,p.velocity.z)>1e-7||Math.hypot(p.acceleration.x,p.acceleration.z)>1e-7||Math.abs(p.yawRate)>1e-7))throw new Error('This common clock requires stationary C2 endpoint kinematics; moving connectors need explicit clock-rate join constraints.');if(initial.some(a=>{const b=terminal.find(b=>a.id===b.id);return !b||Math.hypot(a.position.x-b.position.x,a.position.z-b.position.z)/beats>options.maximumSpeed;}))throw new Error('The endpoint displacement alone exceeds the source walking budget.');
+ let rawTimes=[...new Set([...Array.from({length:Math.ceil(beats*rate)+1},(_,i)=>i*beats/Math.ceil(beats*rate)),...path.phaseBoundaries])].sort((a,b)=>a-b),costs:number[]=[],clock:number[]=[],scale=1,maximumCertifiedSpeed=0,maximumCertifiedYawRate=0;
+ const cache=new Map<number,number>(),cost=(beat:number)=>{if(cache.has(beat))return cache.get(beat)!;const poses=rawSample(beat).poses;if(!poses.length||poses.some(p=>![p.velocity.x,p.velocity.z,p.yawRate].every(Number.isFinite)))throw new Error('A source clock needs finite owned raw kinematics.');const value=Math.max(floor,...poses.map(p=>Math.max(Math.hypot(p.velocity.x,p.velocity.z),Math.abs(p.yawRate)*options.yawWeight)));cache.set(beat,value);return value;};
+ for(let refinement=0;;refinement++){
+  costs=rawTimes.map(cost);clock=[0];for(let i=1;i<rawTimes.length;i++)clock.push(clock[i-1]+(rawTimes[i]-rawTimes[i-1])*(costs[i-1]+costs[i])/2);scale=beats/clock.at(-1)!;clock=clock.map(t=>t*scale);maximumCertifiedSpeed=0;maximumCertifiedYawRate=0;const split:number[]=[];
+  for(let i=0;i<rawTimes.length-1;i++){const bounds=rawBounds(rawTimes[i],rawTimes[i+1]),gain=1/(scale*Math.min(costs[i],costs[i+1])),speed=bounds.maximumSpeed*gain,yaw=bounds.maximumYawRate*gain;maximumCertifiedSpeed=Math.max(maximumCertifiedSpeed,speed);maximumCertifiedYawRate=Math.max(maximumCertifiedYawRate,yaw);if(!Number.isFinite(speed)||!Number.isFinite(yaw)||speed>options.maximumSpeed+1e-7||yaw>options.maximumYawRate+1e-7)split.push((rawTimes[i]+rawTimes[i+1])/2);}
+  if(!split.length)break;
+  if(refinement>=12||rawTimes.length+split.length>32000)throw new Error(`The continuously bounded retimed hey exceeds its physical budget (${maximumCertifiedSpeed} speed, ${maximumCertifiedYawRate} yaw).`);
+  rawTimes=[...rawTimes,...split].sort((a,b)=>a-b);
+ }
+ const count=rawTimes.length-1;
+ const finite=(beat:number)=>{if(!Number.isFinite(beat))throw new Error('Hey clock sampling requires a finite beat.');return Math.max(0,Math.min(beats,beat));};
+ const forward=(i:number,u:number)=>clock[i]+scale*(rawTimes[i+1]-rawTimes[i])*(costs[i]*u+(costs[i+1]-costs[i])*(u*u*u-.5*u*u*u*u));
+ const sourceBeat=(raw:number)=>{raw=finite(raw);if(raw===beats)return beats;let i=0,hi=count;while(hi-i>1){const m=(i+hi)>>1;if(rawTimes[m]>raw)hi=m;else i=m;}return forward(i,(raw-rawTimes[i])/(rawTimes[i+1]-rawTimes[i]));};
+ const inverse=(beat:number)=>{beat=finite(beat);if(beat===0)return{i:0,u:0,raw:0};if(beat===beats)return{i:count-1,u:1,raw:beats};let low=0,high=count;while(high-low>1){const m=(low+high)>>1;if(clock[m]>beat)high=m;else low=m;}let lo=0,hi=1;for(let n=0;n<42;n++){const u=(lo+hi)/2;if(forward(low,u)>beat)hi=u;else lo=u;}const u=(lo+hi)/2;return{i:low,u,raw:rawTimes[low]+u*(rawTimes[low+1]-rawTimes[low])};};
+ const rawBeat=(beat:number)=>inverse(beat).raw;
+ const sample=(beat:number):PartialHeyFrame=>{beat=finite(beat);const{i,u,raw}=inverse(beat),a=costs[i],d=costs[i+1]-a,w=a+d*u*u*(3-2*u),prime=d*6*u*(1-u)/(rawTimes[i+1]-rawTimes[i]),gain=1/(scale*w),accelerationGain=-prime/(scale*scale*w*w*w),frame=rawSample(raw);return{...frame,beat,poses:frame.poses.map(p=>({...p,position:{...p.position},velocity:{x:p.velocity.x*gain,z:p.velocity.z*gain},acceleration:{x:p.acceleration.x*gain*gain+p.velocity.x*accelerationGain,z:p.acceleration.z*gain*gain+p.velocity.z*accelerationGain},yawRate:p.yawRate*gain}))};};
+ const motionBounds=(from:number,to:number)=>{
+  if(!Number.isFinite(from)||!Number.isFinite(to)||from<0||to>beats||from>=to)throw new Error('Continuous motion bounds require an ordered subinterval inside the source.');
+  const first=rawBeat(from),last=rawBeat(to);let maximumSpeed=0,maximumYawRate=0;
+  for(let i=0;i<count;i++){const lo=Math.max(first,rawTimes[i]),hi=Math.min(last,rawTimes[i+1]);if(hi<=lo)continue;const span=rawTimes[i+1]-rawTimes[i],weight=(r:number)=>{const u=(r-rawTimes[i])/span;return costs[i]+(costs[i+1]-costs[i])*u*u*(3-2*u);},gain=1/(scale*Math.min(weight(lo),weight(hi))),bounds=rawBounds(lo,hi);maximumSpeed=Math.max(maximumSpeed,bounds.maximumSpeed*gain);maximumYawRate=Math.max(maximumYawRate,bounds.maximumYawRate*gain);}
+  return Object.freeze({maximumSpeed,maximumYawRate});
+ };
+ const projectionDiagnostics=path.projectionDiagnostics?freeze(path.projectionDiagnostics.map(d=>{const beat=sourceBeat(d.beat),poses=sample(beat).poses;return{...structuredClone(d),rawBeat:d.beat,beat,A:poses.find(p=>p.id===d.actors[0])!,B:poses.find(p=>p.id===d.actors[1])!};})):undefined;
+ const boundaryDiagnostics=path.boundaryDiagnostics?freeze(path.boundaryDiagnostics.map(d=>({...structuredClone(d),gateBeat:sourceBeat(d.gateBeat),windows:d.windows.map(w=>[sourceBeat(w[0]),sourceBeat(w[1])] as const),distanceExtrema:d.distanceExtrema.map(e=>({...e,beat:sourceBeat(e.beat)}))}))) :undefined;
+ return Object.freeze({boundaryDiagnostics,beats,events:freeze(structuredClone(path.events)),gates:Object.freeze(path.gates.map(g=>Object.freeze({...g,beat:sourceBeat(g.beat),pairs:Object.freeze(g.pairs.map(p=>Object.freeze([...p]))) as unknown as typeof g.pairs}))),phaseBoundaries:Object.freeze([...new Set([...clock,...path.phaseBoundaries.map(sourceBeat)])].sort((a,b)=>a-b)),entry:freeze(sample(0).poses),exit:freeze(sample(beats).poses),endOrder:path.endOrder?Object.freeze([...path.endOrder]):undefined,minimumCertifiedClearance:path.minimumCertifiedClearance,maximumCertifiedSpeed,maximumCertifiedYawRate,clockKnots:Object.freeze([...clock]),projectionDiagnostics,motionBounds,interpretation:`${path.interpretation} A common monotone C2 clock redistributes motion within the unchanged ${beats} source counts; continuous interval bounds certify the final speed and yaw.`,sample,rawBeat,sourceBeat});
+}

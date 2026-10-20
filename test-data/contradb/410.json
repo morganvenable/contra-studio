@@ -1,0 +1,20 @@
+{
+  "schema": "contra-studio/contradb-snapshot",
+  "version": 1,
+  "sourceUrl": "https://contradb.com/dances/410",
+  "metadata": {
+    "id": 410,
+    "title": "Hocus Pocus",
+    "choreographer_id": 22,
+    "choreographer_name": "Lisa Greenleaf",
+    "formation": "improper",
+    "hook": "",
+    "user_id": 88,
+    "user_name": "Isaac Banner",
+    "created_at": "2018-03-24T00:00:45.590Z",
+    "updated_at": "2018-09-26T17:42:26.501Z",
+    "publish": "everywhere",
+    "matching_figures_html": "whole dance"
+  },
+  "html": "<h1 class=\"dance-show-title\">Hocus Pocus</h1>\n<p class=\"dance-show-choreographer\">by: <strong><a href=\"/choreographers/22\">Lisa Greenleaf</a></strong></p>\n<p class=\"dance-show-formation\">formation: improper </p>\n<div class=\"dance-show-preamble\"><div class='contra-markdown-block'></div></div>\n<table class=\"table table-bordered table-condensed contra-table-nonfluid\">\n         <tr class=\"a1b1 dance-show-long-figure\">\n             <td>A1</td>\n             <td class=dance-show-beats>16</td>\n             <td><div class=\"show-figure\">neighbors balance &amp; swing</div>\n</td></tr>\n</tr>         <tr class=\"a2b2 \">\n             <td>A2</td>\n             <td class=dance-show-beats>8</td>\n             <td><div class=\"show-figure\">ladles chain</div>\n</td></tr>\n</tr>         <tr class=\"a2b2 \">\n             <td></td>\n             <td class=dance-show-beats>8</td>\n             <td><div class=\"show-figure\">ladles start a half hey - rights in center, lefts on ends right shoulder</div>\n</td></tr>\n</tr>         <tr class=\"a1b1 dance-show-long-figure\">\n             <td>B1</td>\n             <td class=dance-show-beats>16</td>\n             <td><div class=\"show-figure\">partners balance &amp; swing</div>\n</td></tr>\n</tr>         <tr class=\"a2b2 \">\n             <td>B2</td>\n             <td class=dance-show-beats>8</td>\n             <td><div class=\"show-figure\">circle left 3 places</div>\n</td></tr>\n</tr>         <tr class=\"a2b2 \">\n             <td></td>\n             <td class=dance-show-beats>4</td>\n             <td><div class=\"show-figure\">balance the ring</div>\n</td></tr>\n</tr>         <tr class=\"a2b2 \">\n             <td></td>\n             <td class=dance-show-beats>4</td>\n             <td><div class=\"show-figure\">partners California twirl ⁋</div>\n</td></tr>\n</tr></table>\n<div class=\"dance-show-notes\"><div class='contra-markdown-block'></div></div>\n<p class=\"dance-show-publish\">\n            shared everywhere\n          </p>\n"
+}

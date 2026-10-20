@@ -1,0 +1,189 @@
+{
+  "scope": "Actual source2964 six-couple released chain→two distinct shoulder passages→next-round circle at20 samples/count, 2.1 broadphase, exact head/hair meshes. No anatomy certificate; inherited chain-held release is a separate baseline comparison.",
+  "outcomes": [
+    {
+      "phase": "released-chain-entry",
+      "minLegMesh": {
+        "value": 0.4152712519924797,
+        "beat": 56,
+        "a": 2,
+        "b": 3,
+        "partA": "0-foot",
+        "partB": "0-foot"
+      },
+      "minNoncontactArmMesh": {
+        "value": 0.2402383541629462,
+        "beat": 55.5,
+        "a": 0,
+        "b": 3,
+        "partA": "0-upper",
+        "partB": "1-upper"
+      },
+      "minArmTorso": {
+        "value": 0.33050149664390566,
+        "beat": 55.5,
+        "a": 11,
+        "b": 8,
+        "part": "1-upper"
+      },
+      "minArmHead": {
+        "value": 0.5707052183434839,
+        "beat": 55.5,
+        "a": 11,
+        "b": 8,
+        "part": "1-upper"
+      },
+      "minExactArmHead": {
+        "value": 0.2631138314460539,
+        "beat": 55.5,
+        "a": 8,
+        "b": 11,
+        "part": "0-upper"
+      },
+      "minSelfForearmTorso": {
+        "value": -0.007387735526403704,
+        "beat": 55.5,
+        "a": 0,
+        "part": "1-hand"
+      }
+    },
+    {
+      "phase": "partner-right-across",
+      "minLegMesh": {
+        "value": 0.2592560329202237,
+        "beat": 59.2,
+        "a": 0,
+        "b": 1,
+        "partA": "0-foot",
+        "partB": "0-foot"
+      },
+      "minNoncontactArmMesh": {
+        "value": 0.1718063884777047,
+        "beat": 57.35,
+        "a": 8,
+        "b": 9,
+        "partA": "0-hand",
+        "partB": "0-hand"
+      },
+      "minArmTorso": {
+        "value": 0.2437377202731766,
+        "beat": 58,
+        "a": 2,
+        "b": 3,
+        "part": "0-upper"
+      },
+      "minArmHead": {
+        "value": 0.4703226868361378,
+        "beat": 58,
+        "a": 2,
+        "b": 3,
+        "part": "0-upper"
+      },
+      "minExactArmHead": {
+        "value": 0.18695135444063551,
+        "beat": 58.1,
+        "a": 10,
+        "b": 11,
+        "part": "0-upper"
+      },
+      "minSelfForearmTorso": {
+        "value": -0.019817265023745496,
+        "beat": 57.5,
+        "a": 10,
+        "part": "1-forearm"
+      }
+    },
+    {
+      "phase": "current-neighbor-left-along",
+      "minLegMesh": {
+        "value": 0.26400642448235767,
+        "beat": 60.8,
+        "a": 4,
+        "b": 7,
+        "partA": "1-foot",
+        "partB": "1-foot"
+      },
+      "minNoncontactArmMesh": {
+        "value": 0.22793382741706084,
+        "beat": 61.35,
+        "a": 0,
+        "b": 3,
+        "partA": "1-hand",
+        "partB": "1-hand"
+      },
+      "minArmTorso": {
+        "value": 0.263010303322866,
+        "beat": 62,
+        "a": 0,
+        "b": 3,
+        "part": "1-upper"
+      },
+      "minArmHead": {
+        "value": 0.4958238705894505,
+        "beat": 61.95,
+        "a": 0,
+        "b": 3,
+        "part": "1-upper"
+      },
+      "minExactArmHead": {
+        "value": 0.19772224658509877,
+        "beat": 62.1,
+        "a": 4,
+        "b": 7,
+        "part": "1-upper"
+      },
+      "minSelfForearmTorso": {
+        "value": -0.019817265023745166,
+        "beat": 60.5,
+        "a": 8,
+        "part": "0-forearm"
+      }
+    },
+    {
+      "phase": "next-round-circle",
+      "minLegMesh": {
+        "value": 0.2252839571887985,
+        "beat": 65,
+        "a": 0,
+        "b": 7,
+        "partA": "1-foot",
+        "partB": "0-foot"
+      },
+      "minNoncontactArmMesh": {
+        "value": 0.35318574899970573,
+        "beat": 65,
+        "a": 5,
+        "b": 11,
+        "partA": "0-hand",
+        "partB": "1-hand"
+      },
+      "minArmTorso": {
+        "value": 0.35949259102271974,
+        "beat": 65,
+        "a": 4,
+        "b": 11,
+        "part": "1-hand"
+      },
+      "minArmHead": {
+        "value": 0.465889552568308,
+        "beat": 65,
+        "a": 11,
+        "b": 10,
+        "part": "1-hand"
+      },
+      "minExactArmHead": {
+        "value": 0.34835856081928873,
+        "beat": 65,
+        "a": 0,
+        "b": 7,
+        "part": "1-hand"
+      },
+      "minSelfForearmTorso": {
+        "value": -0.0073877355264027715,
+        "beat": 64.5,
+        "a": 1,
+        "part": "0-hand"
+      }
+    }
+  ]
+}

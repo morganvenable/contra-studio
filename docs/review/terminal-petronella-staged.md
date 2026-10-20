@@ -1,0 +1,7 @@
+# Terminal petronella: reviewed source2211 composition
+
+This adapter is registered for the explicit source2211 composition after independent source, finite-set, cadence and sampled mesh review. It is an explicit modeled exit for a source clause that requests a complete rightward petronella followed by facing the next neighbor.
+
+The four source counts are preserved. The reviewed choice allocates three counts to the full one-station rightward travel and clockwise three-quarter body spin, then one count to radial opening from the compact ring into ordinary longways spacing and the separately requested facing adjustment. Opening does not add another station or change actor identities. Ring hands release during the initial turn and remain released at exit.
+
+`terminal-petronella.test.ts` checks literal station and unwrapped body winding, released contacts, immutable declarations, opaque identities, rotated hall frames, malformed contracts and sampled physical budgets. The retained actual source and archived interpretation pass exact corner and all 2–12-couple finite-period checks. Complete actual Avatar rounds for 3 and 6 couples have zero leg correction. Independent six-couple samples58–65 at100 samples per beat show zero correction and held wrists within9.31e−16m. The final spin/opening/next-neighbor region has positive sampled other-person mesh clearance; the existing free-hand/shirt skim remains7.39mm. This is a sampled procedural geometry check, not a continuous clearance or anatomically perfect certificate.
