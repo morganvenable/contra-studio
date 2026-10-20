@@ -3,8 +3,9 @@
 `src/couple-arch-dive.ts` is an isolated, unregistered primitive. Official
 [program 488](https://contradb.com/programs/488) links Everybody Dance directly
 to source 2299 and specifies four counts of twos arch / ones dive after a
-four-count ring balance, with progression. Exact source 2299 remained unavailable
-on 19 October 2026. This probe is not a retained source snapshot or admission.
+four-count ring balance, with progression. The exact record has since been
+[retained and inspected](source-2299.md), confirming that wording and timing.
+This probe remains separate from the retained source snapshot and is not admitted.
 
 The caller supplies a real compact inward-facing ring, all four actual hand
 edges and current adjacent directed couple ranks. Rank directions identify

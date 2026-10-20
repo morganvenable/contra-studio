@@ -1,5 +1,5 @@
 import {terminalNeighborDosidoSource,isNeighborDosidoChoice,neighborDosidoDescription,neighborDosidoBalanceOpening,neighborDosidoGyreNote,type NeighborDosidoChoice} from './source-neighbor-dosido.ts';
-import {rollawaySource,isRollawayChoice,ROLLAWAY_DESCRIPTION,releasedCircleTransitionNote,rollawayNeighborHey,type RollawayChoice} from './source-rollaway.ts';
+import {rollawaySource,rollawaySourceRoles,rollawayDescription,isRollawayChoice,releasedCircleTransitionNote,rollawayNeighborHey,type RollawayChoice} from './source-rollaway.ts';
 import {couplesDosidoSource,isCouplesDosidoChoice,COUPLES_DOSIDO_DESCRIPTION,type CouplesDosidoChoice} from './source-couples-dosido.ts';
 import {activeSwingExit,bareActiveSwingSource,isActiveSwingChoice,activeSwingWaitDescription,hasActiveSwingBalanceOpening,ACTIVE_SWING_PREPARATION_DESCRIPTION,ACTIVE_SWING_FACING_DESCRIPTION,type ActiveSwingChoice} from './source-active-swing.ts';
 import {becketSliceSource,shortBecketSliceSource,isBecketSliceChoice,becketSliceDescription,BECKET_SLICE_RETURN_DESCRIPTION,BECKET_SLICE_END_DESCRIPTION,type BecketSliceChoice} from './source-becket-slice.ts';
@@ -326,12 +326,13 @@ export function normalizeContraDbRow(row:ContraDbRow,formation:'duple-improper'|
   else{add({kind:'do-si-do',who:relation(m[1]),direction:'right',amount:1.5});interpretations.push(`Row ${row.index+1}: the source-named role completes a full do-si-do return and then a half exchange in the original ${row.beats} counts. Right-shoulder passage is the same conventional do-si-do interpretation as the existing full-return figure; named actors and the current neighbor epoch remain unchanged.`);}
  }else if((m=text.match(/^(partners?|neighbors?|gentlespoons?|ladles|gents|ladies|men|women|larks|robins|ravens) do[ -]si[ -]do once$/i))){
   recognized=true;add({kind:'do-si-do',who:relation(m[1]),direction:'right',amount:1});
- }else if(text==='gentlespoons roll away neighbors with a half sashay'){
+ }else if(text==='gentlespoons roll away neighbors with a half sashay'||text==='ladles roll away neighbors with a half sashay'){
   recognized=true;
-  if(formation!=='duple-improper'||!rollawaySource(row))issue('rollaway-source-contract','Retain the exact unmarked four-count lark-initiated neighbor rollaway with a half sashay in improper formation.');
+  const roles=rollawaySourceRoles(row);
+  if(formation!=='duple-improper'||!roles)issue('rollaway-source-contract','Retain the exact unmarked four-count role-initiated neighbor rollaway with a half sashay in improper formation.');
   if(!capabilities.stateCarryingSequences||!capabilities.stateCarryingRollaways)issue('rollaway-gate','The standalone rollaway requires its separately reviewed state-carrying adapter.');
-  if(!isRollawayChoice(choice.rollaway))issue('rollaway-direction-choice',ROLLAWAY_DESCRIPTION);
-  else{add({kind:'rollaway',who:'neighbor',rollRole:'robin',sashayRole:'lark',rollRelation:'neighbor',rollDirection:'left-to-right',rollHalfSashay:true});interpretations.push(ROLLAWAY_DESCRIPTION);}
+  if(!isRollawayChoice(choice.rollaway))issue('rollaway-direction-choice',roles?rollawayDescription(row):'Review the omitted lateral direction only for a supported four-count neighbor rollaway.');
+  else if(roles){add({kind:'rollaway',who:'neighbor',...roles,rollRelation:'neighbor',rollDirection:'left-to-right',rollHalfSashay:true});interpretations.push(rollawayDescription(row));}
  }else if((m=text.match(/^long lines forward & back, (ladles|ladies|women|robins|ravens) roll away partners left to right on the way back$/i))){
   recognized=true;consumedRollaway=true;
   if(!capabilities.longLinesRollaways)issue('long-lines-rollaway-gate','Long lines with an integrated return-phase rollaway requires its separately reviewed adapter.');
@@ -435,7 +436,7 @@ export function normalizeContraDbRow(row:ContraDbRow,formation:'duple-improper'|
   recognized=/\b(?:balance|swing|circle|star|allemande|chain|hey|pass through|petronella|gyre|roll away|give & take|right left through|wave|circulate|ricochet|slide)\b/i.test(text);
   issue(recognized?'unsupported-figure-variant':'unknown-figure','The complete figure wording, including qualifiers, needs a semantic/motion adapter.');
  }
- if(choice.rollaway!==undefined&&!rollawaySource(row))issue('unused-interpretation','The standalone rollaway direction belongs only to its exact four-count lark-initiated source clause.','error');
+ if(choice.rollaway!==undefined&&!rollawaySource(row))issue('unused-interpretation','The standalone rollaway direction belongs only to an exact four-count role-initiated neighbor source clause.','error');
  if(choice.neighborDosido!==undefined&&!terminalNeighborDosidoSource(row))issue('unused-interpretation','The terminal neighbor do-si-do convention belongs only to its exact marked eight-count one-and-a-half source row.','error');
  if(choice.couplesDosido!==undefined&&!couplesDosidoSource(row))issue('unused-interpretation','The coupled unit convention belongs only to the complete unmarked eight-count couples do-si-do source row.','error');
  if(choice.activeSwingFacing!==undefined&&!bareActiveSwingSource(row))issue('unused-interpretation','A separately chosen active-swing facing belongs only to the exact source row that omits its facing.','error');

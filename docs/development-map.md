@@ -150,6 +150,22 @@ recommendation is an investigation scope, not admission of these sources.
   while holding hands; it is deliberately not registered. See its local probe doc.
   `inspect-source.mjs 110 --review` reports 8/9 rows resolved with explicitly
   suggested choices, retaining the separate unsupported rollaway blocker.
-- Resume build verification by completing lockfile installation in an environment
-  with registry access, then run `npm run build`. Source 2299 still needs its exact
-  retained fixture and independent whole-dance validation.
+- Current checkpoint (2026-10-19, supersedes the access/build restrictions above):
+  public repository https://github.com/morganvenable/contra-studio now exists;
+  all 821 initial publication files matched local bytes. CLI/network access is
+  restored. Locked installation, TypeScript and Pages production build pass.
+  Seven server tests and eleven tooling tests pass. Local headless Chromium
+  renders the default dance with no page errors; audible audio remains untested.
+- CI now runs four native source-test shards alongside the build. Deployment
+  requires all shards and build verification. The first monolithic run completed
+  1,042 tests without reported failures before cancellation; individual articulated
+  geometry tests took up to 370 seconds. This was accumulated CPU work, not an
+  established hang. Pages deployment run 39364885255 is pending full regression.
+- The isolated role-turn/swing prototype is retained but not registered; see
+  `docs/role-turn-swing-prototype.md`. Its late hand acquisition still needs
+  articulated review and whole-dance finite-end coverage. The next source slice
+  investigates reversed rollaway roles in 110 without admitting that whole dance.
+  The exact official source 2299 is now retained in `test-data/contradb/2299.json`;
+  see `docs/source-2299.md`. Its seven rows total 64 counts. Arch/dive progression,
+  source-note review and explicit timing/gyre choices still block whole-dance
+  admission. Independent whole-dance validation remains necessary.

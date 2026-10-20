@@ -1,5 +1,5 @@
 import {terminalNeighborDosidoSource,CONVENTIONAL_NEIGHBOR_DOSIDO,neighborDosidoDescription,neighborDosidoBalanceOpening,neighborDosidoGyreNote,NEIGHBOR_DOSIDO_GYRE_NOTE_DESCRIPTION} from './source-neighbor-dosido.ts';
-import {rollawaySource,ROLLAWAY_DESCRIPTION,releasedCircleTransitionNote,rollawayNeighborHey} from './source-rollaway.ts';
+import {rollawaySource,rollawayDescription,releasedCircleTransitionNote,rollawayNeighborHey} from './source-rollaway.ts';
 import {couplesDosidoSource,CONVENTIONAL_COUPLES_DOSIDO,COUPLES_DOSIDO_DESCRIPTION} from './source-couples-dosido.ts';
 import {originalityHookReview} from './source-hook.ts';
 import {activeSwingExit,bareActiveSwingSource,activeSwingWaitDescription,hasActiveSwingBalanceOpening,ACTIVE_SWING_FACING_DESCRIPTION} from './source-active-swing.ts';
@@ -57,7 +57,7 @@ export function prepareContraDbReview(input:string,remembered:readonly SourceCho
  if(releasedCircleTransitionNote(baseline.record)){interpretation.notesReview='released-circle-transition';suggestions.push({kind:'prose-review',message:releasedCircleTransitionNote(baseline.record)!});}
  if(hasOrderedCircleCompletionNote(baseline.record)||releasedCircleTransitionNote(baseline.record)){const row=baseline.record.rows.at(-1)!;((interpretation.rows??={})[row.id]??={}).circleCompletion=copy(CONVENTIONAL_CIRCLE_COMPLETION);suggestions.push({rowId:row.id,kind:'qualifier-interpretation',message:CIRCLE_COMPLETION_CHOICE_DESCRIPTION});}
 
- for(const row of baseline.record.rows)if(rollawaySource(row)){((interpretation.rows??={})[row.id]??={}).rollaway={direction:'left-to-right'};suggestions.push({rowId:row.id,kind:'qualifier-interpretation',message:ROLLAWAY_DESCRIPTION});}
+ for(const row of baseline.record.rows)if(rollawaySource(row)){((interpretation.rows??={})[row.id]??={}).rollaway={direction:'left-to-right'};suggestions.push({rowId:row.id,kind:'qualifier-interpretation',message:rollawayDescription(row)});}
  if(neighborDosidoGyreNote(baseline.record)){interpretation.notesReview='terminal-dosido-gyre';suggestions.push({kind:'prose-review',message:NEIGHBOR_DOSIDO_GYRE_NOTE_DESCRIPTION});}
  for(const row of baseline.record.rows)if(terminalNeighborDosidoSource(row)){((interpretation.rows??={})[row.id]??={}).neighborDosido={...CONVENTIONAL_NEIGHBOR_DOSIDO};suggestions.push({rowId:row.id,kind:'qualifier-interpretation',message:neighborDosidoDescription()});}
  for(const row of baseline.record.rows)if(couplesDosidoSource(row)){((interpretation.rows??={})[row.id]??={}).couplesDosido={...CONVENTIONAL_COUPLES_DOSIDO};suggestions.push({rowId:row.id,kind:'qualifier-interpretation',message:COUPLES_DOSIDO_DESCRIPTION});}
