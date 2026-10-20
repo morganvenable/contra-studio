@@ -13,7 +13,7 @@ test('closed swing connects exact posterior shoulder targets with fixed arm leng
    assert.deepEqual(torso.pelvisCenter,sample.poses[i].position);
    assert.ok(d(torso.center,torso.pelvisCenter)<=.040000000001);
    assert.ok(Math.abs(torso.torsoYaw-torso.pelvisYaw-twist*Math.PI/180)<1e-12);
-   assert.ok(arm.reachable);assert.equal(arm.contactStrength,1);assert.deepEqual(arm.hand,{...(i===0?partner.leftBackShoulder:partner.rightBackShoulder),y:1.35});
+   assert.ok(arm.reachable);assert.equal(arm.contactStrength,1);assert.deepEqual(arm.hand,{...(i===0?partner.leftBackShoulder:partner.rightBackShoulder),y:i===0?1.35:1.40});
    const posterior=(arm.target.x-partner.center.x)*Math.sin(partner.torsoYaw)+(arm.target.z-partner.center.z)*Math.cos(partner.torsoYaw);
    assert.ok(posterior<-.07);
    assert.ok(Math.abs(d(arm.shoulder,arm.elbow)-.325)<1e-12);assert.ok(Math.abs(d(arm.elbow,arm.hand)-.325)<1e-12);
@@ -41,11 +41,11 @@ test('inward torso over outward pelvis keeps exact posterior contact with a boun
   for(let i=0;i<2;i++){
    const arm=result.arms[i],torso=result.torsos[i];
    assert.equal(arm.reachable,true);assert.equal(arm.comfortable,arm.reachDistance<=.585);assert.ok(arm.bendDegrees>30);
-   assert.equal(arm.routeClear,true);assert.equal(arm.elbowRaised,true);assert.ok((arm.elbow.y??0)<=1.47);
+   assert.equal(arm.routeClear,true);assert.ok((arm.elbow.y??0)>=1.05);assert.ok((arm.elbow.y??0)<=1.65);
    const radial={x:poses[i].position.x/.31,z:poses[i].position.z/.31};
    assert.ok(Math.sin(torso.pelvisYaw)*radial.x+Math.cos(torso.pelvisYaw)*radial.z>0);
    assert.ok(Math.sin(torso.torsoYaw)*radial.x+Math.cos(torso.torsoYaw)*radial.z<0);
-   assert.deepEqual(arm.hand,{...(i===0?result.torsos[1-i].leftBackShoulder:result.torsos[1-i].rightBackShoulder),y:1.35});
+   assert.deepEqual(arm.hand,{...(i===0?result.torsos[1-i].leftBackShoulder:result.torsos[1-i].rightBackShoulder),y:i===0?1.35:1.40});
   }
  }
 });
@@ -89,5 +89,26 @@ test('hand targets are continuous across balance, swing, preparation, and cycle 
  for(const profile of [FLUENT_TIMING_PROFILE,DEFAULT_TIMING_PROFILE])for(const beat of [4,12,16,20,28,32]){
   const frames=[beat-1e-6,beat+1e-6].map(b=>{const s=sampleStudy(b,profile),w=s.phase==='swing'?s.readiness:s.phase==='preparation'?1-s.readiness:0;return sampleSwingTorsoStudy(s.poses,{torsoTwistDegrees:-50*w,inwardLean:.06*w,ballroomWeight:w});});
   for(let i=0;i<4;i++)assert.ok(d(frames[0].arms[i].hand,frames[1].arms[i].hand)<.00001);
+ }
+});
+
+test('joined hands angle down and elbows stay under or forward of shoulders',()=>{
+ for(const profile of [FLUENT_TIMING_PROFILE,DEFAULT_TIMING_PROFILE])for(let beat=0;beat<16;beat+=1/64){
+  const s=sampleStudy(beat,profile),w=s.phase==='swing'?s.readiness:s.phase==='preparation'?1-s.readiness:0;
+  const f=sampleSwingTorsoStudy(s.poses,{torsoTwistDegrees:-50*w,inwardLean:.06*w,ballroomWeight:w});
+  for(const arm of f.arms.filter(a=>a.kind==='joined'||w===0)){
+   const torso=f.torsos.find(t=>t.id===arm.actorId)!;
+   assert.equal(arm.hand.y,1.10);assert.ok((arm.elbow.y??0)<1.35);
+   const forward=(arm.elbow.x-arm.shoulder.x)*Math.sin(torso.torsoYaw)+(arm.elbow.z-arm.shoulder.z)*Math.cos(torso.torsoYaw);
+   assert.ok(forward>=-.015,'elbow must not bend behind the shoulder');
+  }
+ }
+});
+test('solid shoulder arms clear each other in the default closed hold',()=>{
+ const lerp=(a:any,b:any,t:number)=>({x:a.x+(b.x-a.x)*t,y:a.y+(b.y-a.y)*t,z:a.z+(b.z-a.z)*t});
+ for(const beat of [7,8,9,10]){
+  const f=sampleSwingTorsoStudy(sampleStudy(beat,FLUENT_TIMING_PROFILE).poses,{torsoTwistDegrees:-50,inwardLean:.06}),a=f.arms[0],b=f.arms[1],r=[.043,.034];
+  const aa=[[a.shoulder,a.elbow],[a.elbow,a.hand]],bb=[[b.shoulder,b.elbow],[b.elbow,b.hand]];
+  for(let i=0;i<2;i++)for(let j=0;j<2;j++)for(let x=0;x<=40;x++)for(let y=0;y<=40;y++)assert.ok(d(lerp(aa[i][0],aa[i][1],x/40),lerp(bb[j][0],bb[j][1],y/40))>=r[i]+r[j]);
  }
 });

@@ -3,7 +3,7 @@ import assert from'node:assert/strict';
 import{sampleStudy,FLUENT_TIMING_PROFILE,DEFAULT_TIMING_PROFILE}from'./execution-timing-study.ts';
 const distance=(beat:number)=>Math.hypot(...Object.values(sampleStudy(beat,FLUENT_TIMING_PROFILE).poses[0].position) as [number,number]);
 test('balance advances twice, retreats twice and pushes inward late on step four',()=>{
- assert.equal(distance(0),.5);assert.equal(distance(2),.38);assert.equal(distance(4),.46);
+ assert.equal(distance(0),.52);assert.equal(distance(2),.34);assert.equal(distance(4),.48);
  for(let tick=1;tick<=128;tick++)assert.ok(distance(tick/64)<distance((tick-1)/64));
  for(let tick=129;tick<=224;tick++)assert.ok(distance(tick/64)>distance((tick-1)/64));
  assert.ok(distance(3.9)<distance(3.65));
@@ -87,7 +87,7 @@ test('buzz feet share a small inside orbit, step right every count, and never tw
   const loaded=sampleStudy(beat+.25,FLUENT_TIMING_PROFILE),reset=sampleStudy(beat+.9,FLUENT_TIMING_PROFILE);
   for(let id=0;id<2;id++){
    const [left,right]=loaded.poses[id].feet;
-   assert.ok(Math.abs(Math.hypot(right.position.x,right.position.z)-.07)<1e-10);
+   assert.ok(Math.abs(Math.hypot(right.position.x,right.position.z)-.105)<1e-10);
    assert.ok(Math.abs(Math.hypot(left.position.x,left.position.z)-.34)<1e-10);
    assert.equal(right.contact,'pivot');assert.equal(right.stepBeat,beat);
    assert.equal(reset.poses[id].feet[1].contact,'airborne');assert.ok(reset.poses[id].feet[1].lift>0);
@@ -129,5 +129,15 @@ test('closed buzz stance stays underneath the hips with small fore-aft reach',()
    assert.ok(Math.hypot(side-(foot.side==='left'?.09:-.09),forward)<.11,'foot too far from its own hip');
   }
   assert.ok(Math.abs(lateral[0]-lateral[1])<.30,'wide straddle');
+ }
+});
+
+test('native right shoes stay adjacent without overlapping during the closed swing',()=>{
+ for(let beat=7;beat<11;beat+=1/64){
+  const sample=sampleStudy(beat,FLUENT_TIMING_PROFILE),a=sample.poses[0].feet[1],b=sample.poses[1].feet[1];
+  const dx=b.position.x-a.position.x,dz=b.position.z-a.position.z;
+  const side=dx*Math.cos(a.yaw)-dz*Math.sin(a.yaw),forward=dx*Math.sin(a.yaw)+dz*Math.cos(a.yaw);
+  const separation=Math.hypot(side/.15,forward/.29);
+  assert.ok(separation>1&&separation<1.1,'native shoe ellipses must be close but disjoint');
  }
 });

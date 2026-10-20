@@ -330,18 +330,16 @@ delay and recovery against an unchanged musical clock. It does not alter the
 130 Ready dances. Morgan clarified planted foot contacts and the fourth-step inward push.
 The lab now uses independent world-space feet, lifted steps and support cues;
 its prior body-attached markers slid.
-Current prototype checkpoint (20 October 2026): balance begins and remains
-in a bent-arm two-hand connection; preparation arrives within reach. A joined
-hand pair persists through the ballroom transfer. The swing stance is compact
-(hip radius .25, outside foot .34) with right feet still on a shared .07 orbit.
-Use Inspect balance / Inspect hold in `timing-lab.html`. Main3D unchanged.
-See `src/execution-timing-study.ts`, `src/swing-torso-study.ts` and their tests.
-Released source e574309, artifact 797acc2, successful workflow39479390922.
-Sixteen focused tests, TypeScript, Pages build and exact-artifact/public
-browser checks pass. Browser samples all three presets through balance,
-transfer and preparation with connected reachable arms and no page errors.
-Independent geometry audit confirms exact joined contacts and bent arms. Thin-link contact is schematic;
-finite arm/head volume and force simulation remain unvalidated.
+Current prototype checkpoint (20 October 2026): timing lab renders the existing
+Avatar tiny dancers with perspective/orbit/overhead cameras through
+`src/timing-avatar-view.ts`. Balance opens/closes 1.04 to .68 while connected;
+joined hands lower to1.10 and non-shoulder elbows stay down/forward. Native
+right shoes use a .105 shared orbit to avoid overlap. Main choreography and
+Avatar class unchanged. Nineteen focused tests, TypeScript and Pages build pass. Software-WebGL
+browser checks cover three presets, connected balance, low joined hands,
+perspective/overhead views and phone layouts. Closed shoulder-arm paths use
+solid-limb clearance; contact geometry remains experimental. Publication
+pending. Hardware GPU/audio and comprehensive anatomy checks unrun.
 
 
 Keep context small: read the report for totals and query individual records in

@@ -48,11 +48,11 @@ function motionAt(beat:number,profile:ExecutionTimingProfile){
   phase='balance';
   // Two advancing steps, then two retreating foot placements. Late in the
   // fourth step, weight moves inward again over the planted rear foot.
-  radius=local<=2?.50-.12*smooth(local/2):.38+.12*smooth((local-2)/1.5)-.04*smooth((local-3.65)/.35);
+  radius=local<=2?.52-.18*smooth(local/2):.34+.18*smooth((local-2)/1.5)-.04*smooth((local-3.65)/.35);
  }else if(local<12){
   phase='swing';
   const elapsed=local-4,closing=smooth(elapsed/profile.transitionCounts);
-  radius=.46-(.46-.25)*closing;
+  radius=.48-(.48-.25)*closing;
   // Angular travel begins immediately while the pair closes, with no
   // gather-then-start dead zone. The closed frame puts the right side inward.
   angle=Math.PI/2*elapsed;frameTurn=(Math.PI/2+25*Math.PI/180)*closing;readiness=closing;
@@ -63,7 +63,7 @@ function motionAt(beat:number,profile:ExecutionTimingProfile){
   // Keep travelling through the exit interval instead of waiting motionless
   // for the final preparation window. One schematic turn returns both actors
   // to their original sides before the next balance.
-  radius=.25+(.50-.25)*readiness;
+  radius=.25+(.52-.25)*readiness;
   angle=4*Math.PI+2*Math.PI*smooth((local-12)/(finish-12));
   frameTurn=(Math.PI/2+25*Math.PI/180)*(1-readiness);
  }
@@ -86,7 +86,7 @@ export function sampleStudy(musicBeat:number,profile:ExecutionTimingProfile):Exe
   const count=cycle(landing),root=motionAt(count===15?16:landing,profile).poses[id];
   // During balance, the landing foot leads the body's weight transfer:
   // steps 1/2 go toward the other person, steps 3/4 go away.
-  const balanceRadius=[.44,.38,.44,.50][count];
+  const balanceRadius=[.43,.34,.43,.52][count];
   const x=balanceRadius===undefined?root.position.x:(id===0?-1:1)*balanceRadius;
   const z=balanceRadius===undefined?root.position.z:0;
   const sideSign=side==='left'?1:-1;
@@ -122,9 +122,9 @@ export function sampleStudy(musicBeat:number,profile:ExecutionTimingProfile):Exe
     return{x:root.position.x+dx*Math.cos(turn)+dz*Math.sin(turn),z:root.position.z-dx*Math.sin(turn)+dz*Math.cos(turn)};
    };
    const outside=followFrame(polar(footprintRadius+.09,alpha+trail*Math.PI/180));
-   const inside=followFrame(polar(Math.max(.07,footprintRadius-.18),alpha+25*Math.PI/180));
+   const inside=followFrame(polar(Math.max(.105,footprintRadius-.145),alpha+25*Math.PI/180));
    const settled=local>=12?1-readiness:smooth((local-(4+profile.transitionCounts))/.5);
-   const outer=offset(root,.09),inner=offset(root,-.18);
+   const outer=offset(root,.09),inner=offset(root,-.145);
    const targets=[{x:outer.x+(outside.x-outer.x)*settled,z:outer.z+(outside.z-outer.z)*settled},{x:inner.x+(inside.x-inner.x)*settled,z:inner.z+(inside.z-inner.z)*settled}];
    const entry=smooth((local-4)/.35),exit=smooth((local-15.5)/.5);
    for(let i=0;i<2;i++){

@@ -1,16 +1,17 @@
 import './timing-lab.css';
+import {createTimingAvatarView} from './timing-avatar-view.ts';
 import {sampleSwingTorsoStudy} from './swing-torso-study.ts';
 import {sampleStudy, FLUENT_TIMING_PROFILE, DEFAULT_TIMING_PROFILE, type ExecutionTimingProfile} from './execution-timing-study.ts';
 
 const root=document.querySelector<HTMLDivElement>('#timing-app')!;
 const slider=(key:string,title:string,min:number,max:number,step:number,help:string)=>`<label class="slider"><span class="slider-title">${title}<output id="${key}-value" for="${key}"></output></span><input id="${key}" type="range" min="${min}" max="${max}" step="${step}" aria-label="${title}"><small>${help}</small></label>`;
-const floor=(id:string,title:string,subtitle:string,badge:string)=>`<section class="floor-card ${id==='adjustable'?'adjustable':''}" aria-label="${title} pair"><div class="floor-heading"><div><h2>${title}</h2><p>${subtitle}</p></div><span class="badge">${badge}</span></div><svg id="${id}-floor" class="floor" viewBox="-170 -140 340 280" role="img" aria-label="${title} pair viewed from above"></svg><div class="phase"><strong id="${id}-phase">Balance forward</strong><span id="${id}-status">On the beat</span></div></section>`;
+const floor=(id:string,title:string,subtitle:string,badge:string)=>`<section class="floor-card ${id==='adjustable'?'adjustable':''}" aria-label="${title} pair"><div class="floor-heading"><div><h2>${title}</h2><p>${subtitle}</p></div><span class="badge">${badge}</span></div><div id="${id}-avatars" class="avatar-floor" aria-label="${title} tiny dancers in 3D"></div><svg hidden aria-hidden="true" id="${id}-floor" class="floor" viewBox="-170 -140 340 280" role="img" aria-label="${title} pair viewed from above"></svg><div class="phase"><strong id="${id}-phase">Balance forward</strong><span id="${id}-status">On the beat</span></div></section>`;
 root.innerHTML=`
   <header><a class="brand" href="./">Contra <span>Studio</span></a><a href="./">← Back to the dance floor</a></header>
   <main>
     <div class="eyebrow">Timing study</div>
-    <h1>Same music. A different feel.</h1>
-    <p class="intro">Arrive ready for count 1. Step forward, step back, then push from the fourth step into the swing. Explore what changes when the preparation is quick—or the response comes late.</p>
+    <h1>Connected steps. Tiny dancers.</h1>
+    <p class="intro">Start connected. Step closer, step back, then move into the swing. Drag either view to look around the dancers. Green is the lark; rust is the robin.</p>
     <div class="workspace">
       <div class="comparison">${floor('fluent','Fluent','Timing and frame reference','Ready ahead')}${floor('adjustable','Your timing','Adjust the feel on the right','Try a variation')}</div>
       <aside class="controls" aria-label="Adjustable pair timing">
@@ -28,7 +29,7 @@ root.innerHTML=`
         <div class="profile-note">L = lark, R = robin. Balance starts with both hands joined and elbows bent. One hand pair stays joined as the other transfers into the shoulder wrap.</div>
       </aside>
       <section class="timeline" aria-label="Shared musical clock">
-        <div class="transport"><button id="play" class="play" aria-label="Play timing study">Play</button><button id="inspect-balance" class="reset">Inspect balance</button><button id="inspect" class="reset" aria-label="Inspect ballroom hold">Inspect hold</button><button id="reset" class="reset" aria-label="Reset timing study">Reset</button><button id="click" class="reset" aria-label="Enable count click" aria-pressed="false">Click off</button><label class="tempo">Tempo <input id="tempo" type="number" min="60" max="160" value="112" step="1" aria-label="Tempo in beats per minute"> bpm</label></div>
+        <div class="transport"><button id="view-angle" class="reset" aria-pressed="false">View from above</button><button id="play" class="play" aria-label="Play timing study">Play</button><button id="inspect-balance" class="reset">Inspect balance</button><button id="inspect" class="reset" aria-label="Inspect ballroom hold">Inspect hold</button><button id="reset" class="reset" aria-label="Reset timing study">Reset</button><button id="click" class="reset" aria-label="Enable count click" aria-pressed="false">Click off</button><label class="tempo">Tempo <input id="tempo" type="number" min="60" max="160" value="112" step="1" aria-label="Tempo in beats per minute"> bpm</label></div>
         <div class="clock-line"><strong id="music-phase">Balance · forward</strong><span id="step-cue">Step 1 · left foot</span></div>
         <div class="counts" role="group" aria-label="Musical counts">${Array.from({length:8},(_,i)=>`<div class="count" data-count="${i+1}">${i+1}</div>`).join('')}</div>
         <label class="screen-reader" for="seek">Seek within the sixteen-count study</label><input id="seek" class="seek" type="range" min="0" max="15.99" step=".01" value="0"><div class="seek-labels"><span>Balance 1–4</span><span>Swing</span><span>Prepare → balance</span></div>
@@ -37,7 +38,7 @@ root.innerHTML=`
         <p class="chart-caption">Moving in lowers the line; moving back raises it. Balance: hands connected with bent elbows throughout planted steps and a fourth-step inward push. Swing: right feet step every count on a small shared circle; outside left feet push between steps. The hip bar faces outward; the oblong torso turns inward. The hand connects to the back of the partner's shoulder.</p>
       </section>
     </div>
-    <p class="study-note"><strong>A focused timing study.</strong> This simple pair repeats a balance, swing and preparation. It explores timing choices; it does not yet change the dances in the main studio or simulate individual dancers missing connections. The paths and thin arm links are schematic, not a physically validated dance performance.</p>
+    <p class="study-note"><strong>A focused timing study.</strong> This simple pair repeats a balance, swing and preparation. It explores timing choices; it does not yet change the dances in the main studio or simulate individual dancers missing connections. These are the studio dancer figures using experimental timing and contact motion, not a physically validated performance.</p>
     <footer><span>One shared clock · one step per count · no change to the written counts</span><a href="./">Return to Contra Studio</a></footer>
   </main>`;
 
@@ -64,6 +65,9 @@ async function enableAudio(){
 }
 const phaseLabel=(sample:ReturnType<typeof sampleStudy>)=>sample.phase==='balance'?(sample.executionCycleBeat<2?'Balance - step forward':sample.executionCycleBeat<3.65?'Balance - step back':'Fourth step - push toward the catch'):sample.phase==='swing'?'Buzz swing - right step every count':'Prepare for the balance';
 let inspectHold=true;
+const avatarViews={fluent:createTimingAvatarView($('#fluent-avatars')),adjustable:createTimingAvatarView($('#adjustable-avatars'))};
+let topView=false;
+$('#view-angle').addEventListener('click',()=>{topView=!topView;Object.values(avatarViews).forEach(view=>view.setView(topView?'top':'perspective'));$('#view-angle').textContent=topView?'View from the side':'View from above';$('#view-angle').setAttribute('aria-pressed',String(topView));render();});
 const palette={fluent:'#285e4d',adjustable:'#b76b49'};
 const wrap=(n:number,d:number)=>((n%d)+d)%d;
 function updateControls(){
@@ -77,10 +81,11 @@ function drawFloor(id:'fluent'|'adjustable',timing:ExecutionTimingProfile){
   const sample=sampleStudy(beat,timing),color=palette[id],scale=110;
   const frameWeight=sample.phase==='swing'?sample.readiness:sample.phase==='preparation'?1-sample.readiness:0;
   const frame=sampleSwingTorsoStudy(sample.poses,{torsoTwistDegrees:-(id==='fluent'?50:torsoTurn)*frameWeight,inwardLean:(id==='fluent'?.06:bodyCloseness*.08)*frameWeight,contactStrength:1,ballroomWeight:frameWeight});
+  avatarViews[id].render(sample,frame);
   const line=sample.poses.map(p=>({x:p.position.x*scale,y:p.position.z*scale}));
   let markup=`<defs><pattern id="${id}-grid" width="34" height="34" patternUnits="userSpaceOnUse"><path d="M 34 0 L 0 0 0 34" fill="none" stroke="#e9ece2" stroke-width=".8"/></pattern></defs><rect x="-150" y="-120" width="300" height="240" rx="16" fill="#f6f7ef"/><rect x="-150" y="-120" width="300" height="240" rx="16" fill="url(#${id}-grid)"/><circle r="85" fill="none" stroke="#dde4d6" stroke-dasharray="3 6"/><path d="M-7 0H7 M0-7V7" stroke="#cdd6c7"/>`;
   if(sample.readiness>0)markup+=`<line x1="${line[0].x}" y1="${line[0].y}" x2="${line[1].x}" y2="${line[1].y}" stroke="${color}" stroke-width="2" stroke-dasharray="4 5" opacity="${.15+.55*sample.readiness}"/>`;
-  if(sample.phase==='swing'&&sample.readiness>.99)markup+=`<circle r="${.07*scale}" fill="none" stroke="${color}" stroke-width="1" stroke-dasharray="2 3"/><circle r="2" fill="${color}"/>`;
+  if(sample.phase==='swing'&&sample.readiness>.99)markup+=`<circle r="${.105*scale}" fill="none" stroke="${color}" stroke-width="1" stroke-dasharray="2 3"/><circle r="2" fill="${color}"/>`;
   let armMarkup='';
   for(const arm of frame.arms){
     const good=arm.reachable&&arm.routeClear,stroke=good?(arm.comfortable?color:'#ad7025'):'#ba5347';

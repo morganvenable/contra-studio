@@ -155,3 +155,27 @@ Known prototype limitation: elbow selection can reposition sharply during
 the hand transfer (about .087 study units in fluent/default dense sampling).
 Hands remain connected and arm lengths fixed; fully smooth elbow motion is
 not claimed. Hardware GPU/audio and full body-volume checks remain unrun.
+
+## Tiny dancer prototype
+
+The lab now reuses the studio Avatar figures through timing-avatar-view.ts.
+Both three-dimensional views support orbiting and an overhead camera. Actual
+world-space hand, elbow and foot targets are transformed into their parent
+frames; torso rotation does not drag the feet or disconnect the hands. Hips
+remain with the pelvis and native .43-unit leg segments bend forward.
+
+Balance spacing varies from 1.04 to .68 between pelvis centers, preserving
+contact through the larger in/out motion. Joined hands are lowered to 1.10
+from the 1.35 shoulder height. The non-shoulder elbows route down and forward,
+rather than bending backward to preserve a high horizontal hold. The inside
+shoe orbit is .105 so native .15-wide/.29-long shoes remain adjacent without
+overlap; this supersedes the thin-marker .07 orbit. Main dance playback is
+unchanged; the existing Avatar class itself is not modified.
+
+The shoulder wrap now distinguishes supporting back contact at1.35 from the
+returning hand at1.40. The two wrapping elbow routes are selected jointly
+using the rendered limb radii, preventing the default closed-hold arm crossing.
+Nineteen focused tests cover lower joined hands, forward elbow limits, contact,
+compact feet and nonoverlapping native shoes. Software-WebGL browser views
+were inspected from the side and above. This does not certify all anatomical
+limits or smoothness of every elbow branch at arbitrary slider settings.
