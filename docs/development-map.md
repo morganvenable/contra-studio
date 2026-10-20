@@ -213,5 +213,45 @@ recommendation is an investigation scope, not admission of these sources.
   swing windows, not every other figure's motion. Raw Avatar contact tests are
   not GPU/audio certification. Fresh aggregate swing/Ready checks both pass:
   17,550 swing-pair checks (648 released entries) and all 129 retained Ready
-  defaults, zero failures/skips. Next finish the separate candidate browser
-  preview and rerun sharded CI before selecting another public artifact.
+  defaults, zero failures/skips. Separate candidate build/type-check and Chromium
+  playback of all four changed dances pass with no page errors; screenshot
+  inspection confirms the changed swing window renders. Full sharded CI for
+  `2b01e42` completed at Actions run `39368045145`: build and three test shards
+  pass; shard 1 fails on source 1464 expecting `established:swing` where the new
+  route returns `released-pair-swing`. Review its behavior and contract before
+  updating any expectation; this is not a green aggregate release. The verified
+  public preview is unchanged.
+
+## Current direction — figure semantics and corpus coverage
+
+Morgan requested a researched figure foundation instead of continuing to choose
+individual failing dances as the main work queue. Start with
+[figure-foundation-plan.md](figure-foundation-plan.md). It defines the inventory,
+source-backed catalogue, repeatable offline census, composition contract and
+evidence requirements. The first research pass is complete:
+
+- [Implementation inventory](figure-implementation-inventory.md) and
+  [research catalogue](figure-research-catalogue.md) each account for all 41 named
+  code kinds exactly once. The latter groups them into 32 pragmatic rows with
+  19 source references; it explicitly leaves unvalidated variants and visual/
+  caller review open.
+- [Coverage audit](coverage-audit.md) is reproducible with
+  `node --experimental-strip-types scripts/audit-coverage.mjs --write`.
+  It measures 2,422 catalogue records, 157 retained snapshots, 129 saved Ready
+  interpretations and 2,265 metadata-only records. Of 28 unsaved retained
+  records, hypothetical suggestions yield two compile-admitted candidates,
+  five motion/validation holds and 21 earlier-stage holds. Counts overlap
+  across views; stages are not synonymous with root causes.
+- Independent accounting review and four focused census tests pass. Both
+  41-kind inventories and local document links were checked. This research
+  does not alter production playback, saved choices or admission.
+
+Next follow the plan's ordered decisions: broaden retained source evidence,
+review candidates 8/2194, and specify the six-record hey cohort using encounter
+and exit requirements before adding another adapter. Do not promise six
+admissions from six related wording examples.
+
+Keep context small: read the report for totals and query individual records in
+`coverage-audit.json`; do not dump its approximately 1 MB of choices and evidence.
+The census includes importer validation and existing internal samples, not a new
+independent whole-period or body-motion certification.
