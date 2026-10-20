@@ -327,9 +327,11 @@ Current priority (Morgan, 20 October): execution timing and fluent handoffs.
 See [execution timing](execution-timing.md) and the separate `timing-lab.html`
 comparison. The study exposes preparation lead, transition duration, response
 delay and recovery against an unchanged musical clock. It does not alter the
-130 Ready dances. Next production work: repair a measured two-forward/two-back
-balance-to-swing handoff, then parameterize count-sized ramps and carried
-velocity. Left-loop geometry remains queued. A measured CI balancing proposal
+130 Ready dances. Morgan clarified planted foot contacts and the fourth-step inward push.
+The lab now uses independent world-space feet, lifted steps and support cues;
+its prior body-attached markers slid. Next production work: inspect airborne
+balance foot paths and weight transfer, then parameterize count-sized ramps
+and carried velocity. Left-loop geometry remains queued. A measured CI balancing proposal
 is in ignored research/contradb/release-shard-plan.json; no tests were removed.
 
 Timing study release: source cb77fb4, frozen artifact f49ed1a, successful

@@ -2,12 +2,32 @@ import test from'node:test';
 import assert from'node:assert/strict';
 import{sampleStudy,FLUENT_TIMING_PROFILE,DEFAULT_TIMING_PROFILE}from'./execution-timing-study.ts';
 const distance=(beat:number)=>Math.hypot(...Object.values(sampleStudy(beat,FLUENT_TIMING_PROFILE).poses[0].position) as [number,number]);
-test('balance takes two counts forward and two counts back; swing starts immediately',()=>{
- assert.equal(distance(0),.9);assert.equal(distance(2),.65);assert.equal(distance(4),.9);
+test('balance advances twice, retreats twice and pushes inward late on step four',()=>{
+ assert.equal(distance(0),.9);assert.equal(distance(2),.65);assert.equal(distance(4),.82);
  for(let tick=1;tick<=128;tick++)assert.ok(distance(tick/64)<distance((tick-1)/64));
- for(let tick=129;tick<=256;tick++)assert.ok(distance(tick/64)>distance((tick-1)/64));
+ for(let tick=129;tick<=224;tick++)assert.ok(distance(tick/64)>distance((tick-1)/64));
+ assert.ok(distance(3.9)<distance(3.65));
+ assert.ok(sampleStudy(3.9,FLUENT_TIMING_PROFILE).poses[0].pushOff>0);
  assert.ok(Math.abs(sampleStudy(4.001,FLUENT_TIMING_PROFILE).poses[0].position.z)>0);
  assert.deepEqual(sampleStudy(0,FLUENT_TIMING_PROFILE).phaseAnchors,{balanceStart:0,balanceTurn:2,swingStart:4,preparationStart:12,cycleEnd:16});
+});
+test('support feet stay world-fixed; swing feet lift and land continuously',()=>{
+ for(let step=0;step<32;step++){
+  const first=sampleStudy(step+.01,FLUENT_TIMING_PROFILE).poses;
+  for(let i=2;i<64;i++){
+   const poses=sampleStudy(step+i/64,FLUENT_TIMING_PROFILE).poses;
+   for(let id=0;id<2;id++){
+    const support=poses[id].feet.find(f=>f.planted)!,initial=first[id].feet.find(f=>f.planted)!;
+    assert.deepEqual(support.position,initial.position);assert.equal(support.yaw,initial.yaw);assert.equal(support.lift,0);assert.equal(support.supportWeight,1);
+    const flying=poses[id].feet.find(f=>!f.planted)!;assert.ok(flying.lift>0);assert.equal(flying.supportWeight,0);
+   }
+  }
+  const before=sampleStudy(step-1e-7,FLUENT_TIMING_PROFILE).poses,after=sampleStudy(step+1e-7,FLUENT_TIMING_PROFILE).poses;
+  for(let id=0;id<2;id++)for(let foot=0;foot<2;foot++)assert.ok(Math.hypot(before[id].feet[foot].position.x-after[id].feet[foot].position.x,before[id].feet[foot].position.z-after[id].feet[foot].position.z)<1e-5);
+ }
+ const landed=[0,1,2,3].map(beat=>sampleStudy(beat,FLUENT_TIMING_PROFILE).poses[0].feet.find(f=>f.planted)!.position.x);
+ assert.ok(landed[1]>landed[0]);assert.ok(landed[2]<landed[1]);assert.ok(landed[3]<landed[2]);
+ const fourth=sampleStudy(3.9,FLUENT_TIMING_PROFILE).poses[0];assert.ok(fourth.position.x>fourth.supportPoint.x);assert.ok(fourth.bodyLean.x>0);
 });
 test('shared execution clock is monotonic, deterministic and explicitly late',()=>{
  const extremes=[0,1].flatMap(anticipationCounts=>[.25,2].flatMap(transitionCounts=>[0,1].flatMap(responseDelayCounts=>[2,8].map(recoveryCounts=>({anticipationCounts,transitionCounts,responseDelayCounts,recoveryCounts})))));

@@ -9,7 +9,7 @@ root.innerHTML=`
   <main>
     <div class="eyebrow">Timing study</div>
     <h1>Same music. A different feel.</h1>
-    <p class="intro">Arrive ready for count 1. Take two steps forward, two back, then flow into the swing. Explore what changes when the preparation is quick—or the response comes late.</p>
+    <p class="intro">Arrive ready for count 1. Step forward, step back, then push from the fourth step into the swing. Explore what changes when the preparation is quick—or the response comes late.</p>
     <div class="workspace">
       <div class="comparison">${floor('fluent','Fluent','A fixed reference','Ready ahead')}${floor('adjustable','Your timing','Adjust the feel on the right','Try a variation')}</div>
       <aside class="controls" aria-label="Adjustable pair timing">
@@ -29,7 +29,7 @@ root.innerHTML=`
         <label class="screen-reader" for="seek">Seek within the sixteen-count study</label><input id="seek" class="seek" type="range" min="0" max="15.99" step=".01" value="0"><div class="seek-labels"><span>Balance 1–4</span><span>Swing</span><span>Prepare → balance</span></div>
         <div class="chart-heading"><h3>Space between the dancers</h3><div class="legend"><span>Fluent</span><span>Your timing</span></div></div>
         <svg id="distance-chart" class="chart" viewBox="0 0 760 174" role="img" aria-label="Distance between the dancers across sixteen counts. Forward for two counts, back for two, then swing and prepare."></svg>
-        <p class="chart-caption">Moving in lowers the line; moving back raises it. The marker and alternating foot highlights show the musical counts; the highlights are step cues, not simulated foot plants.</p>
+        <p class="chart-caption">Moving in lowers the line; moving back raises it. A solid shoe stays planted while the other foot lifts. The small dot marks support; the body moves relative to it. Count 4 places the foot back, then pushes the body inward.</p>
       </section>
     </div>
     <p class="study-note"><strong>A focused timing study.</strong> This simple pair repeats a balance, swing and preparation. It explores timing choices; it does not yet change the dances in the main studio or simulate individual dancers missing connections. The paths are schematic, not a physically validated dance performance.</p>
@@ -56,7 +56,7 @@ async function enableAudio(){
   try{audioContext??=new AudioContext();await audioContext.resume();if(playing)countClick();}
   catch{clickEnabled=false;$('#click').textContent='Click unavailable';$('#click').setAttribute('aria-pressed','false');$('#click').setAttribute('aria-label','Retry count click');}
 }
-const phaseLabel=(sample:ReturnType<typeof sampleStudy>)=>sample.phase==='balance'?(sample.executionCycleBeat<2?'Balance · forward':'Balance · back'):sample.phase==='swing'?'Swing':'Prepare for the balance';
+const phaseLabel=(sample:ReturnType<typeof sampleStudy>)=>sample.phase==='balance'?(sample.executionCycleBeat<2?'Balance - step forward':sample.executionCycleBeat<3.65?'Balance - step back':'Fourth step - push toward the catch'):sample.phase==='swing'?'Swing':'Prepare for the balance';
 const palette={fluent:'#285e4d',adjustable:'#b76b49'};
 const wrap=(n:number,d:number)=>((n%d)+d)%d;
 function updateControls(){
@@ -67,13 +67,19 @@ function updateControls(){
   document.querySelectorAll<HTMLButtonElement>('[data-preset]').forEach(button=>button.setAttribute('aria-pressed',String(Object.entries(presets[button.dataset.preset!]).every(([k,v])=>profile[k as keyof ExecutionTimingProfile]===v))));
 }
 function drawFloor(id:'fluent'|'adjustable',timing:ExecutionTimingProfile){
-  const sample=sampleStudy(beat,timing),color=palette[id],scale=85,musicStep=Math.floor(beat),foot=musicStep%2;
+  const sample=sampleStudy(beat,timing),color=palette[id],scale=85;
   const line=sample.poses.map(p=>({x:p.position.x*scale,y:p.position.z*scale}));
   let markup=`<defs><pattern id="${id}-grid" width="34" height="34" patternUnits="userSpaceOnUse"><path d="M 34 0 L 0 0 0 34" fill="none" stroke="#e9ece2" stroke-width=".8"/></pattern></defs><rect x="-150" y="-120" width="300" height="240" rx="16" fill="#f6f7ef"/><rect x="-150" y="-120" width="300" height="240" rx="16" fill="url(#${id}-grid)"/><circle r="85" fill="none" stroke="#dde4d6" stroke-dasharray="3 6"/><path d="M-7 0H7 M0-7V7" stroke="#cdd6c7"/>`;
   if(sample.readiness>0)markup+=`<line x1="${line[0].x}" y1="${line[0].y}" x2="${line[1].x}" y2="${line[1].y}" stroke="${color}" stroke-width="2" stroke-dasharray="4 5" opacity="${.15+.55*sample.readiness}"/>`;
   for(const p of sample.poses){
     const x=p.position.x*scale,y=p.position.z*scale,rotation=-p.yaw*180/Math.PI;
-    markup+=`<g transform="translate(${x} ${y})"><ellipse cx="0" cy="4" rx="20" ry="17" fill="#263d3510"/><g transform="rotate(${rotation})"><ellipse cx="-8" cy="15" rx="5" ry="9" fill="${foot===0?color:'#ced8cb'}" opacity="${foot===0?.8:.6}"/><ellipse cx="8" cy="15" rx="5" ry="9" fill="${foot===1?color:'#ced8cb'}" opacity="${foot===1?.8:.6}"/><circle r="16" fill="${p.id===0?color:'#fffefa'}" stroke="${color}" stroke-width="2.5"/><path d="M-5 6L0 12L5 6" fill="none" stroke="${p.id===0?'#fffefa':color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></g><text y="4" text-anchor="middle" fill="${p.id===0?'white':color}" font-family="sans-serif" font-size="10" font-weight="600">${p.id+1}</text></g>`;
+    const sx=p.supportPoint.x*scale,sy=p.supportPoint.z*scale;
+    markup+=`<line x1="${sx}" y1="${sy}" x2="${x}" y2="${y}" stroke="${color}" stroke-width="${1.5+2*p.pushOff}" opacity=".55"/><circle cx="${sx}" cy="${sy}" r="2.5" fill="${color}"/>`;
+    for(const f of p.feet){
+      const fx=f.position.x*scale,fy=f.position.z*scale,lift=f.lift*scale;
+      markup+=`<g data-actor="${p.id}" data-foot="${f.side}" data-planted="${f.planted}" transform="translate(${fx} ${fy})"><ellipse rx="5" ry="9" fill="#263d3520" transform="rotate(${-f.yaw*180/Math.PI})"/><g transform="translate(0 ${-lift}) rotate(${-f.yaw*180/Math.PI})"><ellipse rx="4.5" ry="8" fill="${f.planted?color:'#fffefa'}" stroke="${color}" stroke-width="1.5"/><path d="M-2 3H2" stroke="${f.planted?'#fffefa':color}" stroke-width="1"/></g></g>`;
+    }
+    markup+=`<g data-body="${p.id}" transform="translate(${x} ${y})"><circle r="12" fill="${p.id===0?color:'#fffefa'}" fill-opacity=".65" stroke="${color}" stroke-width="2"/><g transform="rotate(${rotation})"><path d="M-4 5L0 10L4 5" fill="none" stroke="${p.id===0?'#fffefa':color}" stroke-width="1.5"/></g><text y="2" text-anchor="middle" fill="${p.id===0?'white':color}" font-family="sans-serif" font-size="9" font-weight="600">${p.id+1}</text></g>`;
   }
   $(`#${id}-floor`).innerHTML=markup;
   $(`#${id}-phase`).textContent=phaseLabel(sample);
@@ -100,7 +106,7 @@ function render(){
   drawFloor('fluent',FLUENT_TIMING_PROFILE);drawFloor('adjustable',profile);
   const local=wrap(beat,16),count=Math.floor(local)%8+1;
   document.querySelectorAll<HTMLElement>('[data-count]').forEach(el=>{const active=Number(el.dataset.count)===count;el.classList.toggle('active',active);if(active)el.setAttribute('aria-current','step');else el.removeAttribute('aria-current');});
-  $('#music-phase').textContent=local<2?'Balance · two steps forward':local<4?'Balance · two steps back':local<12?'Swing · keep stepping':'Previous phrase · prepare for count 1';
+  $('#music-phase').textContent=local<2?'Balance - two steps forward':local<3.65?'Balance - step back':local<4?'Fourth step - push toward the catch':local<12?'Swing - keep stepping':'Previous phrase - prepare for count 1';
   $('#step-cue').textContent=`Count ${count} · ${Math.floor(beat)%2===0?'left':'right'} foot`;
   $<HTMLInputElement>('#seek').value=String(local);
   const x=String(chartX(local));$('#chart-cursor').setAttribute('x1',x);$('#chart-cursor').setAttribute('x2',x);
