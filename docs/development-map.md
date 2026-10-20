@@ -343,7 +343,9 @@ transferring it to production avatars; then address airborne balance feet and
 count-sized transition ramps. Hardware GPU and actual audio checks are unrun.
 
 Previous study release: source f068127, artifact 1d4a5af, workflow 39474177437.
-Current torso/frame release verification is in progress.
+Current torso/frame release: source c688295, frozen artifact 3c7fc37,
+successful publish workflow 39476502967. The exact built artifact and public
+Pages URL pass the same browser checks with zero page errors.
 
 
 Keep context small: read the report for totals and query individual records in
