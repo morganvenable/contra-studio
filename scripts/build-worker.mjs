@@ -2,6 +2,7 @@
 // No external proxy, credentials, database, or new sharing permissions are used.
 import {readFile,writeFile,readdir,mkdir,rm} from 'node:fs/promises';
 import path from 'node:path';
+import {readWorkerHostingManifest} from './worker-hosting-manifest.mjs';
 const root = path.resolve(import.meta.dirname,'..');
 const dist = path.join(root,'dist');
 const assets = {};
@@ -42,11 +43,13 @@ const source=route+`\nconst retainedSourceSnapshots=${JSON.stringify(retainedSou
  return new Response(request.method==='HEAD'?null:asset.body,{headers:{'content-type':asset.type,'x-content-type-options':'nosniff','cache-control':pathname.startsWith('/assets/')?'public,max-age=31536000,immutable':'no-cache'}});
 }};\n`;
 if(Buffer.byteLength(source)>4*1024*1024)throw new Error('Embedded worker exceeds project size budget.');
-const manifest=JSON.parse(await readFile(path.join(root,'.openai/hosting.json'),'utf8'));
-if(manifest.static)throw new Error('Remove static from source manifest for Worker migration.');
-await rm(dist,{recursive:true});await mkdir(path.join(dist,'server'),{recursive:true});await mkdir(path.join(dist,'.openai'),{recursive:true});
+const manifest=await readWorkerHostingManifest(root);
+await rm(dist,{recursive:true});await mkdir(path.join(dist,'server'),{recursive:true});
 await writeFile(path.join(dist,'server/index.js'),source);
-await writeFile(path.join(dist,'.openai/hosting.json'),JSON.stringify(manifest,null,2)+'\n');
+if(manifest!==undefined){
+ await mkdir(path.join(dist,'.openai'),{recursive:true});
+ await writeFile(path.join(dist,'.openai/hosting.json'),JSON.stringify(manifest,null,2)+'\n');
+}
 const mod=await import('data:text/javascript;base64,'+Buffer.from(source).toString('base64'));
 const home=await mod.default.fetch(new Request('https://example.test/'));
 if(home.status!==200||!(await home.text()).includes('<html'))throw new Error('Worker home smoke test failed.');

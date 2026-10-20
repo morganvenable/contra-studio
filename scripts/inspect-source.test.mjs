@@ -4,9 +4,20 @@ import {readFileSync,existsSync} from 'node:fs';
 import {parseArgs,inspectSources} from './inspect-source.mjs';
 
 test('CLI requires bounded explicit IDs and finite supported couple counts',()=>{
- for(const args of[[],['../110'],['0'],['831','--couples=NaN'],['831','--couples=3.5'],['831','--couples=13'],['831','--couples=3','--couples=4'],Array(21).fill('831')])assert.throws(()=>parseArgs(args));
+ for(const args of[[],['../110'],['0'],['831','--couples=NaN'],['831','--couples=3.5'],['831','--couples=13'],['831','--couples=3','--couples=4'],['110','--review','--review'],Array(21).fill('831')])assert.throws(()=>parseArgs(args));
  assert.deepEqual(parseArgs(['831','831','110','--couples=3']),{ids:['831','110'],couples:3});
  assert.deepEqual(parseArgs(['--help']),{help:true});
+});
+
+test('explicit review labels suggestions and exposes current 110 blocker without inventing an executable dance',async()=>{
+ const before=readFileSync(new URL('../test-data/contradb/110.json',import.meta.url),'utf8');
+ const report=await inspectSources(['110','831'],{review:true,couples:3});
+ const [held,ready]=report.sources;
+ assert.equal(held.review.status,'suggested-not-authored');assert.equal(held.review.baselineCoverage.resolvedRows,5);assert.equal(held.coverage.resolvedRows,8);
+ assert.ok(held.review.suggestions.items.some(s=>s.kind==='conventional-timing'));assert.ok(held.review.choices.items.some(c=>c.path.endsWith('.balanceBeats')&&c.valueJson==='4'));
+ assert.ok(held.diagnostics.items.some(d=>d.code==='unsupported-figure-variant'&&d.row===3));assert.equal(held.compilation.status,'not-run');assert.equal(held.coverage.executable,false);
+ assert.equal(ready.review.status,'saved-choices-retained');assert.equal(ready.review.suggestions.total,0);assert.equal(ready.compilation.status,'compiled');
+ assert.equal(readFileSync(new URL('../test-data/contradb/110.json',import.meta.url),'utf8'),before);
 });
 
 test('offline inspection distinguishes saved choices, unresolved snapshots, metadata and absence',async()=>{

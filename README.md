@@ -72,7 +72,9 @@ the project and Three.js notices in the distribution.
 For local use: `npm ci --cache ../.npm-cache`, then `npm run dev`. To preview the
 public build: `npm run build:pages`, then `npm run preview -- --host 127.0.0.1`.
 The normal `npm run build` remains the Worker package build and replaces static
-output, so rebuild Pages before previewing or uploading static files.
+output, so rebuild Pages before previewing or uploading static files. Worker
+packaging also works without `.openai/hosting.json`; an existing owner manifest is
+preserved when supplied, but a public clone does not invent a hosting identity.
 
 Hosting references: [Vite's GitHub Pages guide](https://vite.dev/guide/static-deploy.html#github-pages)
 and [GitHub Pages workflows](https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages).

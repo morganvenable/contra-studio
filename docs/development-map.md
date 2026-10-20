@@ -133,6 +133,23 @@ recommendation is an investigation scope, not admission of these sources.
   The connected GitHub profile is `morganvenable`; proposed destination is
   `morganvenable/contra-studio`, subject to availability. Local Git was initialized
   for versioned work; this is not recovered upstream history.
+- Local initial checkpoint: `aa79094`. Fresh Ready replay after integration passes
+  all 129 entries. Worker packaging now treats absent owner configuration as
+  optional; six packaging/source-inspection tests pass, including real Worker
+  packaging and smoke checks using minimal test assets with retained source data.
+  This does not substitute for a full Vite build with Three.js installed.
+- GitHub connector account/repository reads work; the proposed repository returns
+  404. GitHub CLI is already installed, but this session runs as
+  `CodexSandboxOffline` and cannot read the user's CLI config. Shell networking is
+  restricted and escalation is unavailable in this session. These are permission
+  boundaries, not a missing GitHub installation. The connector exposes no new-repo
+  creation tool. A normal-user `gh auth status` can separately check the CLI login.
+- Retained 110 now has a measured isolated reproduction in
+  `src/turn-swing-110-probe.test.ts`: uncontracted reconstructed endpoints collapse,
+  actual contracted endpoints do not. The first root corridor candidate over-turns
+  while holding hands; it is deliberately not registered. See its local probe doc.
+  `inspect-source.mjs 110 --review` reports 8/9 rows resolved with explicitly
+  suggested choices, retaining the separate unsupported rollaway blocker.
 - Resume build verification by completing lockfile installation in an environment
   with registry access, then run `npm run build`. Source 2299 still needs its exact
   retained fixture and independent whole-dance validation.
