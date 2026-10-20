@@ -4,6 +4,15 @@ Read this as a navigation index, not a second specification. The root `HANDOFF.m
 records release 0.42 and its holds. Older `next-*` documents may describe work
 already delivered. Contracts and executable tests determine current behavior.
 
+## Active parallel work ? 20 October 2026
+
+| Workstream | Current checkpoint | Next action |
+| --- | --- | --- |
+| Ready admissions / release (lead) | 12 reviewed additions preparing 142-entry batch; original 130 archives preserved | Finish exact-artifact browser checks and publish |
+| Shared figure composition | Across-set gyre-to-swing boundary blocks 3506; circular hey plus mid-dance progression blocks 2352 | Establish carried entry/exit contract and contrasting source cases |
+| Coverage triage | Receiver inference already exists; source823 formation alias and3478 provenance review under investigation | Measure actual admission payoff; no title-based exceptions |
+| Animation | Approved default hold continuous in sampled phase seams; extreme outward twist has invalid routes | Establish safe parameter domain separately from main choreography |
+
 ## How a dance becomes animation
 
 Retained source -> explicit reviewed interpretation -> checked choreography
@@ -323,7 +332,8 @@ not an exact-wrist claim for the whole dance. Software-WebGL browser playback an
 Hardware GPU, audio synchronization and caller review remain unrun.
 Public release: commit 7a6c676, workflow 39452391647 passed every motion shard,
 build/packaging and deployment. The public Pages site serves 130 Ready dances.
-Current priority (Morgan, 20 October): execution timing and fluent handoffs.
+Current direction (Morgan, 20 October): maintain parallel dance-coverage, shared-capability and animation workflows; feedback in one lane does not suspend the others. Lead owns integration, verification and public releases. Prioritize delivering complete dances while animation research continues independently.
+Execution timing and fluent handoffs:
 See [execution timing](execution-timing.md) and the separate `timing-lab.html`
 comparison. The study exposes preparation lead, transition duration, response
 delay and recovery against an unchanged musical clock. It does not alter the

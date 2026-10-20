@@ -1,5 +1,5 @@
 /** Actual retained source with explicit removable neutral-half-hey interpretation.
- * No Ready admission, generated archives, or choreography rewriting occurs here. */
+ * This fixture proves whole-dance motion for Ready admission without rewriting choreography. */
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';

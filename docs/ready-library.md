@@ -4,12 +4,23 @@ The Ready to play section contains reviewed source interpretations bundled with 
 
 The separate, collapsed ContraDB catalogue is a discovery index. Its entries are not all playable. Downloaded records still go through normal interpretation and whole-dance validation.
 
-As of 20 October 2026, 130 interpretations are included. The latest is Bill
-Olson's *Nomad's Land* (187), retaining the ContraDB paired balance/swing and
-eight-count chain. Its initial wave hands, compact spacing, receiver clearance,
-terminal wave return and finite-end preparation are explicit removable choices.
-The author's separately published wave-balance wording and different printed
-chain count are not silently substituted. The previous 129 archives are unchanged.
+As of 20 October 2026, 142 interpretations are included. The latest batch adds
+Opus 4.6.9 (3260), Cascades (188), South Union Reel (2062), South Union Reel var
+(2063), Culver City Contra (2213), Another Last Dance (2409), Spend Some Money
+Together (2605), Forgotten Treasure (2701), A-1 Reel var. (2966), Baughman Jig
+(3402), Sweet as Honey (3510), and Harmony Supper Line (933). These are source
+entries, including separately attributed variants, not a claim of unique compositions.
+
+The eleven acquired candidates preserve their literal 64 counts and explicit
+reviewed choices. Focused tests cover complete three-/four-couple periods,
+finite poses, figure seams, contact strength bounds and exact period closure.
+Opus 4.6.9 additionally has measured neutral-half-hey encounter and relationship
+checks. These are choreography checks, not comprehensive anatomical certification.
+The previous 130 archives retain their original bytes and provenance.
+
+Nomad's Land (187) retains the ContraDB paired balance/swing and eight-count
+chain. The author's separately published wave-balance wording and different
+printed chain count remain separate, unresolved variants.
 
 ## Generation and checks
 
