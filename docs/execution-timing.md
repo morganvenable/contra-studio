@@ -115,3 +115,22 @@ Eleven focused timing/foot/frame tests pass. Browser checks cover attached
 50-degree dissociation, unchanged feet while adjusting the frame, valid default
 contact, playback through phase boundaries, and 320/390/1440-pixel layouts.
 The main 3D avatar and choreography remain unchanged.
+
+## Ballroom-hold refinement
+
+Morgan's sketch specifies lark right hand behind robin left shoulder, robin
+left hand behind lark right shoulder, with lark left and robin right hands
+joined. This supersedes the earlier mirrored two-right-arm illustration. The
+lab assigns L/R to actors for this study only; cosmetic roles in production
+remain independent of choreography. An Inspect hold view enlarges the pair.
+
+Teaching references consulted 20 October 2026:
+- [John Sweeney, Contrafusion](https://contrafusion.co.uk/Contra.html): trailing
+  left foot, adjacent little-toe sides of right feet, upright smooth rotation,
+  and upper-body turn toward the partner without changing the foot direction.
+- [Anthony Stone, The Round](https://round.soc.srcf.net/dances/more_fun): right
+  foot lands each beat, trailing left takes weight briefly between beats.
+
+These sources describe variations in the returning hand placement. Morgan's
+shoulder-wrap drawing defines this prototype. Numeric angles and segment
+lengths remain adjustable illustrative choices, not measurements from sources.

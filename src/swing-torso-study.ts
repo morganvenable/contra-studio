@@ -1,17 +1,18 @@
 /** Illustrative shoulder connection study; not a biomechanical solver.
  * Hands meet the fixed posterior upper-shoulder edge at y=1.35, not the
  * lower shoulder blade. The torso is a finite elliptical cylinder and elbows
- * may rise .04-.12 above its top; arm thickness/head collisions are not modeled.
+ * may rise .04-.12 above its top, with the returning arm above the leading arm.
+ * Joined-hand elbows hang below shoulder level. Arm thickness/head collisions are not modeled.
  */
 import type {StudyPose} from './execution-timing-study.ts';
 export interface StudyPoint {x:number;z:number;y?:number;}
 export interface SwingTorsoOptions {torsoTwistDegrees:number;inwardLean?:number;contactStrength?:number;}
 export interface StudyTorso {
  id:0|1;center:StudyPoint;pelvisCenter:StudyPoint;pelvisYaw:number;torsoYaw:number;twistRadians:number;
- width:number;depth:number;leftShoulder:StudyPoint;rightShoulder:StudyPoint;leftBackShoulder:StudyPoint;
+ width:number;depth:number;leftShoulder:StudyPoint;rightShoulder:StudyPoint;leftBackShoulder:StudyPoint;rightBackShoulder:StudyPoint;
 }
 export interface StudyShoulderArm {
- actorId:0|1;partnerId:0|1;shoulder:StudyPoint;elbow:StudyPoint;hand:StudyPoint;target:StudyPoint;
+ actorId:0|1;partnerId:0|1;side:'left'|'right';kind:'shoulder'|'joined';shoulder:StudyPoint;elbow:StudyPoint;hand:StudyPoint;target:StudyPoint;
  reachable:boolean;comfortable:boolean;bendDegrees:number;routeClear:boolean;elbowRaised:boolean;contactStrength:number;reachDistance:number;upperLength:number;lowerLength:number;
 }
 const distance=(a:StudyPoint,b:StudyPoint)=>Math.hypot(a.x-b.x,a.z-b.z,(a.y??0)-(b.y??0));
@@ -38,12 +39,28 @@ export function sampleSwingTorsoStudy(poses:readonly [StudyPose,StudyPose],optio
   return{id:p.id,center,pelvisCenter:{...p.position},pelvisYaw:p.pelvisYaw,torsoYaw,twistRadians,width:.36,depth:.20,
    leftShoulder:add(center,left,.18),rightShoulder:add(center,left,-.18),
    // Posterior quadrant of the oblong, not its front or lateral extremity.
-   leftBackShoulder:add(add(center,left,.18*Math.SQRT1_2),forward,-.10*Math.SQRT1_2)};
+   leftBackShoulder:add(add(center,left,.18*Math.SQRT1_2),forward,-.10*Math.SQRT1_2),
+   rightBackShoulder:add(add(center,left,-.18*Math.SQRT1_2),forward,-.10*Math.SQRT1_2)};
  }) as [StudyTorso,StudyTorso];
- const arms=torsos.map((torso,i)=>{
-  const partner=torsos[1-i],shoulder={...torso.rightShoulder,y:1.35},target={...partner.leftBackShoulder,y:1.35};
+ // The shoulder embrace and joined hands occupy opposite sides of the pair.
+ const lark=torsos.find(t=>t.id===0)!,robin=torsos.find(t=>t.id===1)!;
+ const joinedMid={x:(lark.leftShoulder.x+robin.rightShoulder.x)/2,z:(lark.leftShoulder.z+robin.rightShoulder.z)/2};
+ const pairSpan=Math.hypot(robin.center.x-lark.center.x,robin.center.z-lark.center.z);
+ const lateral={x:Math.cos(lark.torsoYaw),z:-Math.sin(lark.torsoYaw)};
+ const perpendicular=pairSpan>1e-12?{x:-(robin.center.z-lark.center.z)/pairSpan,z:(robin.center.x-lark.center.x)/pairSpan}:lateral;
+ const sign=perpendicular.x*lateral.x+perpendicular.z*lateral.z>=0?1:-1;
+ const joinedOut={x:perpendicular.x*sign,z:perpendicular.z*sign};
+ const joinedTarget={...add(joinedMid,joinedOut,.24),y:1.35};
+ const specs=[
+  {torso:lark,partner:robin,side:'right',kind:'shoulder',target:robin.leftBackShoulder},
+  {torso:robin,partner:lark,side:'left',kind:'shoulder',target:lark.rightBackShoulder},
+  {torso:lark,partner:robin,side:'left',kind:'joined',target:joinedTarget},
+  {torso:robin,partner:lark,side:'right',kind:'joined',target:joinedTarget},
+ ] as const;
+ const arms=specs.map(({torso,partner,side,kind,target:contactTarget})=>{
+  const shoulder={...(side==='left'?torso.leftShoulder:torso.rightShoulder),y:1.35},target={...contactTarget,y:1.35};
   const reachDistance=distance(shoulder,target),reachable=reachDistance<=.65+1e-12;
-  const direction={x:(target.x-shoulder.x)/reachDistance,z:(target.z-shoulder.z)/reachDistance,y:(target.y-shoulder.y)/reachDistance};
+  const direction=reachDistance>1e-12?{x:(target.x-shoulder.x)/reachDistance,z:(target.z-shoulder.z)/reachDistance,y:(target.y-shoulder.y)/reachDistance}:{x:Math.sin(torso.torsoYaw),z:Math.cos(torso.torsoYaw),y:0};
   const hand=reachable?{...target}:add(shoulder,direction,.65),span=distance(shoulder,hand),mid=add(shoulder,direction,span/2);
   const bend=Math.sqrt(Math.max(0,.325**2-(span/2)**2));
   const horizontal=Math.hypot(direction.x,direction.z),u=horizontal>1e-12?{x:-direction.z/horizontal,z:direction.x/horizontal,y:0}:{x:1,z:0,y:0};
@@ -59,15 +76,23 @@ export function sampleSwingTorsoStudy(poses:readonly [StudyPose,StudyPose],optio
    const along={x:b.x-a.x,z:b.z-a.z,y:dy};
    return ellipseMinimum(add(a,along,lo),add(a,along,hi),t)>=1-1e-9;
   };
-  let elbow=add(mid,u,bend),routeClear=false;
+  let elbow=add(mid,u,bend),routeClear=false,bestScore=-Infinity;
   for(let j=0;j<720;j++){
    const angle=j*Math.PI/360,candidate=add(add(mid,u,bend*Math.cos(angle)),v,bend*Math.sin(angle));
-   if((candidate.y??0)>1.47+1e-10||(candidate.y??0)<1.39)continue;
-   if(torsos.every(t=>segmentClear(shoulder,candidate,t)&&segmentClear(candidate,hand,t))){elbow=candidate;routeClear=true;break;}
+   const minHeight=kind==='joined'?1.10:torso.id===0?1.39:1.35+Math.min(.10,bend*.8);
+   const maxHeight=kind==='joined'?1.25:torso.id===0?1.41:1.47;
+   if((candidate.y??0)>maxHeight+1e-10||(candidate.y??0)<minHeight)continue;
+   if(torsos.every(t=>segmentClear(shoulder,candidate,t)&&segmentClear(candidate,hand,t))){
+    // Favor the elbow on its own side, away from the space between torsos.
+    const lateral={x:Math.cos(torso.torsoYaw)*(side==='left'?1:-1),z:-Math.sin(torso.torsoYaw)*(side==='left'?1:-1)};
+    const outward=(candidate.x-mid.x)*lateral.x+(candidate.z-mid.z)*lateral.z;
+    const score=kind==='joined'?-(candidate.y??0)+.05*outward:outward;
+    if(score>bestScore){elbow=candidate;routeClear=true;bestScore=score;}
+   }
   }
   const bendDegrees=2*Math.acos(Math.min(1,span/.65))*180/Math.PI,comfortable=reachable&&reachDistance<=.585;
-  return{actorId:torso.id,partnerId:partner.id,shoulder,elbow,hand,target,reachable,comfortable,bendDegrees,routeClear,elbowRaised:(elbow.y??0)>1.35+1e-6,contactStrength:reachable?contactStrength:0,reachDistance,upperLength:.325,lowerLength:.325};
- }) as [StudyShoulderArm,StudyShoulderArm];
+  return{actorId:torso.id,partnerId:partner.id,side,kind,shoulder,elbow,hand,target,reachable,comfortable,bendDegrees,routeClear,elbowRaised:(elbow.y??0)>1.35+1e-6,contactStrength:reachable?contactStrength:0,reachDistance,upperLength:.325,lowerLength:.325};
+ }) as StudyShoulderArm[];
  return{torsos,arms,maxReach:.65,illustrative:true as const};
 }
 

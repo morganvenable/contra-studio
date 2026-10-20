@@ -25,10 +25,10 @@ root.innerHTML=`
         ${slider('torsoTurn','Torso turn inward',-35,70,1,'Turn the shoulders relative to the hips. Positive turns toward your partner.')}
         ${slider('bodyCloseness','Body closeness',0,1,.05,'Bring the shoulders closer while the feet and hips keep their paths.')}
         <p id="frame-status" class="profile-note" role="status">Try the swing to inspect the shoulder connection.</p>
-        <div class="profile-note">One back-of-shoulder hold per dancer is shown. Arms keep their length; the torso can turn over the attached hips.</div>
+        <div class="profile-note">L = lark, R = robin. Lark right and robin left wrap behind the shoulders; their other hands join. Arms keep their length as the torso turns over the hips.</div>
       </aside>
       <section class="timeline" aria-label="Shared musical clock">
-        <div class="transport"><button id="play" class="play" aria-label="Play timing study">Play</button><button id="reset" class="reset" aria-label="Reset timing study">Reset</button><button id="click" class="reset" aria-label="Enable count click" aria-pressed="false">Click off</button><label class="tempo">Tempo <input id="tempo" type="number" min="60" max="160" value="112" step="1" aria-label="Tempo in beats per minute"> bpm</label></div>
+        <div class="transport"><button id="play" class="play" aria-label="Play timing study">Play</button><button id="inspect" class="reset" aria-label="Inspect ballroom hold">Inspect hold</button><button id="reset" class="reset" aria-label="Reset timing study">Reset</button><button id="click" class="reset" aria-label="Enable count click" aria-pressed="false">Click off</button><label class="tempo">Tempo <input id="tempo" type="number" min="60" max="160" value="112" step="1" aria-label="Tempo in beats per minute"> bpm</label></div>
         <div class="clock-line"><strong id="music-phase">Balance · forward</strong><span id="step-cue">Step 1 · left foot</span></div>
         <div class="counts" role="group" aria-label="Musical counts">${Array.from({length:8},(_,i)=>`<div class="count" data-count="${i+1}">${i+1}</div>`).join('')}</div>
         <label class="screen-reader" for="seek">Seek within the sixteen-count study</label><input id="seek" class="seek" type="range" min="0" max="15.99" step=".01" value="0"><div class="seek-labels"><span>Balance 1–4</span><span>Swing</span><span>Prepare → balance</span></div>
@@ -48,7 +48,7 @@ const presets:Record<string,ExecutionTimingProfile>={
   late:{anticipationCounts:0,transitionCounts:1.5,responseDelayCounts:.75,recoveryCounts:4},
 };
 let torsoTurn=50,bodyCloseness=.75;
-let profile={...presets.measured},beat=12,playing=false,bpm=112,previousTime=performance.now();
+let profile={...presets.measured},beat=8,playing=false,bpm=112,previousTime=performance.now();
 let clickEnabled=false,audioContext:AudioContext|undefined,lastClickedBeat=-1;
 function countClick(){
   if(!clickEnabled||!audioContext||audioContext.state!=='running')return;
@@ -63,6 +63,7 @@ async function enableAudio(){
   catch{clickEnabled=false;$('#click').textContent='Click unavailable';$('#click').setAttribute('aria-pressed','false');$('#click').setAttribute('aria-label','Retry count click');}
 }
 const phaseLabel=(sample:ReturnType<typeof sampleStudy>)=>sample.phase==='balance'?(sample.executionCycleBeat<2?'Balance - step forward':sample.executionCycleBeat<3.65?'Balance - step back':'Fourth step - push toward the catch'):sample.phase==='swing'?'Buzz swing - right step every count':'Prepare for the balance';
+let inspectHold=true;
 const palette={fluent:'#285e4d',adjustable:'#b76b49'};
 const wrap=(n:number,d:number)=>((n%d)+d)%d;
 function updateControls(){
@@ -83,7 +84,7 @@ function drawFloor(id:'fluent'|'adjustable',timing:ExecutionTimingProfile){
   let armMarkup='';
   for(const arm of frame.arms)if(frameWeight>.01){
     const good=arm.reachable&&arm.routeClear,stroke=good?(arm.comfortable?color:'#ad7025'):'#ba5347';
-    armMarkup+=`<path data-arm="${arm.actorId}" data-reachable="${arm.reachable}" data-route-clear="${arm.routeClear}" d="M${arm.shoulder.x*scale} ${arm.shoulder.z*scale} L${arm.elbow.x*scale} ${arm.elbow.z*scale} L${arm.hand.x*scale} ${arm.hand.z*scale}" fill="none" stroke="${stroke}" stroke-width="3" stroke-linecap="round" opacity="${frameWeight}" ${good?'':'stroke-dasharray="3 3"'}/><circle data-shoulder-contact="${arm.actorId}" cx="${arm.target.x*scale}" cy="${arm.target.z*scale}" r="3.5" fill="${good?stroke:'#fffefa'}" stroke="${stroke}" stroke-width="1.5" opacity="${frameWeight}"/>`;
+    armMarkup+=`<path data-arm="${arm.actorId}" data-arm-side="${arm.side}" data-contact-kind="${arm.kind}" data-reachable="${arm.reachable}" data-route-clear="${arm.routeClear}" d="M${arm.shoulder.x*scale} ${arm.shoulder.z*scale} L${arm.elbow.x*scale} ${arm.elbow.z*scale} L${arm.hand.x*scale} ${arm.hand.z*scale}" fill="none" stroke="${stroke}" stroke-width="3" stroke-linecap="round" opacity="${frameWeight}" ${good?'':'stroke-dasharray="3 3"'}/><circle data-hand-contact="${arm.actorId}-${arm.side}" cx="${arm.target.x*scale}" cy="${arm.target.z*scale}" r="3.5" fill="${good?stroke:'#fffefa'}" stroke="${stroke}" stroke-width="1.5" opacity="${frameWeight}"/>`;
   }
   for(const p of sample.poses){
     const torso=frame.torsos.find(t=>t.id===p.id)!;
@@ -97,10 +98,11 @@ function drawFloor(id:'fluent'|'adjustable',timing:ExecutionTimingProfile){
       const fx=f.position.x*scale,fy=f.position.z*scale,lift=f.lift*scale;
       markup+=`<g data-actor="${p.id}" data-foot="${f.side}" data-planted="${f.planted}" data-contact="${f.contact}" transform="translate(${fx} ${fy})"><ellipse rx="5" ry="9" fill="#263d3520" transform="rotate(${-f.yaw*180/Math.PI})"/><g transform="translate(0 ${-lift}) rotate(${-f.yaw*180/Math.PI})"><ellipse rx="4.5" ry="8" fill="${f.contact!=='airborne'?color:'#fffefa'}" stroke="${color}" stroke-width="1.5"/><path d="M-2 3H2" stroke="${f.contact!=='airborne'?'#fffefa':color}" stroke-width="1"/></g></g>`;
     }
-    markup+=`<line x1="${p.position.x*scale}" y1="${p.position.z*scale}" x2="${x}" y2="${y}" stroke="${color}" stroke-width="7" opacity=".5"/><g data-body="${p.id}" data-pelvis-yaw="${p.pelvisYaw}" data-torso-yaw="${torso.torsoYaw}" transform="translate(${x} ${y})"><g transform="rotate(${rotation})"><ellipse data-torso="${p.id}" rx="${torso.width*scale/2}" ry="${torso.depth*scale/2}" fill="${p.id===0?color:'#fffefa'}" fill-opacity=".72" stroke="${color}" stroke-width="2"/><path d="M-4 5L0 10L4 5" fill="none" stroke="${p.id===0?'#fffefa':color}" stroke-width="1.5"/></g><text y="2" text-anchor="middle" fill="${p.id===0?'white':color}" font-family="sans-serif" font-size="9" font-weight="600">${p.id+1}</text></g>`;
+    markup+=`<line x1="${p.position.x*scale}" y1="${p.position.z*scale}" x2="${x}" y2="${y}" stroke="${color}" stroke-width="7" opacity=".5"/><g data-body="${p.id}" data-pelvis-yaw="${p.pelvisYaw}" data-torso-yaw="${torso.torsoYaw}" transform="translate(${x} ${y})"><g transform="rotate(${rotation})"><ellipse data-torso="${p.id}" rx="${torso.width*scale/2}" ry="${torso.depth*scale/2}" fill="${p.id===0?color:'#fffefa'}" fill-opacity=".72" stroke="${color}" stroke-width="2"/><path d="M-4 5L0 10L4 5" fill="none" stroke="${p.id===0?'#fffefa':color}" stroke-width="1.5"/></g><text y="2" text-anchor="middle" fill="${p.id===0?'white':color}" font-family="sans-serif" font-size="9" font-weight="600">${p.id===0?'L':'R'}</text></g>`;
   }
   markup+=armMarkup;
-  if(id==='adjustable')$('#frame-status').textContent=frameWeight<.95?'Shoulder hold forms as the pair closes.':frame.arms.some(a=>!a.reachable)?'Out of reach: bring the shoulders closer.':frame.arms.some(a=>!a.routeClear)?'Arm path crosses the torso: adjust the frame.':frame.arms.some(a=>!a.comfortable)?'Nearly straight arms: bring the shoulders closer.':`Back-of-shoulder contact: ${Math.round(Math.min(...frame.arms.map(a=>a.bendDegrees)))} degrees of elbow bend`;
+  if(id==='adjustable')$('#frame-status').textContent=frameWeight<.95?'Shoulder hold forms as the pair closes.':frame.arms.some(a=>!a.reachable)?'Out of reach: bring the shoulders closer.':frame.arms.some(a=>!a.routeClear)?'Arm path crosses the torso: adjust the frame.':frame.arms.some(a=>!a.comfortable)?'Nearly straight arms: bring the shoulders closer.':`Ballroom hold: ${Math.round(Math.min(...frame.arms.map(a=>a.bendDegrees)))} degrees of elbow bend`;
+  $(`#${id}-floor`).setAttribute('viewBox',inspectHold?'-90 -80 180 160':'-170 -140 340 280');
   $(`#${id}-floor`).innerHTML=markup;
   $(`#${id}-phase`).textContent=phaseLabel(sample);
   $(`#${id}-status`).textContent=sample.lag>.025?`${sample.lag.toFixed(2)} count behind`:sample.phase==='preparation'&&sample.readiness>.98?'Ready for count 1':'On the beat';
@@ -131,12 +133,13 @@ function render(){
   $<HTMLInputElement>('#seek').value=String(local);
   const x=String(chartX(local));$('#chart-cursor').setAttribute('x1',x);$('#chart-cursor').setAttribute('x2',x);
 }
-function setPlaying(value:boolean){playing=value;previousTime=performance.now();$('#play').textContent=playing?'Pause':'Play';$('#play').setAttribute('aria-label',`${playing?'Pause':'Play'} timing study`);if(playing&&clickEnabled)void enableAudio();}
+function setPlaying(value:boolean){playing=value;if(value)inspectHold=false;previousTime=performance.now();$('#play').textContent=playing?'Pause':'Play';$('#play').setAttribute('aria-label',`${playing?'Pause':'Play'} timing study`);if(playing&&clickEnabled)void enableAudio();}
 $('#play').addEventListener('click',()=>setPlaying(!playing));
-$('#reset').addEventListener('click',()=>{setPlaying(false);beat=12;lastClickedBeat=-1;render();});
+$('#inspect').addEventListener('click',()=>{setPlaying(false);inspectHold=true;beat=8;render();});
+$('#reset').addEventListener('click',()=>{setPlaying(false);inspectHold=false;beat=12;lastClickedBeat=-1;render();});
 $('#click').addEventListener('click',()=>{clickEnabled=!clickEnabled;$('#click').textContent=clickEnabled?'Click on':'Click off';$('#click').setAttribute('aria-pressed',String(clickEnabled));$('#click').setAttribute('aria-label',`${clickEnabled?'Disable':'Enable'} count click`);if(clickEnabled)void enableAudio();});
 $('#tempo').addEventListener('change',()=>{bpm=Math.max(60,Math.min(160,Number($<HTMLInputElement>('#tempo').value)||112));$<HTMLInputElement>('#tempo').value=String(bpm);});
-$('#seek').addEventListener('input',()=>{beat=Number($<HTMLInputElement>('#seek').value);lastClickedBeat=-1;render();});
+$('#seek').addEventListener('input',()=>{inspectHold=false;beat=Number($<HTMLInputElement>('#seek').value);lastClickedBeat=-1;render();});
 for(const key of Object.keys(profile) as (keyof ExecutionTimingProfile)[])$('#'+key).addEventListener('input',()=>{profile={...profile,[key]:Number($<HTMLInputElement>('#'+key).value)};updateControls();drawChart();render();});
 document.querySelectorAll<HTMLButtonElement>('[data-preset]').forEach(button=>button.addEventListener('click',()=>{profile={...presets[button.dataset.preset!]};updateControls();drawChart();render();}));
 document.addEventListener('keydown',event=>{if(event.code==='Space'&&event.target===document.body){event.preventDefault();setPlaying(!playing);}});

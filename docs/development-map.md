@@ -330,22 +330,16 @@ delay and recovery against an unchanged musical clock. It does not alter the
 130 Ready dances. Morgan clarified planted foot contacts and the fourth-step inward push.
 The lab now uses independent world-space feet, lifted steps and support cues;
 its prior body-attached markers slid.
-The swing study now has angularly leading right feet and trailing left feet,
-an outward-facing pelvis, an inward-turning oblong torso and adjustable
-closeness. Fixed-length bent arms target the posterior upper shoulder edge.
-See `src/swing-torso-study.ts` and its focused tests. Eleven timing/foot/frame
-tests and TypeScript pass; browser checks cover controls, preserved feet,
-default contact, phase boundaries and 320-1440px layouts. Independent geometry
-review confirms attached torsos and fixed arm lengths. Thin-link routes clear
-the finite torso; thick-arm/head/force validation remains outside this study.
-The main 3D engine remains unchanged. Next: review this visible frame before
-transferring it to production avatars; then address airborne balance feet and
-count-sized transition ramps. Hardware GPU and actual audio checks are unrun.
-
-Previous study release: source f068127, artifact 1d4a5af, workflow 39474177437.
-Current torso/frame release: source c688295, frozen artifact 3c7fc37,
-successful publish workflow 39476502967. The exact built artifact and public
-Pages URL pass the same browser checks with zero page errors.
+Current prototype checkpoint (20 October 2026): the timing lab now uses an
+asymmetric four-arm ballroom hold: lark right to robin left rear shoulder,
+robin left to lark right rear shoulder, and the other hands joined. The opening
+view and Inspect hold button enlarge this frame; phone layouts stack the pairs.
+Right-leading/left-trailing feet and outward pelvis/inward torso remain. See
+`src/swing-torso-study.ts` and [execution timing](execution-timing.md).
+Main 3D choreography remains unchanged. Prototype geometry is illustrative;
+head, thick-arm and force validation is not comprehensive. Next: review this
+frame visually, then transfer the accepted hold to production avatars.
+Current verification and public release pending.
 
 
 Keep context small: read the report for totals and query individual records in
