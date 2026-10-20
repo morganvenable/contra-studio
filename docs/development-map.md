@@ -332,6 +332,14 @@ balance-to-swing handoff, then parameterize count-sized ramps and carried
 velocity. Left-loop geometry remains queued. A measured CI balancing proposal
 is in ignored research/contradb/release-shard-plan.json; no tests were removed.
 
+Timing study release: source cb77fb4, frozen artifact f49ed1a, successful
+workflow 39469528493. Four timing-contract tests and 29 packaging/data-script
+tests passed, as did TypeScript and the multipage build. Browser checks covered
+presets, parameter extremes, seeking, playback, count-click API operation,
+320?1440px layouts, the built studio link and reopening Nomad's Land. Actual
+audio listening and production whole-dance execution profiles remain unrun.
+
+
 Keep context small: read the report for totals and query individual records in
 `coverage-audit.json`; do not dump its approximately 1 MB of choices and evidence.
 The census includes importer validation and existing internal samples, not a new
