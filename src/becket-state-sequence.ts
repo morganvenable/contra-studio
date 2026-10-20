@@ -49,7 +49,7 @@ export function compileBecketStateSequence(input:Dance,couples:number,capabiliti
    return{figure,entryFacingBeats:strict||continuity.swingEntry?0:Math.min(1,figure.beats*.125),compile(context){
     context={...context,next:dance.figures[index+1]};const groupKey=[...context.ids].sort((a,b)=>a-b).join(':'),raw=endings.get(groupKey)??[],incoming=captureSequenceBoundary(context,starts[index],raw),result=compileSequenceStep(figure,context,incoming,()=>compilePrimitiveFigure(figure,context.ids,context.start,context.dancers,dancers.filter(d=>d.role==='lark').map(d=>d.direction),continuity),capabilities),entry=sampleSequenceBoundary(context,result.plan,starts[index],0),exit=sampleSequenceBoundary(context,result.plan,starts[index]+figure.beats,1);
     if(result.boundaryPlan)assertSequenceHandoff(incoming,entry);
-    endings.set(groupKey,structuredClone(exit.heldContacts) as HandContact[]);proofs.push({figureId:figure.id,adapterId:result.adapterId,contactPolicy:result.boundaryPlan?'strict-carried':'established-acquisition',incoming,entry,exit});return result.plan;
+    endings.set(groupKey,structuredClone(exit.heldContacts) as HandContact[]);proofs.push({figureId:figure.id,adapterId:result.adapterId,contactPolicy:result.boundaryPlan?'strict-carried':'established-acquisition',incoming,entry,exit});return result.adapterId==='released-pair-swing'?{...result.plan,ownsEntryFacing:result.ownsEntryFacing}:result.plan;
    },inactive:waiting?(beat)=>waiting.sampleWaiting(sourceOffset+beat):undefined};
   });
   return compileEventSection({dancers,initial,binding,steps,totalBeats:dance.figures.slice(from,to).reduce((n,f)=>n+f.beats,0)});

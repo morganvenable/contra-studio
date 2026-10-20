@@ -69,6 +69,16 @@ Pages source and run **Verify and publish Pages** on `main` with `deploy` enable
 The deployment job runs only after verification succeeds. The workflow includes
 the project and Three.js notices in the distribution.
 
+The public preview is https://morganvenable.github.io/contra-studio/ .
+To publish an already built and browser-checked version while separate motion
+research continues, commit that exact `dist/` artifact (plus distribution license
+notices) to `pages-release`, then run **Publish previewed build** with its exact
+commit SHA. This workflow publishes the retained artifact without rebuilding
+unfinished work. It records the artifact revision in `deployed-commit.txt`.
+Keep failed or unreviewed changes out of the published artifact; broader
+regression work continues independently. Verify the public app and asset hashes
+after deployment.
+
 For local use: `npm ci --cache ../.npm-cache`, then `npm run dev`. To preview the
 public build: `npm run build:pages`, then `npm run preview -- --host 127.0.0.1`.
 The normal `npm run build` remains the Worker package build and replaces static

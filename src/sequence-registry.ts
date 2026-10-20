@@ -1,4 +1,5 @@
 import {compileNeighborDosidoStep} from './neighbor-dosido-step.ts';
+import {needsReleasedPairSwingEntry,compileReleasedPairSwingStep} from './released-pair-swing-step.ts';
 import {acceptsStarGyreStep,compileStarGyreStep} from './star-gyre-step.ts';
 import {compileStandaloneRollawayStep} from './standalone-rollaway-step.ts';
 import {compileCoupledDosidoStep} from './coupled-dosido-step.ts';
@@ -41,6 +42,10 @@ export interface SequenceStepResult {readonly adapterId:string;readonly plan:Mot
  * through the same actual-state seam. New adapters consume the complete held
  * boundary directly; no whole-source signature is available to this registry. */
 export function compileSequenceStep(figure:Figure,context:FigureContext,incoming:SequenceBoundary,compileEstablished:()=>MotionPlan,capabilities:MotionCapabilities={}):SequenceStepResult {
+ if(needsReleasedPairSwingEntry(figure,context,incoming)){
+  const plan=compileReleasedPairSwingStep(figure,context,incoming);
+  return{adapterId:'released-pair-swing',plan,ownsEntryFacing:true,boundaryPlan:plan};
+ }
  if(figure.kind==='do-si-do'&&figure.who==='neighbor'&&figure.exit!==undefined){
   if(!capabilities.stateCarryingNeighborDosidos)throw new Error('A progressing neighbor do-si-do requires its registered actual-state pair boundary.');
   const plan=compileNeighborDosidoStep(figure,context,incoming);

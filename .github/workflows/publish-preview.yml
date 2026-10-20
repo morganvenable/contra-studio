@@ -33,6 +33,8 @@ jobs:
         env:
           ARTIFACT_COMMIT: ${{ inputs.artifact_commit }}
         run: |
+          [[ "$ARTIFACT_COMMIT" =~ ^[0-9a-f]{40}$ ]]
+          test "$(git -C site rev-parse HEAD)" = "$ARTIFACT_COMMIT"
           test -f site/index.html
           test -d site/assets
           test -f site/contradb-index.json

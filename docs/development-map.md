@@ -181,3 +181,26 @@ recommendation is an investigation scope, not admission of these sources.
   Correcting that guard exposed a real 3181 timing defect: the legacy 16-count
   partner swing waits 2.24 counts before rotating. A bounded released-pair adapter
   is the next production fix; do not add a source-ID exemption or relax the guard.
+- Public preview is now live at https://morganvenable.github.io/contra-studio/ .
+  Workflow `publish-preview.yml` deployed the exact browser-checked local artifact
+  from `pages-release` commit `14894f8b56795579acab2ac19838c4bbe71010fb`.
+  Public HTTP 200, rendering, playback advancement and no page errors were
+  verified; public JS SHA256 exactly matches local
+  `253ba4b6c2fad4cfac48f45e5e47e11ab259d1a1855e0aefeee727173c488478`.
+  This is a preview smoke check, not full motion certification. Unfinished
+  released-swing changes are excluded. Publish working, previewed artifacts
+  independently of ongoing regression research; never replace them with a
+  failing development build merely to move deployment forward.
+- The released-pair fix is now limited to sixteen-count partner swings from
+  actual released standard sideline corners, followed by long lines or the
+  section end. Roots rotate immediately and close by count 1.25; hand approach
+  ramps over the following half count, with full frames at 1.75. Per-plan facing
+  ownership prevents Becket's wrapper from blending the entry twice. Independent
+  focused/event checks pass, as does the fresh 129-entry Ready replay. Public
+  finite-period yaw and the sampled entry-body test retain the existing budgets.
+  This change is not in the deployed preview artifact.
+- Remaining broad swing guard failures concern sources 3051, 3115, 1098 and 115.
+  Eight/ten-count routes retain their legacy motion: simply extending the new
+  entry exposes terminal speed/yaw violations. Fix terminal timing within the
+  authored counts; do not widen budgets or add exemptions. The current guard
+  correctly recognizes existing active-ones swings and the new carried adapter.
