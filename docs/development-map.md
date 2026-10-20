@@ -169,3 +169,15 @@ recommendation is an investigation scope, not admission of these sources.
   see `docs/source-2299.md`. Its seven rows total 64 counts. Arch/dive progression,
   source-note review and explicit timing/gyre choices still block whole-dance
   admission. Independent whole-dance validation remains necessary.
+- Subsequent checkpoint: reversed-role rollaway interpretation preserves exact
+  source roles and removable direction choices; source 110 now resolves 9/9 rows
+  but remains unplayable. All 129 retained Ready programs still pass. Its isolated
+  left-allemande prototype and actual Avatar diagnostic remain unregistered;
+  partial-strength hand targets represent weighted approach, not a closed grip.
+  Exact sources 179 and 1599 are retained as well; see their acquisition document.
+- The full sharded CI run exposed two separate failures: a missing external
+  coupled-do-si-do fixture (fixed using the unchanged bundled evidence packet),
+  and a swing guard that omitted the existing active-ones partner-swing contract.
+  Correcting that guard exposed a real 3181 timing defect: the legacy 16-count
+  partner swing waits 2.24 counts before rotating. A bounded released-pair adapter
+  is the next production fix; do not add a source-ID exemption or relax the guard.
