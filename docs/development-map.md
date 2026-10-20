@@ -285,10 +285,16 @@ for 158 fixtures; all 29 script tests passed without weakening the assertion.
 Current verification: 23 focused tests pass, including all 129 Ready defaults,
 2-12-couple complete periods and articulated wave/body regressions; TypeScript
 and isolated Pages build pass. No new public deployment or GPU/audio check.
-Next source path: 187 Nomad's Land, explicit initial waves, circulation into
-neighbor balance/swing, and a terminal hey returning to the next wave. Initial
-hands and chain receiver remain explicit choices. Do not clear source context
-gates until that complete path, actual endpoint and finite ends validate.
+Next source path: 187 Nomad's Land. Initial-wave declaration, full-wave balance
+and explicit circulate-to-paired-balance helpers are implemented separately.
+The author's original page specifies a wave balance before the swing, unlike
+the retained ContraDB paired balance; its printed chain counts also differ.
+Preserve both versions and their unresolved timing rather than silently combine
+them. See the wave document for source links and contracts. Current next work:
+terminal hey into actual next-wave stations, global hand acquisition and finite
+waiting/reentry; independently measure wave-balance-to-swing for the author's
+version. Do not clear source context gates until the complete chosen path,
+actual endpoint and finite ends validate.
 
 Keep context small: read the report for totals and query individual records in
 `coverage-audit.json`; do not dump its approximately 1 MB of choices and evidence.

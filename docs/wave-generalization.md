@@ -159,8 +159,8 @@ and unresolved data-license status remain unchanged.
   guarded acquisition, final release/facing and reached progression event remain
   outside the operation. Source modifiers are checked before lowering, so unknown
   arguments cannot disappear while constructing a call.
-- The supported circulation is explicitly right-loop. Other loop directions,
-  arbitrary short-wave layouts and new initial-wave setups remain unsupported.
+- The supported circulation is explicitly right-loop. Other loop directions
+  and arbitrary short-wave layouts remain unsupported.
 
 Current verification: unit and source-integration tests preserve full seam hands,
 actual station permutations, unchanged relationships/epochs, waiting actors,
@@ -180,5 +180,53 @@ complete 2-12-couple periods, articulated long-wave/body regressions and 9,650
 full-strength hand samples (wrist error below 3e-16; zero leg corrections).
 TypeScript and isolated Pages production build passed. No new browser/GPU/audio
 check or public deployment was performed. The next concrete source is 187, with
-explicit initial waves; initial hands and chain receiver remain reviewed choices,
-and its terminal hey must actually return to the next wave before rebinding.
+explicit initial waves; its terminal hey must actually return to the next wave
+before rebinding.
+
+## Initial formation and distinct balance exits
+
+`initial-long-wave-state.ts` declares the initial inward role and right-hand
+neighbor convention at count zero. It preserves supplied roots and relationships,
+constructs complete seam hands and leaves waiting poses untouched. It cannot be
+used as a runtime zero-count formation change.
+
+`carried-wave-balance.ts` consumes four counts while retaining the complete wave
+graph, including hands between boxes. A separate explicit circulation exit
+prepares a two-hand neighbor balance within the last two circulation counts,
+closes each pair to 1.18 spacing and acquires hands in the final quarter-count.
+It returns a paired state with no wave graph. This is a declared animation
+preparation, not extra authored counts. `held-pair-balance-step.ts` validates
+those actual hands against the next balance's entry and preserves the subsequent
+swing handoff. These helpers are not yet a new whole-dance importer route.
+
+### Source 187: preserve version differences
+
+The [author's original Nomad's Land instructions](https://www.billolsondance.com/nomads)
+were inspected on 20 October 2026. They explicitly specify right-hand neighbors
+at the start, larks facing out, a wave balance before the neighbor swing, and
+left hands with original neighbors after the terminal hey. That supports the
+initial hand convention and the next-wave endpoint topology.
+
+The retained ContraDB record instead specifies neighbor balance and swing.
+Its chain/hey counts are 8+8; the author's printed chain/hey counts are 4+8,
+leaving that printed phrase short. Do not silently repair the original timing
+or substitute its wave balance into the retained ContraDB record. They need
+distinct, traceable interpretations. The initial builder and both balance
+contracts deliberately remain separate.
+
+`role-hey-wave-step.ts` now uses the shared four-pass encounter graph and existing
+trajectory solver to reach explicit wave stations in eight counts. It preserves
+the measured width and center, verifies the half-hey permutation, and retains
+the existing 1.3 speed / 4 yaw limits. It returns a released local boundary;
+complete next-wave hands and endpoint rebinding belong to the global wrapper.
+Tests include a real chain producer and translated, renumbered carried state.
+
+Fresh composition verification: 28 tests passed across initial formation,
+standalone wave balance, circulation, paired balance/swing handoffs and existing
+long-wave source/body regressions. The three wave-endpoint hey tests also pass.
+All 129 Ready defaults pass separately; TypeScript and an isolated production
+build pass. These are not new browser/GPU/audio checks.
+
+The finite wrapper, waiting/reentry path and author's wave-to-swing transition
+are under integration. No new Ready dance or source admission is claimed by
+these composition helpers.
