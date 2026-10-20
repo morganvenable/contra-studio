@@ -1,3 +1,4 @@
+import {needsShortReleasedPairSwingEntry,compileShortReleasedPairSwingStep} from './short-released-pair-swing-step.ts';
 import {compileNeighborDosidoStep} from './neighbor-dosido-step.ts';
 import {needsReleasedPairSwingEntry,compileReleasedPairSwingStep} from './released-pair-swing-step.ts';
 import {acceptsStarGyreStep,compileStarGyreStep} from './star-gyre-step.ts';
@@ -44,6 +45,10 @@ export interface SequenceStepResult {readonly adapterId:string;readonly plan:Mot
 export function compileSequenceStep(figure:Figure,context:FigureContext,incoming:SequenceBoundary,compileEstablished:()=>MotionPlan,capabilities:MotionCapabilities={}):SequenceStepResult {
  if(needsReleasedPairSwingEntry(figure,context,incoming)){
   const plan=compileReleasedPairSwingStep(figure,context,incoming);
+  return{adapterId:'released-pair-swing',plan,ownsEntryFacing:true,boundaryPlan:plan};
+ }
+ if(needsShortReleasedPairSwingEntry(figure,context,incoming)){
+  const plan=compileShortReleasedPairSwingStep(figure,context,incoming);
   return{adapterId:'released-pair-swing',plan,ownsEntryFacing:true,boundaryPlan:plan};
  }
  if(figure.kind==='do-si-do'&&figure.who==='neighbor'&&figure.exit!==undefined){

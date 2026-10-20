@@ -179,8 +179,8 @@ recommendation is an investigation scope, not admission of these sources.
   coupled-do-si-do fixture (fixed using the unchanged bundled evidence packet),
   and a swing guard that omitted the existing active-ones partner-swing contract.
   Correcting that guard exposed a real 3181 timing defect: the legacy 16-count
-  partner swing waits 2.24 counts before rotating. A bounded released-pair adapter
-  is the next production fix; do not add a source-ID exemption or relax the guard.
+  partner swing waits 2.24 counts before rotating. The bounded released-pair
+  adapters below address that timing without source-ID exemptions.
 - Public preview is now live at https://morganvenable.github.io/contra-studio/ .
   Workflow `publish-preview.yml` deployed the exact browser-checked local artifact
   from `pages-release` commit `14894f8b56795579acab2ac19838c4bbe71010fb`.
@@ -199,8 +199,19 @@ recommendation is an investigation scope, not admission of these sources.
   focused/event checks pass, as does the fresh 129-entry Ready replay. Public
   finite-period yaw and the sampled entry-body test retain the existing budgets.
   This change is not in the deployed preview artifact.
-- Remaining broad swing guard failures concern sources 3051, 3115, 1098 and 115.
-  Eight/ten-count routes retain their legacy motion: simply extending the new
-  entry exposes terminal speed/yaw violations. Fix terminal timing within the
-  authored counts; do not widen budgets or add exemptions. The current guard
-  correctly recognizes existing active-ones swings and the new carried adapter.
+- The subsequent short-swing investigation covers 3051, 3115, 1098 and 115.
+  A 1,000 Hz probe
+  locates the ten-count speed peak at count .15 during expanded ingress (not
+  terminal release); the eight-count yaw peak is during terminal release.
+  `short-released-pair-swing-step.ts` uses separate monotone timing corrections
+  inside those authored counts, retaining the sixteen-count implementation.
+  Independent integration review found no blockers. Five focused tests and
+  TypeScript pass: 180 actual compiled swing windows and seams across full finite
+  periods at three/six couples retain counts, relationships, epochs, full frames
+  at 1.75 and period closure. Maximum speed 1.406419, yaw rate 3.157430 and minimum
+  all-actor clearance .62 remain inside existing budgets. These checks cover
+  swing windows, not every other figure's motion. Raw Avatar contact tests are
+  not GPU/audio certification. Fresh aggregate swing/Ready checks both pass:
+  17,550 swing-pair checks (648 released entries) and all 129 retained Ready
+  defaults, zero failures/skips. Next finish the separate candidate browser
+  preview and rerun sharded CI before selecting another public artifact.
