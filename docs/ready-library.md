@@ -33,3 +33,19 @@ Run `node scripts/generate-ready-library.mjs` after changing the reviewed source
 The read-only numeric-record gateway makes one bounded upstream attempt. For a temporary failure, reviewed records may use a bundled canonical public snapshot. The response identifies it as retained, preserving its recorded retrieval time or explicitly reporting that no capture date was recorded. The UI says it may differ from the current page. Authoritative access denial or missing/deleted responses are not replaced with saved content. No saved snapshot is represented as a fresh download.
 
 Detailed footwork and holds remain schematic. This library provides reviewed whole-dance motion, not a claim of anatomically exact figure animation.
+
+Explicit source reviews can be retained as standard interpretation archives under
+`test-data/reviewed-interpretations/<id>.json`. During generation these take
+precedence over previous Ready entries and automatic suggestions. The complete
+canonical snapshot, source binding and archive version must match; stale explicit
+reviews fail rather than silently falling back to new suggestions. Current import
+admission is still required. This preserves a reviewer?s source-specific choice
+without adding source-specific motion or broadening automatic prose rules.
+
+Source3478?s retained note says ?Yet another member of the Small Potatoes /
+Fingerling Potatoes / Push the Button family?. Its explicit review treats that
+sentence as family provenance, without substituting another dance?s instructions.
+The partner chain receiver is independently checked against actual arrival
+positions. Clearing the note classification blocks admission; choosing neighbor
+as receiver rejects. The original note and both removable choices remain in the
+archive. No generic prose-classification rule was changed.

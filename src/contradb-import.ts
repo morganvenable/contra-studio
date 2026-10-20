@@ -533,7 +533,7 @@ export function importContraDb(input:string,options:ContraDbSourceOptions&{inter
   else {const {sidePair,progressionCount,...policy}=interpretation.diagonalHey;diagonalHeyPolicy={...policy,source:{sourceId:record.snapshotId,url:record.sourceUrl,basis:'reviewed-interpretation',clause:DIAGONAL_HEY_CHOICE_DESCRIPTION}};warnings.push(DIAGONAL_HEY_CHOICE_DESCRIPTION);}
   if(interpretation.circulation!==undefined)issue('diagonal-circulation-conflict','This source omits a circulation label; its literal diagonal/across paths establish direction. A separate CW or CCW assertion is not consumed.','error');
  }
- const formation=/^improper$/i.test(record.formation)?'duple-improper':/^becket(?: cw| ccw)?$/i.test(record.formation)?'becket':undefined;
+ const formation=/^(?:duple )?improper$/i.test(record.formation)?'duple-improper':/^becket(?: cw| ccw)?$/i.test(record.formation)?'becket':undefined;
  if(!formation)issue('formation',`Formation “${record.formation}” has no current complete-dance adapter.`);
  if(formation==='becket'&&!diagonalComposition&&!/^becket (?:cw|ccw)$/i.test(record.formation)&&interpretation.circulation==='cw')warnings.push('Source Becket circulation is unspecified; this interpretation explicitly selects CW.');
  if(formation==='becket'&&!diagonalComposition&&!/^becket (?:cw|ccw)$/i.test(record.formation)&&interpretation.circulation!=='cw')issue('circulation-choice','The source says Becket without explicitly naming circulation. Select CW to use the current adapter.');

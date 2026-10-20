@@ -374,3 +374,13 @@ Elbow selection remains a constrained prototype, not a full anatomical
 solver; smoothness at every slider combination is not certified. The earlier
 thin-arm .087 reposition measurement is historical and does not measure the
 new joint shoulder-route selection. Hardware GPU/audio remain unrun.
+
+Isolated coverage checkpoint (20 October 2026): exact case-insensitive ?Duple
+Improper? is accepted as the existing improper formation while source wording
+and snapshot identity remain intact. Source823 passes complete three/four-couple
+period checks. Source3478 separately passes with an explicit provenance-only
+classification and partner chain receiver; its review is retained in a standard
+source-bound archive. Eleven focused tests and TypeScript pass. These two sources
+are candidates only: no Ready registration, archive generation, browser check or
+public deployment is included in this slice. Next integrate their reviewed cards,
+regenerate once and verify the built candidates before publishing.

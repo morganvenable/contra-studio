@@ -6,6 +6,7 @@ import {createHash} from 'node:crypto';
 import {REVIEWED_SOURCE_IDS,SOURCE_LIBRARY} from '../src/source-library.ts';
 import {READY_LIBRARY} from '../src/ready-library.ts';
 import {prepareReadyArchive} from './prepare-ready-archive.mjs';
+import {readReviewedArchive} from './read-reviewed-archive.mjs';
 import {readContraDbImport} from '../src/contradb-import.ts';
 import {readContraDbSource,makeContraDbSnapshot} from '../src/contradb-source.ts';
 import {compileChoreography} from '../src/choreography.ts';
@@ -13,7 +14,7 @@ const root=path.resolve(import.meta.dirname,'..'),entries=[],evidence=[],priorEn
 for(const id of REVIEWED_SOURCE_IDS){
  const raw=await readFile(path.join(root,'test-data/contradb',id+'.json'),'utf8');
  const parsedSource=readContraDbSource(raw),original=parsedSource.record;if(!original||!parsedSource.structurallyValid)throw Error('Unreadable source '+id);
- const prepared=prepareReadyArchive(raw,original,priorEntries.get(id)),result=prepared.result;
+ const prepared=prepareReadyArchive(raw,original,readReviewedArchive(original)??priorEntries.get(id)),result=prepared.result;
  if(!result.dance||!result.coverage.executable)throw Error('Reviewed source is not executable '+id+': '+result.errors.join('; '));
  const archive=prepared.archive,saved=JSON.parse(archive);
  if(saved.schema!=='contra-studio/contradb-interpretation'||saved.sourceSnapshotId!==original.snapshotId)throw Error('Missing exact archive '+id);
