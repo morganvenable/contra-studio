@@ -17,8 +17,13 @@ concurrency:
 
 jobs:
   publish:
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
+    concurrency:
+      group: github-pages-deployment
+      cancel-in-progress: false
     permissions:
+      contents: read
       pages: write
       id-token: write
     environment:
@@ -38,6 +43,9 @@ jobs:
           test -f site/index.html
           test -d site/assets
           test -f site/contradb-index.json
+          test -s site/LICENSE
+          test -s site/THIRD_PARTY_NOTICES.md
+          test -s site/THREE-LICENSE
           rm -rf site/.git
           printf '%s\n' "$ARTIFACT_COMMIT" > site/deployed-commit.txt
       - uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d
