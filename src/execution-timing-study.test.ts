@@ -3,7 +3,7 @@ import assert from'node:assert/strict';
 import{sampleStudy,FLUENT_TIMING_PROFILE,DEFAULT_TIMING_PROFILE}from'./execution-timing-study.ts';
 const distance=(beat:number)=>Math.hypot(...Object.values(sampleStudy(beat,FLUENT_TIMING_PROFILE).poses[0].position) as [number,number]);
 test('balance advances twice, retreats twice and pushes inward late on step four',()=>{
- assert.equal(distance(0),.9);assert.equal(distance(2),.65);assert.equal(distance(4),.82);
+ assert.equal(distance(0),.5);assert.equal(distance(2),.38);assert.equal(distance(4),.46);
  for(let tick=1;tick<=128;tick++)assert.ok(distance(tick/64)<distance((tick-1)/64));
  for(let tick=129;tick<=224;tick++)assert.ok(distance(tick/64)>distance((tick-1)/64));
  assert.ok(distance(3.9)<distance(3.65));
@@ -88,7 +88,7 @@ test('buzz feet share a small inside orbit, step right every count, and never tw
   for(let id=0;id<2;id++){
    const [left,right]=loaded.poses[id].feet;
    assert.ok(Math.abs(Math.hypot(right.position.x,right.position.z)-.07)<1e-10);
-   assert.ok(Math.hypot(left.position.x,left.position.z)>.4);
+   assert.ok(Math.abs(Math.hypot(left.position.x,left.position.z)-.34)<1e-10);
    assert.equal(right.contact,'pivot');assert.equal(right.stepBeat,beat);
    assert.equal(reset.poses[id].feet[1].contact,'airborne');assert.ok(reset.poses[id].feet[1].lift>0);
    assert.equal(reset.poses[id].feet[0].supportWeight,1);
@@ -108,9 +108,26 @@ test('right foot leads, left trails, and pelvis faces outward during the closed 
   const lead=wrap(Math.atan2(right.position.z,right.position.x)-alpha);
   const trail=wrap(Math.atan2(left.position.z,left.position.x)-alpha);
   assert.ok(Math.abs(lead-25*Math.PI/180)<1e-10);
-  assert.ok(trail>=-35*Math.PI/180-1e-10&&trail<=-17*Math.PI/180+1e-10);
-  assert.ok(lead-trail>40*Math.PI/180);
-  const facingOut=(Math.sin(body.pelvisYaw)*body.position.x+Math.cos(body.pelvisYaw)*body.position.z)/.31;
+  assert.ok(trail>=-25*Math.PI/180-1e-10&&trail<=-7*Math.PI/180+1e-10);
+  assert.ok(lead-trail>30*Math.PI/180);
+  const facingOut=(Math.sin(body.pelvisYaw)*body.position.x+Math.cos(body.pelvisYaw)*body.position.z)/.25;
   assert.ok(Math.abs(facingOut-Math.sin(25*Math.PI/180))<1e-10);
+ }
+});
+
+
+test('closed buzz stance stays underneath the hips with small fore-aft reach',()=>{
+ for(let tick=7*128;tick<12*128;tick++)for(const body of sampleStudy(tick/128,FLUENT_TIMING_PROFILE).poses){
+  const lateral:number[]=[];
+  for(const foot of body.feet){
+   const dx=foot.position.x-body.position.x,dz=foot.position.z-body.position.z;
+   const side=dx*Math.cos(body.pelvisYaw)-dz*Math.sin(body.pelvisYaw);
+   const forward=dx*Math.sin(body.pelvisYaw)+dz*Math.cos(body.pelvisYaw);
+   lateral.push(side);
+   assert.ok(Math.abs(side)<.183,'foot splays beyond compact stance');
+   assert.ok(Math.abs(forward)<.107,'foot projects too far fore/aft');
+   assert.ok(Math.hypot(side-(foot.side==='left'?.09:-.09),forward)<.11,'foot too far from its own hip');
+  }
+  assert.ok(Math.abs(lateral[0]-lateral[1])<.30,'wide straddle');
  }
 });

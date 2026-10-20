@@ -134,3 +134,24 @@ Teaching references consulted 20 October 2026:
 These sources describe variations in the returning hand placement. Morgan's
 shoulder-wrap drawing defines this prototype. Numeric angles and segment
 lengths remain adjustable illustrative choices, not measurements from sources.
+
+## Connected balance and compact stance
+
+The balance begins in a two-hand connection, already within bent-arm reach.
+Preparation ends at that reachable spacing. Roots move inward and back while
+world-space support feet remain planted; the late fourth-step push remains.
+The pair keeps lark-left/robin-right hands joined throughout the transition;
+the other hand pair transfers into the shoulder wrap. Arms remain visible
+throughout, rather than appearing only after the swing starts.
+
+The swing hip radius is now .25 (was .31), with the outside foot on .34
+(was .50). The right foot retains its .07 shared orbit and on-beat cadence.
+Left trailing angle is 7-25 degrees. Closed-swing feet remain within .11
+of their corresponding hip attachments, with fore/aft projection below .107.
+These are schematic dimensions, not anthropometric claims. The page opens
+on the connected balance; Inspect balance and Inspect hold show both frames.
+
+Known prototype limitation: elbow selection can reposition sharply during
+the hand transfer (about .087 study units in fluent/default dense sampling).
+Hands remain connected and arm lengths fixed; fully smooth elbow motion is
+not claimed. Hardware GPU/audio and full body-volume checks remain unrun.

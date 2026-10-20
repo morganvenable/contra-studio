@@ -22,13 +22,15 @@ test('closed swing connects exact posterior shoulder targets with fixed arm leng
  }
 });
 test('unreachable acquisition reports the target and releases contact without stretching the arm',()=>{
- const result=sampleSwingTorsoStudy(sampleStudy(0,FLUENT_TIMING_PROFILE).poses,{torsoTwistDegrees:0});
+ const poses=sampleStudy(0,FLUENT_TIMING_PROFILE).poses.map(p=>({...p,position:{x:p.position.x*2,z:p.position.z*2}})) as ReturnType<typeof sampleStudy>['poses'];
+ const result=sampleSwingTorsoStudy(poses,{torsoTwistDegrees:0});
  for(const arm of result.arms.filter(a=>a.kind==='shoulder')){assert.equal(arm.reachable,false);assert.equal(arm.contactStrength,0);assert.ok(d(arm.hand,arm.target)>.1);assert.ok(Math.abs(d(arm.shoulder,arm.elbow)-.325)<1e-12);assert.ok(Math.abs(d(arm.elbow,arm.hand)-.325)<1e-12);}
 });
 test('bounded dissociation and contact inputs reject invalid values',()=>{
  const poses=sampleStudy(8,FLUENT_TIMING_PROFILE).poses;
  for(const torsoTwistDegrees of [-71,36,NaN,Infinity])assert.throws(()=>sampleSwingTorsoStudy(poses,{torsoTwistDegrees}));
  for(const inwardLean of [-.1,.09,NaN])assert.throws(()=>sampleSwingTorsoStudy(poses,{torsoTwistDegrees:0,inwardLean}));
+ for(const ballroomWeight of [-1,2,NaN])assert.throws(()=>sampleSwingTorsoStudy(poses,{torsoTwistDegrees:0,ballroomWeight}));
  for(const contactStrength of [-1,2,NaN])assert.throws(()=>sampleSwingTorsoStudy(poses,{torsoTwistDegrees:0,contactStrength}));
  assert.equal(sampleSwingTorsoStudy(poses,{torsoTwistDegrees:0,contactStrength:.2}).arms[0].contactStrength,.2);
 });
@@ -67,4 +69,25 @@ test('ballroom frame rotates rigidly with the dancers',()=>{
  const original=sampleSwingTorsoStudy(poses,{torsoTwistDegrees:-50,inwardLean:.06});
  const rotated=sampleSwingTorsoStudy(poses.map(p=>({...p,position:rotate(p.position),pelvisYaw:p.pelvisYaw+angle})) as typeof poses,{torsoTwistDegrees:-50,inwardLean:.06});
  for(let i=0;i<4;i++)for(const point of ['shoulder','elbow','hand','target'] as const)assert.ok(d(rotate(original.arms[i][point]),rotated.arms[i][point])<1e-10);
+});
+
+
+test('balance stays joined with bent arms and carries a joined hand pair through each figure boundary',()=>{
+ for(const profile of [FLUENT_TIMING_PROFILE,DEFAULT_TIMING_PROFILE])for(let beat=0;beat<32;beat+=1/32){
+  const sample=sampleStudy(beat,profile),weight=sample.phase==='swing'?sample.readiness:sample.phase==='preparation'?1-sample.readiness:0;
+  const frame=sampleSwingTorsoStudy(sample.poses,{torsoTwistDegrees:-50*weight,inwardLean:.06*weight,ballroomWeight:weight});
+  assert.deepEqual(frame.arms[2].hand,frame.arms[3].hand,`joined hands at ${beat}`);
+  if(weight===0)assert.deepEqual(frame.arms[0].hand,frame.arms[1].hand,`balance hands at ${beat}`);
+  for(const arm of frame.arms){
+   assert.equal(arm.reachable,true,`reach at ${beat}`);assert.equal(arm.comfortable,true,`bend at ${beat}`);
+   assert.equal(arm.routeClear,true,`route at ${beat}`);assert.equal(arm.contactStrength,1);
+   assert.ok(arm.bendDegrees>45);assert.ok(Math.abs(d(arm.shoulder,arm.elbow)-.325)<1e-12);assert.ok(Math.abs(d(arm.elbow,arm.hand)-.325)<1e-12);
+  }
+ }
+});
+test('hand targets are continuous across balance, swing, preparation, and cycle boundaries',()=>{
+ for(const profile of [FLUENT_TIMING_PROFILE,DEFAULT_TIMING_PROFILE])for(const beat of [4,12,16,20,28,32]){
+  const frames=[beat-1e-6,beat+1e-6].map(b=>{const s=sampleStudy(b,profile),w=s.phase==='swing'?s.readiness:s.phase==='preparation'?1-s.readiness:0;return sampleSwingTorsoStudy(s.poses,{torsoTwistDegrees:-50*w,inwardLean:.06*w,ballroomWeight:w});});
+  for(let i=0;i<4;i++)assert.ok(d(frames[0].arms[i].hand,frames[1].arms[i].hand)<.00001);
+ }
 });

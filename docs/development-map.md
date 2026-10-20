@@ -330,21 +330,14 @@ delay and recovery against an unchanged musical clock. It does not alter the
 130 Ready dances. Morgan clarified planted foot contacts and the fourth-step inward push.
 The lab now uses independent world-space feet, lifted steps and support cues;
 its prior body-attached markers slid.
-Current prototype checkpoint (20 October 2026): the timing lab now uses an
-asymmetric four-arm ballroom hold: lark right to robin left rear shoulder,
-robin left to lark right rear shoulder, and the other hands joined. The opening
-view and Inspect hold button enlarge this frame; phone layouts stack the pairs.
-Right-leading/left-trailing feet and outward pelvis/inward torso remain. See
-`src/swing-torso-study.ts` and [execution timing](execution-timing.md).
-Main 3D choreography remains unchanged. Prototype geometry is illustrative;
-head, thick-arm and force validation is not comprehensive. Next: review this
-frame visually, then transfer the accepted hold to production avatars.
-Current release: source 79698ff, frozen artifact de510b4, successful workflow
-39478152746. Thirteen focused foot/timing/frame tests, TypeScript and Pages
-build pass. Exact artifact and public browser checks pass: four-arm hold,
-controls preserve feet, default contacts, unreachable-limit feedback,
-phase-boundary playback and 320-1440px layouts. Independent review corrected
-wrapping-arm vertical order. Hardware GPU and actual audio checks unrun.
+Current prototype checkpoint (20 October 2026): balance begins and remains
+in a bent-arm two-hand connection; preparation arrives within reach. A joined
+hand pair persists through the ballroom transfer. The swing stance is compact
+(hip radius .25, outside foot .34) with right feet still on a shared .07 orbit.
+Use Inspect balance / Inspect hold in `timing-lab.html`. Main3D unchanged.
+See `src/execution-timing-study.ts`, `src/swing-torso-study.ts` and their tests.
+Current checks/public release pending. Thin-link contact is schematic;
+finite arm/head volume and force simulation remain unvalidated.
 
 
 Keep context small: read the report for totals and query individual records in
@@ -355,3 +348,8 @@ independent whole-period or body-motion certification.
 Release check (2026-10-20): 66 focused motion/source/Ready tests and 29 script tests pass; TypeScript and isolated Pages build pass. Playwright Chromium with software WebGL opens Nomad's Land, scrubs counts 6/14/20/38/54/62, and plays across count 64 into the next round without page errors. Perspective screenshots were inspected. This supersedes the browser-unrun status above; hardware GPU, audio synchronization and caller review remain unrun. The first deployment run was canceled before publishing to fix rejection of unsupported terminal-hey modifiers; the final release must include that guard.
 
 The exact CI artifact and public Pages build were browser-tested with software WebGL: Nomad's Land opens and plays into round two with three and four couples without page errors. Hardware GPU/audio checks remain unrun.
+
+Known prototype limitation: elbow selection can reposition sharply during
+the hand transfer (about .087 study units in fluent/default dense sampling).
+Hands remain connected and arm lengths fixed; fully smooth elbow motion is
+not claimed. Hardware GPU/audio and full body-volume checks remain unrun.

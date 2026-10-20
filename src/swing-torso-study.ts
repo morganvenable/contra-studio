@@ -6,7 +6,7 @@
  */
 import type {StudyPose} from './execution-timing-study.ts';
 export interface StudyPoint {x:number;z:number;y?:number;}
-export interface SwingTorsoOptions {torsoTwistDegrees:number;inwardLean?:number;contactStrength?:number;}
+export interface SwingTorsoOptions {torsoTwistDegrees:number;inwardLean?:number;contactStrength?:number;ballroomWeight?:number;}
 export interface StudyTorso {
  id:0|1;center:StudyPoint;pelvisCenter:StudyPoint;pelvisYaw:number;torsoYaw:number;twistRadians:number;
  width:number;depth:number;leftShoulder:StudyPoint;rightShoulder:StudyPoint;leftBackShoulder:StudyPoint;rightBackShoulder:StudyPoint;
@@ -24,10 +24,11 @@ function ellipseMinimum(a:StudyPoint,b:StudyPoint,t:StudyTorso){
  return (p.x+u*dx)**2+(p.z+u*dz)**2;
 }
 export function sampleSwingTorsoStudy(poses:readonly [StudyPose,StudyPose],options:SwingTorsoOptions){
- const {torsoTwistDegrees,inwardLean=0,contactStrength=1}=options;
+ const {torsoTwistDegrees,inwardLean=0,contactStrength=1,ballroomWeight=1}=options;
  if(!Number.isFinite(torsoTwistDegrees)||torsoTwistDegrees< -70||torsoTwistDegrees>35)throw Error('Torso twist must be between -70 and 35 degrees.');
  if(!Number.isFinite(inwardLean)||inwardLean<0||inwardLean>.08)throw Error('Inward torso lean must be between 0 and .08.');
  if(!Number.isFinite(contactStrength)||contactStrength<0||contactStrength>1)throw Error('Contact strength must be between 0 and 1.');
+ if(!Number.isFinite(ballroomWeight)||ballroomWeight<0||ballroomWeight>1)throw Error('Ballroom weight must be between 0 and 1.');
  if(poses.length!==2||poses[0].id===poses[1].id)throw Error('Two distinct study dancers are required.');
  for(const p of poses)if(![p.position.x,p.position.z,p.pelvisYaw].every(Number.isFinite))throw Error('Finite pelvis poses are required.');
  const pairCenter={x:(poses[0].position.x+poses[1].position.x)/2,z:(poses[0].position.z+poses[1].position.z)/2};
@@ -50,10 +51,14 @@ export function sampleSwingTorsoStudy(poses:readonly [StudyPose,StudyPose],optio
  const perpendicular=pairSpan>1e-12?{x:-(robin.center.z-lark.center.z)/pairSpan,z:(robin.center.x-lark.center.x)/pairSpan}:lateral;
  const sign=perpendicular.x*lateral.x+perpendicular.z*lateral.z>=0?1:-1;
  const joinedOut={x:perpendicular.x*sign,z:perpendicular.z*sign};
- const joinedTarget={...add(joinedMid,joinedOut,.24),y:1.35};
+ const joinedTarget={...add(joinedMid,joinedOut,.24*ballroomWeight),y:1.35};
+ const balanceWrapTarget={x:(lark.rightShoulder.x+robin.leftShoulder.x)/2,z:(lark.rightShoulder.z+robin.leftShoulder.z)/2};
+ // Keep both hands joined through the balance; form the shoulder wrap as the bodies close.
+ const transferWeight=ballroomWeight*ballroomWeight;
+ const blendTarget=(target:StudyPoint)=>transferWeight===1?target:add(balanceWrapTarget,{x:target.x-balanceWrapTarget.x,z:target.z-balanceWrapTarget.z},transferWeight);
  const specs=[
-  {torso:lark,partner:robin,side:'right',kind:'shoulder',target:robin.leftBackShoulder},
-  {torso:robin,partner:lark,side:'left',kind:'shoulder',target:lark.rightBackShoulder},
+  {torso:lark,partner:robin,side:'right',kind:'shoulder',target:blendTarget(robin.leftBackShoulder)},
+  {torso:robin,partner:lark,side:'left',kind:'shoulder',target:blendTarget(lark.rightBackShoulder)},
   {torso:lark,partner:robin,side:'left',kind:'joined',target:joinedTarget},
   {torso:robin,partner:lark,side:'right',kind:'joined',target:joinedTarget},
  ] as const;
@@ -79,14 +84,17 @@ export function sampleSwingTorsoStudy(poses:readonly [StudyPose,StudyPose],optio
   let elbow=add(mid,u,bend),routeClear=false,bestScore=-Infinity;
   for(let j=0;j<720;j++){
    const angle=j*Math.PI/360,candidate=add(add(mid,u,bend*Math.cos(angle)),v,bend*Math.sin(angle));
-   const minHeight=kind==='joined'?1.10:torso.id===0?1.39:1.35+Math.min(.10,bend*.8);
-   const maxHeight=kind==='joined'?1.25:torso.id===0?1.41:1.47;
+   const wrapWeight=kind==='joined'?0:transferWeight;
+   const minHeight=1.025+wrapWeight*((torso.id===0?1.39:1.35+Math.min(.10,bend*.8))-1.025);
+   // Lift the elbow before the hand travels around the shoulder, preserving torso clearance.
+   const liftWeight=kind==='joined'?0:Math.min(1,ballroomWeight*4);
+   const maxHeight=1.25+liftWeight*((torso.id===0?1.41:1.47)-1.25);
    if((candidate.y??0)>maxHeight+1e-10||(candidate.y??0)<minHeight)continue;
    if(torsos.every(t=>segmentClear(shoulder,candidate,t)&&segmentClear(candidate,hand,t))){
     // Favor the elbow on its own side, away from the space between torsos.
     const lateral={x:Math.cos(torso.torsoYaw)*(side==='left'?1:-1),z:-Math.sin(torso.torsoYaw)*(side==='left'?1:-1)};
     const outward=(candidate.x-mid.x)*lateral.x+(candidate.z-mid.z)*lateral.z;
-    const score=kind==='joined'?-(candidate.y??0)+.05*outward:outward;
+    const score=outward-.5*(1-wrapWeight)*(candidate.y??0);
     if(score>bestScore){elbow=candidate;routeClear=true;bestScore=score;}
    }
   }
@@ -95,5 +103,6 @@ export function sampleSwingTorsoStudy(poses:readonly [StudyPose,StudyPose],optio
  }) as StudyShoulderArm[];
  return{torsos,arms,maxReach:.65,illustrative:true as const};
 }
+
 
 

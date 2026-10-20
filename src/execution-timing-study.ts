@@ -1,7 +1,7 @@
 /** Synthetic two-person timing study, not a source dance or validated body model.
  * Both people share one execution clock. Musical counts never change. Response
  * delay is demonstrated at each cycle's balance entry, then recovered smoothly.
- * There are no asserted contacts, relationship changes or progression events.
+ * The paired frame supplies contacts; no relationship/progression events are modeled.
  */
 export interface ExecutionTimingProfile {
  anticipationCounts:number;
@@ -48,11 +48,11 @@ function motionAt(beat:number,profile:ExecutionTimingProfile){
   phase='balance';
   // Two advancing steps, then two retreating foot placements. Late in the
   // fourth step, weight moves inward again over the planted rear foot.
-  radius=local<=2?.9-.25*smooth(local/2):.65+.25*smooth((local-2)/1.5)-.08*smooth((local-3.65)/.35);
+  radius=local<=2?.50-.12*smooth(local/2):.38+.12*smooth((local-2)/1.5)-.04*smooth((local-3.65)/.35);
  }else if(local<12){
   phase='swing';
   const elapsed=local-4,closing=smooth(elapsed/profile.transitionCounts);
-  radius=.82-(.82-.31)*closing;
+  radius=.46-(.46-.25)*closing;
   // Angular travel begins immediately while the pair closes, with no
   // gather-then-start dead zone. The closed frame puts the right side inward.
   angle=Math.PI/2*elapsed;frameTurn=(Math.PI/2+25*Math.PI/180)*closing;readiness=closing;
@@ -63,7 +63,7 @@ function motionAt(beat:number,profile:ExecutionTimingProfile){
   // Keep travelling through the exit interval instead of waiting motionless
   // for the final preparation window. One schematic turn returns both actors
   // to their original sides before the next balance.
-  radius=.31+(.9-.31)*readiness;
+  radius=.25+(.50-.25)*readiness;
   angle=4*Math.PI+2*Math.PI*smooth((local-12)/(finish-12));
   frameTurn=(Math.PI/2+25*Math.PI/180)*(1-readiness);
  }
@@ -86,7 +86,7 @@ export function sampleStudy(musicBeat:number,profile:ExecutionTimingProfile):Exe
   const count=cycle(landing),root=motionAt(count===15?16:landing,profile).poses[id];
   // During balance, the landing foot leads the body's weight transfer:
   // steps 1/2 go toward the other person, steps 3/4 go away.
-  const balanceRadius=[.775,.65,.775,.9][count];
+  const balanceRadius=[.44,.38,.44,.50][count];
   const x=balanceRadius===undefined?root.position.x:(id===0?-1:1)*balanceRadius;
   const z=balanceRadius===undefined?root.position.z:0;
   const sideSign=side==='left'?1:-1;
@@ -111,20 +111,20 @@ export function sampleStudy(musicBeat:number,profile:ExecutionTimingProfile):Exe
    const alpha=Math.atan2(root.position.z,root.position.x),radius=Math.hypot(root.position.x,root.position.z);
    const polar=(r:number,angle:number)=>({x:r*Math.cos(angle),z:r*Math.sin(angle)});
    // Right leads the hips by 25 degrees. The outside left foot remains
-   // behind: recovery changes its lag from 35 to 17 degrees; the final .2
+   // behind: recovery changes its lag from 25 to 7 degrees; the final .2
    // count holds the same world position as the hips advance another 18.
-   const trail=local<12?(buzzU<stance?-35+18*smooth(buzzU/stance):-17-90*(buzzU-stance)):-35;
-   const footprintRadius=local>=12?.31:radius;
+   const trail=local<12?(buzzU<stance?-25+18*smooth(buzzU/stance):-7-90*(buzzU-stance)):-25;
+   const footprintRadius=local>=12?.25:radius;
    const followFrame=(point:{x:number;z:number})=>{
     if(local<12)return point;
     const reference=polar(footprintRadius,alpha),dx=point.x-reference.x,dz=point.z-reference.z;
     const turn=root.yaw-(-alpha+25*Math.PI/180);
     return{x:root.position.x+dx*Math.cos(turn)+dz*Math.sin(turn),z:root.position.z-dx*Math.sin(turn)+dz*Math.cos(turn)};
    };
-   const outside=followFrame(polar(footprintRadius+.19,alpha+trail*Math.PI/180));
-   const inside=followFrame(polar(Math.max(.07,footprintRadius-.24),alpha+25*Math.PI/180));
+   const outside=followFrame(polar(footprintRadius+.09,alpha+trail*Math.PI/180));
+   const inside=followFrame(polar(Math.max(.07,footprintRadius-.18),alpha+25*Math.PI/180));
    const settled=local>=12?1-readiness:smooth((local-(4+profile.transitionCounts))/.5);
-   const outer=offset(root,.19),inner=offset(root,-.24);
+   const outer=offset(root,.09),inner=offset(root,-.18);
    const targets=[{x:outer.x+(outside.x-outer.x)*settled,z:outer.z+(outside.z-outer.z)*settled},{x:inner.x+(inside.x-inner.x)*settled,z:inner.z+(inside.z-inner.z)*settled}];
    const entry=smooth((local-4)/.35),exit=smooth((local-15.5)/.5);
    for(let i=0;i<2;i++){
