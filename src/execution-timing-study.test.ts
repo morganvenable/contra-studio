@@ -96,7 +96,21 @@ test('buzz feet share a small inside orbit, step right every count, and never tw
    assert.equal(sampleStudy(beat+1,FLUENT_TIMING_PROFILE).poses[id].feet[1].lift,0);
    assert.equal(sampleStudy(beat+1,FLUENT_TIMING_PROFILE).poses[id].feet[1].contact,'pivot');
    const pushA=sampleStudy(beat+.85,FLUENT_TIMING_PROFILE).poses[id].feet[0],pushB=sampleStudy(beat+.95,FLUENT_TIMING_PROFILE).poses[id].feet[0];
-   assert.deepEqual(pushA.position,pushB.position);
+   assert.ok(Math.hypot(pushA.position.x-pushB.position.x,pushA.position.z-pushB.position.z)<1e-12);
   }
+ }
+});
+
+test('right foot leads, left trails, and pelvis faces outward during the closed swing',()=>{
+ const wrap=(x:number)=>Math.atan2(Math.sin(x),Math.cos(x));
+ for(let tick=7*128;tick<12*128;tick++)for(const body of sampleStudy(tick/128,FLUENT_TIMING_PROFILE).poses){
+  const alpha=Math.atan2(body.position.z,body.position.x),[left,right]=body.feet;
+  const lead=wrap(Math.atan2(right.position.z,right.position.x)-alpha);
+  const trail=wrap(Math.atan2(left.position.z,left.position.x)-alpha);
+  assert.ok(Math.abs(lead-25*Math.PI/180)<1e-10);
+  assert.ok(trail>=-35*Math.PI/180-1e-10&&trail<=-17*Math.PI/180+1e-10);
+  assert.ok(lead-trail>40*Math.PI/180);
+  const facingOut=(Math.sin(body.pelvisYaw)*body.position.x+Math.cos(body.pelvisYaw)*body.position.z)/.31;
+  assert.ok(Math.abs(facingOut-Math.sin(25*Math.PI/180))<1e-10);
  }
 });

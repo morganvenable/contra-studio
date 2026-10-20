@@ -1,8 +1,9 @@
 import './timing-lab.css';
+import {sampleSwingTorsoStudy} from './swing-torso-study.ts';
 import {sampleStudy, FLUENT_TIMING_PROFILE, DEFAULT_TIMING_PROFILE, type ExecutionTimingProfile} from './execution-timing-study.ts';
 
 const root=document.querySelector<HTMLDivElement>('#timing-app')!;
-const slider=(key:keyof ExecutionTimingProfile,title:string,min:number,max:number,step:number,help:string)=>`<label class="slider"><span class="slider-title">${title}<output id="${key}-value" for="${key}"></output></span><input id="${key}" type="range" min="${min}" max="${max}" step="${step}" aria-label="${title}"><small>${help}</small></label>`;
+const slider=(key:string,title:string,min:number,max:number,step:number,help:string)=>`<label class="slider"><span class="slider-title">${title}<output id="${key}-value" for="${key}"></output></span><input id="${key}" type="range" min="${min}" max="${max}" step="${step}" aria-label="${title}"><small>${help}</small></label>`;
 const floor=(id:string,title:string,subtitle:string,badge:string)=>`<section class="floor-card ${id==='adjustable'?'adjustable':''}" aria-label="${title} pair"><div class="floor-heading"><div><h2>${title}</h2><p>${subtitle}</p></div><span class="badge">${badge}</span></div><svg id="${id}-floor" class="floor" viewBox="-170 -140 340 280" role="img" aria-label="${title} pair viewed from above"></svg><div class="phase"><strong id="${id}-phase">Balance forward</strong><span id="${id}-status">On the beat</span></div></section>`;
 root.innerHTML=`
   <header><a class="brand" href="./">Contra <span>Studio</span></a><a href="./">← Back to the dance floor</a></header>
@@ -11,7 +12,7 @@ root.innerHTML=`
     <h1>Same music. A different feel.</h1>
     <p class="intro">Arrive ready for count 1. Step forward, step back, then push from the fourth step into the swing. Explore what changes when the preparation is quick—or the response comes late.</p>
     <div class="workspace">
-      <div class="comparison">${floor('fluent','Fluent','A fixed reference','Ready ahead')}${floor('adjustable','Your timing','Adjust the feel on the right','Try a variation')}</div>
+      <div class="comparison">${floor('fluent','Fluent','Timing and frame reference','Ready ahead')}${floor('adjustable','Your timing','Adjust the feel on the right','Try a variation')}</div>
       <aside class="controls" aria-label="Adjustable pair timing">
         <h2>How does the pair move?</h2>
         <p>Both pairs hear the same counts. These controls change their movement, not the music.</p>
@@ -20,19 +21,23 @@ root.innerHTML=`
         ${slider('transitionCounts','Time to prepare',.25,2,.05,'A shorter transition makes the change more decisive.')}
         ${slider('responseDelayCounts','Late response',0,1,.05,'Start moving this far behind the musical count.')}
         ${slider('recoveryCounts','Time to catch up',2,8,.25,'Recover the delay over this many counts.')}
-        <div class="profile-note">The pair moves together here. Individual hesitation and missed hand connections need a separate interaction model.</div>
+        <h3 class="frame-title">Swing frame</h3>
+        ${slider('torsoTurn','Torso turn inward',-35,70,1,'Turn the shoulders relative to the hips. Positive turns toward your partner.')}
+        ${slider('bodyCloseness','Body closeness',0,1,.05,'Bring the shoulders closer while the feet and hips keep their paths.')}
+        <p id="frame-status" class="profile-note" role="status">Try the swing to inspect the shoulder connection.</p>
+        <div class="profile-note">One back-of-shoulder hold per dancer is shown. Arms keep their length; the torso can turn over the attached hips.</div>
       </aside>
       <section class="timeline" aria-label="Shared musical clock">
         <div class="transport"><button id="play" class="play" aria-label="Play timing study">Play</button><button id="reset" class="reset" aria-label="Reset timing study">Reset</button><button id="click" class="reset" aria-label="Enable count click" aria-pressed="false">Click off</button><label class="tempo">Tempo <input id="tempo" type="number" min="60" max="160" value="112" step="1" aria-label="Tempo in beats per minute"> bpm</label></div>
         <div class="clock-line"><strong id="music-phase">Balance · forward</strong><span id="step-cue">Step 1 · left foot</span></div>
         <div class="counts" role="group" aria-label="Musical counts">${Array.from({length:8},(_,i)=>`<div class="count" data-count="${i+1}">${i+1}</div>`).join('')}</div>
         <label class="screen-reader" for="seek">Seek within the sixteen-count study</label><input id="seek" class="seek" type="range" min="0" max="15.99" step=".01" value="0"><div class="seek-labels"><span>Balance 1–4</span><span>Swing</span><span>Prepare → balance</span></div>
-        <div class="chart-heading"><h3>Space between the dancers</h3><div class="legend"><span>Fluent</span><span>Your timing</span></div></div>
+        <div class="chart-heading"><h3>Space between the hips</h3><div class="legend"><span>Fluent</span><span>Your timing</span></div></div>
         <svg id="distance-chart" class="chart" viewBox="0 0 760 174" role="img" aria-label="Distance between the dancers across sixteen counts. Forward for two counts, back for two, then swing and prepare."></svg>
-        <p class="chart-caption">Moving in lowers the line; moving back raises it. Balance: planted steps and a fourth-step inward push. Swing: right feet step every count on a small shared circle; outside left feet push between steps. The hip bar turns with the body.</p>
+        <p class="chart-caption">Moving in lowers the line; moving back raises it. Balance: planted steps and a fourth-step inward push. Swing: right feet step every count on a small shared circle; outside left feet push between steps. The hip bar faces outward; the oblong torso turns inward. The hand connects to the back of the partner's shoulder.</p>
       </section>
     </div>
-    <p class="study-note"><strong>A focused timing study.</strong> This simple pair repeats a balance, swing and preparation. It explores timing choices; it does not yet change the dances in the main studio or simulate individual dancers missing connections. The paths are schematic, not a physically validated dance performance.</p>
+    <p class="study-note"><strong>A focused timing study.</strong> This simple pair repeats a balance, swing and preparation. It explores timing choices; it does not yet change the dances in the main studio or simulate individual dancers missing connections. The paths and thin arm links are schematic, not a physically validated dance performance.</p>
     <footer><span>One shared clock · one step per count · no change to the written counts</span><a href="./">Return to Contra Studio</a></footer>
   </main>`;
 
@@ -42,6 +47,7 @@ const presets:Record<string,ExecutionTimingProfile>={
   measured:{...DEFAULT_TIMING_PROFILE},
   late:{anticipationCounts:0,transitionCounts:1.5,responseDelayCounts:.75,recoveryCounts:4},
 };
+let torsoTurn=50,bodyCloseness=.75;
 let profile={...presets.measured},beat=12,playing=false,bpm=112,previousTime=performance.now();
 let clickEnabled=false,audioContext:AudioContext|undefined,lastClickedBeat=-1;
 function countClick(){
@@ -68,23 +74,33 @@ function updateControls(){
 }
 function drawFloor(id:'fluent'|'adjustable',timing:ExecutionTimingProfile){
   const sample=sampleStudy(beat,timing),color=palette[id],scale=110;
+  const frameWeight=sample.phase==='swing'?sample.readiness:sample.phase==='preparation'?1-sample.readiness:0;
+  const frame=sampleSwingTorsoStudy(sample.poses,{torsoTwistDegrees:-(id==='fluent'?50:torsoTurn)*frameWeight,inwardLean:(id==='fluent'?.06:bodyCloseness*.08)*frameWeight,contactStrength:frameWeight});
   const line=sample.poses.map(p=>({x:p.position.x*scale,y:p.position.z*scale}));
   let markup=`<defs><pattern id="${id}-grid" width="34" height="34" patternUnits="userSpaceOnUse"><path d="M 34 0 L 0 0 0 34" fill="none" stroke="#e9ece2" stroke-width=".8"/></pattern></defs><rect x="-150" y="-120" width="300" height="240" rx="16" fill="#f6f7ef"/><rect x="-150" y="-120" width="300" height="240" rx="16" fill="url(#${id}-grid)"/><circle r="85" fill="none" stroke="#dde4d6" stroke-dasharray="3 6"/><path d="M-7 0H7 M0-7V7" stroke="#cdd6c7"/>`;
   if(sample.readiness>0)markup+=`<line x1="${line[0].x}" y1="${line[0].y}" x2="${line[1].x}" y2="${line[1].y}" stroke="${color}" stroke-width="2" stroke-dasharray="4 5" opacity="${.15+.55*sample.readiness}"/>`;
   if(sample.phase==='swing'&&sample.readiness>.99)markup+=`<circle r="${.07*scale}" fill="none" stroke="${color}" stroke-width="1" stroke-dasharray="2 3"/><circle r="2" fill="${color}"/>`;
+  let armMarkup='';
+  for(const arm of frame.arms)if(frameWeight>.01){
+    const good=arm.reachable&&arm.routeClear,stroke=good?(arm.comfortable?color:'#ad7025'):'#ba5347';
+    armMarkup+=`<path data-arm="${arm.actorId}" data-reachable="${arm.reachable}" data-route-clear="${arm.routeClear}" d="M${arm.shoulder.x*scale} ${arm.shoulder.z*scale} L${arm.elbow.x*scale} ${arm.elbow.z*scale} L${arm.hand.x*scale} ${arm.hand.z*scale}" fill="none" stroke="${stroke}" stroke-width="3" stroke-linecap="round" opacity="${frameWeight}" ${good?'':'stroke-dasharray="3 3"'}/><circle data-shoulder-contact="${arm.actorId}" cx="${arm.target.x*scale}" cy="${arm.target.z*scale}" r="3.5" fill="${good?stroke:'#fffefa'}" stroke="${stroke}" stroke-width="1.5" opacity="${frameWeight}"/>`;
+  }
   for(const p of sample.poses){
+    const torso=frame.torsos.find(t=>t.id===p.id)!;
     const hips=p.feet.map(f=>{const side=f.side==='left'?1:-1;return{x:(p.position.x+side*.09*Math.cos(p.pelvisYaw))*scale,y:(p.position.z-side*.09*Math.sin(p.pelvisYaw))*scale};});
     markup+=`<line x1="${hips[0].x}" y1="${hips[0].y}" x2="${hips[1].x}" y2="${hips[1].y}" stroke="${color}" stroke-width="4" opacity=".65"/>`;
     p.feet.forEach((f,i)=>{markup+=`<line x1="${hips[i].x}" y1="${hips[i].y}" x2="${f.position.x*scale}" y2="${f.position.z*scale-f.lift*scale}" stroke="${color}" stroke-width="2.5" opacity=".55"/>`;});
-    const x=p.position.x*scale,y=p.position.z*scale,rotation=-p.yaw*180/Math.PI;
+    const x=torso.center.x*scale,y=torso.center.z*scale,rotation=-torso.torsoYaw*180/Math.PI;
     const sx=p.supportPoint.x*scale,sy=p.supportPoint.z*scale;
     markup+=`<line x1="${sx}" y1="${sy}" x2="${x}" y2="${y}" stroke="${color}" stroke-width="${1.5+2*p.pushOff}" opacity=".55"/><circle cx="${sx}" cy="${sy}" r="2.5" fill="${color}"/>`;
     for(const f of p.feet){
       const fx=f.position.x*scale,fy=f.position.z*scale,lift=f.lift*scale;
       markup+=`<g data-actor="${p.id}" data-foot="${f.side}" data-planted="${f.planted}" data-contact="${f.contact}" transform="translate(${fx} ${fy})"><ellipse rx="5" ry="9" fill="#263d3520" transform="rotate(${-f.yaw*180/Math.PI})"/><g transform="translate(0 ${-lift}) rotate(${-f.yaw*180/Math.PI})"><ellipse rx="4.5" ry="8" fill="${f.contact!=='airborne'?color:'#fffefa'}" stroke="${color}" stroke-width="1.5"/><path d="M-2 3H2" stroke="${f.contact!=='airborne'?'#fffefa':color}" stroke-width="1"/></g></g>`;
     }
-    markup+=`<g data-body="${p.id}" data-pelvis-yaw="${p.pelvisYaw}" data-torso-yaw="${p.torsoYaw}" transform="translate(${x} ${y})"><circle r="12" fill="${p.id===0?color:'#fffefa'}" fill-opacity=".65" stroke="${color}" stroke-width="2"/><g transform="rotate(${rotation})"><path d="M-4 5L0 10L4 5" fill="none" stroke="${p.id===0?'#fffefa':color}" stroke-width="1.5"/></g><text y="2" text-anchor="middle" fill="${p.id===0?'white':color}" font-family="sans-serif" font-size="9" font-weight="600">${p.id+1}</text></g>`;
+    markup+=`<line x1="${p.position.x*scale}" y1="${p.position.z*scale}" x2="${x}" y2="${y}" stroke="${color}" stroke-width="7" opacity=".5"/><g data-body="${p.id}" data-pelvis-yaw="${p.pelvisYaw}" data-torso-yaw="${torso.torsoYaw}" transform="translate(${x} ${y})"><g transform="rotate(${rotation})"><ellipse data-torso="${p.id}" rx="${torso.width*scale/2}" ry="${torso.depth*scale/2}" fill="${p.id===0?color:'#fffefa'}" fill-opacity=".72" stroke="${color}" stroke-width="2"/><path d="M-4 5L0 10L4 5" fill="none" stroke="${p.id===0?'#fffefa':color}" stroke-width="1.5"/></g><text y="2" text-anchor="middle" fill="${p.id===0?'white':color}" font-family="sans-serif" font-size="9" font-weight="600">${p.id+1}</text></g>`;
   }
+  markup+=armMarkup;
+  if(id==='adjustable')$('#frame-status').textContent=frameWeight<.95?'Shoulder hold forms as the pair closes.':frame.arms.some(a=>!a.reachable)?'Out of reach: bring the shoulders closer.':frame.arms.some(a=>!a.routeClear)?'Arm path crosses the torso: adjust the frame.':frame.arms.some(a=>!a.comfortable)?'Nearly straight arms: bring the shoulders closer.':`Back-of-shoulder contact: ${Math.round(Math.min(...frame.arms.map(a=>a.bendDegrees)))} degrees of elbow bend`;
   $(`#${id}-floor`).innerHTML=markup;
   $(`#${id}-phase`).textContent=phaseLabel(sample);
   $(`#${id}-status`).textContent=sample.lag>.025?`${sample.lag.toFixed(2)} count behind`:sample.phase==='preparation'&&sample.readiness>.98?'Ready for count 1':'On the beat';
@@ -127,4 +143,10 @@ document.addEventListener('keydown',event=>{if(event.code==='Space'&&event.targe
 document.addEventListener('visibilitychange',()=>{previousTime=performance.now();});
 window.addEventListener('resize',()=>{drawChart();render();});
 function animate(now:number){const elapsed=Math.max(0,(now-previousTime)/1000);previousTime=now;if(playing&&!document.hidden){beat+=elapsed*bpm/60;countClick();render();}requestAnimationFrame(animate);}
-updateControls();drawChart();render();requestAnimationFrame(animate);
+function updateFrameControls(){
+  $<HTMLInputElement>('#torsoTurn').value=String(torsoTurn);$<HTMLOutputElement>('#torsoTurn-value').value=`${torsoTurn} degrees`;
+  $<HTMLInputElement>('#bodyCloseness').value=String(bodyCloseness);$<HTMLOutputElement>('#bodyCloseness-value').value=`${Math.round(bodyCloseness*100)}%`;
+}
+$('#torsoTurn').addEventListener('input',()=>{torsoTurn=Number($<HTMLInputElement>('#torsoTurn').value);updateFrameControls();render();});
+$('#bodyCloseness').addEventListener('input',()=>{bodyCloseness=Number($<HTMLInputElement>('#bodyCloseness').value);updateFrameControls();render();});
+updateControls();updateFrameControls();drawChart();render();requestAnimationFrame(animate);

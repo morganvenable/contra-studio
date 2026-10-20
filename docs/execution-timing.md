@@ -91,9 +91,27 @@ rotating swing: its held headings could oppose the body by almost 180 degrees.
 
 The study uses a dedicated swing foot mode. The two right-foot centers trace
 opposing small circles about the pair midpoint; outside left-foot motion
-supplies a short push and recovery. Pelvis and torso share the root orientation,
-and leg links originate on that same pelvis frame. Foot contact distinguishes
+supplies a short push and recovery. The pelvis faces 25 degrees outward from travel; the right foot leads its
+orbit by 25 degrees and the left trails by 17-35 degrees. Leg links stay
+attached to the pelvis. The oblong torso turns inward over those hips. Foot contact distinguishes
 pivoting from fixed balance support and airborne recovery. Right-foot touchdown
 must coincide with each integer execution count, not merely repeat once/count.
 This is a schematic exploration, not a full force, joint or floor-friction model.
 The main studio's 3D choreography and gait are unchanged.
+
+## Torso and shoulder-contact study (20 October 2026)
+
+The adjustable frame defaults to 50 degrees of inward torso rotation relative
+to the outward pelvis, with 0.06 inward torso displacement. Controls change
+torso turn and closeness without moving the hips or feet. Each illustrated
+right hand targets the partner's left posterior upper shoulder edge. Two fixed
+0.325 arm segments reach that fixed target with elbow bend; unreachable targets
+release contact instead of stretching the arm. A bounded raised elbow permits
+the arm to pass above the torso. Route checks use a finite elliptical torso
+volume. This is a thin-link schematic, not a full anatomical model: head
+clearance, thick-arm collisions and forces are not certified.
+
+Eleven focused timing/foot/frame tests pass. Browser checks cover attached
+50-degree dissociation, unchanged feet while adjusting the frame, valid default
+contact, playback through phase boundaries, and 320/390/1440-pixel layouts.
+The main 3D avatar and choreography remain unchanged.

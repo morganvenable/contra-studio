@@ -55,7 +55,7 @@ function motionAt(beat:number,profile:ExecutionTimingProfile){
   radius=.82-(.82-.31)*closing;
   // Angular travel begins immediately while the pair closes, with no
   // gather-then-start dead zone. The closed frame puts the right side inward.
-  angle=Math.PI/2*elapsed;frameTurn=Math.PI/2*closing;readiness=closing;
+  angle=Math.PI/2*elapsed;frameTurn=(Math.PI/2+25*Math.PI/180)*closing;readiness=closing;
  }else{
   phase='preparation';
   const finish=16-profile.anticipationCounts;
@@ -65,7 +65,7 @@ function motionAt(beat:number,profile:ExecutionTimingProfile){
   // to their original sides before the next balance.
   radius=.31+(.9-.31)*readiness;
   angle=4*Math.PI+2*Math.PI*smooth((local-12)/(finish-12));
-  frameTurn=Math.PI/2*(1-readiness);
+  frameTurn=(Math.PI/2+25*Math.PI/180)*(1-readiness);
  }
  const poses=([0,1] as const).map(id=>{
   const sign=id===0?-1:1,x=sign*radius*Math.cos(angle),z=sign*radius*Math.sin(angle);
@@ -107,13 +107,25 @@ export function sampleStudy(musicBeat:number,profile:ExecutionTimingProfile):Exe
    // turns with pelvis/torso rather than winding the legs around a fixed shoe.
    const offset=(r:typeof root,side:number)=>({x:r.position.x+side*Math.cos(r.yaw),z:r.position.z-side*Math.sin(r.yaw)});
    const buzzStep=Math.floor(local),buzzU=local-buzzStep;
-   const stance=.8,fromRoot=motionAt(buzzStep,profile).poses[root.id],toRoot=motionAt(buzzStep+1,profile).poses[root.id];
-   const a=offset(fromRoot,.19),b=offset(toRoot,.19),q=smooth(buzzU/stance);
-   // Acquisition and opening out keep a bounded body-relative footprint;
-   // the settled swing uses a fixed outside support position during its push.
-   const outer=offset(root,.19),walking={x:a.x+(b.x-a.x)*q,z:a.z+(b.z-a.z)*q};
-   const settled=local>=12?0:smooth((local-(4+profile.transitionCounts))/.5);
-   const targets=[{x:outer.x+(walking.x-outer.x)*settled,z:outer.z+(walking.z-outer.z)*settled},offset(root,-.24)];
+   const stance=.8;
+   const alpha=Math.atan2(root.position.z,root.position.x),radius=Math.hypot(root.position.x,root.position.z);
+   const polar=(r:number,angle:number)=>({x:r*Math.cos(angle),z:r*Math.sin(angle)});
+   // Right leads the hips by 25 degrees. The outside left foot remains
+   // behind: recovery changes its lag from 35 to 17 degrees; the final .2
+   // count holds the same world position as the hips advance another 18.
+   const trail=local<12?(buzzU<stance?-35+18*smooth(buzzU/stance):-17-90*(buzzU-stance)):-35;
+   const footprintRadius=local>=12?.31:radius;
+   const followFrame=(point:{x:number;z:number})=>{
+    if(local<12)return point;
+    const reference=polar(footprintRadius,alpha),dx=point.x-reference.x,dz=point.z-reference.z;
+    const turn=root.yaw-(-alpha+25*Math.PI/180);
+    return{x:root.position.x+dx*Math.cos(turn)+dz*Math.sin(turn),z:root.position.z-dx*Math.sin(turn)+dz*Math.cos(turn)};
+   };
+   const outside=followFrame(polar(footprintRadius+.19,alpha+trail*Math.PI/180));
+   const inside=followFrame(polar(Math.max(.07,footprintRadius-.24),alpha+25*Math.PI/180));
+   const settled=local>=12?1-readiness:smooth((local-(4+profile.transitionCounts))/.5);
+   const outer=offset(root,.19),inner=offset(root,-.24);
+   const targets=[{x:outer.x+(outside.x-outer.x)*settled,z:outer.z+(outside.z-outer.z)*settled},{x:inner.x+(inside.x-inner.x)*settled,z:inner.z+(inside.z-inner.z)*settled}];
    const entry=smooth((local-4)/.35),exit=smooth((local-15.5)/.5);
    for(let i=0;i<2;i++){
     const foot=feet[i],side=foot.side;
@@ -145,3 +157,4 @@ export function sampleStudy(musicBeat:number,profile:ExecutionTimingProfile):Exe
  }) as [StudyPose,StudyPose];
  return{musicBeat,executionBeat,lag,readiness,phase,musicalCount:Math.floor(musical)+1,cycleBeat:musical,executionCycleBeat:local,poses,phaseAnchors:STUDY_PHASE_ANCHORS,studyLabel:'Synthetic paired timing study — not source choreography or a validated body model'};
 }
+

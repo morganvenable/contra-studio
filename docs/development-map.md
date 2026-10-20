@@ -330,25 +330,20 @@ delay and recovery against an unchanged musical clock. It does not alter the
 130 Ready dances. Morgan clarified planted foot contacts and the fourth-step inward push.
 The lab now uses independent world-space feet, lifted steps and support cues;
 its prior body-attached markers slid.
-The swing now uses a separate schematic buzz-step foot model: shared-center
-inside right feet, a right touchdown each count, one outside left push/recovery,
-and identical pelvis/torso orientation. Six focused tests and an independent
-contact-cadence/geometry audit pass; the main 3D engine remains unchanged. Next production work: inspect airborne
-balance foot paths and weight transfer, then parameterize count-sized ramps
-and carried velocity. Left-loop geometry remains queued. A measured CI balancing proposal
-is in ignored research/contradb/release-shard-plan.json; no tests were removed.
+The swing study now has angularly leading right feet and trailing left feet,
+an outward-facing pelvis, an inward-turning oblong torso and adjustable
+closeness. Fixed-length bent arms target the posterior upper shoulder edge.
+See `src/swing-torso-study.ts` and its focused tests. Eleven timing/foot/frame
+tests and TypeScript pass; browser checks cover controls, preserved feet,
+default contact, phase boundaries and 320-1440px layouts. Independent geometry
+review confirms attached torsos and fixed arm lengths. Thin-link routes clear
+the finite torso; thick-arm/head/force validation remains outside this study.
+The main 3D engine remains unchanged. Next: review this visible frame before
+transferring it to production avatars; then address airborne balance feet and
+count-sized transition ramps. Hardware GPU and actual audio checks are unrun.
 
-Timing study release: source f068127, frozen artifact 1d4a5af, successful
-workflow 39474177437. Six timing/foot-contact tests, TypeScript and the
-multipage build passed. The prior study release passed 29 packaging/data-script
-tests. Public browser verification confirms the fourth-step supporting foot
-stays fixed while the body moves inward. The latest public buzz-study check
-confirms on-count right touchdowns and identical pelvis/torso headings, with
-no page errors. Independent dense sampling found maximum foot/body separation
-0.24 and zero swing foot/body yaw mismatch. These are schematic-study checks. Browser checks covered
-presets, parameter extremes, seeking, playback, count-click API operation,
-320?1440px layouts, the built studio link and reopening Nomad's Land. Actual
-audio listening and production whole-dance execution profiles remain unrun.
+Previous study release: source f068127, artifact 1d4a5af, workflow 39474177437.
+Current torso/frame release verification is in progress.
 
 
 Keep context small: read the report for totals and query individual records in
