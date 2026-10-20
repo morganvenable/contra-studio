@@ -321,8 +321,11 @@ upper-arm wrist offset. Its roots and contacts at the offending frame match the
 standalone existing primitive exactly; it is an explicit inherited limitation,
 not an exact-wrist claim for the whole dance. Software-WebGL browser playback and scrubbing passed, including the next round.
 Hardware GPU, audio synchronization and caller review remain unrun.
-Next: finish the verified public release, then investigate measured left-loop
-geometry and explicit left-hand wave seams; do not infer broader source admission.
+Public release: commit 7a6c676, workflow 39452391647 passed every motion shard,
+build/packaging and deployment. The public Pages site serves 130 Ready dances.
+Next: investigate measured left-loop geometry and explicit left-hand wave seams;
+do not infer broader source admission. A measured CI balancing proposal is in
+ignored research/contradb/release-shard-plan.json; no tests were removed.
 
 Keep context small: read the report for totals and query individual records in
 `coverage-audit.json`; do not dump its approximately 1 MB of choices and evidence.
@@ -330,3 +333,5 @@ The census includes importer validation and existing internal samples, not a new
 independent whole-period or body-motion certification.
 
 Release check (2026-10-20): 66 focused motion/source/Ready tests and 29 script tests pass; TypeScript and isolated Pages build pass. Playwright Chromium with software WebGL opens Nomad's Land, scrubs counts 6/14/20/38/54/62, and plays across count 64 into the next round without page errors. Perspective screenshots were inspected. This supersedes the browser-unrun status above; hardware GPU, audio synchronization and caller review remain unrun. The first deployment run was canceled before publishing to fix rejection of unsupported terminal-hey modifiers; the final release must include that guard.
+
+The exact CI artifact and public Pages build were browser-tested with software WebGL: Nomad's Land opens and plays into round two with three and four couples without page errors. Hardware GPU/audio checks remain unrun.
