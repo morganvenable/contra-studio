@@ -1,0 +1,34 @@
+/** Offline real Avatar articulation probe. No GPU or whole-dance certificate. */
+import test from 'node:test';import assert from 'node:assert/strict';import {Vector3} from 'three';
+import {Avatar,applyBodyContactAnchors} from './scene.ts';
+import {createDancers,initialPoses,compilePrimitiveFigure,makeBalanceCue} from './engine.ts';
+import {compileRollawayAllemandePrototype} from './rollaway-allemande-prototype.ts';
+import {captureSequenceBoundary} from './sequence-boundary.ts';import {sampleFormationEndpoint} from './formation-handoff.ts';import {withBalanceStance} from './stance.ts';
+import {probeUnassociatedArms} from '../test-data/ring-pass/free-arm-probe.ts';
+import type {FigureContext} from './extended-figures.ts';import type {CompiledDance,Dance,Figure,Frame,StudioState} from './types.ts';
+function fixture():CompiledDance{
+ const turn:Figure={id:'turn',label:'Robin left one-and-a-half',kind:'allemande',who:'robins',beats:8,direction:'left',amount:1.5},balance:Figure={id:'balance',label:'Partner balance',kind:'balance',who:'partner',beats:4},swing:Figure={id:'swing',label:'Partner swing',kind:'swing',who:'partner',beats:12};
+ const dancers=createDancers(2),start=initialPoses(dancers),yaw=[-1.5*Math.PI,-.5*Math.PI,-2.5*Math.PI,.5*Math.PI];for(const p of start){p.position={x:-p.position.x,z:-p.position.z};p.yaw=yaw[p.id];}
+ const context:FigureContext={ids:[0,1,2,3],dancers,start,relations:{epoch:2,partner:new Map([[0,1],[1,0],[2,3],[3,2]]),neighbor:new Map([[0,3],[3,0],[1,2],[2,1]])},bindingEpoch:2,next:balance};
+ const p=compileRollawayAllemandePrototype(turn,context,captureSequenceBoundary(context,24,[])),exit=sampleFormationEndpoint(context,p,1),b=compilePrimitiveFigure(balance,context.ids,exit,dancers,[],{balanceExit:'same-person-swing'}),dance:Dance={id:'isolated-articulation',title:'Isolated carried turn articulation',author:'Synthetic test',description:'No source admission',formation:'duple-improper',figures:[turn,balance,swing]};
+ return{dance,dancers,totalBeats:24,repeatable:false,starts:[0,8,12],warnings:[],sample(beat:number):Frame{beat=Math.max(0,Math.min(11.99,beat));const fi=beat<8?0:1,f=dance.figures[fi];
+  const active=fi?b:p,u=(beat-(fi?8:0))/f.beats,source=fi?exit:start,poses=source.map(q=>{const before=active.position(q.id,Math.max(0,u-.002)),after=active.position(q.id,Math.min(1,u+.002)),walking=Math.min(1,Math.hypot(after.x-before.x,after.z-before.z)/(.004*f.beats)*2.5);return{...q,position:active.position(q.id,u),yaw:active.facing(q.id,u,source),stride:walking,lean:fi?.07*Math.sin(u*2*Math.PI):.03*walking,bounce:Math.sin(beat*2*Math.PI)*.018*walking,activity:f.kind,balance:makeBalanceCue(f,q.id,context.ids,dancers,u)};});
+  return{beat,localBeat:beat,figureIndex:fi,figureProgress:u,repeat:0,poses,contacts:active.contacts(u,poses),warnings:[]};}};
+}
+test('real articulated shoulders, held wrists and neighboring arm/head meshes expose presentation residuals',t=>{
+ globalThis.document={createElement:()=>({getContext:()=>new Proxy({},{get:()=>()=>{},set:()=>true})})} as unknown as Document;
+ for(const prepared of[false,true]){const base=fixture(),c=prepared?withBalanceStance(base):base,avatars=c.dancers.map(d=>new Avatar(d)),state={dance:c.dance,showLabels:false} as StudioState;
+  let fullHoldSamples=0,maximumActualShoulderReach=0,maximumFullHoldWristResidual=0,maximumFullHoldHandSeparation=0,minimumOtherHeadEnvelope=Infinity;let worstReach:unknown,worstWrist:unknown,worstHead:unknown;
+  try{for(let n=0;n<=640;n++){const beat=n/80,frame=c.sample(beat);for(const a of avatars)a.update(frame.poses[a.dancer.id],frame,state,c.sample);const posed=applyBodyContactAnchors(avatars,frame);for(const a of avatars)a.root.updateMatrixWorld(true);
+   for(const a of avatars)for(const arm of a.arms){assert.ok(Math.abs(arm.upper.scale.y*3-.325)<1e-8);assert.ok(Math.abs(arm.lower.scale.y*3-.325)<1e-8);}
+   for(const h of posed.contacts){const hands:Vector3[]=[];for(const[id,hand]of[[h.a,h.handA],[h.b,h.handB]] as const){const a=avatars[id],arm=a.arms.find(x=>x.side===(hand==='left'?1:-1))!,shoulder=a.body.localToWorld(new Vector3(arm.side*.235,1.355,0)),target=new Vector3(h.point.x,h.point.y,h.point.z),reach=shoulder.distanceTo(target),actual=arm.hand.getWorldPosition(new Vector3());if(reach>maximumActualShoulderReach){maximumActualShoulderReach=reach;const other=id===h.a?h.b:h.a,otherHand=id===h.a?h.handB:h.handA,otherWrist=avatars[other].arms.find(x=>x.side===(otherHand==='left'?1:-1))!.hand.getWorldPosition(new Vector3());worstReach={beat,id,hand,pair:[h.a,h.b],strength:h.strength,reach,actualShoulderToWrist:shoulder.distanceTo(actual),actualWristTargetResidual:actual.distanceTo(target),actualPairedWristGap:actual.distanceTo(otherWrist)};}if(h.strength>1-1e-10){const residual=actual.distanceTo(target);if(residual>maximumFullHoldWristResidual){maximumFullHoldWristResidual=residual;worstWrist={beat,id,hand,residual};}hands.push(actual);}}
+    if(hands.length===2){fullHoldSamples++;maximumFullHoldHandSeparation=Math.max(maximumFullHoldHandSeparation,hands[0].distanceTo(hands[1]));}
+   }
+   if(n%8===0)for(const a of avatars)for(const other of avatars.filter(x=>x!==a)){if(a.root.position.distanceTo(other.root.position)>2.1)continue;const inverse=other.body.matrixWorld.clone().invert();for(const arm of a.arms)for(const [part,mesh]of[['upper',arm.upper],['forearm',arm.lower],['hand',arm.hand]] as const){const vertices=mesh.geometry.attributes.position;for(let j=0;j<vertices.count;j++){const q=new Vector3().fromBufferAttribute(vertices,j).applyMatrix4(mesh.matrixWorld).applyMatrix4(inverse),clearance=(Math.hypot(q.x/.16,(q.y-1.62)/.21,q.z/.18)-1)*.16;if(clearance<minimumOtherHeadEnvelope){minimumOtherHeadEnvelope=clearance;worstHead={beat,id:a.dancer.id,other:other.dancer.id,part,clearance};}}}}
+  }}finally{for(const a of avatars)a.dispose();}
+  const armClearance=probeUnassociatedArms(c,Array.from({length:81},(_,n)=>n/10));
+  assert.ok(fullHoldSamples>0,'actual full-strength contacts must be exercised');const result={prepared,fullHoldSamples,maximumActualShoulderReach,maximumFullHoldWristResidual,maximumFullHoldHandSeparation,minimumOtherHeadEnvelope,armClearance,worstReach,worstWrist,worstHead};t.diagnostic(JSON.stringify(result));
+  assert.ok([maximumActualShoulderReach,maximumFullHoldWristResidual,minimumOtherHeadEnvelope,armClearance.minimum].every(Number.isFinite));assert.ok(maximumFullHoldWristResidual<1e-7);assert.ok(maximumFullHoldHandSeparation<1e-7);assert.ok(minimumOtherHeadEnvelope>0);assert.ok(armClearance.minimum>0);
+  if(prepared)assert.ok(maximumActualShoulderReach>.645,'documented integration distinction: stance adds weighted approach targets outside full-grip reach');else assert.ok(maximumActualShoulderReach<=.64,'unprepared prototype positive contacts are reachable in actual articulation');
+ }
+});
