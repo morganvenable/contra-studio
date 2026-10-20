@@ -3,9 +3,10 @@
 import {createDancers,compilePrimitiveFigure,figureContinuity} from './engine.ts';
 import {compileEventSection,type CompiledEventSection,type BoundFigureStep} from './event-section.ts';
 import {bindDirectedCoupleSlots,compileSameEndExchange,describeBoundEndEffects,ownProgressionDeclaration,type DirectedCoupleSlot,type GroupBinding,type ProgressionEvidence} from './progression-topology.ts';
-import {compileWaveFigure,type WaveFigurePlan,type WaveFigureSpec} from './wave-figure-adapter.ts';
+import type {WaveFigureSpec} from './wave-figure-adapter.ts';
+import {compileCarriedWaveCirculate,type CarriedWaveState} from './carried-wave-circulate.ts';
 import {joinLongWaveSegments,fullLongWaveContacts,type FullLongWaveGraph} from './full-long-wave.ts';
-import type {WaveGraph,CirculateAssignment} from './wave-figures.ts';
+import type {WaveGraph} from './wave-figures.ts';
 import type {Dance,Figure,Pose,CompiledDance,Frame,Role} from './types.ts';
 export interface LongWaveAllemandeFigure extends Omit<Figure,'kind'|'who'|'direction'|'amount'|'exit'> {kind:'allemande';beats:8;who:'neighbor';direction:'right';amount:1.5;exit:'long-waves';inwardRole:'lark';outwardRole:'robin';}
 export interface LongWaveCirculateFigure extends Omit<Extract<WaveFigureSpec,{kind:'balance-box-circulate'}>,'entry'|'exit'> {entry:'long-waves';exit:'long-waves'|'progressed-neighbors';progression?:boolean;}
@@ -29,6 +30,9 @@ function assertProgram(source:LongWaveSourceDance,spec:ReturnType<typeof ownProg
  if(spec.count!==1||spec.waitingRoleArrangement!=='lark-left'||spec.initialBinding!==undefined||spec.afterFigureId!==last!.id||f.some((x,i)=>x.progression&&i!==f.length-1))throw new Error('The long-wave progression must follow the final source-counted physical circulation.');
  if(setup?.kind!=='allemande'||setup.beats!==8||setup.who!=='neighbor'||setup.direction!=='right'||setup.amount!==1.5||setup.exit!=='long-waves'||setup.inwardRole!=='lark'||setup.outwardRole!=='robin')throw new Error('The zero-count long-wave setup must be the declared eight-count neighbor RH 1½ exit, larks in and robins out.');
  for(const[x,role,exit]of[[first,'lark','long-waves'],[last,'robin','progressed-neighbors']] as const){const c=x as LongWaveCirculateFigure;if(c.kind!=='balance-box-circulate'||c.beats!==8||c.entry!=='long-waves'||c.exit!==exit||c.crossRole!==role||c.loopRole===(role as Role)||!['lark','robin'].includes(c.loopRole)||c.loopDirection!=='right'||c.balanceStyle!=='right-left'||c.phaseBeats?.length!==2||c.phaseBeats.some(n=>n!==4))throw new Error('The full-wave source requires explicit 4+4 balances, larks then robins crossing, and right loops.');}
+ // Lowering to the reusable call must not discard unconsumed source modifiers.
+ const circulateKeys=new Set(['id','label','kind','beats','notes','confidence','entry','exit','progression','crossRole','loopRole','loopDirection','balanceStyle','phaseBeats']);
+ for(const figure of [first!,last!])for(const key of Object.keys(figure))if(!circulateKeys.has(key)&&(figure as any)[key]!==undefined)throw new Error('The long-wave circulate does not consume '+key+'.');
  const keys=new Set(['id','label','kind','beats','notes','confidence','who','direction','amount','exit','inwardRole','outwardRole','progression']);for(const k of Object.keys(setup))if(!keys.has(k)&&(setup as any)[k]!==undefined)throw new Error(`The long-wave setup does not consume “${k}”.`);
 }
 interface Cycle {prelude:CompiledEventSection;binding:GroupBinding;graphs:readonly FullLongWaveGraph[];end:readonly Pose[];sample(beat:number):Frame;}
@@ -52,21 +56,27 @@ export function compileLongWaveImproper(input:LongWaveSourceDance,couples:number
     return{...plan,position(id,t){const p=plan.position(id,t),S=LONG_WAVE_TURN_PREPARATION,opening=S.outwardCenterShift*ease(t*figure.beats/S.openingBeats)*ease((1-t)*figure.beats/S.closingBeats);return{x:p.x+Math.sign(context.start[id].position.x)*opening,z:p.z};},facing(id,t,all){return plan.facing(id,t,all)+Math.PI/2;}};
    },inactive(beat,incoming){return binding.waitingIds.map(id=>turns.get(dancers[id].couple)!.sample(beat).find(p=>p.id===id)??{...copy(incoming[id]),stride:0,activity:'waiting' as const});}}));
   const prelude=compileEventSection({dancers,initial:poses,binding,steps,totalBeats:waveStart});
-  const waveEntry=prelude.end.map(copy),ids=binding.groups.flatMap(g=>[...g.actors]),localGraphs=binding.groups.map(g=>{const[a,b,c,d]=g.actors;return graph([a,d],[b,c]);}),initialWave=joinLongWaveSegments(localGraphs,waveEntry,ids,round),plans:Array<WaveFigurePlan[]>=[[],[]],graphs:FullLongWaveGraph[]=[initialWave];
-  let current=waveEntry,currentGraphs=localGraphs;
-  for(let phase=0;phase<2;phase++){
-   const declared=figures[figures.length-2+phase] as LongWaveCirculateFigure,{entry:_entry,exit:_exit,progression:_progression,...figure}=declared;
-   const exits:WaveGraph[]=[];
-   for(const[gIndex,g]of binding.groups.entries()){
-    const entryGraph=currentGraphs[gIndex],[a,d]=entryGraph.lines[0].order,[b,c]=entryGraph.lines[1].order;
-    // Explicit clockwise slot occupancy: west-top → east-top → east-bottom → west-bottom.
-    const mapping:CirculateAssignment[]=[{id:a,destinationId:b,mode:'cross'},{id:b,destinationId:c,mode:'loop-right'},{id:c,destinationId:d,mode:'cross'},{id:d,destinationId:a,mode:'loop-right'}],exitGraph=graph([d,c],[a,b]),origin={x:0,z:g.actors.reduce((n,id)=>n+current[id].position.z,0)/4};
-    const plan=compileWaveFigure(figure,{ids:[...g.actors],start:current,dancers,relations:binding.relations,bindingEpoch:round,wave:{graph:entryGraph,handRelations:phase?['partner','partner']:['neighbor','neighbor']},circulate:{mapping,exitWave:exitGraph,exitHandRelations:phase?['neighbor','neighbor']:['partner','partner'],frame:{origin,across:{x:1,z:0}}}});plans[phase].push(plan);exits.push(exitGraph);
-   }
-   const end=current.map(copy);for(const[gIndex,g]of binding.groups.entries())for(const id of g.actors){end[id].position=plans[phase][gIndex].position(id,1);end[id].yaw=plans[phase][gIndex].facing(id,1,end);}current=end;currentGraphs=exits;graphs.push(joinLongWaveSegments(exits,current,ids,round));
+  const waveEntry=prelude.end.map(copy),ids=binding.groups.flatMap(g=>[...g.actors]),localGraphs=binding.groups.map(g=>{const[a,b,c,d]=g.actors;return graph([a,d],[b,c]);}),initialWave=joinLongWaveSegments(localGraphs,waveEntry,ids,round),plans:Array<ReturnType<typeof compileCarriedWaveCirculate>>=[],graphs:FullLongWaveGraph[]=[initialWave];
+  let carried:CarriedWaveState={sourceBeat:waveStart,bindingEpoch:round,
+   actors:dancers.map(({id,role,couple})=>({id,role,couple})),poses:waveEntry,
+   partner:[...binding.relations.partner],neighbor:[...binding.relations.neighbor],
+   boxPartitions:binding.groups.map(g=>[...g.actors]),wave:initialWave,
+   heldContacts:fullLongWaveContacts(initialWave,waveEntry),waitingIds:binding.waitingIds};
+  for(const declared of figures.slice(-2) as LongWaveCirculateFigure[]){
+   const plan=compileCarriedWaveCirculate({kind:'balance-box-circulate',beats:8,
+    crossRole:declared.crossRole,loopRole:declared.loopRole,loopDirection:declared.loopDirection,
+    phaseBeats:declared.phaseBeats,balanceStyle:declared.balanceStyle},carried);
+   plans.push(plan);carried=plan.exitState;graphs.push(carried.wave);
   }
+  const terminalBase=plans[1].sample(6.75).poses,terminalExit=plans[1].exitState.poses;
   const sampleWave=(beat:number):Frame=>{
-   const phase=beat<56?0:1,local=clamp((beat-(48+phase*8))/8),phaseBeat=local*8,framePoses=waveEntry.map(copy);for(const[gIndex,g]of binding.groups.entries())for(const id of g.actors){const plan=plans[phase][gIndex],p=plan.position(id,local),a=plan.position(id,Math.max(0,local-.0001)),b=plan.position(id,Math.min(1,local+.0001));let yaw=plan.facing(id,local,framePoses);if(phase===1&&phaseBeat>6.75){const base=plan.facing(id,6.75/8,framePoses),end=plan.facing(id,1,framePoses),target=directions[dancers[id].couple]===1?0:Math.PI;yaw+=(base+wrap(target-base)-(base+wrap(end-base)))*ease((phaseBeat-6.75)/1.25);}framePoses[id]={id,position:p,yaw,stride:Math.min(1,Math.hypot(b.x-a.x,b.z-a.z)/(.0002*8)*2.5),lean:0,bounce:0,turn:0,activity:'balance-box-circulate'};}
+   const phase=beat<56?0:1,local=clamp((beat-(48+phase*8))/8),phaseBeat=local*8,plan=plans[phase],
+    framePoses=plan.sample(phaseBeat).poses.map(copy),before=plan.sample(Math.max(0,local-.0001)*8).poses,
+    after=plan.sample(Math.min(1,local+.0001)*8).poses;
+   for(const id of ids){const p=framePoses[id].position,a=before[id].position,b=after[id].position;let yaw=framePoses[id].yaw;
+    if(phase===1&&phaseBeat>6.75){const base=terminalBase[id].yaw,end=terminalExit[id].yaw,target=directions[dancers[id].couple]===1?0:Math.PI;yaw+=(base+wrap(target-base)-(base+wrap(end-base)))*ease((phaseBeat-6.75)/1.25);}
+    framePoses[id]={id,position:p,yaw,stride:Math.min(1,Math.hypot(b.x-a.x,b.z-a.z)/(.0002*8)*2.5),lean:0,bounce:0,turn:0,activity:'balance-box-circulate'};
+   }
    let contacts=phaseBeat<=4?fullLongWaveContacts(graphs[phase],framePoses):phaseBeat<4.15?fullLongWaveContacts(graphs[phase],framePoses,1-ease((phaseBeat-4)/.15)):phase===0&&phaseBeat>7.85?fullLongWaveContacts(graphs[phase+1],framePoses,ease((phaseBeat-7.85)/.15)):[];
    return{beat,localBeat:beat,repeat:0,figureIndex:figures.length-2+phase,figureProgress:local,poses:framePoses,contacts,warnings:[]};
   };

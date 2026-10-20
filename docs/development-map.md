@@ -274,6 +274,22 @@ half-hey-after.json row blockers to choose the next shared capability.
 The prior source1464 adapter-name assertion was corrected only after its existing
 full-period behavior checks passed, and now also asserts strict-carried policy.
 
+Wave/box circulation checkpoint - 20 October 2026: [shared wave circulation](wave-generalization.md)
+now resolves measured station transfers and carries complete long-wave hands,
+explicit boxes, clocks, relationships and waiting actors. Standalone 4-count and
+balance-plus-circulation 8-count calls compose independently. The production 1591
+wrapper uses the shared operation; its legacy source setup and progression guard
+remain. Baseline 390 frames agree to floating-point precision, including seam hands.
+The prior CI accounting failure was fixed by regenerating the fixture-only census
+for 158 fixtures; all 29 script tests passed without weakening the assertion.
+Current verification: 23 focused tests pass, including all 129 Ready defaults,
+2-12-couple complete periods and articulated wave/body regressions; TypeScript
+and isolated Pages build pass. No new public deployment or GPU/audio check.
+Next source path: 187 Nomad's Land, explicit initial waves, circulation into
+neighbor balance/swing, and a terminal hey returning to the next wave. Initial
+hands and chain receiver remain explicit choices. Do not clear source context
+gates until that complete path, actual endpoint and finite ends validate.
+
 Keep context small: read the report for totals and query individual records in
 `coverage-audit.json`; do not dump its approximately 1 MB of choices and evidence.
 The census includes importer validation and existing internal samples, not a new
