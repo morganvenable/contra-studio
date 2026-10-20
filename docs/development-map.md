@@ -336,7 +336,11 @@ hand pair persists through the ballroom transfer. The swing stance is compact
 (hip radius .25, outside foot .34) with right feet still on a shared .07 orbit.
 Use Inspect balance / Inspect hold in `timing-lab.html`. Main3D unchanged.
 See `src/execution-timing-study.ts`, `src/swing-torso-study.ts` and their tests.
-Current checks/public release pending. Thin-link contact is schematic;
+Released source e574309, artifact 797acc2, successful workflow39479390922.
+Sixteen focused tests, TypeScript, Pages build and exact-artifact/public
+browser checks pass. Browser samples all three presets through balance,
+transfer and preparation with connected reachable arms and no page errors.
+Independent geometry audit confirms exact joined contacts and bent arms. Thin-link contact is schematic;
 finite arm/head volume and force simulation remain unvalidated.
 
 
