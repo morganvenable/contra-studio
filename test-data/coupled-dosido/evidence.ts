@@ -3,7 +3,7 @@
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import {createDancers,initialPoses,compilePrimitiveFigure} from '../../src/engine.ts';
-import {captureSequenceBoundary,type SequenceBoundary} from '../../src/sequence-boundary.ts';
+import {captureSequenceBoundary,assertSequenceHandoff,type SequenceBoundary} from '../../src/sequence-boundary.ts';
 import {sampleFormationEndpoint} from '../../src/formation-handoff.ts';
 import {compileCoupledDosidoStep,type CoupledDosidoPlan} from '../../src/coupled-dosido-step.ts';
 import {distance,turn} from '../../src/ring-twirl-contract.ts';
@@ -24,7 +24,11 @@ export function coupledDosidoProducer(sourceId:624|1702){
   const figure:Figure={id:'actual-full-circle',label:'circle left 4 places',kind:'circle',who:'all',direction:'left',amount:1,beats:8},producer=compilePrimitiveFigure(figure,context.ids,context.start,context.dancers,[1,-1]);
   assert.ok(producer.contacts(.99,context.start).some(c=>c.strength>0));
   context.start=sampleFormationEndpoint(context,producer,1);boundary=captureSequenceBoundary(context,8,producer.contacts(1,context.start));
-  const retained=JSON.parse(readFileSync(new URL('../../../research/reusable-motion-batches/coupled-circle-ingress-probe-ready123.json',import.meta.url),'utf8')).samples.at(-1);
+  // Use the supplied retained entry packet, never regenerate the baseline from
+  // this producer. The earlier external research artifact was not in the handoff.
+  const retained=JSON.parse(readFileSync(new URL('./isolated-evidence.json',import.meta.url),'utf8')).sources.find((source:{sourceId:number})=>source.sourceId===624)?.entry;
+  assert.ok(retained,'The bundled source 624 entry evidence must be retained.');
+  assertSequenceHandoff(retained,boundary);
   for(const p of boundary.poses){const q=retained.poses.find((q:{id:number})=>q.id===p.id);assert.ok(distance(p.position,q.position)<1e-12);assert.ok(Math.abs(turn(p.yaw,q.yaw))<1e-12);}
  }else boundary=captureSequenceBoundary(context,0,[]);
  const plan=compileCoupledDosidoStep(coupledDosidoFigure,context,boundary);

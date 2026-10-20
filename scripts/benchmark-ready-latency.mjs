@@ -2,8 +2,8 @@
 // build; absolute timings reflect the host CPU and are not device/GPU claims.
 // node --experimental-strip-types scripts/benchmark-ready-latency.mjs [appRoot]
 import {resolve} from 'node:path';
-import {pathToFileURL} from 'node:url';
-const root = resolve(process.argv[2] ?? new URL('..', import.meta.url).pathname);
+import {pathToFileURL,fileURLToPath} from 'node:url';
+const root = resolve(process.argv[2] ?? fileURLToPath(new URL('..', import.meta.url)));
 const moduleAt = relative => import(pathToFileURL(resolve(root, relative)).href);
 const {READY_LIBRARY} = await moduleAt('src/ready-library.ts');
 const {readContraDbImport} = await moduleAt('src/contradb-import.ts');

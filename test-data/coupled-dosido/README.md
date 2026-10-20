@@ -84,7 +84,7 @@ mesh collision study.
 
 The isolated 624 evidence compiles the existing ordinary full left-circle
 primitive and samples its actual endpoint at source beat 8. It checks the
-retained ingress probe, preserves the inward yaws, and verifies raw ring
+retained source 624 entry in `isolated-evidence.json`, preserves the inward yaws, and verifies raw ring
 contacts have eased from nonzero near completion to zero at the boundary.
 The isolated 1702 evidence uses the actual ordinary improper opening poses
 and persistent partner/neighbor maps at source beat 0.
@@ -115,7 +115,13 @@ producer, continuous all-root minima, held-contact rejection, incompatible
 partner placement, stale epochs, unsupported figure modifiers, ownership,
 accessor rejection, and unchanged existing individual do-si-do samples.
 
-The artifact `isolated-evidence.json` is produced by `evidence.ts`. Its packet
+The supplied artifact `isolated-evidence.json` was produced by `evidence.ts`.
+The current check reads its existing source 624 entry as the fixed baseline;
+it does not regenerate it. The older external research ingress probe was not
+included in the handoff, so equivalence to that unavailable file is not claimed.
+The bundled packet checks actual roots/facing, source clock, identities,
+relationships, epoch and released contacts without requiring files outside the repo.
+Its packet
 is deliberately limited to the isolated boundary. Full 3/4-couple source
 periods, finite ends, successor continuity in the full dances, and public
 registration are owned by the shared integration work and are not claimed by
