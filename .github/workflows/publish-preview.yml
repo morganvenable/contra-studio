@@ -1,0 +1,46 @@
+name: Publish previewed build
+
+on:
+  workflow_dispatch:
+    inputs:
+      artifact_commit:
+        description: Exact pages-release commit containing the previewed static build
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: publish-preview
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          ref: ${{ inputs.artifact_commit }}
+          path: site
+      - name: Check static entry and retain deployed revision
+        env:
+          ARTIFACT_COMMIT: ${{ inputs.artifact_commit }}
+        run: |
+          test -f site/index.html
+          test -d site/assets
+          test -f site/contradb-index.json
+          rm -rf site/.git
+          printf '%s\n' "$ARTIFACT_COMMIT" > site/deployed-commit.txt
+      - uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d
+      - uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9
+        with:
+          path: site
+      - id: deployment
+        uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346
