@@ -338,11 +338,14 @@ balance foot paths and weight transfer, then parameterize count-sized ramps
 and carried velocity. Left-loop geometry remains queued. A measured CI balancing proposal
 is in ignored research/contradb/release-shard-plan.json; no tests were removed.
 
-Timing study release: source 2aac2ad, frozen artifact e2548a7, successful
-workflow 39471590317. Five timing/foot-contact tests, TypeScript and the
+Timing study release: source f068127, frozen artifact 1d4a5af, successful
+workflow 39474177437. Six timing/foot-contact tests, TypeScript and the
 multipage build passed. The prior study release passed 29 packaging/data-script
 tests. Public browser verification confirms the fourth-step supporting foot
-stays fixed while the body moves inward, with no page errors. Browser checks covered
+stays fixed while the body moves inward. The latest public buzz-study check
+confirms on-count right touchdowns and identical pelvis/torso headings, with
+no page errors. Independent dense sampling found maximum foot/body separation
+0.24 and zero swing foot/body yaw mismatch. These are schematic-study checks. Browser checks covered
 presets, parameter extremes, seeking, playback, count-click API operation,
 320?1440px layouts, the built studio link and reopening Nomad's Land. Actual
 audio listening and production whole-dance execution profiles remain unrun.
