@@ -1,6 +1,7 @@
 import './timing-lab.css';
 import {createTimingAvatarView} from './timing-avatar-view.ts';
 import {sampleSwingTorsoStudy} from './swing-torso-study.ts';
+import {DEFAULT_SWING_FRAME_SETTINGS,SAMPLED_SWING_FRAME_DOMAIN,sampledSwingFrameOptions} from './swing-frame-domain.ts';
 import {sampleStudy, FLUENT_TIMING_PROFILE, DEFAULT_TIMING_PROFILE, type ExecutionTimingProfile} from './execution-timing-study.ts';
 
 const root=document.querySelector<HTMLDivElement>('#timing-app')!;
@@ -23,8 +24,8 @@ root.innerHTML=`
         ${slider('responseDelayCounts','Late response',0,1,.05,'Start moving this far behind the musical count.')}
         ${slider('recoveryCounts','Time to catch up',2,8,.25,'Recover the delay over this many counts.')}
         <h3 class="frame-title">Swing frame</h3>
-        ${slider('torsoTurn','Torso turn inward',-35,70,1,'Turn the shoulders relative to the hips. Positive turns toward your partner.')}
-        ${slider('bodyCloseness','Body closeness',0,1,.05,'Bring the shoulders closer while the feet and hips keep their paths.')}
+        ${slider('torsoTurn','Torso turn inward',SAMPLED_SWING_FRAME_DOMAIN.inwardTurnDegrees.min,SAMPLED_SWING_FRAME_DOMAIN.inwardTurnDegrees.max,1,'Turn the shoulders toward your partner while keeping the enclosing hold.')}
+        ${slider('bodyCloseness','Body closeness',SAMPLED_SWING_FRAME_DOMAIN.inwardLean.min/.08,SAMPLED_SWING_FRAME_DOMAIN.inwardLean.max/.08,.05,'Bring the shoulders closer while the feet and hips keep their paths.')}
         <p id="frame-status" class="profile-note" role="status">Try the swing to inspect the shoulder connection.</p>
         <div class="profile-note">L = lark, R = robin. Balance starts with both hands joined and elbows bent. One hand pair stays joined as the other transfers into the shoulder wrap.</div>
       </aside>
@@ -48,7 +49,7 @@ const presets:Record<string,ExecutionTimingProfile>={
   measured:{...DEFAULT_TIMING_PROFILE},
   late:{anticipationCounts:0,transitionCounts:1.5,responseDelayCounts:.75,recoveryCounts:4},
 };
-let torsoTurn=50,bodyCloseness=.75;
+let torsoTurn=DEFAULT_SWING_FRAME_SETTINGS.inwardTurnDegrees,bodyCloseness=DEFAULT_SWING_FRAME_SETTINGS.inwardLean/.08;
 let profile={...presets.measured},beat=0,playing=false,bpm=112,previousTime=performance.now();
 let clickEnabled=false,audioContext:AudioContext|undefined,lastClickedBeat=-1;
 function countClick(){
@@ -80,7 +81,7 @@ function updateControls(){
 function drawFloor(id:'fluent'|'adjustable',timing:ExecutionTimingProfile){
   const sample=sampleStudy(beat,timing),color=palette[id],scale=110;
   const frameWeight=sample.phase==='swing'?sample.readiness:sample.phase==='preparation'?1-sample.readiness:0;
-  const frame=sampleSwingTorsoStudy(sample.poses,{torsoTwistDegrees:-(id==='fluent'?50:torsoTurn)*frameWeight,inwardLean:(id==='fluent'?.06:bodyCloseness*.08)*frameWeight,contactStrength:1,ballroomWeight:frameWeight});
+  const frame=sampleSwingTorsoStudy(sample.poses,sampledSwingFrameOptions(sample,id==='fluent'?DEFAULT_SWING_FRAME_SETTINGS:{inwardTurnDegrees:torsoTurn,inwardLean:bodyCloseness*.08}));
   avatarViews[id].render(sample,frame);
   const line=sample.poses.map(p=>({x:p.position.x*scale,y:p.position.z*scale}));
   let markup=`<defs><pattern id="${id}-grid" width="34" height="34" patternUnits="userSpaceOnUse"><path d="M 34 0 L 0 0 0 34" fill="none" stroke="#e9ece2" stroke-width=".8"/></pattern></defs><rect x="-150" y="-120" width="300" height="240" rx="16" fill="#f6f7ef"/><rect x="-150" y="-120" width="300" height="240" rx="16" fill="url(#${id}-grid)"/><circle r="85" fill="none" stroke="#dde4d6" stroke-dasharray="3 6"/><path d="M-7 0H7 M0-7V7" stroke="#cdd6c7"/>`;
