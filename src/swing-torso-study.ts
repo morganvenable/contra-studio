@@ -12,7 +12,7 @@ export interface StudyTorso {
  width:number;depth:number;leftShoulder:StudyPoint;rightShoulder:StudyPoint;leftBackShoulder:StudyPoint;rightBackShoulder:StudyPoint;
 }
 export interface StudyShoulderArm {
- actorId:0|1;partnerId:0|1;side:'left'|'right';kind:'shoulder'|'joined';shoulder:StudyPoint;elbow:StudyPoint;hand:StudyPoint;target:StudyPoint;
+ actorId:0|1;partnerId:0|1;side:'left'|'right';kind:'shoulder'|'joined';shoulder:StudyPoint;elbow:StudyPoint;wrist:StudyPoint;hand:StudyPoint;target:StudyPoint;
  reachable:boolean;comfortable:boolean;bendDegrees:number;routeClear:boolean;elbowRaised:boolean;contactStrength:number;reachDistance:number;upperLength:number;lowerLength:number;
 }
 const distance=(a:StudyPoint,b:StudyPoint)=>Math.hypot(a.x-b.x,a.z-b.z,(a.y??0)-(b.y??0));
@@ -68,7 +68,7 @@ export function sampleSwingTorsoStudy(poses:readonly [StudyPose,StudyPose],optio
  const transferWeight=ballroomWeight*ballroomWeight;
  const blendTarget=(target:StudyPoint)=>transferWeight===1?{...target,y:target.y??1.35}:{...add(balanceWrapTarget,{x:target.x-balanceWrapTarget.x,z:target.z-balanceWrapTarget.z},transferWeight),y:1.10+((target.y??1.35)-1.10)*Math.min(1,ballroomWeight*4)};
  const specs=[
-  {torso:lark,partner:robin,side:'right',kind:'shoulder',target:blendTarget(robin.leftBackShoulder)},
+  {torso:lark,partner:robin,side:'right',kind:'shoulder',target:blendTarget({...robin.leftBackShoulder,y:1.30})},
   {torso:robin,partner:lark,side:'left',kind:'shoulder',target:blendTarget({...lark.rightBackShoulder,y:1.40})},
   {torso:lark,partner:robin,side:'left',kind:'joined',target:joinedTarget},
   {torso:robin,partner:lark,side:'right',kind:'joined',target:joinedTarget},
@@ -76,10 +76,21 @@ export function sampleSwingTorsoStudy(poses:readonly [StudyPose,StudyPose],optio
  const candidates:{point:StudyPoint;score:number}[][]=[];
  const arms=specs.map(({torso,partner,side,kind,target:contactTarget})=>{
   const shoulder={...(side==='left'?torso.leftShoulder:torso.rightShoulder),y:1.35},target={...contactTarget,y:contactTarget.y??1.35};
-  const reachDistance=distance(shoulder,target),reachable=reachDistance<=.65+1e-12;
-  const direction=reachDistance>1e-12?{x:(target.x-shoulder.x)/reachDistance,z:(target.z-shoulder.z)/reachDistance,y:(target.y-shoulder.y)/reachDistance}:{x:Math.sin(torso.torsoYaw),z:Math.cos(torso.torsoYaw),y:0};
-  const hand=reachable?{...target}:add(shoulder,direction,.65),span=distance(shoulder,hand),mid=add(shoulder,direction,span/2);
-  const bend=Math.sqrt(Math.max(0,.325**2-(span/2)**2));
+  const wristWrap=kind==='shoulder'?transferWeight:0;
+  const partnerSide=torso.id===0?1:-1;
+  const sidePoint=partnerSide===1?partner.leftShoulder:partner.rightShoulder;
+  const gripWrist={x:sidePoint.x+partnerSide*.04*Math.cos(partner.torsoYaw),z:sidePoint.z-partnerSide*.04*Math.sin(partner.torsoYaw),y:torso.id===0?1.24:1.45};
+  const unit=(v:StudyPoint)=>{const length=Math.hypot(v.x,v.z,v.y??0)||1;return{x:v.x/length,z:v.z/length,y:(v.y??0)/length};};
+  const restDirection=unit({x:shoulder.x-target.x,z:shoulder.z-target.z,y:shoulder.y-(target.y??1.35)});
+  const wrapDirection=unit({x:gripWrist.x-target.x,z:gripWrist.z-target.z,y:gripWrist.y-(target.y??1.35)});
+  const handDirection=unit({x:restDirection.x+(wrapDirection.x-restDirection.x)*wristWrap,z:restDirection.z+(wrapDirection.z-restDirection.z)*wristWrap,y:restDirection.y+(wrapDirection.y-restDirection.y)*wristWrap});
+  const wristTarget=add(target,handDirection,.115);
+  const upperLength=.325,lowerLength=.27,maxReach=upperLength+lowerLength;
+  const reachDistance=distance(shoulder,wristTarget),reachable=reachDistance<=maxReach+1e-12;
+  const direction=reachDistance>1e-12?{x:(wristTarget.x-shoulder.x)/reachDistance,z:(wristTarget.z-shoulder.z)/reachDistance,y:((wristTarget.y??0)-shoulder.y)/reachDistance}:{x:Math.sin(torso.torsoYaw),z:Math.cos(torso.torsoYaw),y:0};
+  const wrist=reachable?{...wristTarget}:add(shoulder,direction,maxReach),hand=reachable?{...target}:add(target,{x:wrist.x-wristTarget.x,z:wrist.z-wristTarget.z,y:(wrist.y??0)-(wristTarget.y??0)},1);
+  const span=distance(shoulder,wrist),along=span>1e-12?(upperLength**2-lowerLength**2+span**2)/(2*span):0,mid=add(shoulder,direction,along);
+  const bend=Math.sqrt(Math.max(0,upperLength**2-along**2));
   const horizontal=Math.hypot(direction.x,direction.z),u=horizontal>1e-12?{x:-direction.z/horizontal,z:direction.x/horizontal,y:0}:{x:1,z:0,y:0};
   const v={x:direction.y*u.z,z:-direction.y*u.x,y:direction.z*u.x-direction.x*u.z};
   // The torso has a top: an elbow may rise up to .12 above its shoulder.
@@ -99,24 +110,26 @@ export function sampleSwingTorsoStudy(poses:readonly [StudyPose,StudyPose],optio
    const angle=j*Math.PI/360,candidate=add(add(mid,u,bend*Math.cos(angle)),v,bend*Math.sin(angle));
    const wrapWeight=kind==='joined'?0:transferWeight;
    const liftWeight=kind==='joined'?0:Math.min(1,ballroomWeight*4);
-   const minHeight=.90+liftWeight*((torso.id===0?1.05:1.40)-.90);
+   const minHeight=.90+liftWeight*((torso.id===0?1.05:1.36)-.90);
    // Lift the elbow before the hand travels around the shoulder, preserving torso clearance.
-   const maxHeight=1.25+liftWeight*((torso.id===0?1.36:1.65)-1.25);
+   const maxHeight=1.25+liftWeight*((torso.id===0?1.34:1.60)-1.25);
    if((candidate.y??0)>maxHeight+1e-10||(candidate.y??0)<minHeight)continue;
-   if(torsos.every(t=>segmentClear(shoulder,candidate,t)&&segmentClear(candidate,hand,t))){
+   if(torsos.every(t=>segmentClear(shoulder,candidate,t)&&segmentClear(candidate,wrist,t))){
     // Favor the elbow on its own side, away from the space between torsos.
     const lateral={x:Math.cos(torso.torsoYaw)*(side==='left'?1:-1),z:-Math.sin(torso.torsoYaw)*(side==='left'?1:-1)};
     const outward=(candidate.x-mid.x)*lateral.x+(candidate.z-mid.z)*lateral.z;
     const forward=(candidate.x-shoulder.x)*Math.sin(torso.torsoYaw)+(candidate.z-shoulder.z)*Math.cos(torso.torsoYaw);
     // Let the joined arms hang down; do not pull the elbow behind the torso.
     if(wrapWeight===0&&forward<-.015)continue;
-    const score=wrapWeight*outward+(.35*outward+.15*forward-2*(candidate.y??0))*(1-wrapWeight);
+    const wrapSide=-(candidate.x-pairCenter.x)*joinedOut.x-(candidate.z-pairCenter.z)*joinedOut.z;
+    if(kind==='shoulder'&&ballroomWeight>.8&&(wrapSide<.07*(ballroomWeight-.8)/.2||forward<-.12))continue;
+    const score=wrapWeight*(wrapSide-.35*(candidate.y??0)) +(.35*outward+.15*forward-2*(candidate.y??0))*(1-wrapWeight);
     choices.push({point:candidate,score});
     if(score>bestScore){elbow=candidate;routeClear=true;bestScore=score;}
    }
   }
-  const bendDegrees=2*Math.acos(Math.min(1,span/.65))*180/Math.PI,comfortable=reachable&&reachDistance<=.585;
-  const arm={actorId:torso.id,partnerId:partner.id,side,kind,shoulder,elbow,hand,target,reachable,comfortable,bendDegrees,routeClear,elbowRaised:(elbow.y??0)>1.35+1e-6,contactStrength:reachable?contactStrength:0,reachDistance,upperLength:.325,lowerLength:.325};
+  const bendDegrees=Math.acos(Math.max(-1,Math.min(1,(span**2-upperLength**2-lowerLength**2)/(2*upperLength*lowerLength))))*180/Math.PI,comfortable=reachable&&reachDistance<=maxReach*.9;
+  const arm={actorId:torso.id,partnerId:partner.id,side,kind,shoulder,elbow,wrist,hand,target,reachable,comfortable,bendDegrees,routeClear,elbowRaised:(elbow.y??0)>1.35+1e-6,contactStrength:reachable?contactStrength:0,reachDistance,upperLength,lowerLength};
   candidates.push(choices.sort((a,b)=>b.score-a.score));return arm;
  }) as StudyShoulderArm[];
  if(ballroomWeight>.8){
@@ -125,7 +138,7 @@ export function sampleSwingTorsoStudy(poses:readonly [StudyPose,StudyPose],optio
   // full angular range of each admissible elbow path.
   const pool=(items:typeof candidates[number])=>items.length<=48?items:Array.from({length:48},(_,i)=>items[Math.floor(i*(items.length-1)/47)]);
   outer:for(const ca of pool(candidates[0]))for(const cb of pool(candidates[1])){
-   const as=[[a.shoulder,ca.point],[ca.point,a.hand]],bs=[[b.shoulder,cb.point],[cb.point,b.hand]],radii=[.043,.034];
+   const as=[[a.shoulder,ca.point],[ca.point,a.wrist]],bs=[[b.shoulder,cb.point],[cb.point,b.wrist]],radii=[.043,.034];
    if(as.every(([p,q],i)=>bs.every(([r,s],j)=>segmentDistance(p,q,r,s)>=(radii[i]+radii[j]+.002)*factor))){
     a.elbow=ca.point;b.elbow=cb.point;selected=true;break outer;
    }

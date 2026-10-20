@@ -172,10 +172,13 @@ shoe orbit is .105 so native .15-wide/.29-long shoes remain adjacent without
 overlap; this supersedes the thin-marker .07 orbit. Main dance playback is
 unchanged; the existing Avatar class itself is not modified.
 
-The shoulder wrap now distinguishes supporting back contact at1.35 from the
+The shoulder wrap now distinguishes supporting back contact at1.30 from the
 returning hand at1.40. The two wrapping elbow routes are selected jointly
 using the rendered limb radii, preventing the default closed-hold arm crossing.
-Nineteen focused tests cover lower joined hands, forward elbow limits, contact,
+Twenty focused tests cover lower joined hands, forward elbow limits, contact,
 compact feet and nonoverlapping native shoes. Software-WebGL browser views
 were inspected from the side and above. This does not certify all anatomical
 limits or smoothness of every elbow branch at arbitrary slider settings.
+
+
+The offset ballroom comparison uses the [Dance Vision ballroom reference](https://shop.dancevision.com/products/american-smooth-technique-manual), [Tapestry contra photographs](https://www.tapestryfolkdance.org/contra), and [Contra Fusion shoulder-hold guidance](https://contrafusion.co.uk/LadysLeftHand.html). The previous rendered supporting elbow took the opposite semicircle from the returning arm. Both now share the enclosing side of the pair, with the Lark support below the Robin return. Separate wrist and hand-contact points permit the supporting wrist to pass beneath the returning arm while the hand reaches the posterior shoulder. Upper/lower arm lengths remain .325/.27, and wrist-to-contact length remains .115 throughout balance, transfer and swing. Joined hands remain low as requested. Downloaded reference photographs are not distributed.

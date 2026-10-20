@@ -335,10 +335,10 @@ Avatar tiny dancers with perspective/orbit/overhead cameras through
 `src/timing-avatar-view.ts`. Balance opens/closes 1.04 to .68 while connected;
 joined hands lower to1.10 and non-shoulder elbows stay down/forward. Native
 right shoes use a .105 shared orbit to avoid overlap. Main choreography and
-Avatar class unchanged. Nineteen focused tests, TypeScript and Pages build pass. Software-WebGL
+Avatar class unchanged. Twenty focused tests, TypeScript and Pages build pass. Software-WebGL
 browser checks cover three presets, connected balance, low joined hands,
 perspective/overhead views and phone layouts. Closed shoulder-arm paths use
-solid-limb clearance; contact geometry remains experimental. Published source de37fd6, frozen artifact f4d0849, workflow39502642536.
+solid-limb clearance. Both wrapping elbows now share the enclosing arc, with the supporting wrist below the returning arm and separate hand contact. Fixed .325/.27 arm segments and .115 hand reach are checked through transitions; contact geometry remains experimental. Published source de37fd6, frozen artifact f4d0849, workflow39502642536.
 Exact built and public Pages browser checks pass, including the main studio
 opening Nomads Land after shared-scene bundle splitting. Hardware GPU/audio and comprehensive anatomy checks unrun.
 

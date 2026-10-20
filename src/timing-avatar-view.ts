@@ -55,9 +55,11 @@ export function createTimingAvatarView(container:HTMLElement){
      if(!plan)continue;
      const shoulder=avatar.body.worldToLocal(point(plan.shoulder,1.35));
      const elbow=avatar.body.worldToLocal(point(plan.elbow,1.35));
+     const wrist=avatar.body.worldToLocal(point(plan.wrist,1.35));
      const hand=avatar.body.worldToLocal(point(plan.hand,1.35));
-     segment(arm.upper,shoulder,elbow,.043);segment(arm.lower,elbow,hand,.034);arm.elbow.position.copy(elbow);arm.hand.position.copy(hand);
-     arm.hand.quaternion.setFromUnitVectors(up,hand.clone().sub(elbow).normalize());
+     segment(arm.upper,shoulder,elbow,.043);segment(arm.lower,elbow,wrist,.034);arm.elbow.position.copy(elbow);arm.hand.position.copy(hand).add(wrist).multiplyScalar(.5);
+     arm.hand.quaternion.setFromUnitVectors(up,(hand.distanceTo(wrist)>.001?hand.clone().sub(wrist):hand.clone().sub(elbow)).normalize());
+     arm.hand.scale.y=hand.distanceTo(wrist)>.001?Math.max(.045,hand.distanceTo(wrist)/2+.015):.068;
     }
     for(const leg of avatar.legs){
      const foot=pose.feet.find(f=>f.side===(leg.side<0?'right':'left'))!;

@@ -89,7 +89,7 @@ function drawFloor(id:'fluent'|'adjustable',timing:ExecutionTimingProfile){
   let armMarkup='';
   for(const arm of frame.arms){
     const good=arm.reachable&&arm.routeClear,stroke=good?(arm.comfortable?color:'#ad7025'):'#ba5347';
-    armMarkup+=`<path data-arm="${arm.actorId}" data-arm-side="${arm.side}" data-contact-kind="${arm.kind}" data-reachable="${arm.reachable}" data-route-clear="${arm.routeClear}" d="M${arm.shoulder.x*scale} ${arm.shoulder.z*scale} L${arm.elbow.x*scale} ${arm.elbow.z*scale} L${arm.hand.x*scale} ${arm.hand.z*scale}" fill="none" stroke="${stroke}" stroke-width="3" stroke-linecap="round" opacity="1" ${good?'':'stroke-dasharray="3 3"'}/><circle data-hand-contact="${arm.actorId}-${arm.side}" cx="${arm.target.x*scale}" cy="${arm.target.z*scale}" r="3.5" fill="${good?stroke:'#fffefa'}" stroke="${stroke}" stroke-width="1.5" opacity="1"/>`;
+    armMarkup+=`<path data-arm="${arm.actorId}" data-arm-side="${arm.side}" data-contact-kind="${arm.kind}" data-reachable="${arm.reachable}" data-route-clear="${arm.routeClear}" d="M${arm.shoulder.x*scale} ${arm.shoulder.z*scale} L${arm.elbow.x*scale} ${arm.elbow.z*scale} L${arm.wrist.x*scale} ${arm.wrist.z*scale} L${arm.hand.x*scale} ${arm.hand.z*scale}" fill="none" stroke="${stroke}" stroke-width="3" stroke-linecap="round" opacity="1" ${good?'':'stroke-dasharray="3 3"'}/><circle data-hand-contact="${arm.actorId}-${arm.side}" cx="${arm.target.x*scale}" cy="${arm.target.z*scale}" r="3.5" fill="${good?stroke:'#fffefa'}" stroke="${stroke}" stroke-width="1.5" opacity="1"/>`;
   }
   for(const p of sample.poses){
     const torso=frame.torsos.find(t=>t.id===p.id)!;
