@@ -196,7 +196,7 @@ function certify(segments:Segment[],ids:string[],minimum:number,maximum:number,a
     const speed=upperNorm(vx,vz),lower=lowerNorm(vx,vz);
     const turn=yaw?upperAbs(yaw):(lower>1e-9?(upperAbs(vz)*upperAbs(ax)+upperAbs(vx)*upperAbs(az))/(lower*lower):Infinity);
     if(speed<=maximum+EPS&&turn<=angular+EPS){maximumCertifiedSpeed=Math.max(maximumCertifiedSpeed,speed);maximumCertifiedYawRate=Math.max(maximumCertifiedYawRate,turn);return;}
-    if(depth>=18)throw new Error('The hey exceeds its speed or angular-speed budget, or tangent motion becomes stationary.');
+    if(depth>=18)throw new Error(`The hey exceeds its speed or angular-speed budget, or tangent motion becomes stationary. Certified subinterval bounds: speed ${speed} (limit ${maximum}), angular speed ${turn} (limit ${angular}), tangent speed lower bound ${lower}.`);
     const x=split(vx),z=split(vz),a=split(ax),b=split(az),y=yaw?split(yaw):undefined;
     motion(x[0],z[0],a[0],b[0],y?.[0],depth+1);motion(x[1],z[1],a[1],b[1],y?.[1],depth+1);
   }

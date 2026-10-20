@@ -14,6 +14,7 @@ import {compileMirroredSixCountCircleStep,compileMirroredTwoCountPassStep} from 
 import {compilePairedRadialSwingStep,needsPairedRadialSwingEntry} from './paired-radial-swing-step.ts';
 import {compileRoleDosidoStep} from './role-dosido-step.ts';
 import {compileNeutralFullHeyStep} from './neutral-full-hey-step.ts';
+import {compileNeutralRoleHeyStep} from './neutral-role-hey-step.ts';
 import {compileCarriedRightLeftThroughStep,needsCarriedRightLeftThroughEntry} from './carried-right-left-through-adapter.ts';
 import {compileMeasuredSixCountCircleStep,compileMeasuredTwoCountPassStep} from './measured-six-two-step.ts';
 import {compileBareArchStep} from './bare-arch-step.ts';
@@ -79,6 +80,11 @@ export function compileSequenceStep(figure:Figure,context:FigureContext,incoming
   if(!capabilities.stateCarryingRoleDosidos)throw new Error('A same-role one-and-a-half do-si-do requires its registered state-carrying boundary.');
   const plan=compileRoleDosidoStep(figure,context,incoming);
   return{adapterId:'role-dosido-exchange',plan,ownsEntryFacing:true,boundaryPlan:plan};
+ }
+ if(figure.kind==='hey'&&figure.exit==='opposite-slots-facing-across'){
+  if(!capabilities.stateCarryingHalfHeys||!capabilities.ordinaryHalfHeys)throw new Error('A neutral half hey requires its registered state-carrying boundary.');
+  const plan=compileNeutralRoleHeyStep(figure,context,incoming);
+  return{adapterId:'neutral-half-hey',plan,ownsEntryFacing:true,boundaryPlan:plan};
  }
  if(figure.kind==='hey'&&figure.exit==='same-slots-facing-across'){
   if(!capabilities.stateCarryingFullHeys||!capabilities.ordinaryFullHeys)throw new Error('A neutral full-hey return requires its registered state-carrying boundary.');

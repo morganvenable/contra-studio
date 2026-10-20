@@ -255,10 +255,18 @@ cached-review commands. All 2,265 new records have offline reviews; hypothetical
 suggestions admit 11 candidates, not new Ready dances. Eighteen focused tooling
 tests pass. Existing fixtures and public playback are unchanged.
 
-Next use the completed corpus's overlapping half-hey, wave, relationship and
-smaller counted-action cohorts to specify shared semantics and whole-dance
-composition. Reassess the original six-record hey experiment against this broader
-evidence. Review admitted candidates separately before any Ready promotion.
+Generalization checkpoint - 20 October 2026: [shared role-first heys](neutral-role-heys.md)
+now supplies one encounter/motion implementation for neutral half/full heys.
+Half exits reverse actual measured station ownership, released and facing across;
+full exits return stations. No successor-specific motion or source dispatch.
+Odd/even complete synthetic periods through long lines and chain pass; existing
+full-hey source tests and all 129 Ready defaults pass. TypeScript and an isolated
+production build pass; no new GPU/audio/body verification or Ready admissions.
+Source 3260 now resolves eight rows and passes the hey, but still hits a later
+six-plus-two width hold. Next diagnose that measured boundary, then validate the
+Becket wrapper before relaxing the still-explicit formation gate.
+The prior source1464 adapter-name assertion was corrected only after its existing
+full-period behavior checks passed, and now also asserts strict-carried policy.
 
 Keep context small: read the report for totals and query individual records in
 `coverage-audit.json`; do not dump its approximately 1 MB of choices and evidence.

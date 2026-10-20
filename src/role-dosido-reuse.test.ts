@@ -64,7 +64,7 @@ test('1464 reuses the same role exchange after two chains and directly acquires 
    assert.deepEqual(c.topology(base+63.999999),topology);assert.equal(c.topology(base+64).epoch,repeat+1);
    for(const p of proofs.filter(p=>p.adapterId==='role-dosido-exchange')){
     assert.equal(p.entry.sourceBeat,32);assert.equal(p.exit.sourceBeat,40);assert.equal(p.contactPolicy,'strict-carried');assert.equal(p.exit.relationshipEpoch,repeat);assert.deepEqual(p.exit.heldContacts,[]);
-    const swing=proofs.find(q=>q.entry.sourceBeat===40&&q.entry.actors[0].id===p.entry.actors[0].id)!;assert.ok(swing);assert.equal(swing.adapterId,'established:swing');assert.deepEqual(swing.incoming,p.exit);assert.deepEqual(swing.entry.poses,p.exit.poses);
+    const swing=proofs.find(q=>q.entry.sourceBeat===40&&q.entry.actors[0].id===p.entry.actors[0].id)!;assert.ok(swing);assert.equal(swing.adapterId,'released-pair-swing');assert.equal(swing.contactPolicy,'strict-carried');assert.deepEqual(swing.incoming,p.exit);assert.deepEqual(swing.entry.poses,p.exit.poses);
     // Ordinary eight-count swing gathering is retained. By two counts the
     // persistent partners have the complete held middle, not an empty swing.
     const ids=new Set(p.entry.actors.map(a=>a.id));for(const local of[42,44,46]){const f=c.sample(base+local);for(const[a,b]of topology.partners.filter(([a,b])=>ids.has(a)&&ids.has(b))){const frame=f.contacts.filter(h=>(h.a===a&&h.b===b||h.a===b&&h.b===a)&&h.kind==='swing-frame');assert.equal(frame.length,3);assert.ok(frame.every(h=>h.strength>.999));}}
