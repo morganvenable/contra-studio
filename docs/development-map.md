@@ -338,8 +338,9 @@ right shoes use a .105 shared orbit to avoid overlap. Main choreography and
 Avatar class unchanged. Nineteen focused tests, TypeScript and Pages build pass. Software-WebGL
 browser checks cover three presets, connected balance, low joined hands,
 perspective/overhead views and phone layouts. Closed shoulder-arm paths use
-solid-limb clearance; contact geometry remains experimental. Publication
-pending. Hardware GPU/audio and comprehensive anatomy checks unrun.
+solid-limb clearance; contact geometry remains experimental. Published source de37fd6, frozen artifact f4d0849, workflow39502642536.
+Exact built and public Pages browser checks pass, including the main studio
+opening Nomads Land after shared-scene bundle splitting. Hardware GPU/audio and comprehensive anatomy checks unrun.
 
 
 Keep context small: read the report for totals and query individual records in
@@ -351,7 +352,7 @@ Release check (2026-10-20): 66 focused motion/source/Ready tests and 29 script t
 
 The exact CI artifact and public Pages build were browser-tested with software WebGL: Nomad's Land opens and plays into round two with three and four couples without page errors. Hardware GPU/audio checks remain unrun.
 
-Known prototype limitation: elbow selection can reposition sharply during
-the hand transfer (about .087 study units in fluent/default dense sampling).
-Hands remain connected and arm lengths fixed; fully smooth elbow motion is
-not claimed. Hardware GPU/audio and full body-volume checks remain unrun.
+Elbow selection remains a constrained prototype, not a full anatomical
+solver; smoothness at every slider combination is not certified. The earlier
+thin-arm .087 reposition measurement is historical and does not measure the
+new joint shoulder-route selection. Hardware GPU/audio remain unrun.

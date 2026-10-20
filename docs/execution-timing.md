@@ -151,10 +151,10 @@ of their corresponding hip attachments, with fore/aft projection below .107.
 These are schematic dimensions, not anthropometric claims. The page opens
 on the connected balance; Inspect balance and Inspect hold show both frames.
 
-Known prototype limitation: elbow selection can reposition sharply during
-the hand transfer (about .087 study units in fluent/default dense sampling).
-Hands remain connected and arm lengths fixed; fully smooth elbow motion is
-not claimed. Hardware GPU/audio and full body-volume checks remain unrun.
+Elbow selection remains a constrained prototype, not a full anatomical
+solver; smoothness at every slider combination is not certified. The earlier
+thin-arm .087 reposition measurement is historical and does not measure the
+new joint shoulder-route selection. Hardware GPU/audio remain unrun.
 
 ## Tiny dancer prototype
 
