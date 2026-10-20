@@ -1,0 +1,27 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
+import {prepareContraDbReview} from './source-review.ts';
+import {readContraDbImport,normalizeContraDbRow} from './contradb-import.ts';
+import {readContraDbSource,makeContraDbSnapshot} from './contradb-source.ts';
+import {REGISTERED_MOTION_CAPABILITIES} from './capabilities.ts';
+import {madRobinRowSource,hasOrderedCircleCompletionNote} from './source-mad-row.ts';
+const caps=REGISTERED_MOTION_CAPABILITIES;
+const raw=(id:string)=>readFileSync(new URL(`../test-data/contradb/${id}.json`,import.meta.url),'utf8');
+for(const spec of [{id:'1102',title:'Working Stiff',author:'John Coffman',mad:4,chain:3,direction:'counterclockwise',counts:[16,6,10,8,8,16]},{id:'182',title:'Flirt Hurt',author:'Karl Senseman',mad:1,chain:6,direction:'clockwise',counts:Array(8).fill(8)}]as const)test(`${spec.id} row-local mad composition retains literal source, removable choices and exact archive`,()=>{
+ const p=prepareContraDbReview(raw(spec.id),[],caps),r=p.result.record!;assert.ok(p.result.dance,p.result.errors.join('; '));const d=p.result.dance!;
+ assert.equal(r.title,spec.title);assert.equal(r.author,spec.author);assert.equal(r.publication,'shared everywhere');assert.deepEqual(r.rows.map(r=>r.beats),spec.counts);assert.equal(d.figures.reduce((n,f)=>n+f.beats,0),64);
+ assert.equal(p.interpretation.rows![r.rows[spec.mad].id].madRobin?.direction,spec.direction);assert.equal(p.interpretation.rows![r.rows[spec.chain].id].chainReceiver,'neighbor');assert.equal(d.madRobinPolicy,undefined);assert.equal(d.endPolicy,undefined);assert.equal(d.progressionEvents?.length,1);assert.equal(d.progressionEvents![0].afterFigureId,d.figures.at(-1)!.id);assert.equal(d.progressionEvents![0].source.sourceId,r.snapshotId);assert.equal(d.progressionEvents![0].source.url,r.sourceUrl);assert.equal(d.progressionEvents![0].source.basis,'source-explicit');
+ assert.deepEqual(JSON.parse(d.sourceText).snapshot,JSON.parse(JSON.stringify(makeContraDbSnapshot(r))));assert.deepEqual(readContraDbImport(d.sourceText,{capabilities:caps}).dance,d);
+ for(const[rowId,choices]of Object.entries(p.interpretation.rows??{}))for(const key of Object.keys(choices)){const c=structuredClone(p.interpretation);delete(c.rows![rowId]as Record<string,unknown>)[key];assert.equal(readContraDbImport(raw(spec.id),{interpretation:c,capabilities:caps}).dance,undefined,`${rowId}.${key}`);}
+ assert.equal(readContraDbImport(d.sourceText,{capabilities:{...caps,stateCarryingMadRobins:false}}).dance,undefined);
+ if(spec.id==='1102'){assert.equal(r.notes,'');assert.deepEqual(d.figures.filter(f=>f.kind==='square-through').map(f=>[f.beats,f.exit,!!f.progression]),[[8,'partners-facing-across',false],[8,'progressed-neighbors',true]]);assert.ok(p.suggestions.some(s=>s.message.includes('only direction passing the actual whole-sequence')));}
+ else{assert.ok(hasOrderedCircleCompletionNote(r));const f=d.figures.at(-1)!;assert.deepEqual([f.kind,f.amount,f.direction,f.phaseBeats,f.turnToward,f.exit],['circle',1,'right',[7,1],'partner','progressed-neighbors']);assert.deepEqual(p.interpretation.rows![r.rows[2].id].ordinaryHey,{sidePair:'neighbor',exit:'opposite-paired-swing'});assert.equal(readContraDbImport(d.sourceText,{capabilities:{...caps,orderedCircleExits:false}}).dance,undefined);}
+});
+test('local mad and ordered-circle source guards retain qualifiers, ordered note, timing and archive fingerprint',()=>{
+ const p=prepareContraDbReview(raw('182'),[],caps);assert.ok(p.result.dance,p.result.errors.join('; '));const r=p.result.record!,choice=p.interpretation.rows![r.rows[1].id];
+ assert.deepEqual(madRobinRowSource(r.rows[1]),{direction:'clockwise'});assert.equal(normalizeContraDbRow(r.rows[1],'duple-improper',{madRobin:{...choice.madRobin!,direction:'counterclockwise'}},caps).resolved,false);
+ for(const[from,to]of [['(CW)','(CCW)'],['ladles in front','gentlespoons in front'],['completely finish the <u>circle</u> right then turn','turn before you finish the <u>circle</u> right'],['look for new <u>neighbors</u>) ⁋','look for new <u>neighbors</u>)'],['circle right 4 places','circle right 3 places'],['left with.</p>','left with. Then clap.</p>']]as const){const snapshot=JSON.parse(raw('182'));assert.ok(snapshot.html.includes(from),from);snapshot.html=snapshot.html.replace(from,to);const changed=JSON.stringify(snapshot);assert.notEqual(readContraDbSource(changed).record!.snapshotId,r.snapshotId);assert.equal(readContraDbImport(changed,{interpretation:p.interpretation,capabilities:caps}).dance,undefined,from);const archive=JSON.parse(p.result.dance!.sourceText);archive.snapshot=snapshot;assert.ok(readContraDbImport(JSON.stringify(archive),{capabilities:caps}).diagnostics.some(d=>d.code==='snapshot-binding'));}
+ for(const patch of [{phaseBeats:[6,2]},{turnToward:'neighbor'},{lookFor:'old-neighbor'},{unused:true}]){const c=structuredClone(p.interpretation);Object.assign(c.rows![r.rows[7].id].circleCompletion!,patch);assert.equal(readContraDbImport(raw('182'),{interpretation:c,capabilities:caps}).dance,undefined);}
+ const renamed=JSON.parse(raw('182'));renamed.html=renamed.html.replaceAll('Flirt Hurt','Renamed Test Dance').replaceAll('Karl Senseman','New Test Author');assert.ok(prepareContraDbReview(JSON.stringify(renamed),[],caps).result.dance,'literal semantics must not use a title/author allowlist');
+});

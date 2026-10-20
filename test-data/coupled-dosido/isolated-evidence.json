@@ -1,0 +1,1048 @@
+{
+  "schema": "contra-studio/coupled-dosido-isolated-evidence",
+  "version": 1,
+  "sources": [
+    {
+      "sourceId": 624,
+      "sourceUrl": "https://contradb.com/dances/624",
+      "scope": "isolated actual producer and one reusable coupled figure; no whole-source or finite-body claim",
+      "entry": {
+        "sourceBeat": 8,
+        "relationshipEpoch": 0,
+        "actors": [
+          {
+            "id": 0,
+            "role": "lark",
+            "couple": 0
+          },
+          {
+            "id": 1,
+            "role": "robin",
+            "couple": 0
+          },
+          {
+            "id": 2,
+            "role": "lark",
+            "couple": 1
+          },
+          {
+            "id": 3,
+            "role": "robin",
+            "couple": 1
+          }
+        ],
+        "partner": [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            2,
+            3
+          ],
+          [
+            3,
+            2
+          ]
+        ],
+        "neighbor": [
+          [
+            0,
+            3
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            2,
+            1
+          ],
+          [
+            3,
+            0
+          ]
+        ],
+        "poses": [
+          {
+            "id": 0,
+            "position": {
+              "x": 0.8999999999999998,
+              "z": -0.9000000000000002
+            },
+            "yaw": -0.7853981633974481
+          },
+          {
+            "id": 1,
+            "position": {
+              "x": -0.9000000000000002,
+              "z": -0.8999999999999998
+            },
+            "yaw": 0.7853981633974485
+          },
+          {
+            "id": 2,
+            "position": {
+              "x": -0.8999999999999998,
+              "z": 0.9000000000000002
+            },
+            "yaw": 2.3561944901923453
+          },
+          {
+            "id": 3,
+            "position": {
+              "x": 0.9000000000000002,
+              "z": 0.8999999999999998
+            },
+            "yaw": -2.356194490192345
+          }
+        ],
+        "heldContacts": []
+      },
+      "exit": {
+        "sourceBeat": 16,
+        "relationshipEpoch": 0,
+        "actors": [
+          {
+            "id": 0,
+            "role": "lark",
+            "couple": 0
+          },
+          {
+            "id": 1,
+            "role": "robin",
+            "couple": 0
+          },
+          {
+            "id": 2,
+            "role": "lark",
+            "couple": 1
+          },
+          {
+            "id": 3,
+            "role": "robin",
+            "couple": 1
+          }
+        ],
+        "partner": [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            2,
+            3
+          ],
+          [
+            3,
+            2
+          ]
+        ],
+        "neighbor": [
+          [
+            0,
+            3
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            2,
+            1
+          ],
+          [
+            3,
+            0
+          ]
+        ],
+        "poses": [
+          {
+            "id": 0,
+            "position": {
+              "x": 0.8999999999999998,
+              "z": -0.9000000000000002
+            },
+            "yaw": 2.220446049250313e-16
+          },
+          {
+            "id": 1,
+            "position": {
+              "x": -0.9000000000000002,
+              "z": -0.8999999999999998
+            },
+            "yaw": 2.220446049250313e-16
+          },
+          {
+            "id": 2,
+            "position": {
+              "x": -0.8999999999999998,
+              "z": 0.9000000000000002
+            },
+            "yaw": 3.141592653589793
+          },
+          {
+            "id": 3,
+            "position": {
+              "x": 0.9000000000000002,
+              "z": 0.8999999999999998
+            },
+            "yaw": -3.141592653589793
+          }
+        ],
+        "heldContacts": []
+      },
+      "namedUnits": [
+        {
+          "ids": [
+            0,
+            1
+          ],
+          "relation": "partner",
+          "startCenter": {
+            "x": -2.220446049250313e-16,
+            "z": -0.9
+          },
+          "facing": 2.4671622769447924e-16,
+          "offsets": [
+            {
+              "id": 0,
+              "offset": {
+                "x": 0.9,
+                "z": -2.220446049250313e-16
+              }
+            },
+            {
+              "id": 1,
+              "offset": {
+                "x": -0.9,
+                "z": 2.220446049250313e-16
+              }
+            }
+          ]
+        },
+        {
+          "ids": [
+            2,
+            3
+          ],
+          "relation": "partner",
+          "startCenter": {
+            "x": 2.220446049250313e-16,
+            "z": 0.9
+          },
+          "facing": -3.141592653589793,
+          "offsets": [
+            {
+              "id": 2,
+              "offset": {
+                "x": -0.9,
+                "z": 2.220446049250313e-16
+              }
+            },
+            {
+              "id": 3,
+              "offset": {
+                "x": 0.9,
+                "z": -2.220446049250313e-16
+              }
+            }
+          ]
+        }
+      ],
+      "phases": [
+        {
+          "kind": "orientation-during-dosido",
+          "sourceStart": 8,
+          "sourceEnd": 9
+        },
+        {
+          "kind": "fixed-facing-dosido",
+          "sourceStart": 9,
+          "sourceEnd": 16
+        }
+      ],
+      "phaseBeats": [
+        1,
+        7
+      ],
+      "orbit": {
+        "center": {
+          "x": 0,
+          "z": 0
+        },
+        "halfWidth": 0.9,
+        "halfDepth": 0.9,
+        "laneRadius": 1.24,
+        "sourceStart": 8,
+        "sourceEnd": 16,
+        "angle": 6.283185307179586
+      },
+      "gates": [
+        {
+          "kind": "robins-right-shoulder",
+          "angle": 1.5707963267948966,
+          "sourceBeat": 10.239999999999998,
+          "namedActors": [
+            1,
+            3
+          ],
+          "unitCenters": [
+            {
+              "x": 1.24,
+              "z": -3.6103722830278514e-16
+            },
+            {
+              "x": -1.24,
+              "z": 3.6103722830278514e-16
+            }
+          ],
+          "poses": [
+            {
+              "id": 0,
+              "position": {
+                "x": 2.14,
+                "z": -5.830818332278164e-16
+              },
+              "yaw": 2.220446049250313e-16
+            },
+            {
+              "id": 1,
+              "position": {
+                "x": 0.33999999999999997,
+                "z": -1.3899262337775383e-16
+              },
+              "yaw": 2.220446049250313e-16
+            },
+            {
+              "id": 2,
+              "position": {
+                "x": -2.14,
+                "z": 5.830818332278164e-16
+              },
+              "yaw": 3.141592653589793
+            },
+            {
+              "id": 3,
+              "position": {
+                "x": -0.33999999999999997,
+                "z": 1.3899262337775383e-16
+              },
+              "yaw": -3.141592653589793
+            }
+          ]
+        },
+        {
+          "kind": "backs-pass",
+          "angle": 3.141592653589793,
+          "sourceBeat": 12,
+          "namedActors": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "unitCenters": [
+            {
+              "x": 3.739008080193031e-16,
+              "z": 0.9
+            },
+            {
+              "x": -3.739008080193031e-16,
+              "z": -0.9
+            }
+          ],
+          "poses": [
+            {
+              "id": 0,
+              "position": {
+                "x": 0.9000000000000004,
+                "z": 0.8999999999999998
+              },
+              "yaw": 2.220446049250313e-16
+            },
+            {
+              "id": 1,
+              "position": {
+                "x": -0.8999999999999997,
+                "z": 0.9000000000000002
+              },
+              "yaw": 2.220446049250313e-16
+            },
+            {
+              "id": 2,
+              "position": {
+                "x": -0.9000000000000004,
+                "z": -0.8999999999999998
+              },
+              "yaw": 3.141592653589793
+            },
+            {
+              "id": 3,
+              "position": {
+                "x": 0.8999999999999997,
+                "z": -0.9000000000000002
+              },
+              "yaw": -3.141592653589793
+            }
+          ]
+        },
+        {
+          "kind": "larks-left-shoulder",
+          "angle": 4.71238898038469,
+          "sourceBeat": 13.760000000000002,
+          "namedActors": [
+            0,
+            2
+          ],
+          "unitCenters": [
+            {
+              "x": -1.24,
+              "z": 4.712554402260469e-16
+            },
+            {
+              "x": 1.24,
+              "z": -4.712554402260469e-16
+            }
+          ],
+          "poses": [
+            {
+              "id": 0,
+              "position": {
+                "x": -0.33999999999999997,
+                "z": 2.492108353010156e-16
+              },
+              "yaw": 2.220446049250313e-16
+            },
+            {
+              "id": 1,
+              "position": {
+                "x": -2.14,
+                "z": 6.933000451510782e-16
+              },
+              "yaw": 2.220446049250313e-16
+            },
+            {
+              "id": 2,
+              "position": {
+                "x": 0.33999999999999997,
+                "z": -2.492108353010156e-16
+              },
+              "yaw": 3.141592653589793
+            },
+            {
+              "id": 3,
+              "position": {
+                "x": 2.14,
+                "z": -6.933000451510782e-16
+              },
+              "yaw": -3.141592653589793
+            }
+          ]
+        },
+        {
+          "kind": "full-return",
+          "angle": 6.283185307179586,
+          "sourceBeat": 16,
+          "namedActors": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "unitCenters": [
+            {
+              "x": -5.257570111135749e-16,
+              "z": -0.9
+            },
+            {
+              "x": 5.257570111135749e-16,
+              "z": 0.9
+            }
+          ],
+          "poses": [
+            {
+              "id": 0,
+              "position": {
+                "x": 0.8999999999999998,
+                "z": -0.9000000000000002
+              },
+              "yaw": 2.220446049250313e-16
+            },
+            {
+              "id": 1,
+              "position": {
+                "x": -0.9000000000000002,
+                "z": -0.8999999999999998
+              },
+              "yaw": 2.220446049250313e-16
+            },
+            {
+              "id": 2,
+              "position": {
+                "x": -0.8999999999999998,
+                "z": 0.9000000000000002
+              },
+              "yaw": 3.141592653589793
+            },
+            {
+              "id": 3,
+              "position": {
+                "x": 0.9000000000000002,
+                "z": 0.8999999999999998
+              },
+              "yaw": -3.141592653589793
+            }
+          ]
+        }
+      ],
+      "clearanceWitness": {
+        "actors": [
+          0,
+          2
+        ],
+        "angle": 4.71238898038469
+      },
+      "metrics": {
+        "sampleCount": 259,
+        "minimumClearance": 0.6799999999999999,
+        "analyticMinimumClearance": 0.6799999999999998,
+        "maximumSpeed": 1.1066974120652084,
+        "maximumSpeedBound": 1.1066974120600408,
+        "maximumYawRate": 1.4726215561164917,
+        "maximumYawRateBound": 1.4726215563702154,
+        "maximumOffsetDrift": 2.220446049250313e-16,
+        "maximumFixedFacingDrift": 2.4492935982947064e-16
+      }
+    },
+    {
+      "sourceId": 1702,
+      "sourceUrl": "https://contradb.com/dances/1702",
+      "scope": "isolated actual producer and one reusable coupled figure; no whole-source or finite-body claim",
+      "entry": {
+        "sourceBeat": 0,
+        "relationshipEpoch": 0,
+        "actors": [
+          {
+            "id": 0,
+            "role": "lark",
+            "couple": 0
+          },
+          {
+            "id": 1,
+            "role": "robin",
+            "couple": 0
+          },
+          {
+            "id": 2,
+            "role": "lark",
+            "couple": 1
+          },
+          {
+            "id": 3,
+            "role": "robin",
+            "couple": 1
+          }
+        ],
+        "partner": [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            2,
+            3
+          ],
+          [
+            3,
+            2
+          ]
+        ],
+        "neighbor": [
+          [
+            0,
+            3
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            2,
+            1
+          ],
+          [
+            3,
+            0
+          ]
+        ],
+        "poses": [
+          {
+            "id": 0,
+            "position": {
+              "x": 0.9,
+              "z": -0.9
+            },
+            "yaw": 0
+          },
+          {
+            "id": 1,
+            "position": {
+              "x": -0.9,
+              "z": -0.9
+            },
+            "yaw": 0
+          },
+          {
+            "id": 2,
+            "position": {
+              "x": -0.9,
+              "z": 0.9
+            },
+            "yaw": 3.141592653589793
+          },
+          {
+            "id": 3,
+            "position": {
+              "x": 0.9,
+              "z": 0.9
+            },
+            "yaw": 3.141592653589793
+          }
+        ],
+        "heldContacts": []
+      },
+      "exit": {
+        "sourceBeat": 8,
+        "relationshipEpoch": 0,
+        "actors": [
+          {
+            "id": 0,
+            "role": "lark",
+            "couple": 0
+          },
+          {
+            "id": 1,
+            "role": "robin",
+            "couple": 0
+          },
+          {
+            "id": 2,
+            "role": "lark",
+            "couple": 1
+          },
+          {
+            "id": 3,
+            "role": "robin",
+            "couple": 1
+          }
+        ],
+        "partner": [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            2,
+            3
+          ],
+          [
+            3,
+            2
+          ]
+        ],
+        "neighbor": [
+          [
+            0,
+            3
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            2,
+            1
+          ],
+          [
+            3,
+            0
+          ]
+        ],
+        "poses": [
+          {
+            "id": 0,
+            "position": {
+              "x": 0.9,
+              "z": -0.9
+            },
+            "yaw": 0
+          },
+          {
+            "id": 1,
+            "position": {
+              "x": -0.9,
+              "z": -0.9
+            },
+            "yaw": 0
+          },
+          {
+            "id": 2,
+            "position": {
+              "x": -0.9,
+              "z": 0.9
+            },
+            "yaw": 3.141592653589793
+          },
+          {
+            "id": 3,
+            "position": {
+              "x": 0.9,
+              "z": 0.9
+            },
+            "yaw": 3.141592653589793
+          }
+        ],
+        "heldContacts": []
+      },
+      "namedUnits": [
+        {
+          "ids": [
+            0,
+            1
+          ],
+          "relation": "partner",
+          "startCenter": {
+            "x": 0,
+            "z": -0.9
+          },
+          "facing": 0,
+          "offsets": [
+            {
+              "id": 0,
+              "offset": {
+                "x": 0.9,
+                "z": 0
+              }
+            },
+            {
+              "id": 1,
+              "offset": {
+                "x": -0.9,
+                "z": 0
+              }
+            }
+          ]
+        },
+        {
+          "ids": [
+            2,
+            3
+          ],
+          "relation": "partner",
+          "startCenter": {
+            "x": 0,
+            "z": 0.9
+          },
+          "facing": 3.141592653589793,
+          "offsets": [
+            {
+              "id": 2,
+              "offset": {
+                "x": -0.9,
+                "z": 0
+              }
+            },
+            {
+              "id": 3,
+              "offset": {
+                "x": 0.9,
+                "z": 0
+              }
+            }
+          ]
+        }
+      ],
+      "phases": [
+        {
+          "kind": "orientation-during-dosido",
+          "sourceStart": 0,
+          "sourceEnd": 1
+        },
+        {
+          "kind": "fixed-facing-dosido",
+          "sourceStart": 1,
+          "sourceEnd": 8
+        }
+      ],
+      "phaseBeats": [
+        1,
+        7
+      ],
+      "orbit": {
+        "center": {
+          "x": 0,
+          "z": 0
+        },
+        "halfWidth": 0.9,
+        "halfDepth": 0.9,
+        "laneRadius": 1.24,
+        "sourceStart": 0,
+        "sourceEnd": 8,
+        "angle": 6.283185307179586
+      },
+      "gates": [
+        {
+          "kind": "robins-right-shoulder",
+          "angle": 1.5707963267948966,
+          "sourceBeat": 2.2399999999999993,
+          "namedActors": [
+            1,
+            3
+          ],
+          "unitCenters": [
+            {
+              "x": 1.24,
+              "z": -5.5109105961630896e-17
+            },
+            {
+              "x": -1.24,
+              "z": 5.5109105961630896e-17
+            }
+          ],
+          "poses": [
+            {
+              "id": 0,
+              "position": {
+                "x": 2.14,
+                "z": -5.5109105961630896e-17
+              },
+              "yaw": 0
+            },
+            {
+              "id": 1,
+              "position": {
+                "x": 0.33999999999999997,
+                "z": -5.5109105961630896e-17
+              },
+              "yaw": 0
+            },
+            {
+              "id": 2,
+              "position": {
+                "x": -2.14,
+                "z": 5.5109105961630896e-17
+              },
+              "yaw": 3.141592653589793
+            },
+            {
+              "id": 3,
+              "position": {
+                "x": -0.33999999999999997,
+                "z": 5.5109105961630896e-17
+              },
+              "yaw": 3.141592653589793
+            }
+          ]
+        },
+        {
+          "kind": "backs-pass",
+          "angle": 3.141592653589793,
+          "sourceBeat": 3.999999999999999,
+          "namedActors": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "unitCenters": [
+            {
+              "x": 1.518562030942718e-16,
+              "z": 0.9
+            },
+            {
+              "x": -1.518562030942718e-16,
+              "z": -0.9
+            }
+          ],
+          "poses": [
+            {
+              "id": 0,
+              "position": {
+                "x": 0.9000000000000001,
+                "z": 0.9
+              },
+              "yaw": 0
+            },
+            {
+              "id": 1,
+              "position": {
+                "x": -0.8999999999999999,
+                "z": 0.9
+              },
+              "yaw": 0
+            },
+            {
+              "id": 2,
+              "position": {
+                "x": -0.9000000000000001,
+                "z": -0.9
+              },
+              "yaw": 3.141592653589793
+            },
+            {
+              "id": 3,
+              "position": {
+                "x": 0.8999999999999999,
+                "z": -0.9
+              },
+              "yaw": 3.141592653589793
+            }
+          ]
+        },
+        {
+          "kind": "larks-left-shoulder",
+          "angle": 4.71238898038469,
+          "sourceBeat": 5.760000000000001,
+          "namedActors": [
+            0,
+            2
+          ],
+          "unitCenters": [
+            {
+              "x": -1.24,
+              "z": 1.6532731788489269e-16
+            },
+            {
+              "x": 1.24,
+              "z": -1.6532731788489269e-16
+            }
+          ],
+          "poses": [
+            {
+              "id": 0,
+              "position": {
+                "x": -0.33999999999999997,
+                "z": 1.6532731788489269e-16
+              },
+              "yaw": 0
+            },
+            {
+              "id": 1,
+              "position": {
+                "x": -2.14,
+                "z": 1.6532731788489269e-16
+              },
+              "yaw": 0
+            },
+            {
+              "id": 2,
+              "position": {
+                "x": 0.33999999999999997,
+                "z": -1.6532731788489269e-16
+              },
+              "yaw": 3.141592653589793
+            },
+            {
+              "id": 3,
+              "position": {
+                "x": 2.14,
+                "z": -1.6532731788489269e-16
+              },
+              "yaw": 3.141592653589793
+            }
+          ]
+        },
+        {
+          "kind": "full-return",
+          "angle": 6.283185307179586,
+          "sourceBeat": 8,
+          "namedActors": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "unitCenters": [
+            {
+              "x": -3.037124061885436e-16,
+              "z": -0.9
+            },
+            {
+              "x": 3.037124061885436e-16,
+              "z": 0.9
+            }
+          ],
+          "poses": [
+            {
+              "id": 0,
+              "position": {
+                "x": 0.9,
+                "z": -0.9
+              },
+              "yaw": 0
+            },
+            {
+              "id": 1,
+              "position": {
+                "x": -0.9,
+                "z": -0.9
+              },
+              "yaw": 0
+            },
+            {
+              "id": 2,
+              "position": {
+                "x": -0.9,
+                "z": 0.9
+              },
+              "yaw": 3.141592653589793
+            },
+            {
+              "id": 3,
+              "position": {
+                "x": 0.9,
+                "z": 0.9
+              },
+              "yaw": 3.141592653589793
+            }
+          ]
+        }
+      ],
+      "clearanceWitness": {
+        "actors": [
+          0,
+          2
+        ],
+        "angle": 4.71238898038469
+      },
+      "metrics": {
+        "sampleCount": 260,
+        "minimumClearance": 0.6799999999999999,
+        "analyticMinimumClearance": 0.6799999999999998,
+        "maximumSpeed": 1.1066974120652084,
+        "maximumSpeedBound": 1.1066974120600408,
+        "maximumYawRate": 0,
+        "maximumYawRateBound": 0,
+        "maximumOffsetDrift": 2.220446049250313e-16,
+        "maximumFixedFacingDrift": 0
+      }
+    }
+  ]
+}

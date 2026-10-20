@@ -1,0 +1,20 @@
+{
+  "schema": "contra-studio/contradb-snapshot",
+  "version": 1,
+  "sourceUrl": "https://contradb.com/dances/624",
+  "metadata": {
+    "id": 624,
+    "title": "Cranky Ingenuity",
+    "choreographer_id": 81,
+    "choreographer_name": "Bill Olson",
+    "formation": "improper",
+    "hook": "Do si do as couples",
+    "user_id": 10,
+    "user_name": "Allison Jonjak",
+    "created_at": "2018-07-13T22:44:22.137Z",
+    "updated_at": "2018-08-05T02:12:49.241Z",
+    "publish": "everywhere",
+    "matching_figures_html": "whole dance"
+  },
+  "html": "<h1 class=\"dance-show-title\">Cranky Ingenuity</h1>\n<p class=\"dance-show-hook\">hook: <u>Do si do</u> as couples</h2>\n<p class=\"dance-show-choreographer\">by: <strong><a href=\"/choreographers/81\">Bill Olson</a></strong></p>\n<p class=\"dance-show-formation\">formation: improper </p>\n<div class=\"dance-show-preamble\"><div class='contra-markdown-block'></div></div>\n<table class=\"table table-bordered table-condensed contra-table-nonfluid\">\n         <tr class=\"a1b1 \">\n             <td>A1</td>\n             <td class=dance-show-beats>8</td>\n             <td><div class=\"show-figure\">circle left 4 places</div>\n</td></tr>\n</tr>         <tr class=\"a1b1 \">\n             <td></td>\n             <td class=dance-show-beats>8</td>\n             <td><div class=\"show-figure\">neighbors do si do once as couples</div>\n</td></tr>\n</tr>         <tr class=\"a2b2 \">\n             <td>A2</td>\n             <td class=dance-show-beats>8</td>\n             <td><div class=\"show-figure\">neighbors do si do once</div>\n</td></tr>\n</tr>         <tr class=\"a2b2 \">\n             <td></td>\n             <td class=dance-show-beats>8</td>\n             <td><div class=\"show-figure\">neighbors swing</div>\n</td></tr>\n</tr>         <tr class=\"a1b1 \">\n             <td>B1</td>\n             <td class=dance-show-beats>8</td>\n             <td><div class=\"show-figure\">gentlespoons allemande left 1½</div>\n</td></tr>\n</tr>         <tr class=\"a1b1 \">\n             <td></td>\n             <td class=dance-show-beats>8</td>\n             <td><div class=\"show-figure\">partners swing</div>\n</td></tr>\n</tr>         <tr class=\"a2b2 \">\n             <td>B2</td>\n             <td class=dance-show-beats>8</td>\n             <td><div class=\"show-figure\">circle left 3 places</div>\n</td></tr>\n</tr>         <tr class=\"a2b2 \">\n             <td></td>\n             <td class=dance-show-beats>4</td>\n             <td><div class=\"show-figure\">balance the ring</div>\n</td></tr>\n</tr>         <tr class=\"a2b2 \">\n             <td></td>\n             <td class=dance-show-beats>4</td>\n             <td><div class=\"show-figure\">partners California twirl ⁋</div>\n</td></tr>\n</tr></table>\n<div class=\"dance-show-notes\"><div class='contra-markdown-block'><p>B2  <u>Circle</u> L 3/4 (8), <u>Balance the ring</u> (4), Calif Twir<br>\nBill Olson notes: The A part of this dance came from Vermont fiddler, Amy Cann. The rest kind of came together before a Concord (MA) Scouthouse gig on Feb 23, 2004. I used this easy dance to start off the evening that night. It is dedicated to my good friends from the venerable Boston area band, Yankee Ingenuity: Peter Barnes (who always enjoys a good pun), Mary Lea, Jack O&#39;Conner and Cal Howard.</p>\n</div></div>\n<p class=\"dance-show-publish\">\n            shared everywhere\n          </p>\n"
+}

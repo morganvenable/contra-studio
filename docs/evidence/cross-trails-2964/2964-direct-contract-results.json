@@ -1,0 +1,14 @@
+{
+  "negative": [
+    "direction",
+    "extra turn",
+    "frame extra",
+    "axis extra",
+    "station",
+    "stale epoch"
+  ],
+  "ownership": true,
+  "minimumSampledClearance": 0.8799999999999994,
+  "maximumSampledSpeed": 0.6868621442900364,
+  "maximumSampledYawRate": 1.9634954082730236
+}

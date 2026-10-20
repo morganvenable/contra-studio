@@ -1,0 +1,260 @@
+{
+  "scope": "Exact bounded public program reuse and exact diagonal certificate arithmetic; no source, UI or renderer changes",
+  "baseline": "/tmp/contra-release-020c, b1540b35d7c4a822628e698d3de335e8ef860859",
+  "candidateRuntime": {
+    "src/owned-program-cache.ts": "2f3da5413008adce96941bfa3334fbf2126702cdd7fd1ad64f5d739d4d7245e1",
+    "src/choreography.ts": "d0a110c5ec39a4565027fe8503a491809e9122652694f2621141c3ed3d682a2f",
+    "src/diagonal-half-hey-becket.ts": "1442633964d89aba63590c6d6970cb569f1041585186f55cd20f1ecdc8c53e0a",
+    "src/diagonal-hey-path.ts": "b2c5e593d1b567bdb463c6424db2e8405386c1f311dfe8631057445e697da964"
+  },
+  "nodeBenchmark": {
+    "caveat": "Fresh-process shared-host CPU measurements, not device or GPU guarantees. Each program includes import validation, final compile and camera bounds. Frame-isolation overhead is measured separately.",
+    "baseline": [
+      {
+        "id": "3004",
+        "phase": "cold",
+        "importValidationMs": 2773.689183,
+        "compileMs": 1154.8634699999998,
+        "boundsMs": 15.737288000000262,
+        "readyMs": 3944.289941,
+        "sample1000Ms": 36.22411600000032
+      },
+      {
+        "id": "3004",
+        "phase": "warm",
+        "importValidationMs": 2358.5010140000004,
+        "compileMs": 992.6953779999994,
+        "boundsMs": 11.094163000000663,
+        "readyMs": 3362.2905550000005,
+        "sample1000Ms": 33.027750999999625
+      },
+      {
+        "id": "2226",
+        "phase": "cold",
+        "importValidationMs": 2347.2565290000002,
+        "compileMs": 1078.2244520000004,
+        "boundsMs": 9.846277999999074,
+        "readyMs": 3435.3272589999997,
+        "sample1000Ms": 34.68032200000016
+      },
+      {
+        "id": "2226",
+        "phase": "warm",
+        "importValidationMs": 2179.8278600000012,
+        "compileMs": 985.105250999999,
+        "boundsMs": 11.41340400000081,
+        "readyMs": 3176.346515000001,
+        "sample1000Ms": 34.941288999998505
+      },
+      {
+        "id": "1461",
+        "phase": "cold",
+        "importValidationMs": 5233.362567,
+        "compileMs": 0.2809159999997064,
+        "boundsMs": 14.78477600000042,
+        "readyMs": 5248.428259,
+        "sample1000Ms": 50.01422499999899
+      },
+      {
+        "id": "1461",
+        "phase": "warm",
+        "importValidationMs": 92.53627600000254,
+        "compileMs": 0.207206999999471,
+        "boundsMs": 13.733164000001125,
+        "readyMs": 106.47664700000314,
+        "sample1000Ms": 50.24475600000005
+      }
+    ],
+    "candidate": [
+      {
+        "id": "3004",
+        "phase": "cold",
+        "importValidationMs": 1708.821723,
+        "compileMs": 0.3068439999999555,
+        "boundsMs": 26.272130999999945,
+        "readyMs": 1735.400698,
+        "sample1000Ms": 89.23337500000002
+      },
+      {
+        "id": "3004",
+        "phase": "warm",
+        "importValidationMs": 176.66134399999964,
+        "compileMs": 0.32520100000010643,
+        "boundsMs": 33.278044000000136,
+        "readyMs": 210.2645889999999,
+        "sample1000Ms": 97.54142700000011
+      },
+      {
+        "id": "2226",
+        "phase": "cold",
+        "importValidationMs": 1563.621294,
+        "compileMs": 0.3193730000002688,
+        "boundsMs": 24.303710999999566,
+        "readyMs": 1588.2443779999999,
+        "sample1000Ms": 91.23330100000021
+      },
+      {
+        "id": "2226",
+        "phase": "warm",
+        "importValidationMs": 212.6988080000001,
+        "compileMs": 0.2849919999998747,
+        "boundsMs": 24.354285999999775,
+        "readyMs": 237.33808599999975,
+        "sample1000Ms": 89.11118399999941
+      },
+      {
+        "id": "1461",
+        "phase": "cold",
+        "importValidationMs": 2925.545319,
+        "compileMs": 0.276929999999993,
+        "boundsMs": 28.43604200000027,
+        "readyMs": 2954.258291,
+        "sample1000Ms": 105.7951579999999
+      },
+      {
+        "id": "1461",
+        "phase": "warm",
+        "importValidationMs": 215.01647700000012,
+        "compileMs": 0.2946249999995416,
+        "boundsMs": 28.03335700000025,
+        "readyMs": 243.34445899999992,
+        "sample1000Ms": 101.08949099999973
+      }
+    ]
+  },
+  "focusedTests": {
+    "finalSourceCacheOwnershipAndAll73Archives": 27,
+    "server": 7,
+    "diagonalAll2To12AndArchiveSubset": 13
+  },
+  "diagonalExactCertificateParity": {
+    "candidate": "/tmp/contra-diag-opt2/src/diagonal-hey-path.ts",
+    "baseline": "/tmp/contra-release-020c/src/diagonal-hey-path.ts",
+    "sizes": [
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12
+    ],
+    "results": [
+      {
+        "count": 2,
+        "baselineMs": 239.734754,
+        "candidateMs": 183.71697199999994,
+        "frames": 310,
+        "bindings": 53,
+        "clocks": 2,
+        "bounds": 40
+      },
+      {
+        "count": 3,
+        "baselineMs": 1173.713871,
+        "candidateMs": 558.2701229999984,
+        "frames": 1395,
+        "bindings": 241,
+        "clocks": 36,
+        "bounds": 720
+      },
+      {
+        "count": 4,
+        "baselineMs": 2268.174256,
+        "candidateMs": 1041.267821,
+        "frames": 930,
+        "bindings": 160,
+        "clocks": 14,
+        "bounds": 280
+      },
+      {
+        "count": 5,
+        "baselineMs": 4251.053207999999,
+        "candidateMs": 1867.461730000001,
+        "frames": 1705,
+        "bindings": 294,
+        "clocks": 34,
+        "bounds": 680
+      },
+      {
+        "count": 6,
+        "baselineMs": 6077.226264,
+        "candidateMs": 2719.5907319999997,
+        "frames": 930,
+        "bindings": 161,
+        "clocks": 30,
+        "bounds": 600
+      },
+      {
+        "count": 7,
+        "baselineMs": 8563.721889999999,
+        "candidateMs": 4064.7659559999993,
+        "frames": 2790,
+        "bindings": 482,
+        "clocks": 76,
+        "bounds": 1520
+      },
+      {
+        "count": 8,
+        "baselineMs": 10182.667856999997,
+        "candidateMs": 4531.784784000003,
+        "frames": 4030,
+        "bindings": 697,
+        "clocks": 132,
+        "bounds": 2640
+      },
+      {
+        "count": 9,
+        "baselineMs": 13373.128674,
+        "candidateMs": 6499.299399000003,
+        "frames": 5425,
+        "bindings": 939,
+        "clocks": 204,
+        "bounds": 4080
+      },
+      {
+        "count": 10,
+        "baselineMs": 15239.042936999998,
+        "candidateMs": 7671.450442000001,
+        "frames": 6975,
+        "bindings": 1208,
+        "clocks": 294,
+        "bounds": 5880
+      },
+      {
+        "count": 11,
+        "baselineMs": 20845.380277999997,
+        "candidateMs": 9654.765182000003,
+        "frames": 8680,
+        "bindings": 1504,
+        "clocks": 404,
+        "bounds": 8080
+      },
+      {
+        "count": 12,
+        "baselineMs": 26509.060505999998,
+        "candidateMs": 11564.165706,
+        "frames": 3255,
+        "bindings": 564,
+        "clocks": 168,
+        "bounds": 3360
+      }
+    ],
+    "frames": 11935,
+    "bindings": 2068,
+    "clocks": 572,
+    "bounds": 11440
+  },
+  "postAggregateContractRepair": {
+    "reason": "Native cloning lost the previously frozen state of sampled warning arrays. Copies now preserve original frozen states recursively while keeping mutable poses mutable. Earlier malformed-data rejection now consistently names the input contract.",
+    "targetedExistingTests": 2,
+    "cacheOwnershipSubset": 13,
+    "factoryFrozenMapSetAndAliasTests": 9,
+    "build": "passed",
+    "server": 7
+  }
+}

@@ -1,0 +1,19 @@
+import test from 'node:test';import assert from 'node:assert/strict';import {readFileSync} from 'node:fs';
+import {prepareContraDbReview} from './source-review.ts';import {readContraDbImport,CONVENTIONAL_PETRONELLA} from './contradb-import.ts';import {REGISTERED_MOTION_CAPABILITIES} from './capabilities.ts';
+const raw=(id=3010)=>readFileSync(new URL(`../test-data/contradb/${id}.json`,import.meta.url),'utf8'),caps={...REGISTERED_MOTION_CAPABILITIES,ringPetronellaStarts:true};
+test('actual opening ring/petronella source retains its terminal marker and a distinct reviewed finite-end policy',()=>{
+ const p=prepareContraDbReview(raw(),[],caps),r=p.result;assert.ok(r.dance,JSON.stringify(r.errors));assert.equal(r.eventFamily,'improper-ring-petronella');assert.equal(r.coverage.resolvedRows,9);assert.equal(r.dance.figures.length,11);assert.equal(r.dance.figures.reduce((n,f)=>n+f.beats,0),64);
+ for(const i of[0,1])assert.deepEqual(p.interpretation.rows![`contradb:3010:row:${i}`].petronella,CONVENTIONAL_PETRONELLA);
+ assert.equal(r.rows[2].figures[0].exit,'neighbor-swing');assert.equal(r.record!.rows[8].progression,true);assert.equal(r.dance.progressionEvents?.length,1);assert.equal(r.dance.progressionEvents![0].afterFigureId,r.dance.figures.at(-1)!.id);assert.equal(r.dance.progressionEvents![0].source.basis,'source-explicit');assert.equal(r.dance.progressionEvents![0].source.clause,'pass through ⁋');
+ assert.deepEqual(p.interpretation.eventPolicy,{waitingRoleArrangement:'lark-left',sameEndTurnBeats:8,reentryPreparationBeats:4,sameEndTurnOffsetBeats:4});assert.equal(r.dance.endPolicy!.source.basis,'reviewed-interpretation');assert.match(r.dance.endPolicy!.source.clause,/source supplies the terminal progression but no waiting choreography/);
+ const replay=readContraDbImport(r.dance.sourceText,{capabilities:caps});assert.deepEqual(replay.record,r.record);assert.deepEqual(replay.interpretation,p.interpretation);assert.deepEqual(replay.dance?.figures,r.dance.figures);assert.deepEqual(replay.dance?.progressionEvents,r.dance.progressionEvents);assert.deepEqual(replay.dance?.endPolicy,r.dance.endPolicy);
+});
+test('new ring-start capability and exact end choices cannot be granted by saved source or silently replaced',()=>{
+ const p=prepareContraDbReview(raw(),[],caps);assert.equal(readContraDbImport(p.result.dance!.sourceText,{capabilities:{...caps,ringPetronellaStarts:false}}).dance,undefined);
+ for(const delta of[undefined,{waitingRoleArrangement:'lark-left',sameEndTurnBeats:8},{...p.interpretation.eventPolicy,waitingRoleArrangement:'lark-right'},{...p.interpretation.eventPolicy,sameEndTurnOffsetBeats:0},{...p.interpretation.eventPolicy,reentryPreparationBeats:2},{...p.interpretation.eventPolicy,waitingHands:'release-during-exchange'}]){const c={...p.interpretation,eventPolicy:delta}as any;assert.equal(readContraDbImport(raw(),{interpretation:c,capabilities:caps}).dance,undefined);}
+ for(const i of[0,1]){const c=structuredClone(p.interpretation);delete c.rows![`contradb:3010:row:${i}`].petronella;assert.equal(readContraDbImport(raw(),{interpretation:c,capabilities:caps}).dance,undefined);}
+ for(const[from,to]of[['⁋',''],['⁋','⁋ then clap'],['pass through','pass through across the set']]){const s=JSON.parse(raw());assert.ok(s.html.includes(from));s.html=s.html.replace(from,to);assert.equal(readContraDbImport(JSON.stringify(s),{interpretation:p.interpretation,capabilities:caps}).dance,undefined);}
+});
+test('related ring-start records compose retained ring/pair handoffs without dropping source clauses',()=>{
+ for(const id of[1447,3328]){const p=prepareContraDbReview(raw(id),[],caps);assert.equal(p.result.eventFamily,'improper-ring-petronella');assert.equal(p.result.coverage.resolvedRows,p.result.coverage.totalRows);assert.ok(p.result.dance,p.result.errors.join('\n'));assert.equal(p.result.coverage.executable,true);}
+});

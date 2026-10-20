@@ -1,0 +1,95 @@
+{
+  "candidateSha256": "1309cde755d668e5ad28eae6569df85951a3b069e94196edb31ac71413bd78af",
+  "appearanceComparison": "Current identity-bound torso, hips and optional hair meshes on the unchanged archived motion rigs; exact full-matrix comparison retained.",
+  "portFiles": {
+    "swing-study-pose.mjs": "e23c1dc58486903c357500ada865d3a108234b7e2dd3a1bfe2562e1191a9ed45",
+    "swing-study-kernel.mjs": "1a91897585e3d25c5027888797befdf75810db3d695e086e34daaaefd37d638c",
+    "swing-study-inputs.ts": "718a7589c26ac7633bbd5cfc4ec56a5fa957c7f65086521a7c445469fac854bc",
+    "swing-presentation.ts": "6feb1e5672b9f93c038770ba2ea4616265a3f5911f811bf40eeb8c07eb8d9b9a",
+    "scene.ts": "b56a7350e4937b2dc6cde78b5b938cf0fee5cf900ca79bde2d618a4daf62d0b4",
+    "dancer-appearance.ts": "6b33fff3dcb617ee89ebf175a4e4d604d34d8fb5877b950d39f7c6ffe91bc6c3"
+  },
+  "browserGpuVerified": false,
+  "cases": [
+    {
+      "name": "circle",
+      "footwork": "buzz",
+      "samples": 81,
+      "maxMatrixDifference": 0,
+      "contactFrames": 41,
+      "acquisitionFrames": 52
+    },
+    {
+      "name": "circle",
+      "footwork": "walk",
+      "samples": 81,
+      "maxMatrixDifference": 0,
+      "contactFrames": 41,
+      "acquisitionFrames": 52
+    },
+    {
+      "name": "balance",
+      "footwork": "buzz",
+      "samples": 85,
+      "maxMatrixDifference": 0,
+      "contactFrames": 51,
+      "acquisitionFrames": 48
+    },
+    {
+      "name": "balance",
+      "footwork": "walk",
+      "samples": 85,
+      "maxMatrixDifference": 0,
+      "contactFrames": 51,
+      "acquisitionFrames": 48
+    },
+    {
+      "name": "gyre",
+      "footwork": "buzz",
+      "samples": 81,
+      "maxMatrixDifference": 0,
+      "contactFrames": 52,
+      "acquisitionFrames": 54
+    },
+    {
+      "name": "gyre",
+      "footwork": "walk",
+      "samples": 81,
+      "maxMatrixDifference": 0,
+      "contactFrames": 52,
+      "acquisitionFrames": 54
+    },
+    {
+      "name": "hey",
+      "footwork": "buzz",
+      "samples": 81,
+      "maxMatrixDifference": 0,
+      "contactFrames": 44,
+      "acquisitionFrames": 72
+    },
+    {
+      "name": "hey",
+      "footwork": "walk",
+      "samples": 81,
+      "maxMatrixDifference": 0,
+      "contactFrames": 44,
+      "acquisitionFrames": 72
+    },
+    {
+      "name": "quarter",
+      "footwork": "buzz",
+      "samples": 81,
+      "maxMatrixDifference": 0,
+      "contactFrames": 43,
+      "acquisitionFrames": 84
+    },
+    {
+      "name": "quarter",
+      "footwork": "walk",
+      "samples": 81,
+      "maxMatrixDifference": 0,
+      "contactFrames": 43,
+      "acquisitionFrames": 84
+    }
+  ]
+}

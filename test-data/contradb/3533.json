@@ -1,0 +1,21 @@
+{
+  "schema": "contra-studio/contradb-snapshot",
+  "version": 1,
+  "sourceUrl": "https://contradb.com/dances/3533",
+  "retrievedAt": "2026-10-18T18:14:00Z",
+  "metadata": {
+    "id": 3533,
+    "title": "Double or Nothing",
+    "choreographer_id": 479,
+    "choreographer_name": "Mattie Rynkiewicz",
+    "formation": "Quadruple minor becket",
+    "hook": "",
+    "user_id": 15867,
+    "user_name": "Mattie Rynkiewicz",
+    "created_at": "2026-10-12T14:42:15.007Z",
+    "updated_at": "2026-10-12T15:06:39.229Z",
+    "publish": "everywhere",
+    "matching_figures_html": "whole dance"
+  },
+  "html": "<h1 class=\"dance-show-title\">Double or Nothing</h1>\n<p class=\"dance-show-choreographer\">by: <strong><a href=\"/choreographers/479\">Mattie Rynkiewicz</a></strong></p>\n<p class=\"dance-show-formation\">formation: Quadruple minor becket </p>\n<div class=\"dance-show-preamble\"><div class='contra-markdown-block'></div></div>\n<table class=\"table table-bordered table-condensed contra-table-nonfluid\">\n         <tr class=\"a1b1 \">\n             <td>A1</td>\n             <td class=dance-show-beats>8</td>\n             <td><div class=\"show-figure\">long lines forward &amp; back</div>\n</td></tr>\n</tr>         <tr class=\"a1b1 \">\n             <td></td>\n             <td class=dance-show-beats>8</td>\n             <td><div class=\"show-figure\">right left through (straight across), face partner up &amp; down</div>\n</td></tr>\n</tr>         <tr class=\"a2b2 dance-show-long-figure\">\n             <td>A2</td>\n             <td class=dance-show-beats>16</td>\n             <td><div class=\"show-figure\">partners start a full hey - lefts on ends, rights in center (this <u>hey</u> is UP &amp; DOWN with trail buddy couple)</div>\n</td></tr>\n</tr>         <tr class=\"a1b1 dance-show-long-figure\">\n             <td>B1</td>\n             <td class=dance-show-beats>16</td>\n             <td><div class=\"show-figure\">partners balance &amp; swing</div>\n</td></tr>\n</tr>         <tr class=\"a2b2 \">\n             <td>B2</td>\n             <td class=dance-show-beats>8</td>\n             <td><div class=\"show-figure\">partners promenade major set ccw two places to new <u>neighbors</u> ⁋</div>\n</td></tr>\n</tr>         <tr class=\"a2b2 \">\n             <td></td>\n             <td class=dance-show-beats>8</td>\n             <td><div class=\"show-figure\">circle right 4 places (halfway)</div>\n</td></tr>\n</tr></table>\n<div class=\"dance-show-notes\"><div class='contra-markdown-block'><p>For another quadruple minor dance, see <a href=\"https://contradb.com/dances/3290\">https://contradb.com/dances/3290</a></p>\n\n<p>This may be the first quadruple minor becket dance in existence.</p>\n\n<p>TO GET IN FORMATION<br>\n1)  hands four becket<br>\n2)  take hands eight (up &amp; down)<br>\n3)  identify trail buddy couple</p>\n\n<p>Trail buddy couples get zigzaged as they progress.<br>\nLeft-side couples zero progress.<br>\nRight-side couples double progress.</p>\n\n<p>Alternate wording if that didn&#39;t make sense - 1s &amp; 3s progress up, 2s &amp; 4s progress down. 1s &amp; 3s / 2s &amp; 4s swap roles each time. 1s &amp; 4s zero progress, 2s &amp; 3s double progress.</p>\n\n<p>END EFFECT CHOREO - FOUR OUT<br>\n    B2<br>\n8   [major set] <u>promenade</u> ccw, face trail buddies<br>\n8   <u>circle</u> R once<br>\n    A<br>\n8   <u>long lines</u> forward &amp; back<br>\n8   right left thru<br>\n    A2<br>\n16  whole <u>hey</u>, <u>ladles</u> pass R<br>\n    B<br>\n16  partner <u>balance</u> &amp; <u>swing</u></p>\n</div></div>\n<p class=\"dance-show-publish\">\n            shared everywhere\n          </p>\n"
+}

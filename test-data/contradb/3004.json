@@ -1,0 +1,21 @@
+{
+  "schema": "contra-studio/contradb-snapshot",
+  "version": 1,
+  "sourceUrl": "https://contradb.com/dances/3004",
+  "retrievedAt": "2026-10-18T18:14:00Z",
+  "metadata": {
+    "id": 3004,
+    "title": "Pandora's Box",
+    "choreographer_id": 413,
+    "choreographer_name": "Koren Wake",
+    "formation": "Becket",
+    "hook": "ladles courtesy turn the gentlespoons; progress indecent",
+    "user_id": 5267,
+    "user_name": "Koren A Wake",
+    "created_at": "2025-09-25T04:53:54.090Z",
+    "updated_at": "2025-09-26T19:52:38.555Z",
+    "publish": "everywhere",
+    "matching_figures_html": "whole dance"
+  },
+  "html": "<h1 class=\"dance-show-title\">Pandora&#39;s Box</h1>\n<p class=\"dance-show-hook\">hook: <u>ladles</u> courtesy turn the <u>gentlespoons</u>; progress indecent</h2>\n      \n<p class=\"dance-show-choreographer\">by: <strong><a href=\"/choreographers/413\">Koren Wake</a></strong></p>\n<p class=\"dance-show-formation\">formation: Becket </p>\n<div class=\"dance-show-preamble\"><div class='contra-markdown-block'><p>Have dancers note direction of progression before circling left 1 place into Becket formation. This progresses to the left but is not intuitive.</p>\n</div></div>\n<table class=\"table table-bordered table-condensed contra-table-nonfluid\">\n         <tr class=\"a1b1 \">\n             <td>A1</td>\n             <td class=dance-show-beats>8</td>\n             <td><div class=\"show-figure\">ladles chain (to neighbor)</div>\n</td></tr>\n</tr>         <tr class=\"a1b1 \">\n             <td></td>\n             <td class=dance-show-beats>8</td>\n             <td><div class=\"show-figure\">partners right hand balance &amp;  box the gnat across the set</div>\n</td></tr>\n</tr>         <tr class=\"a2b2 \">\n             <td>A2</td>\n             <td class=dance-show-beats>8</td>\n             <td><div class=\"show-figure\">right left through (<u>ladles</u> courtesy turn this same neighbor <u>gentlespoon</u>)</div>\n</td></tr>\n</tr>         <tr class=\"a2b2 \">\n             <td></td>\n             <td class=dance-show-beats>8</td>\n             <td><div class=\"show-figure\">gentlespoons start a half hey - rights in center, lefts on ends - exactly half, then turn away to progress ⁋</div>\n</td></tr>\n</tr>         <tr class=\"a1b1 dance-show-long-figure\">\n             <td>B1</td>\n             <td class=dance-show-beats>16</td>\n             <td><div class=\"show-figure\">neighbors balance &amp; swing (this is a new neighbor)</div>\n</td></tr>\n</tr>         <tr class=\"a2b2 \">\n             <td>B2</td>\n             <td class=dance-show-beats>8</td>\n             <td><div class=\"show-figure\">gentlespoons allemande left 1½</div>\n</td></tr>\n</tr>         <tr class=\"a2b2 \">\n             <td></td>\n             <td class=dance-show-beats>8</td>\n             <td><div class=\"show-figure\">partners swing</div>\n</td></tr>\n</tr></table>\n<div class=\"dance-show-notes\"><div class='contra-markdown-block'><p>Wait out with <u>gentlespoons</u> on the right, <u>ladles</u> on the left. Progression is not entirely intuitive but the dance works well if taught carefully. Dancers who swap roles may find it more challenging.</p>\n\n<p>Inspired by &quot;The Magic Box&quot; by Jim Hemphill.</p>\n\n<p><a href=\"https://www.korenwake.com/choreography\">https://www.korenwake.com/choreography</a></p>\n</div></div>\n<p class=\"dance-show-publish\">\n            shared everywhere\n          </p>\n"
+}

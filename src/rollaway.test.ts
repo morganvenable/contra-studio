@@ -1,0 +1,76 @@
+import test from 'node:test';import assert from 'node:assert/strict';
+import {Vector3} from 'three';
+import {compileRollaway,type RollawayOptions} from './rollaway.ts';
+import {compileLongLinesRollaway,type LongLinesRollawayOptions} from './long-lines-rollaway.ts';
+import {compileLongLinesRollawayFigure,type LongLinesRollawayFigure} from './long-lines-rollaway-adapter.ts';
+import {Avatar,applyBodyContactAnchors} from './scene.ts';
+import type {Dancer,Dance,Frame,StudioState,Vec2} from './types.ts';
+import type {TurnConstraint} from './ring-twirl-contract.ts';
+const actors:Dancer[]=Array.from({length:4},(_,id)=>({id,name:['Lark One','Robin One','Lark Two','Robin Two'][id],role:id%2?'robin':'lark',couple:Math.floor(id/2),direction:1,color:'#438b86'}));
+const map=(pairs:number[][])=>new Map(pairs.flatMap(([a,b])=>[[a,b],[b,a]]));
+const relations={epoch:7,partner:map([[0,1],[2,3]]),neighbor:map([[0,3],[1,2]])};
+const pose=(x:number,z:number,yaw:number):TurnConstraint=>({position:{x,z},yaw,velocity:{x:0,z:0},yawRate:0});
+const gap=(a:Vec2,b:Vec2={x:0,z:0})=>Math.hypot(a.x-b.x,a.z-b.z);
+const angle=(a:number,b:number)=>Math.abs(Math.atan2(Math.sin(a-b),Math.cos(a-b)));
+function fixture(reverse=false):RollawayOptions {const s=reverse?-1:1;return{actors:structuredClone(actors.slice(0,2)),entry:new Map([[0,pose(s*.82,0,0)],[1,pose(-s*.82,0,0)]]),exit:new Map([[0,pose(-s*.9,-.52,0)],[1,pose(s*.9,-.52,0)]]),relations:structuredClone(relations),bindingEpoch:7,rollingId:0,sashayingId:1,relationship:'partner',direction:reverse?'right-to-left':'left-to-right',halfSashay:true,beats:4};}
+function lines(reverse=false):LongLinesRollawayOptions {const entry=new Map<number,TurnConstraint>();for(const[i,d]of[1,-1].entries()){entry.set(i*2,pose(-d*.9,-d*.9,d*Math.PI/2));entry.set(i*2+1,pose(-d*.9,d*.9,d*Math.PI/2));}return{actors:structuredClone(actors),entry,exit:new Map(actors.map(a=>[a.id,{...entry.get(relations.partner.get(a.id)!)!,position:{...entry.get(relations.partner.get(a.id)!)!.position}}])),relations:structuredClone(relations),bindingEpoch:7,pairs:[{rollingId:reverse?1:0,sashayingId:reverse?0:1,relationship:'partner'},{rollingId:reverse?3:2,sashayingId:reverse?2:3,relationship:'partner'}],direction:reverse?'right-to-left':'left-to-right',halfSashay:true,beats:8,phaseBeats:[4,4],rollPhase:'return'};}
+export const sourceFigure:LongLinesRollawayFigure={id:'roll',kind:'long-lines-rollaway',beats:8,label:'Long lines, robins roll partners left to right on return',who:'all',rollRole:'lark',sashayRole:'robin',rollRelation:'partner',rollDirection:'left-to-right',rollHalfSashay:true,rollPhase:'return',phaseBeats:[4,4]};
+
+for(const reversed of[false,true])test(`directed ${reversed?'right-to-left':'left-to-right'} rollaway exchanges named actors and retains partner identity`,()=>{
+ const o=fixture(reversed),p=compileRollaway(o),sign=reversed?-1:1;assert.equal(p.epoch,7);assert.equal(p.rollingId,0);assert.equal(p.sashayingId,1);assert.ok(p.minimumObservedClearance>=.67-1e-7);assert.ok(p.maximumObservedSpeed<.75);assert.ok(p.maximumObservedYawRate<2);
+ for(const[beat,end]of[[0,o.entry],[4,o.exit]] as const)for(const a of p.sample(beat).poses){assert.ok(gap(a.position,end.get(a.id)!.position)<1e-8);assert.ok(angle(a.yaw,end.get(a.id)!.yaw)<1e-8);assert.ok(gap(a.velocity)<1e-7);assert.ok(Math.abs(a.yawRate)<1e-7);}
+ assert.ok(Math.abs(p.sample(4).poses[0].yaw+sign*Math.PI*2)<1e-8);assert.equal(p.sample(4).poses[1].yaw,0);
+ const middle=p.sample(2);assert.ok(middle.poses[0].position.z>middle.poses[1].position.z+.66);assert.equal(middle.contacts.length,0,'release precedes changing nearest hands');
+ assert.deepEqual(p.sample(0).contacts.map(h=>[h.handA,h.handB]),[reversed?['left','right']:['right','left']]);assert.deepEqual(p.sample(3).contacts.map(h=>[h.handA,h.handB]),[reversed?['right','left']:['left','right']]);
+ for(let b=0;b<=4;b+=.01){const f=p.sample(b),owned=new Set<string>();for(const h of f.contacts){assert.equal(h.kind,'joined');assert.ok(h.point.y<1.3);assert.equal(h.underId,undefined);for(const[id,hand]of[[h.a,h.handA],[h.b,h.handB]] as const){const key=`${id}/${hand}`;assert.ok(!owned.has(key));owned.add(key);const a=f.poses.find(p=>p.id===id)!,s=hand==='left'?1:-1;assert.ok(Math.hypot(h.point.x-a.position.x-s*.235*Math.cos(a.yaw),h.point.y-1.355,h.point.z-a.position.z+s*.235*Math.sin(a.yaw))<.645);}}
+ }
+});
+test('long-lines rollaway uses the original eight counts and only rolls during the simultaneous return',()=>{
+ const o=lines(),p=compileLongLinesRollaway(o);assert.equal(p.beats,8);assert.deepEqual(p.phaseBeats,[4,4]);assert.ok(p.minimumObservedClearance>.60);
+ for(const[id,a]of o.entry){const atFour=p.sample(4).poses.find(p=>p.id===id)!,atEight=p.sample(8).poses.find(p=>p.id===id)!;assert.ok(angle(atFour.yaw,a.yaw)<1e-8);assert.ok(gap(atEight.position,o.exit.get(id)!.position)<1e-8);assert.ok(angle(atEight.yaw,a.yaw)<1e-8);assert.ok(Math.abs(atFour.position.x)<Math.abs(a.position.x));}
+ for(let b=0;b<=4;b+=.1)for(const a of p.sample(b).poses)assert.equal(a.rollProgress,0);
+ for(const b of[4.25,5,6,7,7.75]){const f=p.sample(b);assert.ok(f.poses.filter(p=>p.rolling).every(p=>p.rollProgress>0&&p.rollProgress<1));for(const pair of p.pairs){const pairCenter=f.poses.filter(p=>[pair.rollingId,pair.sashayingId].includes(p.id)).reduce((n,p)=>n+p.position.x,0)/2;assert.ok(Math.abs(pairCenter)>.38,'the carrier retreats while rolling');}}
+ const a=p.sample(4-1e-7),b=p.sample(4+1e-7);for(let id=0;id<4;id++){assert.ok(gap(a.poses[id].position,b.poses[id].position)<1e-6);assert.ok(gap(a.poses[id].velocity,b.poses[id].velocity)<1e-5);assert.ok(angle(a.poses[id].yaw,b.poses[id].yaw)<1e-6);}
+});
+test('paths are equivariant under translation, rotation and arbitrary stable actor names',()=>{
+ const o=lines(),p=compileLongLinesRollaway(o),theta=.63,origin={x:5,z:-3},rotate=(v:Vec2)=>({x:v.x*Math.cos(theta)-v.z*Math.sin(theta),z:v.x*Math.sin(theta)+v.z*Math.cos(theta)}),renames=new Map([[0,81],[1,17],[2,402],[3,6]]),id=(n:number)=>renames.get(n)!,positions=(m:ReadonlyMap<number,TurnConstraint>)=>new Map([...m].map(([n,a])=>{const v=rotate(a.position);return[id(n),{...a,position:{x:v.x+origin.x,z:v.z+origin.z},yaw:a.yaw-theta}];})),pairs=(m:ReadonlyMap<number,number>)=>new Map([...m].map(([a,b])=>[id(a),id(b)]));
+ const q=compileLongLinesRollaway({...o,actors:o.actors.map(a=>({...a,id:id(a.id)})),entry:positions(o.entry),exit:positions(o.exit),pairs:o.pairs.map(p=>({...p,rollingId:id(p.rollingId),sashayingId:id(p.sashayingId)})),relations:{epoch:7,partner:pairs(o.relations.partner),neighbor:pairs(o.relations.neighbor)}});
+ for(let b=0;b<=8;b+=.1)for(const a of p.sample(b).poses){const actual=q.sample(b).poses.find(p=>p.id===id(a.id))!,v=rotate(a.position);assert.ok(gap(actual.position,{x:v.x+origin.x,z:v.z+origin.z})<1e-8);assert.ok(angle(actual.yaw,a.yaw-theta)<1e-8);}
+});
+test('snapshot ownership, finite sampling and rejected implicit/changed source contracts',()=>{
+ const o=lines(),p=compileLongLinesRollaway(o),before=p.sample(6);o.entry.get(0)!.position.x=100;o.exit.get(0)!.position.x=100;o.actors[0].role='robin';(o.relations.partner as Map<number,number>).clear();(o.pairs[0] as any).rollingId=3;assert.deepEqual(p.sample(6),before);assert.equal(typeof(p.entry as any).set,'undefined');assert.throws(()=>{p.entry.get(0)!.position.x=100;});before.poses[0].position.x=100;assert.notEqual(p.sample(6).poses[0].position.x,100);
+ assert.deepEqual(p.sample(-1),p.sample(0));assert.deepEqual(p.sample(20),p.sample(8));assert.throws(()=>p.sample(NaN),/finite/);assert.throws(()=>p.position(12,.2),/outside/);
+ for(const changes of[{beats:12},{halfSashay:false},{rollPhase:'after-return'},{phaseBeats:[4,8]},{bindingEpoch:8}])assert.throws(()=>compileLongLinesRollaway({...lines(),...changes} as any));
+ for(const changes of[{rollingId:1},{sashayingId:0},{direction:'left'},{relationship:'neighbor'},{maximumSpeed:.1},{maximumYawRate:.1},{minimumClearance:NaN},{halfSashay:false}])assert.throws(()=>compileRollaway({...fixture(),...changes} as any));
+ const malformed=fixture();malformed.exit.get(0)!.yaw=Math.PI;assert.throws(()=>compileRollaway(malformed),/retain/);
+});
+test('source binder rejects subject-as-roller, stale relations, hidden modifiers and unsupported variants',()=>{
+ const o=lines(),start=actors.map(a=>({id:a.id,position:o.entry.get(a.id)!.position,yaw:o.entry.get(a.id)!.yaw,stride:0,lean:0,bounce:0,turn:0,activity:'long-lines' as const})),context={ids:[0,1,2,3],start,dancers:actors,relations:o.relations,bindingEpoch:7};assert.ok(compileLongLinesRollawayFigure(sourceFigure,context));
+ for(const f of[{...sourceFigure,rollRole:'robin',sashayRole:'lark'},{...sourceFigure,amount:1},{...sourceFigure,progression:true},{...sourceFigure,rollHalfSashay:false},{...sourceFigure,rollPhase:'forward'},{...sourceFigure,phaseBeats:[4,4,4]},{...sourceFigure,who:'partner'}])assert.throws(()=>compileLongLinesRollawayFigure(f as any,context));assert.throws(()=>compileLongLinesRollawayFigure(sourceFigure,{...context,bindingEpoch:8}),/stale/);
+});
+
+test('actual adult Avatars keep musical steps, fixed limbs and reachable named rollaway contacts',t=>{
+ globalThis.document={createElement:()=>({getContext:()=>new Proxy({},{get:()=>()=>{},set:()=>true})})} as unknown as Document;
+ let clamps=0,maxClamp=0,maxWrist=0,full=0;for(const reverse of[false,true]){const o=lines(reverse),p=compileLongLinesRollaway(o),avatars=actors.map(d=>new Avatar(d)),dance={figures:[{kind:'long-lines',beats:8},sourceFigure,{kind:'long-lines',beats:8}]} as unknown as Dance;
+  const sample=(raw:number):Frame=>{const beat=Math.max(0,Math.min(24,raw)),fi=beat<8?0:beat<16?1:2,f=p.sample(Math.max(0,Math.min(8,beat-8)));return{beat,localBeat:beat,repeat:0,figureIndex:fi,figureProgress:(beat-fi*8)/8,poses:f.poses.map(a=>({id:a.id,position:a.position,yaw:a.yaw,stride:fi===1?Math.min(1,gap(a.velocity)*2.5):0,lean:0,bounce:0,turn:0,activity:fi===1?'long-lines-rollaway':'waiting'})) as Frame['poses'],contacts:fi===1?f.contacts:[],warnings:[]};};
+  for(let i=0;i<=640;i++){const beat=8+i/80,frame=sample(beat);for(const a of avatars){a.update(frame.poses[a.dancer.id],frame,{dance,showLabels:false} as StudioState,sample);const gait=a.root.userData.gait;assert.equal(gait.phase,beat);assert.equal(gait.maxRate,1);clamps+=gait.reachClamps;maxClamp=Math.max(maxClamp,gait.maxClampDistance);for(const leg of a.legs){assert.ok(Math.abs(leg.upper.scale.y*3-.43)<1e-7);assert.ok(Math.abs(leg.lower.scale.y*3-.43)<1e-7);}for(const arm of a.arms){assert.ok(Math.abs(arm.upper.scale.y*3-.325)<1e-7);assert.ok(Math.abs(arm.lower.scale.y*3-.325)<1e-7);}}
+   const corrected=applyBodyContactAnchors(avatars,frame);for(const a of avatars)a.root.updateMatrixWorld(true);for(const h of corrected.contacts)if(h.strength>1-1e-10){full++;for(const[id,hand]of[[h.a,h.handA],[h.b,h.handB]] as const){const wrist=avatars[id].arms.find(a=>a.side===(hand==='left'?1:-1))!.hand.getWorldPosition(new Vector3());maxWrist=Math.max(maxWrist,wrist.distanceTo(new Vector3(h.point.x,h.point.y,h.point.z)));}}
+  }avatars.forEach(a=>a.dispose());
+ }assert.ok(full>0);assert.ok(maxWrist<1e-7,`wrist error ${maxWrist}`);assert.equal(clamps,0,`leg clamps ${clamps}, max ${maxClamp}`);t.diagnostic(`Named rollaway contacts: ${full} full-strength samples, max wrist error ${maxWrist}; one step per beat, ${clamps} leg reach corrections.`);
+});
+
+test('representative actual rollaway meshes avoid major new torso and unrelated-arm collisions',t=>{
+ globalThis.document={createElement:()=>({getContext:()=>new Proxy({},{get:()=>()=>{},set:()=>true})})} as unknown as Document;
+ const rings=[[.91,.197],[.97,.195],[1.11,.17],[1.27,.225],[1.34,.245],[1.40,.18],[1.42,.11]],radius=(y:number)=>{if(y<.91||y>1.42)return 0;let i=1;while(i<rings.length-1&&rings[i][0]<y)i++;return rings[i-1][1]+(rings[i][1]-rings[i-1][1])*(y-rings[i-1][0])/(rings[i][0]-rings[i-1][0]);};
+ const penetration=(A:any,B:any)=>{const inv=B.matrixWorld.clone().invert(),p=A.geometry.attributes.position,scale=B.getWorldScale(new Vector3()),factor=Math.min(scale.x,scale.y,scale.z);let minimum=Infinity;for(let i=0;i<p.count;i++){const v=new Vector3().fromBufferAttribute(p,i).applyMatrix4(A.matrixWorld).applyMatrix4(inv),q=B.geometry.type==='CapsuleGeometry'?Math.hypot(v.x,v.z,Math.max(0,Math.abs(v.y)-.5)):v.length();minimum=Math.min(minimum,(q-1)*factor);}return minimum;};
+ const parts=(a:Avatar)=>a.arms.flatMap(arm=>[{mesh:arm.upper,hand:arm.side===1?'left':'right',upper:true},{mesh:arm.lower,hand:arm.side===1?'left':'right',upper:false},{mesh:arm.hand,hand:arm.side===1?'left':'right',upper:false}]);
+ let own=Infinity,other=Infinity,unrelated=Infinity,worst='',armWorst='';
+ for(const reverse of[false,true]){const o=lines(reverse),p=compileLongLinesRollaway(o),avatars=actors.map(d=>new Avatar(d)),dance={figures:[{kind:'long-lines',beats:8},sourceFigure,{kind:'long-lines',beats:8}]} as unknown as Dance;
+  const sample=(raw:number):Frame=>{const beat=Math.max(0,Math.min(24,raw)),fi=beat<8?0:beat<16?1:2,f=p.sample(Math.max(0,Math.min(8,beat-8)));return{beat,localBeat:beat,repeat:0,figureIndex:fi,figureProgress:(beat-fi*8)/8,poses:f.poses.map(a=>({id:a.id,position:a.position,yaw:a.yaw,stride:fi===1?Math.min(1,gap(a.velocity)*2.5):0,lean:0,bounce:0,turn:0,activity:fi===1?'long-lines-rollaway':'waiting'})) as Frame['poses'],contacts:fi===1?f.contacts:[],warnings:[]};};
+  for(let i=0;i<=160;i++){const beat=8+i/20,frame=sample(beat);for(const a of avatars){a.update(frame.poses[a.dancer.id],frame,{dance,showLabels:false} as StudioState,sample);a.root.updateMatrixWorld(true);}
+   for(const a of avatars)for(const b of avatars){if(a.root.position.distanceTo(b.root.position)>1.5)continue;const inv=b.body.matrixWorld.clone().invert();for(const part of parts(a)){if(a===b&&part.upper)continue;const vertices=part.mesh.geometry.attributes.position;for(let j=0;j<vertices.count;j++){const v=new Vector3().fromBufferAttribute(vertices,j).applyMatrix4(part.mesh.matrixWorld).applyMatrix4(inv),r=radius(v.y);if(!r)continue;const margin=(Math.hypot(v.x,v.z/.7)-r)*.7;if(a===b){if(margin<own){own=margin;worst=`own ${beat}/${a.dancer.id}/${part.hand}`;}}else other=Math.min(other,margin);}}
+    if(a.dancer.id>=b.dancer.id)continue;for(const A of parts(a))for(const B of parts(b)){const held=frame.contacts.some(c=>c.strength>0&&((c.a===a.dancer.id&&c.b===b.dancer.id&&c.handA===A.hand&&c.handB===B.hand)||(c.a===b.dancer.id&&c.b===a.dancer.id&&c.handA===B.hand&&c.handB===A.hand)));if(!held){const margin=Math.min(penetration(A.mesh,B.mesh),penetration(B.mesh,A.mesh));if(margin<unrelated){unrelated=margin;armWorst=`${reverse}/${beat}/${a.dancer.id}:${A.hand}:${A.mesh===a.arms.find(x=>x.side===(A.hand==='left'?1:-1))!.hand?'hand':A.upper?'upper':'lower'}/${b.dancer.id}:${B.hand}:${B.mesh===b.arms.find(x=>x.side===(B.hand==='left'?1:-1))!.hand?'hand':B.upper?'upper':'lower'}`;}}}
+   }
+  }avatars.forEach(a=>a.dispose());
+ }t.diagnostic(`Sampled actual arm mesh clearance: own ${own}, other ${other}, unrelated ${unrelated}; ${worst}; arms ${armWorst}.`);assert.ok(own>-.01,`own torso ${own}`);assert.ok(other>0,`other torso ${other}`);assert.ok(unrelated>0,`unrelated arms ${unrelated}`);
+});

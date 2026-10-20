@@ -1,0 +1,11 @@
+# Carried terminal neighbor do-si-do 1½
+
+This row-level adapter consumes the actual released current-neighbor pairs, measured station span, facing, persistent partners, epoch and source clock. It uses the established progressing do-si-do ellipse at eight counts without changing the old ten-count kernel. Each actor returns to its own station at 2π, then reaches the old neighbor's station at 3π. Right, left and final right shoulder passages remain at local 1.906666667, 4 and 6.093333333. Actual inward entry facing settles during the first count while travel has already begun.
+
+A source-bound terminal event changes relationships after the figure. The motion never invents that event. The optional `preparation:'next-neighbor-balance'` declaration requires an actual next-cycle unhanded neighbor balance4 followed by the same neighbor swing.
+
+The step publishes an owned released exit window after its final named shoulder passage. The common sequencer validates it against the actual figure interval and carries it to the public stance composer. For an eight-count figure ending at64, the window is62.093333333–64. No orbit compression or extra counts are used. Preparation uses the actual future neighbor binding, including newly available end waiters and excluding dancers with no next neighbor. New hands appear only in the disclosed late tail, without changing the current epoch early.
+
+The nominal formation sample still reaches the exact exchanged stations. The public sample includes the explicitly selected next-balance stance offset, so its prepared endpoint is intentionally different. Neither the proof nor the visible source explanation should call the public tail an unchanged ellipse.
+
+Actual-source coverage:831 and3081 have distinct balance/gyre repeat entries;575 is a separately reviewed sketchbook source with a uniquely selected partner chain receiver. The same registry also compiles a new72-count composition with long lines between the circle producer and terminal exchange. Current3/4-couple period tests cover event/end reentry, continuous joins and actual future hands. Local tests use translated, rotated, reflected and arbitrary-ID boundaries without role swapping. Old928,2490,236 and3115 samples remain exact against release0.41.

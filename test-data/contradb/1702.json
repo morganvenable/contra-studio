@@ -1,0 +1,20 @@
+{
+  "schema": "contra-studio/contradb-snapshot",
+  "version": 1,
+  "sourceUrl": "https://contradb.com/dances/1702",
+  "metadata": {
+    "id": 1702,
+    "title": "Chicago Shuffle ",
+    "choreographer_id": 234,
+    "choreographer_name": "Moose Flores",
+    "formation": "improper",
+    "hook": "Cali Twirl to Couples DSD",
+    "user_id": 128,
+    "user_name": "Moose Flores",
+    "created_at": "2021-07-04T18:04:55.050Z",
+    "updated_at": "2025-04-30T02:13:55.819Z",
+    "publish": "everywhere",
+    "matching_figures_html": "whole dance"
+  },
+  "html": "<h1 class=\"dance-show-title\">Chicago Shuffle </h1>\n<p class=\"dance-show-hook\">hook: Cali Twirl to Couples DSD</h2>\n<p class=\"dance-show-choreographer\">by: <strong><a href=\"/choreographers/234\">Moose Flores</a></strong></p>\n<p class=\"dance-show-formation\">formation: improper </p>\n<div class=\"dance-show-preamble\"><div class='contra-markdown-block'></div></div>\n<table class=\"table table-bordered table-condensed contra-table-nonfluid\">\n         <tr class=\"a1b1 \">\n             <td>A1</td>\n             <td class=dance-show-beats>8</td>\n             <td><div class=\"show-figure\">neighbors do si do once as couples</div>\n</td></tr>\n</tr>         <tr class=\"a1b1 \">\n             <td></td>\n             <td class=dance-show-beats>8</td>\n             <td><div class=\"show-figure\">neighbors do si do once</div>\n</td></tr>\n</tr>         <tr class=\"a2b2 dance-show-long-figure\">\n             <td>A2</td>\n             <td class=dance-show-beats>16</td>\n             <td><div class=\"show-figure\">neighbors balance &amp; swing</div>\n</td></tr>\n</tr>         <tr class=\"a1b1 \">\n             <td>B1</td>\n             <td class=dance-show-beats>8</td>\n             <td><div class=\"show-figure\">gentlespoons allemande left 1½</div>\n</td></tr>\n</tr>         <tr class=\"a1b1 \">\n             <td></td>\n             <td class=dance-show-beats>8</td>\n             <td><div class=\"show-figure\">partners swing</div>\n</td></tr>\n</tr>         <tr class=\"a2b2 \">\n             <td>B2</td>\n             <td class=dance-show-beats>8</td>\n             <td><div class=\"show-figure\">balance &amp;  petronella</div>\n</td></tr>\n</tr>         <tr class=\"a2b2 \">\n             <td></td>\n             <td class=dance-show-beats>4</td>\n             <td><div class=\"show-figure\">balance the ring</div>\n</td></tr>\n</tr>         <tr class=\"a2b2 \">\n             <td></td>\n             <td class=dance-show-beats>4</td>\n             <td><div class=\"show-figure\">partners California twirl ⁋</div>\n</td></tr>\n</tr></table>\n<div class=\"dance-show-notes\"><div class='contra-markdown-block'><p>Optional: last time<br>\nB1) <u>Long lines</u> forward &amp; back, <u>Gentlespoons</u> <u>allemande</u> left 1 1/2<br>\nB2) <u>Partners</u> <u>balance</u> &amp; <u>swing</u></p>\n\n<p>Inspired by Cherokee Shuffle <br>\n<a href=\"https://contradb.com/dances/509\">https://contradb.com/dances/509</a></p>\n</div></div>\n<p class=\"dance-show-publish\">\n            shared everywhere\n          </p>\n"
+}

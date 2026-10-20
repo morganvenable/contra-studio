@@ -1,0 +1,20 @@
+{
+  "schema": "contra-studio/contradb-snapshot",
+  "version": 1,
+  "sourceUrl": "https://contradb.com/dances/1976",
+  "metadata": {
+    "id": 1976,
+    "title": "Another Flirty Attempt",
+    "choreographer_id": 407,
+    "choreographer_name": "Marian Hepburn",
+    "formation": "improper",
+    "hook": "full hey into new neighbor right gyre",
+    "user_id": 5267,
+    "user_name": "Koren A Wake",
+    "created_at": "2023-04-06T23:56:50.641Z",
+    "updated_at": "2023-04-06T23:56:50.641Z",
+    "publish": "everywhere",
+    "matching_figures_html": "whole dance"
+  },
+  "html": "<h1 class=\"dance-show-title\">Another Flirty Attempt</h1>\n<p class=\"dance-show-hook\">hook: full <u>hey</u> into new neighbor right <u>gyre</u></h2>\n<p class=\"dance-show-choreographer\">by: <strong><a href=\"/choreographers/407\">Marian Hepburn</a></strong></p>\n<p class=\"dance-show-formation\">formation: improper </p>\n<div class=\"dance-show-preamble\"><div class='contra-markdown-block'></div></div>\n<table class=\"table table-bordered table-condensed contra-table-nonfluid\">\n         <tr class=\"a1b1 \">\n             <td>A1</td>\n             <td class=dance-show-beats>8</td>\n             <td><div class=\"show-figure\">neighbors gyre once</div>\n</td></tr>\n</tr>         <tr class=\"a1b1 \">\n             <td></td>\n             <td class=dance-show-beats>8</td>\n             <td><div class=\"show-figure\">neighbors swing</div>\n</td></tr>\n</tr>         <tr class=\"a2b2 \">\n             <td>A2</td>\n             <td class=dance-show-beats>8</td>\n             <td><div class=\"show-figure\">circle left 3 places</div>\n</td></tr>\n</tr>         <tr class=\"a2b2 \">\n             <td></td>\n             <td class=dance-show-beats>8</td>\n             <td><div class=\"show-figure\">partners swing</div>\n</td></tr>\n</tr>         <tr class=\"a1b1 \">\n             <td>B1</td>\n             <td class=dance-show-beats>8</td>\n             <td><div class=\"show-figure\">long lines forward &amp; back</div>\n</td></tr>\n</tr>         <tr class=\"a1b1 \">\n             <td></td>\n             <td class=dance-show-beats>8</td>\n             <td><div class=\"show-figure\">ladles chain to neighbor</div>\n</td></tr>\n</tr>         <tr class=\"a2b2 dance-show-long-figure\">\n             <td>B2</td>\n             <td class=dance-show-beats>16</td>\n             <td><div class=\"show-figure\">ladles start a full hey - rights in center, lefts on ends ⁋</div>\n</td></tr>\n</tr></table>\n<div class=\"dance-show-notes\"><div class='contra-markdown-block'></div></div>\n<p class=\"dance-show-publish\">\n            shared everywhere\n          </p>\n"
+}

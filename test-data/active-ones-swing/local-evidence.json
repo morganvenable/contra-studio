@@ -1,0 +1,1741 @@
+{
+  "schema": "contra-studio/active-ones-swing-local-evidence",
+  "version": 1,
+  "evidence": [
+    {
+      "sourceId": 1036,
+      "snapshotId": "contradb:1036:1777130d5e75be55",
+      "sourceUrl": "https://contradb.com/dances/1036",
+      "sourceCounts": [
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8
+      ],
+      "sourceFinalText": "ones swing - face down to next couple ⁋",
+      "scope": "One first-cycle minor set extracted from the unchanged complete source; no additional period/body sweep.",
+      "figure": {
+        "id": "contradb:1036:row:7",
+        "beats": 8,
+        "label": "ones swing - face down to next couple ⁋",
+        "confidence": "approximate",
+        "kind": "swing",
+        "who": "ones",
+        "exit": "face-down-line",
+        "progression": true
+      },
+      "currentRank": {
+        "relationshipEpoch": 0,
+        "ones": [
+          0,
+          1
+        ],
+        "twos": [
+          2,
+          3
+        ],
+        "forwardDirection": 1
+      },
+      "entry": {
+        "sourceBeat": 56,
+        "relationshipEpoch": 0,
+        "actors": [
+          {
+            "id": 0,
+            "role": "lark",
+            "couple": 0
+          },
+          {
+            "id": 1,
+            "role": "robin",
+            "couple": 0
+          },
+          {
+            "id": 2,
+            "role": "lark",
+            "couple": 1
+          },
+          {
+            "id": 3,
+            "role": "robin",
+            "couple": 1
+          }
+        ],
+        "partner": [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            2,
+            3
+          ],
+          [
+            3,
+            2
+          ]
+        ],
+        "neighbor": [
+          [
+            0,
+            3
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            2,
+            1
+          ],
+          [
+            3,
+            0
+          ]
+        ],
+        "poses": [
+          {
+            "id": 0,
+            "position": {
+              "x": 0.9000000000000001,
+              "z": 0.9000000000000001
+            },
+            "yaw": -1.5707963267948966
+          },
+          {
+            "id": 1,
+            "position": {
+              "x": -0.8999999999999997,
+              "z": 0.9000000000000001
+            },
+            "yaw": 1.5707963267948966
+          },
+          {
+            "id": 2,
+            "position": {
+              "x": -0.9000000000000002,
+              "z": -0.9000000000000001
+            },
+            "yaw": 1.5707963267948966
+          },
+          {
+            "id": 3,
+            "position": {
+              "x": 0.8999999999999996,
+              "z": -0.9000000000000001
+            },
+            "yaw": -1.5707963267948966
+          }
+        ],
+        "heldContacts": []
+      },
+      "exit": {
+        "sourceBeat": 64,
+        "relationshipEpoch": 0,
+        "actors": [
+          {
+            "id": 0,
+            "role": "lark",
+            "couple": 0
+          },
+          {
+            "id": 1,
+            "role": "robin",
+            "couple": 0
+          },
+          {
+            "id": 2,
+            "role": "lark",
+            "couple": 1
+          },
+          {
+            "id": 3,
+            "role": "robin",
+            "couple": 1
+          }
+        ],
+        "partner": [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            2,
+            3
+          ],
+          [
+            3,
+            2
+          ]
+        ],
+        "neighbor": [
+          [
+            0,
+            3
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            2,
+            1
+          ],
+          [
+            3,
+            0
+          ]
+        ],
+        "poses": [
+          {
+            "id": 0,
+            "position": {
+              "x": 0.9000000000000001,
+              "z": 0.9000000000000001
+            },
+            "yaw": -6.283185307179586
+          },
+          {
+            "id": 1,
+            "position": {
+              "x": -0.8999999999999997,
+              "z": 0.9000000000000001
+            },
+            "yaw": -6.283185307179587
+          },
+          {
+            "id": 2,
+            "position": {
+              "x": -0.9000000000000002,
+              "z": -0.9000000000000001
+            },
+            "yaw": 3.141592653589793
+          },
+          {
+            "id": 3,
+            "position": {
+              "x": 0.8999999999999996,
+              "z": -0.9000000000000001
+            },
+            "yaw": -3.1415926535897936
+          }
+        ],
+        "heldContacts": []
+      },
+      "activePair": [
+        0,
+        1
+      ],
+      "inactivePair": [
+        2,
+        3
+      ],
+      "phaseBeats": [
+        1.25,
+        5.25,
+        1.5
+      ],
+      "frameSchedule": {
+        "acquisitionStart": 1,
+        "fullAt": 1.25,
+        "releaseStart": 6.25,
+        "releasedAt": 6.5
+      },
+      "orbit": {
+        "center": {
+          "x": 2.220446049250313e-16,
+          "z": 0.9000000000000001
+        },
+        "radius": 0.31,
+        "angle": 6.283185307179586,
+        "sourceStart": 57.25,
+        "sourceEnd": 62.5
+      },
+      "inactiveConvention": "retain-actual-roots-turn-to-next-neighbors-in-final-1.5-counts",
+      "exitContract": "same-reached-roots-facing-down",
+      "bounds": {
+        "minimumRootClearance": 0.62,
+        "maximumRootSpeed": 0.7079999999999999,
+        "maximumYawRate": 2.617993877991495
+      },
+      "observed": {
+        "minimumClearance": 0.6199999999999998,
+        "minimumActiveInactiveClearance": 1.7024637666267237,
+        "maximumSpeed": 0.7079999961331875,
+        "maximumYawRate": 2.61799386806564,
+        "maximumHandReach": 0.67720199514166,
+        "winding": 6.283185307179586,
+        "minimumPositiveContactBeat": 1.03125,
+        "maximumPositiveContactBeat": 6.46875
+      },
+      "gates": [
+        {
+          "sourceBeat": 56,
+          "poses": [
+            {
+              "id": 0,
+              "position": {
+                "x": 0.9000000000000001,
+                "z": 0.9000000000000001
+              },
+              "yaw": -1.5707963267948966
+            },
+            {
+              "id": 1,
+              "position": {
+                "x": -0.8999999999999997,
+                "z": 0.9000000000000001
+              },
+              "yaw": 1.5707963267948966
+            },
+            {
+              "id": 2,
+              "position": {
+                "x": -0.9000000000000002,
+                "z": -0.9000000000000001
+              },
+              "yaw": 1.5707963267948966
+            },
+            {
+              "id": 3,
+              "position": {
+                "x": 0.8999999999999996,
+                "z": -0.9000000000000001
+              },
+              "yaw": -1.5707963267948966
+            }
+          ],
+          "contacts": []
+        },
+        {
+          "sourceBeat": 57,
+          "poses": [
+            {
+              "id": 0,
+              "position": {
+                "x": 0.37136000000000013,
+                "z": 0.9000000000000001
+              },
+              "yaw": -0.632507320922745
+            },
+            {
+              "id": 1,
+              "position": {
+                "x": -0.3713599999999997,
+                "z": 0.9000000000000001
+              },
+              "yaw": 2.509085332667048
+            },
+            {
+              "id": 2,
+              "position": {
+                "x": -0.9000000000000002,
+                "z": -0.9000000000000001
+              },
+              "yaw": 1.5707963267948966
+            },
+            {
+              "id": 3,
+              "position": {
+                "x": 0.8999999999999996,
+                "z": -0.9000000000000001
+              },
+              "yaw": -1.5707963267948966
+            }
+          ],
+          "contacts": []
+        },
+        {
+          "sourceBeat": 57.25,
+          "poses": [
+            {
+              "id": 0,
+              "position": {
+                "x": 0.3100000000000003,
+                "z": 0.9000000000000001
+              },
+              "yaw": -0.5235987755982989
+            },
+            {
+              "id": 1,
+              "position": {
+                "x": -0.30999999999999983,
+                "z": 0.9000000000000001
+              },
+              "yaw": 2.617993877991494
+            },
+            {
+              "id": 2,
+              "position": {
+                "x": -0.9000000000000002,
+                "z": -0.9000000000000001
+              },
+              "yaw": 1.5707963267948966
+            },
+            {
+              "id": 3,
+              "position": {
+                "x": 0.8999999999999996,
+                "z": -0.9000000000000001
+              },
+              "yaw": -1.5707963267948966
+            }
+          ],
+          "contacts": [
+            {
+              "a": 0,
+              "b": 1,
+              "handA": "left",
+              "handB": "right",
+              "point": {
+                "x": 2.220446049250313e-16,
+                "y": 1.31,
+                "z": 1.0550000000000002
+              },
+              "strength": 1,
+              "kind": "swing-frame",
+              "target": "hands"
+            },
+            {
+              "a": 0,
+              "b": 1,
+              "handA": "right",
+              "handB": "left",
+              "point": {
+                "x": -0.4875833024919769,
+                "y": 1.28,
+                "z": 0.947583302491977
+              },
+              "strength": 1,
+              "kind": "swing-frame",
+              "target": "back",
+              "bodyPoint": {
+                "x": 0.13,
+                "y": 1.28,
+                "z": -0.13
+              },
+              "bodyBlend": 1
+            },
+            {
+              "a": 1,
+              "b": 0,
+              "handA": "left",
+              "handB": "right",
+              "point": {
+                "x": 0.1108141571295794,
+                "y": 1.33,
+                "z": 0.7850000000000001
+              },
+              "strength": 1,
+              "kind": "swing-frame",
+              "target": "upper-arm"
+            }
+          ]
+        },
+        {
+          "sourceBeat": 58.5625,
+          "poses": [
+            {
+              "id": 0,
+              "position": {
+                "x": 0.17222677223607694,
+                "z": 1.1577555798137893
+              },
+              "yaw": -1.5053464798451093
+            },
+            {
+              "id": 1,
+              "position": {
+                "x": -0.17222677223607646,
+                "z": 0.6422444201862111
+              },
+              "yaw": 1.6362461737446836
+            },
+            {
+              "id": 2,
+              "position": {
+                "x": -0.9000000000000002,
+                "z": -0.9000000000000001
+              },
+              "yaw": 1.5707963267948966
+            },
+            {
+              "id": 3,
+              "position": {
+                "x": 0.8999999999999996,
+                "z": -0.9000000000000001
+              },
+              "yaw": -1.5707963267948966
+            }
+          ],
+          "contacts": [
+            {
+              "a": 0,
+              "b": 1,
+              "handA": "left",
+              "handB": "right",
+              "point": {
+                "x": -0.1288777899068943,
+                "y": 1.31,
+                "z": 0.9861133861180384
+              },
+              "strength": 1,
+              "kind": "swing-frame",
+              "target": "hands"
+            },
+            {
+              "a": 0,
+              "b": 1,
+              "handA": "right",
+              "handB": "left",
+              "point": {
+                "x": -0.31045083905701343,
+                "y": 1.28,
+                "z": 0.5210251669651111
+              },
+              "strength": 1,
+              "kind": "swing-frame",
+              "target": "back",
+              "bodyPoint": {
+                "x": 0.13,
+                "y": 1.28,
+                "z": -0.13
+              },
+              "bodyBlend": 1
+            },
+            {
+              "a": 1,
+              "b": 0,
+              "handA": "left",
+              "handB": "right",
+              "point": {
+                "x": 0.15718405251314405,
+                "y": 1.33,
+                "z": 0.9282480274689104
+              },
+              "strength": 1,
+              "kind": "swing-frame",
+              "target": "upper-arm"
+            }
+          ]
+        },
+        {
+          "sourceBeat": 59.875,
+          "poses": [
+            {
+              "id": 0,
+              "position": {
+                "x": -0.3099999999999998,
+                "z": 0.9000000000000001
+              },
+              "yaw": -3.6651914291880923
+            },
+            {
+              "id": 1,
+              "position": {
+                "x": 0.3100000000000002,
+                "z": 0.9
+              },
+              "yaw": -0.5235987755982991
+            },
+            {
+              "id": 2,
+              "position": {
+                "x": -0.9000000000000002,
+                "z": -0.9000000000000001
+              },
+              "yaw": 1.5707963267948966
+            },
+            {
+              "id": 3,
+              "position": {
+                "x": 0.8999999999999996,
+                "z": -0.9000000000000001
+              },
+              "yaw": -1.5707963267948966
+            }
+          ],
+          "contacts": [
+            {
+              "a": 0,
+              "b": 1,
+              "handA": "left",
+              "handB": "right",
+              "point": {
+                "x": 1.942890293094024e-16,
+                "y": 1.31,
+                "z": 0.7450000000000001
+              },
+              "strength": 1,
+              "kind": "swing-frame",
+              "target": "hands"
+            },
+            {
+              "a": 0,
+              "b": 1,
+              "handA": "right",
+              "handB": "left",
+              "point": {
+                "x": 0.48758330249197723,
+                "y": 1.28,
+                "z": 0.8524166975080231
+              },
+              "strength": 1,
+              "kind": "swing-frame",
+              "target": "back",
+              "bodyPoint": {
+                "x": 0.13,
+                "y": 1.28,
+                "z": -0.13
+              },
+              "bodyBlend": 1
+            },
+            {
+              "a": 1,
+              "b": 0,
+              "handA": "left",
+              "handB": "right",
+              "point": {
+                "x": -0.1108141571295789,
+                "y": 1.33,
+                "z": 1.0150000000000001
+              },
+              "strength": 1,
+              "kind": "swing-frame",
+              "target": "upper-arm"
+            }
+          ]
+        },
+        {
+          "sourceBeat": 61.1875,
+          "poses": [
+            {
+              "id": 0,
+              "position": {
+                "x": 0.1722267722360768,
+                "z": 0.642244420186211
+              },
+              "yaw": -5.825036378531075
+            },
+            {
+              "id": 1,
+              "position": {
+                "x": -0.17222677223607633,
+                "z": 1.1577555798137893
+              },
+              "yaw": -2.6834437249412817
+            },
+            {
+              "id": 2,
+              "position": {
+                "x": -0.9000000000000002,
+                "z": -0.9000000000000001
+              },
+              "yaw": 1.5707963267948966
+            },
+            {
+              "id": 3,
+              "position": {
+                "x": 0.8999999999999996,
+                "z": -0.9000000000000001
+              },
+              "yaw": -1.5707963267948966
+            }
+          ],
+          "contacts": [
+            {
+              "a": 0,
+              "b": 1,
+              "handA": "left",
+              "handB": "right",
+              "point": {
+                "x": 0.1288777899068948,
+                "y": 1.31,
+                "z": 0.9861133861180384
+              },
+              "strength": 1,
+              "kind": "swing-frame",
+              "target": "hands"
+            },
+            {
+              "a": 0,
+              "b": 1,
+              "handA": "right",
+              "handB": "left",
+              "point": {
+                "x": -0.23132269890685564,
+                "y": 1.28,
+                "z": 1.3318465659415089
+              },
+              "strength": 1,
+              "kind": "swing-frame",
+              "target": "back",
+              "bodyPoint": {
+                "x": 0.13,
+                "y": 1.28,
+                "z": -0.13
+              },
+              "bodyBlend": 1
+            },
+            {
+              "a": 1,
+              "b": 0,
+              "handA": "left",
+              "handB": "right",
+              "point": {
+                "x": -0.03405395831644151,
+                "y": 1.33,
+                "z": 0.7439708189365813
+              },
+              "strength": 1,
+              "kind": "swing-frame",
+              "target": "upper-arm"
+            }
+          ]
+        },
+        {
+          "sourceBeat": 62.25,
+          "poses": [
+            {
+              "id": 0,
+              "position": {
+                "x": 0.3097345557343705,
+                "z": 0.8871740503652835
+              },
+              "yaw": -6.765398238512908
+            },
+            {
+              "id": 1,
+              "position": {
+                "x": -0.30973455573437003,
+                "z": 0.9128259496347165
+              },
+              "yaw": -3.623805584923115
+            },
+            {
+              "id": 2,
+              "position": {
+                "x": -0.9000000000000002,
+                "z": -0.9000000000000001
+              },
+              "yaw": 1.5707963267948966
+            },
+            {
+              "id": 3,
+              "position": {
+                "x": 0.8999999999999996,
+                "z": -0.9000000000000001
+              },
+              "yaw": -1.5707963267948966
+            }
+          ],
+          "contacts": [
+            {
+              "a": 0,
+              "b": 1,
+              "handA": "left",
+              "handB": "right",
+              "point": {
+                "x": 0.006412974817358474,
+                "y": 1.31,
+                "z": 1.054867277867185
+              },
+              "strength": 1,
+              "kind": "swing-frame",
+              "target": "hands"
+            },
+            {
+              "a": 0,
+              "b": 1,
+              "handA": "right",
+              "handB": "left",
+              "point": {
+                "x": -0.4851970856117223,
+                "y": 1.28,
+                "z": 0.9677158449619919
+              },
+              "strength": 1,
+              "kind": "swing-frame",
+              "target": "back",
+              "bodyPoint": {
+                "x": 0.13,
+                "y": 1.28,
+                "z": -0.13
+              },
+              "bodyBlend": 1
+            },
+            {
+              "a": 1,
+              "b": 0,
+              "handA": "left",
+              "handB": "right",
+              "point": {
+                "x": 0.10596125651489208,
+                "y": 1.33,
+                "z": 0.7805136428786771
+              },
+              "strength": 1,
+              "kind": "swing-frame",
+              "target": "upper-arm"
+            }
+          ]
+        },
+        {
+          "sourceBeat": 62.5,
+          "poses": [
+            {
+              "id": 0,
+              "position": {
+                "x": 0.3100000000000002,
+                "z": 0.9000000000000001
+              },
+              "yaw": -6.806784082777885
+            },
+            {
+              "id": 1,
+              "position": {
+                "x": -0.3099999999999998,
+                "z": 0.9000000000000001
+              },
+              "yaw": -3.6651914291880923
+            },
+            {
+              "id": 2,
+              "position": {
+                "x": -0.9000000000000002,
+                "z": -0.9000000000000001
+              },
+              "yaw": 1.5707963267948966
+            },
+            {
+              "id": 3,
+              "position": {
+                "x": 0.8999999999999996,
+                "z": -0.9000000000000001
+              },
+              "yaw": -1.5707963267948966
+            }
+          ],
+          "contacts": []
+        },
+        {
+          "sourceBeat": 64,
+          "poses": [
+            {
+              "id": 0,
+              "position": {
+                "x": 0.9000000000000001,
+                "z": 0.9000000000000001
+              },
+              "yaw": -6.283185307179586
+            },
+            {
+              "id": 1,
+              "position": {
+                "x": -0.8999999999999997,
+                "z": 0.9000000000000001
+              },
+              "yaw": -6.283185307179587
+            },
+            {
+              "id": 2,
+              "position": {
+                "x": -0.9000000000000002,
+                "z": -0.9000000000000001
+              },
+              "yaw": 3.141592653589793
+            },
+            {
+              "id": 3,
+              "position": {
+                "x": 0.8999999999999996,
+                "z": -0.9000000000000001
+              },
+              "yaw": -3.1415926535897936
+            }
+          ],
+          "contacts": []
+        }
+      ]
+    },
+    {
+      "sourceId": 2141,
+      "snapshotId": "contradb:2141:5db649b33f6f8e85",
+      "sourceUrl": "https://contradb.com/dances/2141",
+      "sourceCounts": [
+        8,
+        8,
+        8,
+        8,
+        16,
+        8,
+        8
+      ],
+      "sourceFinalText": "ones swing and face next neighbors ⁋",
+      "scope": "One first-cycle minor set extracted from the unchanged complete source; no additional period/body sweep.",
+      "figure": {
+        "id": "contradb:2141:row:6",
+        "beats": 8,
+        "label": "ones swing and face next neighbors ⁋",
+        "confidence": "approximate",
+        "kind": "swing",
+        "who": "ones",
+        "exit": "progressed-neighbors",
+        "progression": true
+      },
+      "currentRank": {
+        "relationshipEpoch": 0,
+        "ones": [
+          0,
+          1
+        ],
+        "twos": [
+          2,
+          3
+        ],
+        "forwardDirection": 1
+      },
+      "entry": {
+        "sourceBeat": 56,
+        "relationshipEpoch": 0,
+        "actors": [
+          {
+            "id": 0,
+            "role": "lark",
+            "couple": 0
+          },
+          {
+            "id": 1,
+            "role": "robin",
+            "couple": 0
+          },
+          {
+            "id": 2,
+            "role": "lark",
+            "couple": 1
+          },
+          {
+            "id": 3,
+            "role": "robin",
+            "couple": 1
+          }
+        ],
+        "partner": [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            2,
+            3
+          ],
+          [
+            3,
+            2
+          ]
+        ],
+        "neighbor": [
+          [
+            0,
+            3
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            2,
+            1
+          ],
+          [
+            3,
+            0
+          ]
+        ],
+        "poses": [
+          {
+            "id": 0,
+            "position": {
+              "x": 0.9000000000000002,
+              "z": 0.9000000000000001
+            },
+            "yaw": -1.5707963267948966
+          },
+          {
+            "id": 1,
+            "position": {
+              "x": -0.8999999999999994,
+              "z": 0.9000000000000001
+            },
+            "yaw": 1.5707963267948966
+          },
+          {
+            "id": 2,
+            "position": {
+              "x": -0.900000000000002,
+              "z": -0.9000000000000001
+            },
+            "yaw": 1.5707963267948966
+          },
+          {
+            "id": 3,
+            "position": {
+              "x": 0.8999999999999976,
+              "z": -0.9000000000000001
+            },
+            "yaw": -1.5707963267948966
+          }
+        ],
+        "heldContacts": []
+      },
+      "exit": {
+        "sourceBeat": 64,
+        "relationshipEpoch": 0,
+        "actors": [
+          {
+            "id": 0,
+            "role": "lark",
+            "couple": 0
+          },
+          {
+            "id": 1,
+            "role": "robin",
+            "couple": 0
+          },
+          {
+            "id": 2,
+            "role": "lark",
+            "couple": 1
+          },
+          {
+            "id": 3,
+            "role": "robin",
+            "couple": 1
+          }
+        ],
+        "partner": [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            2,
+            3
+          ],
+          [
+            3,
+            2
+          ]
+        ],
+        "neighbor": [
+          [
+            0,
+            3
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            2,
+            1
+          ],
+          [
+            3,
+            0
+          ]
+        ],
+        "poses": [
+          {
+            "id": 0,
+            "position": {
+              "x": 0.9000000000000002,
+              "z": 0.9000000000000001
+            },
+            "yaw": -6.283185307179586
+          },
+          {
+            "id": 1,
+            "position": {
+              "x": -0.8999999999999994,
+              "z": 0.9000000000000001
+            },
+            "yaw": -6.283185307179587
+          },
+          {
+            "id": 2,
+            "position": {
+              "x": -0.900000000000002,
+              "z": -0.9000000000000001
+            },
+            "yaw": 3.141592653589793
+          },
+          {
+            "id": 3,
+            "position": {
+              "x": 0.8999999999999976,
+              "z": -0.9000000000000001
+            },
+            "yaw": -3.1415926535897936
+          }
+        ],
+        "heldContacts": []
+      },
+      "activePair": [
+        0,
+        1
+      ],
+      "inactivePair": [
+        2,
+        3
+      ],
+      "phaseBeats": [
+        1.25,
+        5.25,
+        1.5
+      ],
+      "frameSchedule": {
+        "acquisitionStart": 1,
+        "fullAt": 1.25,
+        "releaseStart": 6.25,
+        "releasedAt": 6.5
+      },
+      "orbit": {
+        "center": {
+          "x": 4.440892098500626e-16,
+          "z": 0.9000000000000001
+        },
+        "radius": 0.31,
+        "angle": 6.283185307179586,
+        "sourceStart": 57.25,
+        "sourceEnd": 62.5
+      },
+      "inactiveConvention": "retain-actual-roots-turn-to-next-neighbors-in-final-1.5-counts",
+      "exitContract": "same-reached-roots-facing-next-neighbors",
+      "bounds": {
+        "minimumRootClearance": 0.62,
+        "maximumRootSpeed": 0.7079999999999999,
+        "maximumYawRate": 2.617993877991495
+      },
+      "observed": {
+        "minimumClearance": 0.6199999999999998,
+        "minimumActiveInactiveClearance": 1.7024637666267228,
+        "maximumSpeed": 0.7079999961324936,
+        "maximumYawRate": 2.61799386806564,
+        "maximumHandReach": 0.6772019951416598,
+        "winding": 6.283185307179586,
+        "minimumPositiveContactBeat": 1.03125,
+        "maximumPositiveContactBeat": 6.46875
+      },
+      "gates": [
+        {
+          "sourceBeat": 56,
+          "poses": [
+            {
+              "id": 0,
+              "position": {
+                "x": 0.9000000000000002,
+                "z": 0.9000000000000001
+              },
+              "yaw": -1.5707963267948966
+            },
+            {
+              "id": 1,
+              "position": {
+                "x": -0.8999999999999994,
+                "z": 0.9000000000000001
+              },
+              "yaw": 1.5707963267948966
+            },
+            {
+              "id": 2,
+              "position": {
+                "x": -0.900000000000002,
+                "z": -0.9000000000000001
+              },
+              "yaw": 1.5707963267948966
+            },
+            {
+              "id": 3,
+              "position": {
+                "x": 0.8999999999999976,
+                "z": -0.9000000000000001
+              },
+              "yaw": -1.5707963267948966
+            }
+          ],
+          "contacts": []
+        },
+        {
+          "sourceBeat": 57,
+          "poses": [
+            {
+              "id": 0,
+              "position": {
+                "x": 0.37136000000000025,
+                "z": 0.9000000000000001
+              },
+              "yaw": -0.632507320922745
+            },
+            {
+              "id": 1,
+              "position": {
+                "x": -0.37135999999999936,
+                "z": 0.9000000000000001
+              },
+              "yaw": 2.509085332667048
+            },
+            {
+              "id": 2,
+              "position": {
+                "x": -0.900000000000002,
+                "z": -0.9000000000000001
+              },
+              "yaw": 1.5707963267948966
+            },
+            {
+              "id": 3,
+              "position": {
+                "x": 0.8999999999999976,
+                "z": -0.9000000000000001
+              },
+              "yaw": -1.5707963267948966
+            }
+          ],
+          "contacts": []
+        },
+        {
+          "sourceBeat": 57.25,
+          "poses": [
+            {
+              "id": 0,
+              "position": {
+                "x": 0.3100000000000004,
+                "z": 0.9000000000000001
+              },
+              "yaw": -0.5235987755982989
+            },
+            {
+              "id": 1,
+              "position": {
+                "x": -0.3099999999999995,
+                "z": 0.9000000000000001
+              },
+              "yaw": 2.617993877991494
+            },
+            {
+              "id": 2,
+              "position": {
+                "x": -0.900000000000002,
+                "z": -0.9000000000000001
+              },
+              "yaw": 1.5707963267948966
+            },
+            {
+              "id": 3,
+              "position": {
+                "x": 0.8999999999999976,
+                "z": -0.9000000000000001
+              },
+              "yaw": -1.5707963267948966
+            }
+          ],
+          "contacts": [
+            {
+              "a": 0,
+              "b": 1,
+              "handA": "left",
+              "handB": "right",
+              "point": {
+                "x": 4.440892098500626e-16,
+                "y": 1.31,
+                "z": 1.0550000000000002
+              },
+              "strength": 1,
+              "kind": "swing-frame",
+              "target": "hands"
+            },
+            {
+              "a": 0,
+              "b": 1,
+              "handA": "right",
+              "handB": "left",
+              "point": {
+                "x": -0.48758330249197657,
+                "y": 1.28,
+                "z": 0.947583302491977
+              },
+              "strength": 1,
+              "kind": "swing-frame",
+              "target": "back",
+              "bodyPoint": {
+                "x": 0.13,
+                "y": 1.28,
+                "z": -0.13
+              },
+              "bodyBlend": 1
+            },
+            {
+              "a": 1,
+              "b": 0,
+              "handA": "left",
+              "handB": "right",
+              "point": {
+                "x": 0.11081415712957951,
+                "y": 1.33,
+                "z": 0.7850000000000001
+              },
+              "strength": 1,
+              "kind": "swing-frame",
+              "target": "upper-arm"
+            }
+          ]
+        },
+        {
+          "sourceBeat": 58.5625,
+          "poses": [
+            {
+              "id": 0,
+              "position": {
+                "x": 0.17222677223607716,
+                "z": 1.1577555798137893
+              },
+              "yaw": -1.5053464798451093
+            },
+            {
+              "id": 1,
+              "position": {
+                "x": -0.17222677223607624,
+                "z": 0.6422444201862111
+              },
+              "yaw": 1.6362461737446836
+            },
+            {
+              "id": 2,
+              "position": {
+                "x": -0.900000000000002,
+                "z": -0.9000000000000001
+              },
+              "yaw": 1.5707963267948966
+            },
+            {
+              "id": 3,
+              "position": {
+                "x": 0.8999999999999976,
+                "z": -0.9000000000000001
+              },
+              "yaw": -1.5707963267948966
+            }
+          ],
+          "contacts": [
+            {
+              "a": 0,
+              "b": 1,
+              "handA": "left",
+              "handB": "right",
+              "point": {
+                "x": -0.12887778990689408,
+                "y": 1.31,
+                "z": 0.9861133861180384
+              },
+              "strength": 1,
+              "kind": "swing-frame",
+              "target": "hands"
+            },
+            {
+              "a": 0,
+              "b": 1,
+              "handA": "right",
+              "handB": "left",
+              "point": {
+                "x": -0.3104508390570132,
+                "y": 1.28,
+                "z": 0.5210251669651111
+              },
+              "strength": 1,
+              "kind": "swing-frame",
+              "target": "back",
+              "bodyPoint": {
+                "x": 0.13,
+                "y": 1.28,
+                "z": -0.13
+              },
+              "bodyBlend": 1
+            },
+            {
+              "a": 1,
+              "b": 0,
+              "handA": "left",
+              "handB": "right",
+              "point": {
+                "x": 0.15718405251314427,
+                "y": 1.33,
+                "z": 0.9282480274689104
+              },
+              "strength": 1,
+              "kind": "swing-frame",
+              "target": "upper-arm"
+            }
+          ]
+        },
+        {
+          "sourceBeat": 59.875,
+          "poses": [
+            {
+              "id": 0,
+              "position": {
+                "x": -0.30999999999999955,
+                "z": 0.9000000000000001
+              },
+              "yaw": -3.6651914291880923
+            },
+            {
+              "id": 1,
+              "position": {
+                "x": 0.31000000000000044,
+                "z": 0.9
+              },
+              "yaw": -0.5235987755982991
+            },
+            {
+              "id": 2,
+              "position": {
+                "x": -0.900000000000002,
+                "z": -0.9000000000000001
+              },
+              "yaw": 1.5707963267948966
+            },
+            {
+              "id": 3,
+              "position": {
+                "x": 0.8999999999999976,
+                "z": -0.9000000000000001
+              },
+              "yaw": -1.5707963267948966
+            }
+          ],
+          "contacts": [
+            {
+              "a": 0,
+              "b": 1,
+              "handA": "left",
+              "handB": "right",
+              "point": {
+                "x": 4.163336342344337e-16,
+                "y": 1.31,
+                "z": 0.7450000000000001
+              },
+              "strength": 1,
+              "kind": "swing-frame",
+              "target": "hands"
+            },
+            {
+              "a": 0,
+              "b": 1,
+              "handA": "right",
+              "handB": "left",
+              "point": {
+                "x": 0.48758330249197745,
+                "y": 1.28,
+                "z": 0.8524166975080231
+              },
+              "strength": 1,
+              "kind": "swing-frame",
+              "target": "back",
+              "bodyPoint": {
+                "x": 0.13,
+                "y": 1.28,
+                "z": -0.13
+              },
+              "bodyBlend": 1
+            },
+            {
+              "a": 1,
+              "b": 0,
+              "handA": "left",
+              "handB": "right",
+              "point": {
+                "x": -0.11081415712957868,
+                "y": 1.33,
+                "z": 1.0150000000000001
+              },
+              "strength": 1,
+              "kind": "swing-frame",
+              "target": "upper-arm"
+            }
+          ]
+        },
+        {
+          "sourceBeat": 61.1875,
+          "poses": [
+            {
+              "id": 0,
+              "position": {
+                "x": 0.17222677223607702,
+                "z": 0.642244420186211
+              },
+              "yaw": -5.825036378531075
+            },
+            {
+              "id": 1,
+              "position": {
+                "x": -0.1722267722360761,
+                "z": 1.1577555798137893
+              },
+              "yaw": -2.6834437249412817
+            },
+            {
+              "id": 2,
+              "position": {
+                "x": -0.900000000000002,
+                "z": -0.9000000000000001
+              },
+              "yaw": 1.5707963267948966
+            },
+            {
+              "id": 3,
+              "position": {
+                "x": 0.8999999999999976,
+                "z": -0.9000000000000001
+              },
+              "yaw": -1.5707963267948966
+            }
+          ],
+          "contacts": [
+            {
+              "a": 0,
+              "b": 1,
+              "handA": "left",
+              "handB": "right",
+              "point": {
+                "x": 0.12887778990689502,
+                "y": 1.31,
+                "z": 0.9861133861180384
+              },
+              "strength": 1,
+              "kind": "swing-frame",
+              "target": "hands"
+            },
+            {
+              "a": 0,
+              "b": 1,
+              "handA": "right",
+              "handB": "left",
+              "point": {
+                "x": -0.23132269890685542,
+                "y": 1.28,
+                "z": 1.3318465659415089
+              },
+              "strength": 1,
+              "kind": "swing-frame",
+              "target": "back",
+              "bodyPoint": {
+                "x": 0.13,
+                "y": 1.28,
+                "z": -0.13
+              },
+              "bodyBlend": 1
+            },
+            {
+              "a": 1,
+              "b": 0,
+              "handA": "left",
+              "handB": "right",
+              "point": {
+                "x": -0.034053958316441285,
+                "y": 1.33,
+                "z": 0.7439708189365813
+              },
+              "strength": 1,
+              "kind": "swing-frame",
+              "target": "upper-arm"
+            }
+          ]
+        },
+        {
+          "sourceBeat": 62.25,
+          "poses": [
+            {
+              "id": 0,
+              "position": {
+                "x": 0.3097345557343707,
+                "z": 0.8871740503652835
+              },
+              "yaw": -6.765398238512908
+            },
+            {
+              "id": 1,
+              "position": {
+                "x": -0.3097345557343698,
+                "z": 0.9128259496347165
+              },
+              "yaw": -3.623805584923115
+            },
+            {
+              "id": 2,
+              "position": {
+                "x": -0.900000000000002,
+                "z": -0.9000000000000001
+              },
+              "yaw": 1.5707963267948966
+            },
+            {
+              "id": 3,
+              "position": {
+                "x": 0.8999999999999976,
+                "z": -0.9000000000000001
+              },
+              "yaw": -1.5707963267948966
+            }
+          ],
+          "contacts": [
+            {
+              "a": 0,
+              "b": 1,
+              "handA": "left",
+              "handB": "right",
+              "point": {
+                "x": 0.0064129748173586965,
+                "y": 1.31,
+                "z": 1.054867277867185
+              },
+              "strength": 1,
+              "kind": "swing-frame",
+              "target": "hands"
+            },
+            {
+              "a": 0,
+              "b": 1,
+              "handA": "right",
+              "handB": "left",
+              "point": {
+                "x": -0.4851970856117221,
+                "y": 1.28,
+                "z": 0.9677158449619919
+              },
+              "strength": 1,
+              "kind": "swing-frame",
+              "target": "back",
+              "bodyPoint": {
+                "x": 0.13,
+                "y": 1.28,
+                "z": -0.13
+              },
+              "bodyBlend": 1
+            },
+            {
+              "a": 1,
+              "b": 0,
+              "handA": "left",
+              "handB": "right",
+              "point": {
+                "x": 0.1059612565148923,
+                "y": 1.33,
+                "z": 0.7805136428786771
+              },
+              "strength": 1,
+              "kind": "swing-frame",
+              "target": "upper-arm"
+            }
+          ]
+        },
+        {
+          "sourceBeat": 62.5,
+          "poses": [
+            {
+              "id": 0,
+              "position": {
+                "x": 0.31000000000000044,
+                "z": 0.9000000000000001
+              },
+              "yaw": -6.806784082777885
+            },
+            {
+              "id": 1,
+              "position": {
+                "x": -0.30999999999999955,
+                "z": 0.9000000000000001
+              },
+              "yaw": -3.6651914291880923
+            },
+            {
+              "id": 2,
+              "position": {
+                "x": -0.900000000000002,
+                "z": -0.9000000000000001
+              },
+              "yaw": 1.5707963267948966
+            },
+            {
+              "id": 3,
+              "position": {
+                "x": 0.8999999999999976,
+                "z": -0.9000000000000001
+              },
+              "yaw": -1.5707963267948966
+            }
+          ],
+          "contacts": []
+        },
+        {
+          "sourceBeat": 64,
+          "poses": [
+            {
+              "id": 0,
+              "position": {
+                "x": 0.9000000000000002,
+                "z": 0.9000000000000001
+              },
+              "yaw": -6.283185307179586
+            },
+            {
+              "id": 1,
+              "position": {
+                "x": -0.8999999999999994,
+                "z": 0.9000000000000001
+              },
+              "yaw": -6.283185307179587
+            },
+            {
+              "id": 2,
+              "position": {
+                "x": -0.900000000000002,
+                "z": -0.9000000000000001
+              },
+              "yaw": 3.141592653589793
+            },
+            {
+              "id": 3,
+              "position": {
+                "x": 0.8999999999999976,
+                "z": -0.9000000000000001
+              },
+              "yaw": -3.1415926535897936
+            }
+          ],
+          "contacts": []
+        }
+      ]
+    }
+  ]
+}
