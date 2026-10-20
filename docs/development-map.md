@@ -319,15 +319,14 @@ measured leg corrections without changing the rig or relaxing assertions.
 The subsequent legacy partner swing retains an approximately 0.0355 world-unit
 upper-arm wrist offset. Its roots and contacts at the offending frame match the
 standalone existing primitive exactly; it is an explicit inherited limitation,
-not an exact-wrist claim for the whole dance. Hardware GPU/browser playback,
-audio synchronization and caller review have not been rerun for these changes.
-Next: complete release/browser verification, then investigate the next measured
-initial-wave or left-loop variant; do not infer broader source admission.
+not an exact-wrist claim for the whole dance. Software-WebGL browser playback and scrubbing passed, including the next round.
+Hardware GPU, audio synchronization and caller review remain unrun.
+Next: finish the verified public release, then investigate measured left-loop
+geometry and explicit left-hand wave seams; do not infer broader source admission.
 
 Keep context small: read the report for totals and query individual records in
 `coverage-audit.json`; do not dump its approximately 1 MB of choices and evidence.
 The census includes importer validation and existing internal samples, not a new
 independent whole-period or body-motion certification.
 
-
-
+Release check (2026-10-20): 66 focused motion/source/Ready tests and 29 script tests pass; TypeScript and isolated Pages build pass. Playwright Chromium with software WebGL opens Nomad's Land, scrubs counts 6/14/20/38/54/62, and plays across count 64 into the next round without page errors. Perspective screenshots were inspected. This supersedes the browser-unrun status above; hardware GPU, audio synchronization and caller review remain unrun. The first deployment run was canceled before publishing to fix rejection of unsupported terminal-hey modifiers; the final release must include that guard.

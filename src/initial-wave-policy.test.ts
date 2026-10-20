@@ -24,3 +24,10 @@ test('unused choices and contradictory physical exits reject before execution',(
  const p=dance().initialWavePolicy!;for(const change of[(p:any)=>p.extra=true,(p:any)=>p.waiting.extra=true,(p:any)=>p.inwardRole='lark',(p:any)=>p.preparations.chain.receiverYield=.5]){const q=structuredClone(p);change(q);assert.throws(()=>validateInitialWavePolicy(q));}
  const owned=validateInitialWavePolicy(p);(p as InitialWavePolicy).waiting.turnBeats=4 as 8;assert.equal(owned.waiting.turnBeats,8);
 });
+
+test('terminal wave return rejects unused axis, entry, pair and notation variants',()=>{
+ for(const modifier of[{heyAxis:'left-diagonal'},{heyAxis:'across'},{heyAxis:'invalid-axis'},{entry:'facing-couples-across'},{entry:undefined},{exit:'partner-swing'},{heyStartPair:'partner'},{notation:''},{notation:'AB CD'}]){
+  const d=dance();Object.assign(d.figures.at(-1)!,modifier);
+  assert.throws(()=>compileInitialWavePolicyDance(d,2),/Initial-wave return requires paired-sidelines/);
+ }
+});

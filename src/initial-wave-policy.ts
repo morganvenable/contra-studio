@@ -1,7 +1,7 @@
 /** Explicit interpretation choices for initial waves and their finite return.
  * Preparation keys name local figure declarations, never source identities. */
 import {capturePlainData} from './owned-program-cache.ts';
-import {compileInitialWaveSequence,type InitialWaveStep} from './initial-wave-source-sequence.ts';
+import {compileInitialWaveSequence,assertInitialWaveReturnModifiers,type InitialWaveStep} from './initial-wave-source-sequence.ts';
 import type {Dance,Role} from './types.ts';
 export type InitialWavePreparation=
  |{kind:'neighbor-balance';preparationBeats:2;pairSpacing:1.18;handAcquisitionBeats:.25}
@@ -40,6 +40,7 @@ export function compileInitialWavePolicyDance(input:Dance,couples:number){
  const steps:InitialWaveStep[]=dance.figures.map((figure,index)=>{
   const prep=policy.preparations[figure.id];
   if(figure.id===policy.terminal.figureId){
+   assertInitialWaveReturnModifiers(figure);
    if(prep||figure.kind!=='hey'||figure.amount!==.5||figure.beats!==8||figure.exit!=='next-long-waves'||!figure.progression||!['neighbor','partner'].includes(figure.who??'')||!figure.heyStartRole||!figure.centerShoulder||!figure.endShoulder)throw Error('Initial-wave return requires an explicit source-counted progressing role half hey.');
    return{figure,mode:'wave-return',firstRole:figure.heyStartRole,sidePair:figure.who as 'neighbor'|'partner',centerShoulder:figure.centerShoulder,endShoulder:figure.endShoulder};
   }

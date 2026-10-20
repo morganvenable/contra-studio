@@ -72,3 +72,10 @@ test('playback exposes frame metadata, moving gait, and owned program data',()=>
  assert.throws(()=>{c.dancers[0].role='robin';},TypeError);
  frame.poses[0].position.x=999;assert.notEqual(c.sample(21).poses[0].position.x,999);
 });
+
+test('direct wave-return lowering cannot drop otherwise recognized hey variants',()=>{
+ for(const factory of[candidate,syntheticWaveBalanceCandidate])for(const modifier of[{heyAxis:'right-diagonal'},{heyAxis:'across'},{heyAxis:'invalid-axis'},{entry:'paired-sidelines-facing-down'},{entry:undefined},{exit:undefined},{exit:'partner-swing'},{heyStartPair:'partner'},{notation:''},{notation:'AB CD'}]){
+  const p=factory();Object.assign(p.steps.at(-1)!.figure,modifier);
+  assert.throws(()=>compileInitialWaveSequence(p,2),/Initial-wave return requires paired-sidelines/);
+ }
+});

@@ -17,6 +17,13 @@ import {captureSequenceBoundary,sampleSequenceBoundary,assertSequenceHandoff} fr
 import type {Dance,Figure,Pose,HandContact,Role,CompiledDance,Frame} from './types.ts';
 import type {MotionPlan} from './extended-figures.ts';
 
+/** The role-first wave return consumes measured paired sidelines. Axis and
+ * notation variants belong to different adapters and must not disappear when
+ * the figure is lowered to its encounter/endpoint contract. */
+export function assertInitialWaveReturnModifiers(figure:Figure):void {
+ if(figure.entry!=='paired-sidelines'||!['progressed-neighbors','next-long-waves'].includes(figure.exit??'')||figure.heyAxis!==undefined||figure.heyStartPair!==undefined||figure.notation!==undefined)throw Error('Initial-wave return requires paired-sidelines entry and an explicit supported wave/progression endpoint; axis, pair-first and notation variants are not consumed.');
+}
+
 export type InitialWaveStep=
  |{figure:Figure;mode:'circulate';spec:CarriedWaveCirculateSpec|CarriedWaveBalanceExitSpec}
  |{figure:Figure;mode:'wave-balance';spec:CarriedWaveBalanceSpec}
@@ -52,6 +59,7 @@ export function compileInitialWaveSequence(raw:InitialWaveProgram,couples:number
  keys(program,['dance','steps','initial','waiting']);keys(G,['inwardRole','localHand','halfWidth','rowGap']);keys(program.waiting,['turnBeats','preparationBeats']);
  for(const step of steps){
   keys(step,step.mode==='local'?['figure','mode','preparation']:step.mode==='wave-return'?['figure','mode','firstRole','sidePair','centerShoulder','endShoulder']:['figure','mode','spec']);
+  if(step.mode==='wave-return')assertInitialWaveReturnModifiers(step.figure);
   assertFigureArgumentsConsumed(step.figure);
   if(step.figure.confidence==='unsupported'||!step.figure.id||!step.figure.label||!Number.isFinite(step.figure.beats)||step.figure.beats<=0)throw Error('Initial-wave figures require supported, identified, positive source-counted instructions.');
   if(!['circulate','wave-balance','wave-swing','local','wave-return'].includes(step.mode))throw Error('Unknown wave program step.');

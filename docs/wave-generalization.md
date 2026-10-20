@@ -296,4 +296,4 @@ is `research/contradb/wave-variant-inventory.json`.
 These require separate semantic contracts. Do not map them to the implemented
 right-loop four-station operation merely because their text says circulate.
 
-
+Release check (2026-10-20): 66 focused motion/source/Ready tests and 29 script tests pass; TypeScript and isolated Pages build pass. Playwright Chromium with software WebGL opens Nomad's Land, scrubs counts 6/14/20/38/54/62, and plays across count 64 into the next round without page errors. Perspective screenshots were inspected. This supersedes the browser-unrun status above; hardware GPU, audio synchronization and caller review remain unrun. The first release was canceled before publishing to tighten terminal-hey modifier rejection.
