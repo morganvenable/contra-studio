@@ -339,7 +339,12 @@ Right-leading/left-trailing feet and outward pelvis/inward torso remain. See
 Main 3D choreography remains unchanged. Prototype geometry is illustrative;
 head, thick-arm and force validation is not comprehensive. Next: review this
 frame visually, then transfer the accepted hold to production avatars.
-Current verification and public release pending.
+Current release: source 79698ff, frozen artifact de510b4, successful workflow
+39478152746. Thirteen focused foot/timing/frame tests, TypeScript and Pages
+build pass. Exact artifact and public browser checks pass: four-arm hold,
+controls preserve feet, default contacts, unreachable-limit feedback,
+phase-boundary playback and 320-1440px layouts. Independent review corrected
+wrapping-arm vertical order. Hardware GPU and actual audio checks unrun.
 
 
 Keep context small: read the report for totals and query individual records in
