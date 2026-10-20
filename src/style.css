@@ -44,3 +44,5 @@
 .ready-library-source{align-self:flex-end;font-size:11px;padding:5px 8px}
 
 .music-audio-controls{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 18px}.music-audio-controls [aria-pressed=true]{background:#eaf0e6;border-color:#8da581;color:#285e4d}
+/* Standalone timing study uses the same navigation treatment as studio tools. */
+a.nav-item { display: inline-flex; align-items: center; text-decoration: none; }
