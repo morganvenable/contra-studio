@@ -10,7 +10,7 @@ export function compileNamedPullByFigure(f:Figure,context:FigureContext):MotionP
  assertFigureArgumentsConsumed(f);
  if(f.kind!=='pull-by'||f.confidence==='unsupported'||f.progression||f.exit!==undefined||f.entry!==undefined||!['partner','neighbor','larks','robins'].includes(f.who??'')||!['left','right'].includes(f.hands??'')||![2,4].includes(f.beats))throw new Error('A named pull-by requires explicit participants, left or right hands, two or four source counts, and no undeclared progression.');
  const partner=resolveBoundFigureRelation(context,'partner'),neighbor=resolveBoundFigureRelation(context,'neighbor'),{ids,start,dancers,next}=context,who=f.who as PullByRelation;
- const swing=next?.kind==='swing'&&next.who==='partner'&&who==='larks'&&f.beats===4;
+ const swing=next?.kind==='swing'&&next.who==='partner'&&['larks','robins'].includes(who)&&f.beats===4;
  const allemande=next?.kind==='allemande'&&next.who==='larks'&&next.direction==='right'&&next.amount===1.5&&next.beats===8&&who==='partner'&&f.beats===2;
  const pairs=who==='partner'||who==='neighbor'?ids.filter(id=>id<(who==='partner'?partner:neighbor).get(id)!).map(a=>({a,b:(who==='partner'?partner:neighbor).get(a)!,relationship:who})):(()=>{const role=who==='larks'?'lark':'robin',found=ids.filter(id=>dancers[id].role===role);if(found.length!==2)throw new Error('The named pull-by role must identify exactly two actors.');return[{a:found[0],b:found[1],relationship:who}];})();
  if(!swing&&!allemande)throw new Error('This named pull-by continuation needs a separately reviewed endpoint adapter; terminal progression is not inferred.');

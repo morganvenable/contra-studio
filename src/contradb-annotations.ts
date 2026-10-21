@@ -54,7 +54,13 @@ export function linkedTitleProvenance(record:ContraDbRecord):string|undefined {
 }
 /** A source instruction can corroborate a typed contact graph, while the
  * remaining history still needs an explicit provenance review. */
-export function wristStarNoteProvenance(text:string):string|undefined {
+export function wristStarNoteProvenance(text:string,record?:ContraDbRecord):string|undefined {
+ const variation='A variation that allows for a longer partner swing. See notes about original dance below: ';
+ if(text.startsWith(variation)){
+  const phrase=record?.rows.filter(row=>row.phrase==='A2');
+  if(!record||record.notes!==text||record.formation!=='improper'||record.rows.reduce((sum,row)=>sum+(row.beats??NaN),0)!==64||phrase?.length!==2||phrase[0].beats!==4||phrase[0].text!=='ladles pull by right'||phrase[0].progression||phrase[1].beats!==12||phrase[1].text!=='partners swing'||phrase[1].progression)return;
+  text=text.slice(variation.length);
+ }
  const match=text.match(/^Author's Notes: The transition from left hand star to allemande left is especially nice if a New England style \(hand on wrist\) star is used\. This is the only dance I can think of for which I specifically request that type of star in those parts of the country where the default is hands-across\. ([\s\S]+)$/);
  return match&&classifySourceProse(match[1])==='provenance-candidate'?match[1]:undefined;
 }
@@ -135,7 +141,7 @@ export function reviewSourceAnnotations(record:ContraDbRecord,context:{initialWa
  const teaching=corroboratedTeachingSummary(record),teachingReviewed=!!teaching&&context.notesReview==='corroborated-teaching-summary';
  const notesAlternative=optionalTableAlternative(record,'notes'),notesAlternativeReviewed=!!notesAlternative&&context.hasResolvedComposition&&context.notesReview==='retain-table-optional-alternative';
  const history=corroboratedSourceHistory(record)??corroboratedPromenadeComparison(record),historyReviewed=!!history&&context.notesReview==='corroborated-history';
- const wristProvenance=wristStarNoteProvenance(record.notes),wristReviewed=!!wristProvenance&&context.hasWristStarTransition&&context.notesReview==='corroborated-style-and-provenance';
+ const wristProvenance=wristStarNoteProvenance(record.notes,record),wristReviewed=!!wristProvenance&&context.hasWristStarTransition&&context.notesReview==='corroborated-style-and-provenance';
  if(context.notesReview!==undefined&&!dosidoGyreReviewed&&!releasedCircleReviewed&&!authorshipReviewed&&!starReturnReviewed&&!teachingReviewed&&!wristReviewed&&!historyReviewed&&!notesAlternativeReviewed&&(context.notesReview!=='provenance-only'||!record.notes||classifySourceProse(record.notes)==='movement'&&!eventTitleProvenance))issue('source-notes-review-conflict','A provenance-only note review cannot waive recognized movement, roles, timing or end-effect instructions, or an absent note.');
  if(record.notes&&!/^(?:https?:\/\/\S+)(?:\s+https?:\/\/\S+)*$/.test(record.notes)){
   const roleNote=/^Wait out with gentlespoons on the right, ladles on the left\. Progression is not entirely intuitive but the dance works well if taught carefully\. Dancers who swap roles may find it more challenging\. Inspired by "[^"\n]{1,200}" by [^.\n]{1,200}\. https?:\/\/\S+$/;
@@ -156,7 +162,7 @@ export function reviewSourceAnnotations(record:ContraDbRecord,context:{initialWa
   else if(context.family==='improper-double'&&record.notes==='Double progression')warnings.push('Source note corroborates the two explicitly retained new-neighbor boundaries. It does not supply the separately reviewed finite-end waiting policy.');
   else if(historyReviewed)warnings.push(`Snapshot-bound ${history!.kind==='phrase-summary'?'table-summary and attributed-history':'current-version history'} review: ${history!.reason} Complete original notes and table remain in the archive.`);
   else if(history)issue('source-notes-history-review',history.reason);
-  else if(wristReviewed)warnings.push('Source notes corroborated: the requested New England wrist-grip left star and immediate left allemande transition are represented by the explicit contact graph. The remaining retained authorship, title history, date and rights statement are separately accepted as provenance; no motion note is dropped.');
+  else if(wristReviewed){warnings.push('Source notes corroborated: the requested New England wrist-grip left star and immediate left allemande transition are represented by the explicit contact graph. The remaining retained authorship, title history, date and rights statement are separately accepted as provenance; no motion note is dropped.');if(record.notes.startsWith('A variation that allows for a longer partner swing.'))warnings.push('The variation introduction is retained as attributed motivation for the current A2 table: four-count robin right pull-by and twelve-count partner swing. The comparative claim of a longer swing, original dance history and publication/permission claims have not been independently verified; no alternative choreography or license is inferred.');}
   else if(wristProvenance)issue('source-notes-style-review','Review the source’s requested wrist-grip star transition against the explicit star contact graph, and classify the remaining retained history / attribution as provenance.');
   else if(deferred&&isDeferredNeighborNote(record.notes))warnings.push('Source notes consumed: after the opening long lines, the first repeat retains the starting neighbors; later repeats bind the next robin to the right. The first-pass exception is explicit in the saved event, not discarded as prose.');
   else if(reversed&&roleNote.test(record.notes))warnings.push('Source notes consumed: out couples retain lark-right/robin-left placement at the same finite end. The caution about role swaps, teaching advice, attribution and reference remain in the original source.');
