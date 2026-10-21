@@ -1,3 +1,4 @@
+import {compileCarriedLinesRollawayStep} from './carried-lines-rollaway-step.ts';
 import {needsShortReleasedPairSwingEntry,compileShortReleasedPairSwingStep} from './short-released-pair-swing-step.ts';
 import {compileNeighborDosidoStep} from './neighbor-dosido-step.ts';
 import {needsReleasedPairSwingEntry,compileReleasedPairSwingStep} from './released-pair-swing-step.ts';
@@ -31,6 +32,7 @@ interface SequenceAdapter {
  compile(figure:Figure,context:FigureContext,incoming:SequenceBoundary):SequencedMotionPlan;
 }
 const adapters:readonly SequenceAdapter[]=Object.freeze([
+ {id:'carried-lines-rollaway',accepts:(f:Figure)=>f.kind==='long-lines-rollaway'&&f.rollRelation==='neighbor',compile:compileCarriedLinesRollawayStep},
  {id:'star-to-partner-gyre',accepts:(f:Figure,c:FigureContext)=>acceptsStarGyreStep(f,c.next),compile:compileStarGyreStep},
  {id:'bare-arch-exchange',accepts:(f:Figure)=>f.kind==='box-the-gnat'&&f.entry==='paired-sidelines',compile:compileBareArchStep},
  {id:'role-pull-by-swing',accepts:(f:Figure,c:FigureContext)=>f.kind==='pull-by'&&['larks','robins'].includes(f.who??'')&&f.exit===undefined&&c.next?.kind==='swing',compile:compileRolePullBySwingStep},

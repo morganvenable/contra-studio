@@ -1,3 +1,4 @@
+import {linesRollawaySource,LINES_ROLLAWAY_DESCRIPTION} from './source-lines-rollaway.ts';
 import {terminalNeighborDosidoSource,CONVENTIONAL_NEIGHBOR_DOSIDO,neighborDosidoDescription,neighborDosidoBalanceOpening,neighborDosidoGyreNote,NEIGHBOR_DOSIDO_GYRE_NOTE_DESCRIPTION} from './source-neighbor-dosido.ts';
 import {rollawaySource,rollawayDescription,releasedCircleTransitionNote,rollawayNeighborHey} from './source-rollaway.ts';
 import {couplesDosidoSource,CONVENTIONAL_COUPLES_DOSIDO,COUPLES_DOSIDO_DESCRIPTION} from './source-couples-dosido.ts';
@@ -57,7 +58,7 @@ export function prepareContraDbReview(input:string,remembered:readonly SourceCho
  if(releasedCircleTransitionNote(baseline.record)){interpretation.notesReview='released-circle-transition';suggestions.push({kind:'prose-review',message:releasedCircleTransitionNote(baseline.record)!});}
  if(hasOrderedCircleCompletionNote(baseline.record)||releasedCircleTransitionNote(baseline.record)){const row=baseline.record.rows.at(-1)!;((interpretation.rows??={})[row.id]??={}).circleCompletion=copy(CONVENTIONAL_CIRCLE_COMPLETION);suggestions.push({rowId:row.id,kind:'qualifier-interpretation',message:CIRCLE_COMPLETION_CHOICE_DESCRIPTION});}
 
- for(const row of baseline.record.rows)if(rollawaySource(row)){((interpretation.rows??={})[row.id]??={}).rollaway={direction:'left-to-right'};suggestions.push({rowId:row.id,kind:'qualifier-interpretation',message:rollawayDescription(row)});}
+ for(const row of baseline.record.rows)if(rollawaySource(row)&&!linesRollawaySource(baseline.record,row.index-1)){((interpretation.rows??={})[row.id]??={}).rollaway={direction:'left-to-right'};suggestions.push({rowId:row.id,kind:'qualifier-interpretation',message:rollawayDescription(row)});}
  if(neighborDosidoGyreNote(baseline.record)){interpretation.notesReview='terminal-dosido-gyre';suggestions.push({kind:'prose-review',message:NEIGHBOR_DOSIDO_GYRE_NOTE_DESCRIPTION});}
  for(const row of baseline.record.rows)if(terminalNeighborDosidoSource(row)){((interpretation.rows??={})[row.id]??={}).neighborDosido={...CONVENTIONAL_NEIGHBOR_DOSIDO};suggestions.push({rowId:row.id,kind:'qualifier-interpretation',message:neighborDosidoDescription()});}
  for(const row of baseline.record.rows)if(couplesDosidoSource(row)){((interpretation.rows??={})[row.id]??={}).couplesDosido={...CONVENTIONAL_COUPLES_DOSIDO};suggestions.push({rowId:row.id,kind:'qualifier-interpretation',message:COUPLES_DOSIDO_DESCRIPTION});}
@@ -102,6 +103,9 @@ export function prepareContraDbReview(input:string,remembered:readonly SourceCho
   if(reversed&&isLeftProgressingBecketSetup(baseline.record.preamble)){interpretation.circulation='cw';suggestions.push({kind:'source-circulation',message:'The source setup explicitly says the Becket progression goes left. This is represented as clockwise circulation; the exact setup instruction stays in the source.'});}
  }
  for(const row of baseline.rows){
+  const lines=linesRollawaySource(baseline.record,row.source.index);
+  if(lines){((interpretation.rows??={})[row.source.id]??={}).linesRollaway={phase:'return',direction:lines.sourceDirection??'left-to-right'};suggestions.push({rowId:row.source.id,kind:'conventional-rollaway',message:LINES_ROLLAWAY_DESCRIPTION});}
+
   if(row.diagnostics.some(d=>d.code==='square-through-choice')){const selected=squareThroughChoiceForSource(baseline.record,row.source.id);if(selected&&selected.rowId===row.source.id){((interpretation.rows??={})[row.source.id]??={}).squareThrough=selected.choice;suggestions.push({rowId:row.source.id,kind:'conventional-timing',message:selected.description});}}
   if(row.diagnostics.some(d=>d.code==='revolving-door-choice')&&hasPartnerRevolvingDoorContext(baseline.record,row.source)){((interpretation.rows??={})[row.source.id]??={}).revolvingDoor=copy(CONVENTIONAL_REVOLVING_DOOR);suggestions.push({rowId:row.source.id,kind:'conventional-timing',message:REVOLVING_DOOR_CHOICE_DESCRIPTION});}
   if(row.diagnostics.some(d=>d.code==='cross-trails-choice')){((interpretation.rows??={})[row.source.id]??={}).crossTrails={phaseBeats:[4,4]};suggestions.push({rowId:row.source.id,kind:'conventional-timing',message:'Review the omitted cross-trails subdivision: four counts passing the partner across by right shoulder, then four passing the current neighbor along by left shoulder. Ordered actors, axes and shoulders are source-explicit; total time remains eight and the endpoint must prove progression.'});}
