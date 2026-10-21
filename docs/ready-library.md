@@ -51,3 +51,11 @@ The partner chain receiver is independently checked against actual arrival
 positions. Clearing the note classification blocks admission; choosing neighbor
 as receiver rejects. The original note and both removable choices remain in the
 archive. No generic prose-classification rule was changed.
+
+
+For each admission batch, verify the exact packaged build with
+`node scripts/smoke-ready-batch.mjs --base=http://127.0.0.1:4195/ --ids=823,3478 --output=research/contradb/smoke-batch`
+(adjust URL, IDs and output directory). The script waits for each actual dance
+heading, scrubs selected counts, and requires the round label to reach round two.
+It saves screenshots and a compact JSON report. This is software-WebGL playback
+evidence, not a replacement for source/relationship tests or visual criticism.
