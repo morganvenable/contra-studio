@@ -363,12 +363,12 @@ export function normalizeContraDbRow(row:ContraDbRow,formation:'duple-improper'|
   if(shortBecketSliceSource(row)&&choice.sliceReturn!=='straight-back')issue('becket-slice-return-choice',BECKET_SLICE_RETURN_DESCRIPTION);
   if(!isBecketSliceChoice(choice.becketSlice))issue('becket-slice-choice',becketSliceDescription(row));
   else{add({kind:'becket-slice',who:'all',direction:'left',phaseBeats:[4,4],entry:'side-couples',exit:'progressed-neighbors',sliceReturn:'straight-back'});interpretations.push(becketSliceDescription(row));if(shortBecketSliceSource(row)&&choice.sliceReturn==='straight-back')interpretations.push(BECKET_SLICE_RETURN_DESCRIPTION);}
- }else if(/^pass through (?:left shoulders|by the left)$/i.test(text)){
+ }else if(/^pass through (?:left shoulders|by the left)$/i.test(text)||/^pass through$/i.test(text)&&choice.passThrough?.passingShoulder==='left'){
   recognized=true;consumedPass=true;const selected=choice.passThrough;
   if(!capabilities.stateCarryingSequences||!capabilities.stateCarryingMirroredSixTwoPasses)issue('mirrored-six-two-gate','The source-named left-shoulder passage requires its separately reviewed shared right-circle/six-two continuation.');
   if(formation!=='duple-improper'||row.beats!==2||!row.progression)issue('mirrored-pass-source-contract','Retain the two-count improper left-shoulder passage with its actual progression glyph.');
   if(!selected||typeof selected!=='object'||Array.isArray(selected)||Object.keys(selected).length!==2||selected.relation!=='neighbor'||selected.passingShoulder!=='left')issue('ring-pass-choice','Review the omitted crossing relation as current neighbor. The source explicitly names left shoulders; this choice cannot change that shoulder or the two counts.');
-  else{add({kind:'pass-through',who:'neighbor',passingShoulder:'left',entry:'circle-exit',exit:'progressed-neighbors'});interpretations.push('The source explicitly retains a two-count left-shoulder passage. Current-neighbor crossing is separately reviewed; actual endpoints must prove the marked progression.');}
+  else{add({kind:'pass-through',who:'neighbor',passingShoulder:'left',entry:'circle-exit',exit:'progressed-neighbors'});interpretations.push(/^pass through$/i.test(text)?'The source omits shoulder and crossing relation: a two-count left-shoulder passage with current neighbors is an explicit removable interpretation. Actual endpoints must prove the retained marked progression.':'The source explicitly retains a two-count left-shoulder passage. Current-neighbor crossing is separately reviewed; actual endpoints must prove the marked progression.');}
   issue('mirrored-pass-context','This passage requires an immediately preceding full three-place right circle in six counts and the sole final source marker.');
  }else if(/^pass through$/i.test(text)){
   recognized=true;consumedPass=true;const selected=choice.passThrough;
