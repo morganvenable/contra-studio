@@ -14,7 +14,7 @@ import {hasStarWhirlSource,CONVENTIONAL_STAR_PROMENADE,CONVENTIONAL_BUTTERFLY_WH
 import {hasMadRobinSource,CONVENTIONAL_MAD_ROBIN_POLICY,MAD_ROBIN_ROW_CHOICE_DESCRIPTION,MAD_ROBIN_HOOK_CHOICE_DESCRIPTION,MAD_ROBIN_POLICY_CHOICE_DESCRIPTION} from './source-mad-robin.ts';
 import {squareThroughChoiceForSource} from './source-square-through.ts';
 import {CONVENTIONAL_RING_TWIRL,RING_TWIRL_CHOICE_DESCRIPTION} from './ring-twirl-policy.ts';
-import {optionalTableAlternative,preDanceWalkthroughFeedback} from './source-alternatives.ts';
+import {optionalTableAlternative,preDanceWalkthroughFeedback,observeNextNeighbors} from './source-alternatives.ts';
 import {hasDiagonalHeySource,CONVENTIONAL_DIAGONAL_HEY,DIAGONAL_HEY_CHOICE_DESCRIPTION} from './source-diagonal-hey.ts';
 import {CONVENTIONAL_REVOLVING_DOOR,hasPartnerRevolvingDoorContext,REVOLVING_DOOR_CHOICE_DESCRIPTION} from './source-revolving-door.ts';
 import {sixTwoPassChoiceForSource,sixTwoPassDescription} from './source-six-two.ts';
@@ -70,6 +70,7 @@ export function prepareContraDbReview(input:string,remembered:readonly SourceCho
  const starReturn=starReturnFootnote(baseline.record);if(starReturn){((interpretation.rows??={})[starReturn.id]??={}).starReturn='entry-slots';interpretation.notesReview='star-return-provenance';suggestions.push({rowId:starReturn.id,kind:'qualifier-interpretation',message:STAR_RETURN_CHOICE_DESCRIPTION},{kind:'prose-review',message:starReturnProvenanceDescription(baseline.record)});}
  const alternative=optionalTableAlternative(baseline.record);if(alternative){interpretation.preambleReview='retain-table-optional-alternative';suggestions.push({kind:'source-annotation',message:alternative.reason});}
  const preflight=preDanceWalkthroughFeedback(baseline.record);if(preflight){interpretation.preambleReview='pre-dance-walkthrough-feedback';suggestions.push({kind:'source-annotation',message:preflight});}
+ const observation=observeNextNeighbors(baseline.record);if(observation){interpretation.preambleReview='observe-next-neighbors';suggestions.push({kind:'source-annotation',message:observation});}
  const notesAlternative=optionalTableAlternative(baseline.record,'notes');if(notesAlternative){interpretation.notesReview='retain-table-optional-alternative';suggestions.push({kind:'prose-review',message:notesAlternative.reason});}
  if(baseline.diagnostics.some(d=>d.code==='ring-twirl-choice')){interpretation.ringTwirl=copy(CONVENTIONAL_RING_TWIRL);suggestions.push({kind:'qualifier-interpretation',message:RING_TWIRL_CHOICE_DESCRIPTION});}
  if(baseline.diagnostics.some(d=>d.code==='six-two-convention-choice')){interpretation.sixTwoPass=sixTwoPassChoiceForSource(baseline.record);suggestions.push({kind:'qualifier-interpretation',message:sixTwoPassDescription(baseline.record)});}

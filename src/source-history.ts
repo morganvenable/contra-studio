@@ -16,6 +16,12 @@ function phraseRows(record:ContraDbRecord,phrase:'A1'|'A2'|'B1'|'B2'):ContraDbRo
 /** A bounded current-version/history distinction. This does not discard prose:
  * it offers a separately removable review of exact current table evidence. */
 export function corroboratedSourceHistory(record:ContraDbRecord):CorroboratedSourceHistory|undefined {
+ if(record.notes==="NB: This dance is also Al's Safeway Produce https://contradb.com/dances/528 Found in Come Dancing by Daniel Clark There is a LOT of turning in A1, A2. If dancers hesitate, they will get behind. Not good for new or unsure dancers."){
+  const a1=phraseRows(record,'A1'),a2=phraseRows(record,'A2');if(!a1||!a2||a1.length!==2||a2.length!==2)return;
+  const expected=['star left 4 places','neighbors allemande left 1¾','ladles allemande right 1½','partners swing'],rows=[...a1,...a2];
+  if(rows.some((row,i)=>row.text!==expected[i]||row.beats!==8||row.progression))return;
+  return{kind:'phrase-summary',sourceRowIds:rows.map(row=>row.id),reason:'The A1/A2 turning summary matches the current eight-count left star, neighbor left allemande one-and-three-quarters, robin right allemande one-and-a-half and partner swing. The assessment of difficulty and hesitation is retained as attributed teaching opinion, not an instruction to change speed, timing or choreography. The claimed alternate title, linked source528, book and Daniel Clark credit remain unverified attribution; no equivalence with another publication is asserted.'};
+ }
  if(record.notes==="Written for Brooklyn Contra on 8/4/17, which is Obama's birthday, hence the title. Smooth dance with a hey-like figure up/down the set and a satisfying promenade > circle right transition."){
   const rows=partnerHeyPromenadeRightSummary(record);if(!rows)return;
   return{kind:'phrase-summary',sourceRowIds:rows.map(row=>row.id),reason:'The retained table explicitly names the partner-start half hey with right end/left center shoulders, followed later by the eight-count partner promenade and six-count circle right three places. The up/down description refers to the partner-side hey passes; it adds no different hey or extra travel. The claimed smoothness, satisfaction, Brooklyn event, date and birthday/title connection remain attributed and unverified context.'};

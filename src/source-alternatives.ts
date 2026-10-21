@@ -2,6 +2,14 @@ import {KNOWN_SOURCE_CREDITS} from './known-source-credits.ts';
 import {contraDbRecordUrl,type ContraDbRecord} from './contradb-source.ts';
 
 export interface OptionalTableAlternative {sourceRowId:string;reason:string;}
+/** An attention cue during unchanged long lines; it cannot authorize movement,
+ * a new handhold, or a relationship epoch before the separate source event. */
+export function observeNextNeighbors(record:ContraDbRecord):string|undefined {
+ if(record.preamble!=='During long lines, notice who your next neighbors will be.')return;
+ const lines=record.rows.filter(row=>row.text==='long lines forward & back'),events=record.rows.filter(row=>row.progression);
+ if(record.formation!=='improper'||record.rows.reduce((sum,row)=>sum+(row.beats??NaN),0)!==64||lines.length!==1||lines[0].beats!==8||lines[0].progression||events.length!==1||events[0].index<=lines[0].index)return;
+ return 'Review retains noticing the upcoming neighbors during the source eight-count long lines as an attention cue only. Current partners, neighbors, contacts and positions follow the existing choreography unchanged; no looking motion, new hold, early rebind or additional count is inserted. The later source-marked progression remains the only relationship event.';
+}
 const completeImproper=(record:ContraDbRecord)=>record.formation==='improper'&&record.rows.reduce((sum,row)=>sum+(row.beats??NaN),0)===64;
 const preambleHtml=(record:ContraDbRecord)=>record.original.match(/<div class="dance-show-preamble">[\s\S]*?(?=<table)/)?.[0]??'';
 /** Read real attribute tokens; data-href and href-like text inside a quoted

@@ -43,7 +43,7 @@ export interface ContraDbInterpretation {
   circulation?:'cw';
   /** Explicitly select endpoint-derived progression when the source has no marker. */
   progression?:'end-of-cycle';
-  preambleReview?:'corroborated-no-chain-variant'|'retain-table-optional-alternative'|'pre-dance-walkthrough-feedback';
+  preambleReview?:'corroborated-no-chain-variant'|'retain-table-optional-alternative'|'pre-dance-walkthrough-feedback'|'observe-next-neighbors';
   sourceHook?:'originality-commentary'|'descriptive'|'hall-summary'|'partner-swings-for-both';
   notesReview?:'terminal-dosido-gyre'|'released-circle-transition'|'authorship-methodology'|'star-return-provenance'|'corroborated-teaching-summary'|'provenance-only'|'corroborated-style-and-provenance'|'corroborated-history'|'retain-table-optional-alternative';
   wholeSetOval?:WholeSetOvalChoice;
