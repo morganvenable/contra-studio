@@ -14,14 +14,16 @@ test('event title recognition consumes only the complete naming sentence',()=>{
  for(const notes of [record.notes.replace('Cape Fear Contra Dancers','Turn Left'),record.notes.replace('Wilmington, NC','Reverse Roles'),record.notes.replace('Swamp Stomp','Different Title'),'Named after an event. Stomp twice.'])assert.equal(quotedEventTitleProvenance({...record,notes}),undefined,notes);
  assert.equal(quotedEventTitleProvenance({...record,title:'Different Title'}),undefined);
 });
-test('3326 explicit provenance cannot waive its remaining motion hold',()=>{
+test('3326 provenance and endpoint progression remain separate removable reviews',()=>{
  const p=prepareContraDbReview(raw('3326'));assert.equal(p.interpretation.notesReview,undefined);
  p.interpretation.notesReview='provenance-only';p.interpretation.rows??={};p.interpretation.rows['contradb:3326:row:6']={chainReceiver:'neighbor'};
- const r=readContraDbImport(raw('3326'),{interpretation:p.interpretation});assert.equal(r.dance,undefined);
+ const r=readContraDbImport(raw('3326'),{interpretation:p.interpretation});assert.ok(r.dance,r.errors.join('; '));
  assert.ok(r.warnings.some(s=>s.includes('event title provenance')));
- assert.ok(r.errors.some(s=>s.includes('same-role one-and-a-half do-si-do')));
+ assert.equal(r.dance.progressionEvents?.[0].source.basis,'reviewed-interpretation');
  assert.equal(r.record!.rows.filter(row=>row.progression).length,0);
  assert.equal(p.interpretation.progression,'end-of-cycle','missing marker remains a separate removable interpretation');
+ const withoutProgression=structuredClone(p.interpretation);delete withoutProgression.progression;
+ const held=readContraDbImport(raw('3326'),{interpretation:withoutProgression});assert.equal(held.dance,undefined);assert.ok(held.diagnostics.some(d=>d.code==='progression-count'));
  delete p.interpretation.notesReview;assert.ok(readContraDbImport(raw('3326'),{interpretation:p.interpretation}).diagnostics.some(d=>d.code==='source-notes'));
 });
 test('historical promenade comparison is bounded to unchanged literal notes and corroborating table',()=>{

@@ -16,6 +16,16 @@ Established figure adapters remain in the common sequence carrier with their exi
 
 An old typed terminal-only declaration without the new event contract retains its existing guarded legacy route; an explicit event, including a malformed one, cannot fall back.
 
+For ordinary improper sources using the shared role do-si-do or neutral hey,
+an explicit `end-of-cycle` interpretation can also supply this event when the
+source contains no progression markers. Its evidence is labeled
+`reviewed-interpretation` and binds the exact snapshot and URL. Only a cloned
+execution figure receives the terminal marker; retained source rows and resolved
+row figures stay unmarked. Removing the choice blocks admission. The unchanged
+finite compiler must prove the actual one-place endpoint permutation, so the
+choice cannot add travel or waive an unsuitable endpoint. This does not migrate
+other legacy endpoint-review routes or admit a source to the Ready library.
+
 The first slice is restricted to ordinary improper finite lines and one terminal progression. This is a formation/event capability, not a per-dance compiler. More event placements can extend that common contract later.
 
 ## Bounded evidence

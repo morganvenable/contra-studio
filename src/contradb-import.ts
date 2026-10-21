@@ -825,7 +825,16 @@ export function importContraDb(input:string,options:ContraDbSourceOptions&{inter
  coverage.semanticallyResolved=source.structurallyValid&&result.rows.every(r=>r.resolved)&&!diagnostics.some(d=>d.severity!=='warning');
  warnings.push('ContraDB software is AGPL-3.0. Its public page does not establish a blanket choreography/data republication license.','This is a schematic interpretation; source recognition and sampled motion validation are separate checks.');
  if(!coverage.semanticallyResolved||!formation)return finish();
- const figures=result.rows.flatMap(r=>r.figures);
+ const figures=result.rows.flatMap(r=>r.figures).map(f=>({...f}));
+ // A removable endpoint review can supply the shared sequencer's event even
+ // when the literal table has no marker. Mark only the execution figure: source
+ // rows and their resolved figures remain unchanged, and the finite compiler
+ // must prove the reached one-place permutation before any rebinding.
+ if(endpointProgression&&sharedRoleOrHey&&(options.capabilities??REGISTERED_MOTION_CAPABILITIES).stateCarryingSequences&&progressionEvents===undefined){
+  const terminal=figures.at(-1)!;
+  terminal.progression=true;
+  progressionEvents=[{afterFigureId:terminal.id,count:1,waitingRoleArrangement:'lark-left',source:{sourceId:record.snapshotId,url:record.sourceUrl,basis:'reviewed-interpretation',clause:'Explicit end-of-cycle interpretation: the source has no progression marker. Rebind once after the unchanged final figure only if its actual endpoint realizes one-place progression; no extra travel or counts are inserted.'}}];
+ }
  // A shift already means progression; its primitive does not accept additional modifiers.
  if(formation==='becket'&&figures[0]?.kind==='becket-shift')delete figures[0].progression;
  const dance:ContraDbImportedDance={id:`contradb-${record.sourceId}-${record.snapshotId.split(':').at(-1)}`,title:record.title,author:record.author,formation,...(formation==='becket'&&!diagonalComposition?{circulation:/^becket ccw$/i.test(record.formation)?'ccw' as const:'cw' as const}:{}),sourceUrl:record.sourceUrl,description:'Imported ContraDB snapshot with explicit source interpretation.',figures,notes:[...warnings],verified:false,sourceText:JSON.stringify({schema:'contra-studio/contradb-interpretation',version:1,sourceSnapshotId:record.snapshotId,snapshot:makeContraDbSnapshot(record),interpretation} satisfies ContraDbInterpretationFile),sourceRecord:record,sourceRows:record.rows,...(initialWavePolicy?{initialWavePolicy}:{}),...(progressionEvents?{progressionEvents}:{}),...(endPolicy?{endPolicy}:{}),...(ovalPolicy?{ovalPolicy}:{}),...(sixTwoPassPolicy?{sixTwoPassPolicy}:{}),...(ringTwirlPolicy?{ringTwirlPolicy}:{}),...(diagonalHeyPolicy?{diagonalHeyPolicy}:{}),...(madRobinPolicy?{madRobinPolicy}:{}),contraDbInterpretation:JSON.parse(JSON.stringify(interpretation))};

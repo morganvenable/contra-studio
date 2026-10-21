@@ -8,9 +8,9 @@ already delivered. Contracts and executable tests determine current behavior.
 
 | Workstream | Current checkpoint | Next action |
 | --- | --- | --- |
-| Ready admissions / release (lead) | 144 Ready published from fae603e, artifact344a84b, workflow39540464552; prior142 archives preserved | Review2266/3142 physical chain-to-promenade entry after independent critique |
+| Ready admissions / release (lead) | 146 Ready published from 94d7868, artifact12f83d1, workflow39541649108; prior144 archives preserved | Review3326 candidate visually and prepare its explicit archive before any further admission |
 | Shared figure composition | 3506 held: both swing exit and final progression need interpretation;2352 circular hey held | Investigate bounded wave/left-loop variants independently |
-| Coverage triage | 823/3478 integrated; bounded historical notes and same-receiver compact chain exit under review in work/formation-alias | Finish whole-period people/contact checks and next admission batch |
+| Coverage triage | 2266/3142 published and freshly verified;3326 now compiles through generic reviewed endpoint events with full-period people/contact checks | Continue bounded source coverage;3326 remains outside Ready pending release review |
 | Animation | Sampled safe frame domain50?70deg inward/.04?.08lean; extreme outward twist invalid | Normal controls shipped; preserve sampled-domain limits and approved default |
 
 Historical release evidence for the142-entry batch:33 focused acquired-candidate tests,
@@ -21,7 +21,7 @@ exact packaged software-WebGL browser build; public smoke covers3260 and188.
 No hardware-GPU/audio or comprehensive anatomical certification. Main has170
 retained fixtures; the complete2422-record acquired corpus remains local.
 
-Latest144 release: independent critic approved823/3478 source semantics and
+Prior144 release: independent critic approved823/3478 source semantics and
 added actual neighbor/partner-contact oracles. Eleven admission tests, four
 explicit-review loader tests, two frame-domain tests, five census tests and
 TypeScript pass; exact Pages build and public software-WebGL checks cover both
@@ -30,6 +30,36 @@ new dances and three timing presets/mobile widths. Source fae603e, artifact
 remains active: all figures/source dances thoroughly reviewed and shipped where
 source and carried contracts can be established; unresolved contradictions stay
 explicit. Wave producer work remains isolated until whole-source integration.
+
+Latest146 release (verified21 October2026 UTC): source94d7868, artifact12f83d1,
+successful workflow39541649108. Both2266 and3142 open, scrub and reach round two
+without page errors in fresh local and public Chromium software-WebGL checks.
+The local screenshot was inspected. An independent reviewer passed37 focused
+tests, including all146 Ready archives and chain/promenade/provenance contracts;
+the lead passed24 Ready/provenance/loader/census tests and the Pages build.
+Generator replay leaves every archive unchanged; the prior144 archive strings
+also match the pre-admission commit exactly. Existing census changes account for
+175 fixtures and146 Ready entries. Hardware GPU/audio and new-source articulated
+body certification remain unrun. No republishing was needed for this verification.
+
+Reviewed endpoint checkpoint (21 October2026 UTC): the role do-si-do adapter was
+already registered;3326's hold was the legacy route for an unmarked progression.
+The importer now supplies a snapshot-bound `reviewed-interpretation` terminal
+event for existing shared role/neutral-hey compositions when the removable
+`end-of-cycle` choice is present and the source has no markers. Execution figures
+are cloned; source rows, resolved row markers and counts remain unchanged. The
+existing finite compiler still proves reached endpoints and rejects invented
+progression. Five new tests cover3/4-couple complete periods, independent
+neighbor/waiting identities, persistent partners, strict role-exchange proofs,
+seams and root/facing/contact closure, renamed-source reuse and rejection cases.
+Full-strength swing/courtesy partners are checked at1/64 count. Observed whole-
+dance maximum root speed1.563450 and minimum clearance.511142; no limits changed.
+Seventeen integration tests and eleven Ready/role regression tests pass, including
+all146 saved archives; the independent worker also passed eight existing role/hey
+tests. TypeScript and isolated Pages build pass. No Ready registration, new
+archive generation or public deployment of this change; candidate3326 body,
+browser/GPU and audio checks remain unrun. Next review the built candidate before
+preparing its source-bound archive and admission batch.
 
 ## How a dance becomes animation
 
