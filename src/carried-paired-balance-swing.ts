@@ -1,7 +1,7 @@
 /** Counted balance/swing from actual two-hand pairs after a full-wave exit. */
 import {capturePlainData} from './owned-program-cache.ts';
 import {compileHeldPairBalanceStep} from './held-pair-balance-step.ts';
-import {compilePrimitiveFigure} from './engine.ts';
+import {compilePrimitiveFigure,makeBalanceCue} from './engine.ts';
 import {captureSequenceBoundary,sampleSequenceBoundary,assertSequenceHandoff,advanceSequenceBeat} from './sequence-boundary.ts';
 import type {CarriedPairedBalanceState} from './carried-wave-circulate.ts';
 import type {Dancer,Pose,HandContact} from './types.ts';
@@ -37,8 +37,8 @@ export function compileCarriedPairedBalanceSwing(raw:CarriedPairedBalanceSwingSp
  if(entry.heldContacts.some(h=>!active.includes(h.a)||!active.includes(h.b)))throw Error('Waiting actors cannot have unconsumed paired hands.');
  const sample=(count:number)=>{
   if(!Number.isFinite(count))throw Error('Paired swing count must be finite.');const beat=Math.max(0,Math.min(16,count)),poses=start.map(copy),contacts:HandContact[]=[];
-  for(const {ids,balance,swing}of plans){const plan=beat<=4?balance:swing,t=beat<=4?beat/4:(beat-4)/12;for(const id of ids){poses[id].position=plan.position(id,t);poses[id].yaw=plan.facing(id,t,poses);}const release=beat<=4?1:1-smooth((beat-4-(12*.82-spec.frameReleaseBeats))/spec.frameReleaseBeats);contacts.push(...plan.contacts(t,poses).map(h=>({...h,strength:h.strength*release})).filter(h=>h.strength>1e-9));}
-  return{poses:poses.map((p,id)=>({...p,id:publicIds[id]})),contacts:contacts.map(h=>({...h,a:publicIds[h.a],b:publicIds[h.b]}))};
+  for(const {ids,balance,swing}of plans){const plan=beat<=4?balance:swing,t=beat<=4?beat/4:(beat-4)/12;for(const id of ids){poses[id].position=plan.position(id,t);poses[id].yaw=plan.facing(id,t,poses);poses[id].balance=plan.balance?.(id,t)??(beat<=4?makeBalanceCue({id:'balance',label:'Balance',kind:'balance',who:spec.who,beats:4},id,ids,dancers,t):undefined);poses[id].swingPreparation=plan.swingPreparation?.(id,t);poses[id].chainCourtesyPreparation=undefined;}const release=beat<=4?1:1-smooth((beat-4-(12*.82-spec.frameReleaseBeats))/spec.frameReleaseBeats);contacts.push(...plan.contacts(t,poses).map(h=>({...h,strength:h.strength*release})).filter(h=>h.strength>1e-9));}
+  return{poses:poses.map((p,id)=>({...p,id:publicIds[id],...(p.balance?{balance:{...p.balance,otherId:publicIds[p.balance.otherId]}}:{})})),contacts:contacts.map(h=>({...h,a:publicIds[h.a],b:publicIds[h.b]}))};
  };
  let maximumObservedSpeed=0,maximumObservedYawRate=0,minimumObservedClearance=Infinity,maximumObservedReach=0,previous=sample(0);
  const receivers=new Map(entry[spec.who]);

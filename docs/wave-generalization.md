@@ -383,3 +383,27 @@ audio claim exists yet. The initial regression scope passed24 tests across the
 measured/mirrored/source six-two, new Becket step/program, carried hey producer
 and Ready-library families (146 saved archives on this worker baseline), plus
 TypeScript. Lead integration must check the newer main Ready batch separately.
+
+
+### 2026-10-21: removable source-bound Becket wave convention
+
+The compact full-set Becket wave route now has ordinary source review/import and
+choreography dispatch. `source-becket-wave.ts` consumes local literal clauses and
+adjacent zero-count wave assertions. It does not select by source identity, title
+or a whole-sequence signature. The single named choice is
+`becketWave: { convention: "compact-becket-left-wave-v1", sourceSnapshotId }`.
+The resulting policy retains the complete source snapshot, re-lowers it at
+compilation and rejects changed figures/events or competing policies. The
+compiler checks actual left-hand receivers and inward-facing roles at every
+asserted endpoint throughout the finite period. Removing the choice restores the
+raw source holds. Other prose/modifiers remain held.
+
+Retained reviewed archive: `test-data/reviewed-interpretations/2329.json`.
+Current checks: source review and six-couple ordinary validation execute without
+diagnostics; imported 3/4-couple periods (6/8 repeats) pass dense 1/64-count
+continuity, clearance and walking checks, with source counts and zero-count rows
+unchanged. The shared presentation preserves actual paired balance and chain
+courtesy cues. Focused source tests cover archive replay, choice removal, wrong
+snapshot, extra choices, unconsumed clauses, changed zero-count assertions and
+disabled capabilities. GPU/audio checks and Ready generation belong to lead
+integration, and have not been run in this worktree.

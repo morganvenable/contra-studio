@@ -1,3 +1,4 @@
+import {compileBecketWavePolicyDance} from './becket-wave-policy.ts';
 import {compileBecketStateSequence} from './becket-state-sequence.ts';
 import {compileInitialWavePolicyDance} from './initial-wave-policy.ts';
 import {stateSequenceApplicability} from './sequence-admission.ts';
@@ -54,6 +55,10 @@ export function compileChoreography(dance: Dance, couples = 6, capabilities:Moti
 const compileOwnedProgram=createOwnedProgramCache(({dance,couples,capabilities}:{dance:Dance;couples:number;capabilities:MotionCapabilities})=>compileChoreographyUncached(dance,couples,capabilities));
 
 function compileChoreographyUncached(dance: Dance, couples: number, capabilities: MotionCapabilities): CompiledDance {
+  if(dance.becketWavePolicy!==undefined){
+    if(!capabilities.becketWaveSequences||!capabilities.longWaves||!capabilities.progressionEvents||!capabilities.ordinaryHalfHeys||!capabilities.stateCarryingSixTwoPasses)throw Error('Becket wave interpretation requires its carried wave, half-hey and circle/pass finite capabilities.');
+    return withBalanceStance(compileBecketWavePolicyDance(dance,couples));
+  }
   if(dance.initialWavePolicy!==undefined){
     if(!capabilities.initialWaveSequences||!capabilities.longWaves||!capabilities.progressionEvents||!capabilities.ordinaryHalfHeys)throw new Error('Initial-wave compositions require their explicit carried-wave, half-hey and finite-event capabilities.');
     return withBalanceStance(compileInitialWavePolicyDance(dance,couples));
