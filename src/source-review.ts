@@ -1,3 +1,4 @@
+import {descriptiveSourceNote} from './source-descriptive-note.ts';
 import {becketWaveChoiceForSource,BECKET_WAVE_DESCRIPTION} from './source-becket-wave.ts';
 import {linesRollawaySource,LINES_ROLLAWAY_DESCRIPTION} from './source-lines-rollaway.ts';
 import {terminalNeighborDosidoSource,CONVENTIONAL_NEIGHBOR_DOSIDO,neighborDosidoDescription,neighborDosidoBalanceOpening,neighborDosidoGyreNote,NEIGHBOR_DOSIDO_GYRE_NOTE_DESCRIPTION} from './source-neighbor-dosido.ts';
@@ -78,6 +79,7 @@ export function prepareContraDbReview(input:string,remembered:readonly SourceCho
  if(baseline.diagnostics.some(d=>d.code==='whole-set-oval-choice')){interpretation.wholeSetOval=copy(CONVENTIONAL_WHOLE_SET_OVAL);suggestions.push({kind:'conventional-promenade',message:OVAL_CHOICE_DESCRIPTION});}
  if(baseline.diagnostics.some(d=>d.code==='closing-phrase-progression-choice')){const row=baseline.record.rows[7];(interpretation.rows??={})[row.id]={closingPhraseProgression:'after-following-chain'};suggestions.push({rowId:row.id,kind:'qualifier-interpretation',message:'Review the source-marker discrepancy: retain the glyph on right-and-left-through at count 56, but treat it as closing-phrase scope and bind next neighbors only after the final chain at count 64. Physical endpoints must prove this single progression.'});}
  const authorship=authorshipMethodologyCommentary(baseline.record);if(authorship){interpretation.notesReview='authorship-methodology';suggestions.push({kind:'prose-review',message:authorship});}
+ const descriptive=descriptiveSourceNote(baseline.record);if(descriptive){interpretation.notesReview='descriptive-only';suggestions.push({kind:'prose-review',message:descriptive});}
  const teaching=corroboratedTeachingSummary(baseline.record);if(teaching){interpretation.notesReview='corroborated-teaching-summary';suggestions.push({kind:'prose-review',message:teaching});}
  const history=corroboratedSourceHistory(baseline.record);
  if(history){interpretation.notesReview='corroborated-history';suggestions.push({kind:'prose-review',message:history.kind==='phrase-summary'?`Review the corroborated table summary and attributed history: ${history.reason} Clear this selection to leave the source note unresolved.`:`Review the current-version/history distinction: ${history.reason} Clear this selection to leave the historical alternative unresolved.`});}

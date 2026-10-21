@@ -45,7 +45,7 @@ export interface ContraDbInterpretation {
   progression?:'end-of-cycle';
   preambleReview?:'corroborated-no-chain-variant'|'retain-table-optional-alternative'|'pre-dance-walkthrough-feedback'|'observe-next-neighbors';
   sourceHook?:'originality-commentary'|'descriptive'|'hall-summary'|'partner-swings-for-both';
-  notesReview?:'terminal-dosido-gyre'|'released-circle-transition'|'authorship-methodology'|'star-return-provenance'|'corroborated-teaching-summary'|'provenance-only'|'corroborated-style-and-provenance'|'corroborated-history'|'retain-table-optional-alternative';
+  notesReview?:'descriptive-only'|'terminal-dosido-gyre'|'released-circle-transition'|'authorship-methodology'|'star-return-provenance'|'corroborated-teaching-summary'|'provenance-only'|'corroborated-style-and-provenance'|'corroborated-history'|'retain-table-optional-alternative';
   wholeSetOval?:WholeSetOvalChoice;
   sixTwoPass?:SixTwoPassChoice;
   ringTwirl?:RingTwirlChoice;
@@ -90,6 +90,8 @@ export function normalizeContraDbRow(row:ContraDbRow,formation:'duple-improper'|
  if(fullHeyEndpoint){text=fullHeyEndpoint[1];terminalEndpointQualifier=fullHeyEndpoint[2];textualProgression=true;}
  const longLinesEndpoint=text.match(/^(long lines forward & back) (look for new neighbors in line of progression|- ID next neighbors)$/i);
  if(longLinesEndpoint){text=longLinesEndpoint[1];terminalEndpointQualifier=longLinesEndpoint[2];if(!row.progression)issue('progression-qualifier','The final long-lines endpoint cue requires its retained source progression marker.');}
+ const textualStarEndpoint=text.match(/^(star (?:left|right) 4 places) (to (?:next|new) neighbors?)$/i);
+ if(textualStarEndpoint){text=textualStarEndpoint[1];terminalEndpointQualifier=textualStarEndpoint[2];textualProgression=true;if(row.beats!==8)issue('star-endpoint-count','This textual endpoint contract retains a complete eight-count star.');}
  let explicitNext=!!terminalEndpointQualifier;if(/ to (?:next|new) neighbors?$/i.test(text)&&!/, look to next neighbors$/i.test(text)){explicitNext=true;text=text.replace(/ to (?:next|new) neighbors?$/i,'');if(!row.progression)issue('progression-qualifier','The next-neighbor qualifier has no matching progression marker.');}
  const nextNeighborArch=/^next neighbors right hand balance & box the gnat$/i.test(text);if(nextNeighborArch)text=text.replace(/^next /i,'');
  const base={id:row.id,beats:row.beats??NaN,label:row.text,confidence:'approximate' as const};
