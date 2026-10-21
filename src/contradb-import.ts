@@ -1,3 +1,4 @@
+import {normalizePairedHallExit} from './source-paired-hall-exit.ts';
 import {linesRollawaySource,isLinesRollawayChoice,LINES_ROLLAWAY_DESCRIPTION,type LinesRollawayChoice} from './source-lines-rollaway.ts';
 import {validateInitialWavePolicy,type InitialWavePolicy} from './initial-wave-policy.ts';
 import {terminalNeighborDosidoSource,isNeighborDosidoChoice,neighborDosidoDescription,neighborDosidoBalanceOpening,neighborDosidoGyreNote,type NeighborDosidoChoice} from './source-neighbor-dosido.ts';
@@ -62,7 +63,7 @@ export interface ContraDbImportResult {
   errors:string[];warnings:string[];diagnostics:ContraDbDiagnostic[];validation?:ValidationReport;
   coverage:{sourceParsed:boolean;recognizedRows:number;resolvedRows:number;totalRows:number;semanticallyResolved:boolean;executable:boolean};
 }
-const normalize=(s:string)=>s.replace(/[‘’]/g,"'").replace(/[–—]/g,'-').replace(/\bbalance and (swing|petronella|box the gnat)\b/gi,'balance & $1').replace(/\blong lines forward and back\b/gi,'long lines forward & back').replace(/\s+/g,' ').trim();
+const normalize=(s:string)=>normalizePairedHallExit(s.replace(/[‘’]/g,"'").replace(/[–—]/g,'-').replace(/\bbalance and (swing|petronella|box the gnat)\b/gi,'balance & $1').replace(/\blong lines forward and back\b/gi,'long lines forward & back').replace(/\s+/g,' ').trim());
 const relation=(s:string):Relation|undefined=>({partners:'partner',partner:'partner',neighbors:'neighbor',neighbor:'neighbor',gentlespoons:'larks',gentlespoon:'larks',gents:'larks',men:'larks',larks:'larks',ladles:'robins',ladle:'robins',ladies:'robins',women:'robins',robins:'robins',ravens:'robins'}[s.toLowerCase()] as Relation|undefined);
 function quantity(s:string):number|undefined {
  const glyph:Record<string,number>={'¼':.25,'½':.5,'¾':.75};if(glyph[s])return glyph[s];
@@ -83,7 +84,7 @@ export function normalizeContraDbRow(row:ContraDbRow,formation:'duple-improper'|
  if(endpointWording){text=endpointWording[1];terminalEndpointQualifier=endpointWording[2];if(!row.progression)issue('progression-qualifier','This endpoint wording requires its retained source progression marker; missing or extra progression is not inferred from a stripped clause.');}
  const fullHeyEndpoint=text.match(/^((?:ladles|ladies|women|robins|ravens|gentlespoons|gents|men|larks) start a full hey - (?:rights|lefts) in center, (?:rights|lefts) on ends) (look for new neighbors in line of progression on the side of set)$/i);
  if(fullHeyEndpoint){text=fullHeyEndpoint[1];terminalEndpointQualifier=fullHeyEndpoint[2];textualProgression=true;}
- const longLinesEndpoint=text.match(/^(long lines forward & back) (look for new neighbors in line of progression)$/i);
+ const longLinesEndpoint=text.match(/^(long lines forward & back) (look for new neighbors in line of progression|- ID next neighbors)$/i);
  if(longLinesEndpoint){text=longLinesEndpoint[1];terminalEndpointQualifier=longLinesEndpoint[2];if(!row.progression)issue('progression-qualifier','The final long-lines endpoint cue requires its retained source progression marker.');}
  let explicitNext=!!terminalEndpointQualifier;if(/ to (?:next|new) neighbors?$/i.test(text)&&!/, look to next neighbors$/i.test(text)){explicitNext=true;text=text.replace(/ to (?:next|new) neighbors?$/i,'');if(!row.progression)issue('progression-qualifier','The next-neighbor qualifier has no matching progression marker.');}
  const nextNeighborArch=/^next neighbors right hand balance & box the gnat$/i.test(text);if(nextNeighborArch)text=text.replace(/^next /i,'');
@@ -273,6 +274,8 @@ export function normalizeContraDbRow(row:ContraDbRow,formation:'duple-improper'|
   if(bare&&choice.activeSwingFacing!=='next-neighbors')issue('active-swing-facing-choice',ACTIVE_SWING_FACING_DESCRIPTION);
   if(!isActiveSwingChoice(choice.activeSwing))issue('active-swing-wait-choice',activeSwingWaitDescription(row));
   if(exit){add({kind:'swing',who:'ones',exit,...(choice.activeSwing?.inactive==='prepare-next-balance'?{preparation:'next-neighbor-balance' as const}:{})});if(isActiveSwingChoice(choice.activeSwing))interpretations.push(activeSwingWaitDescription(row,choice.activeSwing.inactive));if(bare&&choice.activeSwingFacing==='next-neighbors')interpretations.push(ACTIVE_SWING_FACING_DESCRIPTION);}
+ }else if((m=text.match(/^(partners?|neighbors?) (long )?swing end facing down the hall$/i))){
+  recognized=true;if(m[2]&&row.beats!==16)issue('long-swing-duration','The literal long swing retains sixteen stated counts; its down-facing exit does not change the duration.');else add({kind:'swing',who:relation(m[1]),exit:'face-down-line'});
  }else if((m=text.match(/^(partners?|neighbors?) long swing$/i))){
   recognized=true;if(row.beats!==16)issue('long-swing-duration','The registered long-swing source variant requires sixteen stated counts; no time is inferred.');else add({kind:'swing',who:relation(m[1])});
  }else if((m=text.match(/^(partners?|neighbors?) swing\. End facing down the hall\. Now with your (partner|neighbor) go$/i))){
