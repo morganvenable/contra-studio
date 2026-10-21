@@ -4,7 +4,9 @@ The Ready to play section contains reviewed source interpretations bundled with 
 
 The separate, collapsed ContraDB catalogue is a discovery index. Its entries are not all playable. Downloaded records still go through normal interpretation and whole-dance validation.
 
-As of 20 October 2026, 144 interpretations are included. The latest additions are Daddy's Little Girl (823), retaining the literal Duple Improper formation, and Futon Frolic (3478), retaining its explicitly reviewed family-provenance note and partner chain.
+As of 20 October 2026, 146 interpretations are included. The latest additions are Unbelievable! (2266) and Unbelievable! variation (3142), with explicitly reviewed historical comparisons and a physical compact chain exit into the same-neighbor promenade.
+
+The preceding additions were Daddy's Little Girl (823), retaining the literal Duple Improper formation, and Futon Frolic (3478), retaining its explicitly reviewed family-provenance note and partner chain.
 
 The preceding batch added
 Opus 4.6.9 (3260), Cascades (188), South Union Reel (2062), South Union Reel var
