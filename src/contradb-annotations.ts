@@ -10,7 +10,7 @@ import {isKnownSourceCredit} from './known-source-credits.ts';
 import {fullHeyRepeatGyreShoulder} from './source-hook-constraints.ts';
 import type {ContraDbRecord,ContraDbDiagnostic} from './contradb-source.ts';
 import {classifySourceHook,partnerSwingsForBothSummary,originalityHookReview} from './source-hook.ts';
-import {corroboratedSourceHistory} from './source-history.ts';
+import {corroboratedSourceHistory,corroboratedPromenadeComparison} from './source-history.ts';
 /** Narrow descriptions contain no movement instruction. Other hooks require a
  * semantic adapter; a generic “I read the notes” switch cannot discard them. */
 export const isDescriptiveSourceHook=(text:string)=>/^(?:(?:very )?(?:easy|simple)(?: starter)?(?: dance)?|smooth transitions|smooth|flowing|beginner friendly|fun and easy)$/i.test(text.trim());
@@ -32,6 +32,12 @@ export function classifySourceProse(text:string):ProseClassification {
  if(/\b(?:clap\w*|stamp\w*|stomp\w*|waltz\w*|polka\w*|mazurka\w*|zigzag\w*|spins?|hops?|jumps?|gyres?|gypsy|meltdown|ricochet\w*|partners?|neighbors?|roles?|order|begin|starts?|starting|finish|keep|use|drop|release|lift|connect|catch|return|form|rotate|switch|double|triple|then|[AB][12]|gents|ladies|ladles|gentlespoons?|larks?|robins?|ravens?|women|men|couples?|ones|twos|actives?|inactives?|swings?|balances?|allemandes?|chains?|circles?|heys?|stars?|promenades?|poussettes?|sashays?|petronellas?|circulates?|pull|pass|cross|face|facing|turn|twirl|roll|orbit|trade|exchange|progress(?:es|ion|ing)?|clockwise|counterclockwise|right|left|down|up|across|diagonal|end effects?|wait|repeat|instead|replace|skip|omit|reverse|move|go|look|walk|back(?:wards)?|forward|stop|pause|hold|hands?|arms?|shoulders?|feet|thumbs?|duck|bend|slide|beat|counts?|twice|once|first time|every time)\b/i.test(text))return 'movement';
  if(/\b(?:based on|inspired by|written|composed|dedicated|dedication|memory of|honou?r of|birthday|wedding|anniversary|published|publication|choreographer|history|historical|hailing from|collection of|attribution)\b/i.test(text))return 'provenance-candidate';
  return 'uncertain';
+}
+/** Only a complete event-naming sentence; a quoted dance title is not a command. */
+export function quotedEventTitleProvenance(record:ContraDbRecord):string|undefined {
+ const match=record.notes.match(/^Named after an event held by ([A-Z][A-Za-z' -]{1,100}) of ([A-Z][A-Za-z.,' -]{1,100}) called "([^"\n]{1,160})"\.$/);
+ if(!match||match[3]!==record.title||classifySourceProse(match[1])==='movement'||classifySourceProse(match[2])==='movement')return;
+ return 'Review the retained naming of an event and its organizer/location as attributed provenance. The quoted event name matches this dance title; it supplies no movement instruction. The event history is not independently verified.';
 }
 /** Bounded title-credit syntax; the linked work and attribution remain unverified.
  * This inspects the real note anchor without following the external URL. */
@@ -123,14 +129,14 @@ export function reviewSourceAnnotations(record:ContraDbRecord,context:{initialWa
  const dosidoGyre=neighborDosidoGyreNote(record),dosidoGyreReviewed=dosidoGyre&&context.hasReviewedNeighborDosidoGyre&&context.notesReview==='terminal-dosido-gyre';
  const releasedCircle=releasedCircleTransitionNote(record),releasedCircleReviewed=!!releasedCircle&&context.hasOrderedCircleCompletion&&context.notesReview==='released-circle-transition';
  const authorship=authorshipMethodologyCommentary(record),authorshipReviewed=!!authorship&&context.hasResolvedComposition&&context.notesReview==='authorship-methodology';
- const titleProvenance=linkedTitleProvenance(record);
+ const titleProvenance=linkedTitleProvenance(record),eventTitleProvenance=quotedEventTitleProvenance(record);
  if(record.notes.startsWith('Title from ')&&!titleProvenance)issue('source-notes-title-context','A title-credit review requires the exact retained attribution and genuine matching reference link, with no appended instruction.');
  const starReturn=starReturnFootnote(record),starReturnReviewed=!!starReturn&&context.hasResolvedComposition&&context.hasStarReturn&&context.notesReview==='star-return-provenance';
  const teaching=corroboratedTeachingSummary(record),teachingReviewed=!!teaching&&context.notesReview==='corroborated-teaching-summary';
  const notesAlternative=optionalTableAlternative(record,'notes'),notesAlternativeReviewed=!!notesAlternative&&context.hasResolvedComposition&&context.notesReview==='retain-table-optional-alternative';
- const history=corroboratedSourceHistory(record),historyReviewed=!!history&&context.notesReview==='corroborated-history';
+ const history=corroboratedSourceHistory(record)??corroboratedPromenadeComparison(record),historyReviewed=!!history&&context.notesReview==='corroborated-history';
  const wristProvenance=wristStarNoteProvenance(record.notes),wristReviewed=!!wristProvenance&&context.hasWristStarTransition&&context.notesReview==='corroborated-style-and-provenance';
- if(context.notesReview!==undefined&&!dosidoGyreReviewed&&!releasedCircleReviewed&&!authorshipReviewed&&!starReturnReviewed&&!teachingReviewed&&!wristReviewed&&!historyReviewed&&!notesAlternativeReviewed&&(context.notesReview!=='provenance-only'||!record.notes||classifySourceProse(record.notes)==='movement'))issue('source-notes-review-conflict','A provenance-only note review cannot waive recognized movement, roles, timing or end-effect instructions, or an absent note.');
+ if(context.notesReview!==undefined&&!dosidoGyreReviewed&&!releasedCircleReviewed&&!authorshipReviewed&&!starReturnReviewed&&!teachingReviewed&&!wristReviewed&&!historyReviewed&&!notesAlternativeReviewed&&(context.notesReview!=='provenance-only'||!record.notes||classifySourceProse(record.notes)==='movement'&&!eventTitleProvenance))issue('source-notes-review-conflict','A provenance-only note review cannot waive recognized movement, roles, timing or end-effect instructions, or an absent note.');
  if(record.notes&&!/^(?:https?:\/\/\S+)(?:\s+https?:\/\/\S+)*$/.test(record.notes)){
   const roleNote=/^Wait out with gentlespoons on the right, ladles on the left\. Progression is not entirely intuitive but the dance works well if taught carefully\. Dancers who swap roles may find it more challenging\. Inspired by "[^"\n]{1,200}" by [^.\n]{1,200}\. https?:\/\/\S+$/;
   if(context.hasReviewedActiveSwingFacing&&activeSwingNextNeighborNote(record))warnings.push('Source note retained as endpoint evidence: the separately reviewed final ones swing faces the new neighbors for the literal opening circle left. The note adds no figure, extra rotation or earlier neighbor rebind; the original row still omits its facing.');
@@ -155,6 +161,7 @@ export function reviewSourceAnnotations(record:ContraDbRecord,context:{initialWa
   else if(deferred&&isDeferredNeighborNote(record.notes))warnings.push('Source notes consumed: after the opening long lines, the first repeat retains the starting neighbors; later repeats bind the next robin to the right. The first-pass exception is explicit in the saved event, not discarded as prose.');
   else if(reversed&&roleNote.test(record.notes))warnings.push('Source notes consumed: out couples retain lark-right/robin-left placement at the same finite end. The caution about role swaps, teaching advice, attribution and reference remain in the original source.');
   else if(context.notesReview==='provenance-only'&&retractedSourceAttribution(record))warnings.push(`Snapshot-bound retracted attribution review: ${retractedSourceAttribution(record)}`);
+  else if(eventTitleProvenance&&context.notesReview==='provenance-only')warnings.push(`Snapshot-bound event title provenance review: ${eventTitleProvenance}`);
   else if(titleProvenance&&context.notesReview==='provenance-only')warnings.push(`Snapshot-bound title provenance review: ${titleProvenance}`);
   else if(classifySourceProse(record.notes)!=='movement'&&context.notesReview==='provenance-only')warnings.push('Snapshot-bound review classifies the retained notes as provenance, dedication, history or other non-movement context. This is an explicit review decision, not an assertion that free-text semantics were proved; the complete original notes remain available.');
   else if(classifySourceProse(record.notes)!=='movement')issue('source-notes-classification','Review whether the retained prose notes are provenance/dedication/history rather than movement or end-effect instructions. They are not discarded automatically.');

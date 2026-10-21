@@ -43,3 +43,11 @@ export function corroboratedSourceHistory(record:ContraDbRecord):CorroboratedSou
   return{kind:'terminal-replacement',sourceRowIds:b2.map(row=>row.id),reason:'Review selects the current table’s final circle-left 8, ring balance 4 and pass-through 4, with one terminal progression. The original neighbor do-si-do 1½ remains visible as version history; it is not inserted into the current dance or silently erased. The note’s “usually swap” alternative is resolved explicitly in favor of this retained table.'};
  }
 }
+
+/** Explicitly reviewed comparison; not used to suggest provenance automatically. */
+export function corroboratedPromenadeComparison(record:ContraDbRecord):CorroboratedSourceHistory|undefined {
+ if(record.notes!=="According to The Caller's Box, this dance has never been written. I have a very hard time believing that, hence the name. After publishing this dance here, Chris Page contacted me to let me know that it is, in fact, extremely similar to Bob Isaacs's dance Easy Street. The difference is that Bob's dance has a right and left through instead of a promenade. I'm still leaving the title, since the sequence with the promenade remains, to the best of my knowledge, unique, which is still surprising to me.")return;
+ const promenade=record.rows.filter(row=>row.text==='neighbors promenade');
+ if(promenade.length!==1||promenade[0].beats!==8||promenade[0].progression||record.rows.some(row=>/right[ -]?(?:and[ -]?)?left[ -]?through/i.test(row.text))||record.rows.reduce((n,row)=>n+(row.beats??NaN),0)!==64)return;
+ return {kind:'phrase-variation',sourceRowIds:[promenade[0].id],reason:'The retained table contains one eight-count neighbor promenade and no right-and-left-through. The note explicitly keeps that promenade while comparing an attributed earlier dance containing right-and-left-through. Review selects the current table; the historical comparison and originality claims remain attributed and unverified, and no earlier figure is inserted.'};
+}

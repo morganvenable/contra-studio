@@ -394,3 +394,11 @@ source-bound archive. Eleven focused tests and TypeScript pass. These two source
 are candidates only: no Ready registration, archive generation, browser check or
 public deployment is included in this slice. Next integrate their reviewed cards,
 regenerate once and verify the built candidates before publishing.
+
+Next provenance checkpoint (isolated, 20 October 2026): explicit event-title review
+for3326 and table-corroborated promenade/history review for2266/3142 preserve
+complete notes and removable choices. Twelve focused prose/history tests and
+TypeScript pass. No Ready admissions:3326 exposes an unregistered carried
+one-and-a-half role do-si-do route;2266/3142 expose actual chain-to-neighbor-
+promenade entry rejection. The next work is that shared arrival geometry,
+without changing receiver identity, named leader, source counts or progression.
