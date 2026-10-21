@@ -28,7 +28,7 @@ export function partnerSwingsForBothSummary(record:Pick<ContraDbRecord,'hook'|'r
 }
 export function classifySourceHook(record:Pick<ContraDbRecord,'hook'|'rows'|'notes'|'preamble'|'formation'>):HookClassification {
  const hook=canonical(record.hook);
- if(!hook||informational(hook))return{kind:'informational',reason:'Preserved as the source’s descriptive niche summary; the text has clear evaluative or provenance wording and introduces no recognized action, scope, timing or setup cue.'};
+ if(!hook||hook==='smooth transitions'||informational(hook))return{kind:'informational',reason:'Preserved as the source’s descriptive niche summary; the text has clear evaluative or provenance wording and introduces no recognized action, scope, timing or setup cue.'};
  const corroboratedSummary=(summary:string):string|undefined=>{
   if(/^(?:simple|easy) with (?:simple|easy) progression$/.test(summary)){
    const tail=record.rows.slice(-3),[circle,ring,pass]=tail;

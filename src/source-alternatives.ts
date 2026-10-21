@@ -71,7 +71,14 @@ export function optionalTableAlternative(record:ContraDbRecord,section:'preamble
  * timed table. The exact anchored grammar cannot absorb added dance commands. */
 export function preDanceWalkthroughFeedback(record:ContraDbRecord):string|undefined {
  const match=record.preamble.match(/^Please walk this dance thru before taking to the dance floor, any feed back would be appreciate you can E-mail ([A-Za-z0-9.!#$%&'*+/=?^_`{|}~-]+@[A-Za-z0-9](?:[A-Za-z0-9.-]*[A-Za-z0-9])?\.[A-Za-z]{2,24}) thanks (.+)$/);
- if(!match||match[2]!==record.author||!Object.hasOwn(KNOWN_SOURCE_CREDITS,match[2]))return;
+ if(!match)return;
+ const dated=match[2].match(/^(.+?) (\d{1,2}-\d{1,2}-\d{4}) revise (\d{1,2}-\d{1,2}-(?:\d{4}|\d{2}))$/);
+ const author=dated?.[1]??match[2];
+ if(author!==record.author||!Object.hasOwn(KNOWN_SOURCE_CREDITS,author))return;
+ if(dated){
+  const dates=dated.slice(2).map(raw=>{const [month,day,y]=raw.split('-').map(Number),year=y<100?2000+y:y,date=new Date(Date.UTC(year,month-1,day));return date.getUTCFullYear()===year&&date.getUTCMonth()===month-1&&date.getUTCDate()===day?date.getTime():NaN;});
+  if(dates.some(d=>!Number.isFinite(d))||dates[1]<dates[0])return;
+ }
  const links=preambleLinks(record);
  if(!links||links.length!==1||links[0].href!==`mailto:${match[1]}`||links[0].text!==match[1])return;
  return 'Review classifies the explicit walkthrough request as preparation before taking the dance to the floor, outside the timed choreography. The attributed feedback request and contact address remain source text; no contact is made and no walkthrough counts or extra movement are inserted.';
