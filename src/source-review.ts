@@ -1,4 +1,5 @@
 import {descriptiveSourceNote} from './source-descriptive-note.ts';
+import {improperWaveChoiceForSource,IMPROPER_WAVE_DESCRIPTION} from './source-improper-wave.ts';
 import {becketWaveChoiceForSource,BECKET_WAVE_DESCRIPTION} from './source-becket-wave.ts';
 import {linesRollawaySource,LINES_ROLLAWAY_DESCRIPTION} from './source-lines-rollaway.ts';
 import {terminalNeighborDosidoSource,CONVENTIONAL_NEIGHBOR_DOSIDO,neighborDosidoDescription,neighborDosidoBalanceOpening,neighborDosidoGyreNote,NEIGHBOR_DOSIDO_GYRE_NOTE_DESCRIPTION} from './source-neighbor-dosido.ts';
@@ -53,6 +54,8 @@ export function prepareContraDbReview(input:string,remembered:readonly SourceCho
   return{result,interpretation:copy(prior.interpretation),suggestions:[{kind:'remembered',message:result.coverage.executable?'Reused the interpretation saved for this exact source snapshot. You can change any choice before opening.':'Kept the choices saved for this exact source snapshot. Current validation blocks playback; your choices were not replaced by new suggestions.'}],savedArchive:false};
  }
  const interpretation:ContraDbInterpretation={};
+ const improperWave=improperWaveChoiceForSource(baseline.record);
+ if(improperWave){interpretation.improperWave=improperWave;return{result:read(interpretation),interpretation,suggestions:[{kind:'conventional-wave',message:IMPROPER_WAVE_DESCRIPTION}],savedArchive:false};}
  const becketWave=becketWaveChoiceForSource(baseline.record);
  if(becketWave){interpretation.becketWave=becketWave;return{result:read(interpretation),interpretation,suggestions:[{kind:'conventional-wave',message:BECKET_WAVE_DESCRIPTION}],savedArchive:false};}
  if(hasStarWhirlSource(baseline.record)){const rows=interpretation.rows??={};rows[baseline.record.rows[3].id]={starPromenade:copy(CONVENTIONAL_STAR_PROMENADE)};rows[baseline.record.rows[4].id]={butterflyWhirl:copy(CONVENTIONAL_BUTTERFLY_WHIRL)};suggestions.push({rowId:baseline.record.rows[3].id,kind:'qualifier-interpretation',message:STAR_PROMENADE_CHOICE_DESCRIPTION},{rowId:baseline.record.rows[4].id,kind:'qualifier-interpretation',message:BUTTERFLY_WHIRL_CHOICE_DESCRIPTION});}
