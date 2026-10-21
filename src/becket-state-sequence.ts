@@ -7,6 +7,9 @@ import {compileEventSection,type CompiledEventSection,type BoundFigureStep} from
 import {createFiniteBecketState,finiteBecketPoses,ownProgressionDeclaration,describeBoundEndEffects,type FiniteBecketState,type GroupBinding} from './progression-topology.ts';
 import {createDancers,compilePrimitiveFigure,figureContinuity,assertCompositionCapabilities,type SequenceStepProof} from './engine.ts';
 import {compileSequenceStep} from './sequence-registry.ts';
+import {compileChainFigure} from './chain.ts';
+import {compileRingTransitionFigure} from './ring-transition-adapter.ts';
+import {compilePetronellaFigure,type PetronellaFigure} from './petronella-adapter.ts';
 import {captureSequenceBoundary,sampleSequenceBoundary,assertSequenceHandoff} from './sequence-boundary.ts';
 import type {ContraDbImportedDance} from './contradb-import.ts';
 import type {Dance,CompiledDance,Frame,Pose,HandContact,MotionCapabilities} from './types.ts';
@@ -47,7 +50,12 @@ export function compileBecketStateSequence(input:Dance,couples:number,capabiliti
   const steps:BoundFigureStep[]=dance.figures.slice(from,to).map((figure,relative)=>{
    const index=from+relative,continuity=figureContinuity(dance.figures,index),strict=figure.kind==='hey'&&['same-slots-facing-across','opposite-slots-facing-across'].includes(figure.exit??'');
    return{figure,entryFacingBeats:strict||continuity.swingEntry?0:Math.min(1,figure.beats*.125),compile(context){
-    context={...context,next:dance.figures[index+1]};const groupKey=[...context.ids].sort((a,b)=>a-b).join(':'),raw=endings.get(groupKey)??[],incoming=captureSequenceBoundary(context,starts[index],raw),result=compileSequenceStep(figure,context,incoming,()=>compilePrimitiveFigure(figure,context.ids,context.start,context.dancers,dancers.filter(d=>d.role==='lark').map(d=>d.direction),continuity),capabilities),entry=sampleSequenceBoundary(context,result.plan,starts[index],0),exit=sampleSequenceBoundary(context,result.plan,starts[index]+figure.beats,1);
+    context={...context,next:dance.figures[index+1]};
+    // Reuse actual-bound conventional adapters through the established seam.
+    // These consume current identities, roots and epoch; no source-specific
+    // route or new strict-carried contact certification is implied.
+    const established=()=>figure.kind==='robins-chain'||figure.kind==='ladies-chain'?compileChainFigure(figure,context):figure.kind==='ring-balance'?compileRingTransitionFigure(figure,context):figure.kind==='petronella'?compilePetronellaFigure(figure as PetronellaFigure,context):compilePrimitiveFigure(figure,context.ids,context.start,context.dancers,dancers.filter(d=>d.role==='lark').map(d=>d.direction),continuity);
+    const groupKey=[...context.ids].sort((a,b)=>a-b).join(':'),raw=endings.get(groupKey)??[],incoming=captureSequenceBoundary(context,starts[index],raw),result=compileSequenceStep(figure,context,incoming,established,capabilities),entry=sampleSequenceBoundary(context,result.plan,starts[index],0),exit=sampleSequenceBoundary(context,result.plan,starts[index]+figure.beats,1);
     if(result.boundaryPlan)assertSequenceHandoff(incoming,entry);
     endings.set(groupKey,structuredClone(exit.heldContacts) as HandContact[]);proofs.push({figureId:figure.id,adapterId:result.adapterId,contactPolicy:result.boundaryPlan?'strict-carried':'established-acquisition',incoming,entry,exit});return result.adapterId==='released-pair-swing'?{...result.plan,ownsEntryFacing:result.ownsEntryFacing}:result.plan;
    },inactive:waiting?(beat)=>waiting.sampleWaiting(sourceOffset+beat):undefined};
