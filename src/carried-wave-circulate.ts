@@ -23,10 +23,10 @@ export interface CarriedWaveCirculateSpec {
  phaseBeats?:readonly [4,4];balanceStyle?:'right-left'|'forward-back';
 }
 export interface CarriedWaveBalanceExitSpec extends CarriedWaveCirculateSpec {
- exit:{kind:'neighbor-balance';preparationBeats:2;pairSpacing:1.18;handAcquisitionBeats:.25};
+ exit:{kind:'neighbor-balance'|'partner-balance';preparationBeats:2;pairSpacing:1.18;handAcquisitionBeats:.25};
 }
 export interface CarriedPairedBalanceState extends Omit<CarriedWaveState,'wave'> {
- readonly exit:{readonly kind:'neighbor-balance';readonly pairSpacing:1.18};
+ readonly exit:{readonly kind:'neighbor-balance'|'partner-balance';readonly pairSpacing:1.18};
 }
 export interface CarriedWaveCirculatePlan<T extends CarriedWaveState|CarriedPairedBalanceState> {
  readonly beats:number;readonly entryState:CarriedWaveState;readonly exitState:T;
@@ -83,11 +83,10 @@ export function compileCarriedWaveCirculate(raw:CarriedWaveCirculateSpec|Carried
  const spec=capturePlainData(raw),entryState=ownCarriedWaveState(input);
  keys(spec,['kind','beats','crossRole','loopRole','loopDirection','phaseBeats','balanceStyle','exit']);
  const pairedExit='exit'in spec?spec.exit:undefined;
- if(pairedExit&&spec.loopDirection==='left')throw Error('Left-loop circulation currently retains its full-wave exit; paired preparation is not certified.');
  if('exit'in spec){
   if(!pairedExit||typeof pairedExit!=='object'||Array.isArray(pairedExit))throw Error('A named balance exit requires its complete preparation contract.');
   keys(pairedExit,['kind','preparationBeats','pairSpacing','handAcquisitionBeats']);
-  if(pairedExit.kind!=='neighbor-balance'||pairedExit.preparationBeats!==2||pairedExit.pairSpacing!==1.18||pairedExit.handAcquisitionBeats!==.25)throw Error('The neighbor-balance exit requires two preparation counts, 1.18 spacing and quarter-count hand acquisition.');
+  if(!['neighbor-balance','partner-balance'].includes(pairedExit.kind)||pairedExit.preparationBeats!==2||pairedExit.pairSpacing!==1.18||pairedExit.handAcquisitionBeats!==.25)throw Error('The neighbor-balance exit requires two preparation counts, 1.18 spacing and quarter-count hand acquisition.');
  }
  const balance=spec.kind==='balance-box-circulate',offset=balance?4:0;
  if(!['box-circulate','balance-box-circulate'].includes(spec.kind)||spec.beats!==(balance?8:4)||!['lark','robin'].includes(spec.crossRole)||!['lark','robin'].includes(spec.loopRole)||spec.crossRole===spec.loopRole||!['right','left'].includes(spec.loopDirection))throw Error('A carried circulation requires four counts, or an explicit eight-count balance/circulate, distinct roles and explicit loop direction.');
@@ -115,14 +114,14 @@ export function compileCarriedWaveCirculate(raw:CarriedWaveCirculateSpec|Carried
  for(const box of boxes)for(const id of box.ids){const pose=outById.get(id)!;pose.position={...box.circulate.position(id,1)};pose.yaw=box.circulate.facing(id,1);}
  const exitWave=joinLongWaveSegments(exitGraphs,outgoingPoses,entryState.wave.actorIds,entryState.bindingEpoch);
  const waveExitState=ownCarriedWaveState({...entryState,sourceBeat,poses:outgoingPoses,wave:exitWave,heldContacts:fullLongWaveContacts(exitWave,outgoingPoses)});
- const neighbor=new Map(entryState.neighbor),actorMap=new Map(entryState.actors.map(a=>[a.id,a])),preparation=new Map<number,{dx:number;dz:number;turn:number}>(),pairs:Array<[number,number]>=[];
+ const neighbor=new Map(pairedExit?.kind==='partner-balance'?entryState.partner:entryState.neighbor),actorMap=new Map(entryState.actors.map(a=>[a.id,a])),preparation=new Map<number,{dx:number;dz:number;turn:number}>(),pairs:Array<[number,number]>=[];
  if(pairedExit){
   for(const box of entryState.boxPartitions)for(const id of box){
    const other=neighbor.get(id)!;
-   if(!box.includes(other))throw Error('The balance receiver must be the actual current neighbor in this circulation box.');
+   if(!box.includes(other))throw Error('The balance receiver must be the actual declared receiver in this circulation box.');
    const p=outById.get(id)!,q=outById.get(other)!,dx=q.position.x-p.position.x,dz=q.position.z-p.position.z,length=Math.hypot(dx,dz);
    const desired=Math.atan2(dx,dz),rotation=wrap(desired-p.yaw);
-   if(Math.abs(dx)>EPS||length<1.18-EPS||length>1.3+EPS||Math.abs(Math.abs(rotation)-Math.PI/2)>EPS)throw Error('The named balance exit requires reached along-hall sideline neighbor pairs, spacing 1.18–1.3, and a quarter-turn toward each other.');
+   if(Math.abs(dx)>EPS||length<1.18-EPS||length>1.3+EPS||Math.abs(Math.abs(rotation)-Math.PI/2)>EPS)throw Error('The named balance exit requires reached along-hall sideline declared pairs, spacing 1.18–1.3, and a quarter-turn toward each other.');
    const amount=(length-1.18)/2;
    preparation.set(id,{dx:dx/length*amount,dz:dz/length*amount,turn:rotation});
    if(actorMap.get(id)!.role==='lark')pairs.push([id,other]);
@@ -157,7 +156,7 @@ export function compileCarriedWaveCirculate(raw:CarriedWaveCirculateSpec|Carried
   return{poses,contacts};
  };
  let exitState:CarriedWaveState|CarriedPairedBalanceState=waveExitState;
- if(pairedExit){const{wave:_wave,...rest}=entryState,final=sample(spec.beats);exitState=freeze({...rest,sourceBeat,poses:final.poses,heldContacts:final.contacts,exit:{kind:'neighbor-balance' as const,pairSpacing:1.18 as const}});}
+ if(pairedExit){const{wave:_wave,...rest}=entryState,final=sample(spec.beats);exitState=freeze({...rest,sourceBeat,poses:final.poses,heldContacts:final.contacts,exit:{kind:pairedExit.kind,pairSpacing:1.18 as const}});}
  // Retain the established whole-set sampled envelope, including neighboring
  // boxes and explicit waiters. Local four-person checks cannot certify seams.
  let minimumObservedClearance=Infinity,maximumObservedSpeed=0,maximumObservedYawRate=0,previous=sample(0);

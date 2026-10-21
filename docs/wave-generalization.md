@@ -316,3 +316,35 @@ admissions. No Ready archives or source routes change in this slice.
 Historical textual inventory identifies eight explicit-left-loop sources:
 965, 966, 1846, 1856, 2033, 2329, 2916 and 3056. Producer boundaries and
 whole-source finite progression remain the next integration seam.
+
+## Counted left-wave producer and paired exit - 21 October 2026
+
+`carried-hey-wave-producer.ts` composes the existing measured role half-hey
+trajectory over explicit boxes and acquires the declared reached full-wave graph
+in its last quarter-count. The declared partner/neighbor receiver must match
+actual station occupants. Waiting actors remain stationary and seam hands belong
+to the full-set owner. No zero-count assertion moves a dancer.
+
+`carried-wave-circulate.ts` now supports the mirrored left-loop paired exit and
+an explicit partner-balance receiver as well as neighbor balance. The reached
+along-hall pair geometry must satisfy the same existing preparation envelope.
+`carried-paired-balance-swing.ts` consumes those actual two-hand contacts for an
+explicit 4+12 balance/swing. It releases its swing frame during the count before
+radial expansion, preserving source counts and the existing .64 reach envelope.
+The raw primitive retained weak targets beyond reach late in expansion; those
+contacts are not carried into this new adapter.
+
+Retained source2329 supplies the bounded target: source rows24-64 are half hey
+(rights in center), partner left-hand wave, robin-first then lark-first left-loop
+circulations, and partner balance/swing. Tests reach count64 from a real compact
+chain endpoint in3/4-couple sets, checking actual partner then neighbor then
+partner contacts, unchanged clocks/epochs, stationary waiters and explicit
+hand acquisition/release. Renumbering/translation and rejection tests exercise
+the contracts independently of source identity. The4+12 split and release are
+explicit interpretation/program choices, not additional authored counts.
+
+This is a source-backed40-count composition, not a whole-dance finite-period
+certificate or Ready admission. Source2329's opening circle6/pass2 progresses
+inside a Becket dance; the existing finite Becket wrapper owns only its literal
+slice event. That reached pass endpoint and its end behavior remain the next
+whole-source integration seam. No generated archives changed. GPU/audio unrun.

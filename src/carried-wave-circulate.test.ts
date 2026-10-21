@@ -136,3 +136,16 @@ for(const couples of[3,4])test(`left-loop full waves retain actual hands and wai
  for(const p of state.poses){const q=start.poses.find(q=>q.id===p.id)!;assert.ok(Math.hypot(p.position.x-q.position.x,p.position.z-q.position.z)<1e-7);assert.ok(turn(p.yaw,q.yaw)<1e-7);}
  assert.deepEqual(state.wave,start.wave);for(const [i,h]of state.heldContacts.entries()){const q=start.heldContacts[i];assert.deepEqual({...h,point:q.point},q);assert.ok(Math.hypot(h.point.x-q.point.x,h.point.y-q.point.y,h.point.z-q.point.z)<1e-7);}
 });
+
+test('left-loop neighbor preparation mirrors measured right-loop pairs without changing bindings',()=>{
+ const raw=fixture(),swap=(h:any)=>({...h,handA:h.handA==='left'?'right':'left',handB:h.handB==='left'?'right':'left'}),poses=raw.poses.map(p=>({...p,position:{x:-p.position.x,z:p.position.z},yaw:-p.yaw}));
+ const wave={...raw.wave,lines:[...raw.wave.lines].reverse(),hands:raw.wave.hands.map(swap),seamHands:raw.wave.seamHands.map(swap)};
+ // Preserve the full owner's canonical west/east edge order after reflection.
+ const segments=raw.boxPartitions.map(box=>({lines:wave.lines.map(l=>({...l,order:l.order.filter(id=>box.includes(id))})),hands:wave.hands.filter(h=>box.includes(h.a)&&box.includes(h.b))}));
+ const canonical=joinLongWaveSegments(segments,poses,wave.actorIds,wave.bindingEpoch),state={...raw,poses,wave:canonical,heldContacts:fullLongWaveContacts(canonical,poses)};
+ const first=compileCarriedWaveCirculate({...spec('lark'),loopDirection:'left'},state);
+ const exit=compileCarriedWaveCirculate({...pairedSpec(),loopDirection:'left'},first.exitState);
+ assert.equal(exit.exitState.exit.kind,'neighbor-balance');assert.deepEqual(exit.exitState.neighbor,state.neighbor);assert.deepEqual(exit.exitState.partner,state.partner);
+ for(const h of exit.exitState.heldContacts)assert.equal(new Map(state.neighbor).get(h.a),h.b);
+ assert.ok(exit.maximumObservedYawRate<=2.5);assert.ok(exit.maximumObservedSpeed<=1.8);assert.ok(exit.minimumObservedClearance>=.45);
+});
