@@ -11,7 +11,7 @@ const wrap=(x:number)=>Math.atan2(Math.sin(x),Math.cos(x));
 const distance=(a:{x:number;z:number},b:{x:number;z:number})=>Math.hypot(a.x-b.x,a.z-b.z);
 /** Local applicability only; retained closed frames continue to their old route. */
 export function needsReleasedPairSwingEntry(f:Figure,c:FigureContext,b:SequenceBoundary):boolean {
- if(f.kind!=='swing'||f.who!=='partner'||![14,16].includes(f.beats)||f.entry!==undefined||f.exit!==undefined||!!f.progression||b.heldContacts.length||(f.beats===16?c.next&&c.next.kind!=='long-lines':!c.next||!['circle','ring-balance'].includes(c.next.kind)))return false;
+ if(f.kind!=='swing'||f.who!=='partner'||![12,14,16].includes(f.beats)||f.entry!==undefined||f.exit!==undefined||!!f.progression||b.heldContacts.length||(f.beats===16?c.next&&c.next.kind!=='long-lines':!c.next||!['circle','ring-balance'].includes(c.next.kind)))return false;
  const byId=new Map(b.poses.map(p=>[p.id,p])),partner=new Map(b.partner),center={x:b.poses.reduce((s,p)=>s+p.position.x,0)/4,z:b.poses.reduce((s,p)=>s+p.position.z,0)/4};
  return b.poses.length===4&&b.poses.every(p=>{const other=byId.get(partner.get(p.id)!);return !!other&&Math.abs(p.position.x-other.position.x)<EPS&&Math.abs(Math.abs(p.position.x-center.x)-.9)<EPS&&Math.abs(Math.abs(p.position.z-center.z)-.9)<EPS&&Math.abs(distance(p.position,other.position)-1.8)<EPS;});
 }
@@ -21,7 +21,7 @@ export interface ReleasedPairSwingPlan extends SequencedMotionPlan {
 }
 export function compileReleasedPairSwingStep(input:Figure,context:FigureContext,incoming:SequenceBoundary):ReleasedPairSwingPlan {
  const f=capturePlainData(input),b=ownSequenceBoundary(incoming);
- if(!needsReleasedPairSwingEntry(f,context,b)||Object.keys(f).some(k=>!['id','label','kind','who','beats','confidence','progression'].includes(k))||f.confidence==='unsupported'||typeof f.id!=='string'||!f.id.trim()||typeof f.label!=='string'||!f.label.trim())throw new Error('Released pair swing requires an ordinary fourteen- or sixteen-count partner swing from released standard sideline corners.');
+ if(!needsReleasedPairSwingEntry(f,context,b)||Object.keys(f).some(k=>!['id','label','kind','who','beats','confidence','progression'].includes(k))||f.confidence==='unsupported'||typeof f.id!=='string'||!f.id.trim()||typeof f.label!=='string'||!f.label.trim())throw new Error('Released pair swing requires an ordinary twelve-, fourteen- or sixteen-count partner swing from released standard sideline corners.');
  assertSequenceHandoff(b,captureSequenceBoundary(context,b.sourceBeat,[]));
  const {ids,start,dancers}=structuredClone({ids:context.ids,start:context.start,dancers:context.dancers}),partner=new Map(b.partner),center=new Map(ids.map(id=>{const a=start[id].position,q=start[partner.get(id)!].position;return[id,{x:(a.x+q.x)/2,z:(a.z+q.z)/2}];}));
  const closed=start.map(p=>({...p,position:{...p.position}}));
