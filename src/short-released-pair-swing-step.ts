@@ -10,7 +10,7 @@ const wrap=(x:number)=>Math.atan2(Math.sin(x),Math.cos(x));
 const distance=(a:{x:number;z:number},b:{x:number;z:number})=>Math.hypot(a.x-b.x,a.z-b.z);
 /** Local applicability only; retained closed frames continue to their old route. */
 export function needsShortReleasedPairSwingEntry(f:Figure,c:FigureContext,b:SequenceBoundary):boolean {
- if(f.kind!=='swing'||!['partner','neighbor'].includes(f.who??'')||![8,10].includes(f.beats)||f.entry!==undefined||f.exit!==undefined||!!f.progression||b.heldContacts.length||c.next&&!['long-lines','do-si-do','right-left-through','circle'].includes(c.next.kind))return false;
+ if(f.kind!=='swing'||!['partner','neighbor'].includes(f.who??'')||![8,10].includes(f.beats)||f.entry!==undefined||f.exit!==undefined||!!f.progression||b.heldContacts.length||c.next&&!['long-lines','do-si-do','right-left-through','circle','square-through'].includes(c.next.kind))return false;
  const byId=new Map(b.poses.map(p=>[p.id,p])),partner=new Map(f.who==='neighbor'?b.neighbor:b.partner),center={x:b.poses.reduce((s,p)=>s+p.position.x,0)/4,z:b.poses.reduce((s,p)=>s+p.position.z,0)/4};
  return b.poses.length===4&&b.poses.every(p=>{const other=byId.get(partner.get(p.id)!);return !!other&&Math.abs(p.position.x-other.position.x)<EPS&&Math.abs(Math.abs(p.position.x-center.x)-.9)<EPS&&Math.abs(Math.abs(p.position.z-center.z)-.9)<EPS&&Math.abs(distance(p.position,other.position)-1.8)<EPS;});
 }

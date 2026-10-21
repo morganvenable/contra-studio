@@ -2,9 +2,7 @@
  * are bounded within their source swing; an unclassified delay is rejected. */
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {readFileSync} from 'node:fs';
-import {REVIEWED_SOURCE_IDS} from './source-library.ts';
-import {prepareContraDbReview} from './source-review.ts';
+import {READY_LIBRARY} from './ready-library.ts';
 import {readContraDbImport} from './contradb-import.ts';
 import {compileChoreography} from './choreography.ts';
 import {assertSequenceHandoff} from './sequence-boundary.ts';
@@ -14,10 +12,11 @@ const wrap=(x:number)=>Math.atan2(Math.sin(x),Math.cos(x));
 const angle=(frame:Frame,a:number,b:number)=>Math.atan2(frame.poses[a].position.z-frame.poses[b].position.z,frame.poses[a].position.x-frame.poses[b].position.x);
 const edges=(frame:Frame,a:number,b:number)=>frame.contacts.filter(h=>h.kind==='swing-frame'&&(h.a===a&&h.b===b||h.a===b&&h.b===a));
 test('every reviewed swing has a bounded, truthfully acquired frame and musical transition across all finite repeats',()=>{
- let checked=0,prepared=0,connecting=0,wave=0,pullByConnecting=0,activeConnecting=0,releasedConnecting=0;
- for(const id of REVIEWED_SOURCE_IDS){
-  const raw=readFileSync(new URL(`../test-data/contradb/${id}.json`,import.meta.url),'utf8');
-  const imported=id==='94'?readContraDbImport(raw,{interpretation:{circulation:'cw',rows:{'contradb:94:row:4':{chainReceiver:'partner'},'contradb:94:row:6':{balanceBeats:4}}}}):prepareContraDbReview(raw).result;
+ let checked=0,prepared=0,connecting=0,wave=0,pullByConnecting=0,activeConnecting=0,releasedConnecting=0,hallConnecting=0;
+ for(const {id,archive} of READY_LIBRARY){
+  // Exercise the actual saved review, including removable choices that cannot
+  // safely be inferred again from an unreviewed source snapshot.
+  const imported=readContraDbImport(archive);
   assert.ok(imported.dance,`${id}: ${JSON.stringify(imported.errors)}`);const dance=imported.dance;
   for(const couples of[3,6]){
    const c=compileChoreography(dance,couples) as ReturnType<typeof compileChoreography>&{sequenceBoundaries?:(repeat:number)=>readonly SequenceStepProof[]};
@@ -30,7 +29,14 @@ test('every reviewed swing has a bounded, truthfully acquired frame and musical 
     // The existing eight-count do-si-do/swing ingress connects over 1.12 counts
     // and acquires its frame by 1.6. The short-wave exit rotates immediately
     // while closing a horizontal pair into the frame over 1.5 counts.
-    const legacyInwardConnection=previous?.kind==='do-si-do'&&figure.entry===undefined;
+    const next=dance.figures[fi+1];
+    // The established hall entry also has an actual released inward approach:
+    // long lines return before this eight-count swing, which must finish down
+    // the hall with the same explicitly named pair. Preserve its existing
+    // 1.12-count approach and 1.6-count frame, rather than asserting a held
+    // frame at source count zero.
+    const hallConnection=previous?.kind==='long-lines'&&figure.beats===8&&figure.entry===undefined&&figure.exit==='face-down-line'&&!figure.progression&&next?.kind==='hall-travel'&&next.entry==='paired-sidelines-facing-down'&&next.hallPairRelation===figure.who&&JSON.stringify(next.hallPhaseBeats)==='[4,4,4,4]';
+    const legacyInwardConnection=(previous?.kind==='do-si-do'||hallConnection)&&figure.entry===undefined;
     // The reviewed four-count larks-left pull-by finishes at exact corner
     // slots. Its twelve-count partner swing connects over 1.68 counts and
     // acquires the full frame by 2.4, inside the unchanged source interval.
@@ -61,7 +67,7 @@ test('every reviewed swing has a bounded, truthfully acquired frame and musical 
      if(inwardConnection||pullByConnection){const a=start.poses[p.id].position,b=start.poses[other].position,mid={x:(a.x+b.x)/2,z:(a.z+b.z)/2},q=c.sample(at+.5).poses[p.id].position;assert.ok(Math.hypot(q.x-mid.x,q.z-mid.z)<Math.hypot(a.x-mid.x,a.z-mid.z)-.05,`${label}: ingress must move into connection`);assert.equal(edges(start,p.id,other).length,0,`${label}: do not invent an already-held frame`);if(pullByConnection){
        for(const local of[3,6,8.4]){const held=edges(c.sample(at+local),p.id,other);assert.equal(held.length,3,`${label}: full frame in middle of swing`);assert.ok(held.every(h=>h.strength>=1-1e-8));}
        let last=angle(c.sample(at+2.4),p.id,other),sweep=0;for(let step=1;step<=24;step++){const next=angle(c.sample(at+2.4+step*.25),p.id,other);sweep+=wrap(next-last);last=next;}assert.ok(sweep>Math.PI,`${label}: held middle must actually swing`);pullByConnecting++;
-      }else connecting++;}
+      }else{connecting++;if(hallConnection){hallConnecting++;const exit=c.sample(at+figure.beats);for(const actor of[p.id,other])assert.ok(Math.abs(wrap(exit.poses[actor].yaw))<1e-7,`${label}: hall entry must actually face down`);}}}
      else if(releasedConnection){
       assert.equal(edges(start,p.id,other).length,0,`${label}: released spiral cannot invent an initial frame`);
       const a=start.poses[p.id].position,b=start.poses[other].position,mid={x:(a.x+b.x)/2,z:(a.z+b.z)/2},q=c.sample(at+.5).poses[p.id].position;
@@ -80,5 +86,5 @@ test('every reviewed swing has a bounded, truthfully acquired frame and musical 
   }
  }
  assert.ok(checked>7000);assert.ok(prepared>0&&connecting>0&&wave>0&&pullByConnecting>0&&activeConnecting>0&&releasedConnecting>0);
- console.log(JSON.stringify({checked,prepared,inwardConnections:connecting,rotatingWaveConnections:wave,pullByConnections:pullByConnecting,activeConnections:activeConnecting,releasedConnections:releasedConnecting}));
+ console.log(JSON.stringify({checked,prepared,inwardConnections:connecting,hallConnections:hallConnecting,rotatingWaveConnections:wave,pullByConnections:pullByConnecting,activeConnections:activeConnecting,releasedConnections:releasedConnecting}));
 });

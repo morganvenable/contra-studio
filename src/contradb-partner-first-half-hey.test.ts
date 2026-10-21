@@ -9,7 +9,10 @@ for(const id of ids)test(`${id}: exact partner-first source, independent choices
  assert.equal(r.coverage.resolvedRows,r.record!.rows.length);assert.equal(d.figures.reduce((n,f)=>n+f.beats,0),64);assert.equal(row.source.beats,8);assert.equal(row.source.progression,false);
  assert.deepEqual([f.kind,f.beats,f.amount,f.who,f.heyStartPair,f.heyStartRole,f.centerShoulder,f.endShoulder,f.entry,f.exit,f.progression],['hey',8,.5,'partner','partner',undefined,'left','right','paired-sidelines',gyre?'opposite-paired-gyre':'opposite-paired-balance',undefined]);
  assert.deepEqual(p.interpretation.rows![row.source.id].ordinaryHey,{sidePair:'partner',exit:f.exit});
- const next=d.figures[d.figures.indexOf(f)+1];assert.equal(next.who,'partner');assert.equal(next.beats,4);assert.equal(next.kind,gyre?'gyre':'balance');if(gyre){assert.equal(next.passingShoulder,'right');assert.equal(next.amount,1);}
+ // Execution figures are owned copies of resolved row figures. Match their
+ // stable figure identity rather than relying on shared object references.
+ const index=d.figures.findIndex(figure=>figure.id===f.id);assert.ok(index>=0);assert.deepEqual(d.figures[index],f);
+ const next=d.figures[index+1];assert.equal(next.who,'partner');assert.equal(next.beats,4);assert.equal(next.kind,gyre?'gyre':'balance');if(gyre){assert.equal(next.passingShoulder,'right');assert.equal(next.amount,1);}
  assert.equal(d.figures.filter(f=>f.progression).length,1);assert.equal(d.figures.at(-1)!.progression,true);assert.equal(p.interpretation.progression,undefined);
  if(id===871){assert.equal(r.record!.hook,'box the gnat into hey');assert.equal(p.interpretation.hookReview,undefined);}
  const replay=readContraDbImport(d.sourceText,{capabilities:caps});assert.deepEqual(replay.dance?.figures,d.figures);assert.deepEqual(replay.interpretation,p.interpretation);assert.equal(replay.record?.original,r.record!.original);assert.equal(replay.record?.snapshotId,r.record!.snapshotId);
