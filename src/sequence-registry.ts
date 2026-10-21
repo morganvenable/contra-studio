@@ -1,3 +1,4 @@
+import {compileStarRoleExitStep,acceptsHeldRoleAllemande,compileHeldRoleAllemandeStep} from './star-role-allemande-step.ts';
 import {compileAcrossRingPassStep} from './across-ring-pass-step.ts';
 import {compileRoleShoulderPassStep} from './role-shoulder-pass-step.ts';
 import {compileCarriedLinesRollawayStep} from './carried-lines-rollaway-step.ts';
@@ -59,6 +60,7 @@ export function compileSequenceStep(figure:Figure,context:FigureContext,incoming
   const plan=compileCompactPairBalanceStep(figure,context,incoming);
   return{adapterId:'compact-pair-balance',plan,ownsEntryFacing:true,boundaryPlan:plan};
  }
+ if(figure.kind==='star'&&figure.starReleaseRole!==undefined||acceptsHeldRoleAllemande(figure,incoming)){if(!capabilities.stateCarryingStarAllemandes)throw Error('Held star/role transitions require their carried-state capability.');const star=figure.kind==='star',plan=star?compileStarRoleExitStep(figure,context,incoming):compileHeldRoleAllemandeStep(figure,context,incoming);return{adapterId:star?'star-role-release':'held-role-allemande',plan,ownsEntryFacing:true,boundaryPlan:plan};}
  if(needsReleasedPairSwingEntry(figure,context,incoming)){
   const plan=compileReleasedPairSwingStep(figure,context,incoming);
   return{adapterId:'released-pair-swing',plan,ownsEntryFacing:true,boundaryPlan:plan};

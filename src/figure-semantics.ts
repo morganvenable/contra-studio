@@ -24,7 +24,7 @@ const consumed:Record<string,readonly string[]>={
  'pass-to-wave':['centerRole','sideRelation','passingShoulder','centerHand','sideHand','entry'],
  'pass-to-wave-balance':['centerRole','sideRelation','passingShoulder','centerHand','sideHand','entry','phaseBeats','balanceStyle'],
  'wave-balance':['balanceStyle'],'box-circulate':['crossRole','loopRole','loopDirection'],'balance-box-circulate':['phaseBeats','balanceStyle','crossRole','loopRole','loopDirection','entry','exit'],
- balance:['who','hands'],swing:['who','entry','exit','preparation'],circle:['who','direction','amount','phaseBeats','turnToward','exit'],star:['who','direction','amount','starGrip'],allemande:['who','direction','amount','entry','exit','inwardRole','outwardRole','phaseBeats'],
+ balance:['who','hands'],swing:['who','entry','exit','preparation'],circle:['who','direction','amount','phaseBeats','turnToward','exit'],star:['who','direction','amount','starGrip','starReleaseRole'],allemande:['who','direction','amount','entry','exit','inwardRole','outwardRole','phaseBeats'],
  'do-si-do':['who','direction','amount','exit','preparation','phaseBeats'],'long-lines':['who'],'robins-chain':['who','direction','hands','exit'],'ladies-chain':['who','direction','hands','exit'],
  hey:['heyAxis','who','notation','entry','exit','amount','heyStartPair','heyStartRole','centerShoulder','endShoulder'],'box-the-gnat':['who','hands','underRole','entry','exit'],
  'right-left-through':['who','direction','courtesyLeader','crossingRelation'],'becket-shift':['direction'],
