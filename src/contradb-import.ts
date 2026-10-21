@@ -129,8 +129,8 @@ export function normalizeContraDbRow(row:ContraDbRow,formation:'duple-improper'|
  }else if(/^mad robin\b/i.test(text)){
   recognized=true;consumedMadRobin=true;const selected=choice.madRobin;
   if(!capabilities.madRobins)issue('mad-robin-gate','The named mad-robin orbits, facing and terminal rebind require their separately reviewed whole-dance capability.');
-  if(formation!=='duple-improper'||row.beats!==8||(text!=='mad robin, ladles in front'&&!madRobinRowSource(row)))issue('mad-robin-source-contract','This bounded source contract retains exactly eight counts of mad robin with the source-named robins in front.');
-  if(!isMadRobinRowChoice(selected,madRobinRowSource(row)?.direction))issue('mad-robin-choice',madRobinRowSource(row)?madRobinRowDescription(row):MAD_ROBIN_ROW_CHOICE_DESCRIPTION);
+  if(formation!=='duple-improper'||row.beats!==8||(text!=='mad robin, ladles in front'&&!madRobinRowSource(row)))issue('mad-robin-source-contract','This bounded source contract retains exactly eight counts of mad robin with the source-named front role.');
+  if(!isMadRobinRowChoice(selected,madRobinRowSource(row)?.direction,madRobinRowSource(row)?.frontRole))issue('mad-robin-choice',madRobinRowSource(row)?madRobinRowDescription(row):MAD_ROBIN_ROW_CHOICE_DESCRIPTION);
   else{add({kind:'mad-robin',who:'all',orbitRelation:selected.orbitRelation,facingRelation:selected.facingRelation,frontRole:selected.frontRole,orbitDirection:selected.direction,amount:1,entry:'paired-sidelines-facing-across',exit:'same-slots-facing-across'});interpretations.push(madRobinRowSource(row)?madRobinRowDescription(row):MAD_ROBIN_ROW_CHOICE_DESCRIPTION);}
  }else if(isPartnerRevolvingDoorText(text)){
   recognized=true;consumedRevolvingDoor=true;const selected=choice.revolvingDoor;

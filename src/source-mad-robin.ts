@@ -5,7 +5,7 @@ import {capturePlainData} from './owned-program-cache.ts';
 import {readContraDbSource,type ContraDbRecord} from './contradb-source.ts';
 import type {MadRobinDirection} from './mad-robin.ts';
 export interface MadRobinRowChoice {
- readonly orbitRelation:'neighbor';readonly facingRelation:'partner';readonly frontRole:'robin';
+ readonly orbitRelation:'neighbor';readonly facingRelation:'partner';readonly frontRole:'lark'|'robin';
  readonly direction:MadRobinDirection;readonly amount:1;
 }
 export interface MadRobinPolicyChoice {
@@ -26,12 +26,12 @@ export const MAD_ROBIN_HOOK_CHOICE_DESCRIPTION='Review the retained mad-robin-to
 export const MAD_ROBIN_POLICY_CHOICE_DESCRIPTION='Review persistent-partner facing across during both mad robins and persistent-partner facing during the separately timed finite-end exchange. The robin right allemande retains all one-and-a-half turns and all eight counts, using its first and last count for body-facing preparation. The six-count circle uses its first three-quarter count for inward-facing preparation. These within-count facing conventions and the full-return/next-neighbor handoff are modeling choices, not source-stated details; the finite-end timing remains a separate review choice.';
 const rowKeys=['orbitRelation','facingRelation','frontRole','direction','amount']as const;
 const sameKeys=(o:unknown,keys:readonly string[]):o is Record<string,unknown>=>!!o&&typeof o==='object'&&!Array.isArray(o)&&Object.keys(o).length===keys.length&&Object.keys(o).every(k=>keys.includes(k));
-function rowChoice(value:unknown,direction?:MadRobinDirection):value is MadRobinRowChoice {
- return sameKeys(value,rowKeys)&&value.orbitRelation==='neighbor'&&value.facingRelation==='partner'&&value.frontRole==='robin'&&value.amount===1&&(value.direction==='clockwise'||value.direction==='counterclockwise')&&(direction===undefined||value.direction===direction);
+function rowChoice(value:unknown,direction?:MadRobinDirection,frontRole:'lark'|'robin'='robin'):value is MadRobinRowChoice {
+ return ['lark','robin'].includes(frontRole)&&sameKeys(value,rowKeys)&&value.orbitRelation==='neighbor'&&value.facingRelation==='partner'&&value.frontRole===frontRole&&value.amount===1&&(value.direction==='clockwise'||value.direction==='counterclockwise')&&(direction===undefined||value.direction===direction);
 }
 /** Direct choice validators capture descriptors before inspecting any values. */
-export function isMadRobinRowChoice(value:unknown,direction?:MadRobinDirection):value is MadRobinRowChoice {
- try{return rowChoice(capturePlainData(value),direction);}catch{return false;}
+export function isMadRobinRowChoice(value:unknown,direction?:MadRobinDirection,frontRole:'lark'|'robin'='robin'):value is MadRobinRowChoice {
+ try{return rowChoice(capturePlainData(value),direction,frontRole);}catch{return false;}
 }
 export function isMadRobinPolicyChoice(value:unknown):value is MadRobinPolicyChoice {
  try{const owned=capturePlainData(value);return sameKeys(owned,Object.keys(CONVENTIONAL_MAD_ROBIN_POLICY))&&Object.entries(CONVENTIONAL_MAD_ROBIN_POLICY).every(([key,v])=>owned[key]===v);}catch{return false;}
