@@ -10,6 +10,7 @@ test('textual full-star endpoint preserves absent glyph and removable descriptiv
  for(const field of ['notes','endpoint','chain']){const i=structuredClone(p.interpretation);if(field==='notes')delete i.notesReview;else if(field==='endpoint')delete i.rows![last.id].nextNeighborQualifier;else delete i.rows![r.rows[4].id].chainReceiver;assert.equal(readContraDbImport(raw,{interpretation:i}).dance,undefined);}
  assert.equal(descriptiveSourceNote({notes:r.notes+' Turn around at the end.'}),undefined);
  const wrong=structuredClone(r);wrong.rows.at(-1)!.beats=6;assert.equal(normalizeContraDbRow(wrong.rows.at(-1)!,'duple-improper',p.interpretation.rows![last.id]).resolved,false);
+ const marked={...last,text:last.text+' ⁋',progression:true};const normalized=normalizeContraDbRow(marked,'duple-improper');assert.equal(normalized.resolved,true);assert.equal(normalized.progressionFromText,undefined);assert.equal(normalized.figures[0].progression,true,'Existing source-marked stars retain their reviewed route without a new choice.');
 });
 for(const count of [3,4])test(`textual-star source retains people, seams and closure over ${count}-couple periods`,t=>{
  const p=prepareContraDbReview(raw),c=compileChoreography(p.result.dance!,count);let min=Infinity,max=0,partnerFrames=0,neighborFrames=0,courtesy=0;
