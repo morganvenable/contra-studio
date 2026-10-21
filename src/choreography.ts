@@ -2,6 +2,7 @@ import {compileBecketStateSequence} from './becket-state-sequence.ts';
 import {compileInitialWavePolicyDance} from './initial-wave-policy.ts';
 import {stateSequenceApplicability} from './sequence-admission.ts';
 import {compileStateSequence} from './state-sequence.ts';
+import {hasInteriorSequenceEvent,compilePhasedStateSequence} from './phased-state-sequence.ts';
 import {compileStarWhirlImproper,type StarWhirlDance} from './star-promenade-whirl-sequence.ts';
 import {compileMadRobinImproper,type MadRobinDance} from './mad-robin-sequence.ts';
 import {compileRingTwirlImproper,type RingTwirlDance} from './ring-twirl-source-sequence.ts';
@@ -58,6 +59,7 @@ function compileChoreographyUncached(dance: Dance, couples: number, capabilities
     return withBalanceStance(compileInitialWavePolicyDance(dance,couples));
   }
   if(dance.figures.some(f=>f.kind==='becket-slice'))return withBalanceStance(compileBecketStateSequence(dance,couples,capabilities));
+  if(capabilities.stateCarryingSequences&&hasInteriorSequenceEvent(dance))return withBalanceStance(compilePhasedStateSequence(dance,couples,capabilities));
   if(capabilities.stateCarryingSequences&&stateSequenceApplicability(dance)==='applicable')return withBalanceStance(compileStateSequence(dance,couples,capabilities));
   if(dance.madRobinPolicy!==undefined||dance.figures.some(f=>f.kind==='mad-robin')){
     if(!capabilities.madRobins||!capabilities.progressionEvents)throw new Error('Mad-robin compositions require their separately reviewed orbit, partner-facing and finite-end compiler.');
