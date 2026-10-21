@@ -4,7 +4,9 @@ The Ready to play section contains reviewed source interpretations bundled with 
 
 The separate, collapsed ContraDB catalogue is a discovery index. Its entries are not all playable. Downloaded records still go through normal interpretation and whole-dance validation.
 
-As of 20 October 2026, 142 interpretations are included. The latest batch adds
+As of 20 October 2026, 144 interpretations are included. The latest additions are Daddy's Little Girl (823), retaining the literal Duple Improper formation, and Futon Frolic (3478), retaining its explicitly reviewed family-provenance note and partner chain.
+
+The preceding batch added
 Opus 4.6.9 (3260), Cascades (188), South Union Reel (2062), South Union Reel var
 (2063), Culver City Contra (2213), Another Last Dance (2409), Spend Some Money
 Together (2605), Forgotten Treasure (2701), A-1 Reel var. (2966), Baughman Jig
@@ -39,12 +41,12 @@ Explicit source reviews can be retained as standard interpretation archives unde
 precedence over previous Ready entries and automatic suggestions. The complete
 canonical snapshot, source binding and archive version must match; stale explicit
 reviews fail rather than silently falling back to new suggestions. Current import
-admission is still required. This preserves a reviewer?s source-specific choice
+admission is still required. This preserves a reviewer's source-specific choice
 without adding source-specific motion or broadening automatic prose rules.
 
-Source3478?s retained note says ?Yet another member of the Small Potatoes /
+Source 3478's retained note says ?Yet another member of the Small Potatoes /
 Fingerling Potatoes / Push the Button family?. Its explicit review treats that
-sentence as family provenance, without substituting another dance?s instructions.
+sentence as family provenance, without substituting another dance's instructions.
 The partner chain receiver is independently checked against actual arrival
 positions. Clearing the note classification blocks admission; choosing neighbor
 as receiver rejects. The original note and both removable choices remain in the

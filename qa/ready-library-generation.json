@@ -1,6 +1,16 @@
 {
-  "count": 142,
+  "count": 144,
   "entries": [
+    {
+      "id": "823",
+      "sourceSnapshotId": "contradb:823:09872db6c86751c1",
+      "archiveSha256": "d4018543b27a854b992346bd97d0aac3c3cdbfc81c20c27b9b30728c7778f211"
+    },
+    {
+      "id": "3478",
+      "sourceSnapshotId": "contradb:3478:6d2818b050153977",
+      "archiveSha256": "f37adb6e1973a2e70245e33a4e043ea6753d0219d50be5b80e9ce9e0385f5e34"
+    },
     {
       "id": "188",
       "sourceSnapshotId": "contradb:188:edca501d00afc4c1",

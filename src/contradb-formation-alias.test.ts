@@ -37,3 +37,30 @@ for(const id of ['823','3478'])for(const couples of [3,4])test(`${id} complete $
  for(let repeat=0;repeat<couples*2;repeat++)for(const local of [...p.starts,64]){const beat=repeat*64+local;if(!beat)continue;const a=p.sample(beat-1e-6),b=p.sample(beat);for(const q of b.poses){const prior=a.poses.find(x=>x.id===q.id)!;assert.ok(Math.hypot(q.position.x-prior.position.x,q.position.z-prior.position.z)<2e-5);assert.ok(Math.abs(Math.atan2(Math.sin(q.yaw-prior.yaw),Math.cos(q.yaw-prior.yaw)))<2e-5);}}
  assert.deepEqual(p.sample(end).poses,p.sample(0).poses);assert.deepEqual(p.sample(end).contacts,p.sample(0).contacts);
 });
+
+for(const id of ['823','3478'])for(const couples of [3,4])test(`${id} actual partner swing and chain contacts retain source relationships through ${couples}-couple period`,()=>{
+ const r=reviewed(id);assert.ok(r.dance,r.errors.join('; '));const p=compileChoreography(r.dance,couples);
+ let swingContacts=0,chainContacts=0;
+ const sameCouple=(a:number,b:number)=>Math.floor(a/2)===Math.floor(b/2);
+ const pair=(a:number,b:number)=>[a,b].sort((x,y)=>x-y).join(':');
+ // The opening neighbor allemande establishes the actual current-neighbor
+ // contacts for each repeat, including physical-end changes.
+ const neighbors=id==='823'?Array.from({length:couples*2},(_,repeat)=>new Set(p.sample(repeat*64+2).contacts.filter(c=>c.strength>=.1).map(c=>pair(c.a,c.b)))):[];
+ for(let beat=0;beat<couples*128;beat+=.5){
+  const local=beat%64,frame=p.sample(beat);
+  for(const contact of frame.contacts){
+   if(contact.strength<.1)continue;
+   const message=`${id} beat ${beat}: ${contact.a}/${contact.b}`;
+   if(contact.kind==='swing-frame'&&local>=(id==='823'?20:40)&&local<(id==='823'?32:48)){
+    swingContacts++;assert.ok(sameCouple(contact.a,contact.b),`Partner swing changed partners: ${message}`);
+   }
+   if(contact.kind==='courtesy'&&local>=(id==='823'?32:24)&&local<(id==='823'?40:32)){
+    chainContacts++;assert.equal(sameCouple(contact.a,contact.b),id==='3478',`Wrong chain receiver: ${message}`);
+    assert.notEqual(contact.a%2,contact.b%2,`Courtesy turn needs opposite roles: ${message}`);
+    if(id==='823')assert.ok(neighbors[Math.floor(beat/64)].has(pair(contact.a,contact.b)),`Chain must return to actual opening neighbor: ${message}`);
+   }
+  }
+ }
+ assert.ok(swingContacts>0,'Partner swing assertion must inspect actual held contacts');
+ assert.ok(chainContacts>0,'Chain assertion must inspect actual courtesy contacts');
+});
