@@ -402,3 +402,25 @@ TypeScript pass. No Ready admissions:3326 exposes an unregistered carried
 one-and-a-half role do-si-do route;2266/3142 expose actual chain-to-neighbor-
 promenade entry rejection. The next work is that shared arrival geometry,
 without changing receiver identity, named leader, source counts or progression.
+
+Chain-to-promenade checkpoint (isolated, 20 October 2026):2266 and3142 now
+compile with their explicit source-bound historical reviews. The earlier apparent
+leader-slot rejection was a .9 boundary roundoff; actual larks occupied the correct
+left slots. The substantive hold was wide-entry promenade speed. An eight-count
+chain now prepares its existing1.10 courtesy spacing only for an immediately
+following fully declared eight-count promenade with the same receiver. The actual
+courtesy path owns this narrowing; the promenade consumes its reached endpoint.
+No receiver/leader is changed and the1.2 promenade speed budget is unchanged.
+This extends established preparation, not a new strict-carried certification.
+
+Twenty-four focused chain/promenade/provenance tests and TypeScript pass. Complete
+three/four-couple periods preserve exact closure, all joins and independently
+resolved neighbor contacts. Changed windows sampled at1/64 count measure maximum
+chain speed1.246259, promenade speed1.049317 and all-actor clearance.511142.
+Translated partner and neighbor arrangements reuse the same preparation; mismatched
+receivers and unsupported leader declarations retain ordinary exits. An independent
+critic found no semantic blocker and confirmed3384 promenade contacts against
+opening neighbor pairs, with no wrong partners. Explicit review archives and cards
+for both sources are prepared; Ready archives are not regenerated. Next integrate
+this batch, regenerate once, update fixture census and browser-check the built
+candidates. Body/GPU/audio checks remain unrun. Source3326 remains motion-held.

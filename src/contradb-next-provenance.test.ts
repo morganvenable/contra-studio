@@ -35,12 +35,12 @@ test('historical promenade comparison is bounded to unchanged literal notes and 
   assert.equal(corroboratedPromenadeComparison(r),undefined,change);
  }
 });
-for(const id of ['2266','3142'])test(`${id} explicit current-table review preserves actual promenade entry rejection`,()=>{
+for(const id of ['2266','3142'])test(`${id} explicit current-table review preserves current promenade semantics and removable review`,()=>{
  const p=prepareContraDbReview(raw(id));assert.equal(p.interpretation.notesReview,undefined);
  p.interpretation.notesReview='corroborated-history';p.interpretation.rows??={};p.interpretation.rows[`contradb:${id}:row:4`]={chainReceiver:'neighbor'};
- const r=readContraDbImport(raw(id),{interpretation:p.interpretation});assert.equal(r.dance,undefined);
+ const r=readContraDbImport(raw(id),{interpretation:p.interpretation});assert.ok(r.dance,r.errors.join('; '));
  assert.ok(r.warnings.some(s=>s.includes('current-version history')));
- assert.ok(r.errors.some(s=>s.includes('promenade leader must explicitly occupy the left slot')));
+ assert.equal(r.dance.figures.filter(f=>f.kind==='promenade').length,1);assert.equal(r.dance.figures.find(f=>f.kind==='promenade')!.who,'neighbor');
  assert.equal(r.record!.rows.reduce((n,row)=>n+(row.beats??0),0),64);assert.equal(r.record!.rows.filter(row=>row.progression).length,1);
  p.interpretation.rows[`contradb:${id}:row:4`].chainReceiver='partner';assert.ok(readContraDbImport(raw(id),{interpretation:p.interpretation}).errors.some(s=>s.includes('requested receiving partner')));
  delete p.interpretation.notesReview;assert.ok(readContraDbImport(raw(id),{interpretation:p.interpretation}).diagnostics.some(d=>d.code==='source-notes-history-review'));

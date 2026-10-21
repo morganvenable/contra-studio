@@ -91,7 +91,7 @@ export function compilePromenade(options:PromenadeOptions):PromenadePlan {
  const direction=new Map<number,number>(),isLeader=new Map<number,boolean>();
  for(const pair of pairs){
   const a=start.get(pair.leaderId)!,b=start.get(pair.followerId)!,A=finish.get(pair.leaderId)!,B=finish.get(pair.followerId)!,d=-Math.sign(a.x),entryYaw=Math.atan2(d*across.x,d*across.z);
-  if(!d||Math.abs(a.x-b.x)>EPS||Math.abs(a.z+b.z)>EPS||Math.sign(a.z)!==-d||Math.sign(b.z)!==d||Math.abs(a.x)<.5||Math.abs(a.x)>1.2||Math.abs(a.z)<.30||Math.abs(a.z)>.9)throw new Error('The promenade leader must explicitly occupy the left slot of the incoming side-by-side pair; roles cannot be flipped to repair it.');
+  if(!d||Math.abs(a.x-b.x)>EPS||Math.abs(a.z+b.z)>EPS||Math.sign(a.z)!==-d||Math.sign(b.z)!==d||Math.abs(a.x)<.5||Math.abs(a.x)>1.2||Math.abs(a.z)<.30||Math.abs(a.z)>.9+EPS)throw new Error('The promenade leader must explicitly occupy the left slot of the incoming side-by-side pair; roles cannot be flipped to repair it.');
   if(Math.abs(A.x-B.x)>EPS||Math.sign(A.x)!==d||Math.abs(A.z+B.z)>EPS||Math.sign(A.z)!==d||Math.sign(B.z)!==-d||Math.abs(A.x)<.65||Math.abs(A.x)>1.2||Math.abs(A.z)<.34||Math.abs(A.z)>1.1)throw new Error('Explicit exit slots must exchange sides and reverse the same named pair, with reachable turn space.');
   for(const id of[pair.leaderId,pair.followerId]){if(Math.abs(angleDifference(entry.get(id)!.yaw,entryYaw))>EPS||Math.abs(angleDifference(exit.get(id)!.yaw,entryYaw+Math.PI))>EPS)throw new Error('Entry must face across and exit must face back across; an extra final-facing clause requires a different declared plan.');direction.set(id,d);isLeader.set(id,id===pair.leaderId);}
  }
