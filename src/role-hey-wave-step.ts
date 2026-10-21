@@ -1,17 +1,17 @@
-/** Role-first half hey reaching explicit local wave stations in eight counts.
+/** Role-first half/full hey reaching explicit local wave stations in source counts.
  * The caller owns subsequent whole-wave contacts and any endpoint progression. */
 import {capturePlainData} from './owned-program-cache.ts';
 import {ownSequenceBoundary,advanceSequenceBeat,type SequenceBoundary,type SequenceBoundaryPose,type SequencedMotionPlan} from './sequence-boundary.ts';
 import {compileRoleHeyEncounters} from './role-hey-encounters.ts';
 import {compilePartialHey,type PartialHeyTrajectory} from './partial-hey.ts';
 import type {Role} from './types.ts';
-export interface RoleHeyWaveSpec {beats:8;firstRole:Role;sidePair:'partner'|'neighbor';centerShoulder:'left'|'right';endShoulder:'left'|'right';inwardRole:Role;exitPoses:readonly SequenceBoundaryPose[];}
+export interface RoleHeyWaveSpec {beats:8|16;firstRole:Role;sidePair:'partner'|'neighbor';centerShoulder:'left'|'right';endShoulder:'left'|'right';inwardRole:Role;exitPoses:readonly SequenceBoundaryPose[];}
 export interface RoleHeyWavePlan extends SequencedMotionPlan {readonly heyPlan:PartialHeyTrajectory;}
 const EPS=1e-7,wrap=(a:number)=>Math.atan2(Math.sin(a),Math.cos(a));
 export function compileRoleHeyWaveStep(incoming:SequenceBoundary,raw:RoleHeyWaveSpec):RoleHeyWavePlan{
  const entryState=ownSequenceBoundary(incoming),spec=capturePlainData(raw);
- if(Object.keys(spec).some(k=>!['beats','firstRole','sidePair','centerShoulder','endShoulder','inwardRole','exitPoses'].includes(k))||spec.beats!==8||!['lark','robin'].includes(spec.inwardRole)||!['partner','neighbor'].includes(spec.sidePair))throw Error('A role half-hey wave endpoint needs eight counts, explicit side pair, inward role and measured endpoints.');
- if(entryState.heldContacts.length)throw Error('The role half hey requires actually released entry hands.');
+ if(Object.keys(spec).some(k=>!['beats','firstRole','sidePair','centerShoulder','endShoulder','inwardRole','exitPoses'].includes(k))||![8,16].includes(spec.beats)||!['lark','robin'].includes(spec.inwardRole)||!['partner','neighbor'].includes(spec.sidePair))throw Error('A role hey wave endpoint needs eight or sixteen counts, explicit side pair, inward role and measured endpoints.');
+ if(entryState.heldContacts.length)throw Error('The role hey requires actually released entry hands.');
  const poses=new Map(entryState.poses.map(p=>[p.id,p])),actors=new Map(entryState.actors.map(a=>[a.id,a])),ids=[...actors.keys()],relations=new Map(entryState[spec.sidePair]);
  const center={x:entryState.poses.reduce((n,p)=>n+p.position.x/4,0),z:entryState.poses.reduce((n,p)=>n+p.position.z/4,0)};
  const width=Math.abs(entryState.poses[0].position.x-center.x),depth=Math.abs(entryState.poses[0].position.z-center.z);
@@ -20,16 +20,16 @@ export function compileRoleHeyWaveStep(incoming:SequenceBoundary,raw:RoleHeyWave
  const other=spec.firstRole==='lark'?'robin':'lark',west=select(spec.firstRole,-1),east=select(spec.firstRole,1),westOther=select(other,-1),eastOther=select(other,1),order=[westOther,west,east,eastOther];
  if(relations.get(west)!==westOther||relations.get(east)!==eastOther)throw Error('Named side pairs do not match actual incoming stations.');
  const sign=spec.centerShoulder==='right'?1:-1;if(Math.sign(poses.get(west)!.position.z-center.z)!==sign||Math.sign(poses.get(east)!.position.z-center.z)!==-sign)throw Error('First center shoulder contradicts actual role order.');
- const graph=compileRoleHeyEncounters(entryState,{entryOrder:order,firstRole:spec.firstRole,centerShoulder:spec.centerShoulder,endShoulder:spec.endShoulder,amount:.5,beats:8});
- const desired=ownSequenceBoundary({...entryState,sourceBeat:advanceSequenceBeat(entryState.sourceBeat,8),poses:spec.exitPoses,heldContacts:[]});
+ const graph=compileRoleHeyEncounters(entryState,{entryOrder:order,firstRole:spec.firstRole,centerShoulder:spec.centerShoulder,endShoulder:spec.endShoulder,amount:spec.beats===8?.5:1,beats:spec.beats});
+ const desired=ownSequenceBoundary({...entryState,sourceBeat:advanceSequenceBeat(entryState.sourceBeat,spec.beats),poses:spec.exitPoses,heldContacts:[]});
  const targets=new Map(desired.poses.map(p=>[p.id,p])),targetDepth=Math.abs(desired.poses[0].position.z-center.z);
  if(targetDepth<.35||targetDepth>.65)throw Error('Wave endpoint spacing must remain inside the existing box-wave range.');
  for(const [slot,idText]of graph.endOrder!.entries()){
   const id=Number(idText),station=poses.get(order[slot])!.position,target=targets.get(id)!,side=Math.sign(station.x-center.x),yaw=(actors.get(id)!.role===spec.inwardRole?-side:side)*Math.PI/2;
-  if(Math.abs(target.position.x-station.x)>EPS||Math.abs(target.position.z-(center.z+Math.sign(station.z-center.z)*targetDepth))>EPS||Math.abs(wrap(target.yaw-yaw))>EPS)throw Error('Wave endpoint must preserve the half-hey station permutation, measured center/width and declared facing.');
+  if(Math.abs(target.position.x-station.x)>EPS||Math.abs(target.position.z-(center.z+Math.sign(station.z-center.z)*targetDepth))>EPS||Math.abs(wrap(target.yaw-yaw))>EPS)throw Error('Wave endpoint must preserve the source hey station permutation, measured center/width and declared facing.');
  }
  const named=(pairs:SequenceBoundary['partner'])=>new Map(pairs.map(([a,b])=>[String(a),String(b)]));
- const path=compilePartialHey({actors:entryState.actors.map(a=>({...a,id:String(a.id),couple:String(a.couple)})),events:graph.events,entry:new Map(entryState.poses.map(p=>[String(p.id),{position:{...p.position},yaw:p.yaw,velocity:{x:0,z:0}}])),exit:new Map(desired.poses.map(p=>[String(p.id),{position:{...p.position},yaw:p.yaw,velocity:{x:0,z:0}}])),frame:{origin:center,axis:{x:1,z:0}},beats:8,entryBeats:0,exitBeats:0,boundaryMode:'within-passes',gateBeats:[1.95,3.575,5.2,6.9],slotSpacing:1.05,passClearance:.66,maximumSpeed:1.3,maximumYawRate:4,relationships:{partner:named(entryState.partner),neighbor:named(entryState.neighbor)}});
- const at=(id:number,t:number)=>{if(!actors.has(id)||!Number.isFinite(t))throw Error('Role hey wave sample requires a known actor and finite time.');return path.sample(Math.max(0,Math.min(1,t))*8).poses.find(p=>p.id===String(id))!;};
+ const path=compilePartialHey({actors:entryState.actors.map(a=>({...a,id:String(a.id),couple:String(a.couple)})),events:graph.events,entry:new Map(entryState.poses.map(p=>[String(p.id),{position:{...p.position},yaw:p.yaw,velocity:{x:0,z:0}}])),exit:new Map(desired.poses.map(p=>[String(p.id),{position:{...p.position},yaw:p.yaw,velocity:{x:0,z:0}}])),frame:{origin:center,axis:{x:1,z:0}},beats:spec.beats,entryBeats:0,exitBeats:0,boundaryMode:'within-passes',gateBeats:spec.beats===8?[1.95,3.575,5.2,6.9]:[2,3.75,5.5,7.25,9,10.75,12.5,14.25],slotSpacing:1.05,passClearance:.66,maximumSpeed:spec.beats===8?1.3:1.35,maximumYawRate:4,relationships:{partner:named(entryState.partner),neighbor:named(entryState.neighbor)}});
+ const at=(id:number,t:number)=>{if(!actors.has(id)||!Number.isFinite(t))throw Error('Role hey wave sample requires a known actor and finite time.');return path.sample(Math.max(0,Math.min(1,t))*spec.beats).poses.find(p=>p.id===String(id))!;};
  return Object.freeze({entryState,exitState:desired,heyPlan:path,position:(id:number,t:number)=>at(id,t).position,facing:(id:number,t:number)=>at(id,t).yaw,contacts:(t:number)=>{if(!Number.isFinite(t))throw Error('Sample time must be finite.');return[];}});
 }
