@@ -4,8 +4,11 @@ The Ready to play section contains reviewed source interpretations bundled with 
 
 The separate, collapsed ContraDB catalogue is a discovery index. Its entries are not all playable. Downloaded records still go through normal interpretation and whole-dance validation.
 
-As of 21 October 2026, 149 interpretations are included. The latest additions are
-Swamp Stomp (3326), The Baby Rose (8) and Bristol Court (2194). Exact reviewed
+As of 21 October 2026, 157 interpretations are included. The latest additions are
+Kiss the Bride (166), Power Surge (2247), Ann�s Roll-Away Hey (2243),
+Rollin� to the Grey Eagle (2322), Thursday Night Special #1 (133),
+Early Bird Special (2876), Trip to Kentucky (original) (265), and
+Midwest Folklore (363). Exact reviewed
 archives retain timing, receiver, promenade and endpoint-progression choices.
 Complete three/four-couple periods check actual neighbors/partners, contacts,
 finite waiting, seams and closure. Built-browser imports and Ready cards open,

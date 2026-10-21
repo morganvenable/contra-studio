@@ -1,16 +1,16 @@
 # Offline choreography coverage audit
 
 Regenerate: `node --experimental-strip-types scripts/audit-coverage.mjs --write`.
-Generated 2026-10-21T15:18:47.510Z; code revision 93886873d1848cc66a4655ebce1d7f5dcab8fb1c with local modifications. Runtime 81.6 seconds.
+Generated 2026-10-21T15:44:26.275Z; code revision 53be26416f44bee9dd6499556ea9e41cb08f145f with local modifications. Runtime 94.1 seconds.
 This reads existing data only. It does not fetch sources, regenerate archives or approve suggested interpretations.
 
-There are **2422 catalogue records**, **176 retained snapshots**, and **149 saved Ready interpretations**. **2246 catalogue records have metadata only**; their figure content and motion coverage are unknown. These are overlapping sets, not additive counts. Exact set intersections are in the JSON.
+There are **2422 catalogue records**, **184 retained snapshots**, and **157 saved Ready interpretations**. **2238 catalogue records have metadata only**; their figure content and motion coverage are unknown. These are overlapping sets, not additive counts. Exact set intersections are in the JSON.
 
 | Input view | Sources | Import admitted | Interpretation blocked | Motion/validation blocked | Unparsed |
 | --- | ---: | ---: | ---: | ---: | ---: |
-| rawDefaults | 176 | 0 | 176 | 0 | 0 |
-| conventionalSuggestions | 176 | 145 | 26 | 5 | 0 |
-| savedInterpretation | 149 | 149 | 0 | 0 | 0 |
+| rawDefaults | 184 | 0 | 184 | 0 | 0 |
+| conventionalSuggestions | 184 | 150 | 29 | 5 | 0 |
+| savedInterpretation | 157 | 157 | 0 | 0 | 0 |
 
 “Import admitted” includes existing importer validation, its internal sampled checks and six-couple compile gate. It is not a new whole-period motion or visual certification. Raw defaults, hypothetical suggestions, and saved interpretations are separate views of overlapping sources.
 “Interpretation blocked” identifies the importer stage, not necessarily ambiguous authorship: this stage also enforces implementation-specific context and capability gates. Read the diagnostic causes before assigning research versus engineering work.
@@ -21,19 +21,19 @@ This table uses hypothetical conventional suggestions to expose remaining obstac
 
 | Diagnostic | Sources | Sole diagnostic | IDs | Example cause |
 | --- | ---: | ---: | --- | --- |
-| unsupported-figure-variant | 14 | 1 | 266, 495, 761, 776, 907, 1312, 1632, 2006, 2026, 2212, 2456, 2672, 3363, 3533 | The complete figure wording, including qualifiers, needs a semantic/motion adapter. |
-| unknown-figure | 10 | 1 | 179, 495, 761, 776, 907, 1312, 1599, 2299, 2903, 3533 | The complete figure wording, including qualifiers, needs a semantic/motion adapter. |
+| unsupported-figure-variant | 15 | 1 | 266, 495, 761, 776, 907, 1312, 1632, 2006, 2026, 2212, 2329, 2456, 2672, 3363, 3533 | The complete figure wording, including qualifiers, needs a semantic/motion adapter. |
+| unknown-figure | 11 | 1 | 179, 495, 761, 776, 907, 1312, 1599, 2299, 2329, 2903, 3533 | The complete figure wording, including qualifiers, needs a semantic/motion adapter. |
+| chain-receiver | 7 | 0 | 179, 266, 495, 2329, 2494, 2672, 3280 | Choose the named receiving partner or neighbor; “chain” alone does not identify that relation. |
 | source-notes | 7 | 0 | 761, 907, 1312, 1632, 2006, 2299, 3533 | The source has prose notes that may alter movement or end effects; they are retained and block automatic playback. |
-| chain-receiver | 6 | 0 | 179, 266, 495, 2494, 2672, 3280 | Choose the named receiving partner or neighbor; “chain” alone does not identify that relation. |
-| source-hook | 5 | 0 | 179, 495, 2006, 2212, 2494 | The hook contains a movement, role, hand, direction, timing, scope or end-effect cue not fully corroborated by the retained source clauses. |
-| progression-location | 4 | 0 | 1632, 2006, 2672, 3363 | The progression event is not at this formation adapter’s reviewed boundary. |
+| source-hook | 6 | 0 | 179, 495, 2006, 2212, 2329, 2494 | The hook contains a movement, role, hand, direction, timing, scope or end-effect cue not fully corroborated by the retained source clauses. |
+| progression-location | 5 | 0 | 1632, 2006, 2329, 2672, 3363 | The progression event is not at this formation adapter’s reviewed boundary. |
+| circulation-choice | 3 | 0 | 761, 2329, 3363 | The source says Becket without explicitly naming circulation. Select CW to use the current adapter. |
 | formation | 3 | 0 | 907, 2212, 3533 | Formation “triplet” has no current complete-dance adapter. |
+| long-wave-context | 3 | 0 | 2006, 2329, 3363 | This full-wave circulation requires the exact source-declared long-wave entry and complementary second circulation. |
 | motion:compile | 3 | 3 | 110, 729, 1926 | A standalone rollaway requires its registered actual-state exchange boundary. |
 | source-preamble | 3 | 0 | 907, 1632, 2672 | The source has starting/variant instructions that require a dedicated semantic interpretation. |
 | active-swing-source-contract | 2 | 0 | 2026, 3361 | This active-rank contract requires the complete eight-count ones-only swing, literal final facing and retained terminal progression marker. |
 | active-swing-wait-choice | 2 | 0 | 2026, 3361 | Review the schematic waiting convention: while the current ones swing with their persistent partners during the source’s eight counts, the twos keep their incoming places fixed, retain their facing... |
-| circulation-choice | 2 | 0 | 761, 3363 | The source says Becket without explicitly naming circulation. Select CW to use the current adapter. |
-| long-wave-context | 2 | 0 | 2006, 3363 | This full-wave circulation requires the exact source-declared long-wave entry and complementary second circulation. |
 | progression-count | 2 | 0 | 907, 2212 | This adapter needs exactly 1 source-declared progression event; found 0. |
 | source-notes-classification | 2 | 0 | 495, 2212 | Review whether the retained prose notes are provenance/dedication/history rather than movement or end-effect instructions. They are not discarded automatically. |
 | half-poussette-source-contract | 1 | 0 | 776 | This partner half-poussette keeps eight source counts and an improper partner-facing-across entry. |
@@ -50,10 +50,14 @@ This table uses hypothetical conventional suggestions to expose remaining obstac
 | poussette-composition-context | 1 | 0 | 776 | This compact partner-hold entry/exit requires the complete source-declared opening half-poussette, neighbor swing and final two-hand partner twirl composition. |
 | progression-qualifier | 1 | 0 | 761 | The next-neighbor qualifier has no matching progression marker. |
 | progression-variant | 1 | 0 | 3363 | This source progression event has no reviewed topology adapter. |
+| ring-pass-choice | 1 | 0 | 2329 | Review a right-shoulder passage with the current neighbor, releasing the preceding six-count circle and ending facing progressed neighbors. Bare source wording does not name the shoulder or crossin... |
+| ring-pass-context | 1 | 0 | 2329 | A two-count passage requires a complete supported compact circle-six/pass-two composition and its separately reviewed geometry/end policy. Other prefixes, circles or marker patterns remain unresolved. |
+| ring-pass-source-contract | 1 | 0 | 2329 | This passage contract requires four stated counts in improper formation. Other durations or formations need a different declared plan. |
 | source-preamble-choice-conflict | 1 | 0 | 1312 | The selected preamble interpretation requires its exact retained wording and a completely resolved corroborating current table; it cannot waive setup or movement instructions. |
 | source-preamble-review | 1 | 0 | 1312 | Review classifies the explicit walkthrough request as preparation before taking the dance to the floor, outside the timed choreography. The attributed feedback request and contact address remain so... |
 | square-through-choice | 1 | 0 | 2903 | Review four counts for the partner right-hand balance, then two for the partner right pull-by and two for the current-neighbor left pull-by. The source states eight total counts and this named pass... |
 | square-through-source-contract | 1 | 0 | 2903 | Retain exactly the named partner right-hand balance/pull-by and current-neighbor left pull-by: eight counts for two passages, or sixteen for four with the explicit complete-unit repeat. Any progres... |
+| zero-time-instruction | 1 | 0 | 2329 | This zero-count setup or transition requires explicit topology semantics; it cannot become an ordinary moving figure. |
 
 **Semantically resolved but motion/validation blocked after hypothetical suggestions: 5 sources** (110, 729, 1926, 2987, 3310). These have all source rows resolved under those suggestions; they are the clearest current composition/validation backlog, not promised admissions.
 
@@ -63,53 +67,53 @@ This table uses hypothetical conventional suggestions to expose remaining obstac
 - 2987, Stay in Touch: The event composition violates torso clearance near beat 10.5.
 - 3310, Kiss the Bride variation: A paired-radial swing needs opposite measured sideline pair centers within the .65–1.2 half-width envelope.
 
-The 27 unsaved retained records split into 1 import-admitted candidates, 5 motion/validation blocks and 21 interpretation-stage blocks.
-Candidates, **not saved Ready admissions**: 166 (Kiss the Bride).
-Saved records that hypothetical suggestions cannot reconstruct: 94 (Butter; chain-receiver, circulation-choice); 2266 (Unbelievable!; chain-receiver, source-notes-history-review); 3142 (Unbelievable! variation; chain-receiver, source-notes-history-review); 3326 (Swamp Stomp; chain-receiver, source-notes); 3478 (Futon Frolic; chain-receiver, source-notes-classification). Their saved interpretation is tested separately. Thus the hypothetical admitted total must not be subtracted from saved Ready to count new candidates.
+The 27 unsaved retained records split into 0 import-admitted candidates, 5 motion/validation blocks and 22 interpretation-stage blocks.
+Candidates, **not saved Ready admissions**: none.
+Saved records that hypothetical suggestions cannot reconstruct: 94 (Butter; chain-receiver, circulation-choice); 363 (Midwest Folklore; circulation-choice); 2266 (Unbelievable!; chain-receiver, source-notes-history-review); 2322 (Rollin' to the Grey Eagle; chain-receiver); 3142 (Unbelievable! variation; chain-receiver, source-notes-history-review); 3326 (Swamp Stomp; chain-receiver, source-notes); 3478 (Futon Frolic; chain-receiver, source-notes-classification). Their saved interpretation is tested separately. Thus the hypothetical admitted total must not be subtracted from saved Ready to count new candidates.
 
 ## Figure frequencies in retained raw sources
 
 These are normalized figure occurrences recognized by the importer, not a linguistic census of every source instruction. Choices can split compound instructions into new figures: raw balance frequency is especially incomplete without balance/swing timing choices. Unsupported text can be missing here; see unresolved rows in JSON. Columns count sources containing each kind, with their different denominators; these views overlap.
 
-| Kind | Raw / 176 | Suggested / 176 | Saved / 149 |
+| Kind | Raw / 184 | Suggested / 184 | Saved / 157 |
 | --- | ---: | ---: | ---: |
-| allemande | 109 | 109 | 95 |
-| balance | 4 | 124 | 111 |
+| allemande | 111 | 111 | 98 |
+| balance | 4 | 132 | 118 |
 | balance-box-circulate | 0 | 4 | 2 |
 | balance-rory-slide | 0 | 1 | 1 |
-| becket-shift | 3 | 3 | 1 |
-| becket-slice | 0 | 4 | 4 |
+| becket-shift | 4 | 4 | 2 |
+| becket-slice | 0 | 5 | 5 |
 | box-the-gnat | 4 | 22 | 20 |
 | butterfly-whirl | 0 | 1 | 1 |
 | california-twirl | 0 | 18 | 16 |
-| circle | 123 | 123 | 108 |
+| circle | 130 | 130 | 115 |
 | couples-do-si-do | 0 | 2 | 2 |
 | cross-trails | 0 | 1 | 1 |
-| do-si-do | 51 | 54 | 46 |
+| do-si-do | 52 | 55 | 48 |
 | form-short-wave | 1 | 1 | 1 |
 | give-and-take | 0 | 2 | 2 |
-| gyre | 2 | 19 | 12 |
+| gyre | 2 | 19 | 13 |
 | half-poussette | 0 | 2 | 1 |
-| hall-travel | 0 | 9 | 9 |
-| hey | 5 | 37 | 35 |
-| long-lines | 80 | 80 | 69 |
-| long-lines-rollaway | 0 | 1 | 1 |
+| hall-travel | 0 | 11 | 11 |
+| hey | 5 | 39 | 37 |
+| long-lines | 81 | 81 | 71 |
+| long-lines-rollaway | 0 | 4 | 4 |
 | mad-robin | 0 | 3 | 3 |
-| pass-through | 0 | 34 | 31 |
+| pass-through | 0 | 34 | 32 |
 | pass-to-wave-balance | 0 | 1 | 1 |
-| petronella | 0 | 16 | 14 |
-| promenade | 1 | 25 | 22 |
+| petronella | 0 | 17 | 15 |
+| promenade | 1 | 25 | 23 |
 | pull-by | 7 | 7 | 5 |
 | revolving-door | 0 | 1 | 1 |
 | ricochet-hey | 0 | 1 | 1 |
-| right-left-through | 0 | 29 | 26 |
-| ring-balance | 45 | 50 | 41 |
-| robins-chain | 14 | 69 | 74 |
+| right-left-through | 0 | 32 | 29 |
+| ring-balance | 45 | 51 | 42 |
+| robins-chain | 16 | 74 | 80 |
 | rollaway | 0 | 2 | 1 |
 | square-through | 0 | 7 | 7 |
 | star | 54 | 54 | 48 |
 | star-promenade | 0 | 1 | 1 |
-| swing | 135 | 173 | 149 |
+| swing | 141 | 181 | 157 |
 
 ## What this permits us to conclude
 

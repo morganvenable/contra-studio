@@ -1,0 +1,44 @@
+{
+  "schema": "contra-studio/contradb-interpretation",
+  "version": 1,
+  "sourceSnapshotId": "contradb:166:c333c4a0ec7e2e04",
+  "snapshot": {
+    "schema": "contra-studio/contradb-snapshot",
+    "version": 1,
+    "sourceUrl": "https://contradb.com/dances/166",
+    "retrievedAt": "2026-10-20T06:01:44.230Z",
+    "html": "<h1 class=\"dance-show-title\">Kiss the Bride</h1>\n<p class=\"dance-show-choreographer\">by: <strong><a href=\"/choreographers/154\">Jeffrey Spero</a></strong></p>\n<p class=\"dance-show-formation\">formation: improper </p>\n<div class=\"dance-show-preamble\"><div class='contra-markdown-block'></div></div>\n<table class=\"table table-bordered table-condensed contra-table-nonfluid\">\n         <tr class=\"a1b1 \">\n             <td>A1</td>\n             <td class=dance-show-beats>8</td>\n             <td><div class=\"show-figure\">neighbors do si do once</div>\n</td></tr>\n</tr>         <tr class=\"a1b1 \">\n             <td></td>\n             <td class=dance-show-beats>8</td>\n             <td><div class=\"show-figure\">neighbors swing</div>\n</td></tr>\n</tr>         <tr class=\"a2b2 \">\n             <td>A2</td>\n             <td class=dance-show-beats>8</td>\n             <td><div class=\"show-figure\">long lines forward &amp; back</div>\n</td></tr>\n</tr>         <tr class=\"a2b2 \">\n             <td></td>\n             <td class=dance-show-beats>8</td>\n             <td><div class=\"show-figure\">ladles allemande left 1½</div>\n</td></tr>\n</tr>         <tr class=\"a1b1 dance-show-long-figure\">\n             <td>B1</td>\n             <td class=dance-show-beats>16</td>\n             <td><div class=\"show-figure\">partners meltdown swing</div>\n</td></tr>\n</tr>         <tr class=\"a2b2 \">\n             <td>B2</td>\n             <td class=dance-show-beats>8</td>\n             <td><div class=\"show-figure\">partners promenade</div>\n</td></tr>\n</tr>         <tr class=\"a2b2 \">\n             <td></td>\n             <td class=dance-show-beats>6</td>\n             <td><div class=\"show-figure\">circle right 3 places</div>\n</td></tr>\n</tr>         <tr class=\"a2b2 \">\n             <td></td>\n             <td class=dance-show-beats>2</td>\n             <td><div class=\"show-figure\">pass through ⁋</div>\n</td></tr>\n</tr></table>\n<div class=\"dance-show-notes\"><div class='contra-markdown-block'></div></div>\n<p class=\"dance-show-publish\">\n            shared everywhere\n          </p>\n"
+  },
+  "interpretation": {
+    "rows": {
+      "contradb:166:row:4": {
+        "gyreSwing": {
+          "meaning": "gyre-then-swing",
+          "phaseBeats": [
+            4,
+            12
+          ],
+          "passingShoulder": "right",
+          "amount": 1
+        }
+      },
+      "contradb:166:row:5": {
+        "promenade": {
+          "route": "across-set",
+          "amount": 0.5,
+          "passingShoulder": "left",
+          "turnDirection": "left",
+          "hold": "skaters",
+          "leader": "lark",
+          "hands": "both"
+        }
+      },
+      "contradb:166:row:7": {
+        "passThrough": {
+          "relation": "neighbor",
+          "passingShoulder": "left"
+        }
+      }
+    }
+  }
+}

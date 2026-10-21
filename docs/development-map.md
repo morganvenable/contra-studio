@@ -10,23 +10,16 @@ Morgan's current objective is at least **1,000 verified playable Ready source
 entries**, with continuous autonomous jobs and release batches. Do not stop after
 each slice for confirmation. Keep source counts, choices, provenance, actual
 people and finite progression checks intact; corpus records and compile-only
-candidates do not count as Ready entries. Public baseline is146;149 are packaged
-and browser-verified locally, adding3326,8 and2194. Publication is in progress.
+candidates do not count as Ready entries. Public baseline is146;157 are packaged locally. The149 workflow was blocked by two full-suite issues, now fixed: the swing audit must consume saved reviews, and cloned execution figures require stable-ID lookup.
 
 | Workstream | Current checkpoint | Next action |
 | --- | --- | --- |
-| Ready admissions / release (lead) | 149 packaged;3326/8/2194 full-period and exact built-card checks pass; prior146 archives unchanged | Publish verified149 batch; prepare166 next |
-| Shared figure composition | Explicit left-loop kernel integrated;2329 left-wave handoffs and2247 compact paired balance progressing in isolated worktrees | Finish full-source progression/contact checks, integrate reusable contracts |
-| Coverage triage | Fresh2422-source census;166 mirrored omitted-shoulder review integrated;73-source forward/rollaway family under investigation | Extend adjacent4+4 source composition without inventing counts or choices |
-| Animation | Sampled safe frame domain50?70deg inward/.04?.08lean; extreme outward twist invalid | Normal controls shipped; preserve sampled-domain limits and approved default |
+| Ready admissions / release (lead) | 157 archives; new eight166/2247/2243/2322/133/2876/265/363 pass source and full-period checks plus3/4-couple software-WebGL import/playback | Finish157 exact-card checks and full CI before publication |
+| Interior progression | 3431 phase wrapper and explicit full do-si-do6 + held-ring acquisition2 pass independent finite people/contact/closure tests in progression worktree | Integrate after157 checkpoint, browser-review removable choice, admit only after verification |
+| Shared wave composition | 2329 finite Becket circle/pass and left-wave program passes dense3/4-couple checks | Add source-bound removable lowering; compiler-only evidence is not Ready admission |
+| Coverage triage |2422 retained local source records; forward/return rollaway and literal hall clauses now reusable | Strict two-count role shoulder pass for1144/724, then next measured cohort |
 
-149 release checkpoint: generator replays all149 archives; the previous146
-archive strings remain byte-identical. Thirty-three wave/admission/loader tests,
-twenty final source/admission tests and all script tests pass; TypeScript and
-Pages build pass. Explicit imports of3326,8,2194 run with3/4 couples, and all
-three exact built Ready cards scrub/play into round two with zero page errors.
-Selected screenshots were inspected. The fixture-only census now accounts for
-176 snapshots. Hardware GPU/audio and comprehensive anatomical checks unrun.
+157 checkpoint: the eight new saved reviews preserve all raw source records and removable choices. The built candidate imports each at3/4 couples and scrubs/plays into round two with zero page errors. Selected screenshots inspected. Clearing the saved return-rollaway choice blocks import; explicitly restoring it re-enables import. The149 saved-swing audit passed20,358 frames; sixteen focused swing/hall/endpoint tests and seven partner-first tests passed.157 generator completed with all prior149 archives byte-identical. Thirty-three focused source/Ready/swing tests pass (21,510 actual swing frames), all34 script tests pass, TypeScript and Pages build pass. All eight exact built Ready cards load, scrub and reach round two without errors. Census accounts for184 fixtures and157 saved Ready imports. Full CI/publication remains pending. Hardware GPU/audio and comprehensive anatomical checks remain unrun.
 
 Historical release evidence for the142-entry batch:33 focused acquired-candidate tests,
 three3260 source/finite-period tests, five census tests, TypeScript and Pages
