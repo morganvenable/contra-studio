@@ -19,7 +19,7 @@ export interface CarriedWaveState {
 }
 export interface CarriedWaveCirculateSpec {
  kind:'box-circulate'|'balance-box-circulate';beats:4|8;
- crossRole:Role;loopRole:Role;loopDirection:'right';
+ crossRole:Role;loopRole:Role;loopDirection:'right'|'left';
  phaseBeats?:readonly [4,4];balanceStyle?:'right-left'|'forward-back';
 }
 export interface CarriedWaveBalanceExitSpec extends CarriedWaveCirculateSpec {
@@ -83,13 +83,14 @@ export function compileCarriedWaveCirculate(raw:CarriedWaveCirculateSpec|Carried
  const spec=capturePlainData(raw),entryState=ownCarriedWaveState(input);
  keys(spec,['kind','beats','crossRole','loopRole','loopDirection','phaseBeats','balanceStyle','exit']);
  const pairedExit='exit'in spec?spec.exit:undefined;
+ if(pairedExit&&spec.loopDirection==='left')throw Error('Left-loop circulation currently retains its full-wave exit; paired preparation is not certified.');
  if('exit'in spec){
   if(!pairedExit||typeof pairedExit!=='object'||Array.isArray(pairedExit))throw Error('A named balance exit requires its complete preparation contract.');
   keys(pairedExit,['kind','preparationBeats','pairSpacing','handAcquisitionBeats']);
   if(pairedExit.kind!=='neighbor-balance'||pairedExit.preparationBeats!==2||pairedExit.pairSpacing!==1.18||pairedExit.handAcquisitionBeats!==.25)throw Error('The neighbor-balance exit requires two preparation counts, 1.18 spacing and quarter-count hand acquisition.');
  }
  const balance=spec.kind==='balance-box-circulate',offset=balance?4:0;
- if(!['box-circulate','balance-box-circulate'].includes(spec.kind)||spec.beats!==(balance?8:4)||!['lark','robin'].includes(spec.crossRole)||!['lark','robin'].includes(spec.loopRole)||spec.crossRole===spec.loopRole||spec.loopDirection!=='right')throw Error('A carried circulation requires four counts, or an explicit eight-count balance/circulate, distinct roles and right loops.');
+ if(!['box-circulate','balance-box-circulate'].includes(spec.kind)||spec.beats!==(balance?8:4)||!['lark','robin'].includes(spec.crossRole)||!['lark','robin'].includes(spec.loopRole)||spec.crossRole===spec.loopRole||!['right','left'].includes(spec.loopDirection))throw Error('A carried circulation requires four counts, or an explicit eight-count balance/circulate, distinct roles and explicit loop direction.');
  if(balance?(!Array.isArray(spec.phaseBeats)||spec.phaseBeats.length!==2||spec.phaseBeats.some(n=>n!==4)||!['right-left','forward-back'].includes(spec.balanceStyle??'')):(spec.phaseBeats!==undefined||spec.balanceStyle!==undefined))throw Error('Balance timing/style must be explicit and cannot be added to a standalone circulation.');
  const sourceBeat=entryState.sourceBeat+spec.beats;if(!Number.isFinite(sourceBeat)||sourceBeat-entryState.sourceBeat!==spec.beats)throw Error('Source clock cannot represent the exact authored duration.');
  const byId=new Map(entryState.poses.map(p=>[p.id,p])),roles=new Map(entryState.actors.map(a=>[a.id,a.role]));
@@ -101,7 +102,7 @@ export function compileCarriedWaveCirculate(raw:CarriedWaveCirculateSpec|Carried
   const graph:WaveGraph={lines,hands};localGraphs.push(graph);
   const entry=new Map(ids.map(id=>[id,constraint(byId.get(id)!)]));
   const origin=ids.reduce((p,id)=>({x:p.x+byId.get(id)!.position.x/4,z:p.z+byId.get(id)!.position.z/4}),{x:0,z:0});
-  const binding=resolveBoxCirculateBinding({entry,entryWave:graph,roles:new Map(ids.map(id=>[id,roles.get(id)!])),crossRole:spec.crossRole,loopRole:spec.loopRole,frame:{origin,across:{x:1,z:0}}});
+  const binding=resolveBoxCirculateBinding({entry,entryWave:graph,roles:new Map(ids.map(id=>[id,roles.get(id)!])),crossRole:spec.crossRole,loopRole:spec.loopRole,loopDirection:spec.loopDirection,frame:{origin,across:{x:1,z:0}}});
   const circulate=compileBoxCirculate({actorIds:ids,entry,exit:new Map(binding.exit),beats:4,entryWave:graph,exitWave:binding.exitWave,mapping:binding.mapping,frame:binding.frame});
   const balancing=balance?compileWaveBalance({actorIds:ids,entry,exit:entry,beats:4,wave:graph,style:spec.balanceStyle!,amplitude:.1}):undefined;
   exitGraphs.push(binding.exitWave);return{ids,circulate,balancing};

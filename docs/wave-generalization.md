@@ -297,3 +297,22 @@ These require separate semantic contracts. Do not map them to the implemented
 right-loop four-station operation merely because their text says circulate.
 
 Release check (2026-10-20): 66 focused motion/source/Ready tests and 29 script tests pass; TypeScript and isolated Pages build pass. Playwright Chromium with software WebGL opens Nomad's Land, scrubs counts 6/14/20/38/54/62, and plays across count 64 into the next round without page errors. Perspective screenshots were inspected. This supersedes the browser-unrun status above; hardware GPU, audio synchronization and caller review remain unrun. The first release was canceled before publishing to tighten terminal-hey modifier rejection.
+
+## Left-loop capability checkpoint - 21 October 2026
+
+Measured box binding, the four-count kernel and full-set carried circulation
+accept explicit left loops from actual left-hand box segments, retaining
+right-hand between-box seams. Changing only direction on a right-loop wave
+rejects. Binding retains right as its legacy default; carried calls require an
+explicit direction. Left-loop paired-balance preparation remains rejected.
+
+New tests reflect each local root and facing sample at 1/64 count, reject mixed
+loop directions and incompatible stations, and compose four calls through
+3- and 4-couple sets. They check exact source-clock increments, unchanged
+relationships/epochs, stationary waiting actors, contact graph and occupancy
+closure. These are local composition periods, not progressing whole-dance
+admissions. No Ready archives or source routes change in this slice.
+
+Historical textual inventory identifies eight explicit-left-loop sources:
+965, 966, 1846, 1856, 2033, 2329, 2916 and 3056. Producer boundaries and
+whole-source finite progression remain the next integration seam.

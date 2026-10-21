@@ -1,5 +1,5 @@
 /** Whole-line long-wave topology. Local boxes retain their identities; only
- * explicitly adjacent segment endpoints acquire the between-box left hands. */
+ * explicitly adjacent segment endpoints acquire the between-box opposite hands. */
 import type {HandContact,Pose} from './types.ts';
 import {validateWaveGraph,type WaveGraph,type WaveHand} from './wave-figures.ts';
 export interface FullLongWaveGraph extends WaveGraph {readonly actorIds:readonly number[];readonly seamHands:readonly WaveHand[];readonly bindingEpoch:number;}
@@ -15,9 +15,10 @@ export function joinLongWaveSegments(segments:readonly WaveGraph[],poses:readonl
  if(!segments.length){if(actorIds.length)throw new Error('Active actors cannot disappear from the long-wave graph.');return freeze({lines:[],hands:[],actorIds:[],seamHands:[],bindingEpoch});}
  if(segments.some(s=>s.lines.length!==2||s.lines.some(l=>l.order.length!==2||l.axis.x!==0||l.axis.z!==1)))throw new Error('The full wave requires explicitly ordered west/east two-person segments.');
  const poseMap=new Map(poses.map(p=>[p.id,{position:p.position,yaw:p.yaw,velocity:{x:0,z:0},yawRate:0}]));
- for(const segment of segments){const ids=segment.lines.flatMap(l=>[...l.order]);validateWaveGraph(segment,poseMap,ids);for(const line of segment.lines){const matching=segment.hands.filter(h=>h.a===line.order[0]&&h.b===line.order[1]||h.a===line.order[1]&&h.b===line.order[0]);if(matching.length!==1||matching[0].handA!=='right'||matching[0].handB!=='right')throw new Error('Every explicit box segment must preserve its declared right-hand side edges.');}}
+ const segmentHand=segments[0].hands[0]?.handA;if(!['left','right'].includes(segmentHand))throw new Error('Explicit box hand direction required.');
+ for(const segment of segments){const ids=segment.lines.flatMap(l=>[...l.order]);validateWaveGraph(segment,poseMap,ids);for(const line of segment.lines){const matching=segment.hands.filter(h=>h.a===line.order[0]&&h.b===line.order[1]||h.a===line.order[1]&&h.b===line.order[0]);if(matching.length!==1||matching[0].handA!==segmentHand||matching[0].handB!==segmentHand)throw new Error('Every explicit box segment must preserve its declared uniform side edges.');}}
  const lines=[0,1].map(side=>({order:segments.flatMap(s=>[...s.lines[side].order]),axis:{x:0,z:1}})),hands:WaveHand[]=[],seamHands:WaveHand[]=[];
- for(const line of lines)for(let i=0;i<line.order.length-1;i++){const h:WaveHand={a:line.order[i],b:line.order[i+1],handA:i%2?'left':'right',handB:i%2?'left':'right'};hands.push(h);if(i%2)seamHands.push(h);}
+ for(const line of lines)for(let i=0;i<line.order.length-1;i++){const h:WaveHand={a:line.order[i],b:line.order[i+1],handA:i%2?(segmentHand==='right'?'left':'right'):segmentHand,handB:i%2?(segmentHand==='right'?'left':'right'):segmentHand};hands.push(h);if(i%2)seamHands.push(h);}
  const graph=freeze({lines,hands,actorIds:[...actorIds],seamHands,bindingEpoch});validateFullLongWave(graph,poses,bindingEpoch);return graph;
 }
 export function validateFullLongWave(graph:FullLongWaveGraph,poses:readonly Pose[],expectedBindingEpoch?:number):void {
@@ -28,7 +29,7 @@ export function validateFullLongWave(graph:FullLongWaveGraph,poses:readonly Pose
  for(const line of graph.lines){if(line.axis.x!==0||line.axis.z!==1||line.order.length!==graph.actorIds.length/2||line.order.length<2)throw new Error('Long waves need explicit along-hall lines.');for(let i=0;i<line.order.length;i++){const id=line.order[i],p=byId.get(id);if(!p||!graph.actorIds.includes(id)||seen.has(id)||![p.position.x,p.position.z,p.yaw].every(Number.isFinite)||Math.abs(Math.cos(p.yaw))>EPS)throw new Error('Every full-wave actor must have one finite, perpendicular-facing slot.');seen.add(id);if(i){const a=byId.get(line.order[i-1])!,spacing=p.position.z-a.position.z;if(Math.abs(p.position.x-a.position.x)>EPS||spacing<.65-EPS||spacing>1.7+EPS||Math.abs(Math.abs(wrap(p.yaw-a.yaw))-Math.PI)>EPS)throw new Error('Full-wave adjacency must be collinear, reachable and alternating-facing.');edges.add(`${line.order[i-1]}:${id}`);if(i%2===0)seams.add(`${line.order[i-1]}:${id}`);}}}
  if(seen.size!==graph.actorIds.length||graph.hands.length!==edges.size)throw new Error('Full-wave graph must name every active actor and every adjacent edge.');
  for(const h of graph.hands){if(!edges.delete(`${h.a}:${h.b}`)||!['left','right'].includes(h.handA)||!['left','right'].includes(h.handB))throw new Error('Long-wave hands must name exact ordered adjacent actors.');for(const[id,hand,other]of[[h.a,h.handA,h.b],[h.b,h.handB,h.a]] as const){const key=`${id}:${hand}`,p=byId.get(id)!,q=byId.get(other)!,toward=(q.position.x-p.position.x)*Math.cos(p.yaw)-(q.position.z-p.position.z)*Math.sin(p.yaw);if(held.has(key)||(hand==='left'?1:-1)*toward<=0)throw new Error('Every named full-wave hand must point at its unique receiver.');held.add(key);}}
- if(graph.seamHands.length!==seams.size||graph.seamHands.some(h=>!seams.delete(`${h.a}:${h.b}`)||h.handA!=='left'||h.handB!=='left'||!graph.hands.some(k=>k.a===h.a&&k.b===h.b&&k.handA===h.handA&&k.handB===h.handB)))throw new Error('Every between-box hand must belong to the complete graph.');
+ if(graph.seamHands.length!==seams.size||graph.seamHands.some(h=>!seams.delete(`${h.a}:${h.b}`)||h.handA!==h.handB||!graph.hands.some(k=>k.a===h.a&&k.b===h.b&&k.handA===h.handA&&k.handB===h.handB)))throw new Error('Every between-box hand must belong to the complete graph.');
  fullLongWaveContacts(graph,poses);
 }
 /** Fixed adult arm envelope, including all between-minor-set hands. */

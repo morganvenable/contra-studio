@@ -15,3 +15,21 @@ test('rotation translation actor renumbering line order and role relabeling pres
 test('role and facing contradictions, unknown actors, malformed hands and unsupported stations reject',()=>{
  for(const mutate of[(f:BoxCirculateBindingInput)=>{f.crossRole='robin';f.loopRole='lark';},(f:BoxCirculateBindingInput)=>{(f.roles as Map<number,string>).delete(0);},(f:BoxCirculateBindingInput)=>{f.entry.get(0)!.yaw+=Math.PI;},(f:BoxCirculateBindingInput)=>{f.entry.get(0)!.position.x+=.1;},(f:BoxCirculateBindingInput)=>{f.entry.get(0)!.velocity.x=.1;},(f:BoxCirculateBindingInput)=>{f.entryWave.hands[0].handA='left';},(f:BoxCirculateBindingInput)=>{f.frame.across.x=2;}]){const f=fixture();mutate(f);assert.throws(()=>resolveBoxCirculateBinding(f));}
 });
+
+test('left loops consume mirrored actual stations and hands with reflected paths at every count',()=>{
+ const right=fixture(),left=fixture();left.loopDirection='left';
+ left.entry=new Map([...right.entry].map(([id,p])=>[id,{...p,position:{x:p.position.x,z:-p.position.z},yaw:Math.PI-p.yaw}]));
+ left.entryWave={lines:right.entryWave.lines.map(l=>({...l,order:[...l.order].reverse()})),hands:right.entryWave.hands.map(h=>({a:h.b,b:h.a,handA:'left',handB:'left'}))};
+ const rb=resolveBoxCirculateBinding(right),lb=resolveBoxCirculateBinding(left);
+ assert.deepEqual(lb.mapping.map(m=>[m.id,m.destinationId]),rb.mapping.map(m=>[m.id,m.destinationId]));
+ assert.equal(lb.mapping.filter(m=>m.mode==='loop-left').length,2);
+ const compile=(f:BoxCirculateBindingInput,b:ReturnType<typeof resolveBoxCirculateBinding>)=>compileBoxCirculate({actorIds:[...f.entry.keys()],entry:f.entry,entryWave:f.entryWave,...b,beats:4});
+ const r=compile(right,rb),l=compile(left,lb);
+ for(let beat=0;beat<=4;beat+=1/64){const a=r.sample(beat),b=l.sample(beat);for(const p of a.poses){const q=b.poses.find(q=>q.id===p.id)!;assert.ok(Math.abs(q.position.x-p.position.x)<1e-9);assert.ok(Math.abs(q.position.z+p.position.z)<1e-9);assert.ok(Math.abs(Math.atan2(Math.sin(q.yaw+p.yaw-Math.PI),Math.cos(q.yaw+p.yaw-Math.PI)))<1e-9);assert.ok(Math.abs(q.yawRate+p.yawRate)<1e-9);}assert.equal(a.contacts.length,b.contacts.length);}
+ assert.ok(l.minimumObservedClearance>=.6);assert.ok(l.maximumObservedSpeed<=1.25);
+ assert.throws(()=>resolveBoxCirculateBinding({...left,loopDirection:'right'}));
+ assert.throws(()=>resolveBoxCirculateBinding({...right,loopDirection:'left'}));
+ assert.throws(()=>resolveBoxCirculateBinding({...left,loopDirection:'clockwise' as 'left'}));
+ const mixed=lb.mapping.map(m=>({...m}));mixed.find(m=>m.mode==='loop-left')!.mode='loop-right';
+ assert.throws(()=>compileBoxCirculate({actorIds:[...left.entry.keys()],entry:left.entry,entryWave:left.entryWave,...lb,mapping:mixed,beats:4}));
+});

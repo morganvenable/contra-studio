@@ -115,3 +115,24 @@ test('paired exit rejects unsupported endpoint options and incompatible actual n
  const plain=compileCarriedWaveCirculate({...spec('robin',false),exit:f.exit},incoming),combined=compileCarriedWaveCirculate(f,incoming);
  for(const t of[0,1,2,3,4])assert.deepEqual(plain.sample(t),combined.sample(t+4));
 });
+
+for(const couples of[3,4])test(`left-loop full waves retain actual hands and waiting actors through four calls in a ${couples}-couple set`,()=>{
+ const raw=fixture(),actors=raw.actors.slice(0,couples*2),ids=new Set(actors.map(a=>a.id));
+ const boxes=raw.boxPartitions.slice(0,Math.floor(couples/2)),active=new Set(boxes.flat());
+ const poses=raw.poses.filter(p=>ids.has(p.id)).map(p=>({...p,position:{x:-p.position.x,z:p.position.z},yaw:-p.yaw}));
+ const segments=boxes.map(box=>({lines:raw.wave.lines.map(l=>({...l,order:l.order.filter(id=>box.includes(id))})).reverse(),hands:raw.wave.hands.filter(h=>box.includes(h.a)&&box.includes(h.b)).map(h=>({...h,handA:'left' as const,handB:'left' as const}))}));
+ const wave=joinLongWaveSegments(segments,poses,boxes.flat(),raw.bindingEpoch);
+ const start:CarriedWaveState={...raw,actors,poses,boxPartitions:boxes,partner:raw.partner.filter(([id])=>ids.has(id)),neighbor:raw.neighbor.filter(([id])=>active.has(id)),waitingIds:actors.filter(a=>!active.has(a.id)).map(a=>a.id),wave,heldContacts:fullLongWaveContacts(wave,poses)};
+ let state=start;
+ for(let call=0;call<4;call++){
+  const plan=compileCarriedWaveCirculate({...spec(call%2?'robin':'lark',false),loopDirection:'left'},state);
+  assert.deepEqual(plan.sample(0).contacts,state.heldContacts);assert.equal(plan.exitState.sourceBeat,start.sourceBeat+4*(call+1));
+  for(let beat=0;beat<=4;beat+=1/64){const frame=plan.sample(beat),used=new Set<string>();for(const id of start.waitingIds!)assert.deepEqual(frame.poses.find(p=>p.id===id),start.poses.find(p=>p.id===id));for(const h of frame.contacts)for(const [id,hand]of[[h.a,h.handA],[h.b,h.handB]]){const key=`${id}:${hand}`;assert.ok(!used.has(key));used.add(key);}}
+  state=plan.exitState;assert.deepEqual(state.partner,start.partner);assert.deepEqual(state.neighbor,start.neighbor);assert.equal(state.bindingEpoch,start.bindingEpoch);
+  assert.ok(state.wave.hands.filter(h=>!state.wave.seamHands.includes(h)).every(h=>h.handA==='left'));
+  assert.ok(state.wave.seamHands.every(h=>h.handA==='right'));
+  assert.ok(plan.maximumObservedSpeed<=1.8);assert.ok(plan.minimumObservedClearance>=.45);
+ }
+ for(const p of state.poses){const q=start.poses.find(q=>q.id===p.id)!;assert.ok(Math.hypot(p.position.x-q.position.x,p.position.z-q.position.z)<1e-7);assert.ok(turn(p.yaw,q.yaw)<1e-7);}
+ assert.deepEqual(state.wave,start.wave);for(const [i,h]of state.heldContacts.entries()){const q=start.heldContacts[i];assert.deepEqual({...h,point:q.point},q);assert.ok(Math.hypot(h.point.x-q.point.x,h.point.y-q.point.y,h.point.z-q.point.z)<1e-7);}
+});

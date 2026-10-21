@@ -1,4 +1,4 @@
-/** Explicit short waves, wave balances and right-loop box circulation.
+/** Explicit short waves, wave balances and explicit-direction box circulation.
  *
  * A wave is an ordered hand graph, not a proximity search. Passing to a wave,
  * balancing in it, Rory-style sliding/spinning, and circulating are different
@@ -31,7 +31,7 @@ export interface PassToWaveOptions extends Common {
  acrossWidth:number;sideSpacing:number;waveSpacing:number;passClearance:number;crossingBeats:number;
 }
 export interface WaveBalanceOptions extends Common {beats:4;wave:WaveGraph;style:'right-left'|'forward-back';amplitude:number;}
-export interface CirculateAssignment {id:number;destinationId:number;mode:'cross'|'loop-right';}
+export interface CirculateAssignment {id:number;destinationId:number;mode:'cross'|'loop-right'|'loop-left';}
 export interface BoxCirculateOptions extends Common {beats:4;frame:{origin:Vec2;across:Vec2};entryWave:WaveGraph;exitWave:WaveGraph;mapping:readonly CirculateAssignment[];}
 const EPS=1e-7;
 const clamp=(n:number)=>Math.max(0,Math.min(1,n));
@@ -121,15 +121,16 @@ export function compileBoxCirculate(options:BoxCirculateOptions):WavePlan{
  if(entryWave.lines.length!==2||exitWave.lines.length!==2)throw new Error('This box circulate requires two explicitly ordered long-wave segments.');
  const local=new Map(ids.map(id=>[id,F.local(entry.get(id)!.position)])),width=Math.abs(local.get(ids[0])!.x),depth=Math.abs(local.get(ids[0])!.z);
  if(width<.6||width>1.1||depth<.35||depth>.65||ids.some(id=>Math.abs(Math.abs(local.get(id)!.x)-width)>EPS||Math.abs(Math.abs(local.get(id)!.z)-depth)>EPS)||new Set([...local.values()].map(p=>`${Math.sign(p.x)}:${Math.sign(p.z)}`)).size!==4)throw new Error('Box circulate requires four distinct rectangular corner slots with reachable side-wave spacing.');
- const mapping=structuredClone(options.mapping);if(mapping.length!==4||new Set(mapping.map(m=>m.id)).size!==4||new Set(mapping.map(m=>m.destinationId)).size!==4||mapping.some(m=>!ids.includes(m.id)||!ids.includes(m.destinationId)||m.id===m.destinationId||!['cross','loop-right'].includes(m.mode))||mapping.filter(m=>m.mode==='cross').length!==2)throw new Error('Name a complete one-to-one circulate permutation with two crossers and two right-loopers.');
+ const mapping=structuredClone(options.mapping);if(mapping.length!==4||new Set(mapping.map(m=>m.id)).size!==4||new Set(mapping.map(m=>m.destinationId)).size!==4||mapping.some(m=>!ids.includes(m.id)||!ids.includes(m.destinationId)||m.id===m.destinationId||!['cross','loop-right','loop-left'].includes(m.mode))||mapping.filter(m=>m.mode==='cross').length!==2)throw new Error('Name a complete one-to-one circulate permutation with two crossers and two explicitly directed loopers.');
+ if(new Set(mapping.filter(m=>m.mode!=='cross').map(m=>m.mode)).size!==1)throw new Error('Both box loopers must travel in the same declared direction.');
  const byId=new Map(mapping.map(m=>[m.id,m]));
- for(const m of mapping){const p=local.get(m.id)!,side=Math.sign(p.x),out=m.mode==='loop-right',expected=out?{x:p.x,z:-p.z}:{x:-p.x,z:p.z},heading=F.yaw+(out?(side===1?0:Math.PI):(side===1?Math.PI:0)),a=entry.get(m.id)!,b=exit.get(m.id)!;
-  if(Math.abs(wrap(a.yaw-heading))>EPS||out&&Math.sign(p.z)!==-side)throw new Error('Crossers must face in and right-loopers must face out toward their next same-box right slot.');
-  if(gap(local.get(m.destinationId)!,expected)>EPS||gap(b.position,F.world(expected))>EPS||Math.abs(wrap(b.yaw-a.yaw+(out?Math.PI:0)))>EPS)throw new Error('The explicit circulate mapping or exit heading contradicts the named cross/right-loop action.');
+ for(const m of mapping){const p=local.get(m.id)!,side=Math.sign(p.x),out=m.mode!=='cross',turn=m.mode==='loop-left'?1:-1,expected=out?{x:p.x,z:-p.z}:{x:-p.x,z:p.z},heading=F.yaw+(out?(side===1?0:Math.PI):(side===1?Math.PI:0)),a=entry.get(m.id)!,b=exit.get(m.id)!;
+  if(Math.abs(wrap(a.yaw-heading))>EPS||out&&Math.sign(p.z)!==turn*side)throw new Error('Crossers must face in and loopers must face out toward their next same-box declared slot.');
+  if(gap(local.get(m.destinationId)!,expected)>EPS||gap(b.position,F.world(expected))>EPS||Math.abs(wrap(b.yaw-a.yaw+(out?Math.PI:0)))>EPS)throw new Error('The explicit circulate mapping or exit heading contradicts the named cross/loop action.');
  }
  const root=(id:number,beat:number):WavePose=>{const a=entry.get(id)!,p=local.get(id)!,m=byId.get(id)!,side=Math.sign(p.x),[q,d,dd]=progress(beat/4);let position:Vec2,velocity:Vec2,acceleration:Vec2,yaw=a.yaw,yawRate=0,yawAcceleration=0;
   if(m.mode==='cross'){position={x:p.x*(1-2*q),z:p.z};velocity={x:-2*p.x*d/4,z:0};acceleration={x:-2*p.x*dd/16,z:0};}
-  else{const theta=Math.PI*q,omega=Math.PI*d/4,alpha=Math.PI*dd/16;position={x:p.x+side*depth*Math.sin(theta),z:p.z*Math.cos(theta)};velocity={x:side*depth*Math.cos(theta)*omega,z:-p.z*Math.sin(theta)*omega};acceleration={x:side*depth*(-Math.sin(theta)*omega**2+Math.cos(theta)*alpha),z:-p.z*(Math.cos(theta)*omega**2+Math.sin(theta)*alpha)};yaw-=theta;yawRate=-omega;yawAcceleration=-alpha;}
+  else{const theta=Math.PI*q,omega=Math.PI*d/4,alpha=Math.PI*dd/16;position={x:p.x+side*depth*Math.sin(theta),z:p.z*Math.cos(theta)};velocity={x:side*depth*Math.cos(theta)*omega,z:-p.z*Math.sin(theta)*omega};acceleration={x:side*depth*(-Math.sin(theta)*omega**2+Math.cos(theta)*alpha),z:-p.z*(Math.cos(theta)*omega**2+Math.sin(theta)*alpha)};const turn=m.mode==='loop-left'?1:-1;yaw+=turn*theta;yawRate=turn*omega;yawAcceleration=turn*alpha;}
   return{id,position:F.world(position),velocity:F.vector(velocity),acceleration:F.vector(acceleration),yaw,yawRate,yawAcceleration};};
  return makePlan(options,owned,4,[0,4],exitWave,root,()=> 'circulate',(beat,poses)=>beat<.15?contactsFor(entryWave,poses,1-ease(beat/.15)):beat>3.85?contactsFor(exitWave,poses,ease((beat-3.85)/.15)):[],entryWave);
 }
