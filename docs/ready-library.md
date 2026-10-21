@@ -4,7 +4,15 @@ The Ready to play section contains reviewed source interpretations bundled with 
 
 The separate, collapsed ContraDB catalogue is a discovery index. Its entries are not all playable. Downloaded records still go through normal interpretation and whole-dance validation.
 
-As of 20 October 2026, 146 interpretations are included. The latest additions are Unbelievable! (2266) and Unbelievable! variation (3142), with explicitly reviewed historical comparisons and a physical compact chain exit into the same-neighbor promenade.
+As of 21 October 2026, 149 interpretations are included. The latest additions are
+Swamp Stomp (3326), The Baby Rose (8) and Bristol Court (2194). Exact reviewed
+archives retain timing, receiver, promenade and endpoint-progression choices.
+Complete three/four-couple periods check actual neighbors/partners, contacts,
+finite waiting, seams and closure. Built-browser imports and Ready cards open,
+scrub and play into round two without page errors using software WebGL; hardware
+GPU/audio and comprehensive anatomy remain outside this evidence.
+
+The preceding additions were Unbelievable! (2266) and Unbelievable! variation (3142), with explicitly reviewed historical comparisons and a physical compact chain exit into the same-neighbor promenade.
 
 The preceding additions were Daddy's Little Girl (823), retaining the literal Duple Improper formation, and Futon Frolic (3478), retaining its explicitly reviewed family-provenance note and partner chain.
 

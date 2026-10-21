@@ -1,16 +1,16 @@
 # Offline choreography coverage audit
 
 Regenerate: `node --experimental-strip-types scripts/audit-coverage.mjs --write`.
-Generated 2026-10-21T03:45:09.860Z; code revision d3f6a355b8a989f9676cb696d9e72010db6cda59 with local modifications. Runtime 101.9 seconds.
+Generated 2026-10-21T15:18:47.510Z; code revision 93886873d1848cc66a4655ebce1d7f5dcab8fb1c with local modifications. Runtime 81.6 seconds.
 This reads existing data only. It does not fetch sources, regenerate archives or approve suggested interpretations.
 
-There are **2422 catalogue records**, **172 retained snapshots**, and **144 saved Ready interpretations**. **2250 catalogue records have metadata only**; their figure content and motion coverage are unknown. These are overlapping sets, not additive counts. Exact set intersections are in the JSON.
+There are **2422 catalogue records**, **176 retained snapshots**, and **149 saved Ready interpretations**. **2246 catalogue records have metadata only**; their figure content and motion coverage are unknown. These are overlapping sets, not additive counts. Exact set intersections are in the JSON.
 
 | Input view | Sources | Import admitted | Interpretation blocked | Motion/validation blocked | Unparsed |
 | --- | ---: | ---: | ---: | ---: | ---: |
-| rawDefaults | 172 | 0 | 172 | 0 | 0 |
-| conventionalSuggestions | 172 | 144 | 23 | 5 | 0 |
-| savedInterpretation | 144 | 144 | 0 | 0 | 0 |
+| rawDefaults | 176 | 0 | 176 | 0 | 0 |
+| conventionalSuggestions | 176 | 145 | 26 | 5 | 0 |
+| savedInterpretation | 149 | 149 | 0 | 0 | 0 |
 
 “Import admitted” includes existing importer validation, its internal sampled checks and six-couple compile gate. It is not a new whole-period motion or visual certification. Raw defaults, hypothetical suggestions, and saved interpretations are separate views of overlapping sources.
 “Interpretation blocked” identifies the importer stage, not necessarily ambiguous authorship: this stage also enforces implementation-specific context and capability gates. Read the diagnostic causes before assigning research versus engineering work.
@@ -63,53 +63,53 @@ This table uses hypothetical conventional suggestions to expose remaining obstac
 - 2987, Stay in Touch: The event composition violates torso clearance near beat 10.5.
 - 3310, Kiss the Bride variation: A paired-radial swing needs opposite measured sideline pair centers within the .65–1.2 half-width envelope.
 
-The 28 unsaved retained records split into 2 import-admitted candidates, 5 motion/validation blocks and 21 interpretation-stage blocks.
-Candidates, **not saved Ready admissions**: 8 (The Baby Rose), 2194 (Bristol Court).
-Saved records that hypothetical suggestions cannot reconstruct: 94 (Butter; chain-receiver, circulation-choice); 3478 (Futon Frolic; chain-receiver, source-notes-classification). Their saved interpretation is tested separately. Thus the hypothetical admitted total must not be subtracted from saved Ready to count new candidates.
+The 27 unsaved retained records split into 1 import-admitted candidates, 5 motion/validation blocks and 21 interpretation-stage blocks.
+Candidates, **not saved Ready admissions**: 166 (Kiss the Bride).
+Saved records that hypothetical suggestions cannot reconstruct: 94 (Butter; chain-receiver, circulation-choice); 2266 (Unbelievable!; chain-receiver, source-notes-history-review); 3142 (Unbelievable! variation; chain-receiver, source-notes-history-review); 3326 (Swamp Stomp; chain-receiver, source-notes); 3478 (Futon Frolic; chain-receiver, source-notes-classification). Their saved interpretation is tested separately. Thus the hypothetical admitted total must not be subtracted from saved Ready to count new candidates.
 
 ## Figure frequencies in retained raw sources
 
 These are normalized figure occurrences recognized by the importer, not a linguistic census of every source instruction. Choices can split compound instructions into new figures: raw balance frequency is especially incomplete without balance/swing timing choices. Unsupported text can be missing here; see unresolved rows in JSON. Columns count sources containing each kind, with their different denominators; these views overlap.
 
-| Kind | Raw / 172 | Suggested / 172 | Saved / 144 |
+| Kind | Raw / 176 | Suggested / 176 | Saved / 149 |
 | --- | ---: | ---: | ---: |
-| allemande | 106 | 106 | 92 |
-| balance | 4 | 122 | 107 |
+| allemande | 109 | 109 | 95 |
+| balance | 4 | 124 | 111 |
 | balance-box-circulate | 0 | 4 | 2 |
 | balance-rory-slide | 0 | 1 | 1 |
 | becket-shift | 3 | 3 | 1 |
 | becket-slice | 0 | 4 | 4 |
-| box-the-gnat | 4 | 22 | 19 |
+| box-the-gnat | 4 | 22 | 20 |
 | butterfly-whirl | 0 | 1 | 1 |
 | california-twirl | 0 | 18 | 16 |
-| circle | 122 | 122 | 106 |
+| circle | 123 | 123 | 108 |
 | couples-do-si-do | 0 | 2 | 2 |
 | cross-trails | 0 | 1 | 1 |
-| do-si-do | 49 | 52 | 44 |
+| do-si-do | 51 | 54 | 46 |
 | form-short-wave | 1 | 1 | 1 |
 | give-and-take | 0 | 2 | 2 |
-| gyre | 2 | 18 | 12 |
+| gyre | 2 | 19 | 12 |
 | half-poussette | 0 | 2 | 1 |
 | hall-travel | 0 | 9 | 9 |
 | hey | 5 | 37 | 35 |
-| long-lines | 76 | 76 | 66 |
+| long-lines | 80 | 80 | 69 |
 | long-lines-rollaway | 0 | 1 | 1 |
 | mad-robin | 0 | 3 | 3 |
-| pass-through | 0 | 33 | 31 |
+| pass-through | 0 | 34 | 31 |
 | pass-to-wave-balance | 0 | 1 | 1 |
 | petronella | 0 | 16 | 14 |
-| promenade | 1 | 22 | 19 |
+| promenade | 1 | 25 | 22 |
 | pull-by | 7 | 7 | 5 |
 | revolving-door | 0 | 1 | 1 |
 | ricochet-hey | 0 | 1 | 1 |
 | right-left-through | 0 | 29 | 26 |
 | ring-balance | 45 | 50 | 41 |
-| robins-chain | 14 | 69 | 70 |
+| robins-chain | 14 | 69 | 74 |
 | rollaway | 0 | 2 | 1 |
-| square-through | 0 | 6 | 6 |
-| star | 52 | 52 | 44 |
+| square-through | 0 | 7 | 7 |
+| star | 54 | 54 | 48 |
 | star-promenade | 0 | 1 | 1 |
-| swing | 131 | 169 | 144 |
+| swing | 135 | 173 | 149 |
 
 ## What this permits us to conclude
 

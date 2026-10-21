@@ -4,14 +4,29 @@ Read this as a navigation index, not a second specification. The root `HANDOFF.m
 records release 0.42 and its holds. Older `next-*` documents may describe work
 already delivered. Contracts and executable tests determine current behavior.
 
-## Active parallel work ? 20 October 2026
+## Active parallel work - 21 October 2026
+
+Morgan's current objective is at least **1,000 verified playable Ready source
+entries**, with continuous autonomous jobs and release batches. Do not stop after
+each slice for confirmation. Keep source counts, choices, provenance, actual
+people and finite progression checks intact; corpus records and compile-only
+candidates do not count as Ready entries. Public baseline is146;149 are packaged
+and browser-verified locally, adding3326,8 and2194. Publication is in progress.
 
 | Workstream | Current checkpoint | Next action |
 | --- | --- | --- |
-| Ready admissions / release (lead) | 146 Ready published from 94d7868, artifact12f83d1, workflow39541649108; prior144 archives preserved | Review3326 candidate visually and prepare its explicit archive before any further admission |
-| Shared figure composition | 3506 held: both swing exit and final progression need interpretation;2352 circular hey held | Investigate bounded wave/left-loop variants independently |
-| Coverage triage | 2266/3142 published and freshly verified;3326 now compiles through generic reviewed endpoint events with full-period people/contact checks | Continue bounded source coverage;3326 remains outside Ready pending release review |
+| Ready admissions / release (lead) | 149 packaged;3326/8/2194 full-period and exact built-card checks pass; prior146 archives unchanged | Publish verified149 batch; prepare166 next |
+| Shared figure composition | Explicit left-loop kernel integrated;2329 left-wave handoffs and2247 compact paired balance progressing in isolated worktrees | Finish full-source progression/contact checks, integrate reusable contracts |
+| Coverage triage | Fresh2422-source census;166 mirrored omitted-shoulder review integrated;73-source forward/rollaway family under investigation | Extend adjacent4+4 source composition without inventing counts or choices |
 | Animation | Sampled safe frame domain50?70deg inward/.04?.08lean; extreme outward twist invalid | Normal controls shipped; preserve sampled-domain limits and approved default |
+
+149 release checkpoint: generator replays all149 archives; the previous146
+archive strings remain byte-identical. Thirty-three wave/admission/loader tests,
+twenty final source/admission tests and all script tests pass; TypeScript and
+Pages build pass. Explicit imports of3326,8,2194 run with3/4 couples, and all
+three exact built Ready cards scrub/play into round two with zero page errors.
+Selected screenshots were inspected. The fixture-only census now accounts for
+176 snapshots. Hardware GPU/audio and comprehensive anatomical checks unrun.
 
 Historical release evidence for the142-entry batch:33 focused acquired-candidate tests,
 three3260 source/finite-period tests, five census tests, TypeScript and Pages
