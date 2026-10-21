@@ -30,6 +30,13 @@ export function classifySourceHook(record:Pick<ContraDbRecord,'hook'|'rows'|'not
  const hook=canonical(record.hook);
  if(!hook||hook==='smooth transitions'||informational(hook))return{kind:'informational',reason:'Preserved as the source’s descriptive niche summary; the text has clear evaluative or provenance wording and introduces no recognized action, scope, timing or setup cue.'};
  const corroboratedSummary=(summary:string):string|undefined=>{
+  const counted=summary.match(/^(a|one|two|three|four|1|2|3|4) (partner|neighbor) swings? and (a|one|two|three|four|1|2|3|4) (partner|neighbor) swings?$/);
+  if(counted&&counted[2]!==counted[4]){
+   const number=(word:string)=>({a:1,one:1,two:2,three:3,four:4}[word]??Number(word)),expected=new Map([[counted[2],number(counted[1])],[counted[4],number(counted[3])]]),actual=new Map<string,number>();
+   const swings=record.rows.filter(row=>/\bswings?\b/.test(canonical(row.text)));
+   if(swings.length&&swings.every(row=>{const m=canonical(row.text).match(/^(partner|neighbor) (?:balance and |long )?swing$/);if(!m||typeof row.beats!=='number'||row.beats<=0)return false;actual.set(m[1],(actual.get(m[1])??0)+1);return true;})&&[...expected].every(([who,count])=>actual.get(who)===count))return 'The hook counts exactly the retained unqualified partner and neighbor swing rows. Combined balance-and-swing counts as one swing; no extra swing, duration, actor scope or ordering is supplied.';
+  }
+
   if(/^(?:simple|easy) with (?:simple|easy) progression$/.test(summary)){
    const tail=record.rows.slice(-3),[circle,ring,pass]=tail;
    if(tail.length===3&&circle.phrase==='B2'&&circle.beats===8&&circle.text==='circle left 3 places'&&ring.phrase==='B2'&&ring.beats===4&&ring.text==='balance the ring'&&pass.phrase==='B2'&&pass.beats===4&&/^pass through(?: to (?:new|next) neighbors)? ⁋$/.test(pass.text)&&pass.progression&&record.rows.filter(row=>row.progression).length===1&&record.rows.reduce((n,row)=>n+(row.beats??NaN),0)===64)return 'The hook evaluates the ease of the table’s single terminal ring/pass progression. Its exact circle 8, ring balance 4 and pass-through 4 remain source constraints; “easy” adds no movement or timing and is not a difficulty guarantee.';
