@@ -25,6 +25,7 @@ import {compileOrderedCircleStep} from './ordered-circle-step.ts';
 import {compileSquareThroughStep} from './square-through-step.ts';
 import {compileChainSquareHandoff} from './chain-square-handoff.ts';
 import {needsCompactPairBalance,compileCompactPairBalanceStep} from './compact-pair-balance-step.ts';
+import {compileDosidoRingStep} from './dosido-ring-step.ts';
 
 interface SequenceAdapter {
  readonly id:string;
@@ -47,6 +48,11 @@ export interface SequenceStepResult {readonly adapterId:string;readonly plan:Mot
  * through the same actual-state seam. New adapters consume the complete held
  * boundary directly; no whole-source signature is available to this registry. */
 export function compileSequenceStep(figure:Figure,context:FigureContext,incoming:SequenceBoundary,compileEstablished:()=>MotionPlan,capabilities:MotionCapabilities={}):SequenceStepResult {
+ if(figure.kind==='do-si-do'&&figure.exit==='ring'){
+  if(!capabilities.stateCarryingSequences||!capabilities.ringBalances)throw Error('Do-si-do ring preparation needs its registered state-carrying ring boundary.');
+  const plan=compileDosidoRingStep(figure,context,incoming);
+  return{adapterId:'dosido-to-held-ring',plan,ownsEntryFacing:true,boundaryPlan:plan};
+ }
  if(needsCompactPairBalance(figure,context,incoming)){
   const plan=compileCompactPairBalanceStep(figure,context,incoming);
   return{adapterId:'compact-pair-balance',plan,ownsEntryFacing:true,boundaryPlan:plan};

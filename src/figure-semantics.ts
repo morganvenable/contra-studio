@@ -25,7 +25,7 @@ const consumed:Record<string,readonly string[]>={
  'pass-to-wave-balance':['centerRole','sideRelation','passingShoulder','centerHand','sideHand','entry','phaseBeats','balanceStyle'],
  'wave-balance':['balanceStyle'],'box-circulate':['crossRole','loopRole','loopDirection'],'balance-box-circulate':['phaseBeats','balanceStyle','crossRole','loopRole','loopDirection','entry','exit'],
  balance:['who','hands'],swing:['who','entry','exit','preparation'],circle:['who','direction','amount','phaseBeats','turnToward','exit'],star:['who','direction','amount','starGrip'],allemande:['who','direction','amount','entry','exit','inwardRole','outwardRole','phaseBeats'],
- 'do-si-do':['who','direction','amount','exit','preparation'],'long-lines':['who'],'robins-chain':['who','direction','hands','exit'],'ladies-chain':['who','direction','hands','exit'],
+ 'do-si-do':['who','direction','amount','exit','preparation','phaseBeats'],'long-lines':['who'],'robins-chain':['who','direction','hands','exit'],'ladies-chain':['who','direction','hands','exit'],
  hey:['heyAxis','who','notation','entry','exit','amount','heyStartPair','heyStartRole','centerShoulder','endShoulder'],'box-the-gnat':['who','hands','underRole','entry','exit'],
  'right-left-through':['who','direction','courtesyLeader','crossingRelation'],'becket-shift':['direction'],
  'hall-travel':['entry','hallTurn','hallPairRelation','hallPhaseBeats'],
@@ -34,7 +34,8 @@ const consumed:Record<string,readonly string[]>={
 /** New schema fields cannot silently become accepted by unrelated adapters.
  * Value/variant validation stays with the adapter that consumes each argument. */
 export function assertFigureArgumentsConsumed(figure:Figure):void {
- if(figure.kind==='do-si-do'&&(figure.exit!==undefined||figure.preparation!==undefined)&&!(figure.who==='neighbor'&&figure.direction==='right'&&figure.amount===1.5&&figure.beats===8&&figure.progression===true&&figure.exit==='progressed-neighbors'))throw new Error('This do-si-do does not consume the declared exit or preparation modifier.');
+ const dosidoRing=figure.kind==='do-si-do'&&figure.who==='neighbor'&&figure.direction==='right'&&figure.amount===1&&figure.beats===8&&!figure.progression&&figure.exit==='ring'&&JSON.stringify(figure.phaseBeats)==='[6,2]'&&figure.preparation===undefined;
+ if(figure.kind==='do-si-do'&&(figure.exit!==undefined||figure.preparation!==undefined||figure.phaseBeats!==undefined)&&!dosidoRing&&!(figure.who==='neighbor'&&figure.direction==='right'&&figure.amount===1.5&&figure.beats===8&&figure.progression===true&&figure.exit==='progressed-neighbors'&&figure.phaseBeats===undefined))throw new Error('This do-si-do does not consume the declared exit, preparation or phase modifier.');
  if(figure.preparation!==undefined&&(figure.preparation!=='next-neighbor-balance'||!(figure.kind==='swing'&&figure.who==='ones'||figure.kind==='do-si-do'&&figure.who==='neighbor'&&figure.amount===1.5&&figure.exit==='progressed-neighbors')))throw new Error('This figure does not consume a declared next-neighbor balance preparation.');
  if(figure.progression!==undefined&&typeof figure.progression!=='boolean')throw new Error('A progression marker must be an explicit boolean.');
  if(figure.kind==='hey'&&figure.notation!==undefined&&[figure.heyStartPair,figure.heyStartRole,figure.centerShoulder,figure.endShoulder,figure.amount].some(v=>v!==undefined))throw new Error('A hey must use either exact pass notation or the explicit role/shoulder contract, not mixed declarations.');
