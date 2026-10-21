@@ -16,6 +16,12 @@ function phraseRows(record:ContraDbRecord,phrase:'A1'|'A2'|'B1'|'B2'):ContraDbRo
 /** A bounded current-version/history distinction. This does not discard prose:
  * it offers a separately removable review of exact current table evidence. */
 export function corroboratedSourceHistory(record:ContraDbRecord):CorroboratedSourceHistory|undefined {
+ if(record.notes==="Author's Notes: This dance started out as a variation of Jubilation by Gene Hubert in which the partner allemande is replaced by a swing and the gentlespoons start the hey. This gives the same swing / 1/2 hey / swing sequence as in Diagonal Discovery, also by Gene Hubert. The dance is further modified by replacing the gentlespoons allemande left 1+1/2 and long lines with circle left 3/4 and right and left through, which moves the middle of the dance to the opposite side of the set."){
+  const a2=phraseRows(record,'A2'),b1=phraseRows(record,'B1'),b2=phraseRows(record,'B2');if(!a2||!b1||!b2||a2.length!==2||b1.length!==2||b2.length!==2)return;
+  const rows=[...a2,...b1,...b2],expected=['circle left 3 places','partners swing','gentlespoons start a half hey - lefts in center, rights on ends','partners swing','right left through','ladles chain \u204b'];
+  if(rows.some((row,i)=>row.text!==expected[i]||row.beats!==8||row.progression!==(i===5))||record.rows.filter(row=>row.progression).length!==1)return;
+  return{kind:'phrase-summary',sourceRowIds:rows.map(row=>row.id),reason:'Review retains the printed circle left three places, partner swing, lark-start half hey, partner swing, right-and-left-through and terminal chain, each for eight counts. The described substitutions match these literal clauses. Claims about Gene Hubert, Jubilation, Diagonal Discovery, original versions and comparative placement remain attributed, unverified history; they do not insert an allemande, long lines or an alternative figure. Actual people, side positions and terminal progression require independent carried-state validation.'};
+ }
  if(record.notes==='While the A section is pretty variable and the B section, with its iconic swaps across the ring, is what identifies any "Lanny\'s" dance, I believe this is the original version of the dance. At the very least, it\'s the version I last heard Erik call.'){
   const b1=phraseRows(record,'B1');if(!b1||b1.length!==4)return;
   const expected=['balance the ring','ladles pass by right shoulders','balance the ring','gentlespoons pass by right shoulders'];

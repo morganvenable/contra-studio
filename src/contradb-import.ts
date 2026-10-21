@@ -888,6 +888,11 @@ export function importContraDb(input:string,options:ContraDbSourceOptions&{inter
  warnings.push('ContraDB software is AGPL-3.0. Its public page does not establish a blanket choreography/data republication license.','This is a schematic interpretation; source recognition and sampled motion validation are separate checks.');
  if(!coverage.semanticallyResolved||!formation)return finish();
  const figures=result.rows.flatMap(r=>r.figures).map(f=>({...f}));
+ // A paired-swing half hey followed later by a source-marked terminal chain
+ // uses the shared actual-state route; the original marker supplies evidence.
+ if(figures.some(f=>f.kind==='hey'&&f.exit==='opposite-paired-swing')&&eventFigure?.kind==='robins-chain'&&(options.capabilities??REGISTERED_MOTION_CAPABILITIES).stateCarryingSequences&&formation==='duple-improper'&&progressionEvents===undefined&&progresses.length===1&&eventRow?.source.progression&&eventRow.source.index===record.rows.length-1&&eventFigure?.progression===true){
+  progressionEvents=[{afterFigureId:eventFigure.id,count:1,waitingRoleArrangement:'lark-left',source:{sourceId:record.snapshotId,url:record.sourceUrl,clause:eventRow.source.text,basis:'source-explicit'}}];
+ }
  // A removable endpoint review can supply the shared sequencer's event even
  // when the literal table has no marker. Mark only the execution figure: source
  // rows and their resolved figures remain unchanged, and the finite compiler
