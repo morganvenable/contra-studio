@@ -407,3 +407,28 @@ courtesy cues. Focused source tests cover archive replay, choice removal, wrong
 snapshot, extra choices, unconsumed clauses, changed zero-count assertions and
 disabled capabilities. GPU/audio checks and Ready generation belong to lead
 integration, and have not been run in this worktree.
+
+
+### 2026-10-21: source3265 finite full-hey wave proof
+
+`role-hey-wave-step.ts` and `carried-hey-wave-producer.ts` now accept a
+source-counted sixteen-count full hey, retaining the established eight named
+encounters, full station return, full-hey1.35 walking bound and actual wave
+hand acquisition. The existing twelve-count wave-swing route is unchanged;
+eight-count named partner/neighbor swings use the measured monotone phase
+from the preserved wave workstream, with actual side-pair identity checks.
+
+`improper-wave-sequence.ts` composes carried full-set wave operations with
+ordinary named local figures and a reached terminal twirl event. Compact
+ring/twirl endpoints are explicit. A.20-m outward bow translates each partner
+pair and its hands together during the same four twirl counts, preserving
+synchronized rotation and exact exit slots. Existing default twirls are
+unchanged. The opening balance acquires during counts.5?1; the twelve-count
+swing releases its frame during8.84?9.84 before radius expansion.
+
+Source3265 exact64-count program closes3/4-couple periods (6/8 repeats).
+Independent1/64-count checks find minimumgap.480000, maximumwalking1.246546,
+maximumyaw2.945038 and maximumreach.640000. Actual rank/neighbor/waiting maps,
+zero-count wave roles, hand receivers, all figure/repeat seams and closure are
+checked. Seventeen focused wave and existing ring/twirl rig tests pass;
+TypeScript passes. Source lowering/Ready admission follows separately.
