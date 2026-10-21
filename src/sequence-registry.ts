@@ -1,3 +1,4 @@
+import {compileRoleShoulderPassStep} from './role-shoulder-pass-step.ts';
 import {compileCarriedLinesRollawayStep} from './carried-lines-rollaway-step.ts';
 import {needsShortReleasedPairSwingEntry,compileShortReleasedPairSwingStep} from './short-released-pair-swing-step.ts';
 import {compileNeighborDosidoStep} from './neighbor-dosido-step.ts';
@@ -69,6 +70,10 @@ export function compileSequenceStep(figure:Figure,context:FigureContext,incoming
   if(!capabilities.stateCarryingNeighborDosidos)throw new Error('A progressing neighbor do-si-do requires its registered actual-state pair boundary.');
   const plan=compileNeighborDosidoStep(figure,context,incoming);
   return{adapterId:'neighbor-dosido-exchange',plan,ownsEntryFacing:true,boundaryPlan:plan};
+ }
+ if(figure.kind==='pass-through'&&['larks','robins'].includes(figure.who??'')){
+  if(!capabilities.stateCarryingRolePasses)throw Error('Role shoulder passages require their registered carried-state capability.');
+  const plan=compileRoleShoulderPassStep(figure,context,incoming);return{adapterId:'role-shoulder-pass',plan,ownsEntryFacing:true,boundaryPlan:plan};
  }
  if(figure.kind==='rollaway'){
   if(!capabilities.stateCarryingRollaways)throw new Error('A standalone rollaway requires its registered actual-state exchange boundary.');
