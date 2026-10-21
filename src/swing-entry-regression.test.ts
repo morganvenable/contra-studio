@@ -1,3 +1,4 @@
+import type {BecketWaveSwingEntryEvidence} from './becket-wave-policy.ts';
 /** Whole reviewed-source timing guard. Explicitly reviewed moving handoffs
  * are bounded within their source swing; an unclassified delay is rejected. */
 import test from 'node:test';
@@ -19,7 +20,7 @@ test('every reviewed swing has a bounded, truthfully acquired frame and musical 
   const imported=readContraDbImport(archive);
   assert.ok(imported.dance,`${id}: ${JSON.stringify(imported.errors)}`);const dance=imported.dance;
   for(const couples of[3,6]){
-   const c=compileChoreography(dance,couples) as ReturnType<typeof compileChoreography>&{sequenceBoundaries?:(repeat:number)=>readonly SequenceStepProof[]};
+   const c=compileChoreography(dance,couples) as ReturnType<typeof compileChoreography>&{sequenceBoundaries?:(repeat:number)=>readonly SequenceStepProof[];swingEntryEvidence?:(repeat:number)=>readonly BecketWaveSwingEntryEvidence[]};
    for(let repeat=0;repeat<2*couples;repeat++)for(const[fi,figure]of dance.figures.entries()){
     if(figure.kind!=='swing')continue;
     const previous=dance.figures[fi-1],at=repeat*c.totalBeats+c.starts[fi],start=c.sample(at),settled=c.sample(at+Math.min(3,figure.beats*.4)),seen=new Set<number>();
@@ -37,13 +38,18 @@ test('every reviewed swing has a bounded, truthfully acquired frame and musical 
     // frame at source count zero.
     const hallConnection=previous?.kind==='long-lines'&&figure.beats===8&&figure.entry===undefined&&figure.exit==='face-down-line'&&!figure.progression&&next?.kind==='hall-travel'&&next.entry==='paired-sidelines-facing-down'&&next.hallPairRelation===figure.who&&JSON.stringify(next.hallPhaseBeats)==='[4,4,4,4]';
     const legacyInwardConnection=(previous?.kind==='do-si-do'||hallConnection)&&figure.entry===undefined;
-    // The reviewed four-count larks-left pull-by finishes at exact corner
+    // The reviewed four-count larks-left or robins-right pull-by finishes at exact corner
     // slots. Its twelve-count partner swing connects over 1.68 counts and
     // acquires the full frame by 2.4, inside the unchanged source interval.
-    const legacyPullByConnection=previous?.kind==='pull-by'&&previous.who==='larks'&&previous.hands==='left'&&previous.beats===4&&!previous.progression&&figure.who==='partner'&&figure.beats===12&&!figure.progression&&figure.entry===undefined&&figure.exit===undefined;
+    const legacyPullByConnection=previous?.kind==='pull-by'&&(previous.who==='larks'&&previous.hands==='left'||previous.who==='robins'&&previous.hands==='right')&&previous.beats===4&&!previous.progression&&figure.who==='partner'&&figure.beats===12&&!figure.progression&&figure.entry===undefined&&figure.exit===undefined;
     const waveConnection=previous?.kind==='allemande'&&previous.entry==='short-wave'&&previous.exit==='partner-swing'&&figure.entry==='short-wave-partners';
     // Current ones swing persistent partners after the registered 1.25-count
     // approach. This rank selection does not turn their partners into neighbors.
+    // The compact full-wave program carries a released inward connection after
+    // its reached circle/pass event. Evidence names the actual finite neighbors;
+    // the same root/rotation checks below still apply inside the source counts.
+    const becketEvidence=c.swingEntryEvidence?.(repeat).find(e=>e.figureId===figure.id);
+    if(becketEvidence){assert.equal(becketEvidence.kind,'compact-released-inward');assert.equal(becketEvidence.sourceBeat,at);assert.equal(becketEvidence.beats,8);assert.equal(figure.beats,8);assert.equal(figure.who,'neighbor');assert.equal(becketEvidence.approachBeats,1.12);assert.equal(becketEvidence.facingBeats,1.25);assert.equal(becketEvidence.fullFrameBeat,1.75);assert.equal(becketEvidence.angularMotionBy,1.25);assert.deepEqual(becketEvidence.heldAtEntry,[]);}
     const activeConnection=figure.who==='ones';
     if(activeConnection){assert.equal(figure.beats,8);assert.ok(figure.exit==='face-down-line'||figure.exit==='progressed-neighbors');}
     for(const p of start.poses){
@@ -53,11 +59,12 @@ test('every reviewed swing has a bounded, truthfully acquired frame and musical 
      const other=hold.a===p.id?hold.b:hold.a;seen.add(p.id);seen.add(other);
      const releasedProof=releasedProofs.find(proof=>proof.entry.actors.some(actor=>actor.id===p.id)&&proof.entry.actors.some(actor=>actor.id===other)),releasedConnection=!!releasedProof;
      if(releasedProof){assert.ok(figure.who==='partner'||figure.who==='neighbor');assert.equal(new Map(figure.who==='partner'?releasedProof.entry.partner:releasedProof.entry.neighbor).get(p.id),other,'Released swing retains the actual named relationship.');}
-     const inwardConnection=legacyInwardConnection&&!releasedConnection,pullByConnection=legacyPullByConnection&&!releasedConnection;
+     const inwardConnection=(legacyInwardConnection||!!becketEvidence)&&!releasedConnection,pullByConnection=legacyPullByConnection&&!releasedConnection;
      if(inwardConnection)assert.equal(figure.beats,8,'A longer unprepared swing requires review instead of scaling its gathering delay.');
      if(pullByConnection){assert.equal(c.totalBeats,64);assert.equal(c.starts[fi+1]-c.starts[fi],12,'The connecting step cannot add musical counts.');}
-     const fullAt=releasedConnection?1.75:inwardConnection?1.6:waveConnection?1.5:pullByConnection?2.4:activeConnection?1.25:0,turnAt=releasedConnection?.25:inwardConnection?1.25:pullByConnection?2:activeConnection?1.75:.25;
+     const fullAt=releasedConnection?1.75:becketEvidence?becketEvidence.fullFrameBeat:inwardConnection?1.6:waveConnection?1.5:pullByConnection?2.4:activeConnection?1.25:0,turnAt=releasedConnection?.25:inwardConnection?1.25:pullByConnection?2:activeConnection?1.75:.25;
      assert.equal(c.dancers[p.id].couple===c.dancers[other].couple,figure.who==='partner'||activeConnection,`${id}/${at}: source relationship`);
+     if(becketEvidence)assert.ok(becketEvidence.pairs.some(([a,b])=>a===p.id&&b===other||a===other&&b===p.id),'Compact swing must retain its actual current neighbor.');
      const label=`${id}/${couples}/${at}/${p.id}-${other}`;
      const full=edges(c.sample(at+fullAt),p.id,other);
      assert.equal(full.length,3,`${label}: complete joined/back/support frame`);
