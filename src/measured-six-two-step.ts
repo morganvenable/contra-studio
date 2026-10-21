@@ -21,7 +21,7 @@ function phase(t:number):number{const length=arcLength*travel(Math.min(1,t*6/ROT
 export interface MeasuredSixTwoGeometry {
  readonly origin:Readonly<Vec2>;readonly axis:Readonly<Vec2>;
  readonly halfWidth:number;readonly rowGap:number;readonly forwardPreparation:number;
- readonly lanePreparation:.30;readonly outwardPreparation:.04;
+ readonly lanePreparation:.30;readonly outwardPreparation:.04|.10;
 }
 export interface MeasuredSixTwoPlan extends SequencedMotionPlan {
  readonly geometry:MeasuredSixTwoGeometry;
@@ -49,9 +49,11 @@ function frame(boundary:SequenceBoundary,axis:Vec2){
  const world=(p:Vec2)=>({x:origin.x+p.x*across.x+p.z*axis.x,z:origin.z+p.x*across.z+p.z*axis.z});
  return{origin,axis,local,world};
 }
-function geometry(f:ReturnType<typeof frame>,halfWidth:number):MeasuredSixTwoGeometry{
- if(!Number.isFinite(halfWidth)||halfWidth<.72-EPS||halfWidth>.9+EPS)throw new Error('Measured six-plus-two roots must stay in the verified .72–.90 half-width envelope; no width repair is performed.');
- return Object.freeze({origin:Object.freeze({...f.origin}),axis:Object.freeze({...f.axis}),halfWidth,rowGap:2*halfWidth,forwardPreparation:2*halfWidth-PASS_TRAVEL,lanePreparation:LANE,outwardPreparation:OUTWARD});
+export interface CompactSixTwoPreparation {halfWidth:.64;outwardPreparation:.10;passBow:.20;passTravel:1.10;handReleaseBeats:.75;handAcquisitionStart:.75;handAcquisitionBeats:.25;}
+function compact(raw?:CompactSixTwoPreparation):CompactSixTwoPreparation|undefined{if(raw===undefined)return;const p=capturePlainData(raw);if(Object.keys(p).length!==7||p.halfWidth!==.64||p.outwardPreparation!==.10||p.passBow!==.20||p.passTravel!==1.10||p.handReleaseBeats!==.75||p.handAcquisitionStart!==.75||p.handAcquisitionBeats!==.25)throw Error('Compact preparation requires its complete explicit bounded dimensions.');return p;}
+function geometry(f:ReturnType<typeof frame>,halfWidth:number,preparation?:CompactSixTwoPreparation):MeasuredSixTwoGeometry{
+ if(!Number.isFinite(halfWidth)||(preparation?Math.abs(halfWidth-preparation.halfWidth)>EPS:halfWidth<.72-EPS||halfWidth>.9+EPS))throw new Error('Measured six-plus-two roots must stay in the verified .72–.90 half-width envelope; no width repair is performed.');
+ return Object.freeze({origin:Object.freeze({...f.origin}),axis:Object.freeze({...f.axis}),halfWidth,rowGap:2*halfWidth,forwardPreparation:2*halfWidth-(preparation?.passTravel??PASS_TRAVEL),lanePreparation:LANE,outwardPreparation:preparation?.outwardPreparation??OUTWARD});
 }
 function actorTime(boundary:SequenceBoundary,id:number,t:number):number{
  if(!boundary.actors.some(a=>a.id===id))throw new Error('Actor is outside this measured six-plus-two step.');return sampleTime(t,1);
@@ -72,11 +74,12 @@ function finish(context:FigureContext,boundary:SequenceBoundary,plan:MotionPlan,
 
 /** The current partner edges establish the actual longways axis. No source,
  * title, ID ordering or whole-prefix geometry is consulted. */
-export function compileMeasuredSixCountCircleStep(input:Figure,context:FigureContext,incoming:SequenceBoundary):MeasuredSixTwoPlan{
+export function compileMeasuredSixCountCircleStep(input:Figure,context:FigureContext,incoming:SequenceBoundary,rawPreparation?:CompactSixTwoPreparation):MeasuredSixTwoPlan{
+ const preparation=compact(rawPreparation),OUTWARD=preparation?.outwardPreparation??.04;
  const f=figure(input,'circle');if(!context.next)throw new Error('The measured circle needs its immediate two-count passage.');figure(context.next,'pass-through');
  const b=entry(context,incoming),byId=new Map(b.poses.map(p=>[p.id,p])),partner=new Map(b.partner),neighbor=new Map(b.neighbor),first=b.poses[0].position,mate=byId.get(partner.get(b.poses[0].id)!)!.position,gap=distance(first,mate);
  if(gap<EPS)throw new Error('The measured circle needs distinct partner slots.');
- const space=frame(b,{x:(mate.x-first.x)/gap,z:(mate.z-first.z)/gap}),starts=new Map(b.poses.map(p=>[p.id,space.local(p.position)])),h=gap/2,g=geometry(space,h);
+ const space=frame(b,{x:(mate.x-first.x)/gap,z:(mate.z-first.z)/gap}),starts=new Map(b.poses.map(p=>[p.id,space.local(p.position)])),h=gap/2,g=geometry(space,h,preparation);
  for(const[id,p]of starts){const a=starts.get(partner.get(id)!)!,n=starts.get(neighbor.get(id)!)!;
   if(Math.abs(Math.abs(p.x)-h)>EPS||Math.abs(Math.abs(p.z)-h)>EPS||Math.abs(p.x-a.x)>EPS||Math.abs(p.z+a.z)>EPS||Math.abs(p.x+n.x)>EPS||Math.abs(p.z-n.z)>EPS)throw new Error('The measured circle requires actual square roots, sideline partners and across-set current neighbors.');
  }
@@ -84,16 +87,17 @@ export function compileMeasuredSixCountCircleStep(input:Figure,context:FigureCon
  const original=compilePrimitiveFigure(f,ids,start,dancers,[]);
  const position=(id:number,raw:number)=>{const t=actorTime(b,id,raw),p=starts.get(id)!,q=phase(t),a=1.5*Math.PI*q,r=radius(q),targetX=p.z,targetZ=-p.x,w=ease((t*6-ROTATION_BEATS)/PREPARATION_BEATS);return space.world({x:r*(p.x*Math.cos(a)-p.z*Math.sin(a))+(Math.sign(targetX)*OUTWARD-Math.sign(targetZ)*LANE)*w,z:r*(p.x*Math.sin(a)+p.z*Math.cos(a))-Math.sign(targetZ)*g.forwardPreparation*w});};
  const facing=(id:number,raw:number)=>{const t=actorTime(b,id,raw),a=heading(position(id,t),space.origin),p=starts.get(id)!,forward=Math.sign(p.x),target=heading({x:0,z:0},{x:forward*space.axis.x,z:forward*space.axis.z}),w=ease((t*6-ROTATION_BEATS)/PREPARATION_BEATS),natural=a+turn(target,a)*w,initial=byId.get(id)!.yaw;return t<.12?initial+turn(natural,initial)*smooth(t/.12):natural;};
- const plan:MotionPlan={position,facing,contacts:(raw,poses)=>{const t=sampleTime(raw,1);return original.contacts(t,poses).map(c=>({...c,strength:c.strength*(1-ease((t*6-ROTATION_BEATS)/PREPARATION_BEATS))})).filter(c=>c.strength>0);}};
+ const plan:MotionPlan={position,facing,contacts:(raw,poses)=>{const t=sampleTime(raw,1);return original.contacts(t,poses).map(c=>({...c,strength:c.strength*(preparation?ease((t*6-preparation.handAcquisitionStart)/preparation.handAcquisitionBeats):1)*(1-ease(preparation?(t*6-(ROTATION_BEATS-preparation.handReleaseBeats))/preparation.handReleaseBeats:(t*6-ROTATION_BEATS)/PREPARATION_BEATS))})).filter(c=>c.strength>0);}};
  return finish(context,b,plan,6,g);
 }
 
 /** Re-measure only the prepared roots and their forward facing. The existing
  * boundary itself carries all state; no hidden continuation ticket is needed. */
-export function compileMeasuredTwoCountPassStep(input:Figure,context:FigureContext,incoming:SequenceBoundary):MeasuredSixTwoPlan{
+export function compileMeasuredTwoCountPassStep(input:Figure,context:FigureContext,incoming:SequenceBoundary,rawPreparation?:CompactSixTwoPreparation):MeasuredSixTwoPlan{
+ const preparation=compact(rawPreparation),OUTWARD=preparation?.outwardPreparation??.04,PASS_BOW=preparation?.passBow??.24,PASS_TRAVEL=preparation?.passTravel??1.20;
  figure(input,'pass-through');if(context.next!==undefined)throw new Error('The measured two-count passage must end at the declared finite event.');
  const b=entry(context,incoming),yaw=b.poses[0].yaw,space=frame(b,{x:Math.sin(yaw),z:Math.cos(yaw)}),starts=new Map(b.poses.map(p=>[p.id,space.local(p.position)])),byId=new Map(b.poses.map(p=>[p.id,p])),neighbor=new Map(b.neighbor),partner=new Map(b.partner);
- const centers=b.poses.map(p=>{const a=starts.get(p.id)!,n=starts.get(neighbor.get(p.id)!)!;return(a.x+n.x)/2;}),h=centers.reduce((n,x)=>n+Math.abs(x),0)/4-OUTWARD,g=geometry(space,h),ends=new Map<number,Vec2>();
+ const centers=b.poses.map(p=>{const a=starts.get(p.id)!,n=starts.get(neighbor.get(p.id)!)!;return(a.x+n.x)/2;}),h=centers.reduce((n,x)=>n+Math.abs(x),0)/4-OUTWARD,g=geometry(space,h,preparation),ends=new Map<number,Vec2>();
  for(const[id,a]of starts){const n=starts.get(neighbor.get(id)!)!,side=Math.sign(a.x),front=Math.sign(a.z),forward=-front,expectedYaw=heading({x:0,z:0},{x:forward*space.axis.x,z:forward*space.axis.z});
   if(Math.abs(a.x-(side*(h+OUTWARD)-front*LANE))>EPS||Math.abs(Math.abs(a.z)-(PASS_TRAVEL-h))>EPS||Math.abs((a.x+n.x)/2-side*(h+OUTWARD))>EPS||Math.abs(a.z+n.z)>EPS||Math.abs(turn(byId.get(id)!.yaw,expectedYaw))>EPS)throw new Error('The measured passage requires the exact released preparation and forward-facing current-neighbor shoulder lanes.');
   ends.set(id,{x:side*h,z:-front*h});

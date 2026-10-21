@@ -348,3 +348,38 @@ certificate or Ready admission. Source2329's opening circle6/pass2 progresses
 inside a Becket dance; the existing finite Becket wrapper owns only its literal
 slice event. That reached pass endpoint and its end behavior remain the next
 whole-source integration seam. No generated archives changed. GPU/audio unrun.
+
+## Finite Becket circle/pass and full wave program - 21 October 2026
+
+`becket-circle-pass-step.ts` now owns an actual eight-count circle6/pass2
+endpoint transaction. It retains the finite Becket slot ledger while the
+reached bodies are in the split-partner, next-neighbor-swing phase. A separately
+reviewed waiting convention takes eight counts to prepare reentry and eight
+counts after the pass to turn at that same physical end. No actor or contact
+moves during the count8 rebinding transaction.
+
+The measured six-plus-two adapter accepts an explicit additional compact preset:
+.64 half-width, .30 lane, .10 outward preparation, .20 passage bow and1.10
+passage travel. Legacy defaults are unchanged. Existing local minimum clearance
+.65 and pass speed.85 are retained. Compact circle hands acquire during counts
+.75-1 and release during4.5-5.25, before forward-facing passage preparation.
+These are internal reviewed allocations inside the literal6+2 source counts.
+
+`becket-wave-sequence.ts` composes independently validated operations around the
+whole-set wave seam; local four-actor wrappers cannot discard between-box hands.
+Source2329 now closes actual roots/facings/contacts through all6/8 repeats for
+3/4-couple sets. Independent rank/side arithmetic checks every neighbor and
+waiting assignment before/after count8, persistent partners, all swing/courtesy
+receivers and every figure/repeat seam. At1/64 count: max root speed1.277054,
+minimum clearance.551788, maximum raw-contact shoulder reach.625010. Existing
+chain facing reaches5.857772 radians/count; this is not a new anatomical or
+angular-speed certification. No limits were relaxed. Renamed source and invalid
+semantics/provenance/timing tests also pass.
+
+The prior2329 finite-progression hold is therefore resolved in the explicit
+experimental program. Next add source-bound removable lowering and ordinary
+playback dispatch: no replayable import archive, Ready admission, browser/GPU or
+audio claim exists yet. The initial regression scope passed24 tests across the
+measured/mirrored/source six-two, new Becket step/program, carried hey producer
+and Ready-library families (146 saved archives on this worker baseline), plus
+TypeScript. Lead integration must check the newer main Ready batch separately.
