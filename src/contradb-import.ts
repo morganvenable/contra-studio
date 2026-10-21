@@ -82,6 +82,8 @@ export function normalizeContraDbRow(row:ContraDbRow,formation:'duple-improper'|
  let terminalEndpointQualifier:string|undefined;
  const endpointWording=text.match(/^((?:star (?:left|right)(?: - (?:hands across|wrist grip) -)? 4 places)|(?:(?:ladles|ladies|women|robins|ravens) chain)) ((?:and )?look for (?:next|new) neighbors?|\(look for (?:next|new) neighbors?\)|to next couple|look for new)$/i);
  if(endpointWording){text=endpointWording[1];terminalEndpointQualifier=endpointWording[2];if(!row.progression)issue('progression-qualifier','This endpoint wording requires its retained source progression marker; missing or extra progression is not inferred from a stripped clause.');}
+ const namedChainEndpoint=text.match(/^((?:ladles|ladies|women|robins|ravens) chain to neighbors?), (look to the next)$/i);
+ if(namedChainEndpoint){text=namedChainEndpoint[1];terminalEndpointQualifier=namedChainEndpoint[2];if(!row.progression)issue('progression-qualifier','The chain endpoint cue requires its retained source progression marker.');}
  const fullHeyEndpoint=text.match(/^((?:ladles|ladies|women|robins|ravens|gentlespoons|gents|men|larks) start a full hey - (?:rights|lefts) in center, (?:rights|lefts) on ends) (look for new neighbors in line of progression on the side of set)$/i);
  if(fullHeyEndpoint){text=fullHeyEndpoint[1];terminalEndpointQualifier=fullHeyEndpoint[2];textualProgression=true;}
  const longLinesEndpoint=text.match(/^(long lines forward & back) (look for new neighbors in line of progression|- ID next neighbors)$/i);

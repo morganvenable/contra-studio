@@ -88,7 +88,7 @@ export function reviewSourceAnnotations(record:ContraDbRecord,context:{initialWa
  const diagnostics:ContraDbDiagnostic[]=[],warnings:string[]=[];
  const issue=(code:string,message:string)=>diagnostics.push({code,message,severity:'review'});
  const deferred=context.family==='improper-deferred'&&context.initialBinding==='retain-starting-neighbors'&&context.waitingRoleArrangement==='lark-left'&&context.hasHallComposition;
- const hallSummary=context.sourceHook==='hall-summary'&&record.hook==='simple up and down the hall'&&deferred;
+ const hallSummary=context.sourceHook==='hall-summary'&&(record.hook==='simple up and down the hall'&&deferred||record.hook==='easy down the hall glossary dance with chain'&&context.hasHallComposition&&context.hasResolvedComposition&&context.hasNoChainComposition===false);
  const reversed=context.family==='becket-right-half-hey'&&context.circulation==='cw'&&context.waitingRoleArrangement==='lark-right';
  const hookClassification=classifySourceHook(record),originality=originalityHookReview(record),originalityReviewed=!!originality&&context.sourceHook==='originality-commentary';
  const partnerSummary=partnerSwingsForBothSummary(record),partnerSummaryReviewed=!!partnerSummary&&context.sourceHook==='partner-swings-for-both';
@@ -114,7 +114,7 @@ export function reviewSourceAnnotations(record:ContraDbRecord,context:{initialWa
   else if(context.hasReviewedMadRobinHook&&record.hook==='mad ladle to mad ladle progression')warnings.push('The separately reviewed hook retains a complete orbit around the old neighbor, returning to already-progressed roots; only the source terminal event binds the next neighbor. Opposite world orbit directions preserve robins in front in their respective layouts.');
   else if(partnerSummaryReviewed)warnings.push(`Snapshot-bound hook interpretation: ${partnerSummary}`);
   else if(partnerSummary)issue('source-hook-scope-review',partnerSummary);
-  else if(hallSummary)warnings.push('Source hook retained as a summary of the explicitly compiled down-the-hall composition; it does not waive the first-pass progression exception.');
+  else if(hallSummary)warnings.push('Source hook retained as a summary of the compiled hall composition and any source-named chain. It does not waive source movement, endpoint, or first-pass constraints.');
   else if(context.sourceHook==='descriptive'&&isDescriptiveSourceHook(record.hook))warnings.push(`Retained source hook “${record.hook}” is explicitly classified as a difficulty description, with no movement instruction removed.`);
   else if(reversed&&record.hook==='ladles courtesy turn the gentlespoons; progress indecent')warnings.push('Source hook consumed: robin-led neighbor courtesy turn and lark-right/robin-left progression and end placement are explicit motion constraints.');
   else if(context.hasFullHeyRepeatGyre&&fullHeyRepeatGyreShoulder(record))warnings.push(`Source hook consumed as a cyclic movement constraint: the complete final hey reaches new neighbors, and the following cycle begins the ${fullHeyRepeatGyreShoulder(record)}-shoulder neighbor gyre. The shoulder is source-supplied, while the exact physical progression and relation are validated by the whole-dance compiler.`);
