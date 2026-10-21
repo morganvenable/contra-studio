@@ -8,18 +8,28 @@ already delivered. Contracts and executable tests determine current behavior.
 
 | Workstream | Current checkpoint | Next action |
 | --- | --- | --- |
-| Ready admissions / release (lead) | 142 Ready published from b87b380, artifact815a0b2, workflow39511705973; original130 archives preserved | Review next823/3478 admission branch |
+| Ready admissions / release (lead) | 144 Ready published from fae603e, artifact344a84b, workflow39540464552; prior142 archives preserved | Review2266/3142 physical chain-to-promenade entry after independent critique |
 | Shared figure composition | 3506 held: both swing exit and final progression need interpretation;2352 circular hey held | Investigate bounded wave/left-loop variants independently |
-| Coverage triage | Receiver inference already exists;823 alias and3478 explicit provenance archive tested in work/formation-alias | Integrate reviewed branch and next admission batch |
-| Animation | Sampled safe frame domain50?70deg inward/.04?.08lean; extreme outward twist invalid | Integrate normal controls in work/frame-domain separately from choreography |
+| Coverage triage | 823/3478 integrated; bounded historical notes and same-receiver compact chain exit under review in work/formation-alias | Finish whole-period people/contact checks and next admission batch |
+| Animation | Sampled safe frame domain50?70deg inward/.04?.08lean; extreme outward twist invalid | Normal controls shipped; preserve sampled-domain limits and approved default |
 
-Release evidence for the142-entry batch:33 focused acquired-candidate tests,
+Historical release evidence for the142-entry batch:33 focused acquired-candidate tests,
 three3260 source/finite-period tests, five census tests, TypeScript and Pages
 build pass. Generator replayed and compiled all142 archives; hashes of the
 prior130 are unchanged. All12 additions opened, scrubbed and played in the
 exact packaged software-WebGL browser build; public smoke covers3260 and188.
 No hardware-GPU/audio or comprehensive anatomical certification. Main has170
 retained fixtures; the complete2422-record acquired corpus remains local.
+
+Latest144 release: independent critic approved823/3478 source semantics and
+added actual neighbor/partner-contact oracles. Eleven admission tests, four
+explicit-review loader tests, two frame-domain tests, five census tests and
+TypeScript pass; exact Pages build and public software-WebGL checks cover both
+new dances and three timing presets/mobile widths. Source fae603e, artifact
+344a84b, successful workflow39540464552.172 checked-in fixtures. Broader goal
+remains active: all figures/source dances thoroughly reviewed and shipped where
+source and carried contracts can be established; unresolved contradictions stay
+explicit. Wave producer work remains isolated until whole-source integration.
 
 ## How a dance becomes animation
 
