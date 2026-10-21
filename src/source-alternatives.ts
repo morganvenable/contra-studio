@@ -27,6 +27,11 @@ const preambleLinks=(record:ContraDbRecord)=>sourceAnnotationLinks(record,'pream
 export function optionalTableAlternative(record:ContraDbRecord,section:'preamble'|'notes'='preamble'):OptionalTableAlternative|undefined {
  if(!completeImproper(record))return;
  if(section==='notes'){
+  if(record.notes==="I don't know why Cary insists on publishing the other Jubilation var. as his authoritative take on the original Gene Hubert dance -- who on earth wants to chain with their current neighbors and then immediately whip around to balance their next neighbors? Cary, if you're reading this, put this version back on your website. It rocks and I call it all the time."){
+   const tail=record.rows.slice(-3);
+   if(record.rows.some(row=>/\bchains?\b/i.test(row.text))||tail.some(row=>row.phrase!=='B2')||tail[0]?.text!=='circle left 3 places'||tail[0].beats!==6||tail[0].progression||tail[1]?.text!=='pass through ⁋'||tail[1].beats!==2||!tail[1].progression||tail[2]?.text!=='next neighbors do si do once'||tail[2].beats!==8||tail[2].progression||record.rows.filter(row=>row.progression).length!==1)return;
+   return{sourceRowId:tail[0].id,reason:'Review selects the retained chain-free current table, whose B2 is circle left three places for six counts, pass through for two with the sole source progression marker, then do-si-do the new neighbor for eight. The criticism of a different published chain version, attribution to Cary and Gene Hubert, requested website change and personal preference remain unverified source commentary. No chain or alternative ending is inserted, no publication is changed, and no historical authority or equivalence is claimed.'};
+  }
   if(record.notes==="I rather like Chet Gray's variation, which replaces the B2 neighbor swing with a 2-hand turn counter clockwise."){
    const swings=record.rows.filter(row=>row.phrase==='B2'&&/swing/.test(row.text)),last=record.rows.at(-1)!;
    if(swings.length!==1||swings[0]!==last||last.beats!==8||last.text!=='neighbors swing ⁋'||!last.progression||record.rows.filter(row=>row.progression).length!==1)return;
