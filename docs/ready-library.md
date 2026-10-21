@@ -4,16 +4,11 @@ The Ready to play section contains reviewed source interpretations bundled with 
 
 The separate, collapsed ContraDB catalogue is a discovery index. Its entries are not all playable. Downloaded records still go through normal interpretation and whole-dance validation.
 
-As of 21 October 2026, 157 interpretations are included. The latest additions are
-Kiss the Bride (166), Power Surge (2247), Ann�s Roll-Away Hey (2243),
-Rollin� to the Grey Eagle (2322), Thursday Night Special #1 (133),
-Early Bird Special (2876), Trip to Kentucky (original) (265), and
-Midwest Folklore (363). Exact reviewed
-archives retain timing, receiver, promenade and endpoint-progression choices.
-Complete three/four-couple periods check actual neighbors/partners, contacts,
-finite waiting, seams and closure. Built-browser imports and Ready cards open,
-scrub and play into round two without page errors using software WebGL; hardware
-GPU/audio and comprehensive anatomy remain outside this evidence.
+As of 21 October 2026, 169 interpretations are included locally; the verified public release contains 157 until the next full release checks complete. The latest additions are Robo-nella (3431), Fingerling Potatoes (3185), Piece of Cake and its variation (1144/724), Kingsford Court (458), Al's Safeway Produce variation with Pull-By (885), I Wanna Dance (2329), Razzle Dazzle (1072), Snapping the wood variation (2425), Joe (1529), Jubilation Permutation (2344), and Aberdeen Angus (1749).
+
+These archives retain explicit interior progression, role passage, bare-ring formation, wave convention, receiver and provenance choices as applicable. Full three/four-couple checks cover actual people, finite ends, source counts, contacts and closure. All twelve imported in the built browser and played into round two without page errors. All 169 saved interpretations passed the swing timing audit (23,310 swings), and exact local Ready-card checks passed. Full release CI remains pending. Hardware GPU/audio and comprehensive anatomy remain outside this evidence.
+
+The preceding eight additions (166/2247/2243/2322/133/2876/265/363) shipped in the fully tested 157-entry release, source f062259 and workflow 39628599757. Fresh public checks of Power Surge, Kiss the Bride and Trip to Kentucky load, scrub and play without page errors using software WebGL.
 
 The preceding additions were Unbelievable! (2266) and Unbelievable! variation (3142), with explicitly reviewed historical comparisons and a physical compact chain exit into the same-neighbor promenade.
 

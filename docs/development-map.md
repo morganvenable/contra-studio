@@ -1,4 +1,4 @@
-﻿# Development map
+# Development map
 
 Read this as a navigation index, not a second specification. The root `HANDOFF.md`
 records release 0.42 and its holds. Older `next-*` documents may describe work
@@ -10,16 +10,19 @@ Morgan's current objective is at least **1,000 verified playable Ready source
 entries**, with continuous autonomous jobs and release batches. Do not stop after
 each slice for confirmation. Keep source counts, choices, provenance, actual
 people and finite progression checks intact; corpus records and compile-only
-candidates do not count as Ready entries. Public baseline is146;157 are packaged locally. The149 workflow was blocked by two full-suite issues, now fixed: the swing audit must consume saved reviews, and cloned execution figures require stable-ID lookup.
+candidates do not count as Ready entries. **157 are published and verified** at the public GitHub Pages target. The next package targets 169. The private hosted site remains untouched.
 
 | Workstream | Current checkpoint | Next action |
 | --- | --- | --- |
-| Ready admissions / release (lead) | 157 archives; new eight166/2247/2243/2322/133/2876/265/363 pass source and full-period checks plus3/4-couple software-WebGL import/playback | Finish157 exact-card checks and full CI before publication |
-| Interior progression | 3431 phase wrapper and explicit full do-si-do6 + held-ring acquisition2 pass independent finite people/contact/closure tests in progression worktree | Integrate after157 checkpoint, browser-review removable choice, admit only after verification |
-| Shared wave composition | 2329 finite Becket circle/pass and left-wave program passes dense3/4-couple checks | Add source-bound removable lowering; compiler-only evidence is not Ready admission |
-| Coverage triage |2422 retained local source records; forward/return rollaway and literal hall clauses now reusable | Strict two-count role shoulder pass for1144/724, then next measured cohort |
+| Ready admissions / release (lead) | Public 157: source f062259, successful full workflow 39628599757; fresh public cards 2247/166/265 pass | 169 local checks passed; run full CI before publication, then integrate queued 2492/83/1556 work |
+| Interior progression | 3431, 3185 and 2344 preserve printed timing across the count-56 event; independent people, waiters, contact and closure checks pass | Preserve exact source-bound choices and final browser/admission evidence |
+| Shared wave composition | 2329 now uses ordinary source review/import with a removable compact Becket convention; source assertions and complete finite periods pass | 169 saved-swing audit passed; continue full-hey wave producer for 3265 |
+| Coverage triage | Fresh 2,422-source census complete, no errors; strict role passages and bare ring balance choices integrated | Across-ring passage to current partners for 2492; terminal and annotation cohorts continue |
+| Source annotation review | 458, 885 and 2344 explicitly retain descriptive, comparative and style/provenance evidence | Bounded 480 comparison and 1930 attention cue, with no early binding or invented movement |
 
-157 checkpoint: the eight new saved reviews preserve all raw source records and removable choices. The built candidate imports each at3/4 couples and scrubs/plays into round two with zero page errors. Selected screenshots inspected. Clearing the saved return-rollaway choice blocks import; explicitly restoring it re-enables import. The149 saved-swing audit passed20,358 frames; sixteen focused swing/hall/endpoint tests and seven partner-first tests passed.157 generator completed with all prior149 archives byte-identical. Thirty-three focused source/Ready/swing tests pass (21,510 actual swing frames), all34 script tests pass, TypeScript and Pages build pass. All eight exact built Ready cards load, scrub and reach round two without errors. Census accounts for184 fixtures and157 saved Ready imports. Full CI/publication remains pending. Hardware GPU/audio and comprehensive anatomical checks remain unrun.
+157 release evidence: all four motion-test shards and verification/deployment passed. Generator preserved all prior 149 archives byte-for-byte. The focused suite passed 33 source/Ready/swing tests (21,510 actual swing frames), and all 34 script tests passed. TypeScript and Pages build passed. All eight added Ready cards opened, scrubbed and played into round two locally; three public cards repeated those checks without page errors. Census accounts for 184 fixtures and 157 saved Ready imports at that checkpoint.
+
+Next-batch evidence: 3431/3185/1144/724/458/885/2329/1072/2425/1529/2344/1749 each has an explicit retained archive, full three/four-couple motion checks and software-WebGL import, scrubbing and round-two playback with no page errors. Selected screenshots inspected. Clearing and restoring ring formation, do-si-do ring preparation, and Becket wave convention were tested in the built UI. The 22-test integrated wave/ring/pull-by/Jubilation batch passed. Final 169-entry generator preserves all prior 157 archives byte-for-byte. All 169 saved entries passed the swing audit (23,310 checked swings across three/six-couple finite repeats). Exact Ready cards passed; the final fourteen-count swing fix was rechecked through cards and three/four-couple imports for 724/1144. The 197-fixture census admits all 169 saved entries; 34 script tests, TypeScript and Pages build pass. Full release CI remains pending. Hardware GPU/audio and comprehensive anatomical certification remain unrun.
 
 Historical release evidence for the142-entry batch:33 focused acquired-candidate tests,
 three3260 source/finite-period tests, five census tests, TypeScript and Pages
