@@ -1,3 +1,4 @@
+import {compileAcrossRingPassStep} from './across-ring-pass-step.ts';
 import {compileRoleShoulderPassStep} from './role-shoulder-pass-step.ts';
 import {compileCarriedLinesRollawayStep} from './carried-lines-rollaway-step.ts';
 import {needsShortReleasedPairSwingEntry,compileShortReleasedPairSwingStep} from './short-released-pair-swing-step.ts';
@@ -71,6 +72,7 @@ export function compileSequenceStep(figure:Figure,context:FigureContext,incoming
   const plan=compileNeighborDosidoStep(figure,context,incoming);
   return{adapterId:'neighbor-dosido-exchange',plan,ownsEntryFacing:true,boundaryPlan:plan};
  }
+ if(figure.kind==='pass-through'&&figure.entry==='ring'&&figure.exit==='opposite-paired-gyre'){if(!capabilities.stateCarryingAcrossPasses)throw Error('Across-ring passages require their carried-state capability.');const plan=compileAcrossRingPassStep(figure,context,incoming);return{adapterId:'across-ring-pass',plan,ownsEntryFacing:true,boundaryPlan:plan};}
  if(figure.kind==='pass-through'&&['larks','robins'].includes(figure.who??'')){
   if(!capabilities.stateCarryingRolePasses)throw Error('Role shoulder passages require their registered carried-state capability.');
   const plan=compileRoleShoulderPassStep(figure,context,incoming);return{adapterId:'role-shoulder-pass',plan,ownsEntryFacing:true,boundaryPlan:plan};
