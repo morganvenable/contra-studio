@@ -16,6 +16,12 @@ function phraseRows(record:ContraDbRecord,phrase:'A1'|'A2'|'B1'|'B2'):ContraDbRo
 /** A bounded current-version/history distinction. This does not discard prose:
  * it offers a separately removable review of exact current table evidence. */
 export function corroboratedSourceHistory(record:ContraDbRecord):CorroboratedSourceHistory|undefined {
+ if(record.notes==='While the A section is pretty variable and the B section, with its iconic swaps across the ring, is what identifies any "Lanny\'s" dance, I believe this is the original version of the dance. At the very least, it\'s the version I last heard Erik call.'){
+  const b1=phraseRows(record,'B1');if(!b1||b1.length!==4)return;
+  const expected=['balance the ring','ladles pass by right shoulders','balance the ring','gentlespoons pass by right shoulders'];
+  if(b1.some((row,i)=>row.text!==expected[i]||row.beats!==4||row.progression))return;
+  return{kind:'phrase-summary',sourceRowIds:b1.map(row=>row.id),reason:'Review retains the current table: B1 has four-count ring balance, robin right-shoulder passage, ring balance and lark right-shoulder passage. The claimed identifying ring swaps, variable A sections, original-version status and remembered Erik performance remain attributed and unverified comparison/history. The note supplies no alternate A figures, extra swaps, timing or permission to replace the printed version.'};
+ }
  if(record.notes==="NB: This dance is also Al's Safeway Produce https://contradb.com/dances/528 Found in Come Dancing by Daniel Clark There is a LOT of turning in A1, A2. If dancers hesitate, they will get behind. Not good for new or unsure dancers."){
   const a1=phraseRows(record,'A1'),a2=phraseRows(record,'A2');if(!a1||!a2||a1.length!==2||a2.length!==2)return;
   const expected=['star left 4 places','neighbors allemande left 1¾','ladles allemande right 1½','partners swing'],rows=[...a1,...a2];
