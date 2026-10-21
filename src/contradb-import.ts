@@ -410,7 +410,7 @@ export function normalizeContraDbRow(row:ContraDbRow,formation:'duple-improper'|
  }else if(/^up the hall and bend into a ring$/i.test(text)){
   recognized=true;if(row.beats!==8)issue('hall-row-duration','This return/bend source row must retain exactly eight counts.','error');
   issue('hall-return-pair','This return/bend row must be consumed with the immediately preceding down/turn source row.');
- }else if(/^right (?:and )?left through(?: \(ladles courtesy turn this same neighbor gentlespoon\))?$/i.test(text)){
+ }else if(/^right (?:and )?left through(?: \(ladles courtesy turn this same neighbor gentlespoon\)| \(with courtesy turn\))?$/i.test(text)){
   recognized=true;consumedRightLeftThrough=true;const selected=choice.rightLeftThrough,explicitRobinLed=/\(ladles courtesy turn this same neighbor gentlespoon\)$/i.test(text);
   if(!capabilities.rightLeftThrough)issue('right-left-through-adapter-gate','Right-and-left-through is awaiting complete articulated composition review in this build.');
   if(row.beats!==8)issue('right-left-through-timing','The registered right-and-left-through adapter requires exactly eight source beats.','error');

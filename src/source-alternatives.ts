@@ -27,6 +27,12 @@ const preambleLinks=(record:ContraDbRecord)=>sourceAnnotationLinks(record,'pream
 export function optionalTableAlternative(record:ContraDbRecord,section:'preamble'|'notes'='preamble'):OptionalTableAlternative|undefined {
  if(!completeImproper(record))return;
  if(section==='notes'){
+  if(record.notes==="I rather like Chet Gray's variation, which replaces the B2 neighbor swing with a 2-hand turn counter clockwise."){
+   const swings=record.rows.filter(row=>row.phrase==='B2'&&/swing/.test(row.text)),last=record.rows.at(-1)!;
+   if(swings.length!==1||swings[0]!==last||last.beats!==8||last.text!=='neighbors swing ⁋'||!last.progression||record.rows.filter(row=>row.progression).length!==1)return;
+   return{sourceRowId:last.id,reason:'Review selects the current table: an eight-count terminal B2 neighbor swing with its retained progression marker. The preference and attribution to Chet Gray remain unverified source commentary. The suggested counterclockwise two-hand-turn replacement stays visible and unselected; it is not inserted or claimed to be equivalent in movement.'};
+  }
+
   if(record.notes==='Optional: last time B1) Long lines forward & back, Gentlespoons allemande left 1 1/2 B2) Partners balance & swing Inspired by Cherokee Shuffle https://contradb.com/dances/509'){
    const tail=record.rows.filter(row=>row.phrase==='B1'||row.phrase==='B2'),expected=[[8,'gentlespoons allemande left 1½'],[8,'partners swing'],[8,'balance & petronella'],[4,'balance the ring'],[4,'partners California twirl ⁋']] as const;
    if(tail.length!==expected.length||tail.some((row,i)=>row.beats!==expected[i][0]||row.text!==expected[i][1]||row.progression!==(i===4))||record.rows.at(-1)!==tail[4]||record.rows.filter(row=>row.progression).length!==1)return;
