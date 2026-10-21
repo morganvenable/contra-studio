@@ -16,6 +16,10 @@ function phraseRows(record:ContraDbRecord,phrase:'A1'|'A2'|'B1'|'B2'):ContraDbRo
 /** A bounded current-version/history distinction. This does not discard prose:
  * it offers a separately removable review of exact current table evidence. */
 export function corroboratedSourceHistory(record:ContraDbRecord):CorroboratedSourceHistory|undefined {
+ if(record.notes==="Written for Brooklyn Contra on 8/4/17, which is Obama's birthday, hence the title. Smooth dance with a hey-like figure up/down the set and a satisfying promenade > circle right transition."){
+  const rows=partnerHeyPromenadeRightSummary(record);if(!rows)return;
+  return{kind:'phrase-summary',sourceRowIds:rows.map(row=>row.id),reason:'The retained table explicitly names the partner-start half hey with right end/left center shoulders, followed later by the eight-count partner promenade and six-count circle right three places. The up/down description refers to the partner-side hey passes; it adds no different hey or extra travel. The claimed smoothness, satisfaction, Brooklyn event, date and birthday/title connection remain attributed and unverified context.'};
+ }
  if(record.notes==="B2 Circle L 3/4 (8), Balance the ring (4), Calif Twir Bill Olson notes: The A part of this dance came from Vermont fiddler, Amy Cann. The rest kind of came together before a Concord (MA) Scouthouse gig on Feb 23, 2004. I used this easy dance to start off the evening that night. It is dedicated to my good friends from the venerable Boston area band, Yankee Ingenuity: Peter Barnes (who always enjoys a good pun), Mary Lea, Jack O'Conner and Cal Howard."){
   const b2=phraseRows(record,'B2');if(!b2||b2.length!==3)return;const[circle,ring,twirl]=b2;
   if(circle.text!=='circle left 3 places'||circle.beats!==8||circle.progression||ring.text!=='balance the ring'||ring.beats!==4||ring.progression||twirl.text!=='partners California twirl ⁋'||twirl.beats!==4||!twirl.progression||record.rows.at(-1)!==twirl||record.rows.filter(row=>row.progression).length!==1)return;
@@ -42,6 +46,16 @@ export function corroboratedSourceHistory(record:ContraDbRecord):CorroboratedSou
   if(circle.beats!==8||circle.text!=='circle left 3 places'||circle.progression||ring.beats!==4||ring.text!=='balance the ring'||ring.progression||pass.beats!==4||!/^pass through(?: to (?:new|next) neighbors)? ⁋$/.test(pass.text)||!pass.progression||record.rows.at(-1)!==pass||record.rows.filter(row=>row.progression).length!==1)return;
   return{kind:'terminal-replacement',sourceRowIds:b2.map(row=>row.id),reason:'Review selects the current table’s final circle-left 8, ring balance 4 and pass-through 4, with one terminal progression. The original neighbor do-si-do 1½ remains visible as version history; it is not inserted into the current dance or silently erased. The note’s “usually swap” alternative is resolved explicitly in favor of this retained table.'};
  }
+}
+
+/** Literal source support for the described along-side hey and following turn.
+ * This supplies no motion dispatch or source-identity admission. */
+export function partnerHeyPromenadeRightSummary(record:Pick<ContraDbRecord,'rows'|'formation'>):ContraDbRow[]|undefined {
+ if(record.formation!=='improper'||record.rows.reduce((sum,row)=>sum+(row.beats??NaN),0)!==64)return;
+ const hey=record.rows.filter(row=>/\bhey\b/i.test(row.text));if(hey.length!==1||hey[0].text!=='partners start a half hey - rights on ends, lefts in center'||hey[0].beats!==8||hey[0].progression)return;
+ const promenade=record.rows.filter(row=>row.text==='partners promenade');if(promenade.length!==1||promenade[0].beats!==8||promenade[0].progression)return;
+ const circle=record.rows[promenade[0].index+1];if(!circle||circle.text!=='circle right 3 places'||circle.beats!==6||circle.progression)return;
+ return[hey[0],promenade[0],circle];
 }
 
 /** Explicitly reviewed comparison; not used to suggest provenance automatically. */

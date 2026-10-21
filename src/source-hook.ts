@@ -1,4 +1,5 @@
 import type {ContraDbRecord} from './contradb-source.ts';
+import {partnerHeyPromenadeRightSummary} from './source-history.ts';
 /** ContraDB's official form defines hook as a 50-character niche summary.
  * Retain it as metadata, but do not use that field label to waive a new action.
  * Figure vocabulary is seeded from the public /figures index; cue checks also
@@ -28,6 +29,7 @@ export function partnerSwingsForBothSummary(record:Pick<ContraDbRecord,'hook'|'r
 }
 export function classifySourceHook(record:Pick<ContraDbRecord,'hook'|'rows'|'notes'|'preamble'|'formation'>):HookClassification {
  const hook=canonical(record.hook);
+ if(hook==='smooth and flowy hey like figure up down set'&&partnerHeyPromenadeRightSummary(record))return{kind:'corroborating',reason:'The evaluative hook describes the retained eight-count partner-start half hey with right end and left center shoulders. The along-side partner passes account for the up/down description; no different hey, timing or extra travel is inferred.'};
  if(!hook||hook==='smooth transitions'||informational(hook))return{kind:'informational',reason:'Preserved as the source’s descriptive niche summary; the text has clear evaluative or provenance wording and introduces no recognized action, scope, timing or setup cue.'};
  const corroboratedSummary=(summary:string):string|undefined=>{
   const counted=summary.match(/^(a|one|two|three|four|1|2|3|4) (partner|neighbor) swings? and (a|one|two|three|four|1|2|3|4) (partner|neighbor) swings?$/);
@@ -85,3 +87,4 @@ export function classifySourceHook(record:Pick<ContraDbRecord,'hook'|'rows'|'not
 }
 
 export function originalityHookReview(record:Pick<ContraDbRecord,'hook'>):string|undefined {if(record.hook==='so predictable that it may not be original')return 'Review the complete hook as attributed commentary about predictability and uncertain originality. Its originality claim is unverified; it supplies no movement, participant scope, timing or endpoint instruction.';}
+
