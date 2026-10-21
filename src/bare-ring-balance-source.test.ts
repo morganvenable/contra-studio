@@ -1,0 +1,21 @@
+﻿import test from 'node:test';
+import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
+import {prepareContraDbReview} from './source-review.ts';
+import {readContraDbImport,normalizeContraDbRow} from './contradb-import.ts';
+import {compileChoreography} from './choreography.ts';
+import type {CompiledStateSequence} from './state-sequence.ts';
+const gap=(a:{position:{x:number;z:number}},b:{position:{x:number;z:number}})=>Math.hypot(a.position.x-b.position.x,a.position.z-b.position.z);
+function reviewed(text:string,id:number){const p=prepareContraDbReview(text);if(id===1529){p.interpretation.notesReview='provenance-only';p.result=readContraDbImport(text,{interpretation:p.interpretation});}return p;}
+for(const id of[1072,2425,1529]){
+ const text=readFileSync(new URL(`../test-data/contradb/${id}.json`,import.meta.url),'utf8');
+ if(id!==1529)test(`${id} requires separately removable ring interpretation and preserves source row/counts`,()=>{const p=prepareContraDbReview(text);assert.ok(p.result.dance,p.result.errors.join('; '));const row=p.result.record!.rows.find(r=>r.text==='balance')!;assert.equal(row.beats,4);assert.equal(p.interpretation.rows![row.id].balanceFormation,'ring');assert.equal(p.result.dance.figures.reduce((n,f)=>n+f.beats,0),64);const i=structuredClone(p.interpretation);delete i.rows![row.id].balanceFormation;assert.equal(readContraDbImport(text,{interpretation:i}).dance,undefined);const wrong=structuredClone(p.interpretation);(wrong.rows![p.result.record!.rows[0].id]??={}).balanceFormation='ring';assert.equal(readContraDbImport(text,{interpretation:wrong}).dance,undefined);assert.deepEqual(readContraDbImport(p.result.dance.sourceText!).dance,p.result.dance);});
+ for(const couples of[3,4])test(`${id} full ${couples}-couple period preserves seams, contacts and closure`,()=>{const p=reviewed(text,id),c=compileChoreography(p.result.dance!,couples) as CompiledStateSequence;let minGap=Infinity,maxSpeed=0,twirls=0;
+ for(let r=0;r<c.periodRepeats;r++){const base=r*64,top=c.topology(base),partner=new Map(top.partners.flatMap(([a,b])=>[[a,b],[b,a]]));assert.deepEqual(c.topology(base+64-1e-7),top);assert.equal(c.topology(base+64).epoch,r+1);for(const local of[...c.starts,64]){if(!base&&!local)continue;const before=c.sample(base+local-1e-7),after=c.sample(base+local);for(const q of after.poses){assert.ok(gap(q,before.poses[q.id])<1e-5);assert.ok(Math.abs(Math.atan2(Math.sin(q.yaw-before.poses[q.id].yaw),Math.cos(q.yaw-before.poses[q.id].yaw)))<1e-5);}}
+ let prev=c.sample(base);for(let k=1;k<=4096;k++){const local=k/64,f=c.sample(base+local);for(const q of f.poses)maxSpeed=Math.max(maxSpeed,gap(q,prev.poses[q.id])*64);for(let a=0;a<f.poses.length;a++)for(let b=a+1;b<f.poses.length;b++)minGap=Math.min(minGap,gap(f.poses[a],f.poses[b]));if(local>60&&local<64)for(const h of f.contacts){assert.equal(partner.get(h.a),h.b);twirls++;}prev=f;}}
+ assert.ok(twirls>0);assert.ok(minGap>.38);assert.ok(maxSpeed<2.4);for(const p of c.sample(0).poses){const q=c.sample(c.periodRepeats*64).poses[p.id];assert.ok(gap(p,q)<1e-8);assert.ok(Math.abs(Math.atan2(Math.sin(p.yaw-q.yaw),Math.cos(p.yaw-q.yaw)))<1e-8);}assert.deepEqual(c.sample(0).contacts,c.sample(c.periodRepeats*64).contacts);console.log({id,couples,minGap,maxSpeed});});
+}
+
+test('bare balance rejects changed timing, marked progression, other formations and unselected wave context',()=>{const text=readFileSync(new URL('../test-data/contradb/1072.json',import.meta.url),'utf8'),p=prepareContraDbReview(text),row=p.result.record!.rows.find(r=>r.text==='balance')!;for(const patch of[{beats:8},{beats:2},{progression:true}])assert.equal(normalizeContraDbRow({...row,...patch},'duple-improper',{balanceFormation:'ring'}).resolved,false);assert.equal(normalizeContraDbRow(row,'becket',{balanceFormation:'ring'}).resolved,false);assert.equal(normalizeContraDbRow(row,'duple-improper',{}).resolved,false);});
+
+test('1529 retains date-only provenance and requires its explicit review',()=>{const text=readFileSync(new URL('../test-data/contradb/1529.json',import.meta.url),'utf8'),p=reviewed(text,1529);assert.ok(p.result.dance);assert.equal(p.result.record!.notes,'11-15-14');const i=structuredClone(p.interpretation);delete i.notesReview;assert.equal(readContraDbImport(text,{interpretation:i}).dance,undefined);});
