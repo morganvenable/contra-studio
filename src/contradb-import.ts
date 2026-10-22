@@ -1,4 +1,4 @@
-import {lowerImproperWaveSource,IMPROPER_WAVE_DESCRIPTION,type ImproperWaveChoice} from './source-improper-wave.ts';
+import {lowerImproperWaveSource,improperWaveDescription,type ImproperWaveChoice} from './source-improper-wave.ts';
 import {lowerBecketWaveSource,BECKET_WAVE_DESCRIPTION,type BecketWaveChoice} from './source-becket-wave.ts';
 import {normalizePairedHallExit} from './source-paired-hall-exit.ts';
 import {linesRollawaySource,isLinesRollawayChoice,LINES_ROLLAWAY_DESCRIPTION,type LinesRollawayChoice} from './source-lines-rollaway.ts';
@@ -546,10 +546,10 @@ export function importContraDb(input:string,options:ContraDbSourceOptions&{inter
   try{
    if(Object.keys(interpretation).some(k=>k!=='improperWave'))throw Error('The named Improper wave convention cannot ignore additional interpretation choices.');
    const lowered=lowerImproperWaveSource(record,interpretation.improperWave);
-   result.rows=record.rows.map(source=>({source,recognized:true,resolved:true,figures:lowered.byRow.get(source.id)??[],diagnostics:[],interpretations:[IMPROPER_WAVE_DESCRIPTION]}));
+   result.rows=record.rows.map(source=>({source,recognized:true,resolved:true,figures:lowered.byRow.get(source.id)??[],diagnostics:[],interpretations:[improperWaveDescription(interpretation.improperWave!)]}));
    coverage.recognizedRows=result.rows.length;coverage.resolvedRows=result.rows.length;
    coverage.semanticallyResolved=source.structurallyValid&&!diagnostics.some(d=>d.severity!=='warning');
-   warnings.push(IMPROPER_WAVE_DESCRIPTION,'ContraDB software is AGPL-3.0. Its public page does not establish a blanket choreography/data republication license.','This is a schematic interpretation; source recognition and sampled motion validation are separate checks.');
+   warnings.push(improperWaveDescription(interpretation.improperWave!),'ContraDB software is AGPL-3.0. Its public page does not establish a blanket choreography/data republication license.','This is a schematic interpretation; source recognition and sampled motion validation are separate checks.');
    if(!coverage.semanticallyResolved)return finish();
    const dance:ContraDbImportedDance={id:`contradb-${record.sourceId}-${record.snapshotId.split(':').at(-1)}`,title:record.title,author:record.author,formation:'duple-improper',sourceUrl:record.sourceUrl,description:'Imported ContraDB snapshot with explicit source interpretation.',figures:lowered.figures,progressionEvents:lowered.progressionEvents,improperWavePolicy:lowered.policy,notes:[...warnings],verified:false,sourceText:JSON.stringify({schema:'contra-studio/contradb-interpretation',version:1,sourceSnapshotId:record.snapshotId,snapshot:makeContraDbSnapshot(record),interpretation} satisfies ContraDbInterpretationFile),sourceRecord:record,sourceRows:record.rows,contraDbInterpretation:JSON.parse(JSON.stringify(interpretation))};
    result.validation=validateDance(dance,options.capabilities);
