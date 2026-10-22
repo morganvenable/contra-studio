@@ -1,3 +1,4 @@
+import{terminalRoleStarLook}from'./source-chain-star.ts';
 import {lowerImproperWaveSource,improperWaveDescription,type ImproperWaveChoice} from './source-improper-wave.ts';
 import {lowerBecketWaveSource,BECKET_WAVE_DESCRIPTION,type BecketWaveChoice} from './source-becket-wave.ts';
 import {normalizePairedHallExit} from './source-paired-hall-exit.ts';
@@ -46,7 +47,7 @@ export interface ContraDbInterpretation {
   /** Explicitly select endpoint-derived progression when the source has no marker. */
   progression?:'end-of-cycle';
   preambleReview?:'corroborated-no-chain-variant'|'retain-table-optional-alternative'|'pre-dance-walkthrough-feedback'|'observe-next-neighbors';
-  sourceHook?:'originality-commentary'|'descriptive'|'hall-summary'|'partner-swings-for-both';
+  sourceHook?:'originality-commentary'|'descriptive'|'hall-summary'|'partner-swings-for-both'|'retain-table-reversed-chain-star-hook';
   notesReview?:'descriptive-only'|'terminal-dosido-gyre'|'released-circle-transition'|'authorship-methodology'|'star-return-provenance'|'corroborated-teaching-summary'|'provenance-only'|'corroborated-style-and-provenance'|'corroborated-history'|'retain-table-optional-alternative';
   wholeSetOval?:WholeSetOvalChoice;
   sixTwoPass?:SixTwoPassChoice;
@@ -75,7 +76,7 @@ function quantity(s:string):number|undefined {
  if(/^\d+(?:\.\d+)?$/.test(s))return Number(s);
  const f=s.match(/^(?:(\d+)(?:\s*&\s*|\s+))?(\d+)\/(\d+)$/);if(f&&Number(f[3]))return Number(f[1]||0)+Number(f[2])/Number(f[3]);return;
 }
-export function normalizeContraDbRow(row:ContraDbRow,formation:'duple-improper'|'becket'|undefined,choice:NonNullable<ContraDbInterpretation['rows']>[string]={},capabilities:MotionCapabilities=REGISTERED_MOTION_CAPABILITIES,sourceConstraints?:{releasedCircleTransition?:boolean;rightHandBalanceIngress?:boolean;starReturnNote?:boolean;gyreShoulder?:'right'|'left';diagonalHey?:'left-diagonal'|'across'}):ContraDbNormalizedRow {
+export function normalizeContraDbRow(row:ContraDbRow,formation:'duple-improper'|'becket'|undefined,choice:NonNullable<ContraDbInterpretation['rows']>[string]={},capabilities:MotionCapabilities=REGISTERED_MOTION_CAPABILITIES,sourceConstraints?:{terminalRoleStarLook?:boolean;releasedCircleTransition?:boolean;rightHandBalanceIngress?:boolean;starReturnNote?:boolean;gyreShoulder?:'right'|'left';diagonalHey?:'left-diagonal'|'across'}):ContraDbNormalizedRow {
  const diagnostics:ContraDbDiagnostic[]=[],figures:Figure[]=[],interpretations:string[]=[];let recognized=false,textualProgression=false,doubleProgressionClause=false;
  const issue=(code:string,message:string,severity:ContraDbDiagnostic['severity']='review')=>diagnostics.push({code,message,severity,row:row.index});
  if(row.beats===0)issue('zero-time-instruction','This zero-count setup or transition requires explicit topology semantics; it cannot become an ordinary moving figure.');
@@ -84,6 +85,7 @@ export function normalizeContraDbRow(row:ContraDbRow,formation:'duple-improper'|
  if(markerCount>1||markerCount===1&&!text.endsWith('⁋'))issue('progression-placement','Only one trailing progression marker is understood.','error');
  text=text.replace(/\s*⁋$/,'');
  let terminalEndpointQualifier:string|undefined;
+ if(sourceConstraints?.terminalRoleStarLook){const look=text.match(/^(star (?:left|right) - hands across - 4 places), (?:gentlespoons|ladles) look to next star for new neighbor (?:gentlespoon|ladle) with whom they'd allemande (?:left|right)$/);if(look){text=look[1];terminalEndpointQualifier='next-role allemande look cue';}else issue('role-star-look-context','The source endpoint cue does not match its retained next-role allemande.');}
  const endpointWording=text.match(/^((?:star (?:left|right)(?: - (?:hands across|wrist grip) -)? 4 places)|(?:(?:ladles|ladies|women|robins|ravens) chain)) ((?:and )?look for (?:next|new) neighbors?|\(look for (?:next|new) neighbors?\)|to next couple|look for new)$/i);
  if(endpointWording){text=endpointWording[1];terminalEndpointQualifier=endpointWording[2];if(!row.progression)issue('progression-qualifier','This endpoint wording requires its retained source progression marker; missing or extra progression is not inferred from a stripped clause.');}
  const namedChainEndpoint=text.match(/^((?:ladles|ladies|women|robins|ravens) chain to neighbors?), (look to the next)$/i);
@@ -620,7 +622,7 @@ export function importContraDb(input:string,options:ContraDbSourceOptions&{inter
  const repeatGyreShoulder=fullHeyRepeatGyreShoulder(record);
  const releasedTransition=!!releasedCircleTransitionNote(record);
  const starReturnRow=starReturnFootnote(record);
- result.rows=record.rows.map(row=>{const prior=record.rows[row.index-1],balance=prior?.text.match(/^(partners?|neighbors?) (?:balance right hand|right hand balance)$/i),arch=row.text.match(/^(partners?|neighbors?) box the gnat$/i),prepared=prior?.beats===4&&!prior.progression&&balance&&arch&&relation(balance[1])===relation(arch[1]);return normalizeContraDbRow(row,formation,interpretation.rows?.[row.id],options.capabilities,{...(row.id===starReturnRow?.id?{starReturnNote:true}:diagonalComposition&&(row.index===4||row.index===5)?{diagonalHey:row.index===4?'left-diagonal' as const:'across' as const}:row.index===0&&repeatGyreShoulder?{gyreShoulder:repeatGyreShoulder}:{}),...(prepared?{rightHandBalanceIngress:true}:{}),...(releasedTransition&&row.index===record.rows.length-1?{releasedCircleTransition:true}:{})});});
+ result.rows=record.rows.map(row=>{const prior=record.rows[row.index-1],balance=prior?.text.match(/^(partners?|neighbors?) (?:balance right hand|right hand balance)$/i),arch=row.text.match(/^(partners?|neighbors?) box the gnat$/i),prepared=prior?.beats===4&&!prior.progression&&balance&&arch&&relation(balance[1])===relation(arch[1]);return normalizeContraDbRow(row,formation,interpretation.rows?.[row.id],options.capabilities,{terminalRoleStarLook:terminalRoleStarLook(record,row),...(row.id===starReturnRow?.id?{starReturnNote:true}:diagonalComposition&&(row.index===4||row.index===5)?{diagonalHey:row.index===4?'left-diagonal' as const:'across' as const}:row.index===0&&repeatGyreShoulder?{gyreShoulder:repeatGyreShoulder}:{}),...(prepared?{rightHandBalanceIngress:true}:{}),...(releasedTransition&&row.index===record.rows.length-1?{releasedCircleTransition:true}:{})});});
  for(const row of result.rows){
   const local=linesRollawaySource(record,row.source.index),selected=interpretation.rows?.[row.source.id]?.linesRollaway;
   if(selected!==undefined&&!local)issue('unused-lines-rollaway','The forward/return rollaway choice requires adjacent unmarked four-count forward and half-sashay rows.','error');

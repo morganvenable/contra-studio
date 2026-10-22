@@ -1,3 +1,4 @@
+import{reversedChainStarHook}from'./source-chain-star.ts';
 import {descriptiveSourceNote} from './source-descriptive-note.ts';
 import {improperWaveChoiceForSource,improperWaveDescription} from './source-improper-wave.ts';
 import {becketWaveChoiceForSource,BECKET_WAVE_DESCRIPTION} from './source-becket-wave.ts';
@@ -91,6 +92,7 @@ export function prepareContraDbReview(input:string,remembered:readonly SourceCho
  if(baseline.record.notes&&classifySourceProse(baseline.record.notes)==='provenance-candidate'){interpretation.notesReview='provenance-only';suggestions.push({kind:'prose-review',message:'Suggested provenance-only note review: the text appears to be attribution, dedication or history and contains no recognized motion/end-effect terms. Read the retained note before accepting; clear this classification if it changes how the dance is done.'});}
  const retracted=retractedSourceAttribution(baseline.record);if(retracted){interpretation.notesReview='provenance-only';suggestions.push({kind:'prose-review',message:retracted});}
  const titleProvenance=linkedTitleProvenance(baseline.record);if(titleProvenance){interpretation.notesReview='provenance-only';suggestions.push({kind:'prose-review',message:titleProvenance});}
+ const reversedChainStar=reversedChainStarHook(baseline.record);if(reversedChainStar){interpretation.sourceHook='retain-table-reversed-chain-star-hook';suggestions.push({kind:'source-annotation',message:reversedChainStar});}
  const partnerSummary=partnerSwingsForBothSummary(baseline.record);
  if(partnerSummary){interpretation.sourceHook='partner-swings-for-both';suggestions.push({kind:'source-annotation',message:partnerSummary});}
  const originality=originalityHookReview(baseline.record);if(originality){interpretation.sourceHook='originality-commentary';suggestions.push({kind:'source-annotation',message:originality});}
