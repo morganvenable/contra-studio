@@ -2,10 +2,10 @@
   "schema": "contra-studio/coverage-audit",
   "version": 1,
   "provenance": {
-    "generatedAt": "2026-10-22T23:43:05.260Z",
-    "revision": "d92469ee6e730b519eb1beb5a1b7ef3255991e4d",
+    "generatedAt": "2026-10-22T23:53:08.072Z",
+    "revision": "1466f96e95ee7b22a086e3d4d4e32207e7c0e9b2",
     "workingTreeModified": true,
-    "runtimeMilliseconds": 182134,
+    "runtimeMilliseconds": 181926,
     "node": "v24.12.0",
     "datasets": [
       {
@@ -26,21 +26,21 @@
   },
   "availability": {
     "catalogue": 2422,
-    "retainedSnapshots": 213,
-    "savedReady": 184,
+    "retainedSnapshots": 215,
+    "savedReady": 186,
     "union": 2422,
-    "metadataOnly": 2209,
+    "metadataOnly": 2207,
     "categories": {
-      "catalogue:true snapshot:false saved:false": 2209,
-      "catalogue:true snapshot:true saved:true": 184,
+      "catalogue:true snapshot:false saved:false": 2207,
+      "catalogue:true snapshot:true saved:true": 186,
       "catalogue:true snapshot:true saved:false": 29
     }
   },
   "views": {
     "rawDefaults": {
-      "sources": 213,
+      "sources": 215,
       "statuses": {
-        "interpretation-blocked": 213
+        "interpretation-blocked": 215
       },
       "figures": [
         {
@@ -55,6 +55,7 @@
             "99",
             "110",
             "115",
+            "123",
             "133",
             "138",
             "146",
@@ -110,6 +111,7 @@
             "1174",
             "1191",
             "1270",
+            "1273",
             "1312",
             "1420",
             "1428",
@@ -214,8 +216,8 @@
             "3507",
             "3510"
           ],
-          "occurrences": 206,
-          "sources": 167
+          "occurrences": 209,
+          "sources": 169
         },
         {
           "kind": "circle",
@@ -230,6 +232,7 @@
             "99",
             "110",
             "115",
+            "123",
             "133",
             "138",
             "152",
@@ -375,8 +378,8 @@
             "3507",
             "3510"
           ],
-          "occurrences": 174,
-          "sources": 154
+          "occurrences": 175,
+          "sources": 155
         },
         {
           "kind": "allemande",
@@ -388,6 +391,7 @@
             "67",
             "99",
             "110",
+            "123",
             "146",
             "166",
             "180",
@@ -430,6 +434,7 @@
             "1098",
             "1148",
             "1270",
+            "1273",
             "1312",
             "1428",
             "1447",
@@ -507,8 +512,8 @@
             "3496",
             "3510"
           ],
-          "occurrences": 160,
-          "sources": 125
+          "occurrences": 162,
+          "sources": 127
         },
         {
           "kind": "long-lines",
@@ -544,6 +549,7 @@
             "1036",
             "1174",
             "1191",
+            "1273",
             "1420",
             "1434",
             "1450",
@@ -603,8 +609,8 @@
             "3496",
             "3533"
           ],
-          "occurrences": 93,
-          "sources": 89
+          "occurrences": 94,
+          "sources": 90
         },
         {
           "kind": "star",
@@ -939,7 +945,7 @@
       "blockers": [
         {
           "code": "balance-swing-timing",
-          "sources": 147,
+          "sources": 148,
           "sourceIds": [
             "8",
             "9",
@@ -997,6 +1003,7 @@
             "1166",
             "1191",
             "1270",
+            "1273",
             "1420",
             "1428",
             "1434",
@@ -1093,12 +1100,13 @@
         },
         {
           "code": "chain-receiver",
-          "sources": 76,
+          "sources": 78,
           "sourceIds": [
             "8",
             "9",
             "24",
             "94",
+            "123",
             "133",
             "138",
             "146",
@@ -1129,6 +1137,7 @@
             "1102",
             "1166",
             "1191",
+            "1273",
             "1420",
             "1434",
             "1461",
@@ -1381,9 +1390,10 @@
         },
         {
           "code": "event-policy-choice",
-          "sources": 27,
+          "sources": 28,
           "sourceIds": [
             "66",
+            "123",
             "159",
             "175",
             "443",
@@ -1566,6 +1576,86 @@
           "soleBlockerSources": 0
         },
         {
+          "code": "circulation-choice",
+          "sources": 13,
+          "sourceIds": [
+            "94",
+            "123",
+            "363",
+            "761",
+            "1658",
+            "2247",
+            "2329",
+            "2518",
+            "2522",
+            "2996",
+            "3004",
+            "3181",
+            "3363"
+          ],
+          "soleBlockerSources": 0
+        },
+        {
+          "code": "hall-composition",
+          "sources": 13,
+          "sourceIds": [
+            "66",
+            "123",
+            "133",
+            "138",
+            "188",
+            "340",
+            "1545",
+            "2026",
+            "2605",
+            "2701",
+            "2876",
+            "3490",
+            "3507"
+          ],
+          "soleBlockerSources": 0
+        },
+        {
+          "code": "hall-return-pair",
+          "sources": 13,
+          "sourceIds": [
+            "66",
+            "123",
+            "133",
+            "138",
+            "188",
+            "340",
+            "1545",
+            "2026",
+            "2605",
+            "2701",
+            "2876",
+            "3490",
+            "3507"
+          ],
+          "soleBlockerSources": 0
+        },
+        {
+          "code": "hall-timing-choice",
+          "sources": 13,
+          "sourceIds": [
+            "66",
+            "123",
+            "133",
+            "138",
+            "188",
+            "340",
+            "1545",
+            "2026",
+            "2605",
+            "2701",
+            "2876",
+            "3490",
+            "3507"
+          ],
+          "soleBlockerSources": 0
+        },
+        {
           "code": "source-hook",
           "sources": 13,
           "sourceIds": [
@@ -1602,82 +1692,6 @@
             "3265",
             "3326",
             "3533"
-          ],
-          "soleBlockerSources": 0
-        },
-        {
-          "code": "circulation-choice",
-          "sources": 12,
-          "sourceIds": [
-            "94",
-            "363",
-            "761",
-            "1658",
-            "2247",
-            "2329",
-            "2518",
-            "2522",
-            "2996",
-            "3004",
-            "3181",
-            "3363"
-          ],
-          "soleBlockerSources": 0
-        },
-        {
-          "code": "hall-composition",
-          "sources": 12,
-          "sourceIds": [
-            "66",
-            "133",
-            "138",
-            "188",
-            "340",
-            "1545",
-            "2026",
-            "2605",
-            "2701",
-            "2876",
-            "3490",
-            "3507"
-          ],
-          "soleBlockerSources": 0
-        },
-        {
-          "code": "hall-return-pair",
-          "sources": 12,
-          "sourceIds": [
-            "66",
-            "133",
-            "138",
-            "188",
-            "340",
-            "1545",
-            "2026",
-            "2605",
-            "2701",
-            "2876",
-            "3490",
-            "3507"
-          ],
-          "soleBlockerSources": 0
-        },
-        {
-          "code": "hall-timing-choice",
-          "sources": 12,
-          "sourceIds": [
-            "66",
-            "133",
-            "138",
-            "188",
-            "340",
-            "1545",
-            "2026",
-            "2605",
-            "2701",
-            "2876",
-            "3490",
-            "3507"
           ],
           "soleBlockerSources": 0
         },
@@ -1735,6 +1749,22 @@
           "soleBlockerSources": 0
         },
         {
+          "code": "square-through-choice",
+          "sources": 9,
+          "sourceIds": [
+            "146",
+            "896",
+            "1098",
+            "1102",
+            "1273",
+            "2364",
+            "2903",
+            "3326",
+            "3496"
+          ],
+          "soleBlockerSources": 0
+        },
+        {
           "code": "source-notes-alternative-review",
           "sources": 8,
           "sourceIds": [
@@ -1750,17 +1780,16 @@
           "soleBlockerSources": 0
         },
         {
-          "code": "square-through-choice",
-          "sources": 8,
+          "code": "becket-slice-choice",
+          "sources": 7,
           "sourceIds": [
-            "146",
-            "896",
-            "1098",
-            "1102",
-            "2364",
-            "2903",
-            "3326",
-            "3496"
+            "123",
+            "1658",
+            "2247",
+            "2518",
+            "2522",
+            "2996",
+            "3181"
           ],
           "soleBlockerSources": 0
         },
@@ -1816,19 +1845,6 @@
             "2141",
             "2490",
             "3361"
-          ],
-          "soleBlockerSources": 0
-        },
-        {
-          "code": "becket-slice-choice",
-          "sources": 6,
-          "sourceIds": [
-            "1658",
-            "2247",
-            "2518",
-            "2522",
-            "2996",
-            "3181"
           ],
           "soleBlockerSources": 0
         },
@@ -2174,6 +2190,14 @@
           "soleBlockerSources": 0
         },
         {
+          "code": "chain-hand-choice",
+          "sources": 1,
+          "sourceIds": [
+            "1273"
+          ],
+          "soleBlockerSources": 0
+        },
+        {
           "code": "closing-phrase-progression-choice",
           "sources": 1,
           "sourceIds": [
@@ -2452,7 +2476,7 @@
             "balance-swing-timing",
             "chain-receiver"
           ],
-          "sources": 58,
+          "sources": 59,
           "sourceIds": [
             "8",
             "9",
@@ -2480,6 +2504,7 @@
             "1102",
             "1166",
             "1191",
+            "1273",
             "1420",
             "1434",
             "1461",
@@ -2788,33 +2813,13 @@
         },
         {
           "codes": [
-            "chain-receiver",
-            "promenade-choice"
-          ],
-          "sources": 12,
-          "sourceIds": [
-            "146",
-            "1021",
-            "1697",
-            "2266",
-            "2484",
-            "2605",
-            "2672",
-            "2684",
-            "3142",
-            "3402",
-            "3464",
-            "3465"
-          ]
-        },
-        {
-          "codes": [
             "hall-composition",
             "hall-return-pair"
           ],
-          "sources": 12,
+          "sources": 13,
           "sourceIds": [
             "66",
+            "123",
             "133",
             "138",
             "188",
@@ -2833,9 +2838,10 @@
             "hall-composition",
             "hall-timing-choice"
           ],
-          "sources": 12,
+          "sources": 13,
           "sourceIds": [
             "66",
+            "123",
             "133",
             "138",
             "188",
@@ -2854,9 +2860,10 @@
             "hall-return-pair",
             "hall-timing-choice"
           ],
-          "sources": 12,
+          "sources": 13,
           "sourceIds": [
             "66",
+            "123",
             "133",
             "138",
             "188",
@@ -2868,6 +2875,27 @@
             "2876",
             "3490",
             "3507"
+          ]
+        },
+        {
+          "codes": [
+            "chain-receiver",
+            "promenade-choice"
+          ],
+          "sources": 12,
+          "sourceIds": [
+            "146",
+            "1021",
+            "1697",
+            "2266",
+            "2484",
+            "2605",
+            "2672",
+            "2684",
+            "3142",
+            "3402",
+            "3464",
+            "3465"
           ]
         },
         {
@@ -3072,6 +3100,23 @@
         {
           "codes": [
             "balance-swing-timing",
+            "square-through-choice"
+          ],
+          "sources": 8,
+          "sourceIds": [
+            "146",
+            "896",
+            "1098",
+            "1102",
+            "1273",
+            "2364",
+            "2903",
+            "3496"
+          ]
+        },
+        {
+          "codes": [
+            "balance-swing-timing",
             "unsupported-figure-variant"
           ],
           "sources": 8,
@@ -3135,6 +3180,23 @@
             "3185",
             "3327",
             "3478"
+          ]
+        },
+        {
+          "codes": [
+            "circulation-choice",
+            "event-policy-choice"
+          ],
+          "sources": 8,
+          "sourceIds": [
+            "123",
+            "1658",
+            "2247",
+            "2518",
+            "2522",
+            "2996",
+            "3004",
+            "3181"
           ]
         },
         {
@@ -3220,33 +3282,33 @@
         },
         {
           "codes": [
-            "balance-swing-timing",
-            "square-through-choice"
+            "becket-slice-choice",
+            "circulation-choice"
           ],
           "sources": 7,
           "sourceIds": [
-            "146",
-            "896",
-            "1098",
-            "1102",
-            "2364",
-            "2903",
-            "3496"
-          ]
-        },
-        {
-          "codes": [
-            "circulation-choice",
-            "event-policy-choice"
-          ],
-          "sources": 7,
-          "sourceIds": [
+            "123",
             "1658",
             "2247",
             "2518",
             "2522",
             "2996",
-            "3004",
+            "3181"
+          ]
+        },
+        {
+          "codes": [
+            "becket-slice-choice",
+            "event-policy-choice"
+          ],
+          "sources": 7,
+          "sourceIds": [
+            "123",
+            "1658",
+            "2247",
+            "2518",
+            "2522",
+            "2996",
             "3181"
           ]
         },
@@ -3297,32 +3359,17 @@
         },
         {
           "codes": [
-            "becket-slice-choice",
-            "circulation-choice"
+            "chain-receiver",
+            "square-through-choice"
           ],
           "sources": 6,
           "sourceIds": [
-            "1658",
-            "2247",
-            "2518",
-            "2522",
-            "2996",
-            "3181"
-          ]
-        },
-        {
-          "codes": [
-            "becket-slice-choice",
-            "event-policy-choice"
-          ],
-          "sources": 6,
-          "sourceIds": [
-            "1658",
-            "2247",
-            "2518",
-            "2522",
-            "2996",
-            "3181"
+            "146",
+            "896",
+            "1102",
+            "1273",
+            "2364",
+            "3326"
           ]
         },
         {
@@ -3473,15 +3520,57 @@
         {
           "codes": [
             "chain-receiver",
-            "square-through-choice"
+            "circulation-choice"
           ],
           "sources": 5,
           "sourceIds": [
-            "146",
-            "896",
-            "1102",
-            "2364",
-            "3326"
+            "94",
+            "123",
+            "1658",
+            "2247",
+            "2329"
+          ]
+        },
+        {
+          "codes": [
+            "chain-receiver",
+            "hall-composition"
+          ],
+          "sources": 5,
+          "sourceIds": [
+            "123",
+            "133",
+            "138",
+            "2605",
+            "2701"
+          ]
+        },
+        {
+          "codes": [
+            "chain-receiver",
+            "hall-return-pair"
+          ],
+          "sources": 5,
+          "sourceIds": [
+            "123",
+            "133",
+            "138",
+            "2605",
+            "2701"
+          ]
+        },
+        {
+          "codes": [
+            "chain-receiver",
+            "hall-timing-choice"
+          ],
+          "sources": 5,
+          "sourceIds": [
+            "123",
+            "133",
+            "138",
+            "2605",
+            "2701"
           ]
         },
         {
@@ -3678,19 +3767,6 @@
         {
           "codes": [
             "chain-receiver",
-            "circulation-choice"
-          ],
-          "sources": 4,
-          "sourceIds": [
-            "94",
-            "1658",
-            "2247",
-            "2329"
-          ]
-        },
-        {
-          "codes": [
-            "chain-receiver",
             "gyre-swing-choice"
           ],
           "sources": 4,
@@ -3699,45 +3775,6 @@
             "2494",
             "2672",
             "3454"
-          ]
-        },
-        {
-          "codes": [
-            "chain-receiver",
-            "hall-composition"
-          ],
-          "sources": 4,
-          "sourceIds": [
-            "133",
-            "138",
-            "2605",
-            "2701"
-          ]
-        },
-        {
-          "codes": [
-            "chain-receiver",
-            "hall-return-pair"
-          ],
-          "sources": 4,
-          "sourceIds": [
-            "133",
-            "138",
-            "2605",
-            "2701"
-          ]
-        },
-        {
-          "codes": [
-            "chain-receiver",
-            "hall-timing-choice"
-          ],
-          "sources": 4,
-          "sourceIds": [
-            "133",
-            "138",
-            "2605",
-            "2701"
           ]
         },
         {
@@ -4121,6 +4158,18 @@
         },
         {
           "codes": [
+            "becket-slice-choice",
+            "chain-receiver"
+          ],
+          "sources": 3,
+          "sourceIds": [
+            "123",
+            "1658",
+            "2247"
+          ]
+        },
+        {
+          "codes": [
             "california-twirl-choice",
             "chain-receiver"
           ],
@@ -4141,6 +4190,18 @@
             "159",
             "2226",
             "2531"
+          ]
+        },
+        {
+          "codes": [
+            "chain-receiver",
+            "event-policy-choice"
+          ],
+          "sources": 3,
+          "sourceIds": [
+            "123",
+            "1658",
+            "2247"
           ]
         },
         {
@@ -4309,6 +4370,42 @@
             "761",
             "2329",
             "3363"
+          ]
+        },
+        {
+          "codes": [
+            "event-policy-choice",
+            "hall-composition"
+          ],
+          "sources": 3,
+          "sourceIds": [
+            "66",
+            "123",
+            "3507"
+          ]
+        },
+        {
+          "codes": [
+            "event-policy-choice",
+            "hall-return-pair"
+          ],
+          "sources": 3,
+          "sourceIds": [
+            "66",
+            "123",
+            "3507"
+          ]
+        },
+        {
+          "codes": [
+            "event-policy-choice",
+            "hall-timing-choice"
+          ],
+          "sources": 3,
+          "sourceIds": [
+            "66",
+            "123",
+            "3507"
           ]
         },
         {
@@ -4846,17 +4943,6 @@
         },
         {
           "codes": [
-            "becket-slice-choice",
-            "chain-receiver"
-          ],
-          "sources": 2,
-          "sourceIds": [
-            "1658",
-            "2247"
-          ]
-        },
-        {
-          "codes": [
             "becket-slice-return-choice",
             "circulation-choice"
           ],
@@ -5023,17 +5109,6 @@
         {
           "codes": [
             "chain-receiver",
-            "event-policy-choice"
-          ],
-          "sources": 2,
-          "sourceIds": [
-            "1658",
-            "2247"
-          ]
-        },
-        {
-          "codes": [
-            "chain-receiver",
             "lines-rollaway-choice"
           ],
           "sources": 2,
@@ -5183,39 +5258,6 @@
           "sourceIds": [
             "159",
             "2531"
-          ]
-        },
-        {
-          "codes": [
-            "event-policy-choice",
-            "hall-composition"
-          ],
-          "sources": 2,
-          "sourceIds": [
-            "66",
-            "3507"
-          ]
-        },
-        {
-          "codes": [
-            "event-policy-choice",
-            "hall-return-pair"
-          ],
-          "sources": 2,
-          "sourceIds": [
-            "66",
-            "3507"
-          ]
-        },
-        {
-          "codes": [
-            "event-policy-choice",
-            "hall-timing-choice"
-          ],
-          "sources": 2,
-          "sourceIds": [
-            "66",
-            "3507"
           ]
         },
         {
@@ -6201,6 +6243,16 @@
         {
           "codes": [
             "balance-swing-timing",
+            "chain-hand-choice"
+          ],
+          "sources": 1,
+          "sourceIds": [
+            "1273"
+          ]
+        },
+        {
+          "codes": [
+            "balance-swing-timing",
             "circle-completion-choice"
           ],
           "sources": 1,
@@ -6501,6 +6553,36 @@
         {
           "codes": [
             "becket-slice-choice",
+            "hall-composition"
+          ],
+          "sources": 1,
+          "sourceIds": [
+            "123"
+          ]
+        },
+        {
+          "codes": [
+            "becket-slice-choice",
+            "hall-return-pair"
+          ],
+          "sources": 1,
+          "sourceIds": [
+            "123"
+          ]
+        },
+        {
+          "codes": [
+            "becket-slice-choice",
+            "hall-timing-choice"
+          ],
+          "sources": 1,
+          "sourceIds": [
+            "123"
+          ]
+        },
+        {
+          "codes": [
+            "becket-slice-choice",
             "petronella-choice"
           ],
           "sources": 1,
@@ -6786,6 +6868,26 @@
           "sources": 1,
           "sourceIds": [
             "2226"
+          ]
+        },
+        {
+          "codes": [
+            "chain-hand-choice",
+            "chain-receiver"
+          ],
+          "sources": 1,
+          "sourceIds": [
+            "1273"
+          ]
+        },
+        {
+          "codes": [
+            "chain-hand-choice",
+            "square-through-choice"
+          ],
+          "sources": 1,
+          "sourceIds": [
+            "1273"
           ]
         },
         {
@@ -7086,6 +7188,36 @@
           "sources": 1,
           "sourceIds": [
             "187"
+          ]
+        },
+        {
+          "codes": [
+            "circulation-choice",
+            "hall-composition"
+          ],
+          "sources": 1,
+          "sourceIds": [
+            "123"
+          ]
+        },
+        {
+          "codes": [
+            "circulation-choice",
+            "hall-return-pair"
+          ],
+          "sources": 1,
+          "sourceIds": [
+            "123"
+          ]
+        },
+        {
+          "codes": [
+            "circulation-choice",
+            "hall-timing-choice"
+          ],
+          "sources": 1,
+          "sourceIds": [
+            "123"
           ]
         },
         {
@@ -9701,9 +9833,9 @@
       ]
     },
     "conventionalSuggestions": {
-      "sources": 213,
+      "sources": 215,
       "statuses": {
-        "import-admitted": 171,
+        "import-admitted": 173,
         "interpretation-blocked": 34,
         "motion-or-validation-blocked": 8
       },
@@ -9723,6 +9855,7 @@
             "99",
             "110",
             "115",
+            "123",
             "133",
             "138",
             "146",
@@ -9796,6 +9929,7 @@
             "1174",
             "1191",
             "1270",
+            "1273",
             "1312",
             "1420",
             "1428",
@@ -9922,8 +10056,8 @@
             "3510",
             "3533"
           ],
-          "occurrences": 398,
-          "sources": 210
+          "occurrences": 402,
+          "sources": 212
         },
         {
           "kind": "balance",
@@ -9986,6 +10120,7 @@
             "1166",
             "1191",
             "1270",
+            "1273",
             "1420",
             "1428",
             "1434",
@@ -10083,8 +10218,8 @@
             "3507",
             "3533"
           ],
-          "occurrences": 199,
-          "sources": 154
+          "occurrences": 200,
+          "sources": 155
         },
         {
           "kind": "circle",
@@ -10099,6 +10234,7 @@
             "99",
             "110",
             "115",
+            "123",
             "133",
             "138",
             "152",
@@ -10244,8 +10380,8 @@
             "3507",
             "3510"
           ],
-          "occurrences": 176,
-          "sources": 154
+          "occurrences": 177,
+          "sources": 155
         },
         {
           "kind": "allemande",
@@ -10257,6 +10393,7 @@
             "67",
             "99",
             "110",
+            "123",
             "146",
             "166",
             "180",
@@ -10299,6 +10436,7 @@
             "1098",
             "1148",
             "1270",
+            "1273",
             "1312",
             "1428",
             "1447",
@@ -10376,8 +10514,8 @@
             "3496",
             "3510"
           ],
-          "occurrences": 160,
-          "sources": 125
+          "occurrences": 162,
+          "sources": 127
         },
         {
           "kind": "long-lines",
@@ -10413,6 +10551,7 @@
             "1036",
             "1174",
             "1191",
+            "1273",
             "1420",
             "1434",
             "1450",
@@ -10472,8 +10611,8 @@
             "3496",
             "3533"
           ],
-          "occurrences": 93,
-          "sources": 89
+          "occurrences": 94,
+          "sources": 90
         },
         {
           "kind": "robins-chain",
@@ -10482,6 +10621,7 @@
             "9",
             "24",
             "99",
+            "123",
             "133",
             "138",
             "146",
@@ -10562,8 +10702,8 @@
             "3490",
             "3510"
           ],
-          "occurrences": 91,
-          "sources": 83
+          "occurrences": 92,
+          "sources": 84
         },
         {
           "kind": "do-si-do",
@@ -11099,6 +11239,7 @@
           "kind": "hall-travel",
           "sourceIds": [
             "66",
+            "123",
             "133",
             "138",
             "188",
@@ -11110,8 +11251,8 @@
             "3490",
             "3507"
           ],
-          "occurrences": 11,
-          "sources": 11
+          "occurrences": 12,
+          "sources": 12
         },
         {
           "kind": "balance-box-circulate",
@@ -11150,16 +11291,18 @@
             "896",
             "1098",
             "1102",
+            "1273",
             "2364",
             "3326",
             "3496"
           ],
-          "occurrences": 12,
-          "sources": 7
+          "occurrences": 14,
+          "sources": 8
         },
         {
           "kind": "becket-slice",
           "sourceIds": [
+            "123",
             "1658",
             "2247",
             "2518",
@@ -11167,8 +11310,8 @@
             "2996",
             "3181"
           ],
-          "occurrences": 6,
-          "sources": 6
+          "occurrences": 7,
+          "sources": 7
         },
         {
           "kind": "long-lines-rollaway",
@@ -11281,6 +11424,14 @@
           "kind": "form-short-wave",
           "sourceIds": [
             "867"
+          ],
+          "occurrences": 1,
+          "sources": 1
+        },
+        {
+          "kind": "larks-chain",
+          "sourceIds": [
+            "1273"
           ],
           "occurrences": 1,
           "sources": 1
@@ -11399,18 +11550,6 @@
           "soleBlockerSources": 2
         },
         {
-          "code": "motion:event-compile",
-          "sources": 5,
-          "sourceIds": [
-            "110",
-            "427",
-            "1926",
-            "2344",
-            "3310"
-          ],
-          "soleBlockerSources": 5
-        },
-        {
           "code": "source-hook",
           "sources": 5,
           "sourceIds": [
@@ -11432,6 +11571,17 @@
             "3363"
           ],
           "soleBlockerSources": 1
+        },
+        {
+          "code": "motion:event-compile",
+          "sources": 4,
+          "sourceIds": [
+            "110",
+            "427",
+            "2344",
+            "3310"
+          ],
+          "soleBlockerSources": 4
         },
         {
           "code": "progression-location",
@@ -11490,6 +11640,15 @@
             "3363"
           ],
           "soleBlockerSources": 0
+        },
+        {
+          "code": "motion:compile",
+          "sources": 2,
+          "sourceIds": [
+            "729",
+            "1926"
+          ],
+          "soleBlockerSources": 2
         },
         {
           "code": "progression-count",
@@ -11564,14 +11723,6 @@
             "2672"
           ],
           "soleBlockerSources": 0
-        },
-        {
-          "code": "motion:compile",
-          "sources": 1,
-          "sourceIds": [
-            "729"
-          ],
-          "soleBlockerSources": 1
         },
         {
           "code": "motion:line-precondition",
@@ -12870,9 +13021,9 @@
       ]
     },
     "savedInterpretation": {
-      "sources": 184,
+      "sources": 186,
       "statuses": {
-        "import-admitted": 184
+        "import-admitted": 186
       },
       "figures": [
         {
@@ -12889,6 +13040,7 @@
             "94",
             "99",
             "115",
+            "123",
             "133",
             "138",
             "146",
@@ -12955,6 +13107,7 @@
             "1174",
             "1191",
             "1270",
+            "1273",
             "1420",
             "1434",
             "1447",
@@ -13063,8 +13216,8 @@
             "3507",
             "3510"
           ],
-          "occurrences": 355,
-          "sources": 184
+          "occurrences": 359,
+          "sources": 186
         },
         {
           "kind": "balance",
@@ -13124,6 +13277,7 @@
             "1166",
             "1191",
             "1270",
+            "1273",
             "1420",
             "1434",
             "1447",
@@ -13210,8 +13364,8 @@
             "3496",
             "3507"
           ],
-          "occurrences": 179,
-          "sources": 140
+          "occurrences": 180,
+          "sources": 141
         },
         {
           "kind": "circle",
@@ -13225,6 +13379,7 @@
             "94",
             "99",
             "115",
+            "123",
             "133",
             "138",
             "152",
@@ -13355,8 +13510,8 @@
             "3507",
             "3510"
           ],
-          "occurrences": 157,
-          "sources": 138
+          "occurrences": 158,
+          "sources": 139
         },
         {
           "kind": "allemande",
@@ -13367,6 +13522,7 @@
             "66",
             "67",
             "99",
+            "123",
             "146",
             "166",
             "180",
@@ -13407,6 +13563,7 @@
             "1098",
             "1148",
             "1270",
+            "1273",
             "1447",
             "1448",
             "1450",
@@ -13472,8 +13629,8 @@
             "3496",
             "3510"
           ],
-          "occurrences": 141,
-          "sources": 110
+          "occurrences": 143,
+          "sources": 112
         },
         {
           "kind": "robins-chain",
@@ -13483,6 +13640,7 @@
             "24",
             "94",
             "99",
+            "123",
             "133",
             "138",
             "146",
@@ -13571,8 +13729,8 @@
             "3490",
             "3510"
           ],
-          "occurrences": 100,
-          "sources": 92
+          "occurrences": 101,
+          "sources": 93
         },
         {
           "kind": "long-lines",
@@ -13608,6 +13766,7 @@
             "1036",
             "1174",
             "1191",
+            "1273",
             "1420",
             "1434",
             "1450",
@@ -13656,8 +13815,8 @@
             "3490",
             "3496"
           ],
-          "occurrences": 82,
-          "sources": 78
+          "occurrences": 83,
+          "sources": 79
         },
         {
           "kind": "do-si-do",
@@ -14140,6 +14299,7 @@
           "kind": "hall-travel",
           "sourceIds": [
             "66",
+            "123",
             "133",
             "138",
             "188",
@@ -14151,8 +14311,8 @@
             "3490",
             "3507"
           ],
-          "occurrences": 11,
-          "sources": 11
+          "occurrences": 12,
+          "sources": 12
         },
         {
           "kind": "square-through",
@@ -14161,11 +14321,26 @@
             "896",
             "1098",
             "1102",
+            "1273",
             "2364",
             "3326",
             "3496"
           ],
-          "occurrences": 12,
+          "occurrences": 14,
+          "sources": 8
+        },
+        {
+          "kind": "becket-slice",
+          "sourceIds": [
+            "123",
+            "1658",
+            "2247",
+            "2518",
+            "2522",
+            "2996",
+            "3181"
+          ],
+          "occurrences": 7,
           "sources": 7
         },
         {
@@ -14179,19 +14354,6 @@
             "3265"
           ],
           "occurrences": 10,
-          "sources": 6
-        },
-        {
-          "kind": "becket-slice",
-          "sourceIds": [
-            "1658",
-            "2247",
-            "2518",
-            "2522",
-            "2996",
-            "3181"
-          ],
-          "occurrences": 6,
           "sources": 6
         },
         {
@@ -14305,6 +14467,14 @@
           "kind": "half-poussette",
           "sourceIds": [
             "2226"
+          ],
+          "occurrences": 1,
+          "sources": 1
+        },
+        {
+          "kind": "larks-chain",
+          "sourceIds": [
+            "1273"
           ],
           "occurrences": 1,
           "sources": 1
@@ -14730,17 +14900,6 @@
         "soleBlockerSources": 0
       },
       {
-        "code": "motion:event-compile",
-        "sources": 4,
-        "sourceIds": [
-          "110",
-          "427",
-          "1926",
-          "3310"
-        ],
-        "soleBlockerSources": 4
-      },
-      {
         "code": "progression-location",
         "sources": 4,
         "sourceIds": [
@@ -14760,6 +14919,16 @@
           "3533"
         ],
         "soleBlockerSources": 0
+      },
+      {
+        "code": "motion:event-compile",
+        "sources": 3,
+        "sourceIds": [
+          "110",
+          "427",
+          "3310"
+        ],
+        "soleBlockerSources": 3
       },
       {
         "code": "source-notes-classification",
@@ -14818,6 +14987,15 @@
         "soleBlockerSources": 0
       },
       {
+        "code": "motion:compile",
+        "sources": 2,
+        "sourceIds": [
+          "729",
+          "1926"
+        ],
+        "soleBlockerSources": 2
+      },
+      {
         "code": "progression-count",
         "sources": 2,
         "sourceIds": [
@@ -14873,14 +15051,6 @@
           "2672"
         ],
         "soleBlockerSources": 0
-      },
-      {
-        "code": "motion:compile",
-        "sources": 1,
-        "sourceIds": [
-          "729"
-        ],
-        "soleBlockerSources": 1
       },
       {
         "code": "motion:line-precondition",
@@ -17948,6 +18118,198 @@
           "swing",
           "right-left-through",
           "star"
+        ],
+        "blockers": [],
+        "diagnostics": [],
+        "unresolvedRows": []
+      }
+    },
+    {
+      "id": "123",
+      "retainedSnapshot": true,
+      "savedReady": true,
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\123.json",
+      "snapshotOrigin": "fixture",
+      "title": "Pizza Shop",
+      "snapshotId": "contradb:123:70646db5570a899b",
+      "rawDefaults": {
+        "status": "interpretation-blocked",
+        "coverage": {
+          "sourceParsed": true,
+          "recognizedRows": 8,
+          "resolvedRows": 4,
+          "totalRows": 8,
+          "semanticallyResolved": false,
+          "executable": false
+        },
+        "figureKinds": [
+          "allemande",
+          "swing",
+          "circle",
+          "swing"
+        ],
+        "blockers": [
+          "becket-slice-choice",
+          "chain-receiver",
+          "circulation-choice",
+          "event-policy-choice",
+          "hall-composition",
+          "hall-return-pair",
+          "hall-timing-choice"
+        ],
+        "diagnostics": [
+          {
+            "code": "circulation-choice",
+            "message": "The source says Becket without explicitly naming circulation. Select CW to use the current adapter."
+          },
+          {
+            "code": "becket-slice-choice",
+            "message": "Retain the source’s left slice and straight-back return in eight counts. Review four counts for the diagonal approach and four for the straight-back retreat, keeping the approach’s along-set offset. The source names the path and progression but does not state this internal timing. Circulation and finite-end waiting are separate choices."
+          },
+          {
+            "code": "chain-receiver",
+            "message": "Choose the named receiving partner or neighbor; “chain” alone does not identify that relation."
+          },
+          {
+            "code": "hall-timing-choice",
+            "message": "Review a four-count walk, four-count turn, four-count return and four-count bend, preserving the source’s two eight-count rows."
+          },
+          {
+            "code": "hall-composition",
+            "message": "This down/turn row requires its adjacent up/return/bend row and an explicitly down-facing paired swing entry."
+          },
+          {
+            "code": "hall-return-pair",
+            "message": "This return/bend row must be consumed with the immediately preceding down/turn source row."
+          },
+          {
+            "code": "event-policy-choice",
+            "message": "Review the source event’s lark-left waiting arrangement and eight-count turn at the same physical end; this must not be a wrap to the other end."
+          }
+        ],
+        "unresolvedRows": [
+          {
+            "row": 0,
+            "text": "slice left and straight back ⁋",
+            "recognized": true,
+            "figureKinds": [],
+            "blockers": [
+              "becket-slice-choice"
+            ]
+          },
+          {
+            "row": 1,
+            "text": "ladles chain",
+            "recognized": true,
+            "figureKinds": [],
+            "blockers": [
+              "chain-receiver"
+            ]
+          },
+          {
+            "row": 4,
+            "text": "down the hall and turn as a couple",
+            "recognized": true,
+            "figureKinds": [],
+            "blockers": [
+              "hall-composition",
+              "hall-timing-choice"
+            ]
+          },
+          {
+            "row": 5,
+            "text": "up the hall and bend into a ring",
+            "recognized": true,
+            "figureKinds": [],
+            "blockers": [
+              "hall-return-pair"
+            ]
+          }
+        ]
+      },
+      "conventionalSuggestions": {
+        "status": "import-admitted",
+        "coverage": {
+          "sourceParsed": true,
+          "recognizedRows": 8,
+          "resolvedRows": 8,
+          "totalRows": 8,
+          "semanticallyResolved": true,
+          "executable": true
+        },
+        "figureKinds": [
+          "becket-slice",
+          "robins-chain",
+          "allemande",
+          "swing",
+          "hall-travel",
+          "circle",
+          "swing"
+        ],
+        "blockers": [],
+        "diagnostics": [],
+        "unresolvedRows": [],
+        "choiceStatus": "suggested-not-approved",
+        "suggestionKinds": [
+          "conventional-hall",
+          "conventional-hall-entry",
+          "conventional-timing",
+          "event-policy",
+          "formation-derived",
+          "source-circulation"
+        ],
+        "interpretation": {
+          "rows": {
+            "contradb:123:row:0": {
+              "becketSlice": {
+                "phaseBeats": [
+                  4,
+                  4
+                ]
+              }
+            },
+            "contradb:123:row:3": {
+              "hallEntry": "paired-sidelines-facing-down"
+            },
+            "contradb:123:row:4": {
+              "hallPhaseBeats": [
+                4,
+                4,
+                4,
+                4
+              ]
+            },
+            "contradb:123:row:1": {
+              "chainReceiver": "neighbor"
+            }
+          },
+          "eventPolicy": {
+            "waitingRoleArrangement": "lark-left",
+            "sameEndTurnBeats": 8,
+            "sameEndTurnOffsetBeats": 0,
+            "reentryPreparationBeats": 0
+          },
+          "circulation": "cw"
+        }
+      },
+      "savedInterpretation": {
+        "status": "import-admitted",
+        "coverage": {
+          "sourceParsed": true,
+          "recognizedRows": 8,
+          "resolvedRows": 8,
+          "totalRows": 8,
+          "semanticallyResolved": true,
+          "executable": true
+        },
+        "figureKinds": [
+          "becket-slice",
+          "robins-chain",
+          "allemande",
+          "swing",
+          "hall-travel",
+          "circle",
+          "swing"
         ],
         "blockers": [],
         "diagnostics": [],
@@ -29980,6 +30342,159 @@
       }
     },
     {
+      "id": "1273",
+      "retainedSnapshot": true,
+      "savedReady": true,
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\1273.json",
+      "snapshotOrigin": "fixture",
+      "title": "Kid from Kadoka",
+      "snapshotId": "contradb:1273:5ebda490db1b3edb",
+      "rawDefaults": {
+        "status": "interpretation-blocked",
+        "coverage": {
+          "sourceParsed": true,
+          "recognizedRows": 6,
+          "resolvedRows": 3,
+          "totalRows": 6,
+          "semanticallyResolved": false,
+          "executable": false
+        },
+        "figureKinds": [
+          "allemande",
+          "swing",
+          "long-lines"
+        ],
+        "blockers": [
+          "balance-swing-timing",
+          "chain-hand-choice",
+          "chain-receiver",
+          "square-through-choice"
+        ],
+        "diagnostics": [
+          {
+            "code": "balance-swing-timing",
+            "message": "Choose a four-beat balance plus the remaining swing time; the source gives only the combined duration."
+          },
+          {
+            "code": "chain-hand-choice",
+            "message": "Review a left-hand pull-by and clockwise Robin-led courtesy for an unqualified Lark chain; explicit right-hand variants remain distinct."
+          },
+          {
+            "code": "chain-receiver",
+            "message": "Choose the actual partner or neighbor receiving the Lark chain."
+          },
+          {
+            "code": "square-through-choice",
+            "message": "Review four counts for the partner right-hand balance, two for the partner right pull-by and two for the current-neighbor left pull-by in each repeated unit. The literal “then repeat” repeats that complete balanced unit inside the original sixteen-count row. Only a retained final progression marker changes neighbors after the second unit; the first returns facing the current partner across. Compact hand spacing and the final in-budget preparation are modeling interpretations. No counts are added."
+          }
+        ],
+        "unresolvedRows": [
+          {
+            "row": 0,
+            "text": "neighbors balance & swing",
+            "recognized": true,
+            "figureKinds": [],
+            "blockers": [
+              "balance-swing-timing"
+            ]
+          },
+          {
+            "row": 3,
+            "text": "gentlespoons chain",
+            "recognized": true,
+            "figureKinds": [],
+            "blockers": [
+              "chain-hand-choice",
+              "chain-receiver"
+            ]
+          },
+          {
+            "row": 5,
+            "text": "square through four - partners balance & pull by right, then neighbors pull by left, then repeat ⁋",
+            "recognized": true,
+            "figureKinds": [],
+            "blockers": [
+              "square-through-choice"
+            ]
+          }
+        ]
+      },
+      "conventionalSuggestions": {
+        "status": "import-admitted",
+        "coverage": {
+          "sourceParsed": true,
+          "recognizedRows": 6,
+          "resolvedRows": 6,
+          "totalRows": 6,
+          "semanticallyResolved": true,
+          "executable": true
+        },
+        "figureKinds": [
+          "balance",
+          "swing",
+          "allemande",
+          "swing",
+          "larks-chain",
+          "long-lines",
+          "square-through",
+          "square-through"
+        ],
+        "blockers": [],
+        "diagnostics": [],
+        "unresolvedRows": [],
+        "choiceStatus": "suggested-not-approved",
+        "suggestionKinds": [
+          "conventional-timing",
+          "formation-derived",
+          "qualifier-interpretation"
+        ],
+        "interpretation": {
+          "rows": {
+            "contradb:1273:row:3": {
+              "chainHand": "left",
+              "chainReceiver": "neighbor"
+            },
+            "contradb:1273:row:0": {
+              "balanceBeats": 4
+            },
+            "contradb:1273:row:5": {
+              "squareThrough": {
+                "phaseBeats": [
+                  4,
+                  2,
+                  2
+                ]
+              }
+            }
+          }
+        }
+      },
+      "savedInterpretation": {
+        "status": "import-admitted",
+        "coverage": {
+          "sourceParsed": true,
+          "recognizedRows": 6,
+          "resolvedRows": 6,
+          "totalRows": 6,
+          "semanticallyResolved": true,
+          "executable": true
+        },
+        "figureKinds": [
+          "balance",
+          "swing",
+          "allemande",
+          "swing",
+          "larks-chain",
+          "long-lines",
+          "square-through",
+          "square-through"
+        ],
+        "blockers": [],
+        "diagnostics": [],
+        "unresolvedRows": []
+      }
+    },
+    {
       "id": "1312",
       "retainedSnapshot": true,
       "savedReady": false,
@@ -34647,12 +35162,12 @@
           "pull-by"
         ],
         "blockers": [
-          "motion:event-compile"
+          "motion:compile"
         ],
         "diagnostics": [
           {
-            "code": "motion:event-compile",
-            "message": "A terminal named pull-by requires exactly one explicit final passage contract."
+            "code": "motion:compile",
+            "message": "This named pull-by continuation needs a separately reviewed endpoint adapter; terminal progression is not inferred."
           }
         ],
         "unresolvedRows": [],
