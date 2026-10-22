@@ -721,7 +721,7 @@ export function importContraDb(input:string,options:ContraDbSourceOptions&{inter
   const down=result.rows[i],up=result.rows[i+1],previous=result.rows[i-1]?.figures.at(-1),phase=interpretation.rows?.[down.source.id]?.hallPhaseBeats;
   const match=normalize(down.source.text).match(/^down the hall and turn (as a couple|alone)$/i);
   if(!match||normalize(up.source.text).toLowerCase()!=='up the hall and bend into a ring')continue;
-  if(formation!=='duple-improper'||down.source.phrase!==up.source.phrase||down.source.beats!==8||up.source.beats!==8||previous?.kind!=='swing'||previous.exit!=='face-down-line'||!['partner','neighbor'].includes(previous.who??''))continue;
+  if(!['duple-improper','becket'].includes(formation??'')||down.source.phrase!==up.source.phrase||down.source.beats!==8||up.source.beats!==8||previous?.kind!=='swing'||previous.exit!=='face-down-line'||!['partner','neighbor'].includes(previous.who??''))continue;
   if(!phase||phase.length!==4||phase.some(n=>n!==4)||down.diagnostics.some(d=>d.code!=='hall-composition')||up.diagnostics.some(d=>d.code!=='hall-return-pair'))continue;
   const figureId=`${down.source.id}:hall`,sourceRowIds=[down.source.id,up.source.id],hallTurn=match[1].toLowerCase()==='alone'?'alone':'couples';
   down.figures=[{id:figureId,kind:'hall-travel',beats:16,label:`${down.source.text}; ${up.source.text}`,entry:'paired-sidelines-facing-down',hallTurn,hallPairRelation:previous.who as 'partner'|'neighbor',hallPhaseBeats:[...phase],confidence:'approximate'}];

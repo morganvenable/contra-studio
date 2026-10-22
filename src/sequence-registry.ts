@@ -1,3 +1,4 @@
+import {compileCarriedHallStep} from './carried-hall-step.ts';
 import {compileStarRoleExitStep,acceptsHeldRoleAllemande,compileHeldRoleAllemandeStep} from './star-role-allemande-step.ts';
 import {compileAcrossRingPassStep} from './across-ring-pass-step.ts';
 import {compileRoleShoulderPassStep} from './role-shoulder-pass-step.ts';
@@ -51,6 +52,7 @@ export interface SequenceStepResult {readonly adapterId:string;readonly plan:Mot
  * through the same actual-state seam. New adapters consume the complete held
  * boundary directly; no whole-source signature is available to this registry. */
 export function compileSequenceStep(figure:Figure,context:FigureContext,incoming:SequenceBoundary,compileEstablished:()=>MotionPlan,capabilities:MotionCapabilities={}):SequenceStepResult {
+ if(figure.kind==='hall-travel'){if(!capabilities.stateCarryingSequences||!capabilities.hallTravel)throw Error('Carried hall travel requires registered source and motion capabilities.');const plan=compileCarriedHallStep(figure,context,incoming);return{adapterId:'carried-hall-travel',plan,ownsEntryFacing:true,boundaryPlan:plan};}
  if(figure.kind==='do-si-do'&&figure.exit==='ring'){
   if(!capabilities.stateCarryingSequences||!capabilities.ringBalances)throw Error('Do-si-do ring preparation needs its registered state-carrying ring boundary.');
   const plan=compileDosidoRingStep(figure,context,incoming);

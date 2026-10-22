@@ -1,0 +1,9 @@
+# Carried down/turn/return/bend
+
+The existing reviewed hall trajectory now has a strict carried-state registry adapter. It receives actual roots, facing, roles, named partner/neighbor map, epoch, source clock and raw held contacts; entry must exactly match and the actual ring exit is captured. No path, count, contact-acquisition policy or limb geometry is replaced. Existing exact paired-sideline/down-facing entry remains required.
+
+This makes the existing16-count hall contract available to the Becket state-sequence compiler, whose former primitive fallback did not implement hall travel. The importer retains adjacent literal8-count down/turn and8-count return/bend rows in the same phrase, preceded by a named partner/neighbor swing with an explicit down-facing choice. Its four-plus-four-plus-four-plus-four allocation remains removable.
+
+New complete source123, Pizza Shop (https://contradb.com/dances/123), preserves its initial slice progression, neighbor chain receiver, neighbor swing/couple turn, ring exit and final partner swing. Independent three/four-couple finite slot oracles, raw entry/exit proofs, line order, neighbor holds, waiters, all seams and complete closure pass at1/64count. Max root speed1.246259/minimum clearance.511142. A contrasting actual source2876 turn-alone interval retains its existing trajectory and reverses all four actors rather than exchanging couple units. Stale pose, epoch and invented contact states reject.
+
+Four new tests and15 existing source/hall integration tests pass; TypeScript passes. Saved archive retains the exact snapshot. Built-browser inspection, Ready generation and publication remain lead gates. Hardware GPU/audio unrun. Opening hall, active-ones entry, baskets, arches, inversions, other timing and unsupported progression remain separate holds; the broader89-source unresolved hall cohort is not claimed admitted.
