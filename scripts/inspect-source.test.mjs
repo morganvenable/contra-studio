@@ -15,7 +15,7 @@ test('explicit review labels suggestions and exposes current 110 blocker without
  const [held,ready]=report.sources;
  assert.equal(held.review.status,'suggested-not-authored');assert.equal(held.review.baselineCoverage.resolvedRows,5);assert.equal(held.coverage.resolvedRows,9);assert.equal(held.unresolvedRows.total,0);
  assert.ok(held.review.suggestions.items.some(s=>s.kind==='conventional-timing'));assert.ok(held.review.choices.items.some(c=>c.path.endsWith('.balanceBeats')&&c.valueJson==='4'));
- assert.ok(held.diagnostics.items.some(d=>d.code==='motion:compile'&&d.severity==='error'));assert.equal(held.compilation.status,'not-run');assert.equal(held.coverage.executable,false);
+ assert.ok(held.diagnostics.items.some(d=>d.code==='motion:event-compile'&&d.severity==='error'&&d.message.includes('degenerate named swing frame')));assert.equal(held.compilation.status,'not-run');assert.equal(held.coverage.executable,false);
  assert.equal(ready.review.status,'saved-choices-retained');assert.equal(ready.review.suggestions.total,0);assert.equal(ready.compilation.status,'compiled');
  assert.equal(readFileSync(new URL('../test-data/contradb/110.json',import.meta.url),'utf8'),before);
 });
