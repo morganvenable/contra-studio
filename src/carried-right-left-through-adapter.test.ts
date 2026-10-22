@@ -108,3 +108,14 @@ test('applicability is decided from immediate held state, facing and depth befor
  for(const id of[340,682] as const)assert.equal(needsCarriedRightLeftThroughEntry(literal(id).boundary),true);
  const c=context();c.start[0].yaw+=.1;assert.equal(needsCarriedRightLeftThroughEntry(captureSequenceBoundary(c,0,[])),true);
 });
+
+test('released 135-degree star facings complete preparation inside unchanged crossing and yaw budget',()=>{
+ const c=context();for(const id of c.ids)c.start[id].yaw+=id%2?3*Math.PI/4:Math.PI/4;
+ const b=captureSequenceBoundary(c,48,[]),p=compileCarriedRightLeftThroughStep(row(),c,b),m=metrics(p,c);
+ assertSequenceHandoff(b,p.entryState);assert.equal(p.exitState.sourceBeat,56);assert.ok(m.yawRate<=2+1e-7);assert.ok(m.clearance>=.45);assert.ok(m.speed<1.2);
+ const beat=3*Math.PI/4*1.875/2,poses=sampled(p,c,beat/8),contacts=p.contacts(beat/8,poses);
+ assert.equal(contacts.length,2);assert.ok(contacts.every(h=>h.handA==='right'&&h.handB==='right'&&h.strength>.99));
+ for(const id of c.ids)assert.ok(angle(poses[id].yaw,Math.sign(c.start[id].position.x)*-Math.PI/2)<1e-7);
+ const opposite=context();for(const id of opposite.ids)opposite.start[id].yaw+=Math.PI;
+ assert.throws(()=>compileCarriedRightLeftThroughStep(row(),opposite,captureSequenceBoundary(opposite,0,[])),/preparation envelope/);
+});

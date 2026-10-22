@@ -11,7 +11,7 @@ import {compileRightLeftThrough,type RightLeftThroughPlan} from './right-left-th
 import {compileRightLeftThroughFigure} from './right-left-through-adapter.ts';
 import {advanceSequenceBeat,assertSequenceHandoff,captureSequenceBoundary,ownSequenceBoundary,sampleSequenceBoundary,type SequenceBoundary,type SequencedMotionPlan} from './sequence-boundary.ts';
 
-const EPS=1e-7,RELEASE_BEATS=.5,FACING_BEATS=2,ACQUIRE_START=1.5;
+const EPS=1e-7,RELEASE_BEATS=.5,FACING_BEATS=2;
 const turn=(a:number,b:number)=>Math.atan2(Math.sin(a-b),Math.cos(a-b));
 const ease=(x:number)=>{const t=Math.max(0,Math.min(1,x));return t*t*t*(10+t*(-15+6*t));};
 const time=(t:number)=>{if(!Number.isFinite(t))throw new Error('A carried right-and-left-through sample time must be finite.');return Math.max(0,Math.min(1,t));};
@@ -64,6 +64,10 @@ export function compileCarriedRightLeftThroughStep(input:Figure,context:FigureCo
  if(ids.some(id=>Math.abs(Math.abs(start[id].position.x-origin.x)-halfWidth)>EPS||Math.abs(Math.abs(start[id].position.z-origin.z)-halfDepth)>EPS))throw new Error('A carried right-and-left-through requires actual rectangular side-couple roots.');
  if(boundary.heldContacts.length)assertRing(boundary,origin);
  const canonical=new Map(ids.map(id=>{const p=start[id],across=Math.atan2(-Math.sign(p.position.x-origin.x),0);return[id,p.yaw+turn(across,p.yaw)];}));
+ // Preserve the established two-count timing; released wider turns may use
+ // at most a further quarter count inside the original four-count crossing.
+ // Acquisition follows the actual facing window, preserving the yaw limit.
+ const facingBeats=Math.max(FACING_BEATS,...ids.map(id=>Math.abs(canonical.get(id)!-start[id].yaw)*1.875/2));
  const exitHalfWidth=requirement?.halfWidth??halfWidth,exitHalfDepth=requirement?.halfDepth??halfDepth;
  const aligned=ids.every(id=>Math.abs(canonical.get(id)!-start[id].yaw)<EPS),unchangedFootprint=!requirement||Math.abs(exitHalfWidth-halfWidth)<EPS&&Math.abs(exitHalfDepth-halfDepth)<EPS,established=boundary.heldContacts.length===0&&aligned&&halfDepth>=.7-EPS&&unchangedFootprint;
  let base:RightLeftThroughPlan,plan:MotionPlan;
@@ -76,19 +80,19 @@ export function compileCarriedRightLeftThroughStep(input:Figure,context:FigureCo
   if(halfWidth<.65-EPS||halfWidth>1.2+EPS||halfDepth<.55-EPS||halfDepth>1.1+EPS)throw new Error('Measured carried right-and-left-through roots are outside the validated .65–1.2 by .55–1.1 half-dimension envelope.');
   // Quintic turning has peak derivative 1.875. Reject instead of making an
   // unbounded extra turn or changing the eight-count source allocation.
-  if(ids.some(id=>Math.abs(canonical.get(id)!-start[id].yaw)*1.875/FACING_BEATS>2+EPS))throw new Error('The actual incoming facing cannot reach the named crossing inside its two-count preparation and yaw budget.');
+  if(facingBeats>(boundary.heldContacts.length?FACING_BEATS:2.25)+EPS)throw new Error('The actual incoming facing cannot reach the named crossing within its 2.25-count preparation envelope and unchanged yaw budget.');
   const maps={partner,neighbor},courtesy=maps[f.who as 'partner'|'neighbor'],crossing=maps[f.crossingRelation!],leaders=ids.filter(id=>dancers[id].role===f.courtesyLeader);
   const entry=new Map(ids.map(id=>[id,{position:{...start[id].position},yaw:canonical.get(id)!,velocity:{x:0,z:0},yawRate:0}]));
   const exit=new Map(ids.map(id=>[id,{position:requirement?{x:origin.x-Math.sign(start[id].position.x-origin.x)*exitHalfWidth,z:origin.z-Math.sign(start[id].position.z-origin.z)*exitHalfDepth}:{x:2*origin.x-start[id].position.x,z:2*origin.z-start[id].position.z},yaw:canonical.get(id)!+Math.PI,velocity:{x:0,z:0},yawRate:0}]));
   base=compileRightLeftThrough({actors:ids.map(id=>dancers[id]),entry,exit,relations:{epoch,partner,neighbor},bindingEpoch:epoch,crossingPairs:ids.filter(id=>id<crossing.get(id)!).map(id=>[id,crossing.get(id)!] as const),passingHand:'right',passingShoulder:'right',courtesyPairs:leaders.map(leaderId=>({leaderId,followerId:courtesy.get(leaderId)!,relationship:f.who as 'partner'|'neighbor'})),courtesyHold:'left-front-right-waist',frame:{origin,across:{x:1,z:0}},beats:8,crossingBeats:4,entryGeometry:'measured-rectangle'});
-  plan={position:(id,t)=>base.position(id,time(t)),facing:(id,t,poses)=>{t=time(t);const initial=start[id];if(!ids.includes(id)||!initial)throw new Error('Actor is outside this carried right-and-left-through.');return base.facing(id,t,poses)-(canonical.get(id)!-initial.yaw)*(1-ease(t*8/FACING_BEATS));},contacts:(raw,poses)=>{
-   const t=time(raw),beat=t*8,release=1-ease(beat/RELEASE_BEATS),acquire=ease((beat-ACQUIRE_START)/(FACING_BEATS-ACQUIRE_START));
+  plan={position:(id,t)=>base.position(id,time(t)),facing:(id,t,poses)=>{t=time(t);const initial=start[id];if(!ids.includes(id)||!initial)throw new Error('Actor is outside this carried right-and-left-through.');return base.facing(id,t,poses)-(canonical.get(id)!-initial.yaw)*(1-ease(t*8/facingBeats));},contacts:(raw,poses)=>{
+   const t=time(raw),beat=t*8,release=1-ease(beat/RELEASE_BEATS),acquire=ease((beat-(facingBeats-.5))/.5);
    const prior:HandContact[]=release>0?boundary.heldContacts.map(c=>({...c,point:{...c.point},strength:c.strength*release})):[];
    return[...prior,...base.contacts(t,poses).map(c=>({...c,strength:c.strength*(beat<3.3?acquire:1)})).filter(c=>c.strength>0)];
   }};
  }
  const ownedContext={...context,ids,start,dancers,relations:{epoch,partner,neighbor},bindingEpoch:epoch},entryState=sampleSequenceBoundary(ownedContext,plan,boundary.sourceBeat,0),exitState=sampleSequenceBoundary(ownedContext,plan,endBeat,1);
  assertSequenceHandoff(boundary,entryState);
- const maximumObservedYawRate=Math.max(base.maximumObservedYawRate,...ids.map(id=>established?0:Math.abs(canonical.get(id)!-start[id].yaw)*1.875/FACING_BEATS));
+ const maximumObservedYawRate=Math.max(base.maximumObservedYawRate,...ids.map(id=>established?0:Math.abs(canonical.get(id)!-start[id].yaw)*1.875/facingBeats));
  return Object.freeze({...plan,entryState,exitState,...(requirement?{requiredExit:Object.freeze({...requirement})}:{}),entryMode:established?'established':boundary.heldContacts.length?'held-ring-release':'released-facing-preparation',geometry:Object.freeze({halfWidth,halfDepth,exitHalfWidth,exitHalfDepth,passingRadius:established?.33:Math.min(.33,halfDepth/2)}),minimumObservedClearance:base.minimumObservedClearance,maximumObservedSpeed:base.maximumObservedSpeed,maximumObservedYawRate});
 }
