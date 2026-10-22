@@ -47,12 +47,12 @@ export function withBalanceStance<T extends CompiledDance>(compiled:T):T {
   let contacts:HandContact[];
   if(inBalance)contacts=figure.hands==='right'||frame.figureProgress<.8125?balanceHands(pairs,poses,1):frame.contacts;
   else{
-   contacts=frame.contacts.map(c=>{const a=offsets.get(c.a)??{x:0,z:0},b=offsets.get(c.b)??{x:0,z:0},d=c.target&&c.target!=='hands'||['robins-chain','ladies-chain'].includes(figure.kind)&&c.kind==='courtesy'&&c.handA==='right'&&c.handB==='right'?b:{x:(a.x+b.x)/2,z:(a.z+b.z)/2};return{...c,point:{...c.point,x:c.point.x+d.x,z:c.point.z+d.z}};});
+   contacts=frame.contacts.map(c=>{const a=offsets.get(c.a)??{x:0,z:0},b=offsets.get(c.b)??{x:0,z:0},d=c.target&&c.target!=='hands'||['robins-chain','ladies-chain','larks-chain'].includes(figure.kind)&&c.kind==='courtesy'&&c.handA===(poses[c.b].chainCourtesyPreparation?.waistHand??'right')&&c.handB===c.handA?b:{x:(a.x+b.x)/2,z:(a.z+b.z)/2};return{...c,point:{...c.point,x:c.point.x+d.x,z:c.point.z+d.z}};});
    if(preparing&&weight>.65){const occupied=new Set<string>();for(const c of contacts){occupied.add(`${c.a}:${c.handA}`);if(!c.target||c.target==='hands')occupied.add(`${c.b}:${c.handB}`);}
     for(const c of balanceHands(pairs,poses,smooth((weight-.65)/.35)))if(!occupied.has(`${c.a}:${c.handA}`)&&!occupied.has(`${c.b}:${c.handB}`))contacts.push(c);
    }
   }
-  contacts=contacts.map(c=>{const reach=(id:number,hand:'left'|'right')=>{const p=poses[id],side=hand==='left'?1:-1;return Math.hypot(c.point.x-p.position.x-side*.235*Math.cos(p.yaw),c.point.y-1.355,c.point.z-p.position.z+side*.235*Math.sin(p.yaw));},distance=Math.max(reach(c.a,c.handA),c.target&&c.target!=='hands'?0:reach(c.b,c.handB));return{...c,strength:c.strength*smooth((.68-distance)/(c.kind==='swing-frame'?.035:.06))};}).filter(c=>c.strength>(['robins-chain','ladies-chain'].includes(figure.kind)?0:.01));
+  contacts=contacts.map(c=>{const reach=(id:number,hand:'left'|'right')=>{const p=poses[id],side=hand==='left'?1:-1;return Math.hypot(c.point.x-p.position.x-side*.235*Math.cos(p.yaw),c.point.y-1.355,c.point.z-p.position.z+side*.235*Math.sin(p.yaw));},distance=Math.max(reach(c.a,c.handA),c.target&&c.target!=='hands'?0:reach(c.b,c.handB));return{...c,strength:c.strength*smooth((.68-distance)/(c.kind==='swing-frame'?.035:.06))};}).filter(c=>c.strength>(['robins-chain','ladies-chain','larks-chain'].includes(figure.kind)?0:.01));
   return {...frame,poses,contacts};
  }};
 }
