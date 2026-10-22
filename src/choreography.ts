@@ -57,7 +57,7 @@ const compileOwnedProgram=createOwnedProgramCache(({dance,couples,capabilities}:
 
 function compileChoreographyUncached(dance: Dance, couples: number, capabilities: MotionCapabilities): CompiledDance {
   if(dance.improperWavePolicy!==undefined){
-    if(!capabilities.improperWaveSequences||!capabilities.longWaves||!capabilities.progressionEvents||dance.figures.some(f=>f.kind==='hey')&&!capabilities.ordinaryFullHeys||dance.figures.some(f=>f.kind==='do-si-do')&&!capabilities.stateCarryingRoleDosidoWaves||!capabilities.ringBalances||!capabilities.californiaTwirls)throw Error('Improper wave interpretation requires carried full-hey wave and finite ring/twirl capabilities.');
+    if(!capabilities.improperWaveSequences||!capabilities.longWaves||!capabilities.progressionEvents||dance.figures.some(f=>f.kind==='hey'&&f.amount===1)&&!capabilities.ordinaryFullHeys||dance.figures.some(f=>f.kind==='hey'&&f.amount===.5)&&!capabilities.ordinaryHalfHeys||dance.figures.some(f=>f.kind==='ricochet-hey')&&(!capabilities.ricochetHeys||!capabilities.stateCarryingRicochetWaves)||dance.figures.some(f=>f.kind==='do-si-do')&&!capabilities.stateCarryingRoleDosidoWaves||dance.figures.some(f=>f.kind==='ring-balance')&&!capabilities.ringBalances||dance.figures.some(f=>f.kind==='california-twirl')&&!capabilities.californiaTwirls)throw Error('Improper wave interpretation requires carried full-hey wave and finite ring/twirl capabilities.');
     return compileImproperWavePolicyDance(dance,couples);
   }
   if(dance.becketWavePolicy!==undefined){
