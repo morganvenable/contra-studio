@@ -1,3 +1,4 @@
+import {compileHallLinePolicyDance} from './hall-line-policy.ts';
 import {compileImproperWavePolicyDance} from './improper-wave-policy.ts';
 import {compileBecketWavePolicyDance} from './becket-wave-policy.ts';
 import {compileBecketStateSequence} from './becket-state-sequence.ts';
@@ -59,6 +60,10 @@ function compileChoreographyUncached(dance: Dance, couples: number, capabilities
   if(dance.improperWavePolicy!==undefined){
     if(!capabilities.improperWaveSequences||!capabilities.longWaves||!capabilities.progressionEvents||dance.figures.some(f=>f.kind==='hey'&&f.amount===1)&&!capabilities.ordinaryFullHeys||dance.figures.some(f=>f.kind==='hey'&&f.amount===.5)&&!capabilities.ordinaryHalfHeys||dance.figures.some(f=>f.kind==='ricochet-hey')&&(!capabilities.ricochetHeys||!capabilities.stateCarryingRicochetWaves)||dance.figures.some(f=>f.kind==='do-si-do')&&!capabilities.stateCarryingRoleDosidoWaves||dance.figures.some(f=>f.kind==='ring-balance')&&!capabilities.ringBalances||dance.figures.some(f=>f.kind==='california-twirl')&&!capabilities.californiaTwirls)throw Error('Improper wave interpretation requires carried full-hey wave and finite ring/twirl capabilities.');
     return compileImproperWavePolicyDance(dance,couples);
+  }
+  if(dance.hallLinePolicy!==undefined){
+    if(!capabilities.hallLineSequences||!capabilities.hallTravel||!capabilities.progressionEvents||!capabilities.stateCarryingSixTwoPasses)throw Error('Hall-line source requires its explicit initial-line, hall and finite pass capabilities.');
+    return withBalanceStance(compileHallLinePolicyDance(dance,couples));
   }
   if(dance.becketWavePolicy!==undefined){
     if(!capabilities.becketWaveSequences||!capabilities.longWaves||!capabilities.progressionEvents||!capabilities.ordinaryHalfHeys||!capabilities.stateCarryingSixTwoPasses)throw Error('Becket wave interpretation requires its carried wave, half-hey and circle/pass finite capabilities.');

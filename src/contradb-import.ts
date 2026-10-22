@@ -1,5 +1,6 @@
 import{terminalRoleStarLook}from'./source-chain-star.ts';
 import {lowerImproperWaveSource,improperWaveDescription,type ImproperWaveChoice} from './source-improper-wave.ts';
+import {lowerHallLineSource,HALL_LINE_DESCRIPTION,type HallLineChoice} from './source-hall-line.ts';
 import {lowerBecketWaveSource,BECKET_WAVE_DESCRIPTION,type BecketWaveChoice} from './source-becket-wave.ts';
 import {normalizePairedHallExit} from './source-paired-hall-exit.ts';
 import {linesRollawaySource,isLinesRollawayChoice,LINES_ROLLAWAY_DESCRIPTION,type LinesRollawayChoice} from './source-lines-rollaway.ts';
@@ -41,6 +42,7 @@ export type PromenadeChoice=typeof CONVENTIONAL_PARTNER_PROMENADE;
 /** Choices are interpretation data, never changes to the original choreography. */
 export interface ContraDbInterpretation {
  improperWave?:ImproperWaveChoice;
+ hallLine?:HallLineChoice;
  becketWave?:BecketWaveChoice;
  initialWave?:InitialWavePolicy;
   circulation?:'cw';
@@ -558,7 +560,7 @@ export function importContraDb(input:string,options:ContraDbSourceOptions&{inter
  if(interpretation.rows!==undefined&&(!interpretation.rows||typeof interpretation.rows!=='object'||Array.isArray(interpretation.rows))){issue('row-choices-shape','Row choices must be an object keyed by exact source row IDs.','error');interpretation={...interpretation,rows:{}};}
  for(const [id,choice]of Object.entries(interpretation.rows??{}))if(!choice||typeof choice!=='object'||Array.isArray(choice)){issue('row-choice-shape',`Choice for ${id} must be an object.`,'error');interpretation={...interpretation,rows:{...interpretation.rows,[id]:{}}};}
  if(interpretation.circulation!==undefined&&interpretation.circulation!=='cw')issue('invalid-circulation','The only registered circulation interpretation is CW; conflicting or unsupported values are not ignored.','error');
- for(const key of Object.keys(interpretation))if(!['improperWave','becketWave','initialWave','madRobinHook','madRobinPolicy','ringTwirl','diagonalHey','sixTwoPass','circulation','progression','preambleReview','sourceHook','notesReview','wholeSetOval','swingStart','eventPolicy','rows'].includes(key))issue('unknown-interpretation',`Unknown interpretation field “${key}” cannot be ignored.`,'error');
+ for(const key of Object.keys(interpretation))if(!['hallLine','improperWave','becketWave','initialWave','madRobinHook','madRobinPolicy','ringTwirl','diagonalHey','sixTwoPass','circulation','progression','preambleReview','sourceHook','notesReview','wholeSetOval','swingStart','eventPolicy','rows'].includes(key))issue('unknown-interpretation',`Unknown interpretation field “${key}” cannot be ignored.`,'error');
  result.interpretation=JSON.parse(JSON.stringify(interpretation));
  if(interpretation.improperWave!==undefined){
   try{
@@ -574,6 +576,22 @@ export function importContraDb(input:string,options:ContraDbSourceOptions&{inter
    for(const d of result.validation.diagnostics)diagnostics.push({code:`motion:${d.code}`,severity:d.severity==='error'?'error':'warning',message:d.message,...(d.category?{category:d.category}:{})});
    if(result.validation.playable&&compileChoreography(dance,6,options.capabilities).repeatable&&!diagnostics.some(d=>d.severity!=='warning')){result.dance=dance;coverage.executable=true;}
   }catch(e){diagnostics.push(motionCompilationFailure('improper-wave-interpretation',e instanceof Error?e.message:'The Improper wave convention was rejected.'));}
+  return finish();
+ }
+ if(interpretation.hallLine!==undefined){
+  try{
+   if(Object.keys(interpretation).some(k=>k!=='hallLine'))throw Error('The named hall-line convention cannot ignore additional interpretation choices.');
+   const lowered=lowerHallLineSource(record,interpretation.hallLine);
+   result.rows=record.rows.map(source=>({source,recognized:true,resolved:true,figures:lowered.byRow.get(source.id)??[],diagnostics:[],interpretations:[HALL_LINE_DESCRIPTION],...(lowered.compounds.has(source.id)?{compound:lowered.compounds.get(source.id)}:{})}));
+   coverage.recognizedRows=result.rows.length;coverage.resolvedRows=result.rows.length;
+   coverage.semanticallyResolved=source.structurallyValid&&!diagnostics.some(d=>d.severity!=='warning');
+   warnings.push(HALL_LINE_DESCRIPTION,'ContraDB software is AGPL-3.0. Its public page does not establish a blanket choreography/data republication license.','This is a schematic interpretation; source recognition and sampled motion validation are separate checks.');
+   if(!coverage.semanticallyResolved)return finish();
+   const dance:ContraDbImportedDance={id:`contradb-${record.sourceId}-${record.snapshotId.split(':').at(-1)}`,title:record.title,author:record.author,formation:'becket',circulation:'cw',sourceUrl:record.sourceUrl,description:'Imported ContraDB snapshot with explicit source interpretation.',figures:lowered.figures,progressionEvents:lowered.progressionEvents,hallLinePolicy:lowered.policy,notes:[...warnings],verified:false,sourceText:JSON.stringify({schema:'contra-studio/contradb-interpretation',version:1,sourceSnapshotId:record.snapshotId,snapshot:makeContraDbSnapshot(record),interpretation} satisfies ContraDbInterpretationFile),sourceRecord:record,sourceRows:record.rows,contraDbInterpretation:JSON.parse(JSON.stringify(interpretation))};
+   result.validation=validateDance(dance,options.capabilities);
+   for(const d of result.validation.diagnostics)diagnostics.push({code:`motion:${d.code}`,severity:d.severity==='error'?'error':'warning',message:d.message,...(d.category?{category:d.category}:{})});
+   if(result.validation.playable&&compileChoreography(dance,6,options.capabilities).repeatable&&!diagnostics.some(d=>d.severity!=='warning')){result.dance=dance;coverage.executable=true;}
+  }catch(e){diagnostics.push(motionCompilationFailure('hall-line-interpretation',e instanceof Error?e.message:'The hall-line convention was rejected.'));}
   return finish();
  }
  if(interpretation.becketWave!==undefined){
