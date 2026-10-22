@@ -161,6 +161,12 @@ export function prepareContraDbReview(input:string,remembered:readonly SourceCho
   // A neutral exit needs no successor-specific guess. The named producer gives
   // a candidate sideline relation; measured runtime state must still prove it.
   const producer=baseline.rows[row.source.index-1]?.figures.at(-1);
+  const archPair=baseline.rows[row.source.index-1]?.source.text.match(/^(partners?|neighbors?) right hand balance (?:&|and) box the gnat$/i);
+  if(archPair&&row.source.beats===8&&!row.source.progression&&row.diagnostics.some(d=>d.code==='ordinary-hey-choice')&&!interpretation.rows?.[row.source.id]?.ordinaryHey&&/^(?:gentlespoons?|gents|men|larks|ladles|ladies|women|robins|ravens) allemande (?:left|right) [\d¼½¾/ &.]+$/i.test(baseline.rows[row.source.index+1]?.source.text??'')){
+   (interpretation.rows??={})[row.source.id]={ordinaryHey:{sidePair:archPair[1].toLowerCase().startsWith('partner')?'partner':'neighbor',exit:'opposite-slots-facing-across'}};
+   suggestions.push({rowId:row.source.id,kind:'ordinary-hey-context',message:'Review the preceding box-the-gnat pair as the incoming sideline relationship, with a released half-hey exit at the opposite measured stations facing across before the role allemande. Actual carried identities and geometry must validate this removable choice.'});
+  }
+
   if(row.source.beats===8&&!row.source.progression&&!row.progressionFromText&&row.diagnostics.some(d=>d.code==='ordinary-hey-choice')&&!interpretation.rows?.[row.source.id]?.ordinaryHey&&producer&&['robins-chain','ladies-chain','swing'].includes(producer.kind)&&(producer.who==='partner'||producer.who==='neighbor')){
    (interpretation.rows??={})[row.source.id]={...interpretation.rows?.[row.source.id],ordinaryHey:{sidePair:producer.who,exit:'opposite-slots-facing-across'}};
    suggestions.push({rowId:row.source.id,kind:'ordinary-hey-context',message:'Review the preceding named pair as the incoming sideline relationship and a released half-hey exit at the opposite measured stations, facing across. The following figure owns its own movement. All four pass layers and eight counts remain; actual carried identities and geometry must validate this removable suggestion.'});
