@@ -4,9 +4,13 @@ The Ready to play section contains reviewed source interpretations bundled with 
 
 The separate, collapsed ContraDB catalogue is a discovery index. Its entries are not all playable. Downloaded records still go through normal interpretation and whole-dance validation.
 
-As of 22 October 2026, 179 reviewed interpretations are included locally; 169 are publicly deployed until the current release gates finish. The ten additions are Dancing Spell (1011), Tuesday Night Special (1021), Tall Paul's Shop (1556), Bev's Becket A (1658), Too Hot to Trot var. (1974), Jim to the Rescue (2492), Snap (3265), Barack Me, Obamadeus (480), Jubilation (var) (549), and Mad Robin in Love (83).
+As of 22 October 2026, 182 reviewed interpretations are included locally;169 remain publicly deployed until replacement release gates finish. The latest three are November Night (67), Climate Change's Reel (152), and Opus 4.6.10 (3261). The preceding ten additions are Dancing Spell (1011), Tuesday Night Special (1021), Tall Paul's Shop (1556), Bev's Becket A (1658), Too Hot to Trot var. (1974), Jim to the Rescue (2492), Snap (3265), Barack Me, Obamadeus (480), Jubilation (var) (549), and Mad Robin in Love (83).
 
-Independent review passed 44 focused tests, including replay of all 179 saved archives and the ten source families. All previous 169 archive strings are unchanged. The exact packaged cards open, scrub and reach round two in Chromium software WebGL. The full-hey wave convention was removed and restored in the packaged UI, correctly blocking and re-enabling playback. Final saved-swing audit, census and full CI gates are recorded in the development map before publication. Hardware GPU/audio and comprehensive anatomy remain outside this evidence.
+The 179-entry full CI run39870340952 blocked deployment on one stale parser expectation: explicit Mad Robin front role is now retained. That expectation is corrected and all three family tests pass. The other three motion shards and packaging checks passed.
+
+For182, independent critics approved all three new sources; integrated source suites passed20 tests. All three imports passed three-/four-couple scrubbing and round-two playback, and six exact packaged Ready cards passed. All179 prior archives remain byte-identical. Final saved-library audit and replacement full CI are tracked in the development map.
+
+Independent review of179 passed44 focused tests, including replay of all 179 saved archives and the ten source families. All previous 169 archive strings are unchanged. The exact packaged cards open, scrub and reach round two in Chromium software WebGL. The full-hey wave convention was removed and restored in the packaged UI, correctly blocking and re-enabling playback. Final saved-swing audit, census and full CI gates are recorded in the development map before publication. Hardware GPU/audio and comprehensive anatomy remain outside this evidence.
 
 The prior 169 release passed full CI39632914170 and fresh public card checks. Its twelve additions retained explicit interior progression, role passage, bare-ring formation, wave convention, receiver and provenance choices as applicable.
 

@@ -43,6 +43,9 @@ test('checked-in census accounts for current retained files and all per-view sou
  assert.deepEqual(r.sources.filter(s=>s.retainedSnapshot).map(s=>s.id).sort(),ids);
  assert.equal(r.availability.retainedSnapshots,ids.length);
  assert.equal(r.availability.savedReady,r.sources.filter(s=>s.savedReady).length);
+ const generated=JSON.parse(readFileSync(new URL('../qa/ready-library-generation.json',import.meta.url),'utf8'));
+ assert.equal(r.availability.savedReady,generated.count,'census must match the current generated Ready package');
+ assert.deepEqual(r.sources.filter(s=>s.savedReady).map(s=>s.id).sort(),generated.entries.map(s=>s.id).sort());
  assert.equal(r.availability.union,Object.values(r.availability.categories).reduce((a,b)=>a+b,0));
  assert.deepEqual(r.availability,availabilityCounts(catalogue.records.map(s=>String(s.id)),ids,r.sources.filter(s=>s.savedReady).map(s=>s.id)));
  for(const [view,summary]of Object.entries(r.views)){
