@@ -1,4 +1,4 @@
-import {lowerBecketShortWaveSource,BECKET_SHORT_WAVE_DESCRIPTION,type BecketShortWaveChoice} from './source-becket-short-wave.ts';
+import {lowerBecketShortWaveSource,becketShortWaveDescription,type BecketShortWaveChoice} from './source-becket-short-wave.ts';
 import{terminalRoleStarLook}from'./source-chain-star.ts';
 import {lowerImproperWaveSource,improperWaveDescription,type ImproperWaveChoice} from './source-improper-wave.ts';
 import {lowerHallLineSource,hallLineDescription,type HallLineChoice} from './source-hall-line.ts';
@@ -600,10 +600,10 @@ export function importContraDb(input:string,options:ContraDbSourceOptions&{inter
   try{
    if(Object.keys(interpretation).some(k=>k!=='becketShortWave'))throw Error('The named Becket short-wave convention cannot ignore additional interpretation choices.');
    const lowered=lowerBecketShortWaveSource(record,interpretation.becketShortWave);
-   result.rows=record.rows.map(source=>({source,recognized:true,resolved:true,figures:lowered.byRow.get(source.id)??[],diagnostics:[],interpretations:[BECKET_SHORT_WAVE_DESCRIPTION]}));
+   result.rows=record.rows.map(source=>({source,recognized:true,resolved:true,figures:lowered.byRow.get(source.id)??[],diagnostics:[],interpretations:[becketShortWaveDescription(interpretation.becketShortWave!)]}));
    coverage.recognizedRows=result.rows.length;coverage.resolvedRows=result.rows.length;
    coverage.semanticallyResolved=source.structurallyValid&&!diagnostics.some(d=>d.severity!=='warning');
-   warnings.push(BECKET_SHORT_WAVE_DESCRIPTION,'ContraDB software is AGPL-3.0. Its public page does not establish a blanket choreography/data republication license.','This is a schematic interpretation; source recognition and sampled motion validation are separate checks.');
+   warnings.push(becketShortWaveDescription(interpretation.becketShortWave!),'ContraDB software is AGPL-3.0. Its public page does not establish a blanket choreography/data republication license.','This is a schematic interpretation; source recognition and sampled motion validation are separate checks.');
    if(!coverage.semanticallyResolved)return finish();
    const dance:ContraDbImportedDance={id:`contradb-${record.sourceId}-${record.snapshotId.split(':').at(-1)}`,title:record.title,author:record.author,formation:'becket',circulation:'cw',sourceUrl:record.sourceUrl,description:'Imported ContraDB snapshot with explicit source interpretation.',figures:lowered.figures,progressionEvents:lowered.progressionEvents,becketShortWavePolicy:lowered.policy,endPolicy:lowered.endPolicy,notes:[...warnings],verified:false,sourceText:JSON.stringify({schema:'contra-studio/contradb-interpretation',version:1,sourceSnapshotId:record.snapshotId,snapshot:makeContraDbSnapshot(record),interpretation} satisfies ContraDbInterpretationFile),sourceRecord:record,sourceRows:record.rows,contraDbInterpretation:JSON.parse(JSON.stringify(interpretation))};
    result.validation=validateDance(dance,options.capabilities);

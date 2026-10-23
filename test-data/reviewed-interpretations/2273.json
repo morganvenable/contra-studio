@@ -1,0 +1,18 @@
+{
+  "schema": "contra-studio/contradb-interpretation",
+  "version": 1,
+  "sourceSnapshotId": "contradb:2273:334436cfec6cbad0",
+  "snapshot": {
+    "schema": "contra-studio/contradb-snapshot",
+    "version": 1,
+    "sourceUrl": "https://contradb.com/dances/2273",
+    "retrievedAt": "2026-10-20T05:48:03.334Z",
+    "html": "<h1 class=\"dance-show-title\">Beck and Call</h1>\n<p class=\"dance-show-choreographer\">by: <strong><a href=\"/choreographers/122\">David Smukler</a></strong></p>\n<p class=\"dance-show-formation\">formation: Becket </p>\n<div class=\"dance-show-preamble\"><div class='contra-markdown-block'></div></div>\n<table class=\"table table-bordered table-condensed contra-table-nonfluid\">\n         <tr class=\"a1b1 \">\n             <td>A1</td>\n             <td class=dance-show-beats>8</td>\n             <td><div class=\"show-figure\">long lines forward &amp; back</div>\n</td></tr>\n</tr>         <tr class=\"a1b1 \">\n             <td></td>\n             <td class=dance-show-beats>6</td>\n             <td><div class=\"show-figure\">circle left 3 places</div>\n</td></tr>\n</tr>         <tr class=\"a1b1 \">\n             <td></td>\n             <td class=dance-show-beats>2</td>\n             <td><div class=\"show-figure\">pass through ⁋</div>\n</td></tr>\n</tr>         <tr class=\"a2b2 \">\n             <td>A2</td>\n             <td class=dance-show-beats>0</td>\n             <td><div class=\"show-figure\">form an ocean wave - ladles by left hands and neighbors by right hands (New <u>neighbors</u>)</div>\n</td></tr>\n</tr>         <tr class=\"a2b2 \">\n             <td></td>\n             <td class=dance-show-beats>8</td>\n             <td><div class=\"show-figure\">balance &amp;  Rory O'More right</div>\n</td></tr>\n</tr>         <tr class=\"a2b2 \">\n             <td></td>\n             <td class=dance-show-beats>8</td>\n             <td><div class=\"show-figure\">balance &amp;  Rory O'More left</div>\n</td></tr>\n</tr>         <tr class=\"a1b1 dance-show-long-figure\">\n             <td>B1</td>\n             <td class=dance-show-beats>16</td>\n             <td><div class=\"show-figure\">neighbors balance &amp; swing</div>\n</td></tr>\n</tr>         <tr class=\"a2b2 \">\n             <td>B2</td>\n             <td class=dance-show-beats>8</td>\n             <td><div class=\"show-figure\">circle left 3 places</div>\n</td></tr>\n</tr>         <tr class=\"a2b2 \">\n             <td></td>\n             <td class=dance-show-beats>8</td>\n             <td><div class=\"show-figure\">partners swing</div>\n</td></tr>\n</tr></table>\n<div class=\"dance-show-notes\"><div class='contra-markdown-block'></div></div>\n<p class=\"dance-show-publish\">\n            shared to sketchbook\n          </p>\n"
+  },
+  "interpretation": {
+    "becketShortWave": {
+      "convention": "pass-neighbor-short-wave-v1",
+      "sourceSnapshotId": "contradb:2273:334436cfec6cbad0"
+    }
+  }
+}
