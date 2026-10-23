@@ -1,3 +1,4 @@
+import {compileBecketShortWavePolicyDance} from './becket-short-wave-policy.ts';
 import {compileHallLinePolicyDance} from './hall-line-policy.ts';
 import {compileImproperWavePolicyDance} from './improper-wave-policy.ts';
 import {compileBecketWavePolicyDance} from './becket-wave-policy.ts';
@@ -57,6 +58,7 @@ export function compileChoreography(dance: Dance, couples = 6, capabilities:Moti
 const compileOwnedProgram=createOwnedProgramCache(({dance,couples,capabilities}:{dance:Dance;couples:number;capabilities:MotionCapabilities})=>compileChoreographyUncached(dance,couples,capabilities));
 
 function compileChoreographyUncached(dance: Dance, couples: number, capabilities: MotionCapabilities): CompiledDance {
+  if(dance.becketShortWavePolicy!==undefined)return withBalanceStance(compileBecketShortWavePolicyDance(dance,couples,capabilities));
   if(dance.improperWavePolicy!==undefined){
     if(!capabilities.improperWaveSequences||!capabilities.longWaves||!capabilities.progressionEvents||dance.figures.some(f=>f.kind==='hey'&&f.amount===1)&&!capabilities.ordinaryFullHeys||dance.figures.some(f=>f.kind==='hey'&&f.amount===.5)&&!capabilities.ordinaryHalfHeys||dance.figures.some(f=>f.kind==='ricochet-hey')&&(!capabilities.ricochetHeys||!capabilities.stateCarryingRicochetWaves)||dance.figures.some(f=>f.kind==='do-si-do')&&!capabilities.stateCarryingRoleDosidoWaves||dance.figures.some(f=>f.kind==='ring-balance')&&!capabilities.ringBalances||dance.figures.some(f=>f.kind==='california-twirl')&&!capabilities.californiaTwirls)throw Error('Improper wave interpretation requires carried full-hey wave and finite ring/twirl capabilities.');
     return compileImproperWavePolicyDance(dance,couples);

@@ -22,7 +22,7 @@ export interface CompiledBecketStateSequence extends CompiledDance {
  topology(beat:number):{epoch:number;neighbors:Array<[number,number]>;waitingIds:readonly number[]};
  sequenceBoundaries(repeat:number):readonly SequenceStepProof[];
 }
-export function compileBecketStateSequence(input:Dance,couples:number,capabilities:MotionCapabilities):CompiledBecketStateSequence {
+export function compileBecketStateSequence(input:Dance,couples:number,capabilities:MotionCapabilities,stepCompiler?:typeof compileSequenceStep):CompiledBecketStateSequence {
  const dance=freeze(capturePlainData(input)) as Dance&Partial<Pick<ContraDbImportedDance,'sourceRecord'|'sourceText'>>;
  if(!capabilities.stateCarryingBecketSlices||!capabilities.stateCarryingSequences||!capabilities.progressionEvents)throw new Error('Becket slices need their registered actual-state boundary and source-event sequencer.');
  if(dance.formation!=='becket'||dance.circulation!=='cw')throw new Error('A literal left slice currently requires explicitly reviewed clockwise Becket.');
@@ -36,7 +36,7 @@ export function compileBecketStateSequence(input:Dance,couples:number,capabiliti
  const event=ownProgressionDeclaration(dance,dance.progressionEvents[0]),sliceIndex=dance.figures.findIndex(f=>f.id===event.afterFigureId),sliceFigure=dance.figures[sliceIndex];
  if(dance.figures.filter(f=>f.kind==='becket-slice').length!==1||sliceFigure?.kind!=='becket-slice'||event.count!==1||event.initialBinding!==undefined||event.waitingRoleArrangement!=='lark-left'||event.source.basis!=='source-explicit')throw new Error('The Becket event must name the sole declared slice endpoint with one source-explicit neighbor change.');
  if(dance.sourceUrl!==undefined&&event.source.url!==dance.sourceUrl||dance.sourceRecord&&(event.source.sourceId!==dance.sourceRecord.snapshotId||event.source.url!==dance.sourceRecord.sourceUrl))throw new Error('The Becket event must bind the retained source snapshot and URL.');
- assertCompositionCapabilities(dance.figures,capabilities);
+ if(!stepCompiler)assertCompositionCapabilities(dance.figures,capabilities);
  const starts:number[]=[];let totalBeats=0;for(const f of dance.figures){starts.push(totalBeats);totalBeats+=f.beats;}
  const eventBeat=starts[sliceIndex]+sliceFigure.beats;
  if(totalBeats>256||eventBeat+8>totalBeats)throw new Error('The explicit finite-end turn must fit after the slice inside the source repeat.');
@@ -49,13 +49,13 @@ export function compileBecketStateSequence(input:Dance,couples:number,capabiliti
   const endings=new Map<string,HandContact[]>();
   const steps:BoundFigureStep[]=dance.figures.slice(from,to).map((figure,relative)=>{
    const index=from+relative,continuity=figureContinuity(dance.figures,index),strict=figure.kind==='hey'&&['same-slots-facing-across','opposite-slots-facing-across'].includes(figure.exit??'');
-   return{figure,entryFacingBeats:strict||continuity.swingEntry?0:Math.min(1,figure.beats*.125),compile(context){
+   return{figure,entryFacingBeats:stepCompiler||strict||continuity.swingEntry?0:Math.min(1,figure.beats*.125),compile(context){
     context={...context,next:dance.figures[index+1]};
     // Reuse actual-bound conventional adapters through the established seam.
     // These consume current identities, roots and epoch; no source-specific
     // route or new strict-carried contact certification is implied.
     const established=()=>figure.kind==='robins-chain'||figure.kind==='ladies-chain'?compileChainFigure(figure,context):figure.kind==='ring-balance'?compileRingTransitionFigure(figure,context):figure.kind==='petronella'?compilePetronellaFigure(figure as PetronellaFigure,context):compilePrimitiveFigure(figure,context.ids,context.start,context.dancers,dancers.filter(d=>d.role==='lark').map(d=>d.direction),continuity);
-    const groupKey=[...context.ids].sort((a,b)=>a-b).join(':'),raw=endings.get(groupKey)??[],incoming=captureSequenceBoundary(context,starts[index],raw),result=compileSequenceStep(figure,context,incoming,established,capabilities),entry=sampleSequenceBoundary(context,result.plan,starts[index],0),exit=sampleSequenceBoundary(context,result.plan,starts[index]+figure.beats,1);
+    const groupKey=[...context.ids].sort((a,b)=>a-b).join(':'),raw=endings.get(groupKey)??[],incoming=captureSequenceBoundary(context,starts[index],raw),result=(stepCompiler??compileSequenceStep)(figure,context,incoming,established,capabilities),entry=sampleSequenceBoundary(context,result.plan,starts[index],0),exit=sampleSequenceBoundary(context,result.plan,starts[index]+figure.beats,1);
     if(result.boundaryPlan)assertSequenceHandoff(incoming,entry);
     endings.set(groupKey,structuredClone(exit.heldContacts) as HandContact[]);proofs.push({figureId:figure.id,adapterId:result.adapterId,contactPolicy:result.boundaryPlan?'strict-carried':'established-acquisition',incoming,entry,exit});return result.adapterId==='released-pair-swing'?{...result.plan,ownsEntryFacing:result.ownsEntryFacing}:result.plan;
    },inactive:waiting?(beat)=>waiting.sampleWaiting(sourceOffset+beat):undefined};
