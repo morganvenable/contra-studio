@@ -18,7 +18,9 @@ function assertSourceDeclaration(figure:Figure):void{
  if(typeof figure.id!=='string'||!figure.id.trim()||typeof figure.label!=='string'||!figure.label.trim()||figure.notes!==undefined&&typeof figure.notes!=='string'||figure.confidence!==undefined&&!['verified','approximate','unsupported'].includes(figure.confidence)||!Number.isFinite(figure.beats)||figure.beats<=0||figure.beats>64)throw new Error('Figure metadata and source counts must be explicit, finite and well-formed.');
  assertFigureArgumentsConsumed(figure);
 }
-export function compileOrdinaryFullHeyHandoff(input:Figure,incoming:FigureContext,sourceBeat=0):OrdinaryHeyHandoffPlan{
+export function compileOrdinaryFullHeyHandoff(input:Figure,incoming:FigureContext,sourceBeat=0,options?:{halfWidth:.64;balanceHands:'acquire'}):OrdinaryHeyHandoffPlan{
+ if(options&&(Object.keys(options).some(k=>!['halfWidth','balanceHands'].includes(k))||options.halfWidth!==.64||options.balanceHands!=='acquire'||input.exit!=='same-slots-partner-balance'))throw Error('Compact held balance exit requires explicit measured width and hand acquisition.');
+ const halfWidth=options?.halfWidth??.9;
  assertSourceDeclaration(input);if(incoming.next)assertSourceDeclaration(incoming.next);
  const f=structuredClone(input),context:FigureContext={...incoming,ids:[...incoming.ids],start:structuredClone(incoming.start),dancers:structuredClone(incoming.dancers),next:incoming.next?structuredClone(incoming.next):undefined,relations:{epoch:incoming.relations.epoch,partner:new Map(incoming.relations.partner),neighbor:new Map(incoming.relations.neighbor)}};
  assertFigureArgumentsConsumed(f);
@@ -30,7 +32,7 @@ export function compileOrdinaryFullHeyHandoff(input:Figure,incoming:FigureContex
  const center={x:ids.reduce((n,id)=>n+start[id].position.x,0)/4,z:ids.reduce((n,id)=>n+start[id].position.z,0)/4};
  const select=(role:'lark'|'robin',side:number)=>{const found=ids.filter(id=>dancers[id].role===role&&Math.sign(start[id].position.x-center.x)===side);if(found.length!==1)throw new Error('A full hey needs one actor of each role on each explicit sideline.');return found[0];};
  const first=f.heyStartRole!,other=first==='lark'?'robin':'lark',west=select(first,-1),east=select(first,1),westOther=select(other,-1),eastOther=select(other,1),entryOrder=[westOther,west,east,eastOther];
- for(const [a,b]of[[west,westOther],[east,eastOther]])if(partner.get(a)!==b||Math.abs(start[a].position.x-start[b].position.x)>.001||Math.abs(Math.abs(start[a].position.x-center.x)-.9)>.001||distance(start[a].position,start[b].position)<1.05||distance(start[a].position,start[b].position)>1.801)throw new Error('The full hey requires its persistent partners at the incoming sideline stations.');
+ for(const [a,b]of[[west,westOther],[east,eastOther]])if(partner.get(a)!==b||Math.abs(start[a].position.x-start[b].position.x)>.001||Math.abs(Math.abs(start[a].position.x-center.x)-halfWidth)>.001||distance(start[a].position,start[b].position)<1.05||distance(start[a].position,start[b].position)>1.801)throw new Error('The full hey requires its persistent partners at the incoming sideline stations.');
  const sign=f.centerShoulder==='right'?1:-1;
  if(Math.sign(start[west].position.z-center.z)!==sign||Math.sign(start[east].position.z-center.z)!==-sign)throw new Error('The full hey first shoulder contradicts the incoming role order.');
  let order=[...entryOrder];const tokens:string[]=[];
@@ -56,10 +58,11 @@ export function compileOrdinaryFullHeyHandoff(input:Figure,incoming:FigureContex
  const actor=(id:number,t:number)=>{const p=path.sample(t*16).poses.find(p=>p.id===String(id));if(!p)throw new Error('Actor outside the compiled full-hey group.');return p;};
  const basic:MotionPlan={position:(id,t)=>actor(id,t).position,facing:(id,t)=>actor(id,t).yaw,contacts:()=>[]};
  const terminal=sampleFormationEndpoint(context,basic,1),swing=swingExit?compilePrimitiveFigure(context.next!,ids,terminal,dancers,dancers.filter(d=>d?.role==='lark').map(d=>d.direction),{swingEntry:'prepared-circle'}):undefined;
- const contacts=(t:number,poses:Pose[])=>{const strength=smooth((t*16-14.25)/1.75);return swing&&strength>0?swing.contacts(0,poses).map(c=>({...c,strength:c.strength*(c.target==='back'?Math.max(0,(strength-.5)/.5)**2:strength)})):[];};
- const geometry={kind:'paired-sidelines' as const,sidePair:'partner' as const,origin:center,halfWidth:.9,pairGap:distance(start[west].position,start[westOther].position)};
+ const balanceHold=options?compilePrimitiveFigure(context.next!,ids,terminal,dancers,[],{balanceEntry:'held-two-hand',balanceExit:'same-person-swing'}):undefined;
+ const contacts=(t:number,poses:Pose[])=>{if(balanceHold)return balanceHold.contacts(0,poses).map(h=>({...h,strength:h.strength*smooth((t*16-15.75)/.25)})).filter(h=>h.strength>1e-9);const strength=smooth((t*16-14.25)/1.75);return swing&&strength>0?swing.contacts(0,poses).map(c=>({...c,strength:c.strength*(c.target==='back'?Math.max(0,(strength-.5)/.5)**2:strength)})):[];};
+ const geometry={kind:'paired-sidelines' as const,sidePair:'partner' as const,origin:center,halfWidth,pairGap:distance(start[west].position,start[westOther].position)};
  const entryState=captureFormationState(context,{sourceBeat,orderedIds:entryOrder,geometry}),exitState=captureFormationState({...context,start:terminal},{sourceBeat:sourceBeat+16,orderedIds:graph.endOrder!.map(Number),geometry:{...geometry,pairGap:desiredGap},heldContacts:contacts(1,terminal)});
- const successor=swing??compilePrimitiveFigure(context.next!,ids,terminal,dancers,dancers.filter(d=>d?.role==='lark').map(d=>d.direction));
+ const successor=swing??balanceHold??compilePrimitiveFigure(context.next!,ids,terminal,dancers,dancers.filter(d=>d?.role==='lark').map(d=>d.direction));
  assertSuccessorEntry(exitState,{...context,start:terminal},successor);
  return Object.freeze({...basic,contacts,heyPlan:path,entryState,exitState});
 }
