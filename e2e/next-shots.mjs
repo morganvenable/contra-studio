@@ -37,9 +37,19 @@ try {
     await expect(page.locator('#beat-slider')).toBeVisible({ timeout: 60000 });
     await page.locator('#beat-slider').fill(beat);
     if (follow) await page.locator('#dancer-select').selectOption(follow);
+    // CAMERA=Overhead|Side picks a camera; PATHS=1 draws the paths.
+    if (process.env.CAMERA) await page.getByRole('button', { name: process.env.CAMERA }).click();
+    if (process.env.PATHS) await page.getByRole('button', { name: 'Paths' }).click();
+    // ZOOM=n scrolls the stage in n steps toward the set.
+    const stage = page.locator('.viewport').first();
+    const box = await stage.boundingBox();
+    for (let i = 0; i < Number(process.env.ZOOM ?? 0); i++) {
+      await page.mouse.move(box.x + box.width / 2, box.y + box.height / 2);
+      await page.mouse.wheel(0, -200);
+      await page.waitForTimeout(100);
+    }
     await page.waitForTimeout(1500);
     const path = `${out}/${name ?? `${id}-beat-${beat}`}.png`;
-    const stage = page.locator('.viewport').first();
     await (process.env.FULL ? page : stage).screenshot({ path });
     if (errors.length) throw new Error(`${id}: ${errors.join('; ')}`);
     console.log(`saved ${path}`);

@@ -1,6 +1,6 @@
 # Rebuild plan: a small figure library
 
-## Status (milestones 1 and 2, 23 October 2026)
+## Status (milestones 1 to 3, 23 October 2026)
 
 Delivered in `src/next/` beside the old engine (old modules untouched):
 
@@ -33,10 +33,39 @@ Milestone 2 (23 October 2026):
   `scripts/next-store-dance.mjs --supported`; `test/corpus.test.ts` checks
   each one (source hash and parse, 3/4/6 couples, physical check over
   couples + 2 rounds, an independent progression model, everyone meets).
-- `scripts/next-coverage.mjs` ranks the rest. Next: the hey entry (35
-  dances parse but fail there), square through, box circulate / long
-  waves, mad robin, give & take, gyre, Becket progressions that rely on
-  long lines, and wiring `music` into audio.
+- `scripts/next-coverage.mjs` ranks the rest.
+
+Milestone 3 (23 October 2026):
+
+- The top of the set is now -z, next to the robot band (as in the old
+  engine): every formation turned a half turn about the vertical, so
+  handedness is unchanged. Down the hall, the duple-minor progression,
+  whole-set place names, the corpus models and the tests follow.
+- A star with no grip named is a basket star (wrist grip); hands across
+  stays available (`DEFAULT_STAR_GRIP` in `figures/star.ts`).
+- Meltdown swing: 4 beats of right-shoulder round (facing, clockwise, no
+  hands; a third of the phrase under 12 beats), melting into the swing at
+  one turning rate. A long swing stays an ordinary swing.
+- Hey rebuilt: the src/hey.ts serpentine track across the set, Hermite
+  entry and exit matched to the track (solveExplicitHeyExit), each dancer
+  joining before their own first pass and leaving at the middle of their
+  last, ending in the corner they head for. Heys started on the ends
+  (partners/neighbors) are built; ricochets and diagonal heys are not.
+- New figures: square through (balance + pull bys), give and take, mad
+  robin, gyre, long-wave balance and box circulate, slide along the set;
+  a swing can end facing down or up ("ones swing, face down").
+- 160 of 196 Ready dances stored and passing the corpus check.
+  `e2e/next-engine.mjs` adds a meltdown (188) and a hey (1658) flow;
+  `e2e/next-shots.mjs` saves review screenshots.
+- Still failing, not loosened: progression timing (257, 840, 1618 Becket
+  with down the hall; 3195, 66, 928, 1273 improper rounds that end with
+  couples level across the set), 2-beat passes across the set right after
+  a full hey or a box the gnat (724, 1144, 1098), 1072 (allemande speed),
+  115 (box the gnat turn rate), 2329 (swing clearance). Unparsed: ricochet
+  and diagonal heys, Becket ccw, cross trails, revolving door, couples
+  do-si-do, poussette, butterfly whirl, star promenade, ocean waves.
+- Next: Becket ccw and the progression cases above, ricochet heys,
+  couples do-si-do, ocean waves, and wiring `music` into audio.
 
 Status: proposed 23 October 2026. Replaces the per-dance admission approach;
 it does not change anything already shipped.

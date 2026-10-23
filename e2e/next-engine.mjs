@@ -1,7 +1,8 @@
 // End-to-end flow for the figure-library engine: open the app with
 // ?engine=next, load Debra's Dance from the Dance library, play a few
 // seconds, seek into the Rory O'More, and check the stage renders with no
-// page errors. Starts its own Vite dev server.
+// page errors; then open recomposed Ready dances from review links (down the
+// hall, petronella, a meltdown swing, a hey). Starts its own Vite dev server.
 // node e2e/next-engine.mjs
 import assert from 'node:assert/strict';
 import { createServer } from 'vite';
@@ -69,7 +70,27 @@ try {
   // Two recomposed Ready dances open straight from a review link.
   const recomposed = [
     { id: '123', title: 'Pizza Shop', figures: 8, seek: ['36', '44'], activity: 'hall-travel' },
-    { id: '1547', title: 'Jump Back Barley', figures: 11, seek: ['6', '61'], activity: 'petronella' },
+    {
+      id: '1547',
+      title: 'Jump Back Barley',
+      figures: 11,
+      seek: ['6', '61'],
+      activity: 'petronella',
+    },
+    // A meltdown swing: a right-shoulder round (no hands) melting into the swing frame.
+    {
+      id: '188',
+      title: 'Cascades',
+      figures: 8,
+      seek: ['2.5', '10'],
+      activity: 'swing',
+      frames: [
+        { beat: 2.5, frame: false },
+        { beat: 10, frame: true },
+      ],
+    },
+    // A hey across the set (robins start, full hey) in a Becket dance.
+    { id: '1658', title: "Bev's Becket A", figures: 7, seek: ['18.5', '24'], activity: 'hey' },
   ];
   for (const dance of recomposed) {
     const review = await browser.newPage({ viewport: { width: 1280, height: 900 } });
@@ -97,6 +118,16 @@ try {
       Number(dance.seek[1]),
     );
     assert.equal(activity, dance.activity, `${dance.title} at beat ${dance.seek[1]}`);
+    for (const { beat, frame } of dance.frames ?? []) {
+      const held = await review.evaluate(
+        (b) =>
+          window.__contra
+            .sample(b)
+            .contacts.some((c) => c.kind === 'swing-frame' && c.strength > 0.5),
+        beat,
+      );
+      assert.equal(held, frame, `${dance.title} swing frame at beat ${beat}`);
+    }
     assert.deepEqual(reviewErrors, []);
     await review.close();
     console.log(`ok - ${dance.title} (${dance.id}) opens on the next engine from ?ready=`);
