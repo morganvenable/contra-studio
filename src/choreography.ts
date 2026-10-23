@@ -69,6 +69,8 @@ function compileChoreographyUncached(dance: Dance, couples: number, capabilities
     return withBalanceStance(compileHallLinePolicyDance(dance,couples));
   }
   if(dance.becketWavePolicy!==undefined){
+    if(dance.figures.some(f=>f.starGrip!==undefined)&&!capabilities.starGrips)throw Error('Becket wrist-star waves require their explicit grip capability.');
+    if(dance.figures.some(f=>f.kind==='star'&&f.progression)&&!capabilities.becketStarProgressions)throw Error('Becket star-wave progression requires its explicit endpoint capability.');
     if(dance.figures.some(f=>f.kind==='balance-rory-slide')&&!capabilities.rorySlides)throw Error('Becket Rory interpretation requires its actual carried slide capability.');
     if(!capabilities.becketWaveSequences||!capabilities.longWaves||!capabilities.progressionEvents||!capabilities.ordinaryHalfHeys||!capabilities.stateCarryingSixTwoPasses)throw Error('Becket wave interpretation requires its carried wave, half-hey and circle/pass finite capabilities.');
     if(dance.figures.some(f=>f.kind==='larks-chain')&&!capabilities.stateCarryingRoleChains)throw Error('Becket role chains require their explicit carried role/hand capability.');
