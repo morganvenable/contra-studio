@@ -1,3 +1,5 @@
+import {acceptsPreparedFourteenSwing,compilePreparedFourteenSwing} from './prepared-fourteen-swing-step.ts';
+import {compileAcrossSidelinePassStep} from './across-sideline-pass-step.ts';
 import {compileCarriedHallStep} from './carried-hall-step.ts';
 import {compileLarkChainFigure} from './role-chain-step.ts';
 import {compileStarRoleExitStep,acceptsHeldRoleAllemande,compileHeldRoleAllemandeStep} from './star-role-allemande-step.ts';
@@ -65,6 +67,7 @@ export function compileSequenceStep(figure:Figure,context:FigureContext,incoming
   return{adapterId:'compact-pair-balance',plan,ownsEntryFacing:true,boundaryPlan:plan};
  }
  if(figure.kind==='star'&&figure.starReleaseRole!==undefined||acceptsHeldRoleAllemande(figure,incoming)){if(!capabilities.stateCarryingStarAllemandes)throw Error('Held star/role transitions require their carried-state capability.');const star=figure.kind==='star',plan=star?compileStarRoleExitStep(figure,context,incoming):compileHeldRoleAllemandeStep(figure,context,incoming);return{adapterId:star?'star-role-release':'held-role-allemande',plan,ownsEntryFacing:true,boundaryPlan:plan};}
+ if(acceptsPreparedFourteenSwing(figure,context,incoming)){const plan=compilePreparedFourteenSwing(figure,context,incoming);return{adapterId:'prepared-fourteen-partner-swing',plan,ownsEntryFacing:true,boundaryPlan:plan};}
  if(needsReleasedPairSwingEntry(figure,context,incoming)){
   const plan=compileReleasedPairSwingStep(figure,context,incoming);
   return{adapterId:'released-pair-swing',plan,ownsEntryFacing:true,boundaryPlan:plan};
@@ -78,6 +81,7 @@ export function compileSequenceStep(figure:Figure,context:FigureContext,incoming
   const plan=compileNeighborDosidoStep(figure,context,incoming);
   return{adapterId:'neighbor-dosido-exchange',plan,ownsEntryFacing:true,boundaryPlan:plan};
  }
+ if(figure.kind==='pass-through'&&figure.entry==='paired-sidelines'&&figure.exit==='opposite-paired-swing'){if(!capabilities.stateCarryingAcrossPasses)throw Error('Across sideline passage requires carried-state capability.');const plan=compileAcrossSidelinePassStep(figure,context,incoming);return{adapterId:'across-sideline-pass',plan,ownsEntryFacing:true,boundaryPlan:plan};}
  if(figure.kind==='pass-through'&&figure.entry==='ring'&&figure.exit==='opposite-paired-gyre'){if(!capabilities.stateCarryingAcrossPasses)throw Error('Across-ring passages require their carried-state capability.');const plan=compileAcrossRingPassStep(figure,context,incoming);return{adapterId:'across-ring-pass',plan,ownsEntryFacing:true,boundaryPlan:plan};}
  if(figure.kind==='pass-through'&&['larks','robins'].includes(figure.who??'')){
   if(!capabilities.stateCarryingRolePasses)throw Error('Role shoulder passages require their registered carried-state capability.');

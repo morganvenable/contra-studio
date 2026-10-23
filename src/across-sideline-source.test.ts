@@ -1,0 +1,36 @@
+import {createHash} from 'node:crypto';
+import {readContraDbImport} from './contradb-import.ts';
+import test from 'node:test';import assert from 'node:assert/strict';import {readFileSync} from 'node:fs';import {prepareContraDbReview} from './source-review.ts';import {compileChoreography} from './choreography.ts';
+const raw=readFileSync(new URL('../test-data/contradb/3012.json',import.meta.url),'utf8'),review=prepareContraDbReview(raw),dance=review.result.dance!;
+const gap=(a:any,b:any)=>Math.hypot(a.position.x-b.position.x,a.position.z-b.position.z),wrap=(n:number)=>Math.atan2(Math.sin(n),Math.cos(n));
+function lineOracle(count:number){
+ let order=Array.from({length:count},(_,i)=>i),directions=order.map(i=>i%2?-1:1);
+ return {snapshot(){const pairs:number[][]=[],waiting:number[]=[];for(let r=0;r<count;){const a=order[r],b=order[r+1];if(b!==undefined&&directions[a]===1&&directions[b]===-1){pairs.push([2*a,2*b+1],[2*a+1,2*b]);r+=2;}else{waiting.push(2*a,2*a+1);r++;}}return {pairs:pairs.map(p=>p.sort((a,b)=>a-b)).sort((a,b)=>a[0]-b[0]),waiting:waiting.sort((a,b)=>a-b)};},step(){const next=[...order];for(let r=0;r<count;){const a=order[r],b=order[r+1];if(b!==undefined&&directions[a]===1&&directions[b]===-1){next[r]=b;next[r+1]=a;r+=2;}else{assert.ok(r===0||r===count-1);directions[a]*=-1;r++;}}order=next;}};
+}
+
+for(const couples of[3,4])test(`3012 counted across passage and whole ${couples}-couple finite actors`,()=>{
+ assert.ok(dance,review.result.errors.join(';'));const c=compileChoreography(dance,couples) as any,o=lineOracle(couples);let minGap=Infinity,maxSpeed=0,maxYaw=0,maxReach=0,passContacts=0,yawAt=0,reachAt=0,passYaw=0,passReach=0,fullReach=0,rltPull=0,rltCourtesy=0,chainPull=0,chainCourtesy=0;let prior=c.sample(0);
+ for(let repeat=0;repeat<c.periodRepeats;repeat++){
+  const before=o.snapshot();o.step();const after=o.snapshot(),base=repeat*64;
+  for(let k=repeat?0:1;k<4096;k++){const local=k/64,f=c.sample(base+local),want=local<56?before:after,t=c.topology(base+local),neighbor=new Map(want.pairs.flatMap(([a,b])=>[[a,b],[b,a]]));assert.equal(t.epoch,repeat+Number(local>=56));assert.deepEqual(t.neighbors.sort((a:any,b:any)=>a[0]-b[0]),want.pairs);assert.deepEqual([...t.waitingIds].sort((a,b)=>a-b),want.waiting);
+   for(const p of f.poses){maxSpeed=Math.max(maxSpeed,gap(p,prior.poses[p.id])*64);const y=Math.abs(wrap(p.yaw-prior.poses[p.id].yaw))*64;if(local>32&&local<=34)passYaw=Math.max(passYaw,y);if(y>maxYaw){maxYaw=y;yawAt=local;}for(const q of f.poses)if(q.id>p.id)minGap=Math.min(minGap,gap(p,q));}
+   for(const h of f.contacts){if(h.strength>.99&&local>=16&&local<24){if(h.kind==='joined'){assert.equal(h.b,h.a^1);assert.equal(h.handA,'right');assert.equal(h.handB,'right');rltPull++;}if(h.kind==='courtesy'){assert.equal(h.b,neighbor.get(h.a));rltCourtesy++;}}if(h.strength>.99&&local>=24&&local<32){if(h.kind==='joined'){assert.equal(h.a%2,1);assert.equal(h.b%2,1);assert.equal(h.handA,'right');assert.equal(h.handB,'right');assert.equal(neighbor.get(h.a),h.b^1);chainPull++;}if(h.kind==='courtesy'){assert.equal(h.b,h.a^1);chainCourtesy++;}}assert.ok(!want.waiting.includes(h.a)&&!want.waiting.includes(h.b));if(h.kind==='swing-frame'){assert.equal(h.b,local>=32&&local<48?h.a^1:neighbor.get(h.a));if(local>33.9&&local<34.1&&h.strength>.99)passContacts++;}if(h.strength>1e-9)for(const[id,hand]of[[h.a,h.handA],...(!h.target||h.target==='hands'?[[h.b,h.handB]]:[])]as[number,string][]){const p=f.poses[id],s=hand==='left'?1:-1;const r=Math.hypot(h.point.x-p.position.x-s*.235*Math.cos(p.yaw),h.point.y-1.355,h.point.z-p.position.z+s*.235*Math.sin(p.yaw));if(h.strength>.99)fullReach=Math.max(fullReach,r);if(local>=32&&local<=34)passReach=Math.max(passReach,r);if(r>maxReach){maxReach=r;reachAt=local;}}}
+   prior=f;
+  }
+  for(const local of[c.starts[0],...c.starts.slice(1),64].filter((x:number)=>base+x>0)){const a=c.sample(base+local-1e-7),b=c.sample(base+local);for(const p of b.poses){assert.ok(gap(p,a.poses[p.id])<1e-5,`root ${local}`);assert.ok(Math.abs(wrap(p.yaw-a.poses[p.id].yaw))<1e-5,`yaw ${local}`);}const key=(h:any)=>h.kind==='joined'?[`${h.a}:${h.handA}`,`${h.b}:${h.handB}`].sort().join(':'):[h.a,h.handA,h.b,h.handB,h.kind,h.target??'hands'].join(':');const A=new Map(a.contacts.map((h:any)=>[key(h),h])),B=new Map(b.contacts.map((h:any)=>[key(h),h]));for(const k of new Set([...A.keys(),...B.keys()])){const x=A.get(k)as any,y=B.get(k)as any;assert.ok(Math.abs((x?.strength??0)-(y?.strength??0))<1e-5,`contact seam ${local} ${k}`);if(x&&y&&Math.max(x.strength,y.strength)>1e-5)assert.ok(Math.hypot(x.point.x-y.point.x,x.point.y-y.point.y,x.point.z-y.point.z)<1e-5,`target seam ${local} ${k}`);}}
+ }
+ console.log({couples,minGap,maxSpeed,maxYaw,maxReach,passContacts,yawAt,reachAt,passYaw,passReach,fullReach});assert.ok(minGap>.45);assert.ok(maxSpeed<2);assert.ok(passYaw<4);assert.ok(passReach<=.64);assert.ok(fullReach<=.64);assert.ok(passContacts>0&&rltPull>0&&rltCourtesy>0&&chainPull>0&&chainCourtesy>0);
+});
+
+test('3012 preserves exact source, two/fourteen timing and independent removable crossing/courtesy/chain choices',()=>{
+ assert.ok(dance,review.result.errors.join(';'));assert.deepEqual(dance.sourceRecord.rows.map(r=>r.beats),[16,8,8,2,14,6,2,8]);assert.deepEqual(dance.figures.map(f=>f.beats),[4,12,8,8,2,14,6,2,8]);
+ const archive=readFileSync(new URL('../test-data/reviewed-interpretations/3012.json',import.meta.url),'utf8');assert.deepEqual(JSON.parse(archive).snapshot,JSON.parse(raw));assert.deepEqual(readContraDbImport(archive).dance,dance);
+ assert.deepEqual(review.interpretation.rows!['contradb:3012:row:1'].rightLeftThrough,{hand:'right',courtesyReceiver:'neighbor',courtesyLeader:'lark',crossingRelation:'partner'});assert.equal(review.interpretation.rows!['contradb:3012:row:2'].chainReceiver,'partner');
+ for(const row of[1,2,3,6]){const c=structuredClone(review.interpretation);delete c.rows![`contradb:3012:row:${row}`];assert.equal(readContraDbImport(raw,{interpretation:c}).dance,undefined);}
+ for(const patch of[{relation:'partner'},{passingShoulder:'left'},{extra:true}]){const c=structuredClone(review.interpretation);Object.assign(c.rows!['contradb:3012:row:3'].passThrough!,patch);assert.equal(readContraDbImport(raw,{interpretation:c}).dance,undefined);}
+ const renamed=structuredClone(dance);renamed.id='independent-source';renamed.title='Another title';const a=compileChoreography(dance,3),b=compileChoreography(renamed,3);for(const beat of[0,16,24,32,33,34,48,54,56,64,128])assert.deepEqual(a.sample(beat),b.sample(beat));
+});
+
+test('existing 1144 fourteen-count route keeps every sampled frame and released adapter',()=>{
+ const archive=readFileSync(new URL('../test-data/reviewed-interpretations/1144.json',import.meta.url),'utf8'),d=readContraDbImport(archive).dance!,c=compileChoreography(d,3) as any,h=createHash('sha256');for(let tick=0;tick<=384*16;tick++)h.update(JSON.stringify(c.sample(tick/16))+'\n');assert.equal(h.digest('hex'),'fad1e1a5ee5109efc5f4313e328d5359f3787edd4fd021ba0359b7bd6a85568f');const routes=c.sequenceBoundaries(0).map((p:any)=>p.adapterId);assert.ok(routes.includes('released-pair-swing'));assert.ok(!routes.includes('prepared-fourteen-partner-swing'));
+});
