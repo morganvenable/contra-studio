@@ -1,3 +1,4 @@
+import{assertSwingEvidenceReceiver}from'../test-data/swing-entry-receiver.ts';
 import type {ImproperWaveSwingEntryEvidence} from './improper-wave-policy.ts';
 import type {BecketWaveSwingEntryEvidence} from './becket-wave-policy.ts';
 /** Whole reviewed-source timing guard. Explicitly reviewed moving handoffs
@@ -50,8 +51,8 @@ test('every reviewed swing has a bounded, truthfully acquired frame and musical 
     // its reached circle/pass event. Evidence names the actual finite neighbors;
     // the same root/rotation checks below still apply inside the source counts.
     const evidence=c.swingEntryEvidence?.(repeat).find(e=>e.figureId===figure.id),becketEvidence=evidence?.kind==='compact-released-inward'?evidence:undefined,fullWaveEvidence=evidence?.kind==='full-wave-rotating'?evidence:undefined;
-    if(fullWaveEvidence){assert.equal(fullWaveEvidence.sourceBeat,at);assert.ok(figure.beats===8||figure.beats===12);assert.equal(fullWaveEvidence.beats,figure.beats);assert.equal(figure.who,'partner');assert.equal(fullWaveEvidence.fullFrameBeat,1.75);assert.equal(fullWaveEvidence.angularMotionBy,.25);assert.deepEqual(fullWaveEvidence.heldAtEntry,start.contacts);assert.ok(start.contacts.length);assert.equal(c.sample(at+.15).contacts.filter(h=>h.kind!=='swing-frame').length,0);}
-    if(becketEvidence){assert.equal(becketEvidence.kind,'compact-released-inward');assert.equal(becketEvidence.sourceBeat,at);assert.equal(becketEvidence.beats,8);assert.equal(figure.beats,8);assert.equal(figure.who,'neighbor');assert.equal(becketEvidence.approachBeats,1.12);assert.equal(becketEvidence.facingBeats,1.25);assert.equal(becketEvidence.fullFrameBeat,1.75);assert.equal(becketEvidence.angularMotionBy,1.25);assert.deepEqual(becketEvidence.heldAtEntry,[]);}
+    if(fullWaveEvidence){assert.equal(fullWaveEvidence.sourceBeat,at);assert.ok(figure.beats===8||figure.beats===12);assert.equal(fullWaveEvidence.beats,figure.beats);assertSwingEvidenceReceiver(figure,fullWaveEvidence);assert.equal(fullWaveEvidence.fullFrameBeat,1.75);assert.equal(fullWaveEvidence.angularMotionBy,.25);assert.deepEqual(fullWaveEvidence.heldAtEntry,start.contacts);assert.ok(start.contacts.length);assert.equal(c.sample(at+.15).contacts.filter(h=>h.kind!=='swing-frame').length,0);}
+    if(becketEvidence){assert.equal(becketEvidence.kind,'compact-released-inward');assert.equal(becketEvidence.sourceBeat,at);assert.equal(becketEvidence.beats,8);assert.equal(figure.beats,8);assertSwingEvidenceReceiver(figure,becketEvidence);assert.equal(becketEvidence.approachBeats,1.12);assert.equal(becketEvidence.facingBeats,1.25);assert.equal(becketEvidence.fullFrameBeat,1.75);assert.equal(becketEvidence.angularMotionBy,1.25);assert.deepEqual(becketEvidence.heldAtEntry,[]);}
     const activeConnection=figure.who==='ones';
     if(activeConnection){assert.equal(figure.beats,8);assert.ok(figure.exit==='face-down-line'||figure.exit==='progressed-neighbors');}
     for(const p of start.poses){
