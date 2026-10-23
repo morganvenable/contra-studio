@@ -34,8 +34,8 @@
   },
   "choices": [
     "Slice: half the counts on the diagonal, half straight back.",
-    "A star with no grip named is drawn hands across.",
-    "Meltdown and long swings are drawn as ordinary swings."
+    "A star with no grip named is a basket star (wrist grip).",
+    "A long swing is drawn as an ordinary swing."
   ],
   "figures": [
     {
@@ -84,8 +84,7 @@
       "beats": 8,
       "params": {
         "hand": "right",
-        "places": 4,
-        "grip": "hands-across"
+        "places": 4
       },
       "text": "star right 4 places"
     },
@@ -95,8 +94,7 @@
       "beats": 8,
       "params": {
         "hand": "right",
-        "places": 4,
-        "grip": "hands-across"
+        "places": 4
       },
       "text": "star right 4 places"
     },

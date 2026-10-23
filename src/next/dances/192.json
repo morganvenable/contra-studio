@@ -33,7 +33,7 @@
     "sha256": "648e2f8654cbe64f48b5be143d393bbaa27c82e9157aa70208a7d81d4b68ac4a"
   },
   "choices": [
-    "Meltdown and long swings are drawn as ordinary swings."
+    "A meltdown swing starts with 4 beats of right-shoulder round, then swings."
   ],
   "figures": [
     {
@@ -41,7 +41,8 @@
       "move": "swing",
       "beats": 16,
       "params": {
-        "who": "neighbor"
+        "who": "neighbor",
+        "meltdown": true
       },
       "text": "neighbors meltdown swing"
     },
@@ -71,7 +72,8 @@
       "move": "swing",
       "beats": 16,
       "params": {
-        "who": "partner"
+        "who": "partner",
+        "meltdown": true
       },
       "text": "partners meltdown swing"
     },

@@ -47,6 +47,32 @@ test('neighbors swing ends in lines across: neighbors side by side, partners acr
   facing(yaw(s, 0), FACE_WEST);
 });
 
+test('meltdown swing: a right-shoulder round, facing, then the swing', () => {
+  const s0 = start();
+  const r = FIGURES.swing(s0, { who: 'neighbor', meltdown: true }, 16);
+  const plain = FIGURES.swing(s0, { who: 'neighbor' }, 16);
+  const at = (beat: number, id: number) => r.motion(beat).bodies.find((b) => b.id === id)!;
+  // Once gathered (beats 2-3.2) neighbors face each other at arm's length, no hands.
+  for (const beat of [2, 2.5, 3.2]) {
+    const a = at(beat, 0);
+    const b = at(beat, 3);
+    const gap = Math.hypot(a.position.x - b.position.x, a.position.z - b.position.z);
+    assert.ok(gap > 0.8 && gap < 1, `beat ${beat}: ${gap.toFixed(2)} m apart`);
+    facing(a.yaw, heading(a.position, b.position), `beat ${beat}: lark faces the neighbor`);
+    assert.equal(r.motion(beat).contacts.length, 0);
+  }
+  // Right shoulders toward the middle: the orbit runs clockwise (increasing polar angle).
+  const mid = (beat: number) => {
+    const a = at(beat, 0).position;
+    const b = at(beat, 3).position;
+    return Math.atan2(a.z - b.z, a.x - b.x);
+  };
+  assert.ok(Math.sin(mid(3.2) - mid(2)) > 0.3, 'clockwise from above');
+  // Then the swing frame, and the same exit as an ordinary swing.
+  assert.ok(r.motion(8).contacts.some((c) => c.kind === 'swing-frame' && c.strength > 0.9));
+  for (const id of [0, 1, 2, 3]) near(pos(r.exit, id), pos(plain.exit, id));
+});
+
 test("robins chain: robins cross and end on the far lark's right, facing in", () => {
   const lines = run([LINES]);
   const s = run([call('chain', 8, { who: 'robins', to: 'partner' })], lines);
@@ -78,6 +104,12 @@ test('star right 4 places goes once around clockwise, back to places', () => {
   const quarter = result.motion(2).bodies.find((b) => b.id === 0)!;
   assert.ok(quarter.position.x < pos(lines, 0).x - 0.3, JSON.stringify(quarter));
   assert.ok(result.motion(4).contacts.some((c) => c.strength > 0.5 && c.handA === 'right'));
+  // No grip named: a basket star, each holding the wrist of the dancer ahead.
+  const held = result.motion(4).contacts.filter((c) => c.strength > 0.5);
+  assert.equal(held.length, 4);
+  assert.ok(held.every((c) => c.target === 'wrist'));
+  const across = FIGURES.star(lines, { hand: 'right', places: 4, grip: 'hands-across' }, 8);
+  assert.equal(across.motion(4).contacts.filter((c) => c.strength > 0.5).length, 2);
 });
 
 test('do-si-do passes right shoulders, keeps facing, and 1½ trades places', () => {

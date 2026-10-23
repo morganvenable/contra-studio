@@ -35,12 +35,20 @@ const CHOICES = [
     'A balance with a partner or neighbor holds both hands.',
   ],
   [
-    (c) => c.move === 'star' && /star (right|left) \d/i.test(c.text ?? ''),
-    'A star with no grip named is drawn hands across.',
+    (c) => c.move === 'star' && !c.params.grip,
+    'A star with no grip named is a basket star (wrist grip).',
   ],
   [
-    (c) => c.move === 'swing' && /meltdown|long swing/i.test(c.text ?? ''),
-    'Meltdown and long swings are drawn as ordinary swings.',
+    (c) => c.move === 'swing' && /long swing/i.test(c.text ?? ''),
+    'A long swing is drawn as an ordinary swing.',
+  ],
+  [
+    (c) => c.move === 'swing' && c.params.meltdown && c.beats >= 12,
+    'A meltdown swing starts with 4 beats of right-shoulder round, then swings.',
+  ],
+  [
+    (c) => c.move === 'swing' && c.params.meltdown && c.beats < 12,
+    'A meltdown swing shorter than 12 beats spends a third of it in the right-shoulder round.',
   ],
 ];
 

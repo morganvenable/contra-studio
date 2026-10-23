@@ -33,8 +33,8 @@
     "sha256": "cd8c0734b611b32936292cd96f63c13841eab88e19975a440648dd348507e71e"
   },
   "choices": [
-    "A star with no grip named is drawn hands across.",
-    "Meltdown and long swings are drawn as ordinary swings."
+    "A star with no grip named is a basket star (wrist grip).",
+    "A meltdown swing starts with 4 beats of right-shoulder round, then swings."
   ],
   "figures": [
     {
@@ -64,7 +64,8 @@
       "move": "swing",
       "beats": 16,
       "params": {
-        "who": "partner"
+        "who": "partner",
+        "meltdown": true
       },
       "text": "partners meltdown swing"
     },
@@ -100,8 +101,7 @@
       "beats": 8,
       "params": {
         "hand": "left",
-        "places": 4,
-        "grip": "hands-across"
+        "places": 4
       },
       "text": "star left 4 places",
       "progression": true

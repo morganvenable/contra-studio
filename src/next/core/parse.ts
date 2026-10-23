@@ -46,6 +46,11 @@ const amount = (word: string | undefined, fallback: number) => {
   if (a === undefined) throw new Error(`Unknown amount "${word}".`);
   return a;
 };
+/** A long swing is an ordinary swing; a meltdown swing starts with a round. */
+const swingParams = (dancers: string, style: string | undefined) => ({
+  who: who(dancers),
+  ...(style?.trim() === 'meltdown' ? { meltdown: true } : {}),
+});
 const call = (move: string, beats: number, params: Record<string, unknown>): FigureCall => ({
   move,
   beats,
@@ -89,15 +94,15 @@ const PATTERNS: readonly (readonly [RegExp, Build])[] = [
   ],
   [/^balance$/, (_m, b) => [call('balance', b, { formation: 'current' })]],
   [
-    /^((?:next |new )?\w+) balance (?:&|and) (?:long |meltdown )?swing$/,
+    /^((?:next |new )?\w+) balance (?:&|and) (long |meltdown )?swing$/,
     (m, b) => [
       call('balance', 4, { formation: 'pair', who: who(m[1]), hand: 'both' }),
-      call('swing', b - 4, { who: who(m[1]) }),
+      call('swing', b - 4, swingParams(m[1], m[2])),
     ],
   ],
   [
-    /^((?:next |new )?\w+) (?:long |meltdown )?swing$/,
-    (m, b) => [call('swing', b, { who: who(m[1]) })],
+    /^((?:next |new )?\w+) (long |meltdown )?swing$/,
+    (m, b) => [call('swing', b, swingParams(m[1], m[2]))],
   ],
   [/^balance the ring$/, (_m, b) => [call('balance', b, { formation: 'ring' })]],
   [
@@ -112,7 +117,8 @@ const PATTERNS: readonly (readonly [RegExp, Build])[] = [
       call('star', b, {
         hand: m[1],
         places: NUMBERS[m[3]] ?? Number(m[3]),
-        grip: m[2] === 'wrist grip' ? 'wrist' : 'hands-across',
+        // No grip named: the figure's default grip (a basket star).
+        ...(m[2] ? { grip: m[2] === 'wrist grip' ? 'wrist' : 'hands-across' } : {}),
       }),
     ],
   ],

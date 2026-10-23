@@ -10,6 +10,15 @@
  * "partners swing" (dance 2321). Orbit radius (0.31 m), turn count, 60 degree
  * frame angle, release timing and hand frame ported from the swing primitive
  * in src/engine.ts.
+ *
+ * Meltdown swing: the pair first walks a right-shoulder round (each faces the
+ * other and they orbit clockwise, right shoulders toward the middle, no
+ * hands), then melts into the swing without stopping: the orbit closes in to
+ * swing distance and the frame forms while they keep turning at one rate.
+ * The round takes 4 beats; a phrase shorter than 12 beats gives it a third of
+ * the phrase instead, so the swing keeps two thirds.
+ * Source: ContraDB rows "partners meltdown swing", "neighbors meltdown
+ * swing"; Caller's Box glossary, "Gypsy" (right-shoulder round).
  */
 import type { HandContact, Vec2 } from '../../types.ts';
 import type { Figure } from '../core/figure.ts';
@@ -44,6 +53,13 @@ import {
 
 export interface SwingParams {
   who: 'partner' | 'neighbor' | '1s' | '2s';
+  /** Start with a right-shoulder round and melt into the swing. */
+  meltdown?: boolean;
+}
+
+/** Beats of right-shoulder round before a meltdown swing closes in. */
+export function meltdownRoundBeats(beats: number): number {
+  return beats >= 12 ? 4 : beats / 3;
 }
 
 const RADIUS = 0.31;
@@ -57,14 +73,24 @@ const RELEASE = 0.18;
 const FRAME = Math.PI / 3;
 /** Final share of the swing spent turning out to face across. */
 const OPEN = 0.25;
+/** Distance from the middle while walking the right-shoulder round. */
+const ROUND_RADIUS = 0.45;
+/** Beats spent melting from the round into the swing frame. */
+const MELT_BEATS = 1.5;
+/** Beats to close to round distance, and to get the orbit up to speed. */
+const ROUND_GATHER_BEATS = 1;
+const ROUND_RAMP_BEATS = 1.5;
 
 export const swing: Figure<SwingParams> = (state, params, beats) => {
-  onlyKeys('swing', params, ['who']);
+  onlyKeys('swing', params, ['who', 'meltdown']);
+  if (params.meltdown !== undefined && typeof params.meltdown !== 'boolean')
+    throw new Error('swing meltdown must be true or false.');
   const who = oneOf('swing', 'who', params.who, ['partner', 'neighbor', '1s', '2s'] as const);
   if (beats < 4) throw new Error('A swing needs at least four beats.');
   const turns = Math.max(1, Math.floor(beats / 4 - 0.5));
   const pairs = minorSets(state).flatMap((g) => pairsIn(state, g, who));
-  const plans = pairs.map(([a, b]) => planPair(state, a, b, turns, beats));
+  const round = params.meltdown ? meltdownRoundBeats(beats) : 0;
+  const plans = pairs.map(([a, b]) => planPair(state, a, b, turns, beats, round));
 
   const motion = (beat: number) => {
     const t = beat / beats;
@@ -76,8 +102,25 @@ export const swing: Figure<SwingParams> = (state, params, beats) => {
   return { kind: 'swing', motion, exit: withChanges(settle(state, motion, beats), { hands: [] }) };
 };
 
-function planPair(state: DanceState, a: number, b: number, turns: number, beats: number) {
-  const turnIn = Math.max(LEAD, TURN_IN_BEATS / beats);
+function planPair(
+  state: DanceState,
+  a: number,
+  b: number,
+  turns: number,
+  beats: number,
+  roundBeats: number,
+) {
+  // A meltdown closes to round distance in a beat and starts orbiting at once.
+  const lead = roundBeats > 0 ? ROUND_GATHER_BEATS / beats : LEAD;
+  const ramp = roundBeats > 0 ? ROUND_RAMP_BEATS / beats : undefined;
+  const turnIn = Math.max(lead, TURN_IN_BEATS / beats);
+  // 0 while walking the round, 1 once melted into the swing (always 1 without a round).
+  const melted = (t: number) =>
+    roundBeats > 0
+      ? smooth((t * beats - roundBeats + MELT_BEATS / 2) / MELT_BEATS)
+      : 1;
+  const frameAngle = (t: number) => FRAME * melted(t);
+  const orbit = (t: number) => ROUND_RADIUS + (RADIUS - ROUND_RADIUS) * melted(t);
   const lark = roleOf(state, a) === 'lark' ? a : b;
   const robin = lark === a ? b : a;
   if (roleOf(state, robin) !== 'robin') throw new Error('A swing pairs a lark with a robin.');
@@ -102,23 +145,23 @@ function planPair(state: DanceState, a: number, b: number, turns: number, beats:
   // Whole turns plus the leftover angle to the exit, rounded to the nearer
   // whole number of turns so a short swing never spins much faster.
   const net = TAU * turns + offset - (offset > Math.PI ? TAU : 0);
-  const spin = (t: number) => net * progress((t - LEAD) / (1 - LEAD));
+  const spin = (t: number) => net * progress((t - lead) / (1 - lead), ramp);
   const centerAt = (t: number) => mix(center0, exitCenter, smooth(t));
 
   const radiusAt = (id: number, t: number) => {
     const r0 = length(sub(start.get(id)!.position, center0));
-    if (t < LEAD) return r0 + (RADIUS - r0) * smooth(t / LEAD);
-    return RADIUS + (SET.slot / 2 - RADIUS) * smooth((t - (1 - RELEASE)) / RELEASE);
+    if (t < lead) return r0 + (orbit(t) - r0) * smooth(t / lead);
+    return orbit(t) + (SET.slot / 2 - orbit(t)) * smooth((t - (1 - RELEASE)) / RELEASE);
   };
   // Body facing in the frame, on the winding branch nearest each start facing.
   const shift = new Map(
     [...start].map(([id, s]) => {
-      const b0 = -theta0.get(id)! - Math.PI / 2 + FRAME;
+      const b0 = -theta0.get(id)! - Math.PI / 2 + frameAngle(0);
       return [id, s.yaw + turn(b0, s.yaw) - b0];
     }),
   );
   const bodyYaw = (id: number, t: number) =>
-    -(theta0.get(id)! + spin(t)) - Math.PI / 2 + FRAME + shift.get(id)!;
+    -(theta0.get(id)! + spin(t)) - Math.PI / 2 + frameAngle(t) + shift.get(id)!;
 
   const at = (id: number, t: number) => {
     const angle = theta0.get(id)! + spin(t);
@@ -137,7 +180,9 @@ function planPair(state: DanceState, a: number, b: number, turns: number, beats:
   const contacts = (t: number): HandContact[] => {
     // Take the frame once gathered; let go just as the pair opens out.
     const strength =
-      smooth((t - turnIn * 0.75) / (turnIn * 0.25)) * smooth((1 - RELEASE + 0.04 - t) / 0.08);
+      smooth((t - turnIn * 0.75) / (turnIn * 0.25)) *
+      smooth((1 - RELEASE + 0.04 - t) / 0.08) *
+      smooth((melted(t) - 0.8) / 0.2);
     if (strength <= 0) return [];
     return frameContacts(at(lark, t), at(robin, t), lark, robin, strength);
   };

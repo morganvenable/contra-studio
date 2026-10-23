@@ -35,7 +35,7 @@
   "choices": [
     "Pass through goes by right shoulders.",
     "A balance with a partner or neighbor holds both hands.",
-    "Meltdown and long swings are drawn as ordinary swings."
+    "A meltdown swing starts with 4 beats of right-shoulder round, then swings."
   ],
   "figures": [
     {
@@ -98,7 +98,8 @@
       "move": "swing",
       "beats": 16,
       "params": {
-        "who": "partner"
+        "who": "partner",
+        "meltdown": true
       },
       "text": "partners meltdown swing"
     },

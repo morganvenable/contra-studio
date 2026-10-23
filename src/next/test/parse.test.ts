@@ -24,6 +24,8 @@ test('row patterns map to moves and parameters', () => {
     { who: 'partner', hand: 'right', amount: 0.75, wave: { middle: 'lark' } },
   );
   assert.equal(one('slice left and straight back ⁋').progression, true);
+  assert.deepEqual(one('partners meltdown swing', 12).params, { who: 'partner', meltdown: true });
+  assert.deepEqual(one('neighbors long swing', 16).params, { who: 'neighbor' });
 });
 
 test("balance & Rory O'More splits into a balance and a slide", () => {

@@ -4,8 +4,9 @@
  * Definition: the dancers of a group put the named hand in the middle and
  * walk forward around the center (a right-hand star goes clockwise seen from
  * above), a number of places (with four dancers, 4 places is once around).
- * Grips: "hands across" joins hands with the dancer opposite; "wrist grip"
- * holds the wrist of the dancer ahead. Dancers step in from their places to
+ * Grips: the usual contra star is a "basket star" (wrist grip): each dancer
+ * holds the wrist of the dancer ahead. "Hands across" joins hands with the
+ * dancer opposite, when the source names it. Dancers step in from their places to
  * star size and back out to their new places at the end, still facing the
  * way they walk.
  * Source: Caller's Box glossary, "Star"; ContraDB rows "star right 4 places",
@@ -30,6 +31,9 @@ import {
 import { findRing } from '../core/ring.ts';
 import { body, minorSets, withChanges } from '../core/state.ts';
 
+/** The grip when the source names none: the basket star (wrist grip). */
+export const DEFAULT_STAR_GRIP: 'hands-across' | 'wrist' = 'wrist';
+
 export interface StarParams {
   hand: 'right' | 'left';
   places: number;
@@ -45,7 +49,7 @@ const FACE_BEATS = 1.5;
 export const star: Figure<StarParams> = (state, params, beats) => {
   onlyKeys('star', params, ['hand', 'places', 'grip']);
   const hand = oneOf('star', 'hand', params.hand, ['right', 'left'] as const);
-  const grip = oneOf('star', 'grip', params.grip ?? 'hands-across', [
+  const grip = oneOf('star', 'grip', params.grip ?? DEFAULT_STAR_GRIP, [
     'hands-across',
     'wrist',
   ] as const);

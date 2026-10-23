@@ -33,7 +33,7 @@
     "sha256": "89c0768ae1a37175ba99ab185012fa5211a0bbda0ad470d726f72bcfdbc3d623"
   },
   "choices": [
-    "A star with no grip named is drawn hands across."
+    "A star with no grip named is a basket star (wrist grip)."
   ],
   "figures": [
     {
@@ -112,8 +112,7 @@
       "beats": 8,
       "params": {
         "hand": "left",
-        "places": 4,
-        "grip": "hands-across"
+        "places": 4
       },
       "text": "star left 4 places",
       "progression": true

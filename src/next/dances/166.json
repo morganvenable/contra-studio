@@ -35,7 +35,7 @@
   "choices": [
     "Pass through goes by right shoulders.",
     "A pass through from a ring goes along the set, to the dancer on your own side.",
-    "Meltdown and long swings are drawn as ordinary swings."
+    "A meltdown swing starts with 4 beats of right-shoulder round, then swings."
   ],
   "figures": [
     {
@@ -83,7 +83,8 @@
       "move": "swing",
       "beats": 16,
       "params": {
-        "who": "partner"
+        "who": "partner",
+        "meltdown": true
       },
       "text": "partners meltdown swing"
     },

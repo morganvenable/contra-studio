@@ -34,7 +34,7 @@
   },
   "choices": [
     "A balance with a partner or neighbor holds both hands.",
-    "A star with no grip named is drawn hands across."
+    "A star with no grip named is a basket star (wrist grip)."
   ],
   "figures": [
     {
@@ -113,8 +113,7 @@
       "beats": 8,
       "params": {
         "hand": "left",
-        "places": 4,
-        "grip": "hands-across"
+        "places": 4
       },
       "text": "star left 4 places look for new",
       "progression": true
