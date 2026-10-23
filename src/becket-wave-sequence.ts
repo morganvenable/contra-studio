@@ -1,3 +1,6 @@
+import{compileOrdinaryFullHeyHandoff}from'./ordinary-hey-handoff.ts';
+import{compileOrdinaryHalfHeyFigure}from'./ordinary-half-hey.ts';
+import{compileNeutralRoleHeyStep}from'./neutral-role-hey-step.ts';
 import{compileCompactReleasedStep,type CompactReleasedSpec}from'./compact-released-step.ts';
 import{compileBecketStarWaveStep}from'./becket-star-wave-step.ts';
 import{compileCarriedPairedTurnWave,type PairedTurnWaveSpec}from'./carried-paired-turn-wave.ts';
@@ -21,6 +24,7 @@ import {compileCarriedWaveCirculate,type CarriedWaveState,type CarriedWaveCircul
 import {compileCarriedPairedBalanceSwing,type CarriedPairedBalanceSwingSpec} from './carried-paired-balance-swing.ts';
 import type {Figure,Pose,HandContact} from './types.ts';
 export type BecketWaveOperation=
+ |{mode:'ordinary-hey';figure:Figure;balanceExit:boolean}
  |{mode:'compact-released';figure:Figure;spec:CompactReleasedSpec}
  |{mode:'progressing-star-wave';figure:Figure;options:BecketSlideOptions}
  |{mode:'paired-turn-wave';figure:Figure;spec:PairedTurnWaveSpec}
@@ -54,6 +58,10 @@ export function compileBecketWaveSequence(raw:BecketWaveProgram,couples:number){
   const carried=():CarriedReleasedHeyState=>({sourceBeat:cursor,bindingEpoch:binding.epoch,actors:dancers.map(({id,role,couple})=>({id,role,couple})),poses,partner:[...binding.relations.partner],neighbor:[...binding.relations.neighbor],boxPartitions:[...binding.groups].sort((a,b)=>state.couples.find(c=>c.id===dancers[a.actors[0]].couple)!.rank-state.couples.find(c=>c.id===dancers[b.actors[0]].couple)!.rank).map(g=>[...g.actors]),waitingIds:binding.waitingIds,heldContacts:contacts});
   const add=(beats:number,sampler:(beat:number)=>{poses:Pose[];contacts:HandContact[]})=>{const start=cursor;const sample=(count:number)=>{const f=sampler(count);if(event&&start>=event.rebindBeat)for(const p of event.sampleWaiting(start+count))f.poses[p.id]=p;return f;};sections.push({start,beats,sample});const end=sample(beats);poses=end.poses.map(copy);contacts=end.contacts;cursor+=beats;};
   for(const op of program.operations){
+   if(op.mode==='ordinary-hey'){
+    keys(op,['mode','figure','balanceExit']);if(wave||paired||contacts.length)throw Error('Ordinary hey consumes released actual state.');const source=poses.map(copy),plans=binding.groups.map(g=>{const ids=[...g.actors],context={ids,dancers,start:source,bindingEpoch:binding.epoch,relations:binding.relations,...(op.balanceExit?{next:{id:op.figure.id+':next',label:'Named balance',kind:'balance' as const,who:op.figure.who,beats:4}}:{})};return{ids,plan:op.balanceExit?(op.figure.amount===1?compileOrdinaryFullHeyHandoff(op.figure,context,cursor,{halfWidth:.64,balanceHands:'acquire'}):compileOrdinaryHalfHeyFigure(op.figure,context,{halfWidth:.64,balanceHands:'acquire'})):compileNeutralRoleHeyStep(op.figure,context,captureSequenceBoundary(context,cursor,[]))};});
+    add(op.figure.beats,n=>{const t=n/op.figure.beats,at=source.map(copy);for(const{ids,plan}of plans)for(const id of ids){at[id].position=plan.position(id,t);at[id].yaw=plan.facing(id,t,at);}return{poses:at,contacts:plans.flatMap(({plan})=>plan.contacts(t,at))};});if(op.balanceExit){if(op.figure.who!=='partner')throw Error('Ordinary hey paired finish retains partners.');paired={...carried(),exit:{kind:'partner-balance',pairSpacing:1.18}};}continue;
+   }
    if(op.mode==='compact-released'){keys(op,['mode','figure','spec']);if(wave||paired||contacts.length)throw Error('Compact primitive requires actually released state.');const plan=compileCompactReleasedStep(op.figure,captureBecketSliceBoundary(dancers,poses,binding,cursor,contacts),op.spec);add(8,plan.sample);continue;}
    if(op.mode==='progressing-star-wave'){keys(op,['mode','figure','options']);if(wave||paired||event||contacts.length||op.options.progressionSource.sourceId!==program.sourceId||op.options.progressionSource.url!==program.sourceUrl)throw Error('Star wave requires released actual state and matching source evidence.');const plan=compileBecketStarWaveStep(op.figure,captureBecketSliceBoundary(dancers,poses,binding,cursor,contacts),state,op.options),start=cursor;add(8,n=>plan.sample(start+n));event=plan;binding=plan.endBinding;state=plan.nextState;wave={...plan.waveState,poses,heldContacts:contacts};continue;}
    if(op.mode==='paired-turn-wave'){keys(op,['mode','figure','spec']);const f=op.figure;keys(f,['id','label','kind','beats','who','direction','amount']);if(wave||paired||contacts.length||f.kind!=='allemande'||f.beats!==8||f.who!==op.spec.who||f.direction!==op.spec.hand||f.amount!==op.spec.amount)throw Error('Paired-turn lowering must preserve its actual receiver, hand and amount.');const plan=compileCarriedPairedTurnWave(op.spec,carried());add(8,plan.sample);wave={...plan.exitState,poses,heldContacts:contacts};continue;}
