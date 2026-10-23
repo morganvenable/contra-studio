@@ -118,3 +118,20 @@ test('square through, give & take, mad robin and gyre rows', () => {
   assert.deepEqual(one('ladles gyre 1½').params, { who: 'robins', amount: 1.5 });
   assert.deepEqual(one('ladles gyre once in the center').params, { who: 'robins', amount: 1 });
 });
+
+test('ones swing ends facing down; other swing endings and notes', () => {
+  assert.deepEqual(one('ones swing - face down to next couple').params, { who: '1s', end: 'down' });
+  assert.deepEqual(one('ones swing and face next neighbors').params, { who: '1s', end: 'down' });
+  assert.deepEqual(one('neighbors swing, end facing down the hall', 12).params, {
+    who: 'neighbor',
+  });
+  assert.equal(one('long lines forward & back - ID next neighbors ⁋').move, 'long-lines');
+  assert.equal(
+    one('ladles start a half hey - rights in center, lefts on ends right shoulder').move,
+    'hey',
+  );
+  assert.throws(
+    () => one('ladles start a half hey - rights in center, lefts on ends left shoulder'),
+    /first pass/,
+  );
+});

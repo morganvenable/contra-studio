@@ -46,11 +46,20 @@ const amount = (word: string | undefined, fallback: number) => {
   if (a === undefined) throw new Error(`Unknown amount "${word}".`);
   return a;
 };
-/** A long swing is an ordinary swing; a meltdown swing starts with a round. */
-const swingParams = (dancers: string, style: string | undefined) => ({
-  who: who(dancers),
-  ...(style?.trim() === 'meltdown' ? { meltdown: true } : {}),
-});
+/**
+ * A long swing is an ordinary swing; a meltdown swing starts with a round.
+ * The 1s end their swing in the middle facing down, the way they progress
+ * (the 2s up). "End facing down the hall" after a neighbor swing is left to
+ * the down-the-hall figure that follows, which turns the lines.
+ */
+const swingParams = (dancers: string, style: string | undefined) => {
+  const w = who(dancers);
+  return {
+    who: w,
+    ...(style?.trim() === 'meltdown' ? { meltdown: true } : {}),
+    ...(w === '1s' ? { end: 'down' } : w === '2s' ? { end: 'up' } : {}),
+  };
+};
 const call = (move: string, beats: number, params: Record<string, unknown>): FigureCall => ({
   move,
   beats,
@@ -96,14 +105,14 @@ const PATTERNS: readonly (readonly [RegExp, Build])[] = [
   ],
   [/^balance$/, (_m, b) => [call('balance', b, { formation: 'current' })]],
   [
-    /^((?:next |new )?\w+) balance (?:&|and) (long |meltdown )?swing$/,
+    /^((?:next |new )?\w+) balance (?:&|and) (long |meltdown )?swing(?:,? end facing (?:down|up)(?: the hall)?)?$/,
     (m, b) => [
       call('balance', 4, { formation: 'pair', who: who(m[1]), hand: 'both' }),
       call('swing', b - 4, swingParams(m[1], m[2])),
     ],
   ],
   [
-    /^((?:next |new )?\w+) (long |meltdown )?swing$/,
+    /^((?:next |new )?\w+) (long |meltdown )?swing(?: - face (?:down|up) to (?:the )?next couple|,? end facing (?:down|up)(?: the hall)?)?$/,
     (m, b) => [call('swing', b, swingParams(m[1], m[2]))],
   ],
   [/^balance the ring$/, (_m, b) => [call('balance', b, { formation: 'ring' })]],
@@ -157,14 +166,20 @@ const PATTERNS: readonly (readonly [RegExp, Build])[] = [
   [
     // A trailing "and neighbors take right hands" is the next figure's hold
     // (the long waves it forms join hands themselves).
-    /^(\w+) start a (full|half) hey - (?:(right|left)s in center, (?:right|left)s on ends|(right|left)s on ends, (right|left)s in center)(?: - and (?:next )?\w+ take (?:right|left) hands)?$/,
-    (m, b) => [
-      call('hey', b, {
-        start: who(m[1]),
-        amount: m[2] === 'full' ? 1 : 0.5,
-        center: m[3] ?? m[5],
-      }),
-    ],
+    /^(\w+) start a (full|half) hey - (?:(right|left)s in center, (?:right|left)s on ends|(right|left)s on ends, (right|left)s in center)(?: - and (?:next )?\w+ take (?:right|left) hands| (right|left) shoulders?)?$/,
+    (m, b) => {
+      // A trailing shoulder repeats the first pass's shoulder.
+      const first = m[3] ?? m[4];
+      if (m[6] && m[6] !== first)
+        throw new Error(`The hey's first pass is by the ${first}, not the ${m[6]}.`);
+      return [
+        call('hey', b, {
+          start: who(m[1]),
+          amount: m[2] === 'full' ? 1 : 0.5,
+          center: m[3] ?? m[5],
+        }),
+      ];
+    },
   ],
   [
     // Square through: balance the first, pull by them, turn to the next and
@@ -269,6 +284,8 @@ export function normalizeRow(text: string): { text: string; progression: boolean
     // progression mark carries it.
     .replace(/\s*\((?:look|with courtesy turn)[^)]*\)/gi, '')
     .replace(/(?:,\s*(?:\w+ )?|\s+(?:and |then )?)look (?:for|to) .*$/i, '')
+    // "ID next neighbors": identify them; the progression mark carries it.
+    .replace(/\s*-\s*id (?:new|next) neighbors?$/i, '')
     // Letting go at the end, and a trailing "+", are styling notes.
     .replace(/\s+(?:and \w+ let go|\+)$/i, '')
     // A row ending in "to" leads into the next row ("ladles do si do once to").

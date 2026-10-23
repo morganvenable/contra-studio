@@ -9,7 +9,9 @@
  * Source: Caller's Box glossary, "Swing"; ContraDB rows "neighbors swing" and
  * "partners swing" (dance 2321). Orbit radius (0.31 m), turn count, 60 degree
  * frame angle, release timing and hand frame ported from the swing primitive
- * in src/engine.ts.
+ * in src/engine.ts. A swing can instead end with the pair side by side in
+ * the middle of the set facing down or up the hall ("ones swing, face down
+ * to the next couple").
  *
  * Meltdown swing: the pair first walks a right-shoulder round (each faces the
  * other and they orbit clockwise, right shoulders toward the middle, no
@@ -55,6 +57,11 @@ export interface SwingParams {
   who: 'partner' | 'neighbor' | '1s' | '2s';
   /** Start with a right-shoulder round and melt into the swing. */
   meltdown?: boolean;
+  /**
+   * How the pair ends: facing across on its side line (the default), or
+   * side by side in the middle of the set facing down or up the hall.
+   */
+  end?: 'across' | 'down' | 'up';
 }
 
 /** Beats of right-shoulder round before a meltdown swing closes in. */
@@ -82,7 +89,8 @@ const ROUND_GATHER_BEATS = 1;
 const ROUND_RAMP_BEATS = 1.5;
 
 export const swing: Figure<SwingParams> = (state, params, beats) => {
-  onlyKeys('swing', params, ['who', 'meltdown']);
+  onlyKeys('swing', params, ['who', 'meltdown', 'end']);
+  const end = oneOf('swing', 'end', params.end ?? 'across', ['across', 'down', 'up'] as const);
   if (params.meltdown !== undefined && typeof params.meltdown !== 'boolean')
     throw new Error('swing meltdown must be true or false.');
   const who = oneOf('swing', 'who', params.who, ['partner', 'neighbor', '1s', '2s'] as const);
@@ -90,7 +98,7 @@ export const swing: Figure<SwingParams> = (state, params, beats) => {
   const turns = Math.max(1, Math.floor(beats / 4 - 0.5));
   const pairs = minorSets(state).flatMap((g) => pairsIn(state, g, who));
   const round = params.meltdown ? meltdownRoundBeats(beats) : 0;
-  const plans = pairs.map(([a, b]) => planPair(state, a, b, turns, beats, round));
+  const plans = pairs.map(([a, b]) => planPair(state, a, b, turns, beats, round, end));
 
   const motion = (beat: number) => {
     const t = beat / beats;
@@ -109,6 +117,7 @@ function planPair(
   turns: number,
   beats: number,
   roundBeats: number,
+  end: 'across' | 'down' | 'up',
 ) {
   // A meltdown closes to round distance in a beat and starts orbiting at once.
   const lead = roundBeats > 0 ? ROUND_GATHER_BEATS / beats : LEAD;
@@ -116,9 +125,7 @@ function planPair(
   const turnIn = Math.max(lead, TURN_IN_BEATS / beats);
   // 0 while walking the round, 1 once melted into the swing (always 1 without a round).
   const melted = (t: number) =>
-    roundBeats > 0
-      ? smooth((t * beats - roundBeats + MELT_BEATS / 2) / MELT_BEATS)
-      : 1;
+    roundBeats > 0 ? smooth((t * beats - roundBeats + MELT_BEATS / 2) / MELT_BEATS) : 1;
   const frameAngle = (t: number) => FRAME * melted(t);
   const orbit = (t: number) => ROUND_RADIUS + (RADIUS - ROUND_RADIUS) * melted(t);
   const lark = roleOf(state, a) === 'lark' ? a : b;
@@ -129,11 +136,20 @@ function planPair(
   const group = groupOf(state, a);
   const middle = group && group.length === 4 ? groupCenter(state, group) : { x: 0, z: center0.z };
   const across = center0.x - middle.x;
-  if (Math.abs(across) < SIDE_MARGIN)
-    throw new Error('A swing that ends facing across must start nearer one side.');
-  const side = Math.sign(across);
-  const exitYaw = side > 0 ? -Math.PI / 2 : Math.PI / 2;
-  const exitCenter: Vec2 = { x: middle.x + side * SET.halfWidth, z: middle.z };
+  let exitYaw: number;
+  let exitCenter: Vec2;
+  if (end === 'across') {
+    if (Math.abs(across) < SIDE_MARGIN)
+      throw new Error('A swing that ends facing across must start nearer one side.');
+    const side = Math.sign(across);
+    exitYaw = side > 0 ? -Math.PI / 2 : Math.PI / 2;
+    exitCenter = { x: middle.x + side * SET.halfWidth, z: middle.z };
+  } else {
+    // In the middle of the set, level with where the pair swings; the top
+    // of the set is -z, so down the hall faces +z (yaw 0).
+    exitYaw = end === 'down' ? 0 : Math.PI;
+    exitCenter = { x: middle.x, z: center0.z };
+  }
   const half = scale(leftOf(exitYaw), SET.slot / 2);
   const exitAt = new Map([
     [lark, add(exitCenter, half)],

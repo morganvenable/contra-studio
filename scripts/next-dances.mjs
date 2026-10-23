@@ -74,6 +74,14 @@ const CHOICES = [
     (c) => c.move === 'hey' && /take (?:right|left) hands/i.test(c.text ?? ''),
     'Taking hands at the end of a hey is left to the long waves that follow.',
   ],
+  [
+    (c) => c.move === 'swing' && c.params.end === 'down',
+    'The 1s end their swing side by side in the middle of the set facing down, the way they progress.',
+  ],
+  [
+    (c) => c.move === 'swing' && /end facing down/i.test(c.text ?? ''),
+    'A swing that ends facing down the hall is drawn ending facing across; the down the hall that follows turns the lines.',
+  ],
 ];
 
 export function snapshotOf(id) {

@@ -1,0 +1,122 @@
+{
+  "schema": "contra-studio/next-dance",
+  "version": 1,
+  "title": "East Litchfield Volunteers",
+  "author": "Jim Gregory",
+  "formation": "improper",
+  "progression": "duple-minor",
+  "music": {
+    "meter": "2/4",
+    "parts": [
+      {
+        "name": "A1",
+        "bars": 8
+      },
+      {
+        "name": "A2",
+        "bars": 8
+      },
+      {
+        "name": "B1",
+        "bars": 8
+      },
+      {
+        "name": "B2",
+        "bars": 8
+      }
+    ],
+    "times": "repeat"
+  },
+  "source": {
+    "url": "https://contradb.com/dances/1036",
+    "snapshot": "test-data/contradb/1036.json",
+    "sha256": "7c2de9cf49e29066d00f3436228f62c8055e0a5fcce2395a0cf453a2e9c7514f"
+  },
+  "choices": [
+    "The 1s end their swing side by side in the middle of the set facing down, the way they progress."
+  ],
+  "figures": [
+    {
+      "section": "A1",
+      "move": "circle",
+      "beats": 8,
+      "params": {
+        "direction": "left",
+        "places": 4
+      },
+      "text": "circle left 4 places"
+    },
+    {
+      "section": "A1",
+      "move": "circle",
+      "beats": 8,
+      "params": {
+        "direction": "right",
+        "places": 4
+      },
+      "text": "circle right 4 places"
+    },
+    {
+      "section": "A2",
+      "move": "allemande",
+      "beats": 8,
+      "params": {
+        "who": "neighbor",
+        "hand": "right",
+        "amount": 1
+      },
+      "text": "neighbors allemande right once"
+    },
+    {
+      "section": "A2",
+      "move": "allemande",
+      "beats": 8,
+      "params": {
+        "who": "neighbor",
+        "hand": "left",
+        "amount": 1
+      },
+      "text": "neighbors allemande left once"
+    },
+    {
+      "section": "B1",
+      "move": "do-si-do",
+      "beats": 8,
+      "params": {
+        "who": "neighbor",
+        "amount": 1,
+        "shoulder": "right"
+      },
+      "text": "neighbors do si do once"
+    },
+    {
+      "section": "B1",
+      "move": "swing",
+      "beats": 8,
+      "params": {
+        "who": "neighbor"
+      },
+      "text": "neighbors swing"
+    },
+    {
+      "section": "B2",
+      "move": "long-lines",
+      "beats": 8,
+      "params": {
+        "back": true
+      },
+      "text": "long lines forward & back"
+    },
+    {
+      "section": "B2",
+      "move": "swing",
+      "beats": 8,
+      "params": {
+        "who": "1s",
+        "end": "down"
+      },
+      "text": "ones swing - face down to next couple",
+      "progression": true
+    }
+  ]
+}

@@ -1,0 +1,118 @@
+{
+  "schema": "contra-studio/next-dance",
+  "version": 1,
+  "title": "Early Bird Special",
+  "author": "Tom Calwell",
+  "formation": "improper",
+  "progression": "duple-minor",
+  "music": {
+    "meter": "2/4",
+    "parts": [
+      {
+        "name": "A1",
+        "bars": 8
+      },
+      {
+        "name": "A2",
+        "bars": 8
+      },
+      {
+        "name": "B1",
+        "bars": 8
+      },
+      {
+        "name": "B2",
+        "bars": 8
+      }
+    ],
+    "times": "repeat"
+  },
+  "source": {
+    "url": "https://contradb.com/dances/2876",
+    "snapshot": "test-data/contradb/2876.json",
+    "sha256": "d33f15747c33b6cd8bf0d6d2d4ad7257b20c98c4ad456410f4c12beee83b0de6"
+  },
+  "choices": [
+    "A balance with a partner or neighbor holds both hands.",
+    "A swing that ends facing down the hall is drawn ending facing across; the down the hall that follows turns the lines."
+  ],
+  "figures": [
+    {
+      "section": "A1",
+      "move": "balance",
+      "beats": 4,
+      "params": {
+        "formation": "pair",
+        "who": "neighbor",
+        "hand": "both"
+      },
+      "text": "neighbors balance & swing, end facing down · balance"
+    },
+    {
+      "section": "A1",
+      "move": "swing",
+      "beats": 12,
+      "params": {
+        "who": "neighbor"
+      },
+      "text": "neighbors balance & swing, end facing down · swing"
+    },
+    {
+      "section": "A2",
+      "move": "hall",
+      "beats": 8,
+      "params": {
+        "direction": "down",
+        "turn": "alone"
+      },
+      "text": "down the hall and turn alone"
+    },
+    {
+      "section": "A2",
+      "move": "hall",
+      "beats": 8,
+      "params": {
+        "direction": "up",
+        "end": "ring"
+      },
+      "text": "up the hall and bend into a ring"
+    },
+    {
+      "section": "B1",
+      "move": "circle",
+      "beats": 8,
+      "params": {
+        "direction": "left",
+        "places": 3
+      },
+      "text": "circle left 3 places"
+    },
+    {
+      "section": "B1",
+      "move": "swing",
+      "beats": 8,
+      "params": {
+        "who": "partner"
+      },
+      "text": "partners swing"
+    },
+    {
+      "section": "B2",
+      "move": "right-left-through",
+      "beats": 8,
+      "params": {},
+      "text": "right left through"
+    },
+    {
+      "section": "B2",
+      "move": "chain",
+      "beats": 8,
+      "params": {
+        "who": "robins",
+        "to": "neighbor"
+      },
+      "text": "robins chain to neighbor, look to the next",
+      "progression": true
+    }
+  ]
+}
