@@ -1,6 +1,7 @@
 import './style.css';
 import {DANCES} from './catalog';
 import {compileChoreography} from './choreography';
+import {compileWithEngine,isNextCompiled} from './next/switch.ts';
 import {DanceScene} from './scene';
 import {OverheadScene} from './fallback';
 import {StudioAudioTransport} from './audio';
@@ -26,8 +27,8 @@ async function startPlaying(){const generation=++playGeneration;playPending=true
 function pause(){++playGeneration;playPending=false;audio.pause();syncClock();}
 function seek(beat:number){audio.setLoop(null);audio.seek(Math.max(0,Number.isFinite(beat)?beat:0));configureBounds();syncClock();}
 function loadDance(dance:Dance,couples=state.dancers.length/2){
- const next=compileChoreography(dance,couples);pause();loopFigure=false;compiled=next;
- state.swingPresentationStatus=undefined;state.dance=dance;state.totalBeats=next.totalBeats;state.dancers=next.dancers;if(state.selectedDancer>=next.dancers.length)state.selectedDancer=-1;
+ const next=compileWithEngine(dance,couples,compileChoreography);pause();loopFigure=false;compiled=next;
+ state.swingPresentationStatus=undefined;state.dance=isNextCompiled(next)?next.dance:dance;state.totalBeats=next.totalBeats;state.dancers=next.dancers;if(state.selectedDancer>=next.dancers.length)state.selectedDancer=-1;
  audio.setLoop(null);audio.seek(0);configureBounds();state.repeat=0;state.figureIndex=0;state.figureProgress=0;state.warnings=next.warnings;
  if(!state.dances.some(d=>d.id===dance.id))state.dances.push(dance);scene?.setDance(next);syncClock();
 }
