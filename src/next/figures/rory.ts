@@ -29,13 +29,9 @@ export interface RoryParams {
 const BOW = 0.44;
 const RELEASE = 0.18;
 
-/**
- * The twirl is quick and comes as the crossing ends, so the passing pair is
- * still face to face when they pass (travel progress 0.5; about 2 degrees of
- * twirl by then).
- */
-const TWIRL_START = 0.45;
-const twirl = (q: number) => ease((q - TWIRL_START) / (1 - TWIRL_START));
+/** The twirl is centered on the crossing (travel progress 0.5). */
+const TWIRL_SPAN = 0.6;
+const twirl = (q: number) => ease((q - 0.5) / TWIRL_SPAN + 0.5);
 
 export const rory: Figure<RoryParams> = (state, params, beats) => {
   onlyKeys('Rory', params, ['direction', 'spin']);

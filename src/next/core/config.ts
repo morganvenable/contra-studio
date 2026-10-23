@@ -26,8 +26,8 @@ export const LIMITS = {
   maximumSpeed: 1.2,
   /** Body turn rate, radians per beat. */
   maximumYawRate: 4,
-  /** Turn rate a figure may declare for a styled spin (about a turn per beat). */
-  spinYawRate: 7,
+  /** Turn rate a figure may declare for a styled spin; flourishy twirls are fast. */
+  spinYawRate: 12,
   /** Shoulder-to-hand reach for a held contact (strength >= 0.5). */
   armReach: 0.62,
   /** Rendered contacts fade out over this extra distance past armReach. */
