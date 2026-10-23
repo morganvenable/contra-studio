@@ -1,3 +1,4 @@
+import {compileBecketLongLinesStep} from './becket-long-lines-step.ts';
 import {compileCompactGiveTakeStep} from './compact-give-take-step.ts';
 import {captureSequenceBoundary} from './sequence-boundary.ts';
 /** Source-counted hall operations over the shared finite Becket ledger. */
@@ -33,12 +34,18 @@ export function compileHallLineSequence(program:HallLineProgram,couples:number){
     add(8,n=>{const frame=plan.sample(start+n),release=1-smooth((n-4.5)/.75);frame.contacts=held.map(h=>{const a=frame.poses[h.a],b=frame.poses[h.b],A=source[h.a],B=source[h.b];return{...h,point:{...h.point,x:h.point.x+(a.position.x-A.position.x+b.position.x-B.position.x)/2,z:h.point.z+(a.position.z-A.position.z+b.position.z-B.position.z)/2},strength:h.strength*release};}).filter(h=>h.strength>0);return frame;});
     event=plan;binding=plan.endBinding;state=plan.nextState;continue;
    }
+   if(figure.kind==='long-lines'&&figure.progression){
+    if(event)throw Error('Only one reached event is allowed.');
+    const {preparation:_unused,...lineOptions}=program.eventOptions;
+    const plan=compileBecketLongLinesStep(figure,captureBecketSliceBoundary(dancers,poses,binding,cursor,contacts),state,lineOptions),start=cursor;
+    add(8,n=>plan.sample(start+n));event=plan;binding=plan.endBinding;state=plan.nextState;continue;
+   }
    const localWaiting=[...binding.waitingIds],waitingDirections=new Map(state.couples.map(c=>[c.id,Math.sign(c.rank)||1])),source=poses.map(copy),canonical=finiteBecketPoses(state),plans=binding.groups.map(g=>{const ids=[...g.actors],context={ids,dancers,start:source,bindingEpoch:binding.epoch,relations:binding.relations,next:figures[i+1]};
     if(figure.kind==='hall-travel'){if(i!==0||figure.hallTurn!=='couples')throw Error('Actual-line opening currently preserves the explicit couples turn.');const slots=hallLineSlots({...context,start:canonical});return{ids,plan:compileActualLineHall(context,slots)};}
     if(figure.kind==='give-and-take')return{ids,plan:compileCompactGiveTakeStep(figure,context,captureSequenceBoundary(context,cursor,contacts.filter(h=>ids.includes(h.a)||ids.includes(h.b))))};
     if(figure.kind==='do-si-do')return{ids,plan:compileHallNeighborDosido(figure,context)};
     if(i===figures.length-1)return{ids,plan:compileHallLineSwing(figure,context)};
-    if(!['do-si-do','balance','swing','allemande'].includes(figure.kind)||figure.progression)throw Error('Unconsumed local hall operation.');
+    if(!['circle','do-si-do','balance','swing','allemande'].includes(figure.kind)||figure.progression)throw Error('Unconsumed local hall operation.');
     const base=compilePrimitiveFigure(figure,ids,source,dancers,[],{...figureContinuity(figures,i),...(figure.kind==='balance'?{balanceEntry:'held-two-hand' as const}:{}),geometry:{halfWidth:.64,rowGap:1.28,allemandeRadius:.43},canonicalSwingLayout:true});
     return{ids,plan:{...base,facing:(id:number,t:number,p:Pose[])=>base.facing(id,t,p)+wrap(source[id].yaw-base.facing(id,0,source))*(1-smooth(t*figure.beats))}};
    });

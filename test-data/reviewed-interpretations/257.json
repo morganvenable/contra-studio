@@ -1,0 +1,18 @@
+{
+  "schema": "contra-studio/contradb-interpretation",
+  "version": 1,
+  "sourceSnapshotId": "contradb:257:159a17ed84525746",
+  "snapshot": {
+    "schema": "contra-studio/contradb-snapshot",
+    "version": 1,
+    "sourceUrl": "https://contradb.com/dances/257",
+    "retrievedAt": "2026-10-20T05:57:45.287Z",
+    "html": "<h1 class=\"dance-show-title\">Got Nice Neighbors</h1>\n<p class=\"dance-show-hook\">hook: Three swings</h2>\n<p class=\"dance-show-choreographer\">by: <strong><a href=\"/choreographers/109\">Billy Boyer</a></strong></p>\n<p class=\"dance-show-formation\">formation: Becket </p>\n<div class=\"dance-show-preamble\"><div class='contra-markdown-block'><p>Start in short lines: <u>gentlespoon</u> one, <u>ladle</u> one, <u>gentlespoon</u> two, <u>ladle</u> two</p>\n</div></div>\n<table class=\"table table-bordered table-condensed contra-table-nonfluid\">\n         <tr class=\"a1b1 \">\n             <td>A1</td>\n             <td class=dance-show-beats>8</td>\n             <td><div class=\"show-figure\">down the hall and turn as a couple</div>\n</td></tr>\n</tr>         <tr class=\"a1b1 \">\n             <td></td>\n             <td class=dance-show-beats>8</td>\n             <td><div class=\"show-figure\">up the hall and bend into a ring</div>\n</td></tr>\n</tr>         <tr class=\"a2b2 \">\n             <td>A2</td>\n             <td class=dance-show-beats>8</td>\n             <td><div class=\"show-figure\">circle left 3 places</div>\n</td></tr>\n</tr>         <tr class=\"a2b2 \">\n             <td></td>\n             <td class=dance-show-beats>8</td>\n             <td><div class=\"show-figure\">neighbors swing</div>\n</td></tr>\n</tr>         <tr class=\"a1b1 \">\n             <td>B1</td>\n             <td class=dance-show-beats>8</td>\n             <td><div class=\"show-figure\">long lines forward &amp; back ⁋</div>\n</td></tr>\n</tr>         <tr class=\"a1b1 \">\n             <td></td>\n             <td class=dance-show-beats>8</td>\n             <td><div class=\"show-figure\">next neighbors swing</div>\n</td></tr>\n</tr>         <tr class=\"a2b2 \">\n             <td>B2</td>\n             <td class=dance-show-beats>8</td>\n             <td><div class=\"show-figure\">ladles allemande right 1½</div>\n</td></tr>\n</tr>         <tr class=\"a2b2 \">\n             <td></td>\n             <td class=dance-show-beats>8</td>\n             <td><div class=\"show-figure\">partners swing</div>\n</td></tr>\n</tr></table>\n<div class=\"dance-show-notes\"><div class='contra-markdown-block'><p>You may wish to start the walkthrough with the partner <u>swing</u> in B2.</p>\n</div></div>\n<p class=\"dance-show-publish\">\n            shared everywhere\n          </p>\n"
+  },
+  "interpretation": {
+    "hallLine": {
+      "convention": "compact-long-lines-hall-v1",
+      "sourceSnapshotId": "contradb:257:159a17ed84525746"
+    }
+  }
+}
