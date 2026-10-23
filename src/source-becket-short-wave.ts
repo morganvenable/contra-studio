@@ -12,7 +12,7 @@ export function lowerBecketShortWaveSource(record:ContraDbRecord,choice:BecketSh
   else {if(row.progression)throw Error('Unconsumed progression marker.');
    if(/^pass through across the set$/i.test(text)&&row.beats===4)f={...base,kind:'pass-through',who:'neighbor',passingShoulder:'right',entry:'paired-sidelines',exit:'paired-sidelines'};
    else if(/^partners allemande right ¾ to short waves with gentlespoons in the middle$/i.test(text)&&row.beats===4)f={...base,kind:'allemande',who:'partner',direction:'right',amount:.75,entry:'paired-sidelines',exit:'short-wave'};
-   else if(/^balance & Rory O'More (right|left)$/i.test(text)&&row.beats===8){const direction=/right$/i.test(text)?'right':'left';f={...base,kind:'balance-rory-slide',who:'all',direction,balanceFirst:direction,stationShift:1,spin:'none',spinAmount:0,phaseBeats:[4,4],entry:'short-wave',exit:'short-wave'};}
+   else if(/^balance & Rory O'More (right|left)$/i.test(text)&&row.beats===8){const direction=/right$/i.test(text)?'right':'left';f={...base,kind:'balance-rory-slide',who:'all',direction,balanceFirst:direction,stationShift:1,spin:'full',spinAmount:1,spinDirection:direction,phaseBeats:[4,4],entry:'short-wave',exit:'short-wave'};}
    else if(/^gentlespoons allemande left ½$/i.test(text)&&row.beats===2)f={...base,kind:'allemande',who:'larks',direction:'left',amount:.5,entry:'short-wave',exit:'neighbor-swing'};
    else if(/^neighbors swing$/i.test(text)&&row.beats===14)f={...base,kind:'swing',who:'neighbor'};
    else if(/^circle left 3 places$/i.test(text)&&row.beats===8)f={...base,kind:'circle',who:'all',direction:'left',amount:.75};

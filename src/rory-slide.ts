@@ -1,5 +1,7 @@
 /** Rory O'More travel is one adjacent wave station, with unchanged final facing.
- * A full travelling spin is optional styling, never a petronella quarter-ring.
+ * Swapping dancers pass face to face: each bows slightly backward so the
+ * person they pass goes by in front of them. Most dancers also spin once in
+ * the travel direction (clockwise sliding right); never a petronella quarter-ring.
  * Primary descriptions: Caller's Box Glossary#Slide_right_left and Colin Hume,
  * session7.htm. Both distinguish face-to-face travel from a half allemande.
  * Every station, passing actor, hand and graph is supplied explicitly.
@@ -56,8 +58,8 @@ export function compileRorySlide(raw:RorySlideOptions){
  const source=options.source?freeze(structuredClone(options.source)):undefined;if(source&&(!source.url||!source.snapshotId||!source.rowId||!source.text||source.beats!==beats))throw new Error('Rory source provenance must retain the exact row and beat count.');
  const root=(id:number,b:number):WavePose=>{const a=entry.get(id);if(!a)throw new Error('Actor is outside this bound Rory wave.');b=sampleTime(b,beats);
   if(hasBalance&&b<=4){const i=Math.min(3,Math.floor(b)),u=b-i,v=[0,1,0,-1,0],delta=v[i+1]-v[i],q=(v[i]+delta*ease(u))*.1*sign,dq=delta*ed(u)*.1*sign,ddq=delta*edd(u)*.1*sign,r=right(a.yaw);return{id,position:{x:a.position.x+r.x*q,z:a.position.z+r.z*q},yaw:a.yaw,velocity:{x:r.x*dq,z:r.z*dq},acceleration:{x:r.x*ddq,z:r.z*ddq},yawRate:0,yawAcceleration:0};}
-  const[q,d,dd]=clock((b-offset)/4),dq=d/4,ddq=dd/16,target=exit.get(id)!.position,dx=target.x-a.position.x,dz=target.z-a.position.z,forward={x:Math.sin(a.yaw),z:Math.cos(a.yaw)},clear=options.geometry?.passingBow??.44,arc=clear*Math.sin(Math.PI*q),ad=clear*Math.PI*Math.cos(Math.PI*q),add=-clear*Math.PI**2*Math.sin(Math.PI*q);
-  return{id,position:{x:a.position.x+dx*q+forward.x*arc,z:a.position.z+dz*q+forward.z*arc},yaw:a.yaw+spin*q,velocity:{x:(dx+forward.x*ad)*dq,z:(dz+forward.z*ad)*dq},acceleration:{x:(dx+forward.x*ad)*ddq+forward.x*add*dq*dq,z:(dz+forward.z*ad)*ddq+forward.z*add*dq*dq},yawRate:spin*dq,yawAcceleration:spin*ddq};
+  const[q,d,dd]=clock((b-offset)/4),dq=d/4,ddq=dd/16,target=exit.get(id)!.position,dx=target.x-a.position.x,dz=target.z-a.position.z,back={x:-Math.sin(a.yaw),z:-Math.cos(a.yaw)},clear=options.geometry?.passingBow??.44,arc=clear*Math.sin(Math.PI*q),ad=clear*Math.PI*Math.cos(Math.PI*q),add=-clear*Math.PI**2*Math.sin(Math.PI*q);
+  return{id,position:{x:a.position.x+dx*q+back.x*arc,z:a.position.z+dz*q+back.z*arc},yaw:a.yaw+spin*q,velocity:{x:(dx+back.x*ad)*dq,z:(dz+back.z*ad)*dq},acceleration:{x:(dx+back.x*ad)*ddq+back.x*add*dq*dq,z:(dz+back.z*ad)*ddq+back.z*add*dq*dq},yawRate:spin*dq,yawAcceleration:spin*ddq};
  };
  const contacts=(b:number,poses:readonly Pick<Pose,'id'|'position'|'yaw'>[])=>b<=offset?waveContacts(entryWave,poses,1):b<offset+.18?waveContacts(entryWave,poses,1-ease((b-offset)/.18)):b>beats-.18?waveContacts(exitWave,poses,ease((b-(beats-.18))/.18)):[];
  const sample=(b:number)=>{b=sampleTime(b,beats);const poses=ids.map(id=>root(id,b));return{beat:b,phase:b<offset?'balance' as const:'slide' as const,poses,contacts:contacts(b,poses)};};
