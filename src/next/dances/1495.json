@@ -1,0 +1,121 @@
+{
+  "schema": "contra-studio/next-dance",
+  "version": 1,
+  "title": "You're Among Friends variation with pull by variation",
+  "author": "Bob Isaacs",
+  "formation": "improper",
+  "progression": "duple-minor",
+  "music": {
+    "meter": "2/4",
+    "parts": [
+      {
+        "name": "A1",
+        "bars": 8
+      },
+      {
+        "name": "A2",
+        "bars": 8
+      },
+      {
+        "name": "B1",
+        "bars": 8
+      },
+      {
+        "name": "B2",
+        "bars": 8
+      }
+    ],
+    "times": "repeat"
+  },
+  "source": {
+    "url": "https://contradb.com/dances/1495",
+    "snapshot": "test-data/contradb/1495.json",
+    "sha256": "ec98d5ff565cf5adbfbd38f855bbb95622b8098877e439d97f399bda2d0f87e7",
+    "status": "sketchbook"
+  },
+  "choices": [
+    "A star with no grip named is drawn hands across."
+  ],
+  "figures": [
+    {
+      "section": "A1",
+      "move": "star",
+      "beats": 8,
+      "params": {
+        "hand": "right",
+        "places": 4,
+        "grip": "hands-across"
+      },
+      "text": "star right 4 places"
+    },
+    {
+      "section": "A1",
+      "move": "allemande",
+      "beats": 8,
+      "params": {
+        "who": "neighbor",
+        "hand": "right",
+        "amount": 1.5
+      },
+      "text": "neighbors allemande right 1½"
+    },
+    {
+      "section": "A2",
+      "move": "pass-by",
+      "beats": 4,
+      "params": {
+        "who": "larks",
+        "shoulder": "left",
+        "hands": true
+      },
+      "text": "larks pull by left"
+    },
+    {
+      "section": "A2",
+      "move": "swing",
+      "beats": 12,
+      "params": {
+        "who": "partner"
+      },
+      "text": "partners swing"
+    },
+    {
+      "section": "B1",
+      "move": "circle",
+      "beats": 6,
+      "params": {
+        "direction": "left",
+        "places": 3
+      },
+      "text": "circle left 3 places"
+    },
+    {
+      "section": "B1",
+      "move": "swing",
+      "beats": 10,
+      "params": {
+        "who": "neighbor"
+      },
+      "text": "neighbors swing"
+    },
+    {
+      "section": "B2",
+      "move": "right-left-through",
+      "beats": 8,
+      "params": {},
+      "text": "right left through"
+    },
+    {
+      "section": "B2",
+      "move": "star",
+      "beats": 8,
+      "params": {
+        "hand": "left",
+        "places": 4,
+        "grip": "hands-across"
+      },
+      "text": "star left 4 places",
+      "progression": true
+    }
+  ]
+}

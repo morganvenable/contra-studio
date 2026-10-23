@@ -1,9 +1,9 @@
 // Parse retained ContraDB snapshots into stored next-engine dances.
 // node --experimental-strip-types scripts/next-store-dance.mjs 2321 [more ids]
 // node --experimental-strip-types scripts/next-store-dance.mjs --supported
-//   stores every Ready dance that parses and passes the corpus check, and
-//   rewrites src/next/dances/index.ts to list the stored dances.
-import { readdirSync, writeFileSync } from 'node:fs';
+//   stores every Ready dance that parses and passes the corpus check, removes
+//   stored ones that no longer do, and rewrites src/next/dances/index.ts.
+import { readdirSync, rmSync, writeFileSync } from 'node:fs';
 import { READY_LIBRARY } from '../src/ready-library.ts';
 import { compileNext } from '../src/next/dance.ts';
 import { verifyDance } from '../src/next/core/verify.ts';
@@ -16,7 +16,11 @@ const args = process.argv.slice(2);
 if (args[0] === '--supported') {
   const seen = new Set();
   for (const { id } of READY_LIBRARY) {
-    if (seen.has(id) || firstUnparsed(id) !== undefined) continue;
+    if (seen.has(id)) continue;
+    if (firstUnparsed(id) !== undefined) {
+      rmSync(`src/next/dances/${id}.json`, { force: true });
+      continue;
+    }
     seen.add(id);
     let stored;
     try {
@@ -26,6 +30,7 @@ if (args[0] === '--supported') {
     }
     const verdict = verifyDance(stored, compileNext);
     if (verdict.ok) write(id, stored);
+    else rmSync(`src/next/dances/${id}.json`, { force: true });
     const note = verdict.ok ? '' : ` -- ${verdict.problem}`;
     console.log(`${verdict.ok ? 'stored' : 'skipped'} ${id} ${stored.title}${note}`);
   }

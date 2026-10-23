@@ -65,6 +65,42 @@ try {
   console.log(
     'ok - next engine flow: library load, play, seek into Rory, stage renders, no page errors',
   );
+
+  // Two recomposed Ready dances open straight from a review link.
+  const recomposed = [
+    { id: '123', title: 'Pizza Shop', figures: 8, seek: ['36', '44'], activity: 'hall-travel' },
+    { id: '1547', title: 'Jump Back Barley', figures: 11, seek: ['6', '61'], activity: 'petronella' },
+  ];
+  for (const dance of recomposed) {
+    const review = await browser.newPage({ viewport: { width: 1280, height: 900 } });
+    const reviewErrors = [];
+    review.on('pageerror', (e) => reviewErrors.push(e.message));
+    review.on('console', (m) => {
+      if (m.type() === 'error') reviewErrors.push(m.text());
+    });
+    await review.goto(`${base}?engine=next&ready=${dance.id}`, { waitUntil: 'networkidle' });
+    await expect(review.getByRole('heading', { name: dance.title, exact: true })).toBeVisible({
+      timeout: 60000,
+    });
+    const loaded = await review.evaluate(() => ({
+      figures: window.__contra.state.dance.figures.length,
+      beats: window.__contra.state.totalBeats,
+    }));
+    assert.equal(loaded.figures, dance.figures, `${dance.title} uses the next engine's calls`);
+    assert.equal(loaded.beats, 64);
+    for (const beat of dance.seek) {
+      await review.locator('#beat-slider').fill(beat);
+      await assertRenderedFrame(review, `${dance.title} beat ${beat}`);
+    }
+    const activity = await review.evaluate(
+      (b) => window.__contra.sample(b).poses[0].activity,
+      Number(dance.seek[1]),
+    );
+    assert.equal(activity, dance.activity, `${dance.title} at beat ${dance.seek[1]}`);
+    assert.deepEqual(reviewErrors, []);
+    await review.close();
+    console.log(`ok - ${dance.title} (${dance.id}) opens on the next engine from ?ready=`);
+  }
 } catch (error) {
   failed = true;
   console.error('not ok -', error);

@@ -8,10 +8,12 @@ import { doSiDo } from './do-si-do.ts';
 import { hall } from './hall.ts';
 import { hey } from './hey.ts';
 import { longLines } from './long-lines.ts';
+import { passBy } from './pass-by.ts';
 import { passThrough } from './pass-through.ts';
 import { petronella } from './petronella.ts';
 import { promenade } from './promenade.ts';
 import { rightLeftThrough } from './right-left-through.ts';
+import { rollAway } from './roll-away.ts';
 import { rory } from './rory.ts';
 import { slice } from './slice.ts';
 import { star } from './star.ts';
@@ -27,10 +29,12 @@ export const FIGURES: FigureRegistry = Object.freeze({
   hall,
   hey,
   'long-lines': longLines,
+  'pass-by': passBy,
   'pass-through': passThrough,
   petronella,
   promenade,
   'right-left-through': rightLeftThrough,
+  'roll-away': rollAway,
   rory,
   slice,
   star,

@@ -139,6 +139,14 @@ const PATTERNS: readonly (readonly [RegExp, Build])[] = [
   ],
   [/^right left through$/, (_m, b) => [call('right-left-through', b, {})]],
   [
+    /^((?:next |new )?\w+) (pass|pull) by (right|left)(?: shoulders?)?$/,
+    (m, b) => [call('pass-by', b, { who: who(m[1]), shoulder: m[3], hands: m[2] === 'pull' })],
+  ],
+  [
+    /^(\w+) roll away (\w+) with a half sashay(?: roll (?:left to right|right to left))?$/,
+    (m, b) => [call('roll-away', b, { who: who(m[1]), whom: who(m[2]) })],
+  ],
+  [
     /^(\w+) start a (full|half) hey - (?:(right|left)s in center, (?:right|left)s on ends|(right|left)s on ends, (right|left)s in center)$/,
     (m, b) => [
       call('hey', b, {
@@ -208,10 +216,9 @@ export function normalizeRow(text: string): { text: string; progression: boolean
     // Reminders to look for new neighbors describe the progression; the
     // progression mark carries it.
     .replace(/\s*\((?:look|with courtesy turn)[^)]*\)/gi, '')
-    .replace(
-      /,?\s*(?:and |then )?look (?:for|to) (?:the )?(?:new |next )*\w+(?: new)*(?: neighbors?)?.*$/i,
-      '',
-    )
+    .replace(/(?:,\s*(?:\w+ )?|\s+(?:and |then )?)look (?:for|to) .*$/i, '')
+    // Letting go at the end, and a trailing "+", are styling notes.
+    .replace(/\s+(?:and \w+ let go|\+)$/i, '')
     .replace(/\s+(?:to|and face) (?:new|next) neighbors?$/i, '')
     .replace(/\s*(?:[;,]\s*|and )?(?:turn )?to face (?:the )?(?:new|next) neighbors?$/i, '')
     .replace(/[()]/g, '')
