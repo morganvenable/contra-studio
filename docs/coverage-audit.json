@@ -2,10 +2,10 @@
   "schema": "contra-studio/coverage-audit",
   "version": 1,
   "provenance": {
-    "generatedAt": "2026-10-23T22:57:49.541Z",
-    "revision": "ba8ae71726a26356a0ac8d4beeceb5d08fca572f",
+    "generatedAt": "2026-10-23T23:28:19.368Z",
+    "revision": "20d87569eee3a81d91744a93bfccb2f64e60e5bb",
     "workingTreeModified": true,
-    "runtimeMilliseconds": 241141,
+    "runtimeMilliseconds": 249952,
     "node": "v24.12.0",
     "datasets": [
       {
@@ -26,21 +26,21 @@
   },
   "availability": {
     "catalogue": 2422,
-    "retainedSnapshots": 233,
-    "savedReady": 204,
+    "retainedSnapshots": 235,
+    "savedReady": 206,
     "union": 2422,
-    "metadataOnly": 2189,
+    "metadataOnly": 2187,
     "categories": {
-      "catalogue:true snapshot:false saved:false": 2189,
-      "catalogue:true snapshot:true saved:true": 204,
+      "catalogue:true snapshot:false saved:false": 2187,
+      "catalogue:true snapshot:true saved:true": 206,
       "catalogue:true snapshot:true saved:false": 29
     }
   },
   "views": {
     "rawDefaults": {
-      "sources": 233,
+      "sources": 235,
       "statuses": {
-        "interpretation-blocked": 233
+        "interpretation-blocked": 235
       },
       "figures": [
         {
@@ -135,6 +135,7 @@
             "1547",
             "1550",
             "1556",
+            "1586",
             "1591",
             "1599",
             "1616",
@@ -153,6 +154,7 @@
             "1976",
             "1983",
             "1992",
+            "2032",
             "2062",
             "2063",
             "2141",
@@ -233,8 +235,8 @@
             "3507",
             "3510"
           ],
-          "occurrences": 233,
-          "sources": 186
+          "occurrences": 235,
+          "sources": 188
         },
         {
           "kind": "circle",
@@ -329,6 +331,7 @@
             "1547",
             "1550",
             "1556",
+            "1586",
             "1591",
             "1599",
             "1617",
@@ -345,6 +348,7 @@
             "1976",
             "2006",
             "2026",
+            "2032",
             "2040",
             "2062",
             "2063",
@@ -410,8 +414,8 @@
             "3507",
             "3510"
           ],
-          "occurrences": 195,
-          "sources": 170
+          "occurrences": 197,
+          "sources": 172
         },
         {
           "kind": "allemande",
@@ -598,6 +602,7 @@
             "1496",
             "1529",
             "1550",
+            "1586",
             "1599",
             "1616",
             "1744",
@@ -607,6 +612,7 @@
             "1942",
             "1976",
             "1992",
+            "2032",
             "2062",
             "2063",
             "2141",
@@ -654,8 +660,8 @@
             "3496",
             "3533"
           ],
-          "occurrences": 100,
-          "sources": 96
+          "occurrences": 102,
+          "sources": 98
         },
         {
           "kind": "do-si-do",
@@ -909,6 +915,21 @@
           "sources": 9
         },
         {
+          "kind": "becket-shift",
+          "sourceIds": [
+            "94",
+            "363",
+            "761",
+            "1586",
+            "2032",
+            "2330",
+            "3363",
+            "3470"
+          ],
+          "occurrences": 8,
+          "sources": 8
+        },
+        {
           "kind": "pull-by",
           "sourceIds": [
             "115",
@@ -922,19 +943,6 @@
           ],
           "occurrences": 9,
           "sources": 8
-        },
-        {
-          "kind": "becket-shift",
-          "sourceIds": [
-            "94",
-            "363",
-            "761",
-            "2330",
-            "3363",
-            "3470"
-          ],
-          "occurrences": 6,
-          "sources": 6
         },
         {
           "kind": "balance",
@@ -1167,7 +1175,7 @@
         },
         {
           "code": "chain-receiver",
-          "sources": 84,
+          "sources": 86,
           "sourceIds": [
             "8",
             "9",
@@ -1211,10 +1219,12 @@
             "1464",
             "1496",
             "1502",
+            "1586",
             "1658",
             "1697",
             "1821",
             "1983",
+            "2032",
             "2062",
             "2063",
             "2213",
@@ -1512,7 +1522,7 @@
         },
         {
           "code": "circulation-choice",
-          "sources": 26,
+          "sources": 28,
           "sourceIds": [
             "94",
             "123",
@@ -1523,8 +1533,10 @@
             "828",
             "840",
             "1501",
+            "1586",
             "1618",
             "1658",
+            "2032",
             "2247",
             "2273",
             "2321",
@@ -1545,7 +1557,7 @@
         },
         {
           "code": "unsupported-figure-variant",
-          "sources": 26,
+          "sources": 28,
           "sourceIds": [
             "257",
             "265",
@@ -1558,9 +1570,11 @@
             "907",
             "1312",
             "1501",
+            "1586",
             "1632",
             "2006",
             "2026",
+            "2032",
             "2212",
             "2273",
             "2305",
@@ -1661,6 +1675,32 @@
           "soleBlockerSources": 0
         },
         {
+          "code": "gyre-swing-choice",
+          "sources": 19,
+          "sourceIds": [
+            "57",
+            "166",
+            "188",
+            "192",
+            "427",
+            "480",
+            "776",
+            "894",
+            "1586",
+            "2032",
+            "2299",
+            "2492",
+            "2494",
+            "2530",
+            "2672",
+            "3081",
+            "3241",
+            "3260",
+            "3454"
+          ],
+          "soleBlockerSources": 0
+        },
+        {
           "code": "progression-location",
           "sources": 19,
           "sourceIds": [
@@ -1735,30 +1775,6 @@
             "3327",
             "3471",
             "3478"
-          ],
-          "soleBlockerSources": 0
-        },
-        {
-          "code": "gyre-swing-choice",
-          "sources": 17,
-          "sourceIds": [
-            "57",
-            "166",
-            "188",
-            "192",
-            "427",
-            "480",
-            "776",
-            "894",
-            "2299",
-            "2492",
-            "2494",
-            "2530",
-            "2672",
-            "3081",
-            "3241",
-            "3260",
-            "3454"
           ],
           "soleBlockerSources": 0
         },
@@ -2054,6 +2070,20 @@
           "soleBlockerSources": 0
         },
         {
+          "code": "chain-hand-choice",
+          "sources": 7,
+          "sourceIds": [
+            "1000",
+            "1273",
+            "1586",
+            "2032",
+            "2330",
+            "2331",
+            "3195"
+          ],
+          "soleBlockerSources": 0
+        },
+        {
           "code": "rory-slide-choice",
           "sources": 7,
           "sourceIds": [
@@ -2116,18 +2146,6 @@
             "2273",
             "2321",
             "3292"
-          ],
-          "soleBlockerSources": 0
-        },
-        {
-          "code": "chain-hand-choice",
-          "sources": 5,
-          "sourceIds": [
-            "1000",
-            "1273",
-            "2330",
-            "2331",
-            "3195"
           ],
           "soleBlockerSources": 0
         },
@@ -3253,6 +3271,28 @@
         },
         {
           "codes": [
+            "circulation-choice",
+            "unsupported-figure-variant"
+          ],
+          "sources": 13,
+          "sourceIds": [
+            "257",
+            "577",
+            "761",
+            "828",
+            "1501",
+            "1586",
+            "2032",
+            "2273",
+            "2321",
+            "2329",
+            "2330",
+            "3292",
+            "3363"
+          ]
+        },
+        {
+          "codes": [
             "balance-swing-timing",
             "progression-location"
           ],
@@ -3377,22 +3417,22 @@
         },
         {
           "codes": [
-            "circulation-choice",
-            "unsupported-figure-variant"
+            "chain-receiver",
+            "circulation-choice"
           ],
           "sources": 11,
           "sourceIds": [
-            "257",
-            "577",
-            "761",
-            "828",
-            "1501",
-            "2273",
-            "2321",
+            "94",
+            "123",
+            "1586",
+            "1658",
+            "2032",
+            "2247",
             "2329",
             "2330",
-            "3292",
-            "3363"
+            "3389",
+            "3470",
+            "3471"
           ]
         },
         {
@@ -3576,24 +3616,6 @@
             "2329",
             "3292",
             "3389",
-            "3471"
-          ]
-        },
-        {
-          "codes": [
-            "chain-receiver",
-            "circulation-choice"
-          ],
-          "sources": 9,
-          "sourceIds": [
-            "94",
-            "123",
-            "1658",
-            "2247",
-            "2329",
-            "2330",
-            "3389",
-            "3470",
             "3471"
           ]
         },
@@ -3987,6 +4009,23 @@
         },
         {
           "codes": [
+            "chain-receiver",
+            "unsupported-figure-variant"
+          ],
+          "sources": 8,
+          "sourceIds": [
+            "266",
+            "495",
+            "1586",
+            "2032",
+            "2329",
+            "2330",
+            "2331",
+            "2672"
+          ]
+        },
+        {
+          "codes": [
             "long-wave-context",
             "zero-time-instruction"
           ],
@@ -4209,6 +4248,21 @@
         {
           "codes": [
             "chain-receiver",
+            "gyre-swing-choice"
+          ],
+          "sources": 6,
+          "sourceIds": [
+            "894",
+            "1586",
+            "2032",
+            "2494",
+            "2672",
+            "3454"
+          ]
+        },
+        {
+          "codes": [
+            "chain-receiver",
             "progression-location"
           ],
           "sources": 6,
@@ -4264,21 +4318,6 @@
             "2329",
             "2330",
             "2331"
-          ]
-        },
-        {
-          "codes": [
-            "chain-receiver",
-            "unsupported-figure-variant"
-          ],
-          "sources": 6,
-          "sourceIds": [
-            "266",
-            "495",
-            "2329",
-            "2330",
-            "2331",
-            "2672"
           ]
         },
         {
@@ -4707,6 +4746,20 @@
             "1501",
             "2273",
             "3292"
+          ]
+        },
+        {
+          "codes": [
+            "chain-hand-choice",
+            "chain-receiver"
+          ],
+          "sources": 5,
+          "sourceIds": [
+            "1273",
+            "1586",
+            "2032",
+            "2330",
+            "2331"
           ]
         },
         {
@@ -5210,15 +5263,15 @@
         },
         {
           "codes": [
-            "chain-receiver",
-            "gyre-swing-choice"
+            "chain-hand-choice",
+            "unsupported-figure-variant"
           ],
           "sources": 4,
           "sourceIds": [
-            "894",
-            "2494",
-            "2672",
-            "3454"
+            "1586",
+            "2032",
+            "2330",
+            "2331"
           ]
         },
         {
@@ -5375,6 +5428,19 @@
             "480",
             "2672",
             "3241"
+          ]
+        },
+        {
+          "codes": [
+            "gyre-swing-choice",
+            "unsupported-figure-variant"
+          ],
+          "sources": 4,
+          "sourceIds": [
+            "776",
+            "1586",
+            "2032",
+            "2672"
           ]
         },
         {
@@ -5731,13 +5797,13 @@
         {
           "codes": [
             "chain-hand-choice",
-            "chain-receiver"
+            "circulation-choice"
           ],
           "sources": 3,
           "sourceIds": [
-            "1273",
-            "2330",
-            "2331"
+            "1586",
+            "2032",
+            "2330"
           ]
         },
         {
@@ -6775,6 +6841,17 @@
         {
           "codes": [
             "chain-hand-choice",
+            "gyre-swing-choice"
+          ],
+          "sources": 2,
+          "sourceIds": [
+            "1586",
+            "2032"
+          ]
+        },
+        {
+          "codes": [
+            "chain-hand-choice",
             "long-wave-context"
           ],
           "sources": 2,
@@ -6809,17 +6886,6 @@
           "codes": [
             "chain-hand-choice",
             "unknown-figure"
-          ],
-          "sources": 2,
-          "sourceIds": [
-            "2330",
-            "2331"
-          ]
-        },
-        {
-          "codes": [
-            "chain-hand-choice",
-            "unsupported-figure-variant"
           ],
           "sources": 2,
           "sourceIds": [
@@ -6902,6 +6968,17 @@
           "sourceIds": [
             "187",
             "2331"
+          ]
+        },
+        {
+          "codes": [
+            "circulation-choice",
+            "gyre-swing-choice"
+          ],
+          "sources": 2,
+          "sourceIds": [
+            "1586",
+            "2032"
           ]
         },
         {
@@ -7067,17 +7144,6 @@
           "sourceIds": [
             "776",
             "2299"
-          ]
-        },
-        {
-          "codes": [
-            "gyre-swing-choice",
-            "unsupported-figure-variant"
-          ],
-          "sources": 2,
-          "sourceIds": [
-            "776",
-            "2672"
           ]
         },
         {
@@ -8853,16 +8919,6 @@
           "sources": 1,
           "sourceIds": [
             "2226"
-          ]
-        },
-        {
-          "codes": [
-            "chain-hand-choice",
-            "circulation-choice"
-          ],
-          "sources": 1,
-          "sourceIds": [
-            "2330"
           ]
         },
         {
@@ -12078,9 +12134,9 @@
       ]
     },
     "conventionalSuggestions": {
-      "sources": 233,
+      "sources": 235,
       "statuses": {
-        "import-admitted": 191,
+        "import-admitted": 193,
         "interpretation-blocked": 34,
         "motion-or-validation-blocked": 8
       },
@@ -12200,6 +12256,7 @@
             "1547",
             "1550",
             "1556",
+            "1586",
             "1591",
             "1599",
             "1616",
@@ -12220,6 +12277,7 @@
             "1976",
             "1983",
             "1992",
+            "2032",
             "2040",
             "2062",
             "2063",
@@ -12319,8 +12377,8 @@
             "3510",
             "3533"
           ],
-          "occurrences": 439,
-          "sources": 230
+          "occurrences": 443,
+          "sources": 232
         },
         {
           "kind": "circle",
@@ -12415,6 +12473,7 @@
             "1547",
             "1550",
             "1556",
+            "1586",
             "1591",
             "1599",
             "1617",
@@ -12431,6 +12490,7 @@
             "1976",
             "2006",
             "2026",
+            "2032",
             "2040",
             "2062",
             "2063",
@@ -12496,8 +12556,8 @@
             "3507",
             "3510"
           ],
-          "occurrences": 197,
-          "sources": 170
+          "occurrences": 199,
+          "sources": 172
         },
         {
           "kind": "balance",
@@ -12860,6 +12920,7 @@
             "1496",
             "1529",
             "1550",
+            "1586",
             "1599",
             "1616",
             "1744",
@@ -12869,6 +12930,7 @@
             "1942",
             "1976",
             "1992",
+            "2032",
             "2062",
             "2063",
             "2141",
@@ -12916,8 +12978,8 @@
             "3496",
             "3533"
           ],
-          "occurrences": 100,
-          "sources": 96
+          "occurrences": 102,
+          "sources": 98
         },
         {
           "kind": "robins-chain",
@@ -13325,11 +13387,13 @@
             "1191",
             "1461",
             "1502",
+            "1586",
             "1617",
             "1658",
             "1697",
             "1976",
             "1983",
+            "2032",
             "2176",
             "2226",
             "2243",
@@ -13359,8 +13423,8 @@
             "3470",
             "3471"
           ],
-          "occurrences": 61,
-          "sources": 55
+          "occurrences": 63,
+          "sources": 57
         },
         {
           "kind": "right-left-through",
@@ -13612,6 +13676,21 @@
           "sources": 11
         },
         {
+          "kind": "becket-shift",
+          "sourceIds": [
+            "94",
+            "363",
+            "761",
+            "1586",
+            "2032",
+            "2330",
+            "3363",
+            "3470"
+          ],
+          "occurrences": 8,
+          "sources": 8
+        },
+        {
           "kind": "becket-slice",
           "sourceIds": [
             "123",
@@ -13671,17 +13750,18 @@
           "sources": 7
         },
         {
-          "kind": "becket-shift",
+          "kind": "larks-chain",
           "sourceIds": [
-            "94",
-            "363",
-            "761",
+            "1000",
+            "1273",
+            "1586",
+            "2032",
             "2330",
-            "3363",
-            "3470"
+            "2331",
+            "3195"
           ],
-          "occurrences": 6,
-          "sources": 6
+          "occurrences": 7,
+          "sources": 7
         },
         {
           "kind": "give-and-take",
@@ -13691,18 +13771,6 @@
             "1618",
             "2604",
             "3241"
-          ],
-          "occurrences": 5,
-          "sources": 5
-        },
-        {
-          "kind": "larks-chain",
-          "sourceIds": [
-            "1000",
-            "1273",
-            "2330",
-            "2331",
-            "3195"
           ],
           "occurrences": 5,
           "sources": 5
@@ -15377,9 +15445,9 @@
       ]
     },
     "savedInterpretation": {
-      "sources": 204,
+      "sources": 206,
       "statuses": {
-        "import-admitted": 204
+        "import-admitted": 206
       },
       "figures": [
         {
@@ -15487,6 +15555,7 @@
             "1547",
             "1550",
             "1556",
+            "1586",
             "1591",
             "1616",
             "1617",
@@ -15503,6 +15572,7 @@
             "1976",
             "1983",
             "1992",
+            "2032",
             "2040",
             "2062",
             "2063",
@@ -15590,8 +15660,8 @@
             "3507",
             "3510"
           ],
-          "occurrences": 396,
-          "sources": 204
+          "occurrences": 400,
+          "sources": 206
         },
         {
           "kind": "circle",
@@ -15681,6 +15751,7 @@
             "1547",
             "1550",
             "1556",
+            "1586",
             "1591",
             "1617",
             "1618",
@@ -15692,6 +15763,7 @@
             "1972",
             "1974",
             "1976",
+            "2032",
             "2040",
             "2062",
             "2063",
@@ -15751,8 +15823,8 @@
             "3507",
             "3510"
           ],
-          "occurrences": 178,
-          "sources": 154
+          "occurrences": 180,
+          "sources": 156
         },
         {
           "kind": "balance",
@@ -16192,12 +16264,14 @@
             "1496",
             "1529",
             "1550",
+            "1586",
             "1616",
             "1744",
             "1821",
             "1942",
             "1976",
             "1992",
+            "2032",
             "2062",
             "2063",
             "2141",
@@ -16237,8 +16311,8 @@
             "3490",
             "3496"
           ],
-          "occurrences": 89,
-          "sources": 85
+          "occurrences": 91,
+          "sources": 87
         },
         {
           "kind": "do-si-do",
@@ -16374,6 +16448,68 @@
           "sources": 57
         },
         {
+          "kind": "hey",
+          "sourceIds": [
+            "24",
+            "94",
+            "99",
+            "182",
+            "187",
+            "314",
+            "354",
+            "410",
+            "480",
+            "549",
+            "595",
+            "724",
+            "769",
+            "871",
+            "894",
+            "975",
+            "1093",
+            "1144",
+            "1191",
+            "1461",
+            "1502",
+            "1586",
+            "1617",
+            "1658",
+            "1697",
+            "1976",
+            "1983",
+            "2032",
+            "2176",
+            "2226",
+            "2243",
+            "2305",
+            "2322",
+            "2329",
+            "2330",
+            "2331",
+            "2344",
+            "2364",
+            "2418",
+            "2425",
+            "2684",
+            "2996",
+            "3004",
+            "3153",
+            "3214",
+            "3241",
+            "3260",
+            "3261",
+            "3265",
+            "3389",
+            "3454",
+            "3464",
+            "3465",
+            "3470",
+            "3471"
+          ],
+          "occurrences": 61,
+          "sources": 55
+        },
+        {
           "kind": "pass-through",
           "sourceIds": [
             "65",
@@ -16494,66 +16630,6 @@
           ],
           "occurrences": 82,
           "sources": 54
-        },
-        {
-          "kind": "hey",
-          "sourceIds": [
-            "24",
-            "94",
-            "99",
-            "182",
-            "187",
-            "314",
-            "354",
-            "410",
-            "480",
-            "549",
-            "595",
-            "724",
-            "769",
-            "871",
-            "894",
-            "975",
-            "1093",
-            "1144",
-            "1191",
-            "1461",
-            "1502",
-            "1617",
-            "1658",
-            "1697",
-            "1976",
-            "1983",
-            "2176",
-            "2226",
-            "2243",
-            "2305",
-            "2322",
-            "2329",
-            "2330",
-            "2331",
-            "2344",
-            "2364",
-            "2418",
-            "2425",
-            "2684",
-            "2996",
-            "3004",
-            "3153",
-            "3214",
-            "3241",
-            "3260",
-            "3261",
-            "3265",
-            "3389",
-            "3454",
-            "3464",
-            "3465",
-            "3470",
-            "3471"
-          ],
-          "occurrences": 59,
-          "sources": 53
         },
         {
           "kind": "right-left-through",
@@ -16825,6 +16901,33 @@
           "sources": 7
         },
         {
+          "kind": "larks-chain",
+          "sourceIds": [
+            "1000",
+            "1273",
+            "1586",
+            "2032",
+            "2330",
+            "2331",
+            "3195"
+          ],
+          "occurrences": 7,
+          "sources": 7
+        },
+        {
+          "kind": "becket-shift",
+          "sourceIds": [
+            "94",
+            "363",
+            "1586",
+            "2032",
+            "2330",
+            "3470"
+          ],
+          "occurrences": 6,
+          "sources": 6
+        },
+        {
           "kind": "pull-by",
           "sourceIds": [
             "115",
@@ -16836,18 +16939,6 @@
           ],
           "occurrences": 7,
           "sources": 6
-        },
-        {
-          "kind": "larks-chain",
-          "sourceIds": [
-            "1000",
-            "1273",
-            "2330",
-            "2331",
-            "3195"
-          ],
-          "occurrences": 5,
-          "sources": 5
         },
         {
           "kind": "long-lines-rollaway",
@@ -16872,17 +16963,6 @@
           ],
           "occurrences": 6,
           "sources": 5
-        },
-        {
-          "kind": "becket-shift",
-          "sourceIds": [
-            "94",
-            "363",
-            "2330",
-            "3470"
-          ],
-          "occurrences": 4,
-          "sources": 4
         },
         {
           "kind": "give-and-take",
@@ -37045,6 +37125,147 @@
       }
     },
     {
+      "id": "1586",
+      "retainedSnapshot": true,
+      "savedReady": true,
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\1586.json",
+      "snapshotOrigin": "fixture",
+      "title": "Name me Please",
+      "snapshotId": "contradb:1586:3ec1239b0d45a363",
+      "rawDefaults": {
+        "status": "interpretation-blocked",
+        "coverage": {
+          "sourceParsed": true,
+          "recognizedRows": 7,
+          "resolvedRows": 4,
+          "totalRows": 7,
+          "semanticallyResolved": false,
+          "executable": false
+        },
+        "figureKinds": [
+          "becket-shift",
+          "circle",
+          "swing",
+          "long-lines"
+        ],
+        "blockers": [
+          "chain-hand-choice",
+          "chain-receiver",
+          "circulation-choice",
+          "gyre-swing-choice",
+          "unsupported-figure-variant"
+        ],
+        "diagnostics": [
+          {
+            "code": "circulation-choice",
+            "message": "The source says Becket without explicitly naming circulation. Select CW to use the current adapter."
+          },
+          {
+            "code": "chain-hand-choice",
+            "message": "Review a left-hand pull-by and clockwise Robin-led courtesy for an unqualified Lark chain; explicit right-hand variants remain distinct."
+          },
+          {
+            "code": "chain-receiver",
+            "message": "Choose the actual partner or neighbor receiving the Lark chain."
+          },
+          {
+            "code": "unsupported-figure-variant",
+            "message": "The complete figure wording, including qualifiers, needs a semantic/motion adapter."
+          },
+          {
+            "code": "gyre-swing-choice",
+            "message": "Review the meaning of “meltdown swing”: this interpretation chooses a four-count full gyre followed by twelve counts of swing, with an explicit passing shoulder. Terminology varies; it is not silently treated as a plain swing."
+          }
+        ],
+        "unresolvedRows": [
+          {
+            "row": 4,
+            "text": "gentlespoons chain",
+            "recognized": true,
+            "figureKinds": [],
+            "blockers": [
+              "chain-hand-choice",
+              "chain-receiver"
+            ]
+          },
+          {
+            "row": 5,
+            "text": "gentlespoons start a full hey - lefts in center, rights on ends",
+            "recognized": true,
+            "figureKinds": [],
+            "blockers": [
+              "unsupported-figure-variant"
+            ]
+          },
+          {
+            "row": 6,
+            "text": "partners meltdown swing",
+            "recognized": true,
+            "figureKinds": [],
+            "blockers": [
+              "gyre-swing-choice"
+            ]
+          }
+        ]
+      },
+      "conventionalSuggestions": {
+        "status": "import-admitted",
+        "coverage": {
+          "sourceParsed": true,
+          "recognizedRows": 7,
+          "resolvedRows": 7,
+          "totalRows": 7,
+          "semanticallyResolved": true,
+          "executable": true
+        },
+        "figureKinds": [
+          "becket-shift",
+          "circle",
+          "swing",
+          "long-lines",
+          "larks-chain",
+          "hey",
+          "swing"
+        ],
+        "blockers": [],
+        "diagnostics": [],
+        "unresolvedRows": [],
+        "choiceStatus": "suggested-not-approved",
+        "suggestionKinds": [
+          "conventional-wave"
+        ],
+        "interpretation": {
+          "becketWave": {
+            "convention": "compact-becket-ordinary-hey-v1",
+            "sourceSnapshotId": "contradb:1586:3ec1239b0d45a363"
+          }
+        }
+      },
+      "savedInterpretation": {
+        "status": "import-admitted",
+        "coverage": {
+          "sourceParsed": true,
+          "recognizedRows": 7,
+          "resolvedRows": 7,
+          "totalRows": 7,
+          "semanticallyResolved": true,
+          "executable": true
+        },
+        "figureKinds": [
+          "becket-shift",
+          "circle",
+          "swing",
+          "long-lines",
+          "larks-chain",
+          "hey",
+          "swing"
+        ],
+        "blockers": [],
+        "diagnostics": [],
+        "unresolvedRows": []
+      }
+    },
+    {
       "id": "1591",
       "retainedSnapshot": true,
       "savedReady": true,
@@ -40510,6 +40731,147 @@
             }
           }
         }
+      }
+    },
+    {
+      "id": "2032",
+      "retainedSnapshot": true,
+      "savedReady": true,
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\2032.json",
+      "snapshotOrigin": "fixture",
+      "title": "Connect Four",
+      "snapshotId": "contradb:2032:36445a2f5c0a89ce",
+      "rawDefaults": {
+        "status": "interpretation-blocked",
+        "coverage": {
+          "sourceParsed": true,
+          "recognizedRows": 7,
+          "resolvedRows": 4,
+          "totalRows": 7,
+          "semanticallyResolved": false,
+          "executable": false
+        },
+        "figureKinds": [
+          "becket-shift",
+          "circle",
+          "swing",
+          "long-lines"
+        ],
+        "blockers": [
+          "chain-hand-choice",
+          "chain-receiver",
+          "circulation-choice",
+          "gyre-swing-choice",
+          "unsupported-figure-variant"
+        ],
+        "diagnostics": [
+          {
+            "code": "circulation-choice",
+            "message": "The source says Becket without explicitly naming circulation. Select CW to use the current adapter."
+          },
+          {
+            "code": "chain-hand-choice",
+            "message": "Review a left-hand pull-by and clockwise Robin-led courtesy for an unqualified Lark chain; explicit right-hand variants remain distinct."
+          },
+          {
+            "code": "chain-receiver",
+            "message": "Choose the actual partner or neighbor receiving the Lark chain."
+          },
+          {
+            "code": "unsupported-figure-variant",
+            "message": "The complete figure wording, including qualifiers, needs a semantic/motion adapter."
+          },
+          {
+            "code": "gyre-swing-choice",
+            "message": "Review the meaning of “meltdown swing”: this interpretation chooses a four-count full gyre followed by twelve counts of swing, with an explicit passing shoulder. Terminology varies; it is not silently treated as a plain swing."
+          }
+        ],
+        "unresolvedRows": [
+          {
+            "row": 4,
+            "text": "gentlespoons chain",
+            "recognized": true,
+            "figureKinds": [],
+            "blockers": [
+              "chain-hand-choice",
+              "chain-receiver"
+            ]
+          },
+          {
+            "row": 5,
+            "text": "gentlespoons start a full hey - lefts in center, rights on ends",
+            "recognized": true,
+            "figureKinds": [],
+            "blockers": [
+              "unsupported-figure-variant"
+            ]
+          },
+          {
+            "row": 6,
+            "text": "partners meltdown swing",
+            "recognized": true,
+            "figureKinds": [],
+            "blockers": [
+              "gyre-swing-choice"
+            ]
+          }
+        ]
+      },
+      "conventionalSuggestions": {
+        "status": "import-admitted",
+        "coverage": {
+          "sourceParsed": true,
+          "recognizedRows": 7,
+          "resolvedRows": 7,
+          "totalRows": 7,
+          "semanticallyResolved": true,
+          "executable": true
+        },
+        "figureKinds": [
+          "becket-shift",
+          "circle",
+          "swing",
+          "long-lines",
+          "larks-chain",
+          "hey",
+          "swing"
+        ],
+        "blockers": [],
+        "diagnostics": [],
+        "unresolvedRows": [],
+        "choiceStatus": "suggested-not-approved",
+        "suggestionKinds": [
+          "conventional-wave"
+        ],
+        "interpretation": {
+          "becketWave": {
+            "convention": "compact-becket-ordinary-hey-v1",
+            "sourceSnapshotId": "contradb:2032:36445a2f5c0a89ce"
+          }
+        }
+      },
+      "savedInterpretation": {
+        "status": "import-admitted",
+        "coverage": {
+          "sourceParsed": true,
+          "recognizedRows": 7,
+          "resolvedRows": 7,
+          "totalRows": 7,
+          "semanticallyResolved": true,
+          "executable": true
+        },
+        "figureKinds": [
+          "becket-shift",
+          "circle",
+          "swing",
+          "long-lines",
+          "larks-chain",
+          "hey",
+          "swing"
+        ],
+        "blockers": [],
+        "diagnostics": [],
+        "unresolvedRows": []
       }
     },
     {

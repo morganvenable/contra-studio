@@ -1,11 +1,23 @@
 {
-  "count": 204,
+  "count": 206,
   "entries": [
+    {
+      "id": "2032",
+      "sourceSnapshotId": "contradb:2032:36445a2f5c0a89ce",
+      "archiveSha256": "57d67ba4728fafbdcd1de77a5299c19ee7b440de1532f0006ea00b1170610e0a",
+      "status": "current-motion-checked"
+    },
+    {
+      "id": "1586",
+      "sourceSnapshotId": "contradb:1586:3ec1239b0d45a363",
+      "archiveSha256": "e5267fea896e0f2c5d7a8060067f0baefcd4204514fec9c5f5739f71c15bdd87",
+      "status": "current-motion-checked"
+    },
     {
       "id": "3470",
       "sourceSnapshotId": "contradb:3470:352a2e2f95544622",
       "archiveSha256": "01bedff1c7398b21546b8500a4ad3fd3f8f47f2c11f94d741b2efee98758abbe",
-      "status": "current-motion-checked"
+      "status": "assembled-current-motion-pending"
     },
     {
       "id": "3471",
