@@ -2,14 +2,14 @@
   "schema": "contra-studio/coverage-audit",
   "version": 1,
   "provenance": {
-    "generatedAt": "2026-10-23T19:25:17.491Z",
-    "revision": "1d5b80e877a2138b877cfcee06fbfee3781a3dc1",
+    "generatedAt": "2026-10-23T20:58:19.410Z",
+    "revision": "5d7b3fc1acca23355d14020c3488374144ebf5c8",
     "workingTreeModified": true,
-    "runtimeMilliseconds": 149166,
+    "runtimeMilliseconds": 215747,
     "node": "v24.12.0",
     "datasets": [
       {
-        "path": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb",
+        "path": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb",
         "kind": "fixture"
       }
     ]
@@ -26,21 +26,21 @@
   },
   "availability": {
     "catalogue": 2422,
-    "retainedSnapshots": 228,
-    "savedReady": 199,
+    "retainedSnapshots": 230,
+    "savedReady": 201,
     "union": 2422,
-    "metadataOnly": 2194,
+    "metadataOnly": 2192,
     "categories": {
-      "catalogue:true snapshot:false saved:false": 2194,
-      "catalogue:true snapshot:true saved:true": 199,
+      "catalogue:true snapshot:false saved:false": 2192,
+      "catalogue:true snapshot:true saved:true": 201,
       "catalogue:true snapshot:true saved:false": 29
     }
   },
   "views": {
     "rawDefaults": {
-      "sources": 228,
+      "sources": 230,
       "statuses": {
-        "interpretation-blocked": 228
+        "interpretation-blocked": 230
       },
       "figures": [
         {
@@ -95,6 +95,7 @@
             "780",
             "810",
             "823",
+            "828",
             "840",
             "867",
             "871",
@@ -211,6 +212,7 @@
             "3260",
             "3261",
             "3265",
+            "3292",
             "3310",
             "3326",
             "3327",
@@ -228,8 +230,8 @@
             "3507",
             "3510"
           ],
-          "occurrences": 228,
-          "sources": 181
+          "occurrences": 230,
+          "sources": 183
         },
         {
           "kind": "circle",
@@ -284,6 +286,7 @@
             "776",
             "780",
             "823",
+            "828",
             "831",
             "840",
             "867",
@@ -388,6 +391,7 @@
             "3260",
             "3261",
             "3265",
+            "3292",
             "3310",
             "3327",
             "3335",
@@ -400,8 +404,8 @@
             "3507",
             "3510"
           ],
-          "occurrences": 188,
-          "sources": 165
+          "occurrences": 192,
+          "sources": 167
         },
         {
           "kind": "allemande",
@@ -986,7 +990,7 @@
       "blockers": [
         {
           "code": "balance-swing-timing",
-          "sources": 154,
+          "sources": 156,
           "sourceIds": [
             "8",
             "9",
@@ -1027,6 +1031,7 @@
             "773",
             "780",
             "810",
+            "828",
             "831",
             "840",
             "871",
@@ -1128,6 +1133,7 @@
             "3214",
             "3265",
             "3280",
+            "3292",
             "3310",
             "3327",
             "3335",
@@ -1235,7 +1241,7 @@
         },
         {
           "code": "ring-pass-choice",
-          "sources": 46,
+          "sources": 48,
           "sourceIds": [
             "65",
             "166",
@@ -1248,6 +1254,7 @@
             "671",
             "682",
             "780",
+            "828",
             "840",
             "881",
             "892",
@@ -1276,6 +1283,7 @@
             "3241",
             "3260",
             "3261",
+            "3292",
             "3310",
             "3327",
             "3328",
@@ -1483,7 +1491,7 @@
         },
         {
           "code": "unsupported-figure-variant",
-          "sources": 24,
+          "sources": 26,
           "sourceIds": [
             "257",
             "265",
@@ -1492,6 +1500,7 @@
             "577",
             "761",
             "776",
+            "828",
             "907",
             "1312",
             "1501",
@@ -1507,8 +1516,39 @@
             "2331",
             "2456",
             "2672",
+            "3292",
             "3363",
             "3533"
+          ],
+          "soleBlockerSources": 0
+        },
+        {
+          "code": "circulation-choice",
+          "sources": 23,
+          "sourceIds": [
+            "94",
+            "123",
+            "257",
+            "363",
+            "577",
+            "761",
+            "828",
+            "840",
+            "1501",
+            "1618",
+            "1658",
+            "2247",
+            "2273",
+            "2321",
+            "2329",
+            "2330",
+            "2518",
+            "2522",
+            "2996",
+            "3004",
+            "3181",
+            "3292",
+            "3363"
           ],
           "soleBlockerSources": 0
         },
@@ -1566,34 +1606,6 @@
             "3261",
             "3280",
             "3496"
-          ],
-          "soleBlockerSources": 0
-        },
-        {
-          "code": "circulation-choice",
-          "sources": 21,
-          "sourceIds": [
-            "94",
-            "123",
-            "257",
-            "363",
-            "577",
-            "761",
-            "840",
-            "1501",
-            "1618",
-            "1658",
-            "2247",
-            "2273",
-            "2321",
-            "2329",
-            "2330",
-            "2518",
-            "2522",
-            "2996",
-            "3004",
-            "3181",
-            "3363"
           ],
           "soleBlockerSources": 0
         },
@@ -1670,6 +1682,30 @@
             "3241",
             "3260",
             "3454"
+          ],
+          "soleBlockerSources": 0
+        },
+        {
+          "code": "progression-location",
+          "sources": 17,
+          "sourceIds": [
+            "257",
+            "577",
+            "828",
+            "840",
+            "1067",
+            "1480",
+            "1501",
+            "1618",
+            "1632",
+            "2006",
+            "2273",
+            "2329",
+            "2331",
+            "2373",
+            "2672",
+            "3292",
+            "3363"
           ],
           "soleBlockerSources": 0
         },
@@ -1786,28 +1822,6 @@
             "3265",
             "3326",
             "3533"
-          ],
-          "soleBlockerSources": 0
-        },
-        {
-          "code": "progression-location",
-          "sources": 15,
-          "sourceIds": [
-            "257",
-            "577",
-            "840",
-            "1067",
-            "1480",
-            "1501",
-            "1618",
-            "1632",
-            "2006",
-            "2273",
-            "2329",
-            "2331",
-            "2373",
-            "2672",
-            "3363"
           ],
           "soleBlockerSources": 0
         },
@@ -1947,6 +1961,21 @@
           "soleBlockerSources": 0
         },
         {
+          "code": "ring-pass-context",
+          "sources": 8,
+          "sourceIds": [
+            "166",
+            "577",
+            "828",
+            "840",
+            "1501",
+            "2273",
+            "2329",
+            "3292"
+          ],
+          "soleBlockerSources": 0
+        },
+        {
           "code": "source-notes-alternative-review",
           "sources": 8,
           "sourceIds": [
@@ -1977,6 +2006,34 @@
           "soleBlockerSources": 0
         },
         {
+          "code": "ring-pass-source-contract",
+          "sources": 7,
+          "sourceIds": [
+            "577",
+            "828",
+            "840",
+            "1501",
+            "2273",
+            "2329",
+            "3292"
+          ],
+          "soleBlockerSources": 0
+        },
+        {
+          "code": "rory-slide-choice",
+          "sources": 7,
+          "sourceIds": [
+            "577",
+            "828",
+            "867",
+            "1501",
+            "2273",
+            "2321",
+            "3292"
+          ],
+          "soleBlockerSources": 0
+        },
+        {
           "code": "active-swing-wait-choice",
           "sources": 6,
           "sourceIds": [
@@ -2003,15 +2060,28 @@
           "soleBlockerSources": 0
         },
         {
-          "code": "ring-pass-context",
+          "code": "rory-slide-source-contract",
           "sources": 6,
           "sourceIds": [
-            "166",
             "577",
-            "840",
+            "828",
             "1501",
             "2273",
-            "2329"
+            "2321",
+            "3292"
+          ],
+          "soleBlockerSources": 0
+        },
+        {
+          "code": "rory-wave-context",
+          "sources": 6,
+          "sourceIds": [
+            "577",
+            "828",
+            "1501",
+            "2273",
+            "2321",
+            "3292"
           ],
           "soleBlockerSources": 0
         },
@@ -2088,18 +2158,6 @@
           "soleBlockerSources": 0
         },
         {
-          "code": "ring-pass-source-contract",
-          "sources": 5,
-          "sourceIds": [
-            "577",
-            "840",
-            "1501",
-            "2273",
-            "2329"
-          ],
-          "soleBlockerSources": 0
-        },
-        {
           "code": "rollaway-direction-choice",
           "sources": 5,
           "sourceIds": [
@@ -2108,18 +2166,6 @@
             "1556",
             "2243",
             "2322"
-          ],
-          "soleBlockerSources": 0
-        },
-        {
-          "code": "rory-slide-choice",
-          "sources": 5,
-          "sourceIds": [
-            "577",
-            "867",
-            "1501",
-            "2273",
-            "2321"
           ],
           "soleBlockerSources": 0
         },
@@ -2176,28 +2222,6 @@
             "2344",
             "3185",
             "3431"
-          ],
-          "soleBlockerSources": 0
-        },
-        {
-          "code": "rory-slide-source-contract",
-          "sources": 4,
-          "sourceIds": [
-            "577",
-            "1501",
-            "2273",
-            "2321"
-          ],
-          "soleBlockerSources": 0
-        },
-        {
-          "code": "rory-wave-context",
-          "sources": 4,
-          "sourceIds": [
-            "577",
-            "1501",
-            "2273",
-            "2321"
           ],
           "soleBlockerSources": 0
         },
@@ -2732,7 +2756,7 @@
             "balance-swing-timing",
             "ring-pass-choice"
           ],
-          "sources": 35,
+          "sources": 37,
           "sourceIds": [
             "65",
             "522",
@@ -2741,6 +2765,7 @@
             "671",
             "682",
             "780",
+            "828",
             "840",
             "881",
             "892",
@@ -2763,6 +2788,7 @@
             "3086",
             "3115",
             "3185",
+            "3292",
             "3310",
             "3327",
             "3335",
@@ -3059,6 +3085,30 @@
         {
           "codes": [
             "balance-swing-timing",
+            "circulation-choice"
+          ],
+          "sources": 15,
+          "sourceIds": [
+            "94",
+            "363",
+            "577",
+            "828",
+            "840",
+            "1501",
+            "1618",
+            "1658",
+            "2247",
+            "2273",
+            "2329",
+            "2518",
+            "3004",
+            "3292",
+            "3363"
+          ]
+        },
+        {
+          "codes": [
+            "balance-swing-timing",
             "petronella-choice"
           ],
           "sources": 15,
@@ -3083,23 +3133,23 @@
         {
           "codes": [
             "balance-swing-timing",
-            "circulation-choice"
+            "unsupported-figure-variant"
           ],
           "sources": 13,
           "sourceIds": [
-            "94",
-            "363",
+            "265",
+            "266",
             "577",
-            "840",
+            "828",
             "1501",
-            "1618",
-            "1658",
-            "2247",
+            "2212",
             "2273",
+            "2305",
             "2329",
-            "2518",
-            "3004",
-            "3363"
+            "2456",
+            "3292",
+            "3363",
+            "3533"
           ]
         },
         {
@@ -3146,6 +3196,27 @@
         },
         {
           "codes": [
+            "progression-location",
+            "unsupported-figure-variant"
+          ],
+          "sources": 12,
+          "sourceIds": [
+            "257",
+            "577",
+            "828",
+            "1501",
+            "1632",
+            "2006",
+            "2273",
+            "2329",
+            "2331",
+            "2672",
+            "3292",
+            "3363"
+          ]
+        },
+        {
+          "codes": [
             "balance-swing-timing",
             "unknown-figure"
           ],
@@ -3161,26 +3232,6 @@
             "2322",
             "2329",
             "2903",
-            "3533"
-          ]
-        },
-        {
-          "codes": [
-            "balance-swing-timing",
-            "unsupported-figure-variant"
-          ],
-          "sources": 11,
-          "sourceIds": [
-            "265",
-            "266",
-            "577",
-            "1501",
-            "2212",
-            "2273",
-            "2305",
-            "2329",
-            "2456",
-            "3363",
             "3533"
           ]
         },
@@ -3206,6 +3257,45 @@
         },
         {
           "codes": [
+            "circulation-choice",
+            "unsupported-figure-variant"
+          ],
+          "sources": 11,
+          "sourceIds": [
+            "257",
+            "577",
+            "761",
+            "828",
+            "1501",
+            "2273",
+            "2321",
+            "2329",
+            "2330",
+            "3292",
+            "3363"
+          ]
+        },
+        {
+          "codes": [
+            "balance-swing-timing",
+            "progression-location"
+          ],
+          "sources": 10,
+          "sourceIds": [
+            "577",
+            "828",
+            "840",
+            "1067",
+            "1501",
+            "1618",
+            "2273",
+            "2329",
+            "3292",
+            "3363"
+          ]
+        },
+        {
+          "codes": [
             "chain-receiver",
             "right-left-through-choice"
           ],
@@ -3225,20 +3315,20 @@
         },
         {
           "codes": [
-            "progression-location",
-            "unsupported-figure-variant"
+            "circulation-choice",
+            "progression-location"
           ],
           "sources": 10,
           "sourceIds": [
             "257",
             "577",
+            "828",
+            "840",
             "1501",
-            "1632",
-            "2006",
+            "1618",
             "2273",
             "2329",
-            "2331",
-            "2672",
+            "3292",
             "3363"
           ]
         },
@@ -3408,24 +3498,6 @@
         },
         {
           "codes": [
-            "circulation-choice",
-            "unsupported-figure-variant"
-          ],
-          "sources": 9,
-          "sourceIds": [
-            "257",
-            "577",
-            "761",
-            "1501",
-            "2273",
-            "2321",
-            "2329",
-            "2330",
-            "3363"
-          ]
-        },
-        {
-          "codes": [
             "event-policy-choice",
             "ring-pass-choice"
           ],
@@ -3476,23 +3548,6 @@
             "2330",
             "2331",
             "3533"
-          ]
-        },
-        {
-          "codes": [
-            "balance-swing-timing",
-            "progression-location"
-          ],
-          "sources": 8,
-          "sourceIds": [
-            "577",
-            "840",
-            "1067",
-            "1501",
-            "1618",
-            "2273",
-            "2329",
-            "3363"
           ]
         },
         {
@@ -3633,23 +3688,6 @@
         },
         {
           "codes": [
-            "circulation-choice",
-            "progression-location"
-          ],
-          "sources": 8,
-          "sourceIds": [
-            "257",
-            "577",
-            "840",
-            "1501",
-            "1618",
-            "2273",
-            "2329",
-            "3363"
-          ]
-        },
-        {
-          "codes": [
             "long-wave-context",
             "zero-time-instruction"
           ],
@@ -3663,6 +3701,23 @@
             "2330",
             "2331",
             "3265"
+          ]
+        },
+        {
+          "codes": [
+            "ring-pass-choice",
+            "ring-pass-context"
+          ],
+          "sources": 8,
+          "sourceIds": [
+            "166",
+            "577",
+            "828",
+            "840",
+            "1501",
+            "2273",
+            "2329",
+            "3292"
           ]
         },
         {
@@ -3699,6 +3754,86 @@
         },
         {
           "codes": [
+            "balance-swing-timing",
+            "ring-pass-context"
+          ],
+          "sources": 7,
+          "sourceIds": [
+            "577",
+            "828",
+            "840",
+            "1501",
+            "2273",
+            "2329",
+            "3292"
+          ]
+        },
+        {
+          "codes": [
+            "balance-swing-timing",
+            "ring-pass-source-contract"
+          ],
+          "sources": 7,
+          "sourceIds": [
+            "577",
+            "828",
+            "840",
+            "1501",
+            "2273",
+            "2329",
+            "3292"
+          ]
+        },
+        {
+          "codes": [
+            "circulation-choice",
+            "ring-pass-choice"
+          ],
+          "sources": 7,
+          "sourceIds": [
+            "577",
+            "828",
+            "840",
+            "1501",
+            "2273",
+            "2329",
+            "3292"
+          ]
+        },
+        {
+          "codes": [
+            "circulation-choice",
+            "ring-pass-context"
+          ],
+          "sources": 7,
+          "sourceIds": [
+            "577",
+            "828",
+            "840",
+            "1501",
+            "2273",
+            "2329",
+            "3292"
+          ]
+        },
+        {
+          "codes": [
+            "circulation-choice",
+            "ring-pass-source-contract"
+          ],
+          "sources": 7,
+          "sourceIds": [
+            "577",
+            "828",
+            "840",
+            "1501",
+            "2273",
+            "2329",
+            "3292"
+          ]
+        },
+        {
+          "codes": [
             "long-wave-context",
             "source-hook"
           ],
@@ -3727,6 +3862,86 @@
             "2330",
             "2331",
             "3363"
+          ]
+        },
+        {
+          "codes": [
+            "progression-location",
+            "ring-pass-choice"
+          ],
+          "sources": 7,
+          "sourceIds": [
+            "577",
+            "828",
+            "840",
+            "1501",
+            "2273",
+            "2329",
+            "3292"
+          ]
+        },
+        {
+          "codes": [
+            "progression-location",
+            "ring-pass-context"
+          ],
+          "sources": 7,
+          "sourceIds": [
+            "577",
+            "828",
+            "840",
+            "1501",
+            "2273",
+            "2329",
+            "3292"
+          ]
+        },
+        {
+          "codes": [
+            "progression-location",
+            "ring-pass-source-contract"
+          ],
+          "sources": 7,
+          "sourceIds": [
+            "577",
+            "828",
+            "840",
+            "1501",
+            "2273",
+            "2329",
+            "3292"
+          ]
+        },
+        {
+          "codes": [
+            "ring-pass-choice",
+            "ring-pass-source-contract"
+          ],
+          "sources": 7,
+          "sourceIds": [
+            "577",
+            "828",
+            "840",
+            "1501",
+            "2273",
+            "2329",
+            "3292"
+          ]
+        },
+        {
+          "codes": [
+            "ring-pass-context",
+            "ring-pass-source-contract"
+          ],
+          "sources": 7,
+          "sourceIds": [
+            "577",
+            "828",
+            "840",
+            "1501",
+            "2273",
+            "2329",
+            "3292"
           ]
         },
         {
@@ -3898,6 +4113,51 @@
         },
         {
           "codes": [
+            "circulation-choice",
+            "rory-slide-choice"
+          ],
+          "sources": 6,
+          "sourceIds": [
+            "577",
+            "828",
+            "1501",
+            "2273",
+            "2321",
+            "3292"
+          ]
+        },
+        {
+          "codes": [
+            "circulation-choice",
+            "rory-slide-source-contract"
+          ],
+          "sources": 6,
+          "sourceIds": [
+            "577",
+            "828",
+            "1501",
+            "2273",
+            "2321",
+            "3292"
+          ]
+        },
+        {
+          "codes": [
+            "circulation-choice",
+            "rory-wave-context"
+          ],
+          "sources": 6,
+          "sourceIds": [
+            "577",
+            "828",
+            "1501",
+            "2273",
+            "2321",
+            "3292"
+          ]
+        },
+        {
+          "codes": [
             "event-policy-choice",
             "petronella-choice"
           ],
@@ -3989,21 +4249,6 @@
         {
           "codes": [
             "ring-pass-choice",
-            "ring-pass-context"
-          ],
-          "sources": 6,
-          "sourceIds": [
-            "166",
-            "577",
-            "840",
-            "1501",
-            "2273",
-            "2329"
-          ]
-        },
-        {
-          "codes": [
-            "ring-pass-choice",
             "source-notes-classification"
           ],
           "sources": 6,
@@ -4014,6 +4259,141 @@
             "3310",
             "3327",
             "3478"
+          ]
+        },
+        {
+          "codes": [
+            "ring-pass-choice",
+            "unsupported-figure-variant"
+          ],
+          "sources": 6,
+          "sourceIds": [
+            "577",
+            "828",
+            "1501",
+            "2273",
+            "2329",
+            "3292"
+          ]
+        },
+        {
+          "codes": [
+            "ring-pass-context",
+            "unsupported-figure-variant"
+          ],
+          "sources": 6,
+          "sourceIds": [
+            "577",
+            "828",
+            "1501",
+            "2273",
+            "2329",
+            "3292"
+          ]
+        },
+        {
+          "codes": [
+            "ring-pass-source-contract",
+            "unsupported-figure-variant"
+          ],
+          "sources": 6,
+          "sourceIds": [
+            "577",
+            "828",
+            "1501",
+            "2273",
+            "2329",
+            "3292"
+          ]
+        },
+        {
+          "codes": [
+            "rory-slide-choice",
+            "rory-slide-source-contract"
+          ],
+          "sources": 6,
+          "sourceIds": [
+            "577",
+            "828",
+            "1501",
+            "2273",
+            "2321",
+            "3292"
+          ]
+        },
+        {
+          "codes": [
+            "rory-slide-choice",
+            "rory-wave-context"
+          ],
+          "sources": 6,
+          "sourceIds": [
+            "577",
+            "828",
+            "1501",
+            "2273",
+            "2321",
+            "3292"
+          ]
+        },
+        {
+          "codes": [
+            "rory-slide-choice",
+            "unsupported-figure-variant"
+          ],
+          "sources": 6,
+          "sourceIds": [
+            "577",
+            "828",
+            "1501",
+            "2273",
+            "2321",
+            "3292"
+          ]
+        },
+        {
+          "codes": [
+            "rory-slide-source-contract",
+            "rory-wave-context"
+          ],
+          "sources": 6,
+          "sourceIds": [
+            "577",
+            "828",
+            "1501",
+            "2273",
+            "2321",
+            "3292"
+          ]
+        },
+        {
+          "codes": [
+            "rory-slide-source-contract",
+            "unsupported-figure-variant"
+          ],
+          "sources": 6,
+          "sourceIds": [
+            "577",
+            "828",
+            "1501",
+            "2273",
+            "2321",
+            "3292"
+          ]
+        },
+        {
+          "codes": [
+            "rory-wave-context",
+            "unsupported-figure-variant"
+          ],
+          "sources": 6,
+          "sourceIds": [
+            "577",
+            "828",
+            "1501",
+            "2273",
+            "2321",
+            "3292"
           ]
         },
         {
@@ -4106,34 +4486,6 @@
         {
           "codes": [
             "balance-swing-timing",
-            "ring-pass-context"
-          ],
-          "sources": 5,
-          "sourceIds": [
-            "577",
-            "840",
-            "1501",
-            "2273",
-            "2329"
-          ]
-        },
-        {
-          "codes": [
-            "balance-swing-timing",
-            "ring-pass-source-contract"
-          ],
-          "sources": 5,
-          "sourceIds": [
-            "577",
-            "840",
-            "1501",
-            "2273",
-            "2329"
-          ]
-        },
-        {
-          "codes": [
-            "balance-swing-timing",
             "rollaway-direction-choice"
           ],
           "sources": 5,
@@ -4143,6 +4495,48 @@
             "1556",
             "2243",
             "2322"
+          ]
+        },
+        {
+          "codes": [
+            "balance-swing-timing",
+            "rory-slide-choice"
+          ],
+          "sources": 5,
+          "sourceIds": [
+            "577",
+            "828",
+            "1501",
+            "2273",
+            "3292"
+          ]
+        },
+        {
+          "codes": [
+            "balance-swing-timing",
+            "rory-slide-source-contract"
+          ],
+          "sources": 5,
+          "sourceIds": [
+            "577",
+            "828",
+            "1501",
+            "2273",
+            "3292"
+          ]
+        },
+        {
+          "codes": [
+            "balance-swing-timing",
+            "rory-wave-context"
+          ],
+          "sources": 5,
+          "sourceIds": [
+            "577",
+            "828",
+            "1501",
+            "2273",
+            "3292"
           ]
         },
         {
@@ -4260,48 +4654,6 @@
         {
           "codes": [
             "circulation-choice",
-            "ring-pass-choice"
-          ],
-          "sources": 5,
-          "sourceIds": [
-            "577",
-            "840",
-            "1501",
-            "2273",
-            "2329"
-          ]
-        },
-        {
-          "codes": [
-            "circulation-choice",
-            "ring-pass-context"
-          ],
-          "sources": 5,
-          "sourceIds": [
-            "577",
-            "840",
-            "1501",
-            "2273",
-            "2329"
-          ]
-        },
-        {
-          "codes": [
-            "circulation-choice",
-            "ring-pass-source-contract"
-          ],
-          "sources": 5,
-          "sourceIds": [
-            "577",
-            "840",
-            "1501",
-            "2273",
-            "2329"
-          ]
-        },
-        {
-          "codes": [
-            "circulation-choice",
             "source-hook"
           ],
           "sources": 5,
@@ -4358,43 +4710,43 @@
         {
           "codes": [
             "progression-location",
-            "ring-pass-choice"
+            "rory-slide-choice"
           ],
           "sources": 5,
           "sourceIds": [
             "577",
-            "840",
+            "828",
             "1501",
             "2273",
-            "2329"
+            "3292"
           ]
         },
         {
           "codes": [
             "progression-location",
-            "ring-pass-context"
+            "rory-slide-source-contract"
           ],
           "sources": 5,
           "sourceIds": [
             "577",
-            "840",
+            "828",
             "1501",
             "2273",
-            "2329"
+            "3292"
           ]
         },
         {
           "codes": [
             "progression-location",
-            "ring-pass-source-contract"
+            "rory-wave-context"
           ],
           "sources": 5,
           "sourceIds": [
             "577",
-            "840",
+            "828",
             "1501",
             "2273",
-            "2329"
+            "3292"
           ]
         },
         {
@@ -4442,15 +4794,43 @@
         {
           "codes": [
             "ring-pass-choice",
-            "ring-pass-source-contract"
+            "rory-slide-choice"
           ],
           "sources": 5,
           "sourceIds": [
             "577",
-            "840",
+            "828",
             "1501",
             "2273",
-            "2329"
+            "3292"
+          ]
+        },
+        {
+          "codes": [
+            "ring-pass-choice",
+            "rory-slide-source-contract"
+          ],
+          "sources": 5,
+          "sourceIds": [
+            "577",
+            "828",
+            "1501",
+            "2273",
+            "3292"
+          ]
+        },
+        {
+          "codes": [
+            "ring-pass-choice",
+            "rory-wave-context"
+          ],
+          "sources": 5,
+          "sourceIds": [
+            "577",
+            "828",
+            "1501",
+            "2273",
+            "3292"
           ]
         },
         {
@@ -4484,15 +4864,85 @@
         {
           "codes": [
             "ring-pass-context",
-            "ring-pass-source-contract"
+            "rory-slide-choice"
           ],
           "sources": 5,
           "sourceIds": [
             "577",
-            "840",
+            "828",
             "1501",
             "2273",
-            "2329"
+            "3292"
+          ]
+        },
+        {
+          "codes": [
+            "ring-pass-context",
+            "rory-slide-source-contract"
+          ],
+          "sources": 5,
+          "sourceIds": [
+            "577",
+            "828",
+            "1501",
+            "2273",
+            "3292"
+          ]
+        },
+        {
+          "codes": [
+            "ring-pass-context",
+            "rory-wave-context"
+          ],
+          "sources": 5,
+          "sourceIds": [
+            "577",
+            "828",
+            "1501",
+            "2273",
+            "3292"
+          ]
+        },
+        {
+          "codes": [
+            "ring-pass-source-contract",
+            "rory-slide-choice"
+          ],
+          "sources": 5,
+          "sourceIds": [
+            "577",
+            "828",
+            "1501",
+            "2273",
+            "3292"
+          ]
+        },
+        {
+          "codes": [
+            "ring-pass-source-contract",
+            "rory-slide-source-contract"
+          ],
+          "sources": 5,
+          "sourceIds": [
+            "577",
+            "828",
+            "1501",
+            "2273",
+            "3292"
+          ]
+        },
+        {
+          "codes": [
+            "ring-pass-source-contract",
+            "rory-wave-context"
+          ],
+          "sources": 5,
+          "sourceIds": [
+            "577",
+            "828",
+            "1501",
+            "2273",
+            "3292"
           ]
         },
         {
@@ -4735,45 +5185,6 @@
         {
           "codes": [
             "circulation-choice",
-            "rory-slide-choice"
-          ],
-          "sources": 4,
-          "sourceIds": [
-            "577",
-            "1501",
-            "2273",
-            "2321"
-          ]
-        },
-        {
-          "codes": [
-            "circulation-choice",
-            "rory-slide-source-contract"
-          ],
-          "sources": 4,
-          "sourceIds": [
-            "577",
-            "1501",
-            "2273",
-            "2321"
-          ]
-        },
-        {
-          "codes": [
-            "circulation-choice",
-            "rory-wave-context"
-          ],
-          "sources": 4,
-          "sourceIds": [
-            "577",
-            "1501",
-            "2273",
-            "2321"
-          ]
-        },
-        {
-          "codes": [
-            "circulation-choice",
             "source-notes"
           ],
           "sources": 4,
@@ -4981,123 +5392,6 @@
         },
         {
           "codes": [
-            "ring-pass-choice",
-            "unsupported-figure-variant"
-          ],
-          "sources": 4,
-          "sourceIds": [
-            "577",
-            "1501",
-            "2273",
-            "2329"
-          ]
-        },
-        {
-          "codes": [
-            "ring-pass-context",
-            "unsupported-figure-variant"
-          ],
-          "sources": 4,
-          "sourceIds": [
-            "577",
-            "1501",
-            "2273",
-            "2329"
-          ]
-        },
-        {
-          "codes": [
-            "ring-pass-source-contract",
-            "unsupported-figure-variant"
-          ],
-          "sources": 4,
-          "sourceIds": [
-            "577",
-            "1501",
-            "2273",
-            "2329"
-          ]
-        },
-        {
-          "codes": [
-            "rory-slide-choice",
-            "rory-slide-source-contract"
-          ],
-          "sources": 4,
-          "sourceIds": [
-            "577",
-            "1501",
-            "2273",
-            "2321"
-          ]
-        },
-        {
-          "codes": [
-            "rory-slide-choice",
-            "rory-wave-context"
-          ],
-          "sources": 4,
-          "sourceIds": [
-            "577",
-            "1501",
-            "2273",
-            "2321"
-          ]
-        },
-        {
-          "codes": [
-            "rory-slide-choice",
-            "unsupported-figure-variant"
-          ],
-          "sources": 4,
-          "sourceIds": [
-            "577",
-            "1501",
-            "2273",
-            "2321"
-          ]
-        },
-        {
-          "codes": [
-            "rory-slide-source-contract",
-            "rory-wave-context"
-          ],
-          "sources": 4,
-          "sourceIds": [
-            "577",
-            "1501",
-            "2273",
-            "2321"
-          ]
-        },
-        {
-          "codes": [
-            "rory-slide-source-contract",
-            "unsupported-figure-variant"
-          ],
-          "sources": 4,
-          "sourceIds": [
-            "577",
-            "1501",
-            "2273",
-            "2321"
-          ]
-        },
-        {
-          "codes": [
-            "rory-wave-context",
-            "unsupported-figure-variant"
-          ],
-          "sources": 4,
-          "sourceIds": [
-            "577",
-            "1501",
-            "2273",
-            "2321"
-          ]
-        },
-        {
-          "codes": [
             "source-notes-alternative-review",
             "source-preamble-review"
           ],
@@ -5203,42 +5497,6 @@
             "769",
             "871",
             "3454"
-          ]
-        },
-        {
-          "codes": [
-            "balance-swing-timing",
-            "rory-slide-choice"
-          ],
-          "sources": 3,
-          "sourceIds": [
-            "577",
-            "1501",
-            "2273"
-          ]
-        },
-        {
-          "codes": [
-            "balance-swing-timing",
-            "rory-slide-source-contract"
-          ],
-          "sources": 3,
-          "sourceIds": [
-            "577",
-            "1501",
-            "2273"
-          ]
-        },
-        {
-          "codes": [
-            "balance-swing-timing",
-            "rory-wave-context"
-          ],
-          "sources": 3,
-          "sourceIds": [
-            "577",
-            "1501",
-            "2273"
           ]
         },
         {
@@ -5759,42 +6017,6 @@
         },
         {
           "codes": [
-            "progression-location",
-            "rory-slide-choice"
-          ],
-          "sources": 3,
-          "sourceIds": [
-            "577",
-            "1501",
-            "2273"
-          ]
-        },
-        {
-          "codes": [
-            "progression-location",
-            "rory-slide-source-contract"
-          ],
-          "sources": 3,
-          "sourceIds": [
-            "577",
-            "1501",
-            "2273"
-          ]
-        },
-        {
-          "codes": [
-            "progression-location",
-            "rory-wave-context"
-          ],
-          "sources": 3,
-          "sourceIds": [
-            "577",
-            "1501",
-            "2273"
-          ]
-        },
-        {
-          "codes": [
             "right-left-through-choice",
             "source-hook"
           ],
@@ -5844,42 +6066,6 @@
         {
           "codes": [
             "ring-pass-choice",
-            "rory-slide-choice"
-          ],
-          "sources": 3,
-          "sourceIds": [
-            "577",
-            "1501",
-            "2273"
-          ]
-        },
-        {
-          "codes": [
-            "ring-pass-choice",
-            "rory-slide-source-contract"
-          ],
-          "sources": 3,
-          "sourceIds": [
-            "577",
-            "1501",
-            "2273"
-          ]
-        },
-        {
-          "codes": [
-            "ring-pass-choice",
-            "rory-wave-context"
-          ],
-          "sources": 3,
-          "sourceIds": [
-            "577",
-            "1501",
-            "2273"
-          ]
-        },
-        {
-          "codes": [
-            "ring-pass-choice",
             "source-notes-authorship-review"
           ],
           "sources": 3,
@@ -5916,42 +6102,6 @@
         {
           "codes": [
             "ring-pass-context",
-            "rory-slide-choice"
-          ],
-          "sources": 3,
-          "sourceIds": [
-            "577",
-            "1501",
-            "2273"
-          ]
-        },
-        {
-          "codes": [
-            "ring-pass-context",
-            "rory-slide-source-contract"
-          ],
-          "sources": 3,
-          "sourceIds": [
-            "577",
-            "1501",
-            "2273"
-          ]
-        },
-        {
-          "codes": [
-            "ring-pass-context",
-            "rory-wave-context"
-          ],
-          "sources": 3,
-          "sourceIds": [
-            "577",
-            "1501",
-            "2273"
-          ]
-        },
-        {
-          "codes": [
-            "ring-pass-context",
             "zero-time-instruction"
           ],
           "sources": 3,
@@ -5959,42 +6109,6 @@
             "577",
             "2273",
             "2329"
-          ]
-        },
-        {
-          "codes": [
-            "ring-pass-source-contract",
-            "rory-slide-choice"
-          ],
-          "sources": 3,
-          "sourceIds": [
-            "577",
-            "1501",
-            "2273"
-          ]
-        },
-        {
-          "codes": [
-            "ring-pass-source-contract",
-            "rory-slide-source-contract"
-          ],
-          "sources": 3,
-          "sourceIds": [
-            "577",
-            "1501",
-            "2273"
-          ]
-        },
-        {
-          "codes": [
-            "ring-pass-source-contract",
-            "rory-wave-context"
-          ],
-          "sources": 3,
-          "sourceIds": [
-            "577",
-            "1501",
-            "2273"
           ]
         },
         {
@@ -11688,9 +11802,9 @@
       ]
     },
     "conventionalSuggestions": {
-      "sources": 228,
+      "sources": 230,
       "statuses": {
-        "import-admitted": 186,
+        "import-admitted": 188,
         "interpretation-blocked": 34,
         "motion-or-validation-blocked": 8
       },
@@ -11761,6 +11875,7 @@
             "780",
             "810",
             "823",
+            "828",
             "831",
             "840",
             "867",
@@ -11904,6 +12019,7 @@
             "3261",
             "3265",
             "3280",
+            "3292",
             "3310",
             "3326",
             "3327",
@@ -11924,8 +12040,8 @@
             "3510",
             "3533"
           ],
-          "occurrences": 429,
-          "sources": 225
+          "occurrences": 433,
+          "sources": 227
         },
         {
           "kind": "circle",
@@ -11980,6 +12096,7 @@
             "776",
             "780",
             "823",
+            "828",
             "831",
             "840",
             "867",
@@ -12084,6 +12201,7 @@
             "3260",
             "3261",
             "3265",
+            "3292",
             "3310",
             "3327",
             "3335",
@@ -12096,8 +12214,8 @@
             "3507",
             "3510"
           ],
-          "occurrences": 190,
-          "sources": 165
+          "occurrences": 194,
+          "sources": 167
         },
         {
           "kind": "balance",
@@ -12143,6 +12261,7 @@
             "780",
             "810",
             "823",
+            "828",
             "831",
             "840",
             "871",
@@ -12248,6 +12367,7 @@
             "3261",
             "3265",
             "3280",
+            "3292",
             "3310",
             "3327",
             "3335",
@@ -12264,8 +12384,8 @@
             "3507",
             "3533"
           ],
-          "occurrences": 206,
-          "sources": 161
+          "occurrences": 208,
+          "sources": 163
         },
         {
           "kind": "allemande",
@@ -12306,6 +12426,7 @@
             "780",
             "810",
             "823",
+            "828",
             "831",
             "840",
             "867",
@@ -12395,6 +12516,7 @@
             "3241",
             "3261",
             "3280",
+            "3292",
             "3310",
             "3328",
             "3363",
@@ -12406,8 +12528,8 @@
             "3496",
             "3510"
           ],
-          "occurrences": 171,
-          "sources": 135
+          "occurrences": 173,
+          "sources": 137
         },
         {
           "kind": "long-lines",
@@ -12840,6 +12962,7 @@
             "682",
             "724",
             "780",
+            "828",
             "840",
             "881",
             "892",
@@ -12872,6 +12995,7 @@
             "3241",
             "3260",
             "3261",
+            "3292",
             "3310",
             "3327",
             "3328",
@@ -12880,8 +13004,8 @@
             "3478",
             "3507"
           ],
-          "occurrences": 56,
-          "sources": 54
+          "occurrences": 58,
+          "sources": 56
         },
         {
           "kind": "hey",
@@ -13240,13 +13364,15 @@
           "kind": "balance-rory-slide",
           "sourceIds": [
             "577",
+            "828",
             "867",
             "1501",
             "2273",
-            "2321"
+            "2321",
+            "3292"
           ],
-          "occurrences": 9,
-          "sources": 5
+          "occurrences": 13,
+          "sources": 7
         },
         {
           "kind": "becket-shift",
@@ -14954,9 +15080,9 @@
       ]
     },
     "savedInterpretation": {
-      "sources": 199,
+      "sources": 201,
       "statuses": {
-        "import-admitted": 199
+        "import-admitted": 201
       },
       "figures": [
         {
@@ -15017,6 +15143,7 @@
             "780",
             "810",
             "823",
+            "828",
             "831",
             "840",
             "867",
@@ -15146,6 +15273,7 @@
             "3260",
             "3261",
             "3265",
+            "3292",
             "3326",
             "3327",
             "3328",
@@ -15162,8 +15290,8 @@
             "3507",
             "3510"
           ],
-          "occurrences": 386,
-          "sources": 199
+          "occurrences": 390,
+          "sources": 201
         },
         {
           "kind": "circle",
@@ -15214,6 +15342,7 @@
             "773",
             "780",
             "823",
+            "828",
             "831",
             "840",
             "867",
@@ -15309,6 +15438,7 @@
             "3260",
             "3261",
             "3265",
+            "3292",
             "3327",
             "3335",
             "3402",
@@ -15318,8 +15448,8 @@
             "3507",
             "3510"
           ],
-          "occurrences": 171,
-          "sources": 149
+          "occurrences": 175,
+          "sources": 151
         },
         {
           "kind": "balance",
@@ -15362,6 +15492,7 @@
             "780",
             "810",
             "823",
+            "828",
             "831",
             "840",
             "871",
@@ -15459,6 +15590,7 @@
             "3214",
             "3261",
             "3265",
+            "3292",
             "3327",
             "3335",
             "3402",
@@ -15472,8 +15604,8 @@
             "3496",
             "3507"
           ],
-          "occurrences": 186,
-          "sources": 147
+          "occurrences": 188,
+          "sources": 149
         },
         {
           "kind": "allemande",
@@ -15511,6 +15643,7 @@
             "780",
             "810",
             "823",
+            "828",
             "831",
             "840",
             "867",
@@ -15590,6 +15723,7 @@
             "3214",
             "3241",
             "3261",
+            "3292",
             "3328",
             "3431",
             "3454",
@@ -15599,8 +15733,8 @@
             "3496",
             "3510"
           ],
-          "occurrences": 152,
-          "sources": 120
+          "occurrences": 154,
+          "sources": 122
         },
         {
           "kind": "robins-chain",
@@ -15989,6 +16123,65 @@
           "sources": 54
         },
         {
+          "kind": "pass-through",
+          "sourceIds": [
+            "65",
+            "83",
+            "166",
+            "340",
+            "443",
+            "480",
+            "522",
+            "542",
+            "577",
+            "671",
+            "682",
+            "724",
+            "780",
+            "828",
+            "840",
+            "881",
+            "892",
+            "1093",
+            "1144",
+            "1148",
+            "1420",
+            "1434",
+            "1447",
+            "1464",
+            "1496",
+            "1501",
+            "1550",
+            "1618",
+            "1974",
+            "2235",
+            "2273",
+            "2321",
+            "2329",
+            "2344",
+            "2492",
+            "2530",
+            "3010",
+            "3012",
+            "3051",
+            "3086",
+            "3115",
+            "3185",
+            "3241",
+            "3260",
+            "3261",
+            "3292",
+            "3327",
+            "3328",
+            "3335",
+            "3431",
+            "3478",
+            "3507"
+          ],
+          "occurrences": 53,
+          "sources": 52
+        },
+        {
           "kind": "hey",
           "sourceIds": [
             "24",
@@ -16043,63 +16236,6 @@
             "3465"
           ],
           "occurrences": 54,
-          "sources": 50
-        },
-        {
-          "kind": "pass-through",
-          "sourceIds": [
-            "65",
-            "83",
-            "166",
-            "340",
-            "443",
-            "480",
-            "522",
-            "542",
-            "577",
-            "671",
-            "682",
-            "724",
-            "780",
-            "840",
-            "881",
-            "892",
-            "1093",
-            "1144",
-            "1148",
-            "1420",
-            "1434",
-            "1447",
-            "1464",
-            "1496",
-            "1501",
-            "1550",
-            "1618",
-            "1974",
-            "2235",
-            "2273",
-            "2321",
-            "2329",
-            "2344",
-            "2492",
-            "2530",
-            "3010",
-            "3012",
-            "3051",
-            "3086",
-            "3115",
-            "3185",
-            "3241",
-            "3260",
-            "3261",
-            "3327",
-            "3328",
-            "3335",
-            "3431",
-            "3478",
-            "3507"
-          ],
-          "occurrences": 51,
           "sources": 50
         },
         {
@@ -16358,6 +16494,20 @@
           "sources": 8
         },
         {
+          "kind": "balance-rory-slide",
+          "sourceIds": [
+            "577",
+            "828",
+            "867",
+            "1501",
+            "2273",
+            "2321",
+            "3292"
+          ],
+          "occurrences": 13,
+          "sources": 7
+        },
+        {
           "kind": "pull-by",
           "sourceIds": [
             "115",
@@ -16369,18 +16519,6 @@
           ],
           "occurrences": 7,
           "sources": 6
-        },
-        {
-          "kind": "balance-rory-slide",
-          "sourceIds": [
-            "577",
-            "867",
-            "1501",
-            "2273",
-            "2321"
-          ],
-          "occurrences": 9,
-          "sources": 5
         },
         {
           "kind": "larks-chain",
@@ -18331,7 +18469,7 @@
       "id": "8",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\8.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\8.json",
       "snapshotOrigin": "fixture",
       "title": "The Baby Rose",
       "snapshotId": "contradb:8:1ec57eadf81d8f30",
@@ -18465,7 +18603,7 @@
       "id": "9",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\9.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\9.json",
       "snapshotOrigin": "fixture",
       "title": "Pittsboro Pattycake",
       "snapshotId": "contradb:9:25e40d8fc9265eea",
@@ -18609,7 +18747,7 @@
       "id": "24",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\24.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\24.json",
       "snapshotOrigin": "fixture",
       "title": "Hay in the Barn",
       "snapshotId": "contradb:24:70c6e7ff45f7bcd2",
@@ -18787,7 +18925,7 @@
       "id": "57",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\57.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\57.json",
       "snapshotOrigin": "fixture",
       "title": "Monday",
       "snapshotId": "contradb:57:872070b1126c3bfd",
@@ -18924,7 +19062,7 @@
       "id": "65",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\65.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\65.json",
       "snapshotOrigin": "fixture",
       "title": "Airpants, Bradley Smith pass through",
       "snapshotId": "contradb:65:4a53b0eecebd4caf",
@@ -19071,7 +19209,7 @@
       "id": "66",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\66.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\66.json",
       "snapshotOrigin": "fixture",
       "title": "Frederick Reel",
       "snapshotId": "contradb:66:b2a05b1cdd273f7c",
@@ -19247,7 +19385,7 @@
       "id": "67",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\67.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\67.json",
       "snapshotOrigin": "fixture",
       "title": "November Night",
       "snapshotId": "contradb:67:4f0ce58b101142ee",
@@ -19386,7 +19524,7 @@
       "id": "83",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\83.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\83.json",
       "snapshotOrigin": "fixture",
       "title": "Mad Robin in Love",
       "snapshotId": "contradb:83:3a9fb6ffcad4476d",
@@ -19532,7 +19670,7 @@
       "id": "94",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\94.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\94.json",
       "snapshotOrigin": "fixture",
       "title": "Butter",
       "snapshotId": "contradb:94:3bd49ece2e7bc845",
@@ -19678,7 +19816,7 @@
       "id": "99",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\99.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\99.json",
       "snapshotOrigin": "fixture",
       "title": "Bee in her Bonnet",
       "snapshotId": "contradb:99:0610c124fa67254c",
@@ -19857,7 +19995,7 @@
       "id": "110",
       "retainedSnapshot": true,
       "savedReady": false,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\110.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\110.json",
       "snapshotOrigin": "fixture",
       "title": "Liz's steady hand",
       "snapshotId": "contradb:110:9c3093c28056616f",
@@ -20020,7 +20158,7 @@
       "id": "115",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\115.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\115.json",
       "snapshotOrigin": "fixture",
       "title": "Sarah's Journey",
       "snapshotId": "contradb:115:4008baa757f8603a",
@@ -20139,7 +20277,7 @@
       "id": "123",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\123.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\123.json",
       "snapshotOrigin": "fixture",
       "title": "Pizza Shop",
       "snapshotId": "contradb:123:70646db5570a899b",
@@ -20331,7 +20469,7 @@
       "id": "133",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\133.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\133.json",
       "snapshotOrigin": "fixture",
       "title": "Thursday Night Special #1",
       "snapshotId": "contradb:133:b2bb2b8158d70003",
@@ -20514,7 +20652,7 @@
       "id": "138",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\138.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\138.json",
       "snapshotOrigin": "fixture",
       "title": "The Nice Combination",
       "snapshotId": "contradb:138:32d1887135de50bb",
@@ -20677,7 +20815,7 @@
       "id": "146",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\146.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\146.json",
       "snapshotOrigin": "fixture",
       "title": "Friday Night Fever",
       "snapshotId": "contradb:146:bd0d613f03c825ae",
@@ -20847,7 +20985,7 @@
       "id": "152",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\152.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\152.json",
       "snapshotOrigin": "fixture",
       "title": "Climate Change's Reel",
       "snapshotId": "contradb:152:d8584e339145551b",
@@ -21016,7 +21154,7 @@
       "id": "159",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\159.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\159.json",
       "snapshotOrigin": "fixture",
       "title": "Heartbeat Contra",
       "snapshotId": "contradb:159:cee6ac6f09418126",
@@ -21235,7 +21373,7 @@
       "id": "166",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\166.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\166.json",
       "snapshotOrigin": "fixture",
       "title": "Kiss the Bride",
       "snapshotId": "contradb:166:c333c4a0ec7e2e04",
@@ -21404,7 +21542,7 @@
       "id": "175",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\175.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\175.json",
       "snapshotOrigin": "fixture",
       "title": "Simplicity Swing",
       "snapshotId": "contradb:175:b63a17212463e27e",
@@ -21523,7 +21661,7 @@
       "id": "179",
       "retainedSnapshot": true,
       "savedReady": false,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\179.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\179.json",
       "snapshotOrigin": "fixture",
       "title": "Made Up Tonight",
       "snapshotId": "contradb:179:af407d03df09e71c",
@@ -21667,7 +21805,7 @@
       "id": "180",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\180.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\180.json",
       "snapshotOrigin": "fixture",
       "title": "The Full Deal",
       "snapshotId": "contradb:180:75dcd241e03ff51b",
@@ -21802,7 +21940,7 @@
       "id": "182",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\182.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\182.json",
       "snapshotOrigin": "fixture",
       "title": "Flirt Hurt",
       "snapshotId": "contradb:182:9696be5df811f9e4",
@@ -21981,7 +22119,7 @@
       "id": "185",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\185.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\185.json",
       "snapshotOrigin": "fixture",
       "title": "Courageous Soul",
       "snapshotId": "contradb:185:5b23a21beed4e0bc",
@@ -22105,7 +22243,7 @@
       "id": "187",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\187.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\187.json",
       "snapshotOrigin": "fixture",
       "title": "Nomad's Land",
       "snapshotId": "contradb:187:f194c882530c1ea0",
@@ -22333,7 +22471,7 @@
       "id": "188",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\188.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\188.json",
       "snapshotOrigin": "fixture",
       "title": "Cascades",
       "snapshotId": "contradb:188:edca501d00afc4c1",
@@ -22516,7 +22654,7 @@
       "id": "192",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\192.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\192.json",
       "snapshotOrigin": "fixture",
       "title": "Hyla's Flirt",
       "snapshotId": "contradb:192:ff97c0cd54491f02",
@@ -22669,7 +22807,7 @@
       "id": "236",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\236.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\236.json",
       "snapshotOrigin": "fixture",
       "title": "Nice & Easy Contra",
       "snapshotId": "contradb:236:10046770e88d3056",
@@ -22819,7 +22957,7 @@
       "id": "257",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\257.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\257.json",
       "snapshotOrigin": "fixture",
       "title": "Got Nice Neighbors",
       "snapshotId": "contradb:257:159a17ed84525746",
@@ -22981,7 +23119,7 @@
       "id": "265",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\265.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\265.json",
       "snapshotOrigin": "fixture",
       "title": "Trip to Kentucky (original)",
       "snapshotId": "contradb:265:dac05eb81b8c4184",
@@ -23157,7 +23295,7 @@
       "id": "266",
       "retainedSnapshot": true,
       "savedReady": false,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\266.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\266.json",
       "snapshotOrigin": "fixture",
       "title": "Hey in the Barn",
       "snapshotId": "contradb:266:ce929ea18959f38e",
@@ -23340,7 +23478,7 @@
       "id": "314",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\314.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\314.json",
       "snapshotOrigin": "fixture",
       "title": "Parmesan",
       "snapshotId": "contradb:314:e2349a8c0687bc21",
@@ -23484,7 +23622,7 @@
       "id": "333",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\333.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\333.json",
       "snapshotOrigin": "fixture",
       "title": "Once More With Feeling",
       "snapshotId": "contradb:333:042ffdf4bf28911b",
@@ -23661,7 +23799,7 @@
       "id": "340",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\340.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\340.json",
       "snapshotOrigin": "fixture",
       "title": "Another Easy One",
       "snapshotId": "contradb:340:933148f9673ee53b",
@@ -23840,7 +23978,7 @@
       "id": "354",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\354.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\354.json",
       "snapshotOrigin": "fixture",
       "title": "Delphiniums and Daisies",
       "snapshotId": "contradb:354:f5b3bdbdc6f98ff2",
@@ -23969,7 +24107,7 @@
       "id": "363",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\363.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\363.json",
       "snapshotOrigin": "fixture",
       "title": "Midwest Folklore",
       "snapshotId": "contradb:363:0a828ee30b61eb52",
@@ -24110,7 +24248,7 @@
       "id": "410",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\410.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\410.json",
       "snapshotOrigin": "fixture",
       "title": "Hocus Pocus",
       "snapshotId": "contradb:410:41bc01ab5031479e",
@@ -24289,7 +24427,7 @@
       "id": "427",
       "retainedSnapshot": true,
       "savedReady": false,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\427.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\427.json",
       "snapshotOrigin": "fixture",
       "title": "Lanny's Back",
       "snapshotId": "contradb:427:7879065e8fd548cf",
@@ -24481,7 +24619,7 @@
       "id": "443",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\443.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\443.json",
       "snapshotOrigin": "fixture",
       "title": "The Merry-Go-Round (Das Ringelspiel)",
       "snapshotId": "contradb:443:7333a72e757bb511",
@@ -24631,7 +24769,7 @@
       "id": "457",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\457.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\457.json",
       "snapshotOrigin": "fixture",
       "title": "Birthday",
       "snapshotId": "contradb:457:fedf2556bd00d2ef",
@@ -24824,7 +24962,7 @@
       "id": "458",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\458.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\458.json",
       "snapshotOrigin": "fixture",
       "title": "Kingsford Court",
       "snapshotId": "contradb:458:790e8b515390630f",
@@ -24980,7 +25118,7 @@
       "id": "480",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\480.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\480.json",
       "snapshotOrigin": "fixture",
       "title": "Barack Me, Obamadeus",
       "snapshotId": "contradb:480:1db049149dac1679",
@@ -25188,7 +25326,7 @@
       "id": "495",
       "retainedSnapshot": true,
       "savedReady": false,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\495.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\495.json",
       "snapshotOrigin": "fixture",
       "title": "Jurassic Redheads",
       "snapshotId": "contradb:495:89a0000b92af6a92",
@@ -25366,7 +25504,7 @@
       "id": "522",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\522.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\522.json",
       "snapshotOrigin": "fixture",
       "title": "Rod's Grits",
       "snapshotId": "contradb:522:6eb84edaae9cbae3",
@@ -25561,7 +25699,7 @@
       "id": "528",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\528.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\528.json",
       "snapshotOrigin": "fixture",
       "title": "Al's Safeway Produce",
       "snapshotId": "contradb:528:ad09ac3d9767a287",
@@ -25656,7 +25794,7 @@
       "id": "542",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\542.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\542.json",
       "snapshotOrigin": "fixture",
       "title": "Rod's Grits",
       "snapshotId": "contradb:542:dd4bdf5c629efbda",
@@ -25877,7 +26015,7 @@
       "id": "549",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\549.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\549.json",
       "snapshotOrigin": "fixture",
       "title": "Jubilation (var)",
       "snapshotId": "contradb:549:be2b40a35d363949",
@@ -26042,7 +26180,7 @@
       "id": "575",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\575.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\575.json",
       "snapshotOrigin": "fixture",
       "title": "Appetizer",
       "snapshotId": "contradb:575:c0c55701ed62d0cf",
@@ -26187,7 +26325,7 @@
       "id": "577",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\577.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\577.json",
       "snapshotOrigin": "fixture",
       "title": "Cats and More Cats",
       "snapshotId": "contradb:577:763a1e119490d664",
@@ -26399,7 +26537,7 @@
       "id": "595",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\595.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\595.json",
       "snapshotOrigin": "fixture",
       "title": "Jubilation",
       "snapshotId": "contradb:595:5d680f18e8dc9a60",
@@ -26543,7 +26681,7 @@
       "id": "624",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\624.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\624.json",
       "snapshotOrigin": "fixture",
       "title": "Cranky Ingenuity",
       "snapshotId": "contradb:624:88f76bd2fdd7c3b5",
@@ -26687,7 +26825,7 @@
       "id": "671",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\671.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\671.json",
       "snapshotOrigin": "fixture",
       "title": "Push the Button",
       "snapshotId": "contradb:671:3cc3ac08ed089581",
@@ -26834,7 +26972,7 @@
       "id": "682",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\682.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\682.json",
       "snapshotOrigin": "fixture",
       "title": "Rod's Grits Lawn variation",
       "snapshotId": "contradb:682:26b0d25da4d4bad8",
@@ -27055,7 +27193,7 @@
       "id": "724",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\724.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\724.json",
       "snapshotOrigin": "fixture",
       "title": "Piece of Cake variation",
       "snapshotId": "contradb:724:53424b1ebe2df000",
@@ -27233,7 +27371,7 @@
       "id": "729",
       "retainedSnapshot": true,
       "savedReady": false,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\729.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\729.json",
       "snapshotOrigin": "fixture",
       "title": "Echoing Allemandes",
       "snapshotId": "contradb:729:cd63aac276fb20de",
@@ -27345,7 +27483,7 @@
       "id": "761",
       "retainedSnapshot": true,
       "savedReady": false,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\761.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\761.json",
       "snapshotOrigin": "fixture",
       "title": "The Future Soon",
       "snapshotId": "contradb:761:78d57a8f4c07e448",
@@ -27533,7 +27671,7 @@
       "id": "769",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\769.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\769.json",
       "snapshotOrigin": "fixture",
       "title": "Treasure of Sierra Madre",
       "snapshotId": "contradb:769:2fa5f10193385db0",
@@ -27708,7 +27846,7 @@
       "id": "773",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\773.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\773.json",
       "snapshotOrigin": "fixture",
       "title": "Back of the Envelope",
       "snapshotId": "contradb:773:6d5a040470c6c924",
@@ -27832,7 +27970,7 @@
       "id": "774",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\774.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\774.json",
       "snapshotOrigin": "fixture",
       "title": "You're Among Produce",
       "snapshotId": "contradb:774:bc4a0adda98536b5",
@@ -27950,7 +28088,7 @@
       "id": "776",
       "retainedSnapshot": true,
       "savedReady": false,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\776.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\776.json",
       "snapshotOrigin": "fixture",
       "title": "Cupid's Clout",
       "snapshotId": "contradb:776:cd934b7bc75767ee",
@@ -28177,7 +28315,7 @@
       "id": "780",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\780.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\780.json",
       "snapshotOrigin": "fixture",
       "title": "The Big Easy",
       "snapshotId": "contradb:780:a1d0e66a1be2dda8",
@@ -28324,7 +28462,7 @@
       "id": "810",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\810.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\810.json",
       "snapshotOrigin": "fixture",
       "title": "Kitchen Stomp",
       "snapshotId": "contradb:810:4e807d50f6597ab8",
@@ -28500,7 +28638,7 @@
       "id": "823",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\823.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\823.json",
       "snapshotOrigin": "fixture",
       "title": "Daddy's Little Girl",
       "snapshotId": "contradb:823:09872db6c86751c1",
@@ -28634,10 +28772,200 @@
       }
     },
     {
+      "id": "828",
+      "retainedSnapshot": true,
+      "savedReady": true,
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\828.json",
+      "snapshotOrigin": "fixture",
+      "title": "Cats and More Cats",
+      "snapshotId": "contradb:828:c8e7eca1ed6372f3",
+      "rawDefaults": {
+        "status": "interpretation-blocked",
+        "coverage": {
+          "sourceParsed": true,
+          "recognizedRows": 8,
+          "resolvedRows": 3,
+          "totalRows": 8,
+          "semanticallyResolved": false,
+          "executable": false
+        },
+        "figureKinds": [
+          "circle",
+          "circle",
+          "swing"
+        ],
+        "blockers": [
+          "balance-swing-timing",
+          "circulation-choice",
+          "progression-location",
+          "ring-pass-choice",
+          "ring-pass-context",
+          "ring-pass-source-contract",
+          "rory-slide-choice",
+          "rory-slide-source-contract",
+          "rory-wave-context",
+          "unsupported-figure-variant"
+        ],
+        "diagnostics": [
+          {
+            "code": "circulation-choice",
+            "message": "The source says Becket without explicitly naming circulation. Select CW to use the current adapter."
+          },
+          {
+            "code": "ring-pass-source-contract",
+            "message": "This passage contract requires four stated counts in improper formation. Other durations or formations need a different declared plan."
+          },
+          {
+            "code": "ring-pass-choice",
+            "message": "Review a right-shoulder passage with the current neighbor, releasing the preceding six-count circle and ending facing progressed neighbors. Bare source wording does not name the shoulder or crossing relation."
+          },
+          {
+            "code": "ring-pass-context",
+            "message": "A two-count passage requires a complete supported compact circle-six/pass-two composition and its separately reviewed geometry/end policy. Other prefixes, circles or marker patterns remain unresolved."
+          },
+          {
+            "code": "unsupported-figure-variant",
+            "message": "The complete figure wording, including qualifiers, needs a semantic/motion adapter."
+          },
+          {
+            "code": "rory-slide-source-contract",
+            "message": "The current short-wave Rory contract retains eight source counts in improper formation."
+          },
+          {
+            "code": "rory-slide-choice",
+            "message": "Review four counts of balance beginning right, then four counts sliding one station right, with either no spin or one full right spin. The source names Rory right but omits these details."
+          },
+          {
+            "code": "rory-wave-context",
+            "message": "The current Rory adapter requires an explicitly formed short wave and its exact following held-allemande exits."
+          },
+          {
+            "code": "balance-swing-timing",
+            "message": "Choose a four-beat balance plus the remaining swing time; the source gives only the combined duration."
+          },
+          {
+            "code": "progression-location",
+            "message": "The progression event is not at this formation adapter’s reviewed boundary."
+          }
+        ],
+        "unresolvedRows": [
+          {
+            "row": 1,
+            "text": "pass through ⁋",
+            "recognized": true,
+            "figureKinds": [],
+            "blockers": [
+              "ring-pass-choice",
+              "ring-pass-context",
+              "ring-pass-source-contract"
+            ]
+          },
+          {
+            "row": 2,
+            "text": "next neighbors allemande right 1½ to long waves, ladles facing out",
+            "recognized": true,
+            "figureKinds": [],
+            "blockers": [
+              "unsupported-figure-variant"
+            ]
+          },
+          {
+            "row": 3,
+            "text": "balance & Rory O'More right",
+            "recognized": true,
+            "figureKinds": [],
+            "blockers": [
+              "rory-slide-choice",
+              "rory-slide-source-contract",
+              "rory-wave-context"
+            ]
+          },
+          {
+            "row": 4,
+            "text": "balance & Rory O'More left",
+            "recognized": true,
+            "figureKinds": [],
+            "blockers": [
+              "unsupported-figure-variant"
+            ]
+          },
+          {
+            "row": 5,
+            "text": "neighbors balance & swing",
+            "recognized": true,
+            "figureKinds": [],
+            "blockers": [
+              "balance-swing-timing"
+            ]
+          }
+        ]
+      },
+      "conventionalSuggestions": {
+        "status": "import-admitted",
+        "coverage": {
+          "sourceParsed": true,
+          "recognizedRows": 8,
+          "resolvedRows": 8,
+          "totalRows": 8,
+          "semanticallyResolved": true,
+          "executable": true
+        },
+        "figureKinds": [
+          "circle",
+          "pass-through",
+          "allemande",
+          "balance-rory-slide",
+          "balance-rory-slide",
+          "balance",
+          "swing",
+          "circle",
+          "swing"
+        ],
+        "blockers": [],
+        "diagnostics": [],
+        "unresolvedRows": [],
+        "choiceStatus": "suggested-not-approved",
+        "suggestionKinds": [
+          "conventional-wave"
+        ],
+        "interpretation": {
+          "becketWave": {
+            "convention": "compact-becket-neighbor-rory-v1",
+            "sourceSnapshotId": "contradb:828:c8e7eca1ed6372f3"
+          }
+        }
+      },
+      "savedInterpretation": {
+        "status": "import-admitted",
+        "coverage": {
+          "sourceParsed": true,
+          "recognizedRows": 8,
+          "resolvedRows": 8,
+          "totalRows": 8,
+          "semanticallyResolved": true,
+          "executable": true
+        },
+        "figureKinds": [
+          "circle",
+          "pass-through",
+          "allemande",
+          "balance-rory-slide",
+          "balance-rory-slide",
+          "balance",
+          "swing",
+          "circle",
+          "swing"
+        ],
+        "blockers": [],
+        "diagnostics": [],
+        "unresolvedRows": []
+      }
+    },
+    {
       "id": "831",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\831.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\831.json",
       "snapshotOrigin": "fixture",
       "title": "Airpants",
       "snapshotId": "contradb:831:8a4d1db7e2c51b7c",
@@ -28775,7 +29103,7 @@
       "id": "840",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\840.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\840.json",
       "snapshotOrigin": "fixture",
       "title": "Phoebe's Becket",
       "snapshotId": "contradb:840:82f8573e86e79fec",
@@ -28959,7 +29287,7 @@
       "id": "867",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\867.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\867.json",
       "snapshotOrigin": "fixture",
       "title": "Sugarbritches 2.0 allemande variation",
       "snapshotId": "contradb:867:e0fec02cebf7b8d1",
@@ -29121,7 +29449,7 @@
       "id": "871",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\871.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\871.json",
       "snapshotOrigin": "fixture",
       "title": "A Dance for Dan",
       "snapshotId": "contradb:871:c7227137255f8939",
@@ -29266,7 +29594,7 @@
       "id": "881",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\881.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\881.json",
       "snapshotOrigin": "fixture",
       "title": "The Big Easy variation",
       "snapshotId": "contradb:881:8914751f259dc2fb",
@@ -29422,7 +29750,7 @@
       "id": "885",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\885.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\885.json",
       "snapshotOrigin": "fixture",
       "title": "Al's Safeway Produce variation with Pull-By",
       "snapshotId": "contradb:885:5214536601fb5093",
@@ -29517,7 +29845,7 @@
       "id": "892",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\892.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\892.json",
       "snapshotOrigin": "fixture",
       "title": "After the Solstice",
       "snapshotId": "contradb:892:204db7e4f3558084",
@@ -29715,7 +30043,7 @@
       "id": "894",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\894.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\894.json",
       "snapshotOrigin": "fixture",
       "title": "The Second Time Around",
       "snapshotId": "contradb:894:114bdb2df8fb7b5c",
@@ -29885,7 +30213,7 @@
       "id": "896",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\896.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\896.json",
       "snapshotOrigin": "fixture",
       "title": "Saturday Night Fever",
       "snapshotId": "contradb:896:e1a1b074591ff221",
@@ -30070,7 +30398,7 @@
       "id": "907",
       "retainedSnapshot": true,
       "savedReady": false,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\907.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\907.json",
       "snapshotOrigin": "fixture",
       "title": "Money Musk",
       "snapshotId": "contradb:907:37e59aaf7f755c59",
@@ -30342,7 +30670,7 @@
       "id": "928",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\928.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\928.json",
       "snapshotOrigin": "fixture",
       "title": "A Summer Night in Seattle",
       "snapshotId": "contradb:928:3fc128a28a93d015",
@@ -30478,7 +30806,7 @@
       "id": "933",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\933.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\933.json",
       "snapshotOrigin": "fixture",
       "title": "Harmony Supper Line",
       "snapshotId": "contradb:933:ebc97f449b54c369",
@@ -30586,7 +30914,7 @@
       "id": "975",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\975.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\975.json",
       "snapshotOrigin": "fixture",
       "title": "Five Minute Warning",
       "snapshotId": "contradb:975:3a2d70cad4cc11d5",
@@ -30734,7 +31062,7 @@
       "id": "1000",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\1000.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\1000.json",
       "snapshotOrigin": "fixture",
       "title": "PB&J",
       "snapshotId": "contradb:1000:2e4b8fba31082805",
@@ -30868,7 +31196,7 @@
       "id": "1011",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\1011.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\1011.json",
       "snapshotOrigin": "fixture",
       "title": "Dancing Spell",
       "snapshotId": "contradb:1011:5a27c8133b146333",
@@ -31019,7 +31347,7 @@
       "id": "1021",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\1021.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\1021.json",
       "snapshotOrigin": "fixture",
       "title": "Tuesday Night Special",
       "snapshotId": "contradb:1021:16cf2f6e9486b358",
@@ -31214,7 +31542,7 @@
       "id": "1036",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\1036.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\1036.json",
       "snapshotOrigin": "fixture",
       "title": "East Litchfield Volunteers",
       "snapshotId": "contradb:1036:1777130d5e75be55",
@@ -31334,7 +31662,7 @@
       "id": "1067",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\1067.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\1067.json",
       "snapshotOrigin": "fixture",
       "title": "New Dance Dance tme",
       "snapshotId": "contradb:1067:32798dbf983fc966",
@@ -31534,7 +31862,7 @@
       "id": "1072",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\1072.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\1072.json",
       "snapshotOrigin": "fixture",
       "title": "Razzle Dazzle",
       "snapshotId": "contradb:1072:9bc08de5f20af513",
@@ -31692,7 +32020,7 @@
       "id": "1093",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\1093.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\1093.json",
       "snapshotOrigin": "fixture",
       "title": "First Hey",
       "snapshotId": "contradb:1093:4bce8e4be5c79a78",
@@ -31863,7 +32191,7 @@
       "id": "1098",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\1098.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\1098.json",
       "snapshotOrigin": "fixture",
       "title": "Everything Old is New Again",
       "snapshotId": "contradb:1098:a0e7ee106044bab6",
@@ -32016,7 +32344,7 @@
       "id": "1102",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\1102.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\1102.json",
       "snapshotOrigin": "fixture",
       "title": "Working Stiff",
       "snapshotId": "contradb:1102:98efe77bbc0ad0be",
@@ -32183,7 +32511,7 @@
       "id": "1144",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\1144.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\1144.json",
       "snapshotOrigin": "fixture",
       "title": "Piece of Cake",
       "snapshotId": "contradb:1144:d857f8e3c8fedfb8",
@@ -32332,7 +32660,7 @@
       "id": "1148",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\1148.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\1148.json",
       "snapshotOrigin": "fixture",
       "title": "Mended Sixpence variation",
       "snapshotId": "contradb:1148:8c5dad155116f477",
@@ -32476,7 +32804,7 @@
       "id": "1166",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\1166.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\1166.json",
       "snapshotOrigin": "fixture",
       "title": "The Baby Rose",
       "snapshotId": "contradb:1166:9e37fac8d8ef3efb",
@@ -32610,7 +32938,7 @@
       "id": "1174",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\1174.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\1174.json",
       "snapshotOrigin": "fixture",
       "title": "Sun Dancer",
       "snapshotId": "contradb:1174:c3c8ed69173de528",
@@ -32743,7 +33071,7 @@
       "id": "1191",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\1191.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\1191.json",
       "snapshotOrigin": "fixture",
       "title": "Grease",
       "snapshotId": "contradb:1191:46204453338f9db2",
@@ -32892,7 +33220,7 @@
       "id": "1270",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\1270.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\1270.json",
       "snapshotOrigin": "fixture",
       "title": "Don't Have to Walk but You Can Dance",
       "snapshotId": "contradb:1270:c8332b87c3c074d0",
@@ -33049,7 +33377,7 @@
       "id": "1273",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\1273.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\1273.json",
       "snapshotOrigin": "fixture",
       "title": "Kid from Kadoka",
       "snapshotId": "contradb:1273:5ebda490db1b3edb",
@@ -33202,7 +33530,7 @@
       "id": "1312",
       "retainedSnapshot": true,
       "savedReady": false,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\1312.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\1312.json",
       "snapshotOrigin": "fixture",
       "title": "Never Enough",
       "snapshotId": "contradb:1312:ff85eb50af714475",
@@ -33421,7 +33749,7 @@
       "id": "1420",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\1420.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\1420.json",
       "snapshotOrigin": "fixture",
       "title": "First dance",
       "snapshotId": "contradb:1420:1f08847ed36982b7",
@@ -33583,7 +33911,7 @@
       "id": "1428",
       "retainedSnapshot": true,
       "savedReady": false,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\1428.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\1428.json",
       "snapshotOrigin": "fixture",
       "title": "Second dance",
       "snapshotId": "contradb:1428:00be95e9061e4f6e",
@@ -33710,7 +34038,7 @@
       "id": "1434",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\1434.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\1434.json",
       "snapshotOrigin": "fixture",
       "title": "First dance variation",
       "snapshotId": "contradb:1434:1cd39500278a564e",
@@ -33872,7 +34200,7 @@
       "id": "1447",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\1447.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\1447.json",
       "snapshotOrigin": "fixture",
       "title": "Heartbreak Contra",
       "snapshotId": "contradb:1447:5c0dcbd7f084df72",
@@ -34066,7 +34394,7 @@
       "id": "1448",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\1448.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\1448.json",
       "snapshotOrigin": "fixture",
       "title": "Fire in the Creek variation",
       "snapshotId": "contradb:1448:2b91cdfcc9e32c84",
@@ -34182,7 +34510,7 @@
       "id": "1450",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\1450.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\1450.json",
       "snapshotOrigin": "fixture",
       "title": "Easy Peasy",
       "snapshotId": "contradb:1450:cd93fa7d557a7fe5",
@@ -34324,7 +34652,7 @@
       "id": "1461",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\1461.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\1461.json",
       "snapshotOrigin": "fixture",
       "title": "Hey Now",
       "snapshotId": "contradb:1461:f93fde24293aa611",
@@ -34483,7 +34811,7 @@
       "id": "1464",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\1464.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\1464.json",
       "snapshotOrigin": "fixture",
       "title": "Plain Vanilla",
       "snapshotId": "contradb:1464:57747464c2045e8d",
@@ -34641,7 +34969,7 @@
       "id": "1480",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\1480.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\1480.json",
       "snapshotOrigin": "fixture",
       "title": "The 24th of May",
       "snapshotId": "contradb:1480:1e66e670eaf378d6",
@@ -34797,7 +35125,7 @@
       "id": "1495",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\1495.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\1495.json",
       "snapshotOrigin": "fixture",
       "title": "You're Among Friends variation with pull by variation",
       "snapshotId": "contradb:1495:2b8a3b0b01a93ad9",
@@ -34910,7 +35238,7 @@
       "id": "1496",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\1496.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\1496.json",
       "snapshotOrigin": "fixture",
       "title": "First dance variation",
       "snapshotId": "contradb:1496:dd48ea9693967d44",
@@ -35072,7 +35400,7 @@
       "id": "1501",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\1501.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\1501.json",
       "snapshotOrigin": "fixture",
       "title": "Still More O'Moore",
       "snapshotId": "contradb:1501:a1df30e786cdcf45",
@@ -35270,7 +35598,7 @@
       "id": "1502",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\1502.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\1502.json",
       "snapshotOrigin": "fixture",
       "title": "Dancing in My Bones",
       "snapshotId": "contradb:1502:652aef79eac91f39",
@@ -35412,7 +35740,7 @@
       "id": "1529",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\1529.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\1529.json",
       "snapshotOrigin": "fixture",
       "title": "Joe",
       "snapshotId": "contradb:1529:6e24a82e2c196ff7",
@@ -35579,7 +35907,7 @@
       "id": "1545",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\1545.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\1545.json",
       "snapshotOrigin": "fixture",
       "title": "Frederick Contra",
       "snapshotId": "contradb:1545:55238d4e5990f93b",
@@ -35734,7 +36062,7 @@
       "id": "1546",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\1546.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\1546.json",
       "snapshotOrigin": "fixture",
       "title": "Traveling Salesman",
       "snapshotId": "contradb:1546:483a0631d7d887c0",
@@ -35888,7 +36216,7 @@
       "id": "1547",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\1547.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\1547.json",
       "snapshotOrigin": "fixture",
       "title": "Jump Back Barley",
       "snapshotId": "contradb:1547:3fe060aea7bb8b13",
@@ -36080,7 +36408,7 @@
       "id": "1550",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\1550.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\1550.json",
       "snapshotOrigin": "fixture",
       "title": "First dance variation",
       "snapshotId": "contradb:1550:4361080a6d92e577",
@@ -36225,7 +36553,7 @@
       "id": "1556",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\1556.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\1556.json",
       "snapshotOrigin": "fixture",
       "title": "Tall Paul's Shop",
       "snapshotId": "contradb:1556:7877d2d693914c07",
@@ -36402,7 +36730,7 @@
       "id": "1591",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\1591.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\1591.json",
       "snapshotOrigin": "fixture",
       "title": "Bob the Surfer",
       "snapshotId": "contradb:1591:7740033b9fcbc340",
@@ -36559,7 +36887,7 @@
       "id": "1599",
       "retainedSnapshot": true,
       "savedReady": false,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\1599.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\1599.json",
       "snapshotOrigin": "fixture",
       "title": "Back on the Interstate",
       "snapshotId": "contradb:1599:c4a03ea795043b49",
@@ -36677,7 +37005,7 @@
       "id": "1616",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\1616.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\1616.json",
       "snapshotOrigin": "fixture",
       "title": "Patience",
       "snapshotId": "contradb:1616:26976948122f8473",
@@ -36813,7 +37141,7 @@
       "id": "1617",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\1617.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\1617.json",
       "snapshotOrigin": "fixture",
       "title": "Streetsboro Daisies",
       "snapshotId": "contradb:1617:5506474f94f424d8",
@@ -36940,7 +37268,7 @@
       "id": "1618",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\1618.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\1618.json",
       "snapshotOrigin": "fixture",
       "title": "Paloma's Becket",
       "snapshotId": "contradb:1618:df809ddd81e071a6",
@@ -37128,7 +37456,7 @@
       "id": "1632",
       "retainedSnapshot": true,
       "savedReady": false,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\1632.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\1632.json",
       "snapshotOrigin": "fixture",
       "title": "Spin Break",
       "snapshotId": "contradb:1632:f3ff307ac9c1bc26",
@@ -37370,7 +37698,7 @@
       "id": "1658",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\1658.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\1658.json",
       "snapshotOrigin": "fixture",
       "title": "Bev's Becket A",
       "snapshotId": "contradb:1658:6494fe5ee55b2170",
@@ -37550,7 +37878,7 @@
       "id": "1697",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\1697.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\1697.json",
       "snapshotOrigin": "fixture",
       "title": "Hey Fever",
       "snapshotId": "contradb:1697:e7c3405633853a1c",
@@ -37716,7 +38044,7 @@
       "id": "1702",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\1702.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\1702.json",
       "snapshotOrigin": "fixture",
       "title": "Chicago Shuffle",
       "snapshotId": "contradb:1702:22d80d4a1b400e42",
@@ -37905,7 +38233,7 @@
       "id": "1744",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\1744.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\1744.json",
       "snapshotOrigin": "fixture",
       "title": "Another First Time",
       "snapshotId": "contradb:1744:388be07ae2f98377",
@@ -38021,7 +38349,7 @@
       "id": "1749",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\1749.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\1749.json",
       "snapshotOrigin": "fixture",
       "title": "Aberdeen Angus",
       "snapshotId": "contradb:1749:8e83b693b5f5c1cd",
@@ -38195,7 +38523,7 @@
       "id": "1821",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\1821.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\1821.json",
       "snapshotOrigin": "fixture",
       "title": "The Full Deal variation",
       "snapshotId": "contradb:1821:afcfadb5a041a4ee",
@@ -38330,7 +38658,7 @@
       "id": "1926",
       "retainedSnapshot": true,
       "savedReady": false,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\1926.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\1926.json",
       "snapshotOrigin": "fixture",
       "title": "Monday Night in Ballard",
       "snapshotId": "contradb:1926:630aee02d1849227",
@@ -38439,7 +38767,7 @@
       "id": "1930",
       "retainedSnapshot": true,
       "savedReady": false,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\1930.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\1930.json",
       "snapshotOrigin": "fixture",
       "title": "Lakestar Contra",
       "snapshotId": "contradb:1930:878c64526891bc80",
@@ -38539,7 +38867,7 @@
       "id": "1942",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\1942.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\1942.json",
       "snapshotOrigin": "fixture",
       "title": "Top of the Stairs",
       "snapshotId": "contradb:1942:d0d68e0ed139c4e6",
@@ -38666,7 +38994,7 @@
       "id": "1972",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\1972.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\1972.json",
       "snapshotOrigin": "fixture",
       "title": "I Drove to Portland for Tacos",
       "snapshotId": "contradb:1972:614ecf3f89449d81",
@@ -38799,7 +39127,7 @@
       "id": "1974",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\1974.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\1974.json",
       "snapshotOrigin": "fixture",
       "title": "Too Hot to Trot var.",
       "snapshotId": "contradb:1974:a25e3c3efd3a9d16",
@@ -38956,7 +39284,7 @@
       "id": "1976",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\1976.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\1976.json",
       "snapshotOrigin": "fixture",
       "title": "Another Flirty Attempt",
       "snapshotId": "contradb:1976:f6d210b066dd6e7b",
@@ -39069,7 +39397,7 @@
       "id": "1983",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\1983.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\1983.json",
       "snapshotOrigin": "fixture",
       "title": "Five Minute Warning variation",
       "snapshotId": "contradb:1983:ddd448ff644f707b",
@@ -39217,7 +39545,7 @@
       "id": "1992",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\1992.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\1992.json",
       "snapshotOrigin": "fixture",
       "title": "Undercurrent",
       "snapshotId": "contradb:1992:081fa801c32cb4ac",
@@ -39383,7 +39711,7 @@
       "id": "2006",
       "retainedSnapshot": true,
       "savedReady": false,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\2006.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\2006.json",
       "snapshotOrigin": "fixture",
       "title": "Dreamland Races",
       "snapshotId": "contradb:2006:64b9dffe51b2c23b",
@@ -39669,7 +39997,7 @@
       "id": "2026",
       "retainedSnapshot": true,
       "savedReady": false,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\2026.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\2026.json",
       "snapshotOrigin": "fixture",
       "title": "Broken Sixpence",
       "snapshotId": "contradb:2026:b4daaf53cdf38a3e",
@@ -39870,7 +40198,7 @@
       "id": "2040",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\2040.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\2040.json",
       "snapshotOrigin": "fixture",
       "title": "Lark in The Afternoon",
       "snapshotId": "contradb:2040:d4a59df654642eeb",
@@ -40012,7 +40340,7 @@
       "id": "2062",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\2062.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\2062.json",
       "snapshotOrigin": "fixture",
       "title": "South Union Reel",
       "snapshotId": "contradb:2062:7cd7067b22ee29ae",
@@ -40120,7 +40448,7 @@
       "id": "2063",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\2063.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\2063.json",
       "snapshotOrigin": "fixture",
       "title": "South Union Reel var",
       "snapshotId": "contradb:2063:a953e8e63bb9c331",
@@ -40244,7 +40572,7 @@
       "id": "2141",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\2141.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\2141.json",
       "snapshotOrigin": "fixture",
       "title": "Jefferson And Liberty variation",
       "snapshotId": "contradb:2141:5db649b33f6f8e85",
@@ -40373,7 +40701,7 @@
       "id": "2176",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\2176.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\2176.json",
       "snapshotOrigin": "fixture",
       "title": "3 of 2",
       "snapshotId": "contradb:2176:61f866edda0aabb8",
@@ -40500,7 +40828,7 @@
       "id": "2194",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\2194.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\2194.json",
       "snapshotOrigin": "fixture",
       "title": "Bristol Court",
       "snapshotId": "contradb:2194:604be74ae7a3df00",
@@ -40657,7 +40985,7 @@
       "id": "2211",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\2211.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\2211.json",
       "snapshotOrigin": "fixture",
       "title": "Mr. Isaac's Magic",
       "snapshotId": "contradb:2211:23db2bac2dc37bc1",
@@ -40849,7 +41177,7 @@
       "id": "2212",
       "retainedSnapshot": true,
       "savedReady": false,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\2212.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\2212.json",
       "snapshotOrigin": "fixture",
       "title": "Pigeon on the Jetway",
       "snapshotId": "contradb:2212:92f9d4c931f296b9",
@@ -41050,7 +41378,7 @@
       "id": "2213",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\2213.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\2213.json",
       "snapshotOrigin": "fixture",
       "title": "Culver City Contra",
       "snapshotId": "contradb:2213:e7c82f3e078a6aed",
@@ -41196,7 +41524,7 @@
       "id": "2226",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\2226.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\2226.json",
       "snapshotOrigin": "fixture",
       "title": "Yoyo's Ma",
       "snapshotId": "contradb:2226:eaee700f51122bb1",
@@ -41404,7 +41732,7 @@
       "id": "2235",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\2235.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\2235.json",
       "snapshotOrigin": "fixture",
       "title": "Ashokan Hello (var.)",
       "snapshotId": "contradb:2235:d2e29698c5aaff4d",
@@ -41550,7 +41878,7 @@
       "id": "2236",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\2236.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\2236.json",
       "snapshotOrigin": "fixture",
       "title": "right dance, wrong time",
       "snapshotId": "contradb:2236:c6d27e5aaad350ae",
@@ -41744,7 +42072,7 @@
       "id": "2243",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\2243.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\2243.json",
       "snapshotOrigin": "fixture",
       "title": "Ann's Roll-Away Hey",
       "snapshotId": "contradb:2243:69d3fb10cdd73a41",
@@ -41950,7 +42278,7 @@
       "id": "2247",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\2247.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\2247.json",
       "snapshotOrigin": "fixture",
       "title": "Power Surge",
       "snapshotId": "contradb:2247:f104c4f21aa9df19",
@@ -42166,7 +42494,7 @@
       "id": "2259",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\2259.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\2259.json",
       "snapshotOrigin": "fixture",
       "title": "Box the Gnat Contra",
       "snapshotId": "contradb:2259:58cb2050bea7de58",
@@ -42326,7 +42654,7 @@
       "id": "2266",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\2266.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\2266.json",
       "snapshotOrigin": "fixture",
       "title": "Unbelievable!",
       "snapshotId": "contradb:2266:27d9790b2c5d0bfb",
@@ -42497,7 +42825,7 @@
       "id": "2273",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\2273.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\2273.json",
       "snapshotOrigin": "fixture",
       "title": "Beck and Call",
       "snapshotId": "contradb:2273:334436cfec6cbad0",
@@ -42694,7 +43022,7 @@
       "id": "2299",
       "retainedSnapshot": true,
       "savedReady": false,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\2299.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\2299.json",
       "snapshotOrigin": "fixture",
       "title": "Everybody Dance",
       "snapshotId": "contradb:2299:8c8893e6613aa234",
@@ -42842,7 +43170,7 @@
       "id": "2305",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\2305.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\2305.json",
       "snapshotOrigin": "fixture",
       "title": "Bobbing for Isaacs",
       "snapshotId": "contradb:2305:6f545ba8cc2a4118",
@@ -43027,7 +43355,7 @@
       "id": "2321",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\2321.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\2321.json",
       "snapshotOrigin": "fixture",
       "title": "Debra's Dance",
       "snapshotId": "contradb:2321:d90195138c91ac10",
@@ -43212,7 +43540,7 @@
       "id": "2322",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\2322.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\2322.json",
       "snapshotOrigin": "fixture",
       "title": "Rollin' to the Grey Eagle",
       "snapshotId": "contradb:2322:e2ab66032c601c4e",
@@ -43412,7 +43740,7 @@
       "id": "2329",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\2329.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\2329.json",
       "snapshotOrigin": "fixture",
       "title": "I Wanna Dance",
       "snapshotId": "contradb:2329:eb0f68a615923bba",
@@ -43646,7 +43974,7 @@
       "id": "2330",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\2330.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\2330.json",
       "snapshotOrigin": "fixture",
       "title": "Heat Exhaustion",
       "snapshotId": "contradb:2330:d417cff467caea83",
@@ -43856,7 +44184,7 @@
       "id": "2331",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\2331.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\2331.json",
       "snapshotOrigin": "fixture",
       "title": "Heat Stroke",
       "snapshotId": "contradb:2331:2aaa09f220a70654",
@@ -44076,7 +44404,7 @@
       "id": "2344",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\2344.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\2344.json",
       "snapshotOrigin": "fixture",
       "title": "Jubilation Permutation",
       "snapshotId": "contradb:2344:b61dbe36ea4063a5",
@@ -44225,7 +44553,7 @@
       "id": "2355",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\2355.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\2355.json",
       "snapshotOrigin": "fixture",
       "title": "After the Solstice var",
       "snapshotId": "contradb:2355:bacd83926dc9d16a",
@@ -44367,7 +44695,7 @@
       "id": "2364",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\2364.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\2364.json",
       "snapshotOrigin": "fixture",
       "title": "When It Chains It Pours",
       "snapshotId": "contradb:2364:2dcc5cba6cb33774",
@@ -44560,7 +44888,7 @@
       "id": "2373",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\2373.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\2373.json",
       "snapshotOrigin": "fixture",
       "title": "Ben's Brilliance",
       "snapshotId": "contradb:2373:8484ab5ffaf95417",
@@ -44729,7 +45057,7 @@
       "id": "2409",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\2409.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\2409.json",
       "snapshotOrigin": "fixture",
       "title": "Another Last Dance",
       "snapshotId": "contradb:2409:2c13e20c6834e5b1",
@@ -44836,7 +45164,7 @@
       "id": "2418",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\2418.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\2418.json",
       "snapshotOrigin": "fixture",
       "title": "Emma's Emergency",
       "snapshotId": "contradb:2418:6fbbb0673031bc44",
@@ -45006,7 +45334,7 @@
       "id": "2425",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\2425.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\2425.json",
       "snapshotOrigin": "fixture",
       "title": "Snapping the wood variation",
       "snapshotId": "contradb:2425:7e2c06501cf0472f",
@@ -45192,7 +45520,7 @@
       "id": "2446",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\2446.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\2446.json",
       "snapshotOrigin": "fixture",
       "title": "Reel Time",
       "snapshotId": "contradb:2446:5234262a228653dd",
@@ -45310,7 +45638,7 @@
       "id": "2456",
       "retainedSnapshot": true,
       "savedReady": false,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\2456.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\2456.json",
       "snapshotOrigin": "fixture",
       "title": "Jaded",
       "snapshotId": "contradb:2456:05a1deae19befa21",
@@ -45432,7 +45760,7 @@
       "id": "2457",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\2457.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\2457.json",
       "snapshotOrigin": "fixture",
       "title": "No Title WIP",
       "snapshotId": "contradb:2457:609cae310a4c5714",
@@ -45564,7 +45892,7 @@
       "id": "2484",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\2484.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\2484.json",
       "snapshotOrigin": "fixture",
       "title": "Almost Never Too Late",
       "snapshotId": "contradb:2484:19447b4df5a0949e",
@@ -45713,7 +46041,7 @@
       "id": "2490",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\2490.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\2490.json",
       "snapshotOrigin": "fixture",
       "title": "Did I Write This?",
       "snapshotId": "contradb:2490:69f13fc47f8c6714",
@@ -45870,7 +46198,7 @@
       "id": "2492",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\2492.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\2492.json",
       "snapshotOrigin": "fixture",
       "title": "Jim to the Rescue",
       "snapshotId": "contradb:2492:aa2a8bff3f66bf72",
@@ -46078,7 +46406,7 @@
       "id": "2494",
       "retainedSnapshot": true,
       "savedReady": false,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\2494.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\2494.json",
       "snapshotOrigin": "fixture",
       "title": "[DEPRECATED] Autopilot",
       "snapshotId": "contradb:2494:f7cdcb7fa8f9d920",
@@ -46242,7 +46570,7 @@
       "id": "2518",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\2518.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\2518.json",
       "snapshotOrigin": "fixture",
       "title": "Festival Reel",
       "snapshotId": "contradb:2518:a7c8b5d74ddd9d37",
@@ -46397,7 +46725,7 @@
       "id": "2522",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\2522.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\2522.json",
       "snapshotOrigin": "fixture",
       "title": "Festival Reel II",
       "snapshotId": "contradb:2522:21d50f01b9556369",
@@ -46534,7 +46862,7 @@
       "id": "2530",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\2530.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\2530.json",
       "snapshotOrigin": "fixture",
       "title": "Greetings",
       "snapshotId": "contradb:2530:0d09833ac1468292",
@@ -46724,7 +47052,7 @@
       "id": "2531",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\2531.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\2531.json",
       "snapshotOrigin": "fixture",
       "title": "I Wish They All Could be California Twirls",
       "snapshotId": "contradb:2531:2bf6bc663c571266",
@@ -46949,7 +47277,7 @@
       "id": "2604",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\2604.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\2604.json",
       "snapshotOrigin": "fixture",
       "title": "Another Safe Production",
       "snapshotId": "contradb:2604:c1dfb3f9cf04499f",
@@ -47088,7 +47416,7 @@
       "id": "2605",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\2605.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\2605.json",
       "snapshotOrigin": "fixture",
       "title": "Spend Some Money Together",
       "snapshotId": "contradb:2605:f7fb157413396528",
@@ -47264,7 +47592,7 @@
       "id": "2672",
       "retainedSnapshot": true,
       "savedReady": false,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\2672.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\2672.json",
       "snapshotOrigin": "fixture",
       "title": "Not Butter",
       "snapshotId": "contradb:2672:e5f5b5a4b713e85f",
@@ -47509,7 +47837,7 @@
       "id": "2684",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\2684.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\2684.json",
       "snapshotOrigin": "fixture",
       "title": "Al's Heyday #2",
       "snapshotId": "contradb:2684:cbd5ca45b0da6123",
@@ -47656,7 +47984,7 @@
       "id": "2693",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\2693.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\2693.json",
       "snapshotOrigin": "fixture",
       "title": "I Call Fowl",
       "snapshotId": "contradb:2693:f1849a36caef32b8",
@@ -47845,7 +48173,7 @@
       "id": "2701",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\2701.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\2701.json",
       "snapshotOrigin": "fixture",
       "title": "Forgotten Treasure",
       "snapshotId": "contradb:2701:6dec28f76ba575b0",
@@ -48010,7 +48338,7 @@
       "id": "2876",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\2876.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\2876.json",
       "snapshotOrigin": "fixture",
       "title": "Early Bird Special",
       "snapshotId": "contradb:2876:387814d966fed1f3",
@@ -48205,7 +48533,7 @@
       "id": "2903",
       "retainedSnapshot": true,
       "savedReady": false,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\2903.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\2903.json",
       "snapshotOrigin": "fixture",
       "title": "MacKaye Harbor",
       "snapshotId": "contradb:2903:d59a8965b42b331f",
@@ -48357,7 +48685,7 @@
       "id": "2964",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\2964.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\2964.json",
       "snapshotOrigin": "fixture",
       "title": "Pure Ingredients",
       "snapshotId": "contradb:2964:1eda39864bcebc32",
@@ -48485,7 +48813,7 @@
       "id": "2966",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\2966.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\2966.json",
       "snapshotOrigin": "fixture",
       "title": "A-1 Reel var.",
       "snapshotId": "contradb:2966:53b4df98548938fb",
@@ -48649,7 +48977,7 @@
       "id": "2987",
       "retainedSnapshot": true,
       "savedReady": false,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\2987.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\2987.json",
       "snapshotOrigin": "fixture",
       "title": "Stay in Touch",
       "snapshotId": "contradb:2987:22ee319d856f9c08",
@@ -48739,7 +49067,7 @@
       "id": "2996",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\2996.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\2996.json",
       "snapshotOrigin": "fixture",
       "title": "Hey For Us Chickens",
       "snapshotId": "contradb:2996:d9acee6985c8a7b4",
@@ -48872,7 +49200,7 @@
       "id": "3004",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\3004.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\3004.json",
       "snapshotOrigin": "fixture",
       "title": "Pandora's Box",
       "snapshotId": "contradb:3004:0a9039751025e672",
@@ -49051,7 +49379,7 @@
       "id": "3010",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\3010.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\3010.json",
       "snapshotOrigin": "fixture",
       "title": "Heartbreak Contra (A2 ring balance)",
       "snapshotId": "contradb:3010:01b2e35baaf447d0",
@@ -49229,7 +49557,7 @@
       "id": "3012",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\3012.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\3012.json",
       "snapshotOrigin": "fixture",
       "title": "Early Evening Jig",
       "snapshotId": "contradb:3012:5ee2b94e221b0d08",
@@ -49417,7 +49745,7 @@
       "id": "3051",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\3051.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\3051.json",
       "snapshotOrigin": "fixture",
       "title": "Back to Back to Back to Back to You",
       "snapshotId": "contradb:3051:1c17e42eaaddd4bb",
@@ -49583,7 +49911,7 @@
       "id": "3081",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\3081.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\3081.json",
       "snapshotOrigin": "fixture",
       "title": "Airpants Variation",
       "snapshotId": "contradb:3081:8b10bb9387e98f9e",
@@ -49741,7 +50069,7 @@
       "id": "3086",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\3086.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\3086.json",
       "snapshotOrigin": "fixture",
       "title": "The Baby Rose (no-chain var)",
       "snapshotId": "contradb:3086:96ff5d0fd21d9ae6",
@@ -49889,7 +50217,7 @@
       "id": "3087",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\3087.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\3087.json",
       "snapshotOrigin": "fixture",
       "title": "Show of Hands I",
       "snapshotId": "contradb:3087:9ce19af227b7be1c",
@@ -49996,7 +50324,7 @@
       "id": "3115",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\3115.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\3115.json",
       "snapshotOrigin": "fixture",
       "title": "Back to Back to Back to Back to You (variation)",
       "snapshotId": "contradb:3115:460e7f5f07d6e0d8",
@@ -50126,7 +50454,7 @@
       "id": "3138",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\3138.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\3138.json",
       "snapshotOrigin": "fixture",
       "title": "Honey variation",
       "snapshotId": "contradb:3138:f120949cd437bef9",
@@ -50270,7 +50598,7 @@
       "id": "3142",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\3142.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\3142.json",
       "snapshotOrigin": "fixture",
       "title": "Unbelievable! variation",
       "snapshotId": "contradb:3142:b060c1c37b51ed3c",
@@ -50441,7 +50769,7 @@
       "id": "3153",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\3153.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\3153.json",
       "snapshotOrigin": "fixture",
       "title": "Camp Sertoma Farewell",
       "snapshotId": "contradb:3153:efaf9a89ffa25120",
@@ -50552,7 +50880,7 @@
       "id": "3181",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\3181.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\3181.json",
       "snapshotOrigin": "fixture",
       "title": "Festival Reel II (variation)",
       "snapshotId": "contradb:3181:8f536fa6dc069c2a",
@@ -50681,7 +51009,7 @@
       "id": "3185",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\3185.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\3185.json",
       "snapshotOrigin": "fixture",
       "title": "Fingerling Potatoes",
       "snapshotId": "contradb:3185:edc0225e10dafc6e",
@@ -50855,7 +51183,7 @@
       "id": "3195",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\3195.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\3195.json",
       "snapshotOrigin": "fixture",
       "title": "Opus 4.6.1",
       "snapshotId": "contradb:3195:362fc66c8db09369",
@@ -50992,7 +51320,7 @@
       "id": "3199",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\3199.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\3199.json",
       "snapshotOrigin": "fixture",
       "title": "Opus 4.6.3",
       "snapshotId": "contradb:3199:74521c45d0ad74b3",
@@ -51133,7 +51461,7 @@
       "id": "3214",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\3214.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\3214.json",
       "snapshotOrigin": "fixture",
       "title": "Whip-poor-will",
       "snapshotId": "contradb:3214:e9618a66f67d9b66",
@@ -51289,7 +51617,7 @@
       "id": "3241",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\3241.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\3241.json",
       "snapshotOrigin": "fixture",
       "title": "Opus 4.6.6",
       "snapshotId": "contradb:3241:d42323910d5482f0",
@@ -51510,7 +51838,7 @@
       "id": "3260",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\3260.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\3260.json",
       "snapshotOrigin": "fixture",
       "title": "Opus 4.6.9",
       "snapshotId": "contradb:3260:5162a6243ca11440",
@@ -51675,7 +52003,7 @@
       "id": "3261",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\3261.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\3261.json",
       "snapshotOrigin": "fixture",
       "title": "Opus 4.6.10",
       "snapshotId": "contradb:3261:94b1b09ae45cefbf",
@@ -51860,7 +52188,7 @@
       "id": "3265",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\3265.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\3265.json",
       "snapshotOrigin": "fixture",
       "title": "Snap",
       "snapshotId": "contradb:3265:15ba781f402d26a5",
@@ -52036,7 +52364,7 @@
       "id": "3280",
       "retainedSnapshot": true,
       "savedReady": false,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\3280.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\3280.json",
       "snapshotOrigin": "fixture",
       "title": "Treasure of the Sierra Madre",
       "snapshotId": "contradb:3280:03b9f64b55d17245",
@@ -52202,10 +52530,200 @@
       }
     },
     {
+      "id": "3292",
+      "retainedSnapshot": true,
+      "savedReady": true,
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\3292.json",
+      "snapshotOrigin": "fixture",
+      "title": "Cats and More Cats variation",
+      "snapshotId": "contradb:3292:10ab36800e78aae2",
+      "rawDefaults": {
+        "status": "interpretation-blocked",
+        "coverage": {
+          "sourceParsed": true,
+          "recognizedRows": 8,
+          "resolvedRows": 3,
+          "totalRows": 8,
+          "semanticallyResolved": false,
+          "executable": false
+        },
+        "figureKinds": [
+          "circle",
+          "circle",
+          "swing"
+        ],
+        "blockers": [
+          "balance-swing-timing",
+          "circulation-choice",
+          "progression-location",
+          "ring-pass-choice",
+          "ring-pass-context",
+          "ring-pass-source-contract",
+          "rory-slide-choice",
+          "rory-slide-source-contract",
+          "rory-wave-context",
+          "unsupported-figure-variant"
+        ],
+        "diagnostics": [
+          {
+            "code": "circulation-choice",
+            "message": "The source says Becket without explicitly naming circulation. Select CW to use the current adapter."
+          },
+          {
+            "code": "ring-pass-source-contract",
+            "message": "This passage contract requires four stated counts in improper formation. Other durations or formations need a different declared plan."
+          },
+          {
+            "code": "ring-pass-choice",
+            "message": "Review a right-shoulder passage with the current neighbor, releasing the preceding six-count circle and ending facing progressed neighbors. Bare source wording does not name the shoulder or crossing relation."
+          },
+          {
+            "code": "ring-pass-context",
+            "message": "A two-count passage requires a complete supported compact circle-six/pass-two composition and its separately reviewed geometry/end policy. Other prefixes, circles or marker patterns remain unresolved."
+          },
+          {
+            "code": "unsupported-figure-variant",
+            "message": "The complete figure wording, including qualifiers, needs a semantic/motion adapter."
+          },
+          {
+            "code": "rory-slide-source-contract",
+            "message": "The current short-wave Rory contract retains eight source counts in improper formation."
+          },
+          {
+            "code": "rory-slide-choice",
+            "message": "Review four counts of balance beginning right, then four counts sliding one station right, with either no spin or one full right spin. The source names Rory right but omits these details."
+          },
+          {
+            "code": "rory-wave-context",
+            "message": "The current Rory adapter requires an explicitly formed short wave and its exact following held-allemande exits."
+          },
+          {
+            "code": "balance-swing-timing",
+            "message": "Choose a four-beat balance plus the remaining swing time; the source gives only the combined duration."
+          },
+          {
+            "code": "progression-location",
+            "message": "The progression event is not at this formation adapter’s reviewed boundary."
+          }
+        ],
+        "unresolvedRows": [
+          {
+            "row": 1,
+            "text": "pass through ⁋",
+            "recognized": true,
+            "figureKinds": [],
+            "blockers": [
+              "ring-pass-choice",
+              "ring-pass-context",
+              "ring-pass-source-contract"
+            ]
+          },
+          {
+            "row": 2,
+            "text": "next neighbors allemande right 1½ to long waves, ladles facing out",
+            "recognized": true,
+            "figureKinds": [],
+            "blockers": [
+              "unsupported-figure-variant"
+            ]
+          },
+          {
+            "row": 3,
+            "text": "balance & Rory O'More right",
+            "recognized": true,
+            "figureKinds": [],
+            "blockers": [
+              "rory-slide-choice",
+              "rory-slide-source-contract",
+              "rory-wave-context"
+            ]
+          },
+          {
+            "row": 4,
+            "text": "balance & Rory O'More left",
+            "recognized": true,
+            "figureKinds": [],
+            "blockers": [
+              "unsupported-figure-variant"
+            ]
+          },
+          {
+            "row": 5,
+            "text": "neighbors balance & swing",
+            "recognized": true,
+            "figureKinds": [],
+            "blockers": [
+              "balance-swing-timing"
+            ]
+          }
+        ]
+      },
+      "conventionalSuggestions": {
+        "status": "import-admitted",
+        "coverage": {
+          "sourceParsed": true,
+          "recognizedRows": 8,
+          "resolvedRows": 8,
+          "totalRows": 8,
+          "semanticallyResolved": true,
+          "executable": true
+        },
+        "figureKinds": [
+          "circle",
+          "pass-through",
+          "allemande",
+          "balance-rory-slide",
+          "balance-rory-slide",
+          "balance",
+          "swing",
+          "circle",
+          "swing"
+        ],
+        "blockers": [],
+        "diagnostics": [],
+        "unresolvedRows": [],
+        "choiceStatus": "suggested-not-approved",
+        "suggestionKinds": [
+          "conventional-wave"
+        ],
+        "interpretation": {
+          "becketWave": {
+            "convention": "compact-becket-neighbor-rory-v1",
+            "sourceSnapshotId": "contradb:3292:10ab36800e78aae2"
+          }
+        }
+      },
+      "savedInterpretation": {
+        "status": "import-admitted",
+        "coverage": {
+          "sourceParsed": true,
+          "recognizedRows": 8,
+          "resolvedRows": 8,
+          "totalRows": 8,
+          "semanticallyResolved": true,
+          "executable": true
+        },
+        "figureKinds": [
+          "circle",
+          "pass-through",
+          "allemande",
+          "balance-rory-slide",
+          "balance-rory-slide",
+          "balance",
+          "swing",
+          "circle",
+          "swing"
+        ],
+        "blockers": [],
+        "diagnostics": [],
+        "unresolvedRows": []
+      }
+    },
+    {
       "id": "3310",
       "retainedSnapshot": true,
       "savedReady": false,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\3310.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\3310.json",
       "snapshotOrigin": "fixture",
       "title": "Kiss the Bride variation",
       "snapshotId": "contradb:3310:5328ffd55826e141",
@@ -52349,7 +52867,7 @@
       "id": "3326",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\3326.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\3326.json",
       "snapshotOrigin": "fixture",
       "title": "Swamp Stomp",
       "snapshotId": "contradb:3326:2c59684db44093cb",
@@ -52508,7 +53026,7 @@
       "id": "3327",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\3327.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\3327.json",
       "snapshotOrigin": "fixture",
       "title": "Push the Button",
       "snapshotId": "contradb:3327:cc61cac1679c0116",
@@ -52662,7 +53180,7 @@
       "id": "3328",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\3328.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\3328.json",
       "snapshotOrigin": "fixture",
       "title": "Heartbreak Contra (variation)",
       "snapshotId": "contradb:3328:ab03024c0f501475",
@@ -52863,7 +53381,7 @@
       "id": "3335",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\3335.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\3335.json",
       "snapshotOrigin": "fixture",
       "title": "If You Can Walk, You Can Dance",
       "snapshotId": "contradb:3335:c1b6453c04551c7d",
@@ -53018,7 +53536,7 @@
       "id": "3361",
       "retainedSnapshot": true,
       "savedReady": false,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\3361.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\3361.json",
       "snapshotOrigin": "fixture",
       "title": "Family Contra in the Castle (1s swing variation)",
       "snapshotId": "contradb:3361:e8dd3b10c3a933e9",
@@ -53126,7 +53644,7 @@
       "id": "3363",
       "retainedSnapshot": true,
       "savedReady": false,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\3363.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\3363.json",
       "snapshotOrigin": "fixture",
       "title": "Boxing Day Special",
       "snapshotId": "contradb:3363:945dd7c95af61c79",
@@ -53354,7 +53872,7 @@
       "id": "3402",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\3402.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\3402.json",
       "snapshotOrigin": "fixture",
       "title": "Baughman Jig",
       "snapshotId": "contradb:3402:c4dda95f920daa1b",
@@ -53525,7 +54043,7 @@
       "id": "3431",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\3431.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\3431.json",
       "snapshotOrigin": "fixture",
       "title": "Robo-nella",
       "snapshotId": "contradb:3431:ea4540a4b1fced1d",
@@ -53731,7 +54249,7 @@
       "id": "3454",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\3454.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\3454.json",
       "snapshotOrigin": "fixture",
       "title": "Together At Last",
       "snapshotId": "contradb:3454:405e644283203724",
@@ -53899,7 +54417,7 @@
       "id": "3464",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\3464.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\3464.json",
       "snapshotOrigin": "fixture",
       "title": "Hey Fever variation",
       "snapshotId": "contradb:3464:286fb62160c8c2f1",
@@ -54065,7 +54583,7 @@
       "id": "3465",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\3465.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\3465.json",
       "snapshotOrigin": "fixture",
       "title": "Hey Fever variation variation",
       "snapshotId": "contradb:3465:8e6ec10a02cc4f80",
@@ -54231,7 +54749,7 @@
       "id": "3475",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\3475.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\3475.json",
       "snapshotOrigin": "fixture",
       "title": "Right Thought",
       "snapshotId": "contradb:3475:a909200ad6495936",
@@ -54370,7 +54888,7 @@
       "id": "3478",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\3478.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\3478.json",
       "snapshotOrigin": "fixture",
       "title": "Futon Frolic",
       "snapshotId": "contradb:3478:6d2818b050153977",
@@ -54568,7 +55086,7 @@
       "id": "3490",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\3490.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\3490.json",
       "snapshotOrigin": "fixture",
       "title": "Forgotten Treasure",
       "snapshotId": "contradb:3490:1d2b41e2d124449e",
@@ -54718,7 +55236,7 @@
       "id": "3496",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\3496.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\3496.json",
       "snapshotOrigin": "fixture",
       "title": "Fair and Square",
       "snapshotId": "contradb:3496:960660f055da3fb2",
@@ -54865,7 +55383,7 @@
       "id": "3507",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\3507.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\3507.json",
       "snapshotOrigin": "fixture",
       "title": "Magnet Eyes",
       "snapshotId": "contradb:3507:685c4f01ff2763a9",
@@ -55105,7 +55623,7 @@
       "id": "3510",
       "retainedSnapshot": true,
       "savedReady": true,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\3510.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\3510.json",
       "snapshotOrigin": "fixture",
       "title": "Sweet as Honey",
       "snapshotId": "contradb:3510:ef80424f2b6af09b",
@@ -55238,7 +55756,7 @@
       "id": "3533",
       "retainedSnapshot": true,
       "savedReady": false,
-      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\lead-integration-197\\test-data\\contradb\\3533.json",
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\3533.json",
       "snapshotOrigin": "fixture",
       "title": "Double or Nothing",
       "snapshotId": "contradb:3533:62ecebad5c8fe0f4",
