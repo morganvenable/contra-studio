@@ -84,9 +84,10 @@ const PATTERNS: readonly (readonly [RegExp, Build])[] = [
   ],
   [/^rory o'more (left|right)$/, (m, b) => [call('rory', b, { direction: m[1], spin: 'full' })]],
   [
-    /^balance(?: the wave)?$/,
+    /^balance the wave$/,
     (_m, b) => [call('balance', b, { formation: 'wave', style: 'right-left' })],
   ],
+  [/^balance$/, (_m, b) => [call('balance', b, { formation: 'current' })]],
   [
     /^((?:next |new )?\w+) balance (?:&|and) (?:long |meltdown )?swing$/,
     (m, b) => [
@@ -138,6 +139,56 @@ const PATTERNS: readonly (readonly [RegExp, Build])[] = [
   ],
   [/^right left through$/, (_m, b) => [call('right-left-through', b, {})]],
   [
+    /^(\w+) start a (full|half) hey - (?:(right|left)s in center, (?:right|left)s on ends|(right|left)s on ends, (right|left)s in center)$/,
+    (m, b) => [
+      call('hey', b, {
+        start: who(m[1]),
+        amount: m[2] === 'full' ? 1 : 0.5,
+        center: m[3] ?? m[5],
+      }),
+    ],
+  ],
+  [
+    /^balance (?:&|and) petronella$/,
+    (_m, b) => [call('balance', 4, { formation: 'ring' }), call('petronella', b - 4, {})],
+  ],
+  [
+    /^((?:next |new )?\w+) (?:(right|left) hand )?balance (?:&|and) (box the gnat|swat the flea)$/,
+    (m, b) => {
+      const style = m[3] === 'box the gnat' ? 'box-the-gnat' : 'swat-the-flea';
+      const hand = m[2] ?? (style === 'box-the-gnat' ? 'right' : 'left');
+      return [
+        call('balance', 4, { formation: 'pair', who: who(m[1]), hand }),
+        call('twirl', b - 4, { style, who: who(m[1]) }),
+      ];
+    },
+  ],
+  [
+    /^((?:next |new )?\w+) (box the gnat|swat the flea|california twirl)$/,
+    (m, b) => {
+      const styles: Record<string, string> = {
+        'box the gnat': 'box-the-gnat',
+        'swat the flea': 'swat-the-flea',
+        'california twirl': 'california',
+      };
+      return [call('twirl', b, { style: styles[m[2]], who: who(m[1]) })];
+    },
+  ],
+  [
+    /^((?:next |new )?\w+) promenade(?: across(?: the set)?)?$/,
+    (m, b) => [call('promenade', b, { who: who(m[1]) })],
+  ],
+  [
+    /^down the hall and turn (as a couple|alone)$/,
+    (m, b) => [
+      call('hall', b, { direction: 'down', turn: m[1] === 'alone' ? 'alone' : 'couple' }),
+    ],
+  ],
+  [
+    /^up the hall and bend into a ring$/,
+    (_m, b) => [call('hall', b, { direction: 'up', end: 'ring' })],
+  ],
+  [
     /^circle (left|right)(?: (\w+) places?| ([^ ]+))?$/,
     (m, b) => {
       if (m[2])
@@ -152,12 +203,17 @@ export function normalizeRow(text: string): { text: string; progression: boolean
   const progression = text.includes('⁋');
   const plain = text
     .replace(/⁋/g, '')
+    .trim()
     .replace(/[’‘]/g, "'")
     // Reminders to look for new neighbors describe the progression; the
     // progression mark carries it.
     .replace(/\s*\((?:look|with courtesy turn)[^)]*\)/gi, '')
-    .replace(/,?\s*(?:and |then )?look (?:for|to) (?:the )?(?:new |next )*\w+(?: new)*(?: neighbors?)?.*$/i, '')
+    .replace(
+      /,?\s*(?:and |then )?look (?:for|to) (?:the )?(?:new |next )*\w+(?: new)*(?: neighbors?)?.*$/i,
+      '',
+    )
     .replace(/\s+(?:to|and face) (?:new|next) neighbors?$/i, '')
+    .replace(/\s*(?:[;,]\s*|and )?(?:turn )?to face (?:the )?(?:new|next) neighbors?$/i, '')
     .replace(/[()]/g, '')
     .replace(/\s+/g, ' ')
     .trim()

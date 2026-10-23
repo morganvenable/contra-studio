@@ -1,0 +1,134 @@
+{
+  "schema": "contra-studio/next-dance",
+  "version": 1,
+  "title": "Power Surge",
+  "author": "Bob Isaacs and Beth Brill",
+  "formation": "becket",
+  "progression": "minor-set",
+  "music": {
+    "meter": "2/4",
+    "parts": [
+      {
+        "name": "A1",
+        "bars": 8
+      },
+      {
+        "name": "A2",
+        "bars": 8
+      },
+      {
+        "name": "B1",
+        "bars": 8
+      },
+      {
+        "name": "B2",
+        "bars": 8
+      }
+    ],
+    "times": "repeat"
+  },
+  "source": {
+    "url": "https://contradb.com/dances/2247",
+    "snapshot": "test-data/contradb/2247.json",
+    "sha256": "50fd698832b6a0b47b84bc323ced2125fd5d8096f029ef46bb0fac9473655ef9",
+    "status": "sketchbook"
+  },
+  "choices": [
+    "Slice: half the counts on the diagonal, half straight back.",
+    "A balance with a partner or neighbor holds both hands."
+  ],
+  "figures": [
+    {
+      "section": "A1",
+      "move": "slice",
+      "beats": 8,
+      "params": {
+        "direction": "left",
+        "back": "straight"
+      },
+      "text": "slice left and straight back",
+      "progression": true
+    },
+    {
+      "section": "A1",
+      "move": "chain",
+      "beats": 8,
+      "params": {
+        "who": "robins"
+      },
+      "text": "robins chain"
+    },
+    {
+      "section": "A2",
+      "move": "balance",
+      "beats": 4,
+      "params": {
+        "formation": "ring"
+      },
+      "text": "balance & petronella · balance"
+    },
+    {
+      "section": "A2",
+      "move": "petronella",
+      "beats": 4,
+      "params": {},
+      "text": "balance & petronella · petronella"
+    },
+    {
+      "section": "A2",
+      "move": "balance",
+      "beats": 4,
+      "params": {
+        "formation": "ring"
+      },
+      "text": "balance & petronella · balance"
+    },
+    {
+      "section": "A2",
+      "move": "petronella",
+      "beats": 4,
+      "params": {},
+      "text": "balance & petronella · petronella"
+    },
+    {
+      "section": "B1",
+      "move": "balance",
+      "beats": 4,
+      "params": {
+        "formation": "pair",
+        "who": "neighbor",
+        "hand": "both"
+      },
+      "text": "neighbors balance & swing · balance"
+    },
+    {
+      "section": "B1",
+      "move": "swing",
+      "beats": 12,
+      "params": {
+        "who": "neighbor"
+      },
+      "text": "neighbors balance & swing · swing"
+    },
+    {
+      "section": "B2",
+      "move": "allemande",
+      "beats": 8,
+      "params": {
+        "who": "larks",
+        "hand": "left",
+        "amount": 1.5
+      },
+      "text": "larks allemande left 1½"
+    },
+    {
+      "section": "B2",
+      "move": "swing",
+      "beats": 8,
+      "params": {
+        "who": "partner"
+      },
+      "text": "partners swing"
+    }
+  ]
+}

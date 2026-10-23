@@ -48,14 +48,26 @@ for (const entry of READY_LIBRARY) {
     }
   }
   if (unparsed.length) {
-    results.push({ id: entry.id, title: entry.title, status: 'unparsed', first: unparsed[0], unparsed });
+    results.push({
+      id: entry.id,
+      title: entry.title,
+      status: 'unparsed',
+      first: unparsed[0],
+      unparsed,
+    });
     continue;
   }
   let stored;
   try {
     stored = buildStored(entry.id);
   } catch (error) {
-    results.push({ id: entry.id, title: entry.title, status: 'unparsed', first: error.message, unparsed: [error.message] });
+    results.push({
+      id: entry.id,
+      title: entry.title,
+      status: 'unparsed',
+      first: error.message,
+      unparsed: [error.message],
+    });
     continue;
   }
   const verdict = verifyDance(stored, compileNext);
@@ -63,7 +75,7 @@ for (const entry of READY_LIBRARY) {
     id: entry.id,
     title: entry.title,
     status: verdict.ok ? 'supported' : 'fails',
-    ...(verdict.ok ? {} : { first: verdict.problem }),
+    ...(verdict.ok ? {} : { first: verdict.problem, failing: verdict.figure }),
   });
 }
 
@@ -75,7 +87,9 @@ if (process.argv.includes('--json')) {
     `${results.length} Ready dances: ${count('supported')} supported, ${count('fails')} parse but fail the check, ${count('unparsed')} have unparsed rows.\n`,
   );
   for (const r of results) {
-    console.log(`${r.status.padEnd(9)} ${r.id.padStart(5)}  ${r.title}${r.first ? `  -- ${r.first}` : ''}`);
+    console.log(
+      `${r.status.padEnd(9)} ${r.id.padStart(5)}  ${r.title}${r.first ? `  -- ${r.first}` : ''}`,
+    );
   }
   const alone = new Map();
   const any = new Map();
@@ -87,8 +101,19 @@ if (process.argv.includes('--json')) {
       alone.set(f, (alone.get(f) ?? 0) + 1);
     }
   }
+  const failing = new Map();
+  for (const r of results.filter((x) => x.status === 'fails')) {
+    const f = r.failing ? family(normalizeRow(r.failing).text) : 'progression or model';
+    failing.set(f, (failing.get(f) ?? 0) + 1);
+  }
+  console.log('\nParsed but failing the corpus check, by the figure where it fails:');
+  for (const [f, n] of [...failing].sort((a, b) => b[1] - a[1])) {
+    console.log(`${String(n).padStart(4)}  ${f}`);
+  }
   console.log('\nMissing figures: dances unlocked on its own / dances that use it');
-  for (const [f, n] of [...any].sort((a, b) => (alone.get(b[0]) ?? 0) - (alone.get(a[0]) ?? 0) || b[1] - a[1])) {
+  for (const [f, n] of [...any].sort(
+    (a, b) => (alone.get(b[0]) ?? 0) - (alone.get(a[0]) ?? 0) || b[1] - a[1],
+  )) {
     console.log(`${String(alone.get(f) ?? 0).padStart(4)} / ${String(n).padStart(3)}  ${f}`);
   }
 }

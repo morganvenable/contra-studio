@@ -1,0 +1,140 @@
+{
+  "schema": "contra-studio/next-dance",
+  "version": 1,
+  "title": "Box the Gnat Contra",
+  "author": "Becky Hill",
+  "formation": "improper",
+  "progression": "duple-minor",
+  "music": {
+    "meter": "2/4",
+    "parts": [
+      {
+        "name": "A1",
+        "bars": 8
+      },
+      {
+        "name": "A2",
+        "bars": 8
+      },
+      {
+        "name": "B1",
+        "bars": 8
+      },
+      {
+        "name": "B2",
+        "bars": 8
+      }
+    ],
+    "times": "repeat"
+  },
+  "source": {
+    "url": "https://contradb.com/dances/2259",
+    "snapshot": "test-data/contradb/2259.json",
+    "sha256": "791c86f374504846284bb87a39c5f554057c43b6dcde9ae20764be1108bf99ad"
+  },
+  "choices": [
+    "A balance with a partner or neighbor holds both hands."
+  ],
+  "figures": [
+    {
+      "section": "A1",
+      "move": "balance",
+      "beats": 4,
+      "params": {
+        "formation": "pair",
+        "who": "neighbor",
+        "hand": "right"
+      },
+      "text": "neighbors right hand balance & box the gnat · balance"
+    },
+    {
+      "section": "A1",
+      "move": "twirl",
+      "beats": 4,
+      "params": {
+        "style": "box-the-gnat",
+        "who": "neighbor"
+      },
+      "text": "neighbors right hand balance & box the gnat · twirl"
+    },
+    {
+      "section": "A1",
+      "move": "balance",
+      "beats": 4,
+      "params": {
+        "formation": "pair",
+        "who": "partner",
+        "hand": "right"
+      },
+      "text": "partners right hand balance & box the gnat · balance"
+    },
+    {
+      "section": "A1",
+      "move": "twirl",
+      "beats": 4,
+      "params": {
+        "style": "box-the-gnat",
+        "who": "partner"
+      },
+      "text": "partners right hand balance & box the gnat · twirl"
+    },
+    {
+      "section": "A2",
+      "move": "balance",
+      "beats": 4,
+      "params": {
+        "formation": "pair",
+        "who": "neighbor",
+        "hand": "both"
+      },
+      "text": "neighbors balance & swing · balance"
+    },
+    {
+      "section": "A2",
+      "move": "swing",
+      "beats": 12,
+      "params": {
+        "who": "neighbor"
+      },
+      "text": "neighbors balance & swing · swing"
+    },
+    {
+      "section": "B1",
+      "move": "allemande",
+      "beats": 8,
+      "params": {
+        "who": "robins",
+        "hand": "right",
+        "amount": 1.5
+      },
+      "text": "robins allemande right 1½"
+    },
+    {
+      "section": "B1",
+      "move": "swing",
+      "beats": 8,
+      "params": {
+        "who": "partner"
+      },
+      "text": "partners swing"
+    },
+    {
+      "section": "B2",
+      "move": "right-left-through",
+      "beats": 8,
+      "params": {},
+      "text": "right left through"
+    },
+    {
+      "section": "B2",
+      "move": "chain",
+      "beats": 8,
+      "params": {
+        "who": "robins",
+        "to": "neighbor"
+      },
+      "text": "robins chain (to neighbor)",
+      "progression": true
+    }
+  ]
+}

@@ -1,0 +1,124 @@
+{
+  "schema": "contra-studio/next-dance",
+  "version": 1,
+  "title": "The Baby Rose",
+  "author": "David Kaynor",
+  "formation": "improper",
+  "progression": "duple-minor",
+  "music": {
+    "meter": "2/4",
+    "parts": [
+      {
+        "name": "A1",
+        "bars": 8
+      },
+      {
+        "name": "A2",
+        "bars": 8
+      },
+      {
+        "name": "B1",
+        "bars": 8
+      },
+      {
+        "name": "B2",
+        "bars": 8
+      }
+    ],
+    "times": "repeat"
+  },
+  "source": {
+    "url": "https://contradb.com/dances/1166",
+    "snapshot": "test-data/contradb/1166.json",
+    "sha256": "601921ad770cf846328c4d109e06f6f223a305893ea6d0d57bd2b51c785e0ce1",
+    "status": "sketchbook"
+  },
+  "choices": [
+    "A balance with a partner or neighbor holds both hands.",
+    "A star with no grip named is drawn hands across."
+  ],
+  "figures": [
+    {
+      "section": "A1",
+      "move": "balance",
+      "beats": 4,
+      "params": {
+        "formation": "pair",
+        "who": "neighbor",
+        "hand": "both"
+      },
+      "text": "neighbors balance & swing · balance"
+    },
+    {
+      "section": "A1",
+      "move": "swing",
+      "beats": 12,
+      "params": {
+        "who": "neighbor"
+      },
+      "text": "neighbors balance & swing · swing"
+    },
+    {
+      "section": "A2",
+      "move": "circle",
+      "beats": 8,
+      "params": {
+        "direction": "left",
+        "places": 3
+      },
+      "text": "circle left 3 places"
+    },
+    {
+      "section": "A2",
+      "move": "do-si-do",
+      "beats": 8,
+      "params": {
+        "who": "partner",
+        "amount": 1,
+        "shoulder": "right"
+      },
+      "text": "partners do si do once"
+    },
+    {
+      "section": "B1",
+      "move": "balance",
+      "beats": 4,
+      "params": {
+        "formation": "pair",
+        "who": "partner",
+        "hand": "both"
+      },
+      "text": "partners balance & swing · balance"
+    },
+    {
+      "section": "B1",
+      "move": "swing",
+      "beats": 12,
+      "params": {
+        "who": "partner"
+      },
+      "text": "partners balance & swing · swing"
+    },
+    {
+      "section": "B2",
+      "move": "chain",
+      "beats": 8,
+      "params": {
+        "who": "robins"
+      },
+      "text": "robins chain"
+    },
+    {
+      "section": "B2",
+      "move": "star",
+      "beats": 8,
+      "params": {
+        "hand": "left",
+        "places": 4,
+        "grip": "hands-across"
+      },
+      "text": "star left 4 places to next neighbors",
+      "progression": true
+    }
+  ]
+}

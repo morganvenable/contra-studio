@@ -7,10 +7,11 @@
  *   Rory O'More the side balance starts toward the slide direction.
  * - ring: the group joins hands in a ring and steps in toward the center and
  *   back out ("balance the ring").
+ * - current: a plain "balance" balances what the dancers hold now: their
+ *   wave if they hold one, otherwise their ring.
  * - pair: two dancers (partners, neighbors, ...) face each other and step in
- *   toward each other and back ("neighbors balance", "right hand balance").
- *   They end close enough to keep hands for what follows, at most PAIR_END
- *   apart.
+ *   toward each other and back ("neighbors balance", "right hand balance"),
+ *   ending where they started. Hands join while they are close enough.
  * Source: Caller's Box glossary, "Balance"; ContraDB rows "balance & Rory
  * O'More right" (2321), "balance the ring", "neighbors balance & swing",
  * "neighbors right hand balance & box the gnat". Wave step size and timing
@@ -38,7 +39,8 @@ import { findRing, ringHolds } from '../core/ring.ts';
 import { body, minorSets, pairsIn, withChanges, type Hold } from '../core/state.ts';
 
 export interface BalanceParams {
-  formation: 'wave' | 'ring' | 'pair';
+  /** 'current': a wave if the group holds one, otherwise its ring. */
+  formation: 'wave' | 'ring' | 'pair' | 'current';
   style?: 'right-left' | 'forward-back';
   /** Side to step toward first, for a right-left wave balance. */
   first?: 'right' | 'left';
@@ -53,9 +55,8 @@ const STEP = 0.1;
 const STEPS = [0, 1, 0, -1, 0];
 /** How far a ring steps in toward its center. */
 const RING_DEPTH = 0.45;
-/** Pair balance: distance apart at the deepest step and at the end. */
+/** Pair balance: distance apart at the deepest step. */
 const PAIR_IN = 0.75;
-const PAIR_END = 1.1;
 /** Beats to turn and face into the balance. */
 const FACE_BEATS = 1.5;
 
@@ -65,8 +66,21 @@ export const balance: Figure<BalanceParams> = (state, params, beats) => {
     'wave',
     'ring',
     'pair',
+    'current',
   ] as const);
   if (beats !== 4) throw new Error('A balance takes four beats.');
+  if (formation === 'current') {
+    const waved = minorSets(state).every((g) => {
+      try {
+        assertWaveHeld(state, findWave(state, g));
+        return true;
+      } catch {
+        return false;
+      }
+    });
+    const style = waved ? { style: 'right-left' as const } : {};
+    return balance(state, { formation: waved ? 'wave' : 'ring', ...style }, beats);
+  }
   if (formation === 'wave') return waveBalance(state, params, beats);
   if (formation === 'ring') return ringBalance(state, params, beats);
   return pairBalance(state, params, beats);
@@ -167,7 +181,6 @@ const pairBalance: Figure<BalanceParams> = (state, params, beats) => {
     const span = length(sub(pa.position, pb.position));
     if (span < 0.6 || span > 2.7)
       throw new Error(`Dancers ${a} and ${b} are too far apart to balance.`);
-    const end = Math.min(span, PAIR_END);
     const holds: Hold[] = hands(hand).map(([ha, hb]) => ({ a, handA: ha, b, handB: hb }));
     const at = (id: number, beat: number) => {
       const me = id === a ? pa : pb;
@@ -175,9 +188,7 @@ const pairBalance: Figure<BalanceParams> = (state, params, beats) => {
       const out = sub(me.position, center);
       const unit = scale(out, 1 / length(out));
       const deep = inAndOut(beat);
-      // Close from the start distance to the end distance, stepping in on the way.
-      const settled = span / 2 + (end / 2 - span / 2) * smooth(beat / 2);
-      const r = settled + (Math.min(PAIR_IN, span) / 2 - settled) * deep;
+      const r = span / 2 + (Math.min(PAIR_IN, span) / 2 - span / 2) * deep;
       const face = heading(me.position, other.position);
       return {
         id,

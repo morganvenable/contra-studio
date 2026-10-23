@@ -1,0 +1,144 @@
+{
+  "schema": "contra-studio/next-dance",
+  "version": 1,
+  "title": "Once More With Feeling",
+  "author": "Isaac Banner",
+  "formation": "improper",
+  "progression": "duple-minor",
+  "music": {
+    "meter": "2/4",
+    "parts": [
+      {
+        "name": "A1",
+        "bars": 8
+      },
+      {
+        "name": "A2",
+        "bars": 8
+      },
+      {
+        "name": "B1",
+        "bars": 8
+      },
+      {
+        "name": "B2",
+        "bars": 8
+      }
+    ],
+    "times": "repeat"
+  },
+  "source": {
+    "url": "https://contradb.com/dances/333",
+    "snapshot": "test-data/contradb/333.json",
+    "sha256": "adf678be7c991cf37242e4f1cfa4e92e40620cd55e1ea58fa020cd13fcfe50f9"
+  },
+  "choices": [
+    "A balance with a partner or neighbor holds both hands."
+  ],
+  "figures": [
+    {
+      "section": "A1",
+      "move": "balance",
+      "beats": 4,
+      "params": {
+        "formation": "pair",
+        "who": "neighbor",
+        "hand": "right"
+      },
+      "text": "neighbors balance right hand"
+    },
+    {
+      "section": "A1",
+      "move": "twirl",
+      "beats": 4,
+      "params": {
+        "style": "box-the-gnat",
+        "who": "neighbor"
+      },
+      "text": "neighbors box the gnat"
+    },
+    {
+      "section": "A1",
+      "move": "allemande",
+      "beats": 8,
+      "params": {
+        "who": "larks",
+        "hand": "left",
+        "amount": 1.5
+      },
+      "text": "larks allemande left 1½"
+    },
+    {
+      "section": "A2",
+      "move": "balance",
+      "beats": 4,
+      "params": {
+        "formation": "pair",
+        "who": "partner",
+        "hand": "both"
+      },
+      "text": "partners balance & swing · balance"
+    },
+    {
+      "section": "A2",
+      "move": "swing",
+      "beats": 12,
+      "params": {
+        "who": "partner"
+      },
+      "text": "partners balance & swing · swing"
+    },
+    {
+      "section": "B1",
+      "move": "circle",
+      "beats": 8,
+      "params": {
+        "direction": "left",
+        "places": 3
+      },
+      "text": "circle left 3 places"
+    },
+    {
+      "section": "B1",
+      "move": "swing",
+      "beats": 8,
+      "params": {
+        "who": "neighbor"
+      },
+      "text": "neighbors swing"
+    },
+    {
+      "section": "B2",
+      "move": "balance",
+      "beats": 4,
+      "params": {
+        "formation": "ring"
+      },
+      "text": "balance & petronella · balance"
+    },
+    {
+      "section": "B2",
+      "move": "petronella",
+      "beats": 4,
+      "params": {},
+      "text": "balance & petronella · petronella"
+    },
+    {
+      "section": "B2",
+      "move": "balance",
+      "beats": 4,
+      "params": {
+        "formation": "ring"
+      },
+      "text": "balance & petronella and turn to face new neighbors · balance"
+    },
+    {
+      "section": "B2",
+      "move": "petronella",
+      "beats": 4,
+      "params": {},
+      "text": "balance & petronella and turn to face new neighbors · petronella",
+      "progression": true
+    }
+  ]
+}

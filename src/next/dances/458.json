@@ -1,0 +1,131 @@
+{
+  "schema": "contra-studio/next-dance",
+  "version": 1,
+  "title": "Kingsford Court",
+  "author": "Robin Banerji",
+  "formation": "improper",
+  "progression": "duple-minor",
+  "music": {
+    "meter": "2/4",
+    "parts": [
+      {
+        "name": "A1",
+        "bars": 8
+      },
+      {
+        "name": "A2",
+        "bars": 8
+      },
+      {
+        "name": "B1",
+        "bars": 8
+      },
+      {
+        "name": "B2",
+        "bars": 8
+      }
+    ],
+    "times": "repeat"
+  },
+  "source": {
+    "url": "https://contradb.com/dances/458",
+    "snapshot": "test-data/contradb/458.json",
+    "sha256": "1d8346ad61f4db03a1566b97b9ce782cd0078f5f47a485d5f86e51c81ff17035"
+  },
+  "choices": [
+    "A balance with a partner or neighbor holds both hands.",
+    "A star with no grip named is drawn hands across."
+  ],
+  "figures": [
+    {
+      "section": "A1",
+      "move": "balance",
+      "beats": 4,
+      "params": {
+        "formation": "pair",
+        "who": "neighbor",
+        "hand": "right"
+      },
+      "text": "neighbors right hand balance & box the gnat · balance"
+    },
+    {
+      "section": "A1",
+      "move": "twirl",
+      "beats": 4,
+      "params": {
+        "style": "box-the-gnat",
+        "who": "neighbor"
+      },
+      "text": "neighbors right hand balance & box the gnat · twirl"
+    },
+    {
+      "section": "A1",
+      "move": "allemande",
+      "beats": 8,
+      "params": {
+        "who": "larks",
+        "hand": "left",
+        "amount": 1.5
+      },
+      "text": "larks allemande left 1½"
+    },
+    {
+      "section": "A2",
+      "move": "balance",
+      "beats": 4,
+      "params": {
+        "formation": "pair",
+        "who": "partner",
+        "hand": "both"
+      },
+      "text": "partners balance & swing · balance"
+    },
+    {
+      "section": "A2",
+      "move": "swing",
+      "beats": 12,
+      "params": {
+        "who": "partner"
+      },
+      "text": "partners balance & swing · swing"
+    },
+    {
+      "section": "B1",
+      "move": "circle",
+      "beats": 8,
+      "params": {
+        "direction": "left",
+        "places": 3
+      },
+      "text": "circle left 3 places"
+    },
+    {
+      "section": "B1",
+      "move": "swing",
+      "beats": 8,
+      "params": {
+        "who": "neighbor"
+      },
+      "text": "neighbors swing"
+    },
+    {
+      "section": "B2",
+      "move": "right-left-through",
+      "beats": 8,
+      "params": {},
+      "text": "right left through"
+    },
+    {
+      "section": "B2",
+      "move": "star",
+      "beats": 8,
+      "params": {
+        "hand": "left",
+        "places": 4,
+        "grip": "hands-across"
+      },
+      "text": "star left 4 places",
+      "progression": true
+    }
+  ]
+}

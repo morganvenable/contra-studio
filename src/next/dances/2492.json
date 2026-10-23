@@ -1,0 +1,136 @@
+{
+  "schema": "contra-studio/next-dance",
+  "version": 1,
+  "title": "Jim to the Rescue",
+  "author": "Mattie Rynkiewicz",
+  "formation": "improper",
+  "progression": "duple-minor",
+  "music": {
+    "meter": "2/4",
+    "parts": [
+      {
+        "name": "A1",
+        "bars": 8
+      },
+      {
+        "name": "A2",
+        "bars": 8
+      },
+      {
+        "name": "B1",
+        "bars": 8
+      },
+      {
+        "name": "B2",
+        "bars": 8
+      }
+    ],
+    "times": "repeat"
+  },
+  "source": {
+    "url": "https://contradb.com/dances/2492",
+    "snapshot": "test-data/contradb/2492.json",
+    "sha256": "2a3901cf3c75c767522ec86dc560af3b08764cfbac06934125f214a0e13c7e73"
+  },
+  "choices": [
+    "Pass through goes by right shoulders.",
+    "A balance with a partner or neighbor holds both hands.",
+    "Meltdown and long swings are drawn as ordinary swings."
+  ],
+  "figures": [
+    {
+      "section": "A1",
+      "move": "balance",
+      "beats": 4,
+      "params": {
+        "formation": "pair",
+        "who": "neighbor",
+        "hand": "both"
+      },
+      "text": "neighbors balance & swing · balance"
+    },
+    {
+      "section": "A1",
+      "move": "swing",
+      "beats": 12,
+      "params": {
+        "who": "neighbor"
+      },
+      "text": "neighbors balance & swing · swing"
+    },
+    {
+      "section": "A2",
+      "move": "balance",
+      "beats": 4,
+      "params": {
+        "formation": "ring"
+      },
+      "text": "balance & petronella · balance"
+    },
+    {
+      "section": "A2",
+      "move": "petronella",
+      "beats": 4,
+      "params": {},
+      "text": "balance & petronella · petronella"
+    },
+    {
+      "section": "A2",
+      "move": "balance",
+      "beats": 4,
+      "params": {
+        "formation": "ring"
+      },
+      "text": "balance the ring"
+    },
+    {
+      "section": "A2",
+      "move": "pass-through",
+      "beats": 4,
+      "params": {
+        "shoulder": "right",
+        "axis": "across"
+      },
+      "text": "pass through across the set"
+    },
+    {
+      "section": "B1",
+      "move": "swing",
+      "beats": 16,
+      "params": {
+        "who": "partner"
+      },
+      "text": "partners meltdown swing"
+    },
+    {
+      "section": "B2",
+      "move": "circle",
+      "beats": 8,
+      "params": {
+        "direction": "left",
+        "places": 3
+      },
+      "text": "circle left 3 places"
+    },
+    {
+      "section": "B2",
+      "move": "balance",
+      "beats": 4,
+      "params": {
+        "formation": "ring"
+      },
+      "text": "balance the ring"
+    },
+    {
+      "section": "B2",
+      "move": "twirl",
+      "beats": 4,
+      "params": {
+        "style": "california",
+        "who": "partner"
+      },
+      "text": "partners California twirl",
+      "progression": true
+    }
+  ]
+}

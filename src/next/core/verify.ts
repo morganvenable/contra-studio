@@ -18,6 +18,8 @@ import type { StoredDance } from '../dance.ts';
 export interface Verdict {
   readonly ok: boolean;
   readonly problem?: string;
+  /** Source text of the figure where the check failed, when known. */
+  readonly figure?: string;
 }
 
 const coupleZ = (dance: FoldedDance, beat: number, couple: number) => {
@@ -77,8 +79,20 @@ export function verifyDance(
         return { ok: false, problem: `${couples} couples: ${dance.warnings.at(-1)}` };
       const rounds = couples + 2;
       const report = physicalCheck(dance, { rounds });
-      if (report.problems.length)
-        return { ok: false, problem: `${couples} couples: ${report.problems[0]}` };
+      if (report.problems.length) {
+        const beat = Number(report.problems[0].match(/^beat ([\d.]+)/)?.[1] ?? 0);
+        const local = beat % dance.totalBeats;
+        const index = Math.max(
+          0,
+          dance.starts.findLastIndex((s) => s <= local),
+        );
+        const figure = stored.figures[index]?.text;
+        return {
+          ok: false,
+          problem: `${couples} couples: ${report.problems[0]} (${figure})`,
+          figure,
+        };
+      }
       const model = stored.formation === 'becket' ? becketModel : improperModel;
       const expected = model(couples, rounds);
       for (let r = 1; r <= rounds; r++) {
@@ -108,6 +122,7 @@ export function verifyDance(
     }
     return { ok: true };
   } catch (error) {
-    return { ok: false, problem: error instanceof Error ? error.message : String(error) };
+    const problem = error instanceof Error ? error.message : String(error);
+    return { ok: false, problem, figure: problem.match(/^Figure \d+ \((.*?)\):/)?.[1] };
   }
 }

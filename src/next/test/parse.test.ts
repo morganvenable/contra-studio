@@ -21,12 +21,7 @@ test('row patterns map to moves and parameters', () => {
   });
   assert.deepEqual(
     one('partners allemande right ¾ to short waves with gentlespoons in the middle', 4).params,
-    {
-      who: 'partner',
-      hand: 'right',
-      amount: 0.75,
-      wave: { middle: 'lark' },
-    },
+    { who: 'partner', hand: 'right', amount: 0.75, wave: { middle: 'lark' } },
   );
   assert.equal(one('slice left and straight back ⁋').progression, true);
 });
@@ -53,4 +48,43 @@ test('gendered and alias names are input only; labels say larks and robins', () 
 
 test('unknown rows say so', () => {
   assert.throws(() => parseRow({ beats: 8, text: 'hey for four' }), /No figure pattern/);
+});
+
+test('patterns for the improper figures', () => {
+  assert.deepEqual(
+    parseRow({ beats: 16, text: 'neighbors balance & swing' }).map((c) => [c.move, c.beats]),
+    [
+      ['balance', 4],
+      ['swing', 12],
+    ],
+  );
+  assert.deepEqual(one('ladles chain (to neighbor) ⁋').params, { who: 'robins', to: 'neighbor' });
+  assert.deepEqual(one('star right - wrist grip - 4 places').params, {
+    hand: 'right',
+    places: 4,
+    grip: 'wrist',
+  });
+  assert.deepEqual(one('long lines forward & back').params, { back: true });
+  assert.deepEqual(one('ladles do si do 1½').params, {
+    who: 'robins',
+    amount: 1.5,
+    shoulder: 'right',
+  });
+  assert.deepEqual(one('pass through to new neighbors ⁋', 2).params, { shoulder: 'right' });
+  assert.deepEqual(one('pass through left shoulders', 2).params, { shoulder: 'left' });
+  assert.deepEqual(one('next neighbors swing').params, { who: 'neighbor' });
+  assert.deepEqual(one('down the hall and turn alone').params, {
+    direction: 'down',
+    turn: 'alone',
+  });
+  assert.deepEqual(one('partners California twirl to face new neighbors', 4).params, {
+    style: 'california',
+    who: 'partner',
+  });
+  assert.deepEqual(one('ladles start a full hey - rights in center, lefts on ends', 16).params, {
+    start: 'robins',
+    amount: 1,
+    center: 'right',
+  });
+  assert.equal(one('balance', 4).params.formation, 'current');
 });
