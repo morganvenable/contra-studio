@@ -28,7 +28,7 @@ import {
   distance,
   turn,
 } from '../core/math.ts';
-import { body, partnerOf, withChanges } from '../core/state.ts';
+import { body, partnerOf, withChanges, type DanceState } from '../core/state.ts';
 
 export interface SliceParams {
   direction: 'left' | 'right';
@@ -44,22 +44,10 @@ export const slice: Figure<SliceParams> = (state, params, beats) => {
   if (params.back !== undefined) oneOf('slice', 'back', params.back, ['straight'] as const);
   if (state.hands.length) throw new Error('Slice needs free hands.');
 
-  const moves = state.dancers.map((d) => {
-    const b = body(state, d.id);
-    const other = body(state, partnerOf(state, d.id));
-    const offset = sub(other.position, b.position);
-    const sideways = Math.abs(dot(offset, leftOf(b.yaw)));
-    const aligned = Math.abs(dot(offset, forward(b.yaw))) < 0.05;
-    if (
-      !aligned ||
-      Math.abs(sideways - SET.slot) > 0.05 ||
-      Math.abs(turn(b.yaw, other.yaw)) > 1e-6
-    ) {
-      throw new Error(`Couple ${d.couple + 1} must stand side by side in a line facing across.`);
-    }
-    const lateral = scale((direction === 'left' ? leftOf : rightOf)(b.yaw), SET.slot);
-    return { id: d.id, start: b, lateral, inward: scale(forward(b.yaw), DEPTH) };
-  });
+  const moves = sideMoves(state, direction).map((m) => ({
+    ...m,
+    inward: scale(forward(m.start.yaw), DEPTH),
+  }));
 
   const half = beats / 2;
   const motion = (beat: number) => ({
@@ -80,3 +68,26 @@ export const slice: Figure<SliceParams> = (state, params, beats) => {
   }
   return { kind: 'becket-slice', motion, exit: withChanges(moved, { hands: [] }) };
 };
+
+/**
+ * Every couple (waiting couples too), each moving one place to its left or
+ * right along its side line. Couples must stand side by side facing across.
+ */
+export function sideMoves(state: DanceState, direction: 'left' | 'right') {
+  return state.dancers.map((d) => {
+    const b = body(state, d.id);
+    const other = body(state, partnerOf(state, d.id));
+    const offset = sub(other.position, b.position);
+    const sideways = Math.abs(dot(offset, leftOf(b.yaw)));
+    const aligned = Math.abs(dot(offset, forward(b.yaw))) < 0.05;
+    if (
+      !aligned ||
+      Math.abs(sideways - SET.slot) > 0.05 ||
+      Math.abs(turn(b.yaw, other.yaw)) > 1e-6
+    ) {
+      throw new Error(`Couple ${d.couple + 1} must stand side by side in a line facing across.`);
+    }
+    const lateral = scale((direction === 'left' ? leftOf : rightOf)(b.yaw), SET.slot);
+    return { id: d.id, start: b, lateral };
+  });
+}

@@ -7,14 +7,17 @@ import d57 from './57.json' with { type: 'json' };
 import d65 from './65.json' with { type: 'json' };
 import d67 from './67.json' with { type: 'json' };
 import d83 from './83.json' with { type: 'json' };
+import d94 from './94.json' with { type: 'json' };
 import d99 from './99.json' with { type: 'json' };
 import d123 from './123.json' with { type: 'json' };
+import d152 from './152.json' with { type: 'json' };
 import d159 from './159.json' with { type: 'json' };
 import d166 from './166.json' with { type: 'json' };
 import d175 from './175.json' with { type: 'json' };
 import d180 from './180.json' with { type: 'json' };
 import d182 from './182.json' with { type: 'json' };
 import d185 from './185.json' with { type: 'json' };
+import d187 from './187.json' with { type: 'json' };
 import d188 from './188.json' with { type: 'json' };
 import d192 from './192.json' with { type: 'json' };
 import d265 from './265.json' with { type: 'json' };
@@ -22,6 +25,7 @@ import d314 from './314.json' with { type: 'json' };
 import d333 from './333.json' with { type: 'json' };
 import d340 from './340.json' with { type: 'json' };
 import d354 from './354.json' with { type: 'json' };
+import d363 from './363.json' with { type: 'json' };
 import d443 from './443.json' with { type: 'json' };
 import d457 from './457.json' with { type: 'json' };
 import d458 from './458.json' with { type: 'json' };
@@ -72,6 +76,7 @@ import d1546 from './1546.json' with { type: 'json' };
 import d1547 from './1547.json' with { type: 'json' };
 import d1550 from './1550.json' with { type: 'json' };
 import d1556 from './1556.json' with { type: 'json' };
+import d1591 from './1591.json' with { type: 'json' };
 import d1616 from './1616.json' with { type: 'json' };
 import d1617 from './1617.json' with { type: 'json' };
 import d1658 from './1658.json' with { type: 'json' };
@@ -97,6 +102,7 @@ import d2259 from './2259.json' with { type: 'json' };
 import d2266 from './2266.json' with { type: 'json' };
 import d2321 from './2321.json' with { type: 'json' };
 import d2322 from './2322.json' with { type: 'json' };
+import d2330 from './2330.json' with { type: 'json' };
 import d2344 from './2344.json' with { type: 'json' };
 import d2355 from './2355.json' with { type: 'json' };
 import d2364 from './2364.json' with { type: 'json' };
@@ -106,6 +112,8 @@ import d2425 from './2425.json' with { type: 'json' };
 import d2457 from './2457.json' with { type: 'json' };
 import d2484 from './2484.json' with { type: 'json' };
 import d2492 from './2492.json' with { type: 'json' };
+import d2518 from './2518.json' with { type: 'json' };
+import d2522 from './2522.json' with { type: 'json' };
 import d2530 from './2530.json' with { type: 'json' };
 import d2604 from './2604.json' with { type: 'json' };
 import d2605 from './2605.json' with { type: 'json' };
@@ -129,6 +137,7 @@ import d3214 from './3214.json' with { type: 'json' };
 import d3241 from './3241.json' with { type: 'json' };
 import d3260 from './3260.json' with { type: 'json' };
 import d3261 from './3261.json' with { type: 'json' };
+import d3265 from './3265.json' with { type: 'json' };
 import d3326 from './3326.json' with { type: 'json' };
 import d3327 from './3327.json' with { type: 'json' };
 import d3328 from './3328.json' with { type: 'json' };
@@ -152,14 +161,17 @@ export const STORED: readonly StoredDance[] = [
   d65 as StoredDance,
   d67 as StoredDance,
   d83 as StoredDance,
+  d94 as StoredDance,
   d99 as StoredDance,
   d123 as StoredDance,
+  d152 as StoredDance,
   d159 as StoredDance,
   d166 as StoredDance,
   d175 as StoredDance,
   d180 as StoredDance,
   d182 as StoredDance,
   d185 as StoredDance,
+  d187 as StoredDance,
   d188 as StoredDance,
   d192 as StoredDance,
   d265 as StoredDance,
@@ -167,6 +179,7 @@ export const STORED: readonly StoredDance[] = [
   d333 as StoredDance,
   d340 as StoredDance,
   d354 as StoredDance,
+  d363 as StoredDance,
   d443 as StoredDance,
   d457 as StoredDance,
   d458 as StoredDance,
@@ -217,6 +230,7 @@ export const STORED: readonly StoredDance[] = [
   d1547 as StoredDance,
   d1550 as StoredDance,
   d1556 as StoredDance,
+  d1591 as StoredDance,
   d1616 as StoredDance,
   d1617 as StoredDance,
   d1658 as StoredDance,
@@ -242,6 +256,7 @@ export const STORED: readonly StoredDance[] = [
   d2266 as StoredDance,
   d2321 as StoredDance,
   d2322 as StoredDance,
+  d2330 as StoredDance,
   d2344 as StoredDance,
   d2355 as StoredDance,
   d2364 as StoredDance,
@@ -251,6 +266,8 @@ export const STORED: readonly StoredDance[] = [
   d2457 as StoredDance,
   d2484 as StoredDance,
   d2492 as StoredDance,
+  d2518 as StoredDance,
+  d2522 as StoredDance,
   d2530 as StoredDance,
   d2604 as StoredDance,
   d2605 as StoredDance,
@@ -274,6 +291,7 @@ export const STORED: readonly StoredDance[] = [
   d3241 as StoredDance,
   d3260 as StoredDance,
   d3261 as StoredDance,
+  d3265 as StoredDance,
   d3326 as StoredDance,
   d3327 as StoredDance,
   d3328 as StoredDance,

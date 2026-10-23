@@ -2,6 +2,7 @@
 import type { FigureRegistry } from '../core/fold.ts';
 import { allemande } from './allemande.ts';
 import { balance } from './balance.ts';
+import { boxCirculate } from './box-circulate.ts';
 import { chain } from './chain.ts';
 import { circle } from './circle.ts';
 import { doSiDo } from './do-si-do.ts';
@@ -19,6 +20,7 @@ import { rightLeftThrough } from './right-left-through.ts';
 import { rollAway } from './roll-away.ts';
 import { rory } from './rory.ts';
 import { slice } from './slice.ts';
+import { slide } from './slide.ts';
 import { star } from './star.ts';
 import { swing } from './swing.ts';
 import { twirl } from './twirl.ts';
@@ -26,6 +28,7 @@ import { twirl } from './twirl.ts';
 export const FIGURES: FigureRegistry = Object.freeze({
   allemande,
   balance,
+  'box-circulate': boxCirculate,
   chain,
   circle,
   'do-si-do': doSiDo,
@@ -43,6 +46,7 @@ export const FIGURES: FigureRegistry = Object.freeze({
   'roll-away': rollAway,
   rory,
   slice,
+  slide,
   star,
   swing,
   twirl,

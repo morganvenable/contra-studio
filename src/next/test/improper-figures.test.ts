@@ -238,3 +238,27 @@ test('give and take: larks cross, take partners by both hands and back up home',
   assert.ok(Math.sign(robin.x) === Math.sign(pos(lines, 0).x), "robin 1 is on the lark's side");
   assert.equal(r.motion(6).contacts.filter((c) => c.strength > 0.9).length, 4);
 });
+
+test('long waves and box circulate: crossers go across, loopers loop into their place', () => {
+  const lines = run([LINES]);
+  const waved = run([call('balance', 4, { formation: 'long-waves', in: 'robins' })], lines);
+  // Robins face in across the set, larks face out.
+  for (const id of [0, 1, 2, 3]) {
+    const p = pos(waved, id);
+    const inward = p.x > 0 ? FACE_WEST : FACE_EAST;
+    facing(yaw(waved, id), id % 2 ? inward : inward + Math.PI, `dancer ${id}`);
+  }
+  const r = FIGURES['box-circulate'](waved, { cross: 'robins', loop: 'left' }, 4);
+  near(
+    r.exit.bodies.get(1)!.position,
+    { x: -pos(waved, 1).x, z: pos(waved, 1).z },
+    'robin crosses',
+  );
+  const lark = r.exit.bodies.get(0)!;
+  assert.ok(Math.sign(lark.position.x) === Math.sign(pos(waved, 0).x), 'lark stays on its side');
+  near(lark.position, pos(waved, 3), "lark loops into the other robin's place");
+  assert.throws(
+    () => FIGURES['box-circulate'](waved, { cross: 'robins', loop: 'right' }, 4),
+    /wrong way/,
+  );
+});

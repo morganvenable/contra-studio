@@ -62,6 +62,18 @@ const CHOICES = [
     (c) => c.move === 'gyre',
     'A gyre goes by the right shoulder, facing each other, with no hands.',
   ],
+  [
+    (c) => c.move === 'box-circulate',
+    'Long waves form during the balance before each box circulate: crossers face in, loopers face out; hands join only where they reach.',
+  ],
+  [
+    (c) => c.move === 'slice' && /long lines slice/i.test(c.text ?? ''),
+    'Long lines slice left & back is drawn as a slice: couples step diagonally left, then straight back.',
+  ],
+  [
+    (c) => c.move === 'hey' && /take (?:right|left) hands/i.test(c.text ?? ''),
+    'Taking hands at the end of a hey is left to the long waves that follow.',
+  ],
 ];
 
 export function snapshotOf(id) {

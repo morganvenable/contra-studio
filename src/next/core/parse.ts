@@ -60,9 +60,11 @@ const call = (move: string, beats: number, params: Record<string, unknown>): Fig
 type Build = (m: RegExpMatchArray, beats: number) => FigureCall[];
 const PATTERNS: readonly (readonly [RegExp, Build])[] = [
   [
-    /^slice (left|right)(?: and straight back)?$/,
+    // "long lines slice left & back": the lines slice as couples, as in a slice.
+    /^(?:long lines )?slice (left|right)(?: (?:and|&) (?:straight )?back)?$/,
     (m, b) => [call('slice', b, { direction: m[1], back: 'straight' })],
   ],
+  [/^slide (left|right) along (?:the )?set$/, (m, b) => [call('slide', b, { direction: m[1] })]],
   [
     /^pass through(?: (across|along) the set)?(?: (?:by the )?(left|right)(?: shoulders?)?)?$/,
     (m, b) => [
@@ -153,7 +155,9 @@ const PATTERNS: readonly (readonly [RegExp, Build])[] = [
     (m, b) => [call('roll-away', b, { who: who(m[1]), whom: who(m[2]) })],
   ],
   [
-    /^(\w+) start a (full|half) hey - (?:(right|left)s in center, (?:right|left)s on ends|(right|left)s on ends, (right|left)s in center)$/,
+    // A trailing "and neighbors take right hands" is the next figure's hold
+    // (the long waves it forms join hands themselves).
+    /^(\w+) start a (full|half) hey - (?:(right|left)s in center, (?:right|left)s on ends|(right|left)s on ends, (right|left)s in center)(?: - and (?:next )?\w+ take (?:right|left) hands)?$/,
     (m, b) => [
       call('hey', b, {
         start: who(m[1]),
@@ -194,6 +198,19 @@ const PATTERNS: readonly (readonly [RegExp, Build])[] = [
     (m, b) => [call('gyre', b, { who: who(m[1]), amount: amount(m[2], 1) })],
   ],
   [
+    // A zero-beat row: the box circulate that follows forms the waves itself
+    // (its crossers face in), so this row adds no call of its own.
+    /^form long waves - (\w+) face in, (\w+) face out(?: .*)?$/,
+    () => [],
+  ],
+  [
+    /^balance (?:&|and) box circulate - (\w+) cross while (\w+) loop (right|left)(?: - and \w+ take (?:right|left) hands)?$/,
+    (m, b) => [
+      call('balance', 4, { formation: 'long-waves', in: who(m[1]) }),
+      call('box-circulate', b - 4, { cross: who(m[1]), loop: m[3] }),
+    ],
+  ],
+  [
     /^balance (?:&|and) petronella$/,
     (_m, b) => [call('balance', 4, { formation: 'ring' }), call('petronella', b - 4, {})],
   ],
@@ -225,9 +242,7 @@ const PATTERNS: readonly (readonly [RegExp, Build])[] = [
   ],
   [
     /^down the hall and turn (as a couple|alone)$/,
-    (m, b) => [
-      call('hall', b, { direction: 'down', turn: m[1] === 'alone' ? 'alone' : 'couple' }),
-    ],
+    (m, b) => [call('hall', b, { direction: 'down', turn: m[1] === 'alone' ? 'alone' : 'couple' })],
   ],
   [
     /^up the hall and bend into a ring$/,
@@ -256,6 +271,8 @@ export function normalizeRow(text: string): { text: string; progression: boolean
     .replace(/(?:,\s*(?:\w+ )?|\s+(?:and |then )?)look (?:for|to) .*$/i, '')
     // Letting go at the end, and a trailing "+", are styling notes.
     .replace(/\s+(?:and \w+ let go|\+)$/i, '')
+    // A row ending in "to" leads into the next row ("ladles do si do once to").
+    .replace(/\s+to$/i, '')
     .replace(/\s+(?:to|and face) (?:new|next) neighbors?$/i, '')
     .replace(/\s*(?:[;,]\s*|and )?(?:turn )?to face (?:the )?(?:new|next) neighbors?$/i, '')
     .replace(/[()]/g, '')
@@ -266,7 +283,11 @@ export function normalizeRow(text: string): { text: string; progression: boolean
 }
 
 /** How a split row names its parts in labels. */
-const PART_NAMES: Readonly<Record<string, string>> = { rory: 'slide', 'pass-by': 'pull by' };
+const PART_NAMES: Readonly<Record<string, string>> = {
+  rory: 'slide',
+  'pass-by': 'pull by',
+  'box-circulate': 'box circulate',
+};
 
 export function parseRow(row: SourceRow): FigureCall[] {
   const { text, progression } = normalizeRow(row.text);

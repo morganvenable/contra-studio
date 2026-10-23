@@ -12,9 +12,15 @@
  * - pair: two dancers (partners, neighbors, ...) face each other and step in
  *   toward each other and back ("neighbors balance", "right hand balance"),
  *   ending where they started. Hands join while they are close enough.
+ * - long-waves: everyone on the side lines takes hands along their line,
+ *   the named role facing in across the set and the others facing out
+ *   (turning to face that way over the first two beats), and balances
+ *   right and left. Hands stay joined along the side lines.
  * Source: Caller's Box glossary, "Balance"; ContraDB rows "balance & Rory
  * O'More right" (2321), "balance the ring", "neighbors balance & swing",
- * "neighbors right hand balance & box the gnat". Wave step size and timing
+ * "neighbors right hand balance & box the gnat", "form long waves -
+ * gentlespoons face in, ladles face out" with "balance & box circulate".
+ * Wave step size and timing
  * ported from src/rory-slide.ts (0.1 m steps, one per beat).
  */
 import type { Hand } from '../../types.ts';
@@ -36,11 +42,23 @@ import {
   turn,
 } from '../core/math.ts';
 import { findRing, ringHolds } from '../core/ring.ts';
-import { body, minorSets, pairsIn, withChanges, type Hold } from '../core/state.ts';
+import { roleOfGroup } from '../core/roles.ts';
+import {
+  body,
+  groupCenter,
+  handToward,
+  minorSets,
+  pairsIn,
+  roleOf,
+  withChanges,
+  type Hold,
+} from '../core/state.ts';
 
 export interface BalanceParams {
   /** 'current': a wave if the group holds one, otherwise its ring. */
-  formation: 'wave' | 'ring' | 'pair' | 'current';
+  formation: 'wave' | 'ring' | 'pair' | 'current' | 'long-waves';
+  /** Long waves: the role that faces in across the set. */
+  in?: 'larks' | 'robins';
   style?: 'right-left' | 'forward-back';
   /** Side to step toward first, for a right-left wave balance. */
   first?: 'right' | 'left';
@@ -61,13 +79,16 @@ const PAIR_IN = 0.75;
 const FACE_BEATS = 1.5;
 
 export const balance: Figure<BalanceParams> = (state, params, beats) => {
-  onlyKeys('balance', params, ['formation', 'style', 'first', 'who', 'hand']);
+  onlyKeys('balance', params, ['formation', 'style', 'first', 'who', 'hand', 'in']);
   const formation = oneOf('balance', 'formation', params.formation, [
     'wave',
     'ring',
     'pair',
     'current',
+    'long-waves',
   ] as const);
+  if (params.in !== undefined && formation !== 'long-waves')
+    throw new Error('Only long waves name who faces in.');
   if (beats !== 4) throw new Error('A balance takes four beats.');
   if (formation === 'current') {
     const waved = minorSets(state).every((g) => {
@@ -83,6 +104,7 @@ export const balance: Figure<BalanceParams> = (state, params, beats) => {
   }
   if (formation === 'wave') return waveBalance(state, params, beats);
   if (formation === 'ring') return ringBalance(state, params, beats);
+  if (formation === 'long-waves') return longWaveBalance(state, params, beats);
   return pairBalance(state, params, beats);
 };
 
@@ -117,6 +139,68 @@ const waveBalance: Figure<BalanceParams> = (state, params, beats) => {
     };
   };
   return { kind: 'wave-balance', motion, exit: settle(state, motion, beats) };
+};
+
+/** Beats to turn to face in or out when forming long waves. */
+const FORM_BEATS = 2;
+/** Neighbors along a side line farther apart than this do not join hands. */
+const LINE_REACH = 2.2;
+
+const longWaveBalance: Figure<BalanceParams> = (state, params, beats) => {
+  if (params.who || params.hand || params.style)
+    throw new Error('A long-wave balance takes no partner, hand or style.');
+  const inRole = roleOfGroup(oneOf('balance', 'in', params.in, ['larks', 'robins'] as const))!;
+  const first = oneOf('balance', 'first', params.first ?? 'right', ['right', 'left'] as const);
+  const sign = first === 'left' ? -1 : 1;
+  const plans = minorSets(state).flatMap((g) => {
+    const middle = groupCenter(state, g);
+    return g.map((id) => {
+      const s = body(state, id);
+      const off = s.position.x - middle.x;
+      if (Math.abs(off) < 0.5) throw new Error(`Dancer ${id} is not standing in a side line.`);
+      const facingIn = off > 0 ? -Math.PI / 2 : Math.PI / 2;
+      const yaw = roleOf(state, id) === inRole ? facingIn : facingIn + Math.PI;
+      return { id, s, yaw, side: Math.sign(off) };
+    });
+  });
+  // Hands along each side line, between neighbors in line (across minor sets too).
+  const holds: Hold[] = [];
+  for (const side of [-1, 1]) {
+    const line = plans
+      .filter((p) => p.side === side)
+      .sort((a, b) => a.s.position.z - b.s.position.z);
+    for (let i = 1; i < line.length; i++) {
+      const [a, b] = [line[i - 1], line[i]];
+      if (Math.abs(b.s.position.z - a.s.position.z) > LINE_REACH) continue;
+      const fa = { position: a.s.position, yaw: a.yaw };
+      const fb = { position: b.s.position, yaw: b.yaw };
+      holds.push({
+        a: a.id,
+        handA: handToward(fa, fb.position),
+        b: b.id,
+        handB: handToward(fb, fa.position),
+      });
+    }
+  }
+  const motion = (beat: number) => {
+    const i = Math.min(3, Math.floor(beat));
+    const q = STEPS[i] + (STEPS[i + 1] - STEPS[i]) * ease(beat - i);
+    const bodies = plans.map((p) => {
+      const yaw = p.s.yaw + turn(p.yaw, p.s.yaw) * smooth(beat / FORM_BEATS);
+      return { id: p.id, position: add(p.s.position, scale(rightOf(yaw), STEP * q * sign)), yaw };
+    });
+    const map = bodyMap(bodies);
+    const strength = smooth((beat - 0.5) / 1);
+    return { bodies, contacts: holds.map((h) => withinReach(joined(h, strength), map)) };
+  };
+  // Keep the hands that still reach at the end (side-line places can be wide).
+  const end = motion(beats).contacts;
+  const kept = holds.filter((_, i) => end[i].strength > 0.5);
+  return {
+    kind: 'wave-balance',
+    motion,
+    exit: withChanges(settle(state, motion, beats), { hands: kept }),
+  };
 };
 
 /** 0 -> 1 -> 0: in over the first two beats, out over the last two. */

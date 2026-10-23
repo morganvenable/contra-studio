@@ -1,0 +1,150 @@
+{
+  "schema": "contra-studio/next-dance",
+  "version": 1,
+  "title": "Heat Exhaustion",
+  "author": "Nicholas Rockstroh",
+  "formation": "becket",
+  "progression": "minor-set",
+  "music": {
+    "meter": "2/4",
+    "parts": [
+      {
+        "name": "A1",
+        "bars": 8
+      },
+      {
+        "name": "A2",
+        "bars": 8
+      },
+      {
+        "name": "B1",
+        "bars": 8
+      },
+      {
+        "name": "B2",
+        "bars": 8
+      }
+    ],
+    "times": "repeat"
+  },
+  "source": {
+    "url": "https://contradb.com/dances/2330",
+    "snapshot": "test-data/contradb/2330.json",
+    "sha256": "fd2db6155c2343fc678aae65ecea3261d86d27fe4f9a0bdfeba6c70c76fd0e45"
+  },
+  "choices": [
+    "Long waves form during the balance before each box circulate: crossers face in, loopers face out; hands join only where they reach.",
+    "Taking hands at the end of a hey is left to the long waves that follow."
+  ],
+  "figures": [
+    {
+      "section": "A1",
+      "move": "slide",
+      "beats": 2,
+      "params": {
+        "direction": "left"
+      },
+      "text": "slide left along set",
+      "progression": true
+    },
+    {
+      "section": "A1",
+      "move": "circle",
+      "beats": 6,
+      "params": {
+        "direction": "left",
+        "places": 3
+      },
+      "text": "circle left 3 places"
+    },
+    {
+      "section": "A1",
+      "move": "hey",
+      "beats": 8,
+      "params": {
+        "start": "robins",
+        "amount": 0.5,
+        "center": "left"
+      },
+      "text": "robins start a half hey - lefts in center, rights on ends - and neighbors take right hands"
+    },
+    {
+      "section": "A2",
+      "move": "balance",
+      "beats": 4,
+      "params": {
+        "formation": "long-waves",
+        "in": "robins"
+      },
+      "text": "balance & box circulate - robins cross while larks loop right · balance"
+    },
+    {
+      "section": "A2",
+      "move": "box-circulate",
+      "beats": 4,
+      "params": {
+        "cross": "robins",
+        "loop": "right"
+      },
+      "text": "balance & box circulate - robins cross while larks loop right · box circulate"
+    },
+    {
+      "section": "A2",
+      "move": "swing",
+      "beats": 8,
+      "params": {
+        "who": "partner"
+      },
+      "text": "partners swing"
+    },
+    {
+      "section": "B1",
+      "move": "chain",
+      "beats": 8,
+      "params": {
+        "who": "larks"
+      },
+      "text": "larks chain"
+    },
+    {
+      "section": "B1",
+      "move": "hey",
+      "beats": 8,
+      "params": {
+        "start": "larks",
+        "amount": 0.5,
+        "center": "left"
+      },
+      "text": "larks start a half hey - lefts in center, rights on ends - and neighbors take right hands"
+    },
+    {
+      "section": "B2",
+      "move": "balance",
+      "beats": 4,
+      "params": {
+        "formation": "long-waves",
+        "in": "larks"
+      },
+      "text": "balance & box circulate - larks cross while robins loop right · balance"
+    },
+    {
+      "section": "B2",
+      "move": "box-circulate",
+      "beats": 4,
+      "params": {
+        "cross": "larks",
+        "loop": "right"
+      },
+      "text": "balance & box circulate - larks cross while robins loop right · box circulate"
+    },
+    {
+      "section": "B2",
+      "move": "swing",
+      "beats": 8,
+      "params": {
+        "who": "partner"
+      },
+      "text": "partners swing"
+    }
+  ]
+}
