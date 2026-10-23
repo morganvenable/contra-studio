@@ -173,19 +173,21 @@ function certify(c:FigureContext,p:MotionPlan,beats:number):StarWhirlMeasures {
 }
 /** All 1½ allemande revolutions are preserved. Robins prepare outside the
  * central orbit in the final 2½ counts, and partner support acquires at pickup. */
-export function compileAllemandeStarPickup(input:Figure,incoming:FigureContext,sourceBeat:number):PickupPlan {
+export function compileAllemandeStarPickup(input:Figure,incoming:FigureContext,sourceBeat:number,options?:{halfWidth:.64}):PickupPlan {
+ if(options!==undefined){options=capturePlainData(options);if(!options||Object.keys(options).length!==1||options.halfWidth!==.64)throw Error('Compact pickup requires its explicit measured square.');}
+ const halfWidth=options?.halfWidth??.9;
  const endBeat=sourceClockEnd(sourceBeat,8);
  input=capturePlainData(input);assertFigureArgumentsConsumed(input);plain(input,[...meta,'who','direction','amount'],'Allemande pickup');metadata(input);
  if(input.kind!=='allemande'||input.who!=='larks'||input.direction!=='left'||input.amount!==1.5||input.beats!==8||input.progression||input.confidence==='unsupported')throw new Error('The pickup owns the complete eight-count lark left one-and-a-half allemande.');
  const c=owned(incoming),origin=center(c),pairs=pairData(c),initialAngles=new Map<number,number>();
  const orderedIds=[...c.ids].sort((a,b)=>c.start[a].position.x-c.start[b].position.x||c.start[a].position.z-c.start[b].position.z);
- const entryState=captureFormationState(c,{sourceBeat,orderedIds,geometry:{kind:'paired-sidelines',sidePair:'neighbor',origin,halfWidth:.9,pairGap:1.8}});
- for(const pair of pairs){const a=c.start[pair.carrierId],b=c.start[pair.carriedId];if(Math.abs(a.position.z-b.position.z)>EPS||Math.abs(Math.abs(a.position.z-origin.z)-.9)>EPS)throw new Error('The source pickup starts with persistent partners across and current neighbors on the sides.');initialAngles.set(pair.carrierId,Math.atan2(a.position.z-origin.z,a.position.x-origin.x));}
+ const entryState=captureFormationState(c,{sourceBeat,orderedIds,geometry:{kind:'paired-sidelines',sidePair:'neighbor',origin,halfWidth,pairGap:halfWidth*2}});
+ for(const pair of pairs){const a=c.start[pair.carrierId],b=c.start[pair.carriedId];if(Math.abs(a.position.z-b.position.z)>EPS||Math.abs(Math.abs(a.position.z-origin.z)-halfWidth)>EPS)throw new Error('The source pickup starts with persistent partners across and current neighbors on the sides.');initialAngles.set(pair.carrierId,Math.atan2(a.position.z-origin.z,a.position.x-origin.x));}
  const raw=(id:number,t:number)=>{t=time(t);const pair=pairs.find(p=>p.carrierId===id||p.carriedId===id);if(!pair)throw new Error('Unknown carried actor.');const theta0=initialAngles.get(pair.carrierId)!,theta=theta0-3*Math.PI*progress(t),endTheta=theta0-3*Math.PI,start=c.start[id],beat=t*8;
   if(id===pair.carrierId){const r0=distance(start.position,origin),r=INNER+(r0-INNER)*(1-ease(beat/1.4)),position=radial(origin,r,theta),natural=-theta-Math.PI/2,yaw=natural+turn(start.yaw,-theta0-Math.PI/2)*(1-ease(beat/1.2))+(-Math.PI/2)*ease((beat-6.5)/1.5);return{position,yaw};}
   const destination=radial(origin,OUTER,endTheta),q=ease((beat-5.5)/2.5),position=mix(start.position,destination,q);position.x+=Math.sign(start.position.x-origin.x)*.2*Math.sin(Math.PI*q);const yaw=start.yaw+turn(Math.PI-endTheta,start.yaw)*q;return{position,yaw};
  };
- const plan:MotionPlan={position:(id,t)=>raw(id,t).position,facing:(id,t)=>raw(id,t).yaw,contacts:(t,poses)=>heldContacts(pairs,poses,origin,ease(time(t)*8/1.4),ease((time(t)*8-7.5)/.5))};
+ const plan:MotionPlan={position:(id,t)=>raw(id,t).position,facing:(id,t)=>raw(id,t).yaw,contacts:(t,poses)=>heldContacts(pairs,poses,origin,ease(time(t)*8/1.4),ease((time(t)*8-7.5)/.5)).map(h=>{if(!options)return h;let reach=0;for(const[id,hand]of[[h.a,h.handA],...(!h.target||h.target==='hands'?[[h.b,h.handB]]:[])]as[number,'left'|'right'][]){const p=poses.find(p=>p.id===id)!,side=hand==='left'?1:-1;reach=Math.max(reach,Math.hypot(h.point.x-p.position.x-side*.235*Math.cos(p.yaw),h.point.y-1.355,h.point.z-p.position.z+side*.235*Math.sin(p.yaw)));}return{...h,strength:h.strength*ease((.64-reach)/.02)};}).filter(h=>!options||h.strength>1e-9)};
  const exitState=radialState(c,plan,1,endBeat);assertSuccessorEntry(entryState,c,plan);
  return Object.freeze({...plan,entryState,exitState,...certify(c,plan,8)});
 }
@@ -196,14 +198,16 @@ export function compileStarPromenadeFigure(input:StarPromenadeFigure,incoming:Fi
  const entryState=radialState(c,plan,0,sourceBeat);assertCarriedFormationHandoff(entry,entryState);const exitState=radialState(c,plan,1,endBeat);
  return Object.freeze({...plan,entryState,exitState,...certify(c,plan,4)});
 }
-export function compileButterflyWhirlFigure(input:ButterflyWhirlFigure,incoming:FigureContext,entry:CarriedFormationState,sourceBeat:number):ButterflyWhirlPlan {
+export function compileButterflyWhirlFigure(input:ButterflyWhirlFigure,incoming:FigureContext,entry:CarriedFormationState,sourceBeat:number,options?:{halfWidth:.64;pairGap:1.28}):ButterflyWhirlPlan {
+ if(options!==undefined){options=capturePlainData(options);if(!options||Object.keys(options).some(k=>!['halfWidth','pairGap'].includes(k))||options.halfWidth!==.64||options.pairGap!==1.28)throw Error('Compact whirl requires an explicit released hey station exit.');}
+ const halfWidth=options?.halfWidth??.9,pairGap=options?.pairGap??GAP;
  const endBeat=sourceClockEnd(sourceBeat,4);
  input=capturePlainData(input);entry=capturePlainData(entry);assertButterflyWhirlFigure(input);const c=owned(incoming),origin=center(c),pairs=pairData(c);
  for(const pair of pairs){const a=c.start[pair.carrierId],theta=Math.atan2(a.position.z-origin.z,a.position.x-origin.x),side=Math.sign(a.position.x-origin.x);if(Math.abs(Math.abs(a.position.x-origin.x)-INNER/Math.SQRT2)>EPS||Math.sign(a.position.z-origin.z)!==side)throw new Error('This reviewed whirl requires the actual diagonal half-star exit.');const natural=c.start[pair.carrierId].yaw+TAU*input.amount;if(Math.abs(turn(natural,side>0?-Math.PI/2:Math.PI/2))>EPS)throw new Error('The declared whirl amount does not naturally face inward.');void theta;}
- const raw=(id:number,t:number)=>{t=time(t);const pair=pairs.find(p=>p.carrierId===id||p.carriedId===id);if(!pair)throw new Error('Unknown whirl actor.');const a=c.start[pair.carrierId],b=c.start[pair.carriedId],mid={x:(a.position.x+b.position.x)/2,z:(a.position.z+b.position.z)/2},side=Math.sign(mid.x-origin.x),target={x:origin.x+side*.9,z:origin.z},moving=mix(mid,target,ease(t)),p=c.start[id].position,theta=Math.atan2(p.z-mid.z,p.x-mid.x)-TAU*input.amount*progress(t);return{position:radial(moving,GAP/2,theta),yaw:c.start[id].yaw+TAU*input.amount*progress(t)};};
- const plan:MotionPlan={position:(id,t)=>raw(id,t).position,facing:(id,t)=>raw(id,t).yaw,contacts:(t,poses)=>heldContacts(pairs,poses,origin,1-ease(time(t)*4/.5),1-ease((time(t)*4-3.5)/.5))};
+ const raw=(id:number,t:number)=>{t=time(t);const pair=pairs.find(p=>p.carrierId===id||p.carriedId===id);if(!pair)throw new Error('Unknown whirl actor.');const a=c.start[pair.carrierId],b=c.start[pair.carriedId],mid={x:(a.position.x+b.position.x)/2,z:(a.position.z+b.position.z)/2},side=Math.sign(mid.x-origin.x),target={x:origin.x+side*halfWidth,z:origin.z},moving=mix(mid,target,ease(t)),p=c.start[id].position,theta=Math.atan2(p.z-mid.z,p.x-mid.x)-TAU*input.amount*progress(t);return{position:radial(moving,(GAP+(pairGap-GAP)*ease((t*4-3.5)/.5))/2,theta),yaw:c.start[id].yaw+TAU*input.amount*progress(t)};};
+ const plan:MotionPlan={position:(id,t)=>raw(id,t).position,facing:(id,t)=>raw(id,t).yaw,contacts:(t,poses)=>heldContacts(pairs,poses,origin,1-ease(time(t)*4/.5),1-ease((time(t)*4-(options?3:3.5))/.5))};
  const entryState=radialState(c,plan,0,sourceBeat);assertCarriedFormationHandoff(entry,entryState);const end=sampleFormationEndpoint(c,plan,1),orderedIds=[...c.ids].sort((a,b)=>end[a].position.x-end[b].position.x||end[a].position.z-end[b].position.z);
- const exitState=captureFormationState({...c,start:end},{sourceBeat:endBeat,orderedIds,geometry:{kind:'paired-sidelines',sidePair:'partner',origin,halfWidth:.9,pairGap:GAP},heldContacts:plan.contacts(1,end)});
+ const exitState=captureFormationState({...c,start:end},{sourceBeat:endBeat,orderedIds,geometry:{kind:'paired-sidelines',sidePair:'partner',origin,halfWidth,pairGap},heldContacts:plan.contacts(1,end)});
  return Object.freeze({...plan,entryState,exitState,...certify(c,plan,4)});
 }
 /** A full robin gyre returns to the same partners. Its full eight-count orbit
