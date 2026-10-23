@@ -196,6 +196,21 @@ The math is good; the organization is the problem.
 
 Each step ends with the corpus test and a browser check of a few dances.
 
+## Flourishes (future)
+
+- **Purpose:** let dancers explore where an individual flourish (an extra
+  twirl, a spin out of a swing, balance styling) fits in a dance and where it
+  doesn't.
+- **Shape:** an optional overlay per figure and per dancer, on top of the
+  figure's plain base path, never changing where the figure starts or ends.
+  It reads free hands, time and space windows from the frames. Off in the
+  basic animation; only styling that is part of a figure's definition (the
+  Rory twirl) is on by default.
+- **"Fits here" report:** clearance, turn rate and free hands during the
+  window. The physical check already reports styled motion (`styled` in its
+  report: turn rate and clearance) instead of failing it; ordinary figures
+  keep the normal limits.
+
 ## Rory O'More, for reference
 
 From balance in a wave, slide right (or left) one place, passing the neighbor

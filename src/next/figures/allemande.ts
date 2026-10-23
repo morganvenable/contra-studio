@@ -5,7 +5,10 @@
  * other, the joined hands at the center, for the named amount (1/2, 3/4, once,
  * 1 1/2...). Right-hand turns go clockwise seen from above. "To short waves
  * with X in the middle" means the turn ends in a four-dancer line with X in the
- * center, who then join their free hands.
+ * center, who then join their free hands. A whole or half turn with no wave
+ * ends back on the pair's own line: the pair lets go and steps back out to
+ * the distance it started at. A quarter or three-quarter turn keeps hands,
+ * the pair standing across its old line (ready for, say, a turn in the middle).
  * Source: Caller's Box glossary, "Allemande"; ContraDB rows "partners
  * allemande right 3/4 to short waves with gentlespoons in the middle" and
  * "gentlespoons allemande left 1/2" (dance 2321). Orbit math ported from the
@@ -61,6 +64,7 @@ export const allemande: Figure<AllemandeParams> = (state, params, beats) => {
   const sign = hand === 'right' ? 1 : -1;
   const sweep = sign * amount * TAU;
   const gather = Math.min(0.4, 1.5 / beats);
+  const stepsOut = !params.wave && Number.isInteger(amount * 2);
   const groups = minorSets(state);
 
   const pairs = groups.flatMap((g) => pairsIn(state, g, who));
@@ -77,7 +81,7 @@ export const allemande: Figure<AllemandeParams> = (state, params, beats) => {
     const pb = body(state, b);
     const center = mean([pa.position, pb.position]);
     const span = length(sub(pa.position, pb.position));
-    if (span < 0.5 || span > 2)
+    if (span < 0.5 || span > 2.7)
       throw new Error(`Dancers ${a} and ${b} are too far apart to turn by the hand.`);
     return [a, b].map((id) => {
       const me = id === a ? pa : pb;
@@ -100,16 +104,19 @@ export const allemande: Figure<AllemandeParams> = (state, params, beats) => {
   const motion = (beat: number) => {
     const t = beat / beats;
     const g = smooth(t / gather);
+    // Ending back on its own line (a whole or half turn) with no wave to
+    // form, the pair lets go and steps back out to its span.
+    const out = stepsOut ? smooth((t - (1 - gather)) / gather) : 0;
     const angle = sweep * progress(t);
     const bodies = orbits.map((o) => {
-      const r = o.radius + (HOLD_RADIUS - o.radius) * g;
+      const r = o.radius + (HOLD_RADIUS - o.radius) * g * (1 - out);
       const position = add(o.center, rotate(scale(o.rel, r / o.radius), angle));
       return { id: o.id, position, yaw: o.start.yaw + o.needed * g - angle };
     });
     const contacts: FigureContact[] = holds.map((h) => {
       const held = state.hands.some((s) => sameHold(s, h));
       // Hands join once the pair has closed in enough to reach.
-      return joined(h, held ? 1 : smooth((g - 0.5) / 0.5));
+      return joined(h, (held ? 1 : smooth((g - 0.5) / 0.5)) * (1 - smooth(out / 0.5)));
     });
     if (waveHolds.length) {
       const strength = smooth((beat - (beats - 0.25)) / 0.25);
@@ -137,6 +144,6 @@ export const allemande: Figure<AllemandeParams> = (state, params, beats) => {
   return {
     kind: 'allemande',
     motion,
-    exit: withChanges(turned, { hands: [...holds, ...waveHolds] }),
+    exit: withChanges(turned, { hands: stepsOut ? [] : [...holds, ...waveHolds] }),
   };
 };

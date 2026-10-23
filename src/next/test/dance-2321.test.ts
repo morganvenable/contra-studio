@@ -7,7 +7,7 @@ import { contraDbRows, parseRow } from '../core/parse.ts';
 import { compileNext, NEXT_DANCES } from '../dance.ts';
 import { near, facing } from './helpers.ts';
 
-const stored = NEXT_DANCES[0];
+const stored = NEXT_DANCES.find((d) => d.source.url.endsWith('/2321'))!;
 const snapshot = JSON.parse(
   readFileSync(new URL('../../../' + stored.source.snapshot, import.meta.url), 'utf8'),
 );

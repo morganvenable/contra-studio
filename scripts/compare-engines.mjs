@@ -8,7 +8,7 @@ import { canonicalText } from '../src/next/core/roles.ts';
 
 const couples = Number(process.argv[2] ?? 4);
 const rounds = Number(process.argv[3] ?? 2);
-const stored = NEXT_DANCES[0];
+const stored = NEXT_DANCES.find((d) => d.source.url.endsWith('/2321'));
 const id = stored.source.url.split('/').pop();
 const archive = READY_LIBRARY.find((e) => e.id === id).archive;
 const old = compileChoreography(readContraDbImport(archive).dance, couples);

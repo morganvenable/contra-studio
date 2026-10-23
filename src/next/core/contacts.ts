@@ -61,3 +61,20 @@ export function complete(c: FigureContact, bodies: ReadonlyMap<number, Body>): H
 export const sameHold = (h: Hold, c: { a: number; b: number; handA: Hand; handB: Hand }) =>
   (h.a === c.a && h.b === c.b && h.handA === c.handA && h.handB === c.handB) ||
   (h.a === c.b && h.b === c.a && h.handA === c.handB && h.handB === c.handA);
+
+/** Below this reach a hold is drawn at full strength. */
+const REACH_EASE = 0.05;
+
+/**
+ * Hands join only when they can reach: scale a contact's strength down as
+ * the reach it needs passes armReach. Positions come from the frame.
+ */
+export function withinReach(c: FigureContact, bodies: ReadonlyMap<number, Body>): FigureContact {
+  const r = contactReach(complete(c, bodies), bodies);
+  return { ...c, strength: c.strength * smooth((LIMITS.armReach - r) / REACH_EASE + 0.5) };
+}
+
+/** Body map from a list of moved bodies. */
+export const bodyMap = (
+  bodies: readonly { id: number; position: Body['position']; yaw: number }[],
+) => new Map(bodies.map((b) => [b.id, { position: b.position, yaw: b.yaw }]));

@@ -3,10 +3,12 @@
  * of its positions. A formation only builds the starting DanceState; figures
  * and the fold never ask which formation they are in.
  *
- * Built so far: Becket (contra, duple minor) and proper longways as one whole
- * set (three-couple sets, whole-set longways). Deferred: improper and proper
- * duple minor, triple minor, four-couple sets, squares, circles, Sicilian
- * circles, triplets and other small fixed sets.
+ * Built so far: Becket and improper (contra, duple minor) and proper
+ * longways as one whole set (three-couple sets, whole-set longways).
+ * Deferred: proper duple minor, triple minor, four-couple sets, squares,
+ * circles, Sicilian circles, triplets and other small fixed sets.
+ *
+ * The top of a longways set is +z: "down the hall" faces -z.
  */
 import type { Dancer } from '../../types.ts';
 import { SET } from './config.ts';
@@ -127,6 +129,59 @@ export const BECKET: Formation = {
 };
 
 /**
+ * Improper duple minor: couples stand one place apart along the set, partners
+ * side by side across it (lark on the left), the 1s facing down and the 2s
+ * facing up, so each 1s couple faces its 2s couple (its neighbors). The 1s
+ * are crossed over: 1s larks on the -x line, 2s larks on the +x line. With an
+ * odd count the bottom couple waits out as 2s, already on its proper side.
+ * Position labels "1s" and "2s" name who travels down and up.
+ */
+export const IMPROPER: Formation = {
+  name: 'Improper',
+  shape: 'longways',
+  grouping: 'duple-minor',
+  couples: { min: 2, max: 12 },
+  start(couples) {
+    checkCount(this, couples);
+    const dancers = createDancers(couples);
+    const bodies = new Map<number, Body>();
+    const groups: number[][] = [];
+    const neighbor = new Map<number, number>();
+    const ones: number[] = [];
+    const twos: number[] = [];
+    const waiting: WaitingCouple[] = [];
+    for (let c = 0; c < couples; c++) {
+      const z = ((couples - 1) / 2 - c) * SET.slot;
+      const isOnes = c % 2 === 0 && c + 1 < couples;
+      placeCouple(bodies, c, { x: 0, z }, isOnes ? Math.PI : 0, SET.slot);
+      (isOnes ? ones : twos).push(c * 2, c * 2 + 1);
+      if (!isOnes && c % 2 === 0) waiting.push({ couple: c, crossed: true });
+    }
+    for (let c = 0; c + 1 < couples; c += 2) {
+      const [lark1, robin1, lark2, robin2] = [c * 2, c * 2 + 1, c * 2 + 2, c * 2 + 3];
+      groups.push([lark1, robin1, lark2, robin2]);
+      neighbor.set(lark1, robin2).set(robin2, lark1).set(robin1, lark2).set(lark2, robin1);
+    }
+    return Object.freeze({
+      dancers,
+      bodies,
+      hands: [],
+      relations: new Map([
+        ['partner', partners(dancers)],
+        ['neighbor', neighbor],
+      ]),
+      groups,
+      positions: new Map([
+        ['1s', ones],
+        ['2s', twos],
+      ]),
+      epoch: 0,
+      waiting,
+    });
+  },
+};
+
+/**
  * Proper longways, the whole set dancing together: partners face across,
  * larks on the +x line, the 1st couple at the top (highest z).
  */
@@ -165,6 +220,7 @@ export const WHOLE_SET_LONGWAYS = wholeSet('Longways for as many as will', 2, 12
 
 export const FORMATIONS: Readonly<Record<string, Formation>> = {
   becket: BECKET,
+  improper: IMPROPER,
   'three-couple-set': THREE_COUPLE_SET,
   'whole-set-longways': WHOLE_SET_LONGWAYS,
 };

@@ -9,13 +9,14 @@ import { compileFold, type FoldedDance } from './core/fold.ts';
 import { FORMATIONS } from './core/formation.ts';
 import { METERS, type MusicStructure } from './core/music.ts';
 import {
+  DUPLE_MINOR_PROGRESSION,
   MINOR_SET_PROGRESSION,
   NO_PROGRESSION,
   WHOLE_SET_PROGRESSION,
   type Progression,
 } from './core/progression.ts';
 import { FIGURES } from './figures/index.ts';
-import debras from './dances/2321.json' with { type: 'json' };
+import { STORED } from './dances/index.ts';
 
 export interface StoredCall extends FigureCall {
   readonly section?: string;
@@ -44,10 +45,11 @@ export interface StoredDance {
   readonly figures: readonly StoredCall[];
 }
 
-export const NEXT_DANCES: readonly StoredDance[] = [debras as StoredDance];
+export const NEXT_DANCES: readonly StoredDance[] = STORED;
 
 const PROGRESSIONS: Readonly<Record<Progression['kind'], Progression>> = {
   'minor-set': MINOR_SET_PROGRESSION,
+  'duple-minor': DUPLE_MINOR_PROGRESSION,
   'whole-set': WHOLE_SET_PROGRESSION,
   none: NO_PROGRESSION,
 };

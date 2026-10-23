@@ -7,13 +7,20 @@
  * through the dance's Progression, at the reached end of the figure the source
  * marks as the progression (or at the end of the round when none is marked).
  * Couples waiting out at an end cross to the other side (a half turn about the
- * set's center line) right after they start waiting. Round length and how
+ * set's center line) right after they start waiting, or at the start of the
+ * next round when the progression comes too late in this one. Round length and how
  * many times through come from the MusicStructure.
  */
 import type { CompiledDance, Dance, Figure as LegacyFigure, Frame, Pose } from '../../types.ts';
 import { complete, contactReach, joined, reachFade, sameHold } from './contacts.ts';
-import type { Figure, FigureCall, FigureContact, FigureResult, MovedBody } from './figure.ts';
-import type { Limits } from './config.ts';
+import type {
+  Figure,
+  FigureCall,
+  FigureContact,
+  FigureResult,
+  MovedBody,
+  Styling,
+} from './figure.ts';
 import { clamp, distance, progress, rotate, smooth, sub, add, turn } from './math.ts';
 import { beatsPerTime, type MusicStructure } from './music.ts';
 import type { Progression } from './progression.ts';
@@ -59,7 +66,7 @@ export function foldRound(
   const segments: Segment[] = [];
   const crossings: Crossing[] = [];
   const total = calls.reduce((n, c) => n + c.beats, 0);
-  let state = start;
+  let state = scheduleCrossings(start, 0, total, crossings);
   let beat = 0;
   for (const [index, call] of calls.entries()) {
     const figure = registry[call.move];
@@ -114,7 +121,8 @@ function scheduleCrossings(
 ): DanceState {
   const pending = state.waiting.filter((w) => !w.crossed);
   if (!pending.length) return state;
-  if (beat + CROSS_BEATS > total) throw new Error('A waiting couple has no time left to cross.');
+  // Too late in the round: the couple crosses at the start of the next one.
+  if (beat + CROSS_BEATS > total) return state;
   const bodies = new Map(state.bodies);
   for (const w of pending) {
     const ids = [w.couple * 2, w.couple * 2 + 1];
@@ -154,8 +162,8 @@ export interface FoldedDance extends CompiledDance {
   /** Frame before the rendering reach fade, for the physical check. */
   rawSample(beat: number): Frame;
   round(repeat: number): Round;
-  /** Looser limits a figure declared for itself, for the physical check. */
-  figureLimits(repeat: number, figureIndex: number): Partial<Limits> | undefined;
+  /** Styling a figure declared (Rory twirl, a flourish), for the physical check. */
+  figureStyling(repeat: number, figureIndex: number): Styling | undefined;
 }
 
 export function compileFold(options: FoldOptions): FoldedDance {
@@ -276,7 +284,7 @@ export function compileFold(options: FoldOptions): FoldedDance {
     sample,
     rawSample,
     round,
-    figureLimits: (repeat, figureIndex) => round(repeat).segments[figureIndex]?.result.limits,
+    figureStyling: (repeat, figureIndex) => round(repeat).segments[figureIndex]?.result.styled,
   };
 }
 

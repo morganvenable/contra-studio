@@ -16,7 +16,6 @@ import type { Figure, FigureContact } from '../core/figure.ts';
 import { oneOf, onlyKeys, settle } from '../core/figure.ts';
 import { joined, sameHold } from '../core/contacts.ts';
 import { findWave, lineHolds } from '../core/lines.ts';
-import { LIMITS } from '../core/config.ts';
 import { add, ease, forward, mix, progress, scale, TAU } from '../core/math.ts';
 import { body, handOf, minorSets, withChanges, type Hold } from '../core/state.ts';
 
@@ -94,6 +93,6 @@ export const rory: Figure<RoryParams> = (state, params, beats) => {
     kind: 'balance-rory-slide',
     motion,
     exit: withChanges(slid, { hands: newHolds }),
-    ...(turnBy ? { limits: { maximumYawRate: LIMITS.spinYawRate } } : {}),
+    ...(turnBy ? { styled: { name: 'Rory twirl' } } : {}),
   };
 };

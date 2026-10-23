@@ -56,7 +56,8 @@
       "move": "pass-through",
       "beats": 4,
       "params": {
-        "shoulder": "right"
+        "shoulder": "right",
+        "axis": "across"
       },
       "text": "pass through across the set"
     },

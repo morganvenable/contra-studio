@@ -24,6 +24,9 @@ const AMOUNTS: Readonly<Record<string, number>> = {
   once: 1,
   '1': 1,
   '1¼': 1.25,
+  '1 1/4': 1.25,
+  '1¾': 1.75,
+  '1 3/4': 1.75,
   '1½': 1.5,
   '1 1/2': 1.5,
   'once and a half': 1.5,
@@ -32,7 +35,8 @@ const AMOUNTS: Readonly<Record<string, number>> = {
 const NUMBERS: Readonly<Record<string, number>> = { one: 1, two: 2, three: 3, four: 4 };
 
 const who = (word: string) => {
-  const w = canonical(word);
+  // "next neighbors" are the neighbors after the progression already marked.
+  const w = canonical(word.replace(/^(?:next|new) /, ''));
   if (!w) throw new Error(`Unknown dancers "${word}".`);
   return w;
 };
@@ -55,8 +59,10 @@ const PATTERNS: readonly (readonly [RegExp, Build])[] = [
     (m, b) => [call('slice', b, { direction: m[1], back: 'straight' })],
   ],
   [
-    /^pass through(?: across the set)?$/,
-    (_m, b) => [call('pass-through', b, { shoulder: 'right' })],
+    /^pass through(?: (across|along) the set)?(?: (?:by the )?(left|right)(?: shoulders?)?)?$/,
+    (m, b) => [
+      call('pass-through', b, { shoulder: m[2] ?? 'right', ...(m[1] ? { axis: m[1] } : {}) }),
+    ],
   ],
   [
     /^(\w+) allemande (left|right)(?: ([^ ]+(?: 1\/2| and a half)?))?(?: to (?:a )?short waves? with (\w+) in the middle)?$/,
@@ -81,7 +87,56 @@ const PATTERNS: readonly (readonly [RegExp, Build])[] = [
     /^balance(?: the wave)?$/,
     (_m, b) => [call('balance', b, { formation: 'wave', style: 'right-left' })],
   ],
-  [/^(\w+) swing$/, (m, b) => [call('swing', b, { who: who(m[1]) })]],
+  [
+    /^((?:next |new )?\w+) balance (?:&|and) (?:long |meltdown )?swing$/,
+    (m, b) => [
+      call('balance', 4, { formation: 'pair', who: who(m[1]), hand: 'both' }),
+      call('swing', b - 4, { who: who(m[1]) }),
+    ],
+  ],
+  [
+    /^((?:next |new )?\w+) (?:long |meltdown )?swing$/,
+    (m, b) => [call('swing', b, { who: who(m[1]) })],
+  ],
+  [/^balance the ring$/, (_m, b) => [call('balance', b, { formation: 'ring' })]],
+  [
+    /^((?:next |new )?\w+) (?:(right|left) hand )?balance(?: (right|left) hand)?$/,
+    (m, b) => [
+      call('balance', b, { formation: 'pair', who: who(m[1]), hand: m[2] ?? m[3] ?? 'both' }),
+    ],
+  ],
+  [
+    /^star (right|left)(?: - (hands across|wrist grip) -)? (\w+) places?$/,
+    (m, b) => [
+      call('star', b, {
+        hand: m[1],
+        places: NUMBERS[m[3]] ?? Number(m[3]),
+        grip: m[2] === 'wrist grip' ? 'wrist' : 'hands-across',
+      }),
+    ],
+  ],
+  [
+    /^(\w+) chain(?: (?:to|with) (?:their |your )?(\w+))?$/,
+    (m, b) => {
+      const to = m[2] ? who(m[2]) : undefined;
+      return [call('chain', b, { who: who(m[1]), ...(to ? { to } : {}) })];
+    },
+  ],
+  [
+    /^long lines forward(?: (?:&|and) back)?$/,
+    (m, b) => [call('long-lines', b, { back: m[0].includes('back') })],
+  ],
+  [
+    /^((?:next |new )?\w+) (do si do|see saw) (once|twice|[^ ]+)$/,
+    (m, b) => [
+      call('do-si-do', b, {
+        who: who(m[1]),
+        amount: amount(m[3], 1),
+        shoulder: m[2] === 'see saw' ? 'left' : 'right',
+      }),
+    ],
+  ],
+  [/^right left through$/, (_m, b) => [call('right-left-through', b, {})]],
   [
     /^circle (left|right)(?: (\w+) places?| ([^ ]+))?$/,
     (m, b) => {
@@ -98,6 +153,12 @@ export function normalizeRow(text: string): { text: string; progression: boolean
   const plain = text
     .replace(/⁋/g, '')
     .replace(/[’‘]/g, "'")
+    // Reminders to look for new neighbors describe the progression; the
+    // progression mark carries it.
+    .replace(/\s*\((?:look|with courtesy turn)[^)]*\)/gi, '')
+    .replace(/,?\s*(?:and |then )?look (?:for|to) (?:the )?(?:new |next )*\w+(?: new)*(?: neighbors?)?.*$/i, '')
+    .replace(/\s+(?:to|and face) (?:new|next) neighbors?$/i, '')
+    .replace(/[()]/g, '')
     .replace(/\s+/g, ' ')
     .trim()
     .toLowerCase();

@@ -67,6 +67,20 @@ export function minorSets(state: DanceState): readonly (readonly number[])[] {
   return state.groups;
 }
 
+/** The active group a dancer belongs to, if any. */
+export function groupOf(state: DanceState, id: number): readonly number[] | undefined {
+  return state.groups.find((g) => g.includes(id));
+}
+
+/** Middle of a group: the center of a minor set's square of places. */
+export function groupCenter(state: DanceState, group: readonly number[]): Vec2 {
+  const ps = group.map((id) => body(state, id).position);
+  return {
+    x: ps.reduce((n, p) => n + p.x, 0) / ps.length,
+    z: ps.reduce((n, p) => n + p.z, 0) / ps.length,
+  };
+}
+
 /** Ids of everyone in an active group. */
 export function activeIds(state: DanceState): number[] {
   return state.groups.flat();

@@ -7,6 +7,7 @@
 import type { Frame } from '../../types.ts';
 import { LIMITS, type Limits } from './config.ts';
 import { contactReach } from './contacts.ts';
+import type { Styling } from './figure.ts';
 import { distance, turn } from './math.ts';
 
 export interface PhysicalReport {
@@ -15,6 +16,19 @@ export interface PhysicalReport {
   readonly maximumYawRate: number;
   readonly maximumReach: number;
   readonly problems: readonly string[];
+  /**
+   * Styled motion (the Rory twirl, flourishes) is reported, not failed, for
+   * turn rate: how fast it turns and how close dancers come while it runs.
+   */
+  readonly styled: readonly StyledReport[];
+}
+
+export interface StyledReport {
+  readonly name: string;
+  readonly repeat: number;
+  readonly figureIndex: number;
+  readonly maximumYawRate: number;
+  readonly minimumClearance: number;
 }
 
 export interface CheckOptions {
@@ -28,7 +42,7 @@ export function physicalCheck(
   dance: {
     totalBeats: number;
     rawSample(beat: number): Frame;
-    figureLimits?(repeat: number, figureIndex: number): Partial<Limits> | undefined;
+    figureStyling?(repeat: number, figureIndex: number): Styling | undefined;
   },
   options: CheckOptions = {},
 ): PhysicalReport {
@@ -44,6 +58,7 @@ export function physicalCheck(
   let maximumSpeed = 0;
   let maximumYawRate = 0;
   let maximumReach = 0;
+  const styled = new Map<string, StyledReport>();
   let previous: Frame | undefined;
   for (let i = 0; i * step <= end - 1e-9; i++) {
     const beat = i * step;
@@ -57,18 +72,35 @@ export function physicalCheck(
           note(beat, `dancers ${a} and ${b} are ${d.toFixed(2)} m apart`);
       }
     }
+    const styling = dance.figureStyling?.(frame.repeat, frame.figureIndex);
+    let frameClearance = Infinity;
+    for (let a = 0; a < poses.length; a++) {
+      for (let b = a + 1; b < poses.length; b++) {
+        frameClearance = Math.min(frameClearance, distance(poses[a].position, poses[b].position));
+      }
+    }
     if (previous && frame.figureIndex === previous.figureIndex) {
-      const own = dance.figureLimits?.(frame.repeat, frame.figureIndex);
-      const maximumYaw = own?.maximumYawRate ?? limits.maximumYawRate;
+      const key = `${frame.repeat}:${frame.figureIndex}`;
       for (const p of poses) {
         const q = previous.poses[p.id];
         const speed = distance(p.position, q.position) / step;
         const yawRate = Math.abs(turn(p.yaw, q.yaw)) / step;
         maximumSpeed = Math.max(maximumSpeed, speed);
-        maximumYawRate = Math.max(maximumYawRate, yawRate);
         if (speed > limits.maximumSpeed)
           note(beat, `dancer ${p.id} moves ${speed.toFixed(2)} m/beat`);
-        if (yawRate > maximumYaw)
+        if (styling) {
+          const was = styled.get(key);
+          styled.set(key, {
+            name: styling.name,
+            repeat: frame.repeat,
+            figureIndex: frame.figureIndex,
+            maximumYawRate: Math.max(was?.maximumYawRate ?? 0, yawRate),
+            minimumClearance: Math.min(was?.minimumClearance ?? Infinity, frameClearance),
+          });
+          continue;
+        }
+        maximumYawRate = Math.max(maximumYawRate, yawRate);
+        if (yawRate > limits.maximumYawRate)
           note(beat, `dancer ${p.id} turns ${yawRate.toFixed(2)} rad/beat`);
       }
     }
@@ -83,5 +115,12 @@ export function physicalCheck(
     }
     previous = frame;
   }
-  return { minimumClearance, maximumSpeed, maximumYawRate, maximumReach, problems };
+  return {
+    minimumClearance,
+    maximumSpeed,
+    maximumYawRate,
+    maximumReach,
+    problems,
+    styled: [...styled.values()],
+  };
 }

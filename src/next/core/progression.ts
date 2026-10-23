@@ -6,6 +6,10 @@
  * - minor-set: contra-style. Couples facing each other one place apart become
  *   neighbors; couples left over wait out at the ends and cross over
  *   (port of rebindAtEndpoint in src/progression-topology.ts).
+ * - duple-minor: improper-style. The 1s travel down the set and the 2s up;
+ *   each 1s couple's new neighbors are the 2s couple one place below it.
+ *   Facing does not matter, only where the couples stand. A couple with no
+ *   one to meet waits out at its end and changes number (1s <-> 2s).
  * - whole-set: the set keeps one group; places are renamed from where the
  *   couples now stand (e.g. after the top couple casts to the bottom).
  * - none: same relationships every time (set dances, once-through dances).
@@ -16,7 +20,7 @@ import { dot, forward, mean, sub } from './math.ts';
 import { body, partnerOf, type DanceState, type WaitingCouple, withChanges } from './state.ts';
 
 export interface Progression {
-  readonly kind: 'minor-set' | 'whole-set' | 'none';
+  readonly kind: 'minor-set' | 'duple-minor' | 'whole-set' | 'none';
   rebind(state: DanceState): DanceState;
 }
 
@@ -86,6 +90,98 @@ export const MINOR_SET_PROGRESSION: Progression = {
     }
     const relations = new Map(state.relations).set('neighbor', neighbor);
     return withChanges(state, { relations, groups, waiting, epoch: state.epoch + 1 });
+  },
+};
+
+/** Distance along the set (z) between the 1s and the 2s they meet. */
+const MEET_TOLERANCE = 0.3;
+
+export const DUPLE_MINOR_PROGRESSION: Progression = {
+  kind: 'duple-minor',
+  rebind(state) {
+    const couples = coupleSpots(state);
+    const ones = new Set(state.positions.get('1s') ?? []);
+    const twos = new Set(state.positions.get('2s') ?? []);
+    const isOnes = (c: number) => ones.has(couples.get(c)!.lark);
+    for (const [c, spot] of couples) {
+      if (ones.has(spot.lark) === twos.has(spot.lark))
+        throw new Error(`Couple ${c + 1} must be either 1s or 2s.`);
+    }
+    const oldGroup = new Map<number, string>();
+    for (const g of state.groups) {
+      const key = g
+        .map((id) => state.dancers[id].couple)
+        .filter((c, i, a) => a.indexOf(c) === i)
+        .sort()
+        .join('-');
+      for (const id of g) oldGroup.set(state.dancers[id].couple, key);
+    }
+    const below = (c: number) =>
+      [...couples.keys()].filter((k) => {
+        if (isOnes(k)) return false;
+        const gap = couples.get(c)!.center.z - couples.get(k)!.center.z;
+        return Math.abs(gap - SET.slot) < MEET_TOLERANCE;
+      });
+    const neighbor = new Map<number, number>();
+    const groups: number[][] = [];
+    const paired = new Set<number>();
+    for (const c of [...couples.keys()].filter(isOnes)) {
+      const found = below(c);
+      if (found.length > 1)
+        throw new Error(`The 1s of couple ${c + 1} meet more than one couple.`);
+      if (!found.length) continue;
+      const k = found[0];
+      if (paired.has(k)) throw new Error(`Couple ${k + 1} is met by two couples.`);
+      if (oldGroup.get(c) !== undefined && oldGroup.get(c) === oldGroup.get(k)) {
+        throw new Error(`Couples ${c + 1} and ${k + 1} have not passed each other yet.`);
+      }
+      const me = couples.get(c)!;
+      const other = couples.get(k)!;
+      neighbor.set(me.lark, other.robin).set(other.robin, me.lark);
+      neighbor.set(me.robin, other.lark).set(other.lark, me.robin);
+      groups.push([me.lark, me.robin, other.lark, other.robin]);
+      paired.add(c).add(k);
+    }
+    // Waiting couples change number: they will travel the other way.
+    const nextOnes = new Set(ones);
+    const nextTwos = new Set(twos);
+    const previous = new Map(state.waiting.map((w) => [w.couple, w]));
+    const waiting: WaitingCouple[] = [];
+    for (const [c, spot] of couples) {
+      if (paired.has(c)) continue;
+      const before = previous.get(c);
+      waiting.push(
+        before && !before.crossed ? before : { couple: c, crossed: before !== undefined },
+      );
+      if (before) continue;
+      for (const id of [spot.lark, spot.robin]) {
+        if (isOnes(c)) {
+          nextOnes.delete(id);
+          nextTwos.add(id);
+        } else {
+          nextTwos.delete(id);
+          nextOnes.add(id);
+        }
+      }
+    }
+    const activeZ = groups.flat().map((id) => body(state, id).position.z);
+    for (const w of waiting) {
+      const z = couples.get(w.couple)!.center.z;
+      if (z > Math.min(...activeZ) && z < Math.max(...activeZ)) {
+        throw new Error(`Couple ${w.couple + 1} has no neighbors in the middle of the set.`);
+      }
+    }
+    const relations = new Map(state.relations).set('neighbor', neighbor);
+    const positions = new Map(state.positions)
+      .set(
+        '1s',
+        [...nextOnes].sort((a, b) => a - b),
+      )
+      .set(
+        '2s',
+        [...nextTwos].sort((a, b) => a - b),
+      );
+    return withChanges(state, { relations, groups, waiting, positions, epoch: state.epoch + 1 });
   },
 };
 

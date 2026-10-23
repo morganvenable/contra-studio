@@ -13,22 +13,9 @@
 import type { Figure, FigureContact } from '../core/figure.ts';
 import { oneOf, onlyKeys, settle } from '../core/figure.ts';
 import { joined } from '../core/contacts.ts';
-import {
-  add,
-  heading,
-  length,
-  mean,
-  polar,
-  positiveAngle,
-  progress,
-  rotate,
-  scale,
-  smooth,
-  sub,
-  TAU,
-  turn,
-} from '../core/math.ts';
-import { body, minorSets, withChanges, type Hold } from '../core/state.ts';
+import { add, heading, progress, rotate, scale, smooth, sub, TAU, turn } from '../core/math.ts';
+import { findRing, ringHolds } from '../core/ring.ts';
+import { body, minorSets, withChanges } from '../core/state.ts';
 
 export interface CircleParams {
   direction: 'left' | 'right';
@@ -58,30 +45,11 @@ export const circle: Figure<CircleParams> = (state, params, beats) => {
 
   const rings = minorSets(state).map((group) => {
     const n = group.length;
-    const center = mean(group.map((id) => body(state, id).position));
-    const order = [...group].sort(
-      (a, b) =>
-        polar(sub(body(state, a).position, center)) - polar(sub(body(state, b).position, center)),
-    );
-    for (let i = 0; i < n; i++) {
-      const rel = sub(body(state, order[i]).position, center);
-      const next = sub(body(state, order[(i + 1) % n]).position, center);
-      const gap = positiveAngle(polar(next) - polar(rel));
-      if (length(rel) < 0.6 || length(rel) > 3 || Math.abs(gap - TAU / n) > 0.5) {
-        throw new Error(`A circle of ${n} needs the dancers spaced around a ring.`);
-      }
-    }
+    const { center, order } = findRing(state, group, 'circle');
     if (params.places !== undefined && params.places > 2 * n)
       throw new Error('Too many circle places.');
     const turns = params.amount ?? params.places! / n;
-    // Moving to the left is increasing polar angle, so each dancer's left-hand
-    // neighbor is the next one in polar order.
-    const hands: Hold[] = order.map((id, i) => ({
-      a: id,
-      handA: 'left',
-      b: order[(i + 1) % n],
-      handB: 'right',
-    }));
+    const hands = ringHolds({ center, order });
     return { center, ids: order, hands, sweep: sign * turns * TAU };
   });
 
@@ -105,8 +73,14 @@ export const circle: Figure<CircleParams> = (state, params, beats) => {
         return { id, position, yaw };
       }),
     );
-    const contacts: FigureContact[] = rings.flatMap((r) => r.hands.map((h) => joined(h, strength)));
+    const contacts: FigureContact[] = rings.flatMap((r) =>
+      r.hands.map((h) => joined(h, strength)),
+    );
     return { bodies, contacts };
   };
-  return { kind: 'circle', motion, exit: withChanges(settle(state, motion, beats), { hands: [] }) };
+  return {
+    kind: 'circle',
+    motion,
+    exit: withChanges(settle(state, motion, beats), { hands: [] }),
+  };
 };

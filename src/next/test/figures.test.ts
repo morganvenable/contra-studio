@@ -121,7 +121,7 @@ test('larks allemande left 1/2 swaps the larks and turns them around', () => {
   near(pos(exit, 2), { x: -0.45, z: 0 });
   facing(yaw(exit, 0), FACE_DOWN);
   facing(yaw(exit, 2), FACE_UP);
-  assert.deepEqual(holds(exit), ['0-2:left/left']);
+  assert.deepEqual(holds(exit), [], 'a half turn lets go at the end');
 });
 
 test('allemande refuses a hand that is busy with someone else', () => {

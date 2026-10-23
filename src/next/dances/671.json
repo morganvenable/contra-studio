@@ -1,0 +1,129 @@
+{
+  "schema": "contra-studio/next-dance",
+  "version": 1,
+  "title": "Push the Button",
+  "author": "unknown",
+  "formation": "improper",
+  "progression": "duple-minor",
+  "music": {
+    "meter": "2/4",
+    "parts": [
+      {
+        "name": "A1",
+        "bars": 8
+      },
+      {
+        "name": "A2",
+        "bars": 8
+      },
+      {
+        "name": "B1",
+        "bars": 8
+      },
+      {
+        "name": "B2",
+        "bars": 8
+      }
+    ],
+    "times": "repeat"
+  },
+  "source": {
+    "url": "https://contradb.com/dances/671",
+    "snapshot": "test-data/contradb/671.json",
+    "sha256": "f3a288cd9b19c6bd05f9bd9773bb4d8a9b6701e61ff5ef1d298dfd1c31af242b"
+  },
+  "choices": [
+    "Pass through goes by right shoulders.",
+    "A pass through from a ring goes along the set, to the dancer on your own side.",
+    "A balance with a partner or neighbor holds both hands."
+  ],
+  "figures": [
+    {
+      "section": "A1",
+      "move": "balance",
+      "beats": 4,
+      "params": {
+        "formation": "pair",
+        "who": "neighbor",
+        "hand": "both"
+      },
+      "text": "neighbors balance & swing · balance"
+    },
+    {
+      "section": "A1",
+      "move": "swing",
+      "beats": 12,
+      "params": {
+        "who": "neighbor"
+      },
+      "text": "neighbors balance & swing · swing"
+    },
+    {
+      "section": "A2",
+      "move": "long-lines",
+      "beats": 8,
+      "params": {
+        "back": true
+      },
+      "text": "long lines forward & back"
+    },
+    {
+      "section": "A2",
+      "move": "chain",
+      "beats": 8,
+      "params": {
+        "who": "robins"
+      },
+      "text": "robins chain"
+    },
+    {
+      "section": "B1",
+      "move": "do-si-do",
+      "beats": 8,
+      "params": {
+        "who": "robins",
+        "amount": 1,
+        "shoulder": "right"
+      },
+      "text": "robins do si do once"
+    },
+    {
+      "section": "B1",
+      "move": "swing",
+      "beats": 8,
+      "params": {
+        "who": "partner"
+      },
+      "text": "partners swing"
+    },
+    {
+      "section": "B2",
+      "move": "circle",
+      "beats": 8,
+      "params": {
+        "direction": "left",
+        "places": 3
+      },
+      "text": "circle left 3 places"
+    },
+    {
+      "section": "B2",
+      "move": "balance",
+      "beats": 4,
+      "params": {
+        "formation": "ring"
+      },
+      "text": "balance the ring"
+    },
+    {
+      "section": "B2",
+      "move": "pass-through",
+      "beats": 4,
+      "params": {
+        "shoulder": "right"
+      },
+      "text": "pass through",
+      "progression": true
+    }
+  ]
+}

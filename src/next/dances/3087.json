@@ -1,0 +1,123 @@
+{
+  "schema": "contra-studio/next-dance",
+  "version": 1,
+  "title": "Show of Hands I",
+  "author": "Melanie Axel-Lute",
+  "formation": "improper",
+  "progression": "duple-minor",
+  "music": {
+    "meter": "2/4",
+    "parts": [
+      {
+        "name": "A1",
+        "bars": 8
+      },
+      {
+        "name": "A2",
+        "bars": 8
+      },
+      {
+        "name": "B1",
+        "bars": 8
+      },
+      {
+        "name": "B2",
+        "bars": 8
+      }
+    ],
+    "times": "repeat"
+  },
+  "source": {
+    "url": "https://contradb.com/dances/3087",
+    "snapshot": "test-data/contradb/3087.json",
+    "sha256": "2d8efc93da147de36a3c5e01519b7814a2ad4aedb4dd4e318cd4576789bb319e"
+  },
+  "choices": [
+    "A balance with a partner or neighbor holds both hands.",
+    "A star with no grip named is drawn hands across."
+  ],
+  "figures": [
+    {
+      "section": "A1",
+      "move": "allemande",
+      "beats": 8,
+      "params": {
+        "who": "neighbor",
+        "hand": "right",
+        "amount": 1.25
+      },
+      "text": "neighbors allemande right 1¼"
+    },
+    {
+      "section": "A1",
+      "move": "allemande",
+      "beats": 8,
+      "params": {
+        "who": "robins",
+        "hand": "left",
+        "amount": 1.5
+      },
+      "text": "robins allemande left 1½"
+    },
+    {
+      "section": "A2",
+      "move": "balance",
+      "beats": 4,
+      "params": {
+        "formation": "pair",
+        "who": "partner",
+        "hand": "both"
+      },
+      "text": "partners balance & swing · balance"
+    },
+    {
+      "section": "A2",
+      "move": "swing",
+      "beats": 12,
+      "params": {
+        "who": "partner"
+      },
+      "text": "partners balance & swing · swing"
+    },
+    {
+      "section": "B1",
+      "move": "circle",
+      "beats": 8,
+      "params": {
+        "direction": "left",
+        "places": 3
+      },
+      "text": "circle left 3 places"
+    },
+    {
+      "section": "B1",
+      "move": "swing",
+      "beats": 8,
+      "params": {
+        "who": "neighbor"
+      },
+      "text": "neighbors swing"
+    },
+    {
+      "section": "B2",
+      "move": "long-lines",
+      "beats": 8,
+      "params": {
+        "back": true
+      },
+      "text": "long lines forward & back"
+    },
+    {
+      "section": "B2",
+      "move": "star",
+      "beats": 8,
+      "params": {
+        "hand": "left",
+        "places": 4,
+        "grip": "hands-across"
+      },
+      "text": "star left 4 places",
+      "progression": true
+    }
+  ]
+}

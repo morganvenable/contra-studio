@@ -1,0 +1,118 @@
+{
+  "schema": "contra-studio/next-dance",
+  "version": 1,
+  "title": "The Full Deal",
+  "author": "Sarah Kaiser",
+  "formation": "improper",
+  "progression": "duple-minor",
+  "music": {
+    "meter": "2/4",
+    "parts": [
+      {
+        "name": "A1",
+        "bars": 8
+      },
+      {
+        "name": "A2",
+        "bars": 8
+      },
+      {
+        "name": "B1",
+        "bars": 8
+      },
+      {
+        "name": "B2",
+        "bars": 8
+      }
+    ],
+    "times": "repeat"
+  },
+  "source": {
+    "url": "https://contradb.com/dances/180",
+    "snapshot": "test-data/contradb/180.json",
+    "sha256": "b778543449d5ec33f9f64eb35b11c0dc632bd93f7e96f6010cc329cec2794f1f"
+  },
+  "choices": [
+    "A balance with a partner or neighbor holds both hands."
+  ],
+  "figures": [
+    {
+      "section": "A1",
+      "move": "circle",
+      "beats": 8,
+      "params": {
+        "direction": "left",
+        "places": 3
+      },
+      "text": "circle left 3 places"
+    },
+    {
+      "section": "A1",
+      "move": "swing",
+      "beats": 8,
+      "params": {
+        "who": "partner"
+      },
+      "text": "partners swing"
+    },
+    {
+      "section": "A2",
+      "move": "chain",
+      "beats": 8,
+      "params": {
+        "who": "robins"
+      },
+      "text": "robins chain"
+    },
+    {
+      "section": "A2",
+      "move": "chain",
+      "beats": 8,
+      "params": {
+        "who": "robins"
+      },
+      "text": "robins chain"
+    },
+    {
+      "section": "B1",
+      "move": "long-lines",
+      "beats": 8,
+      "params": {
+        "back": true
+      },
+      "text": "long lines forward & back"
+    },
+    {
+      "section": "B1",
+      "move": "allemande",
+      "beats": 8,
+      "params": {
+        "who": "larks",
+        "hand": "left",
+        "amount": 1.5
+      },
+      "text": "larks allemande left 1½"
+    },
+    {
+      "section": "B2",
+      "move": "balance",
+      "beats": 4,
+      "params": {
+        "formation": "pair",
+        "who": "neighbor",
+        "hand": "both"
+      },
+      "text": "neighbors balance & swing · balance"
+    },
+    {
+      "section": "B2",
+      "move": "swing",
+      "beats": 12,
+      "params": {
+        "who": "neighbor"
+      },
+      "text": "neighbors balance & swing · swing",
+      "progression": true
+    }
+  ]
+}
