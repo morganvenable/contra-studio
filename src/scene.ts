@@ -422,7 +422,7 @@ export class DanceScene {
     for(const obj of this.paths.children){const line=obj as THREE.Line;line.geometry.dispose();(line.material as THREE.Material).dispose();}this.paths.clear();
     const start=frame.repeat*this.compiled.totalBeats+this.compiled.starts[frame.figureIndex],duration=this.compiled.dance.figures[frame.figureIndex].beats;
     const selected=state.selectedDancer>=0?[state.selectedDancer]:[0,1,2,3];
-    for(const id of selected){const points=[];for(let i=0;i<=80;i++){const p=this.compiled.sample(start+duration*i/80-.00001).poses[id].position;points.push(new THREE.Vector3(p.x,.024,p.z));}const g=new THREE.BufferGeometry().setFromPoints(points),m=new THREE.LineDashedMaterial({color:this.compiled.dancers[id].color,transparent:true,opacity:.52,dashSize:.13,gapSize:.07});const line=new THREE.Line(g,m);line.computeLineDistances();this.paths.add(line);}
+    for(const id of selected){const points=[];for(let i=0;i<=80;i++){const p=this.compiled.sample(Math.max(0,start+duration*i/80-.00001)).poses[id].position;points.push(new THREE.Vector3(p.x,.024,p.z));}const g=new THREE.BufferGeometry().setFromPoints(points),m=new THREE.LineDashedMaterial({color:this.compiled.dancers[id].color,transparent:true,opacity:.52,dashSize:.13,gapSize:.07});const line=new THREE.Line(g,m);line.computeLineDistances();this.paths.add(line);}
   }
   dispose(){this.swingPresentationController?.dispose();this.swingPresentationController=undefined;this.resize.disconnect();this.controls.dispose();this.band.dispose();for(const avatar of this.avatars)avatar.dispose();this.contactDotGeometry.dispose();this.contactDotMaterial.dispose();this.renderer.dispose();}
 }
