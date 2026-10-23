@@ -2,10 +2,10 @@
   "schema": "contra-studio/coverage-audit",
   "version": 1,
   "provenance": {
-    "generatedAt": "2026-10-23T20:58:19.410Z",
-    "revision": "5d7b3fc1acca23355d14020c3488374144ebf5c8",
+    "generatedAt": "2026-10-23T21:57:50.898Z",
+    "revision": "4e493dd229b2a28ec2ac5a75b8d7ffed4776ae49",
     "workingTreeModified": true,
-    "runtimeMilliseconds": 215747,
+    "runtimeMilliseconds": 237143,
     "node": "v24.12.0",
     "datasets": [
       {
@@ -26,21 +26,21 @@
   },
   "availability": {
     "catalogue": 2422,
-    "retainedSnapshots": 230,
-    "savedReady": 201,
+    "retainedSnapshots": 232,
+    "savedReady": 203,
     "union": 2422,
-    "metadataOnly": 2192,
+    "metadataOnly": 2190,
     "categories": {
-      "catalogue:true snapshot:false saved:false": 2192,
-      "catalogue:true snapshot:true saved:true": 201,
+      "catalogue:true snapshot:false saved:false": 2190,
+      "catalogue:true snapshot:true saved:true": 203,
       "catalogue:true snapshot:true saved:false": 29
     }
   },
   "views": {
     "rawDefaults": {
-      "sources": 230,
+      "sources": 232,
       "statuses": {
-        "interpretation-blocked": 230
+        "interpretation-blocked": 232
       },
       "figures": [
         {
@@ -220,18 +220,20 @@
             "3335",
             "3361",
             "3363",
+            "3389",
             "3402",
             "3431",
             "3464",
             "3465",
+            "3471",
             "3478",
             "3490",
             "3496",
             "3507",
             "3510"
           ],
-          "occurrences": 230,
-          "sources": 183
+          "occurrences": 232,
+          "sources": 185
         },
         {
           "kind": "circle",
@@ -397,15 +399,17 @@
             "3335",
             "3361",
             "3363",
+            "3389",
             "3402",
             "3431",
+            "3471",
             "3490",
             "3496",
             "3507",
             "3510"
           ],
-          "occurrences": 192,
-          "sources": 167
+          "occurrences": 194,
+          "sources": 169
         },
         {
           "kind": "allemande",
@@ -638,15 +642,17 @@
             "3327",
             "3361",
             "3363",
+            "3389",
             "3402",
+            "3471",
             "3475",
             "3478",
             "3490",
             "3496",
             "3533"
           ],
-          "occurrences": 97,
-          "sources": 93
+          "occurrences": 99,
+          "sources": 95
         },
         {
           "kind": "do-si-do",
@@ -893,10 +899,11 @@
             "1658",
             "2344",
             "2996",
-            "3004"
+            "3004",
+            "3389"
           ],
-          "occurrences": 9,
-          "sources": 8
+          "occurrences": 10,
+          "sources": 9
         },
         {
           "kind": "pull-by",
@@ -990,7 +997,7 @@
       "blockers": [
         {
           "code": "balance-swing-timing",
-          "sources": 156,
+          "sources": 158,
           "sourceIds": [
             "8",
             "9",
@@ -1138,11 +1145,13 @@
             "3327",
             "3335",
             "3363",
+            "3389",
             "3402",
             "3431",
             "3454",
             "3464",
             "3465",
+            "3471",
             "3475",
             "3478",
             "3496",
@@ -1153,7 +1162,7 @@
         },
         {
           "code": "chain-receiver",
-          "sources": 81,
+          "sources": 83,
           "sourceIds": [
             "8",
             "9",
@@ -1230,10 +1239,12 @@
             "3280",
             "3326",
             "3327",
+            "3389",
             "3402",
             "3454",
             "3464",
             "3465",
+            "3471",
             "3478",
             "3510"
           ],
@@ -1241,7 +1252,7 @@
         },
         {
           "code": "ring-pass-choice",
-          "sources": 48,
+          "sources": 50,
           "sourceIds": [
             "65",
             "166",
@@ -1288,7 +1299,9 @@
             "3327",
             "3328",
             "3335",
+            "3389",
             "3431",
+            "3471",
             "3478",
             "3507"
           ],
@@ -1341,7 +1354,7 @@
         },
         {
           "code": "ordinary-hey-choice",
-          "sources": 36,
+          "sources": 37,
           "sourceIds": [
             "24",
             "99",
@@ -1378,7 +1391,8 @@
             "3261",
             "3265",
             "3464",
-            "3465"
+            "3465",
+            "3471"
           ],
           "soleBlockerSources": 1
         },
@@ -1524,7 +1538,7 @@
         },
         {
           "code": "circulation-choice",
-          "sources": 23,
+          "sources": 25,
           "sourceIds": [
             "94",
             "123",
@@ -1548,7 +1562,9 @@
             "3004",
             "3181",
             "3292",
-            "3363"
+            "3363",
+            "3389",
+            "3471"
           ],
           "soleBlockerSources": 0
         },
@@ -1637,8 +1653,60 @@
           "soleBlockerSources": 0
         },
         {
+          "code": "progression-location",
+          "sources": 19,
+          "sourceIds": [
+            "257",
+            "577",
+            "828",
+            "840",
+            "1067",
+            "1480",
+            "1501",
+            "1618",
+            "1632",
+            "2006",
+            "2273",
+            "2329",
+            "2331",
+            "2373",
+            "2672",
+            "3292",
+            "3363",
+            "3389",
+            "3471"
+          ],
+          "soleBlockerSources": 0
+        },
+        {
+          "code": "source-hook",
+          "sources": 19,
+          "sourceIds": [
+            "66",
+            "179",
+            "257",
+            "495",
+            "577",
+            "1976",
+            "2006",
+            "2212",
+            "2305",
+            "2329",
+            "2330",
+            "2331",
+            "2494",
+            "2693",
+            "2876",
+            "3004",
+            "3265",
+            "3389",
+            "3471"
+          ],
+          "soleBlockerSources": 0
+        },
+        {
           "code": "source-notes-classification",
-          "sources": 18,
+          "sources": 19,
           "sourceIds": [
             "354",
             "363",
@@ -1657,6 +1725,7 @@
             "3185",
             "3310",
             "3327",
+            "3471",
             "3478"
           ],
           "soleBlockerSources": 0
@@ -1682,54 +1751,6 @@
             "3241",
             "3260",
             "3454"
-          ],
-          "soleBlockerSources": 0
-        },
-        {
-          "code": "progression-location",
-          "sources": 17,
-          "sourceIds": [
-            "257",
-            "577",
-            "828",
-            "840",
-            "1067",
-            "1480",
-            "1501",
-            "1618",
-            "1632",
-            "2006",
-            "2273",
-            "2329",
-            "2331",
-            "2373",
-            "2672",
-            "3292",
-            "3363"
-          ],
-          "soleBlockerSources": 0
-        },
-        {
-          "code": "source-hook",
-          "sources": 17,
-          "sourceIds": [
-            "66",
-            "179",
-            "257",
-            "495",
-            "577",
-            "1976",
-            "2006",
-            "2212",
-            "2305",
-            "2329",
-            "2330",
-            "2331",
-            "2494",
-            "2693",
-            "2876",
-            "3004",
-            "3265"
           ],
           "soleBlockerSources": 0
         },
@@ -1897,6 +1918,23 @@
           "soleBlockerSources": 0
         },
         {
+          "code": "ring-pass-context",
+          "sources": 10,
+          "sourceIds": [
+            "166",
+            "577",
+            "828",
+            "840",
+            "1501",
+            "2273",
+            "2329",
+            "3292",
+            "3389",
+            "3471"
+          ],
+          "soleBlockerSources": 0
+        },
+        {
           "code": "source-notes-history-review",
           "sources": 10,
           "sourceIds": [
@@ -1910,6 +1948,22 @@
             "1930",
             "2266",
             "3142"
+          ],
+          "soleBlockerSources": 0
+        },
+        {
+          "code": "ring-pass-source-contract",
+          "sources": 9,
+          "sourceIds": [
+            "577",
+            "828",
+            "840",
+            "1501",
+            "2273",
+            "2329",
+            "3292",
+            "3389",
+            "3471"
           ],
           "soleBlockerSources": 0
         },
@@ -1961,21 +2015,6 @@
           "soleBlockerSources": 0
         },
         {
-          "code": "ring-pass-context",
-          "sources": 8,
-          "sourceIds": [
-            "166",
-            "577",
-            "828",
-            "840",
-            "1501",
-            "2273",
-            "2329",
-            "3292"
-          ],
-          "soleBlockerSources": 0
-        },
-        {
           "code": "source-notes-alternative-review",
           "sources": 8,
           "sourceIds": [
@@ -2002,20 +2041,6 @@
             "2331",
             "2672",
             "3004"
-          ],
-          "soleBlockerSources": 0
-        },
-        {
-          "code": "ring-pass-source-contract",
-          "sources": 7,
-          "sourceIds": [
-            "577",
-            "828",
-            "840",
-            "1501",
-            "2273",
-            "2329",
-            "3292"
           ],
           "soleBlockerSources": 0
         },
@@ -2513,6 +2538,14 @@
           "soleBlockerSources": 0
         },
         {
+          "code": "ordinary-hey-source-contract",
+          "sources": 1,
+          "sourceIds": [
+            "3471"
+          ],
+          "soleBlockerSources": 0
+        },
+        {
           "code": "partial-hey-entry",
           "sources": 1,
           "sourceIds": [
@@ -2687,7 +2720,7 @@
             "balance-swing-timing",
             "chain-receiver"
           ],
-          "sources": 60,
+          "sources": 62,
           "sourceIds": [
             "8",
             "9",
@@ -2744,10 +2777,12 @@
             "3185",
             "3280",
             "3327",
+            "3389",
             "3402",
             "3454",
             "3464",
             "3465",
+            "3471",
             "3478"
           ]
         },
@@ -2756,7 +2791,7 @@
             "balance-swing-timing",
             "ring-pass-choice"
           ],
-          "sources": 37,
+          "sources": 39,
           "sourceIds": [
             "65",
             "522",
@@ -2792,7 +2827,9 @@
             "3310",
             "3327",
             "3335",
+            "3389",
             "3431",
+            "3471",
             "3478",
             "3507"
           ]
@@ -2802,7 +2839,7 @@
             "balance-swing-timing",
             "ordinary-hey-choice"
           ],
-          "sources": 27,
+          "sources": 28,
           "sourceIds": [
             "24",
             "99",
@@ -2830,7 +2867,8 @@
             "3214",
             "3265",
             "3464",
-            "3465"
+            "3465",
+            "3471"
           ]
         },
         {
@@ -2874,7 +2912,7 @@
             "chain-receiver",
             "ordinary-hey-choice"
           ],
-          "sources": 21,
+          "sources": 22,
           "sourceIds": [
             "24",
             "182",
@@ -2896,7 +2934,8 @@
             "2494",
             "2684",
             "3464",
-            "3465"
+            "3465",
+            "3471"
           ]
         },
         {
@@ -3009,6 +3048,32 @@
         },
         {
           "codes": [
+            "balance-swing-timing",
+            "circulation-choice"
+          ],
+          "sources": 17,
+          "sourceIds": [
+            "94",
+            "363",
+            "577",
+            "828",
+            "840",
+            "1501",
+            "1618",
+            "1658",
+            "2247",
+            "2273",
+            "2329",
+            "2518",
+            "3004",
+            "3292",
+            "3363",
+            "3389",
+            "3471"
+          ]
+        },
+        {
+          "codes": [
             "hall-composition",
             "hall-return-pair"
           ],
@@ -3085,30 +3150,6 @@
         {
           "codes": [
             "balance-swing-timing",
-            "circulation-choice"
-          ],
-          "sources": 15,
-          "sourceIds": [
-            "94",
-            "363",
-            "577",
-            "828",
-            "840",
-            "1501",
-            "1618",
-            "1658",
-            "2247",
-            "2273",
-            "2329",
-            "2518",
-            "3004",
-            "3292",
-            "3363"
-          ]
-        },
-        {
-          "codes": [
-            "balance-swing-timing",
             "petronella-choice"
           ],
           "sources": 15,
@@ -3127,6 +3168,28 @@
             "2492",
             "3051",
             "3431",
+            "3478"
+          ]
+        },
+        {
+          "codes": [
+            "balance-swing-timing",
+            "source-notes-classification"
+          ],
+          "sources": 13,
+          "sourceIds": [
+            "363",
+            "458",
+            "577",
+            "975",
+            "1428",
+            "1983",
+            "2212",
+            "3051",
+            "3185",
+            "3310",
+            "3327",
+            "3471",
             "3478"
           ]
         },
@@ -3154,23 +3217,45 @@
         },
         {
           "codes": [
+            "chain-receiver",
+            "ring-pass-choice"
+          ],
+          "sources": 13,
+          "sourceIds": [
+            "671",
+            "1093",
+            "1420",
+            "1434",
+            "1464",
+            "1496",
+            "2329",
+            "3012",
+            "3185",
+            "3327",
+            "3389",
+            "3471",
+            "3478"
+          ]
+        },
+        {
+          "codes": [
             "balance-swing-timing",
-            "source-notes-classification"
+            "progression-location"
           ],
           "sources": 12,
           "sourceIds": [
-            "363",
-            "458",
             "577",
-            "975",
-            "1428",
-            "1983",
-            "2212",
-            "3051",
-            "3185",
-            "3310",
-            "3327",
-            "3478"
+            "828",
+            "840",
+            "1067",
+            "1501",
+            "1618",
+            "2273",
+            "2329",
+            "3292",
+            "3363",
+            "3389",
+            "3471"
           ]
         },
         {
@@ -3192,6 +3277,27 @@
             "3402",
             "3464",
             "3465"
+          ]
+        },
+        {
+          "codes": [
+            "circulation-choice",
+            "progression-location"
+          ],
+          "sources": 12,
+          "sourceIds": [
+            "257",
+            "577",
+            "828",
+            "840",
+            "1501",
+            "1618",
+            "2273",
+            "2329",
+            "3292",
+            "3363",
+            "3389",
+            "3471"
           ]
         },
         {
@@ -3218,6 +3324,26 @@
         {
           "codes": [
             "balance-swing-timing",
+            "source-hook"
+          ],
+          "sources": 11,
+          "sourceIds": [
+            "66",
+            "577",
+            "2212",
+            "2305",
+            "2329",
+            "2693",
+            "2876",
+            "3004",
+            "3265",
+            "3389",
+            "3471"
+          ]
+        },
+        {
+          "codes": [
+            "balance-swing-timing",
             "unknown-figure"
           ],
           "sources": 11,
@@ -3237,26 +3363,6 @@
         },
         {
           "codes": [
-            "chain-receiver",
-            "ring-pass-choice"
-          ],
-          "sources": 11,
-          "sourceIds": [
-            "671",
-            "1093",
-            "1420",
-            "1434",
-            "1464",
-            "1496",
-            "2329",
-            "3012",
-            "3185",
-            "3327",
-            "3478"
-          ]
-        },
-        {
-          "codes": [
             "circulation-choice",
             "unsupported-figure-variant"
           ],
@@ -3271,25 +3377,6 @@
             "2321",
             "2329",
             "2330",
-            "3292",
-            "3363"
-          ]
-        },
-        {
-          "codes": [
-            "balance-swing-timing",
-            "progression-location"
-          ],
-          "sources": 10,
-          "sourceIds": [
-            "577",
-            "828",
-            "840",
-            "1067",
-            "1501",
-            "1618",
-            "2273",
-            "2329",
             "3292",
             "3363"
           ]
@@ -3315,25 +3402,6 @@
         },
         {
           "codes": [
-            "circulation-choice",
-            "progression-location"
-          ],
-          "sources": 10,
-          "sourceIds": [
-            "257",
-            "577",
-            "828",
-            "840",
-            "1501",
-            "1618",
-            "2273",
-            "2329",
-            "3292",
-            "3363"
-          ]
-        },
-        {
-          "codes": [
             "promenade-choice",
             "ring-pass-choice"
           ],
@@ -3349,6 +3417,25 @@
             "3310",
             "3335",
             "3507"
+          ]
+        },
+        {
+          "codes": [
+            "ring-pass-choice",
+            "ring-pass-context"
+          ],
+          "sources": 10,
+          "sourceIds": [
+            "166",
+            "577",
+            "828",
+            "840",
+            "1501",
+            "2273",
+            "2329",
+            "3292",
+            "3389",
+            "3471"
           ]
         },
         {
@@ -3445,19 +3532,55 @@
         {
           "codes": [
             "balance-swing-timing",
-            "source-hook"
+            "ring-pass-context"
           ],
           "sources": 9,
           "sourceIds": [
-            "66",
             "577",
-            "2212",
-            "2305",
+            "828",
+            "840",
+            "1501",
+            "2273",
             "2329",
-            "2693",
-            "2876",
-            "3004",
-            "3265"
+            "3292",
+            "3389",
+            "3471"
+          ]
+        },
+        {
+          "codes": [
+            "balance-swing-timing",
+            "ring-pass-source-contract"
+          ],
+          "sources": 9,
+          "sourceIds": [
+            "577",
+            "828",
+            "840",
+            "1501",
+            "2273",
+            "2329",
+            "3292",
+            "3389",
+            "3471"
+          ]
+        },
+        {
+          "codes": [
+            "chain-receiver",
+            "source-notes-classification"
+          ],
+          "sources": 9,
+          "sourceIds": [
+            "354",
+            "495",
+            "823",
+            "975",
+            "1983",
+            "3185",
+            "3327",
+            "3471",
+            "3478"
           ]
         },
         {
@@ -3498,6 +3621,60 @@
         },
         {
           "codes": [
+            "circulation-choice",
+            "ring-pass-choice"
+          ],
+          "sources": 9,
+          "sourceIds": [
+            "577",
+            "828",
+            "840",
+            "1501",
+            "2273",
+            "2329",
+            "3292",
+            "3389",
+            "3471"
+          ]
+        },
+        {
+          "codes": [
+            "circulation-choice",
+            "ring-pass-context"
+          ],
+          "sources": 9,
+          "sourceIds": [
+            "577",
+            "828",
+            "840",
+            "1501",
+            "2273",
+            "2329",
+            "3292",
+            "3389",
+            "3471"
+          ]
+        },
+        {
+          "codes": [
+            "circulation-choice",
+            "ring-pass-source-contract"
+          ],
+          "sources": 9,
+          "sourceIds": [
+            "577",
+            "828",
+            "840",
+            "1501",
+            "2273",
+            "2329",
+            "3292",
+            "3389",
+            "3471"
+          ]
+        },
+        {
+          "codes": [
             "event-policy-choice",
             "ring-pass-choice"
           ],
@@ -3512,6 +3689,96 @@
             "3010",
             "3328",
             "3507"
+          ]
+        },
+        {
+          "codes": [
+            "progression-location",
+            "ring-pass-choice"
+          ],
+          "sources": 9,
+          "sourceIds": [
+            "577",
+            "828",
+            "840",
+            "1501",
+            "2273",
+            "2329",
+            "3292",
+            "3389",
+            "3471"
+          ]
+        },
+        {
+          "codes": [
+            "progression-location",
+            "ring-pass-context"
+          ],
+          "sources": 9,
+          "sourceIds": [
+            "577",
+            "828",
+            "840",
+            "1501",
+            "2273",
+            "2329",
+            "3292",
+            "3389",
+            "3471"
+          ]
+        },
+        {
+          "codes": [
+            "progression-location",
+            "ring-pass-source-contract"
+          ],
+          "sources": 9,
+          "sourceIds": [
+            "577",
+            "828",
+            "840",
+            "1501",
+            "2273",
+            "2329",
+            "3292",
+            "3389",
+            "3471"
+          ]
+        },
+        {
+          "codes": [
+            "ring-pass-choice",
+            "ring-pass-source-contract"
+          ],
+          "sources": 9,
+          "sourceIds": [
+            "577",
+            "828",
+            "840",
+            "1501",
+            "2273",
+            "2329",
+            "3292",
+            "3389",
+            "3471"
+          ]
+        },
+        {
+          "codes": [
+            "ring-pass-context",
+            "ring-pass-source-contract"
+          ],
+          "sources": 9,
+          "sourceIds": [
+            "577",
+            "828",
+            "840",
+            "1501",
+            "2273",
+            "2329",
+            "3292",
+            "3389",
+            "3471"
           ]
         },
         {
@@ -3672,18 +3939,35 @@
         {
           "codes": [
             "chain-receiver",
-            "source-notes-classification"
+            "circulation-choice"
           ],
           "sources": 8,
           "sourceIds": [
-            "354",
+            "94",
+            "123",
+            "1658",
+            "2247",
+            "2329",
+            "2330",
+            "3389",
+            "3471"
+          ]
+        },
+        {
+          "codes": [
+            "chain-receiver",
+            "source-hook"
+          ],
+          "sources": 8,
+          "sourceIds": [
+            "179",
             "495",
-            "823",
-            "975",
-            "1983",
-            "3185",
-            "3327",
-            "3478"
+            "2329",
+            "2330",
+            "2331",
+            "2494",
+            "3389",
+            "3471"
           ]
         },
         {
@@ -3701,23 +3985,6 @@
             "2330",
             "2331",
             "3265"
-          ]
-        },
-        {
-          "codes": [
-            "ring-pass-choice",
-            "ring-pass-context"
-          ],
-          "sources": 8,
-          "sourceIds": [
-            "166",
-            "577",
-            "828",
-            "840",
-            "1501",
-            "2273",
-            "2329",
-            "3292"
           ]
         },
         {
@@ -3754,82 +4021,18 @@
         },
         {
           "codes": [
-            "balance-swing-timing",
-            "ring-pass-context"
-          ],
-          "sources": 7,
-          "sourceIds": [
-            "577",
-            "828",
-            "840",
-            "1501",
-            "2273",
-            "2329",
-            "3292"
-          ]
-        },
-        {
-          "codes": [
-            "balance-swing-timing",
-            "ring-pass-source-contract"
-          ],
-          "sources": 7,
-          "sourceIds": [
-            "577",
-            "828",
-            "840",
-            "1501",
-            "2273",
-            "2329",
-            "3292"
-          ]
-        },
-        {
-          "codes": [
             "circulation-choice",
-            "ring-pass-choice"
+            "source-hook"
           ],
           "sources": 7,
           "sourceIds": [
+            "257",
             "577",
-            "828",
-            "840",
-            "1501",
-            "2273",
             "2329",
-            "3292"
-          ]
-        },
-        {
-          "codes": [
-            "circulation-choice",
-            "ring-pass-context"
-          ],
-          "sources": 7,
-          "sourceIds": [
-            "577",
-            "828",
-            "840",
-            "1501",
-            "2273",
-            "2329",
-            "3292"
-          ]
-        },
-        {
-          "codes": [
-            "circulation-choice",
-            "ring-pass-source-contract"
-          ],
-          "sources": 7,
-          "sourceIds": [
-            "577",
-            "828",
-            "840",
-            "1501",
-            "2273",
-            "2329",
-            "3292"
+            "2330",
+            "3004",
+            "3389",
+            "3471"
           ]
         },
         {
@@ -3867,81 +4070,33 @@
         {
           "codes": [
             "progression-location",
-            "ring-pass-choice"
+            "source-hook"
           ],
           "sources": 7,
           "sourceIds": [
+            "257",
             "577",
-            "828",
-            "840",
-            "1501",
-            "2273",
+            "2006",
             "2329",
-            "3292"
-          ]
-        },
-        {
-          "codes": [
-            "progression-location",
-            "ring-pass-context"
-          ],
-          "sources": 7,
-          "sourceIds": [
-            "577",
-            "828",
-            "840",
-            "1501",
-            "2273",
-            "2329",
-            "3292"
-          ]
-        },
-        {
-          "codes": [
-            "progression-location",
-            "ring-pass-source-contract"
-          ],
-          "sources": 7,
-          "sourceIds": [
-            "577",
-            "828",
-            "840",
-            "1501",
-            "2273",
-            "2329",
-            "3292"
+            "2331",
+            "3389",
+            "3471"
           ]
         },
         {
           "codes": [
             "ring-pass-choice",
-            "ring-pass-source-contract"
+            "source-notes-classification"
           ],
           "sources": 7,
           "sourceIds": [
             "577",
-            "828",
-            "840",
-            "1501",
-            "2273",
-            "2329",
-            "3292"
-          ]
-        },
-        {
-          "codes": [
-            "ring-pass-context",
-            "ring-pass-source-contract"
-          ],
-          "sources": 7,
-          "sourceIds": [
-            "577",
-            "828",
-            "840",
-            "1501",
-            "2273",
-            "2329",
-            "3292"
+            "3051",
+            "3185",
+            "3310",
+            "3327",
+            "3471",
+            "3478"
           ]
         },
         {
@@ -4024,31 +4179,16 @@
         {
           "codes": [
             "chain-receiver",
-            "circulation-choice"
+            "progression-location"
           ],
           "sources": 6,
           "sourceIds": [
-            "94",
-            "123",
-            "1658",
-            "2247",
             "2329",
-            "2330"
-          ]
-        },
-        {
-          "codes": [
-            "chain-receiver",
-            "source-hook"
-          ],
-          "sources": 6,
-          "sourceIds": [
-            "179",
-            "495",
-            "2329",
-            "2330",
             "2331",
-            "2494"
+            "2373",
+            "2672",
+            "3389",
+            "3471"
           ]
         },
         {
@@ -4244,21 +4384,6 @@
             "682",
             "892",
             "3012"
-          ]
-        },
-        {
-          "codes": [
-            "ring-pass-choice",
-            "source-notes-classification"
-          ],
-          "sources": 6,
-          "sourceIds": [
-            "577",
-            "3051",
-            "3185",
-            "3310",
-            "3327",
-            "3478"
           ]
         },
         {
@@ -4653,20 +4778,6 @@
         },
         {
           "codes": [
-            "circulation-choice",
-            "source-hook"
-          ],
-          "sources": 5,
-          "sourceIds": [
-            "257",
-            "577",
-            "2329",
-            "2330",
-            "3004"
-          ]
-        },
-        {
-          "codes": [
             "give-take-choice",
             "give-take-context"
           ],
@@ -4691,6 +4802,34 @@
             "2530",
             "3241",
             "3260"
+          ]
+        },
+        {
+          "codes": [
+            "ordinary-hey-choice",
+            "ring-pass-choice"
+          ],
+          "sources": 5,
+          "sourceIds": [
+            "1093",
+            "3241",
+            "3260",
+            "3261",
+            "3471"
+          ]
+        },
+        {
+          "codes": [
+            "ordinary-hey-choice",
+            "source-hook"
+          ],
+          "sources": 5,
+          "sourceIds": [
+            "1976",
+            "2305",
+            "2494",
+            "3265",
+            "3471"
           ]
         },
         {
@@ -4747,20 +4886,6 @@
             "1501",
             "2273",
             "3292"
-          ]
-        },
-        {
-          "codes": [
-            "progression-location",
-            "source-hook"
-          ],
-          "sources": 5,
-          "sourceIds": [
-            "257",
-            "577",
-            "2006",
-            "2329",
-            "2331"
           ]
         },
         {
@@ -5093,19 +5218,6 @@
         },
         {
           "codes": [
-            "chain-receiver",
-            "progression-location"
-          ],
-          "sources": 4,
-          "sourceIds": [
-            "2329",
-            "2331",
-            "2373",
-            "2672"
-          ]
-        },
-        {
-          "codes": [
             "circulate-timing-choice",
             "progression-location"
           ],
@@ -5289,27 +5401,14 @@
         {
           "codes": [
             "ordinary-hey-choice",
-            "ring-pass-choice"
+            "source-notes-classification"
           ],
           "sources": 4,
           "sourceIds": [
-            "1093",
-            "3241",
-            "3260",
-            "3261"
-          ]
-        },
-        {
-          "codes": [
-            "ordinary-hey-choice",
-            "source-hook"
-          ],
-          "sources": 4,
-          "sourceIds": [
-            "1976",
-            "2305",
-            "2494",
-            "3265"
+            "354",
+            "975",
+            "1983",
+            "3471"
           ]
         },
         {
@@ -5388,6 +5487,58 @@
             "892",
             "2530",
             "3507"
+          ]
+        },
+        {
+          "codes": [
+            "ring-pass-choice",
+            "source-hook"
+          ],
+          "sources": 4,
+          "sourceIds": [
+            "577",
+            "2329",
+            "3389",
+            "3471"
+          ]
+        },
+        {
+          "codes": [
+            "ring-pass-context",
+            "source-hook"
+          ],
+          "sources": 4,
+          "sourceIds": [
+            "577",
+            "2329",
+            "3389",
+            "3471"
+          ]
+        },
+        {
+          "codes": [
+            "ring-pass-source-contract",
+            "source-hook"
+          ],
+          "sources": 4,
+          "sourceIds": [
+            "577",
+            "2329",
+            "3389",
+            "3471"
+          ]
+        },
+        {
+          "codes": [
+            "source-hook",
+            "source-notes-classification"
+          ],
+          "sources": 4,
+          "sourceIds": [
+            "495",
+            "577",
+            "2212",
+            "3471"
           ]
         },
         {
@@ -5646,6 +5797,30 @@
         {
           "codes": [
             "chain-receiver",
+            "ring-pass-context"
+          ],
+          "sources": 3,
+          "sourceIds": [
+            "2329",
+            "3389",
+            "3471"
+          ]
+        },
+        {
+          "codes": [
+            "chain-receiver",
+            "ring-pass-source-contract"
+          ],
+          "sources": 3,
+          "sourceIds": [
+            "2329",
+            "3389",
+            "3471"
+          ]
+        },
+        {
+          "codes": [
+            "chain-receiver",
             "source-notes-alternative-review"
           ],
           "sources": 3,
@@ -5713,6 +5888,18 @@
             "187",
             "2305",
             "3265"
+          ]
+        },
+        {
+          "codes": [
+            "circulation-choice",
+            "source-notes-classification"
+          ],
+          "sources": 3,
+          "sourceIds": [
+            "363",
+            "577",
+            "3471"
           ]
         },
         {
@@ -5982,18 +6169,6 @@
         {
           "codes": [
             "ordinary-hey-choice",
-            "source-notes-classification"
-          ],
-          "sources": 3,
-          "sourceIds": [
-            "354",
-            "975",
-            "1983"
-          ]
-        },
-        {
-          "codes": [
-            "ordinary-hey-choice",
             "unknown-figure"
           ],
           "sources": 3,
@@ -6133,18 +6308,6 @@
             "1556",
             "2243",
             "2322"
-          ]
-        },
-        {
-          "codes": [
-            "source-hook",
-            "source-notes-classification"
-          ],
-          "sources": 3,
-          "sourceIds": [
-            "495",
-            "577",
-            "2212"
           ]
         },
         {
@@ -6691,17 +6854,6 @@
         },
         {
           "codes": [
-            "circulation-choice",
-            "source-notes-classification"
-          ],
-          "sources": 2,
-          "sourceIds": [
-            "363",
-            "577"
-          ]
-        },
-        {
-          "codes": [
             "event-policy-choice",
             "gyre-shoulder-choice"
           ],
@@ -7241,6 +7393,17 @@
         },
         {
           "codes": [
+            "progression-location",
+            "source-notes-classification"
+          ],
+          "sources": 2,
+          "sourceIds": [
+            "577",
+            "3471"
+          ]
+        },
+        {
+          "codes": [
             "promenade-choice",
             "source-notes-authorship-review"
           ],
@@ -7319,17 +7482,6 @@
         {
           "codes": [
             "ring-pass-choice",
-            "source-hook"
-          ],
-          "sources": 2,
-          "sourceIds": [
-            "577",
-            "2329"
-          ]
-        },
-        {
-          "codes": [
-            "ring-pass-choice",
             "source-star-return-provenance"
           ],
           "sources": 2,
@@ -7363,23 +7515,23 @@
         {
           "codes": [
             "ring-pass-context",
-            "source-hook"
+            "source-notes-classification"
           ],
           "sources": 2,
           "sourceIds": [
             "577",
-            "2329"
+            "3471"
           ]
         },
         {
           "codes": [
             "ring-pass-source-contract",
-            "source-hook"
+            "source-notes-classification"
           ],
           "sources": 2,
           "sourceIds": [
             "577",
-            "2329"
+            "3471"
           ]
         },
         {
@@ -8112,6 +8264,16 @@
         {
           "codes": [
             "balance-swing-timing",
+            "ordinary-hey-source-contract"
+          ],
+          "sources": 1,
+          "sourceIds": [
+            "3471"
+          ]
+        },
+        {
+          "codes": [
+            "balance-swing-timing",
             "partial-hey-entry"
           ],
           "sources": 1,
@@ -8822,6 +8984,16 @@
         {
           "codes": [
             "chain-receiver",
+            "ordinary-hey-source-contract"
+          ],
+          "sources": 1,
+          "sourceIds": [
+            "3471"
+          ]
+        },
+        {
+          "codes": [
+            "chain-receiver",
             "partial-hey-entry"
           ],
           "sources": 1,
@@ -8837,26 +9009,6 @@
           "sources": 1,
           "sourceIds": [
             "2236"
-          ]
-        },
-        {
-          "codes": [
-            "chain-receiver",
-            "ring-pass-context"
-          ],
-          "sources": 1,
-          "sourceIds": [
-            "2329"
-          ]
-        },
-        {
-          "codes": [
-            "chain-receiver",
-            "ring-pass-source-contract"
-          ],
-          "sources": 1,
-          "sourceIds": [
-            "2329"
           ]
         },
         {
@@ -9017,6 +9169,26 @@
           "sources": 1,
           "sourceIds": [
             "840"
+          ]
+        },
+        {
+          "codes": [
+            "circulation-choice",
+            "ordinary-hey-choice"
+          ],
+          "sources": 1,
+          "sourceIds": [
+            "3471"
+          ]
+        },
+        {
+          "codes": [
+            "circulation-choice",
+            "ordinary-hey-source-contract"
+          ],
+          "sources": 1,
+          "sourceIds": [
+            "3471"
           ]
         },
         {
@@ -10772,6 +10944,16 @@
         {
           "codes": [
             "ordinary-hey-choice",
+            "ordinary-hey-source-contract"
+          ],
+          "sources": 1,
+          "sourceIds": [
+            "3471"
+          ]
+        },
+        {
+          "codes": [
+            "ordinary-hey-choice",
             "petronella-choice"
           ],
           "sources": 1,
@@ -10782,11 +10964,41 @@
         {
           "codes": [
             "ordinary-hey-choice",
+            "progression-location"
+          ],
+          "sources": 1,
+          "sourceIds": [
+            "3471"
+          ]
+        },
+        {
+          "codes": [
+            "ordinary-hey-choice",
             "right-left-through-choice"
           ],
           "sources": 1,
           "sourceIds": [
             "2243"
+          ]
+        },
+        {
+          "codes": [
+            "ordinary-hey-choice",
+            "ring-pass-context"
+          ],
+          "sources": 1,
+          "sourceIds": [
+            "3471"
+          ]
+        },
+        {
+          "codes": [
+            "ordinary-hey-choice",
+            "ring-pass-source-contract"
+          ],
+          "sources": 1,
+          "sourceIds": [
+            "3471"
           ]
         },
         {
@@ -10837,6 +11049,66 @@
           "sources": 1,
           "sourceIds": [
             "2364"
+          ]
+        },
+        {
+          "codes": [
+            "ordinary-hey-source-contract",
+            "progression-location"
+          ],
+          "sources": 1,
+          "sourceIds": [
+            "3471"
+          ]
+        },
+        {
+          "codes": [
+            "ordinary-hey-source-contract",
+            "ring-pass-choice"
+          ],
+          "sources": 1,
+          "sourceIds": [
+            "3471"
+          ]
+        },
+        {
+          "codes": [
+            "ordinary-hey-source-contract",
+            "ring-pass-context"
+          ],
+          "sources": 1,
+          "sourceIds": [
+            "3471"
+          ]
+        },
+        {
+          "codes": [
+            "ordinary-hey-source-contract",
+            "ring-pass-source-contract"
+          ],
+          "sources": 1,
+          "sourceIds": [
+            "3471"
+          ]
+        },
+        {
+          "codes": [
+            "ordinary-hey-source-contract",
+            "source-hook"
+          ],
+          "sources": 1,
+          "sourceIds": [
+            "3471"
+          ]
+        },
+        {
+          "codes": [
+            "ordinary-hey-source-contract",
+            "source-notes-classification"
+          ],
+          "sources": 1,
+          "sourceIds": [
+            "3471"
           ]
         },
         {
@@ -11202,16 +11474,6 @@
         {
           "codes": [
             "progression-location",
-            "source-notes-classification"
-          ],
-          "sources": 1,
-          "sourceIds": [
-            "577"
-          ]
-        },
-        {
-          "codes": [
-            "progression-location",
             "whole-set-oval-choice"
           ],
           "sources": 1,
@@ -11502,16 +11764,6 @@
         {
           "codes": [
             "ring-pass-context",
-            "source-notes-classification"
-          ],
-          "sources": 1,
-          "sourceIds": [
-            "577"
-          ]
-        },
-        {
-          "codes": [
-            "ring-pass-context",
             "source-preamble"
           ],
           "sources": 1,
@@ -11527,16 +11779,6 @@
           "sources": 1,
           "sourceIds": [
             "2329"
-          ]
-        },
-        {
-          "codes": [
-            "ring-pass-source-contract",
-            "source-notes-classification"
-          ],
-          "sources": 1,
-          "sourceIds": [
-            "577"
           ]
         },
         {
@@ -11802,9 +12044,9 @@
       ]
     },
     "conventionalSuggestions": {
-      "sources": 230,
+      "sources": 232,
       "statuses": {
-        "import-admitted": 188,
+        "import-admitted": 190,
         "interpretation-blocked": 34,
         "motion-or-validation-blocked": 8
       },
@@ -12027,11 +12269,13 @@
             "3335",
             "3361",
             "3363",
+            "3389",
             "3402",
             "3431",
             "3454",
             "3464",
             "3465",
+            "3471",
             "3475",
             "3478",
             "3490",
@@ -12040,8 +12284,8 @@
             "3510",
             "3533"
           ],
-          "occurrences": 433,
-          "sources": 227
+          "occurrences": 437,
+          "sources": 229
         },
         {
           "kind": "circle",
@@ -12207,15 +12451,17 @@
             "3335",
             "3361",
             "3363",
+            "3389",
             "3402",
             "3431",
+            "3471",
             "3490",
             "3496",
             "3507",
             "3510"
           ],
-          "occurrences": 194,
-          "sources": 167
+          "occurrences": 196,
+          "sources": 169
         },
         {
           "kind": "balance",
@@ -12372,11 +12618,13 @@
             "3327",
             "3335",
             "3363",
+            "3389",
             "3402",
             "3431",
             "3454",
             "3464",
             "3465",
+            "3471",
             "3475",
             "3478",
             "3490",
@@ -12384,8 +12632,8 @@
             "3507",
             "3533"
           ],
-          "occurrences": 208,
-          "sources": 163
+          "occurrences": 210,
+          "sources": 165
         },
         {
           "kind": "allemande",
@@ -12621,15 +12869,17 @@
             "3327",
             "3361",
             "3363",
+            "3389",
             "3402",
+            "3471",
             "3475",
             "3478",
             "3490",
             "3496",
             "3533"
           ],
-          "occurrences": 97,
-          "sources": 93
+          "occurrences": 99,
+          "sources": 95
         },
         {
           "kind": "robins-chain",
@@ -12715,15 +12965,17 @@
             "3260",
             "3261",
             "3327",
+            "3389",
             "3402",
             "3454",
             "3464",
             "3465",
+            "3471",
             "3490",
             "3510"
           ],
-          "occurrences": 95,
-          "sources": 87
+          "occurrences": 97,
+          "sources": 89
         },
         {
           "kind": "do-si-do",
@@ -13000,12 +13252,14 @@
             "3327",
             "3328",
             "3335",
+            "3389",
             "3431",
+            "3471",
             "3478",
             "3507"
           ],
-          "occurrences": 58,
-          "sources": 56
+          "occurrences": 60,
+          "sources": 58
         },
         {
           "kind": "hey",
@@ -13059,12 +13313,14 @@
             "3260",
             "3261",
             "3265",
+            "3389",
             "3454",
             "3464",
-            "3465"
+            "3465",
+            "3471"
           ],
-          "occurrences": 56,
-          "sources": 52
+          "occurrences": 59,
+          "sources": 54
         },
         {
           "kind": "right-left-through",
@@ -15080,9 +15336,9 @@
       ]
     },
     "savedInterpretation": {
-      "sources": 201,
+      "sources": 203,
       "statuses": {
-        "import-admitted": 201
+        "import-admitted": 203
       },
       "figures": [
         {
@@ -15278,11 +15534,13 @@
             "3327",
             "3328",
             "3335",
+            "3389",
             "3402",
             "3431",
             "3454",
             "3464",
             "3465",
+            "3471",
             "3475",
             "3478",
             "3490",
@@ -15290,8 +15548,8 @@
             "3507",
             "3510"
           ],
-          "occurrences": 390,
-          "sources": 201
+          "occurrences": 394,
+          "sources": 203
         },
         {
           "kind": "circle",
@@ -15441,15 +15699,17 @@
             "3292",
             "3327",
             "3335",
+            "3389",
             "3402",
             "3431",
+            "3471",
             "3490",
             "3496",
             "3507",
             "3510"
           ],
-          "occurrences": 175,
-          "sources": 151
+          "occurrences": 177,
+          "sources": 153
         },
         {
           "kind": "balance",
@@ -15593,19 +15853,21 @@
             "3292",
             "3327",
             "3335",
+            "3389",
             "3402",
             "3431",
             "3454",
             "3464",
             "3465",
+            "3471",
             "3475",
             "3478",
             "3490",
             "3496",
             "3507"
           ],
-          "occurrences": 188,
-          "sources": 149
+          "occurrences": 190,
+          "sources": 151
         },
         {
           "kind": "allemande",
@@ -15828,16 +16090,18 @@
             "3261",
             "3326",
             "3327",
+            "3389",
             "3402",
             "3454",
             "3464",
             "3465",
+            "3471",
             "3478",
             "3490",
             "3510"
           ],
-          "occurrences": 104,
-          "sources": 96
+          "occurrences": 106,
+          "sources": 98
         },
         {
           "kind": "long-lines",
@@ -15919,14 +16183,16 @@
             "3199",
             "3326",
             "3327",
+            "3389",
             "3402",
+            "3471",
             "3475",
             "3478",
             "3490",
             "3496"
           ],
-          "occurrences": 86,
-          "sources": 82
+          "occurrences": 88,
+          "sources": 84
         },
         {
           "kind": "do-si-do",
@@ -16062,6 +16328,67 @@
           "sources": 57
         },
         {
+          "kind": "pass-through",
+          "sourceIds": [
+            "65",
+            "83",
+            "166",
+            "340",
+            "443",
+            "480",
+            "522",
+            "542",
+            "577",
+            "671",
+            "682",
+            "724",
+            "780",
+            "828",
+            "840",
+            "881",
+            "892",
+            "1093",
+            "1144",
+            "1148",
+            "1420",
+            "1434",
+            "1447",
+            "1464",
+            "1496",
+            "1501",
+            "1550",
+            "1618",
+            "1974",
+            "2235",
+            "2273",
+            "2321",
+            "2329",
+            "2344",
+            "2492",
+            "2530",
+            "3010",
+            "3012",
+            "3051",
+            "3086",
+            "3115",
+            "3185",
+            "3241",
+            "3260",
+            "3261",
+            "3292",
+            "3327",
+            "3328",
+            "3335",
+            "3389",
+            "3431",
+            "3471",
+            "3478",
+            "3507"
+          ],
+          "occurrences": 55,
+          "sources": 54
+        },
+        {
           "kind": "ring-balance",
           "sourceIds": [
             "65",
@@ -16123,65 +16450,6 @@
           "sources": 54
         },
         {
-          "kind": "pass-through",
-          "sourceIds": [
-            "65",
-            "83",
-            "166",
-            "340",
-            "443",
-            "480",
-            "522",
-            "542",
-            "577",
-            "671",
-            "682",
-            "724",
-            "780",
-            "828",
-            "840",
-            "881",
-            "892",
-            "1093",
-            "1144",
-            "1148",
-            "1420",
-            "1434",
-            "1447",
-            "1464",
-            "1496",
-            "1501",
-            "1550",
-            "1618",
-            "1974",
-            "2235",
-            "2273",
-            "2321",
-            "2329",
-            "2344",
-            "2492",
-            "2530",
-            "3010",
-            "3012",
-            "3051",
-            "3086",
-            "3115",
-            "3185",
-            "3241",
-            "3260",
-            "3261",
-            "3292",
-            "3327",
-            "3328",
-            "3335",
-            "3431",
-            "3478",
-            "3507"
-          ],
-          "occurrences": 53,
-          "sources": 52
-        },
-        {
           "kind": "hey",
           "sourceIds": [
             "24",
@@ -16231,12 +16499,14 @@
             "3260",
             "3261",
             "3265",
+            "3389",
             "3454",
             "3464",
-            "3465"
+            "3465",
+            "3471"
           ],
-          "occurrences": 54,
-          "sources": 50
+          "occurrences": 57,
+          "sources": 52
         },
         {
           "kind": "right-left-through",
@@ -53869,6 +54139,165 @@
       }
     },
     {
+      "id": "3389",
+      "retainedSnapshot": true,
+      "savedReady": true,
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\3389.json",
+      "snapshotOrigin": "fixture",
+      "title": "Bradley!",
+      "snapshotId": "contradb:3389:50e279754848118c",
+      "rawDefaults": {
+        "status": "interpretation-blocked",
+        "coverage": {
+          "sourceParsed": true,
+          "recognizedRows": 7,
+          "resolvedRows": 4,
+          "totalRows": 7,
+          "semanticallyResolved": false,
+          "executable": false
+        },
+        "figureKinds": [
+          "circle",
+          "swing",
+          "long-lines",
+          "hey"
+        ],
+        "blockers": [
+          "balance-swing-timing",
+          "chain-receiver",
+          "circulation-choice",
+          "progression-location",
+          "ring-pass-choice",
+          "ring-pass-context",
+          "ring-pass-source-contract",
+          "source-hook"
+        ],
+        "diagnostics": [
+          {
+            "code": "circulation-choice",
+            "message": "The source says Becket without explicitly naming circulation. Select CW to use the current adapter."
+          },
+          {
+            "code": "ring-pass-source-contract",
+            "message": "This passage contract requires four stated counts in improper formation. Other durations or formations need a different declared plan."
+          },
+          {
+            "code": "ring-pass-choice",
+            "message": "Review a right-shoulder passage with the current neighbor, releasing the preceding six-count circle and ending facing progressed neighbors. Bare source wording does not name the shoulder or crossing relation."
+          },
+          {
+            "code": "ring-pass-context",
+            "message": "A two-count passage requires a complete supported compact circle-six/pass-two composition and its separately reviewed geometry/end policy. Other prefixes, circles or marker patterns remain unresolved."
+          },
+          {
+            "code": "chain-receiver",
+            "message": "Choose the named receiving partner or neighbor; “chain” alone does not identify that relation."
+          },
+          {
+            "code": "balance-swing-timing",
+            "message": "Choose a four-beat balance plus the remaining swing time; the source gives only the combined duration."
+          },
+          {
+            "code": "source-hook",
+            "message": "The hook contains a movement, role, hand, direction, timing, scope or end-effect cue not fully corroborated by the retained source clauses."
+          },
+          {
+            "code": "progression-location",
+            "message": "The progression event is not at this formation adapter’s reviewed boundary."
+          }
+        ],
+        "unresolvedRows": [
+          {
+            "row": 1,
+            "text": "pass through ⁋",
+            "recognized": true,
+            "figureKinds": [],
+            "blockers": [
+              "ring-pass-choice",
+              "ring-pass-context",
+              "ring-pass-source-contract"
+            ]
+          },
+          {
+            "row": 4,
+            "text": "ladles chain",
+            "recognized": true,
+            "figureKinds": [],
+            "blockers": [
+              "chain-receiver"
+            ]
+          },
+          {
+            "row": 6,
+            "text": "partners balance & swing",
+            "recognized": true,
+            "figureKinds": [],
+            "blockers": [
+              "balance-swing-timing"
+            ]
+          }
+        ]
+      },
+      "conventionalSuggestions": {
+        "status": "import-admitted",
+        "coverage": {
+          "sourceParsed": true,
+          "recognizedRows": 7,
+          "resolvedRows": 7,
+          "totalRows": 7,
+          "semanticallyResolved": true,
+          "executable": true
+        },
+        "figureKinds": [
+          "circle",
+          "pass-through",
+          "swing",
+          "long-lines",
+          "robins-chain",
+          "hey",
+          "balance",
+          "swing"
+        ],
+        "blockers": [],
+        "diagnostics": [],
+        "unresolvedRows": [],
+        "choiceStatus": "suggested-not-approved",
+        "suggestionKinds": [
+          "conventional-wave"
+        ],
+        "interpretation": {
+          "becketWave": {
+            "convention": "compact-becket-ordinary-hey-v1",
+            "sourceSnapshotId": "contradb:3389:50e279754848118c"
+          }
+        }
+      },
+      "savedInterpretation": {
+        "status": "import-admitted",
+        "coverage": {
+          "sourceParsed": true,
+          "recognizedRows": 7,
+          "resolvedRows": 7,
+          "totalRows": 7,
+          "semanticallyResolved": true,
+          "executable": true
+        },
+        "figureKinds": [
+          "circle",
+          "pass-through",
+          "swing",
+          "long-lines",
+          "robins-chain",
+          "hey",
+          "balance",
+          "swing"
+        ],
+        "blockers": [],
+        "diagnostics": [],
+        "unresolvedRows": []
+      }
+    },
+    {
       "id": "3402",
       "retainedSnapshot": true,
       "savedReady": true,
@@ -54739,6 +55168,201 @@
           "promenade",
           "robins-chain",
           "hey"
+        ],
+        "blockers": [],
+        "diagnostics": [],
+        "unresolvedRows": []
+      }
+    },
+    {
+      "id": "3471",
+      "retainedSnapshot": true,
+      "savedReady": true,
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\3471.json",
+      "snapshotOrigin": "fixture",
+      "title": "Batter variation",
+      "snapshotId": "contradb:3471:0ad5c8ae2c1418ca",
+      "rawDefaults": {
+        "status": "interpretation-blocked",
+        "coverage": {
+          "sourceParsed": true,
+          "recognizedRows": 8,
+          "resolvedRows": 3,
+          "totalRows": 8,
+          "semanticallyResolved": false,
+          "executable": false
+        },
+        "figureKinds": [
+          "circle",
+          "swing",
+          "long-lines"
+        ],
+        "blockers": [
+          "balance-swing-timing",
+          "chain-receiver",
+          "circulation-choice",
+          "ordinary-hey-choice",
+          "ordinary-hey-source-contract",
+          "progression-location",
+          "ring-pass-choice",
+          "ring-pass-context",
+          "ring-pass-source-contract",
+          "source-hook",
+          "source-notes-classification"
+        ],
+        "diagnostics": [
+          {
+            "code": "circulation-choice",
+            "message": "The source says Becket without explicitly naming circulation. Select CW to use the current adapter."
+          },
+          {
+            "code": "ring-pass-source-contract",
+            "message": "This passage contract requires four stated counts in improper formation. Other durations or formations need a different declared plan."
+          },
+          {
+            "code": "ring-pass-choice",
+            "message": "Review a right-shoulder passage with the current neighbor, releasing the preceding six-count circle and ending facing progressed neighbors. Bare source wording does not name the shoulder or crossing relation."
+          },
+          {
+            "code": "ring-pass-context",
+            "message": "A two-count passage requires a complete supported compact circle-six/pass-two composition and its separately reviewed geometry/end policy. Other prefixes, circles or marker patterns remain unresolved."
+          },
+          {
+            "code": "ordinary-hey-source-contract",
+            "message": "This ordinary half hey requires eight counts, validated paired sidelines and opposite center/end shoulders; Becket uses only the separately gated neutral exit."
+          },
+          {
+            "code": "ordinary-hey-choice",
+            "message": "Review the incoming partner/neighbor side pair and whether this half hey exits to the same pair’s balance or swing, or the progressed next neighbors."
+          },
+          {
+            "code": "chain-receiver",
+            "message": "Choose the named receiving partner or neighbor; “chain” alone does not identify that relation."
+          },
+          {
+            "code": "balance-swing-timing",
+            "message": "Choose a four-beat balance plus the remaining swing time; the source gives only the combined duration."
+          },
+          {
+            "code": "source-hook",
+            "message": "The hook contains a movement, role, hand, direction, timing, scope or end-effect cue not fully corroborated by the retained source clauses."
+          },
+          {
+            "code": "source-notes-classification",
+            "message": "Review whether the retained prose notes are provenance/dedication/history rather than movement or end-effect instructions. They are not discarded automatically."
+          },
+          {
+            "code": "progression-location",
+            "message": "The progression event is not at this formation adapter’s reviewed boundary."
+          }
+        ],
+        "unresolvedRows": [
+          {
+            "row": 1,
+            "text": "pass through ⁋",
+            "recognized": true,
+            "figureKinds": [],
+            "blockers": [
+              "ring-pass-choice",
+              "ring-pass-context",
+              "ring-pass-source-contract"
+            ]
+          },
+          {
+            "row": 4,
+            "text": "ladles start a half hey - rights in center, lefts on ends",
+            "recognized": true,
+            "figureKinds": [],
+            "blockers": [
+              "ordinary-hey-choice",
+              "ordinary-hey-source-contract"
+            ]
+          },
+          {
+            "row": 5,
+            "text": "ladles chain",
+            "recognized": true,
+            "figureKinds": [],
+            "blockers": [
+              "chain-receiver"
+            ]
+          },
+          {
+            "row": 6,
+            "text": "ladles start a half hey - rights in center, lefts on ends",
+            "recognized": true,
+            "figureKinds": [],
+            "blockers": [
+              "ordinary-hey-choice",
+              "ordinary-hey-source-contract"
+            ]
+          },
+          {
+            "row": 7,
+            "text": "partners balance & swing",
+            "recognized": true,
+            "figureKinds": [],
+            "blockers": [
+              "balance-swing-timing"
+            ]
+          }
+        ]
+      },
+      "conventionalSuggestions": {
+        "status": "import-admitted",
+        "coverage": {
+          "sourceParsed": true,
+          "recognizedRows": 8,
+          "resolvedRows": 8,
+          "totalRows": 8,
+          "semanticallyResolved": true,
+          "executable": true
+        },
+        "figureKinds": [
+          "circle",
+          "pass-through",
+          "swing",
+          "long-lines",
+          "hey",
+          "robins-chain",
+          "hey",
+          "balance",
+          "swing"
+        ],
+        "blockers": [],
+        "diagnostics": [],
+        "unresolvedRows": [],
+        "choiceStatus": "suggested-not-approved",
+        "suggestionKinds": [
+          "conventional-wave"
+        ],
+        "interpretation": {
+          "becketWave": {
+            "convention": "compact-becket-ordinary-hey-v1",
+            "sourceSnapshotId": "contradb:3471:0ad5c8ae2c1418ca"
+          }
+        }
+      },
+      "savedInterpretation": {
+        "status": "import-admitted",
+        "coverage": {
+          "sourceParsed": true,
+          "recognizedRows": 8,
+          "resolvedRows": 8,
+          "totalRows": 8,
+          "semanticallyResolved": true,
+          "executable": true
+        },
+        "figureKinds": [
+          "circle",
+          "pass-through",
+          "swing",
+          "long-lines",
+          "hey",
+          "robins-chain",
+          "hey",
+          "balance",
+          "swing"
         ],
         "blockers": [],
         "diagnostics": [],
