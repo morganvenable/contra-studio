@@ -68,6 +68,7 @@ function compileChoreographyUncached(dance: Dance, couples: number, capabilities
   }
   if(dance.becketWavePolicy!==undefined){
     if(!capabilities.becketWaveSequences||!capabilities.longWaves||!capabilities.progressionEvents||!capabilities.ordinaryHalfHeys||!capabilities.stateCarryingSixTwoPasses)throw Error('Becket wave interpretation requires its carried wave, half-hey and circle/pass finite capabilities.');
+    if(dance.figures.some(f=>f.kind==='larks-chain')&&!capabilities.stateCarryingRoleChains)throw Error('Becket role chains require their explicit carried role/hand capability.');
     return withBalanceStance(compileBecketWavePolicyDance(dance,couples));
   }
   if(dance.initialWavePolicy!==undefined){

@@ -2,7 +2,7 @@ import{reversedChainStarHook}from'./source-chain-star.ts';
 import {hallLineChoiceForSource,hallLineDescription} from './source-hall-line.ts';
 import {descriptiveSourceNote} from './source-descriptive-note.ts';
 import {improperWaveChoiceForSource,improperWaveDescription} from './source-improper-wave.ts';
-import {becketWaveChoiceForSource,BECKET_WAVE_DESCRIPTION} from './source-becket-wave.ts';
+import {becketWaveChoiceForSource,becketWaveDescription} from './source-becket-wave.ts';
 import {linesRollawaySource,LINES_ROLLAWAY_DESCRIPTION} from './source-lines-rollaway.ts';
 import {terminalNeighborDosidoSource,CONVENTIONAL_NEIGHBOR_DOSIDO,neighborDosidoDescription,neighborDosidoBalanceOpening,neighborDosidoGyreNote,NEIGHBOR_DOSIDO_GYRE_NOTE_DESCRIPTION} from './source-neighbor-dosido.ts';
 import {rollawaySource,rollawayDescription,releasedCircleTransitionNote,rollawayNeighborHey} from './source-rollaway.ts';
@@ -61,7 +61,7 @@ export function prepareContraDbReview(input:string,remembered:readonly SourceCho
  const hallLine=hallLineChoiceForSource(baseline.record);
  if(hallLine){interpretation.hallLine=hallLine;return{result:read(interpretation),interpretation,suggestions:[{kind:'conventional-hall',message:hallLineDescription(hallLine)}],savedArchive:false};}
  const becketWave=becketWaveChoiceForSource(baseline.record);
- if(becketWave){interpretation.becketWave=becketWave;return{result:read(interpretation),interpretation,suggestions:[{kind:'conventional-wave',message:BECKET_WAVE_DESCRIPTION}],savedArchive:false};}
+ if(becketWave){interpretation.becketWave=becketWave;return{result:read(interpretation),interpretation,suggestions:[{kind:'conventional-wave',message:becketWaveDescription(becketWave)}],savedArchive:false};}
  if(hasStarWhirlSource(baseline.record)){const rows=interpretation.rows??={};rows[baseline.record.rows[3].id]={starPromenade:copy(CONVENTIONAL_STAR_PROMENADE)};rows[baseline.record.rows[4].id]={butterflyWhirl:copy(CONVENTIONAL_BUTTERFLY_WHIRL)};suggestions.push({rowId:baseline.record.rows[3].id,kind:'qualifier-interpretation',message:STAR_PROMENADE_CHOICE_DESCRIPTION},{rowId:baseline.record.rows[4].id,kind:'qualifier-interpretation',message:BUTTERFLY_WHIRL_CHOICE_DESCRIPTION});}
  if(hasMadRobinSource(baseline.record)){const rows=interpretation.rows??={};for(const [i,direction]of[[0,'clockwise'],[6,'counterclockwise']]as const){rows[baseline.record.rows[i].id]={madRobin:{orbitRelation:'neighbor',facingRelation:'partner',frontRole:'robin',direction,amount:1}};suggestions.push({rowId:baseline.record.rows[i].id,kind:'qualifier-interpretation',message:MAD_ROBIN_ROW_CHOICE_DESCRIPTION});}interpretation.madRobinHook={sourceSnapshotId:baseline.record.snapshotId,meaning:'old-neighbor-full-return-then-next-neighbor',sourceText:baseline.record.hook};interpretation.madRobinPolicy=copy(CONVENTIONAL_MAD_ROBIN_POLICY);suggestions.push({kind:'source-annotation',message:MAD_ROBIN_HOOK_CHOICE_DESCRIPTION},{kind:'qualifier-interpretation',message:MAD_ROBIN_POLICY_CHOICE_DESCRIPTION});}
 

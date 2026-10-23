@@ -1,7 +1,7 @@
 import{terminalRoleStarLook}from'./source-chain-star.ts';
 import {lowerImproperWaveSource,improperWaveDescription,type ImproperWaveChoice} from './source-improper-wave.ts';
 import {lowerHallLineSource,hallLineDescription,type HallLineChoice} from './source-hall-line.ts';
-import {lowerBecketWaveSource,BECKET_WAVE_DESCRIPTION,type BecketWaveChoice} from './source-becket-wave.ts';
+import {lowerBecketWaveSource,becketWaveDescription,type BecketWaveChoice} from './source-becket-wave.ts';
 import {normalizePairedHallExit} from './source-paired-hall-exit.ts';
 import {linesRollawaySource,isLinesRollawayChoice,LINES_ROLLAWAY_DESCRIPTION,type LinesRollawayChoice} from './source-lines-rollaway.ts';
 import {validateInitialWavePolicy,type InitialWavePolicy} from './initial-wave-policy.ts';
@@ -598,10 +598,10 @@ export function importContraDb(input:string,options:ContraDbSourceOptions&{inter
   try{
    if(Object.keys(interpretation).some(k=>k!=='becketWave'))throw Error('The named Becket wave convention cannot ignore additional interpretation choices.');
    const lowered=lowerBecketWaveSource(record,interpretation.becketWave);
-   result.rows=record.rows.map(source=>({source,recognized:true,resolved:true,figures:lowered.byRow.get(source.id)??[],diagnostics:[],interpretations:[BECKET_WAVE_DESCRIPTION]}));
+   result.rows=record.rows.map(source=>({source,recognized:true,resolved:true,figures:lowered.byRow.get(source.id)??[],diagnostics:[],interpretations:[becketWaveDescription(interpretation.becketWave!)]}));
    coverage.recognizedRows=result.rows.length;coverage.resolvedRows=result.rows.length;
    coverage.semanticallyResolved=source.structurallyValid&&!diagnostics.some(d=>d.severity!=='warning');
-   warnings.push(BECKET_WAVE_DESCRIPTION,'ContraDB software is AGPL-3.0. Its public page does not establish a blanket choreography/data republication license.','This is a schematic interpretation; source recognition and sampled motion validation are separate checks.');
+   warnings.push(becketWaveDescription(interpretation.becketWave!),'ContraDB software is AGPL-3.0. Its public page does not establish a blanket choreography/data republication license.','This is a schematic interpretation; source recognition and sampled motion validation are separate checks.');
    if(!coverage.semanticallyResolved)return finish();
    const dance:ContraDbImportedDance={id:`contradb-${record.sourceId}-${record.snapshotId.split(':').at(-1)}`,title:record.title,author:record.author,formation:'becket',circulation:'cw',sourceUrl:record.sourceUrl,description:'Imported ContraDB snapshot with explicit source interpretation.',figures:lowered.figures,progressionEvents:lowered.progressionEvents,becketWavePolicy:lowered.policy,notes:[...warnings],verified:false,sourceText:JSON.stringify({schema:'contra-studio/contradb-interpretation',version:1,sourceSnapshotId:record.snapshotId,snapshot:makeContraDbSnapshot(record),interpretation} satisfies ContraDbInterpretationFile),sourceRecord:record,sourceRows:record.rows,contraDbInterpretation:JSON.parse(JSON.stringify(interpretation))};
    result.validation=validateDance(dance,options.capabilities);
