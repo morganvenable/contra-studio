@@ -4,7 +4,7 @@ The Ready to play section contains reviewed source interpretations bundled with 
 
 The separate, collapsed ContraDB catalogue is a discovery index. Its entries are not all playable. Downloaded records still go through normal interpretation and whole-dance validation.
 
-As of 23 October 2026, **199 reviewed interpretations are publicly deployed and verified**. Full CI/deploy40014867642 passed on7b12245. The latest additions are The 24th of May (1480), Beck and Call (2273), and Cats and More Cats (577). Fresh public checks for all three and Still More O'Moore (1501) loaded, scrubbed and reached round two. Current saved-library replay and27,702 swing checks,228-fixture census,38 script tests and TypeScript/Pages build pass.
+As of 23 October 2026, **201 reviewed interpretations are publicly deployed and verified**. Full CI/deploy40026364120 passed on d302710. The latest additions are Cats and More Cats (828) and Cats and More Cats variation (3292), retaining six-count circles and ten-count partner swings with fixed acquisition timing. Fresh public checks for both loaded, scrubbed and reached round two. Current saved replay and27,990 swing checks,230-fixture census,38 script tests and TypeScript/Pages build pass.
 
 This release also retains the corrected face-to-face Rory passing and default full spins from874c6bb. Cats and More Cats uses its explicitly reviewed no-spin convention. All196 earlier archives remain semantically unchanged;21 raw differences are line endings only. Archive equality does not certify changed runtime motion: current checks and an independently generated1501 baseline cover the recovered integration. Software WebGL was checked; hardware GPU, audible playback and comprehensive anatomy were not certified.
 
