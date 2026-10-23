@@ -1,3 +1,4 @@
+import{compileHeyExitFacing}from'./hey-exit-facing.ts';
 /** A role-first hey reaches the graph-owned permutation of actual entry stations.
  * Its released, across-facing endpoint is a common sequence boundary, with no
  * successor-specific spacing, source signature, or invented progression. */
@@ -22,7 +23,8 @@ export function assertNeutralRoleHeyFigure(input:Figure):Figure {
  return f;
 }
 
-export function compileNeutralRoleHeyStep(input:Figure,context:FigureContext,incoming:SequenceBoundary):NeutralRoleHeyPlan {
+export function compileNeutralRoleHeyStep(input:Figure,context:FigureContext,incoming:SequenceBoundary,options?:{boundedExitFacing:true}):NeutralRoleHeyPlan {
+ if(options!==undefined){options=capturePlainData(options);if(!options||Object.keys(options).length!==1||options.boundedExitFacing!==true)throw Error('Unknown neutral hey facing option.');}
  const f=assertNeutralRoleHeyFigure(input),boundary=ownSequenceBoundary(incoming),endBeat=advanceSequenceBeat(boundary.sourceBeat,f.beats);
  if(boundary.heldContacts.length)throw new Error('A neutral role hey requires released incoming hands; an existing hold cannot be discarded.');
  assertSequenceHandoff(boundary,captureSequenceBoundary(context,boundary.sourceBeat,[]));
@@ -58,7 +60,8 @@ export function compileNeutralRoleHeyStep(input:Figure,context:FigureContext,inc
  // established full-hey timing and local 1.35 certificate unchanged.
  const path=compilePartialHey({actors,events:graph.events,entry,exit,frame:{origin:center,axis:{x:1,z:0}},beats:f.beats,entryBeats:0,exitBeats:0,boundaryMode:'within-passes',gateBeats:f.amount===.5?[17/8,43/12,121/24,13/2]:[2,3.75,5.5,7.25,9,10.75,12.5,14.25],slotSpacing:1.05,passClearance:.66,maximumSpeed:f.amount===.5?1.3:1.35,maximumYawRate:4,relationships:{partner:named(partner),neighbor:named(neighbor)},source:f.label});
  const actor=(id:number,t:number)=>{if(!byId.has(id))throw new Error('Actor is outside this neutral role hey.');return path.sample(time(t)*f.beats).poses.find(p=>p.id===String(id))!;};
- const plan:MotionPlan={position:(id,t)=>actor(id,t).position,facing:(id,t)=>actor(id,t).yaw,contacts:t=>{time(t);return[];}};
+ const prepared=options?compileHeyExitFacing(path):undefined;
+ const plan:MotionPlan={position:(id,t)=>actor(id,t).position,facing:(id,t)=>prepared?prepared.facing(String(id),time(t)*f.beats):actor(id,t).yaw,contacts:t=>{time(t);return[];}};
  const entryState=sampleSequenceBoundary(context,plan,boundary.sourceBeat,0),exitState=sampleSequenceBoundary(context,plan,endBeat,1);
  assertSequenceHandoff(boundary,entryState);
  assertSequenceHandoff({...boundary,sourceBeat:endBeat,poses:boundary.poses.map(p=>({...p,position:end.get(p.id)!,yaw:end.get(p.id)!.x<center.x?Math.PI/2:-Math.PI/2}))},exitState);
