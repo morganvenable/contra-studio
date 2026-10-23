@@ -87,12 +87,17 @@ export function counterpart(state: DanceState, id: number, who: string, group: r
     return group.find((j) => j !== id && roleOf(state, j) === role);
   }
   const place = state.positions.get(who);
-  if (place) return place.includes(id) ? place.find((j) => j !== id && group.includes(j)) : undefined;
+  if (place)
+    return place.includes(id) ? place.find((j) => j !== id && group.includes(j)) : undefined;
   throw new Error(`Nobody is called "${who}" here.`);
 }
 
 /** Pairs [a, b] (a < b) that `who` names within one group. */
-export function pairsIn(state: DanceState, group: readonly number[], who: string): [number, number][] {
+export function pairsIn(
+  state: DanceState,
+  group: readonly number[],
+  who: string,
+): [number, number][] {
   const pairs: [number, number][] = [];
   for (const id of group) {
     const other = counterpart(state, id, who, group);

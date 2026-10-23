@@ -19,7 +19,12 @@ import { FIGURES } from '../figures/index.ts';
 import { call, near } from './helpers.ts';
 
 const DANCE: Dance = {
-  id: 'proof', title: 'Proof', author: 'test', formation: 'duple-improper', description: '', figures: [],
+  id: 'proof',
+  title: 'Proof',
+  author: 'test',
+  formation: 'duple-improper',
+  description: '',
+  figures: [],
 };
 
 test('a three-couple set, AABB waltz in 3/4, no progression, once through', () => {
@@ -36,15 +41,25 @@ test('a three-couple set, AABB waltz in 3/4, no progression, once through', () =
   ];
   const start = THREE_COUPLE_SET.start(3);
   const dance = compileFold({
-    dance: DANCE, calls, start, registry: FIGURES, progression: NO_PROGRESSION, music,
+    dance: DANCE,
+    calls,
+    start,
+    registry: FIGURES,
+    progression: NO_PROGRESSION,
+    music,
   });
   assert.equal(dance.totalBeats, 96, '32 bars of three beats');
   assert.equal(dance.repeatable, false, 'done once through');
   assert.deepEqual(physicalCheck(dance, { rounds: 1 }).problems, []);
   const halfway = dance.sample(72);
-  near(halfway.poses[0].position, { x: -SET.halfWidth, z: -SET.slot }, 'half way round, 1st lark is opposite');
+  near(
+    halfway.poses[0].position,
+    { x: -SET.halfWidth, z: -SET.slot },
+    'half way round, 1st lark is opposite',
+  );
   const end = dance.sample(500);
-  for (const id of start.dancers.map((d) => d.id)) near(end.poses[id].position, body(start, id).position);
+  for (const id of start.dancers.map((d) => d.id))
+    near(end.poses[id].position, body(start, id).position);
   assert.deepEqual(dance.round(0).end.groups, start.groups, 'same set, same people');
 });
 
@@ -59,7 +74,11 @@ const castToBottom: Figure<Record<string, never>> = (state, _params, beats) => {
       const t = beat / beats;
       const travel = progress((t - 0.2) / 0.6);
       if (!top.includes(d.id)) {
-        return { id: d.id, position: { x: b.position.x, z: b.position.z + SET.slot * travel }, yaw: b.yaw };
+        return {
+          id: d.id,
+          position: { x: b.position.x, z: b.position.z + SET.slot * travel },
+          yaw: b.yaw,
+        };
       }
       // Step out of the line first, travel down outside it, then step back in.
       const out = Math.sign(b.position.x) * 0.7 * Math.min(smooth(t / 0.2), smooth((1 - t) / 0.2));
@@ -74,7 +93,10 @@ const castToBottom: Figure<Record<string, never>> = (state, _params, beats) => {
 test('whole-set longways in 6/8 with an odd B part: the top couple casts to the bottom each time', () => {
   const music: MusicStructure = {
     meter: METERS['6/8'],
-    parts: [{ name: 'A', bars: 8 }, { name: 'B', bars: 12 }],
+    parts: [
+      { name: 'A', bars: 8 },
+      { name: 'B', bars: 12 },
+    ],
     times: 3,
   };
   const calls: FigureCall[] = [
@@ -95,8 +117,13 @@ test('whole-set longways in 6/8 with an odd B part: the top couple casts to the 
   assert.equal(dance.totalBeats, 40, '8 + 12 bars of two beats');
   assert.equal(dance.repeatable, true);
   assert.deepEqual(physicalCheck(dance, { rounds: 3 }).problems, []);
-  assert.deepEqual(dance.round(0).end.positions.get('1st couple'), [2, 3], 'couple 2 is now at the top');
+  assert.deepEqual(
+    dance.round(0).end.positions.get('1st couple'),
+    [2, 3],
+    'couple 2 is now at the top',
+  );
   assert.deepEqual(dance.round(0).end.positions.get('3rd couple'), [0, 1]);
   const home = dance.sample(3 * 40);
-  for (const id of start.dancers.map((d) => d.id)) near(home.poses[id].position, body(start, id).position);
+  for (const id of start.dancers.map((d) => d.id))
+    near(home.poses[id].position, body(start, id).position);
 });

@@ -14,7 +14,19 @@ import type { Figure, FigureContact } from '../core/figure.ts';
 import { oneOf, onlyKeys, settle } from '../core/figure.ts';
 import { joined } from '../core/contacts.ts';
 import {
-  add, heading, length, mean, polar, positiveAngle, progress, rotate, scale, smooth, sub, TAU, turn,
+  add,
+  heading,
+  length,
+  mean,
+  polar,
+  positiveAngle,
+  progress,
+  rotate,
+  scale,
+  smooth,
+  sub,
+  TAU,
+  turn,
 } from '../core/math.ts';
 import { body, minorSets, withChanges, type Hold } from '../core/state.ts';
 
@@ -48,7 +60,8 @@ export const circle: Figure<CircleParams> = (state, params, beats) => {
     const n = group.length;
     const center = mean(group.map((id) => body(state, id).position));
     const order = [...group].sort(
-      (a, b) => polar(sub(body(state, a).position, center)) - polar(sub(body(state, b).position, center)),
+      (a, b) =>
+        polar(sub(body(state, a).position, center)) - polar(sub(body(state, b).position, center)),
     );
     for (let i = 0; i < n; i++) {
       const rel = sub(body(state, order[i]).position, center);
@@ -58,12 +71,16 @@ export const circle: Figure<CircleParams> = (state, params, beats) => {
         throw new Error(`A circle of ${n} needs the dancers spaced around a ring.`);
       }
     }
-    if (params.places !== undefined && params.places > 2 * n) throw new Error('Too many circle places.');
+    if (params.places !== undefined && params.places > 2 * n)
+      throw new Error('Too many circle places.');
     const turns = params.amount ?? params.places! / n;
     // Moving to the left is increasing polar angle, so each dancer's left-hand
     // neighbor is the next one in polar order.
     const hands: Hold[] = order.map((id, i) => ({
-      a: id, handA: 'left', b: order[(i + 1) % n], handB: 'right',
+      a: id,
+      handA: 'left',
+      b: order[(i + 1) % n],
+      handB: 'right',
     }));
     return { center, ids: order, hands, sweep: sign * turns * TAU };
   });
@@ -78,7 +95,10 @@ export const circle: Figure<CircleParams> = (state, params, beats) => {
       ring.ids.map((id) => {
         const angle = ring.sweep * progress(t);
         const s = body(state, id);
-        const position = add(ring.center, rotate(scale(sub(s.position, ring.center), radius), angle));
+        const position = add(
+          ring.center,
+          rotate(scale(sub(s.position, ring.center), radius), angle),
+        );
         // Face the center: turn in over the opening, then turn with the ring.
         const into = turn(heading(s.position, ring.center), s.yaw);
         const yaw = s.yaw + into * smooth(t / EDGE) - angle;

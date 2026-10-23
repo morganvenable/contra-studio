@@ -9,7 +9,10 @@ import { compileFold, type FoldedDance } from './core/fold.ts';
 import { FORMATIONS } from './core/formation.ts';
 import { METERS, type MusicStructure } from './core/music.ts';
 import {
-  MINOR_SET_PROGRESSION, NO_PROGRESSION, WHOLE_SET_PROGRESSION, type Progression,
+  MINOR_SET_PROGRESSION,
+  NO_PROGRESSION,
+  WHOLE_SET_PROGRESSION,
+  type Progression,
 } from './core/progression.ts';
 import { FIGURES } from './figures/index.ts';
 import debras from './dances/2321.json' with { type: 'json' };

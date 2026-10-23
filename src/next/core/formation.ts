@@ -41,7 +41,8 @@ export function createDancers(couples: number): Dancer[] {
 
 function checkCount(f: Pick<Formation, 'name' | 'couples'>, couples: number) {
   if (!Number.isInteger(couples) || couples < f.couples.min || couples > f.couples.max) {
-    const range = f.couples.min === f.couples.max ? `${f.couples.min}` : `${f.couples.min}-${f.couples.max}`;
+    const range =
+      f.couples.min === f.couples.max ? `${f.couples.min}` : `${f.couples.min}-${f.couples.max}`;
     throw new Error(`${f.name} needs ${range} couples.`);
   }
 }
@@ -49,11 +50,23 @@ function checkCount(f: Pick<Formation, 'name' | 'couples'>, couples: number) {
 const partners = (dancers: readonly Dancer[]) => new Map(dancers.map((d) => [d.id, d.id ^ 1]));
 
 /** A couple side by side facing `yaw`, lark on the left, centered at `center`. */
-function placeCouple(bodies: Map<number, Body>, couple: number, center: { x: number; z: number }, yaw: number, gap: number) {
+function placeCouple(
+  bodies: Map<number, Body>,
+  couple: number,
+  center: { x: number; z: number },
+  yaw: number,
+  gap: number,
+) {
   const left = leftOf(yaw);
   const half = gap / 2;
-  bodies.set(couple * 2, { position: { x: center.x + left.x * half, z: center.z + left.z * half }, yaw });
-  bodies.set(couple * 2 + 1, { position: { x: center.x - left.x * half, z: center.z - left.z * half }, yaw });
+  bodies.set(couple * 2, {
+    position: { x: center.x + left.x * half, z: center.z + left.z * half },
+    yaw,
+  });
+  bodies.set(couple * 2 + 1, {
+    position: { x: center.x - left.x * half, z: center.z - left.z * half },
+    yaw,
+  });
 }
 
 /**
@@ -73,7 +86,13 @@ export const BECKET: Formation = {
     const bodies = new Map<number, Body>();
     const waiting: WaitingCouple[] = [];
     const place = (couple: number, side: 1 | -1, z: number) =>
-      placeCouple(bodies, couple, { x: side * SET.halfWidth, z }, side > 0 ? -Math.PI / 2 : Math.PI / 2, SET.slot);
+      placeCouple(
+        bodies,
+        couple,
+        { x: side * SET.halfWidth, z },
+        side > 0 ? -Math.PI / 2 : Math.PI / 2,
+        SET.slot,
+      );
     const groups: number[][] = [];
     const neighbor = new Map<number, number>();
     for (let row = 0; row < rows; row++) {
@@ -90,9 +109,19 @@ export const BECKET: Formation = {
       place(couples - 1, -1, (rows - (rows - 1) / 2) * 2 * SET.slot);
       waiting.push({ couple: couples - 1, crossed: true });
     }
-    const relations = new Map([['partner', partners(dancers)], ['neighbor', neighbor]]);
+    const relations = new Map([
+      ['partner', partners(dancers)],
+      ['neighbor', neighbor],
+    ]);
     return Object.freeze({
-      dancers, bodies, hands: [], relations, groups, positions: new Map(), epoch: 0, waiting,
+      dancers,
+      bodies,
+      hands: [],
+      relations,
+      groups,
+      positions: new Map(),
+      epoch: 0,
+      waiting,
     });
   },
 };

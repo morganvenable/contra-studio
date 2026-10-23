@@ -16,21 +16,28 @@ export interface Line {
 export function findLine(state: DanceState, group: readonly number[]): Line {
   const points = group.map((id) => body(state, id).position);
   const center = mean(points);
-  const far = group.reduce((best, id) => {
-    const d = sub(body(state, id).position, center);
-    return Math.hypot(d.x, d.z) > Math.hypot(best.x, best.z) ? d : best;
-  }, { x: 0, z: 0 });
+  const far = group.reduce(
+    (best, id) => {
+      const d = sub(body(state, id).position, center);
+      return Math.hypot(d.x, d.z) > Math.hypot(best.x, best.z) ? d : best;
+    },
+    { x: 0, z: 0 },
+  );
   const size = Math.hypot(far.x, far.z);
   if (size < 1e-6) throw new Error('Dancers stand on one spot, not in a line.');
   const axis = { x: far.x / size, z: far.z / size };
   for (const id of group) {
     const b = body(state, id);
     const off = sub(b.position, center);
-    if (Math.abs(off.x * axis.z - off.z * axis.x) > 0.05) throw new Error('Dancers are not in a straight line.');
-    if (Math.abs(dot(forward(b.yaw), axis)) > 1e-6) throw new Error('Dancers in a wave must face across the line.');
+    if (Math.abs(off.x * axis.z - off.z * axis.x) > 0.05)
+      throw new Error('Dancers are not in a straight line.');
+    if (Math.abs(dot(forward(b.yaw), axis)) > 1e-6)
+      throw new Error('Dancers in a wave must face across the line.');
   }
   const order = [...group].sort(
-    (a, b) => dot(sub(body(state, a).position, center), axis) - dot(sub(body(state, b).position, center), axis),
+    (a, b) =>
+      dot(sub(body(state, a).position, center), axis) -
+      dot(sub(body(state, b).position, center), axis),
   );
   return { order, axis, center };
 }

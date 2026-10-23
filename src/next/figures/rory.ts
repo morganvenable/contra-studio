@@ -39,10 +39,16 @@ export const rory: Figure<RoryParams> = (state, params, beats) => {
   for (const g of groups) {
     const line = findWave(state, g);
     for (const id of line.order) {
-      const hold = state.hands.find((h) => handOf(h, id) === direction && g.includes(h.a) && g.includes(h.b));
-      if (!hold) throw new Error(`Dancer ${id} must hold the ${direction} hand of the person to slide past.`);
+      const hold = state.hands.find(
+        (h) => handOf(h, id) === direction && g.includes(h.a) && g.includes(h.b),
+      );
+      if (!hold)
+        throw new Error(
+          `Dancer ${id} must hold the ${direction} hand of the person to slide past.`,
+        );
       const other = hold.a === id ? hold.b : hold.a;
-      if (handOf(hold, other) !== direction) throw new Error(`A Rory pass needs ${direction} hands joined.`);
+      if (handOf(hold, other) !== direction)
+        throw new Error(`A Rory pass needs ${direction} hands joined.`);
       swaps.set(id, other);
     }
   }
@@ -57,10 +63,15 @@ export const rory: Figure<RoryParams> = (state, params, beats) => {
     const q = progress(beat / beats);
     const bodies = moves.map((m) => {
       const back = scale(forward(m.start.yaw), -BOW * Math.sin(Math.PI * q));
-      return { id: m.id, position: add(mix(m.start.position, m.end, q), back), yaw: m.start.yaw + turnBy * q };
+      return {
+        id: m.id,
+        position: add(mix(m.start.position, m.end, q), back),
+        yaw: m.start.yaw + turnBy * q,
+      };
     });
     const contacts: FigureContact[] = [];
-    if (beat < RELEASE) contacts.push(...state.hands.map((h) => joined(h, 1 - ease(beat / RELEASE))));
+    if (beat < RELEASE)
+      contacts.push(...state.hands.map((h) => joined(h, 1 - ease(beat / RELEASE))));
     if (beat > beats - RELEASE) {
       const strength = ease((beat - (beats - RELEASE)) / RELEASE);
       contacts.push(...newHolds.map((h) => joined(h, strength)));

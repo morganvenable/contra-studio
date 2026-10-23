@@ -1,5 +1,26 @@
 # Rebuild plan: a small figure library
 
+## Status (milestone 1, 23 October 2026)
+
+Delivered in `src/next/` beside the old engine (old modules untouched):
+
+- Core: `DanceState`, `math.ts`, the fold into the existing `CompiledDance`
+  contract, one physical check (`check.ts`, limits in `config.ts`), a row
+  parser with one alias table (`roles.ts`: larks/robins stored and shown).
+- Figures, one file each: slice, pass through, allemande, balance, Rory
+  O'More, swing, circle.
+- Debra's Dance (2321) as `dances/2321.json`: source URL + snapshot hash +
+  FigureCalls + choices. Compiles at 3, 4 and 6 couples, passes the physical
+  check, and progresses correctly over many rounds.
+- `?engine=next` uses the new engine for supported dances; default unchanged.
+- Formation, Progression and MusicStructure are data (below), with a proof
+  test for a three-couple waltz and a whole-set casting dance.
+- Tests: `npm run test:next`; browser flow: `node e2e/next-engine.mjs`;
+  side by side: `node --experimental-strip-types scripts/compare-engines.mjs`.
+
+Next: step 3 below (the top ten figures, recompose the Ready dances), the
+improper/proper duple formations, and wiring `music` into audio.
+
 Status: proposed 23 October 2026. Replaces the per-dance admission approach;
 it does not change anything already shipped.
 
@@ -66,6 +87,44 @@ trails.
 
 About 30 files. Each replaces the many context modules that special-case it
 today (for example, 23 files named for swing and 25 named for hey).
+
+## Formations and structures
+
+The core does not assume contra duple minor. Structures are data:
+
+```ts
+interface Formation {
+  name: string;
+  shape: 'longways' | 'small-set' | 'square' | 'circle' | 'sicilian';
+  grouping: 'duple-minor' | 'triple-minor' | 'whole-set';
+  couples: { min: number; max: number };
+  start(couples: number): DanceState; // positions, facings, groups, labels
+}
+
+interface Progression {
+  kind: 'minor-set' | 'whole-set' | 'none';
+  rebind(state: DanceState): DanceState; // relationships and labels, never bodies
+}
+
+interface MusicStructure {
+  meter: { signature: string; beatsPerBar: number }; // 2/4, 4/4, 6/8, 3/4, 9/8
+  parts: { name: string; bars: number }[]; // AABB, AAB, ABC, A8 + B12 ...
+  times: number | 'repeat'; // once through, N times, or keep going
+}
+```
+
+- `DanceState` carries named `relations` (partner, neighbor, corner ...),
+  `groups` (minor sets or the whole set) and position labels ("1s",
+  "1st couple"). Figures address dancers by relationship, role group or
+  position, never by gender.
+- The fold rebinds through the dance's Progression at the figure the source
+  marks as the progression, or at the end of the round when none is marked.
+- Built: Becket (minor-set), proper longways as one whole set, three-couple
+  set. Deferred: improper and proper duple minor, triple minor, four-couple
+  sets, squares, circles, Sicilian circles, triplets; ECD figures.
+- Audio still assumes a 64-beat AABB reel in cut time at 112 bpm with click
+  accents every 16 and 4 beats (`src/music.ts`, `src/audio.ts`). A compiled
+  next-engine dance exposes `music` for that work; audio is unchanged.
 
 ## What we keep
 

@@ -16,7 +16,18 @@
 import type { Figure } from '../core/figure.ts';
 import { oneOf, onlyKeys, settle } from '../core/figure.ts';
 import { SET } from '../core/config.ts';
-import { add, dot, forward, leftOf, progress, rightOf, scale, sub, distance, turn } from '../core/math.ts';
+import {
+  add,
+  dot,
+  forward,
+  leftOf,
+  progress,
+  rightOf,
+  scale,
+  sub,
+  distance,
+  turn,
+} from '../core/math.ts';
 import { body, partnerOf, withChanges } from '../core/state.ts';
 
 export interface SliceParams {
@@ -39,7 +50,11 @@ export const slice: Figure<SliceParams> = (state, params, beats) => {
     const offset = sub(other.position, b.position);
     const sideways = Math.abs(dot(offset, leftOf(b.yaw)));
     const aligned = Math.abs(dot(offset, forward(b.yaw))) < 0.05;
-    if (!aligned || Math.abs(sideways - SET.slot) > 0.05 || Math.abs(turn(b.yaw, other.yaw)) > 1e-6) {
+    if (
+      !aligned ||
+      Math.abs(sideways - SET.slot) > 0.05 ||
+      Math.abs(turn(b.yaw, other.yaw)) > 1e-6
+    ) {
       throw new Error(`Couple ${d.couple + 1} must stand side by side in a line facing across.`);
     }
     const lateral = scale((direction === 'left' ? leftOf : rightOf)(b.yaw), SET.slot);
@@ -60,7 +75,8 @@ export const slice: Figure<SliceParams> = (state, params, beats) => {
   const moved = settle(state, motion, beats);
   for (const m of moves) {
     const end = moved.bodies.get(m.id)!.position;
-    if (distance(end, add(m.start.position, m.lateral)) > 1e-6) throw new Error('Slice missed its place.');
+    if (distance(end, add(m.start.position, m.lateral)) > 1e-6)
+      throw new Error('Slice missed its place.');
   }
   return { kind: 'becket-slice', motion, exit: withChanges(moved, { hands: [] }) };
 };

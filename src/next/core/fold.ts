@@ -10,13 +10,7 @@
  * set's center line) right after they start waiting. Round length and how
  * many times through come from the MusicStructure.
  */
-import type {
-  CompiledDance,
-  Dance,
-  Figure as LegacyFigure,
-  Frame,
-  Pose,
-} from '../../types.ts';
+import type { CompiledDance, Dance, Figure as LegacyFigure, Frame, Pose } from '../../types.ts';
 import { complete, contactReach, joined, reachFade, sameHold } from './contacts.ts';
 import type { Figure, FigureCall, FigureContact, FigureResult, MovedBody } from './figure.ts';
 import { clamp, distance, progress, rotate, smooth, sub, add, turn } from './math.ts';
@@ -59,7 +53,8 @@ export function foldRound(
   progression?: Progression,
 ): Round {
   const marked = calls.some((c) => c.progression);
-  if (marked && !progression) throw new Error('A row is marked as the progression, but the dance has none.');
+  if (marked && !progression)
+    throw new Error('A row is marked as the progression, but the dance has none.');
   const segments: Segment[] = [];
   const crossings: Crossing[] = [];
   const total = calls.reduce((n, c) => n + c.beats, 0);
@@ -99,7 +94,9 @@ function assertSeam(state: DanceState, result: FigureResult, call: FigureCall) {
       const off = distance(b.position, e.position);
       const twist = Math.abs(turn(b.yaw, e.yaw));
       if (off > SEAM || twist > SEAM) {
-        throw new Error(`${call.move} ${where} does not meet dancer ${b.id} (${off.toFixed(3)} m).`);
+        throw new Error(
+          `${call.move} ${where} does not meet dancer ${b.id} (${off.toFixed(3)} m).`,
+        );
       }
     }
   };
@@ -167,7 +164,9 @@ export function compileFold(options: FoldOptions): FoldedDance {
     totalBeats += c.beats;
   }
   if (totalBeats !== beatsPerTime(music)) {
-    throw new Error(`The figures take ${totalBeats} beats but the music has ${beatsPerTime(music)}.`);
+    throw new Error(
+      `The figures take ${totalBeats} beats but the music has ${beatsPerTime(music)}.`,
+    );
   }
   const rounds: Round[] = [foldRound(calls, options.start, registry, progression)];
   const warnings = [...(options.warnings ?? [])];
@@ -196,7 +195,8 @@ export function compileFold(options: FoldOptions): FoldedDance {
     const bodies = new Map(segment.entry.bodies);
     for (const c of r.crossings) {
       if (local >= c.start) {
-        for (const id of c.ids) bodies.set(id, crossingBody(c, id, (local - c.start) / CROSS_BEATS));
+        for (const id of c.ids)
+          bodies.set(id, crossingBody(c, id, (local - c.start) / CROSS_BEATS));
       }
     }
     const frame = segment.result.motion(local - segment.start);
@@ -210,7 +210,10 @@ export function compileFold(options: FoldOptions): FoldedDance {
     const repeat = Math.floor(beat / totalBeats);
     const local = beat - repeat * totalBeats;
     const r = round(repeat);
-    const index = Math.max(0, starts.findLastIndex((s) => s <= local));
+    const index = Math.max(
+      0,
+      starts.findLastIndex((s) => s <= local),
+    );
     const segment = r.segments[index];
     const { bodies, frame } = bodiesAt(r, segment, local);
     const later = bodiesAt(r, segment, Math.min(local + 0.02, segment.start + segment.call.beats));
@@ -274,7 +277,11 @@ export function compileFold(options: FoldOptions): FoldedDance {
 }
 
 /** Hands held at a figure's start that the figure does not keep fade out. */
-function released(segment: Segment, kept: readonly FigureContact[], local: number): FigureContact[] {
+function released(
+  segment: Segment,
+  kept: readonly FigureContact[],
+  local: number,
+): FigureContact[] {
   if (local >= RELEASE_BEATS) return [];
   const strength = 1 - smooth(local / RELEASE_BEATS);
   const atStart = segment.result.motion(0).contacts.filter((c) => c.strength > 0.5);
@@ -293,7 +300,9 @@ function legacyFigures(calls: readonly FigureCall[], first: Round): LegacyFigure
       kind: first.segments[i].result.kind,
       beats: call.beats,
       label: call.text ?? call.move,
-      ...(who === 'partner' || who === 'neighbor' || who === 'larks' || who === 'robins' ? { who } : {}),
+      ...(who === 'partner' || who === 'neighbor' || who === 'larks' || who === 'robins'
+        ? { who }
+        : {}),
       ...(call.progression ? { progression: true } : {}),
     };
   });

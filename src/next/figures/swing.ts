@@ -15,10 +15,29 @@ import type { Figure } from '../core/figure.ts';
 import { oneOf, onlyKeys, settle } from '../core/figure.ts';
 import { SET } from '../core/config.ts';
 import {
-  add, leftOf, length, mean, mix, polar, positiveAngle, progress, rotate, scale, smooth, sub, TAU, turn,
+  add,
+  leftOf,
+  length,
+  mean,
+  mix,
+  polar,
+  positiveAngle,
+  progress,
+  rotate,
+  scale,
+  smooth,
+  sub,
+  TAU,
+  turn,
 } from '../core/math.ts';
 import {
-  body, minorSets, pairsIn, roleOf, sideOf, withChanges, type DanceState,
+  body,
+  minorSets,
+  pairsIn,
+  roleOf,
+  sideOf,
+  withChanges,
+  type DanceState,
 } from '../core/state.ts';
 
 export interface SwingParams {
@@ -62,7 +81,10 @@ function planPair(state: DanceState, a: number, b: number, turns: number) {
   const exitYaw = side > 0 ? -Math.PI / 2 : Math.PI / 2;
   const exitCenter: Vec2 = { x: side * SET.halfWidth, z: center0.z };
   const half = scale(leftOf(exitYaw), SET.slot / 2);
-  const exitAt = new Map([[lark, add(exitCenter, half)], [robin, sub(exitCenter, half)]]);
+  const exitAt = new Map([
+    [lark, add(exitCenter, half)],
+    [robin, sub(exitCenter, half)],
+  ]);
 
   const theta0 = new Map([...start].map(([id, s]) => [id, polar(sub(s.position, center0))]));
   const offset = positiveAngle(polar(sub(exitAt.get(lark)!, exitCenter)) - theta0.get(lark)!);
@@ -76,10 +98,12 @@ function planPair(state: DanceState, a: number, b: number, turns: number) {
     return RADIUS + (SET.slot / 2 - RADIUS) * smooth((t - (1 - RELEASE)) / RELEASE);
   };
   // Body facing in the frame, on the winding branch nearest each start facing.
-  const shift = new Map([...start].map(([id, s]) => {
-    const b0 = -theta0.get(id)! - Math.PI / 2 + FRAME;
-    return [id, s.yaw + turn(b0, s.yaw) - b0];
-  }));
+  const shift = new Map(
+    [...start].map(([id, s]) => {
+      const b0 = -theta0.get(id)! - Math.PI / 2 + FRAME;
+      return [id, s.yaw + turn(b0, s.yaw) - b0];
+    }),
+  );
   const bodyYaw = (id: number, t: number) =>
     -(theta0.get(id)! + spin(t)) - Math.PI / 2 + FRAME + shift.get(id)!;
 
@@ -99,7 +123,8 @@ function planPair(state: DanceState, a: number, b: number, turns: number) {
 
   const contacts = (t: number): HandContact[] => {
     // Take the frame once gathered; let go just as the pair opens out.
-    const strength = smooth((t - LEAD * 0.75) / (LEAD * 0.25)) * smooth((1 - RELEASE + 0.04 - t) / 0.08);
+    const strength =
+      smooth((t - LEAD * 0.75) / (LEAD * 0.25)) * smooth((1 - RELEASE + 0.04 - t) / 0.08);
     if (strength <= 0) return [];
     return frameContacts(at(lark, t), at(robin, t), lark, robin, strength);
   };
@@ -129,15 +154,35 @@ function frameContacts(
   };
   return [
     {
-      a, b, handA: 'left', handB: 'right', kind: 'swing-frame', target: 'hands', strength,
+      a,
+      b,
+      handA: 'left',
+      handB: 'right',
+      kind: 'swing-frame',
+      target: 'hands',
+      strength,
       point: { x: joinedAt.x, y: 1.31, z: joinedAt.z },
     },
     {
-      a, b, handA: 'right', handB: 'left', kind: 'swing-frame', target: 'back', strength,
-      point: back, bodyPoint: { x: 0.13, y: 1.28, z: -0.13 }, bodyBlend: 1,
+      a,
+      b,
+      handA: 'right',
+      handB: 'left',
+      kind: 'swing-frame',
+      target: 'back',
+      strength,
+      point: back,
+      bodyPoint: { x: 0.13, y: 1.28, z: -0.13 },
+      bodyBlend: 1,
     },
     {
-      a: b, b: a, handA: 'left', handB: 'right', kind: 'swing-frame', target: 'upper-arm', strength,
+      a: b,
+      b: a,
+      handA: 'left',
+      handB: 'right',
+      kind: 'swing-frame',
+      target: 'upper-arm',
+      strength,
       point: shoulder,
     },
   ];

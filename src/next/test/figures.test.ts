@@ -14,7 +14,18 @@ import { slice } from '../figures/slice.ts';
 import { swing } from '../figures/swing.ts';
 import { forward, dot, sub } from '../core/math.ts';
 import {
-  after, BALANCE, call, FACE_DOWN, FACE_EAST, FACE_UP, FACE_WEST, facing, near, PASS, RORY_RIGHT, TO_WAVE,
+  after,
+  BALANCE,
+  call,
+  FACE_DOWN,
+  FACE_EAST,
+  FACE_UP,
+  FACE_WEST,
+  facing,
+  near,
+  PASS,
+  RORY_RIGHT,
+  TO_WAVE,
 } from './helpers.ts';
 
 const LARKS_HALF = call('allemande', 2, { who: 'larks', hand: 'left', amount: 0.5 });
@@ -22,7 +33,12 @@ const NEIGHBOR_SWING = call('swing', 14, { who: 'neighbor' });
 const pos = (s: DanceState, id: number) => body(s, id).position;
 const yaw = (s: DanceState, id: number) => body(s, id).yaw;
 const holds = (s: DanceState) =>
-  s.hands.map((h) => `${Math.min(h.a, h.b)}-${Math.max(h.a, h.b)}:${h.a < h.b ? h.handA : h.handB}/${h.a < h.b ? h.handB : h.handA}`).sort();
+  s.hands
+    .map(
+      (h) =>
+        `${Math.min(h.a, h.b)}-${Math.max(h.a, h.b)}:${h.a < h.b ? h.handA : h.handB}/${h.a < h.b ? h.handB : h.handA}`,
+    )
+    .sort();
 
 test('slice left moves every couple one place to its left, facing new neighbors', () => {
   const start = becketStart(4);
@@ -48,7 +64,10 @@ test('slice rejects held hands and unknown parameters', () => {
   const waved = after([PASS, TO_WAVE]);
   assert.throws(() => slice(waved, { direction: 'left' }, 8), /free hands/);
   assert.throws(() => slice(becketStart(2), { direction: 'up' } as never, 8), /direction/);
-  assert.throws(() => slice(becketStart(2), { direction: 'left', speed: 2 } as never, 8), /does not take speed/);
+  assert.throws(
+    () => slice(becketStart(2), { direction: 'left', speed: 2 } as never, 8),
+    /does not take speed/,
+  );
 });
 
 test('pass through ends in the opposite place, facing the same way', () => {
@@ -66,7 +85,11 @@ test('pass through needs someone to pass', () => {
 
 test('partners allemande right 3/4 ends in a short wave with larks in the middle', () => {
   const s = after([PASS]);
-  const { exit } = allemande(s, { who: 'partner', hand: 'right', amount: 0.75, wave: { middle: 'lark' } }, 4);
+  const { exit } = allemande(
+    s,
+    { who: 'partner', hand: 'right', amount: 0.75, wave: { middle: 'lark' } },
+    4,
+  );
   near(pos(exit, 1), { x: -1.35, z: 0 }, 'robin 1');
   near(pos(exit, 0), { x: -0.45, z: 0 }, 'lark 0');
   near(pos(exit, 2), { x: 0.45, z: 0 }, 'lark 2');
@@ -81,14 +104,19 @@ test('partners allemande right 3/4 ends in a short wave with larks in the middle
 test('allemande says so when it cannot form the wave it was asked for', () => {
   const s = after([PASS]);
   assert.throws(
-    () => allemande(s, { who: 'partner', hand: 'right', amount: 0.75, wave: { middle: 'robin' } }, 4),
+    () =>
+      allemande(s, { who: 'partner', hand: 'right', amount: 0.75, wave: { middle: 'robin' } }, 4),
     /robins in the middle/,
   );
   assert.throws(() => allemande(s, { who: 'partner', hand: 'right', amount: 0 }, 4), /amount/);
 });
 
 test('larks allemande left 1/2 swaps the larks and turns them around', () => {
-  const { exit } = allemande(after([PASS, TO_WAVE]), { who: 'larks', hand: 'left', amount: 0.5 }, 2);
+  const { exit } = allemande(
+    after([PASS, TO_WAVE]),
+    { who: 'larks', hand: 'left', amount: 0.5 },
+    2,
+  );
   near(pos(exit, 0), { x: 0.45, z: 0 });
   near(pos(exit, 2), { x: -0.45, z: 0 });
   facing(yaw(exit, 0), FACE_DOWN);
@@ -98,12 +126,19 @@ test('larks allemande left 1/2 swaps the larks and turns them around', () => {
 
 test('allemande refuses a hand that is busy with someone else', () => {
   const waved = after([PASS, TO_WAVE]);
-  assert.throws(() => allemande(waved, { who: 'neighbor', hand: 'right', amount: 0.5 }, 2), /hand is not free/);
+  assert.throws(
+    () => allemande(waved, { who: 'neighbor', hand: 'right', amount: 0.5 }, 2),
+    /hand is not free/,
+  );
 });
 
 test('wave balance returns to place and keeps hands', () => {
   const s = after([PASS, TO_WAVE]);
-  const { exit, motion } = balance(s, { formation: 'wave', style: 'right-left', first: 'right' }, 4);
+  const { exit, motion } = balance(
+    s,
+    { formation: 'wave', style: 'right-left', first: 'right' },
+    4,
+  );
   for (const id of [0, 1, 2, 3]) near(pos(exit, id), pos(s, id));
   // Beat 1: lark 0 (facing up) has stepped to its right (-x).
   near(motion(1).bodies.find((b) => b.id === 0)!.position, { x: -0.55, z: 0 });
@@ -148,17 +183,37 @@ test('Rory passes face to face: each bows back so the pair meets front to front'
     const robin = mid.get(1)!;
     // Halfway, the lark (facing up the hall at the start) has bowed back and
     // the robin passes in front of the lark, and vice versa.
-    assert.ok(dot(forward(yaw(s, 0)), sub(robin.position, lark.position)) > 0.8, `${spin}: robin in front of lark`);
-    assert.ok(dot(forward(yaw(s, 1)), sub(lark.position, robin.position)) > 0.8, `${spin}: lark in front of robin`);
+    assert.ok(
+      dot(forward(yaw(s, 0)), sub(robin.position, lark.position)) > 0.8,
+      `${spin}: robin in front of lark`,
+    );
+    assert.ok(
+      dot(forward(yaw(s, 1)), sub(lark.position, robin.position)) > 0.8,
+      `${spin}: lark in front of robin`,
+    );
     if (spin === 'none') {
-      assert.ok(dot(forward(lark.yaw), sub(robin.position, lark.position)) > 0, 'lark faces the robin');
-      assert.ok(dot(forward(robin.yaw), sub(lark.position, robin.position)) > 0, 'robin faces the lark');
+      assert.ok(
+        dot(forward(lark.yaw), sub(robin.position, lark.position)) > 0,
+        'lark faces the robin',
+      );
+      assert.ok(
+        dot(forward(robin.yaw), sub(lark.position, robin.position)) > 0,
+        'robin faces the lark',
+      );
     }
   }
 });
 
 test('neighbor swing ends facing across on the near side, lark on the left', () => {
-  const s = after([PASS, TO_WAVE, BALANCE, RORY_RIGHT, BALANCE, call('rory', 4, { direction: 'left' }), LARKS_HALF]);
+  const s = after([
+    PASS,
+    TO_WAVE,
+    BALANCE,
+    RORY_RIGHT,
+    BALANCE,
+    call('rory', 4, { direction: 'left' }),
+    LARKS_HALF,
+  ]);
   const { exit } = swing(s, { who: 'neighbor' }, 14);
   near(pos(exit, 0), { x: 0.9, z: 0.9 });
   near(pos(exit, 3), { x: 0.9, z: -0.9 });
@@ -197,12 +252,21 @@ test('circle left 3 places moves each dancer three quarters around, facing in', 
 });
 
 test('circle needs free hands and a ring of four', () => {
-  assert.throws(() => circle(after([PASS, TO_WAVE]), { direction: 'left', places: 3 }, 8), /free hands/);
+  assert.throws(
+    () => circle(after([PASS, TO_WAVE]), { direction: 'left', places: 3 }, 8),
+    /free hands/,
+  );
   assert.throws(() => circle(becketStart(2), { direction: 'left', places: 0 }, 8), /places/);
 });
 
 test('partner swing after the circle returns the couple to its side', () => {
-  const s = after([PASS, TO_WAVE, LARKS_HALF, NEIGHBOR_SWING, call('circle', 8, { direction: 'left', places: 3 })]);
+  const s = after([
+    PASS,
+    TO_WAVE,
+    LARKS_HALF,
+    NEIGHBOR_SWING,
+    call('circle', 8, { direction: 'left', places: 3 }),
+  ]);
   const { exit } = swing(s, { who: 'partner' }, 8);
   near(pos(exit, 0), { x: 0.9, z: 0.9 });
   near(pos(exit, 1), { x: 0.9, z: -0.9 });

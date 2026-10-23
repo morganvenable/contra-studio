@@ -10,11 +10,26 @@ export const ROLE_GROUP: Readonly<Record<Role, string>> = { lark: 'larks', robin
 
 /** Source words -> canonical names. Keys are lowercase. */
 export const ALIASES: Readonly<Record<string, string>> = {
-  larks: 'larks', lark: 'larks', gentlespoons: 'larks', gents: 'larks', men: 'larks',
-  robins: 'robins', robin: 'robins', ladles: 'robins', ravenclaws: 'robins', ravens: 'robins',
-  ladies: 'robins', women: 'robins',
-  partners: 'partner', partner: 'partner', neighbors: 'neighbor', neighbor: 'neighbor',
-  ones: '1s', '1s': '1s', twos: '2s', '2s': '2s',
+  larks: 'larks',
+  lark: 'larks',
+  gentlespoons: 'larks',
+  gents: 'larks',
+  men: 'larks',
+  robins: 'robins',
+  robin: 'robins',
+  ladles: 'robins',
+  ravenclaws: 'robins',
+  ravens: 'robins',
+  ladies: 'robins',
+  women: 'robins',
+  partners: 'partner',
+  partner: 'partner',
+  neighbors: 'neighbor',
+  neighbor: 'neighbor',
+  ones: '1s',
+  '1s': '1s',
+  twos: '2s',
+  '2s': '2s',
 };
 
 /** Canonical name for a source word, or undefined. */

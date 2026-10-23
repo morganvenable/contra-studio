@@ -46,7 +46,12 @@ export function onlyKeys(move: string, params: object, allowed: readonly string[
   if (extra.length) throw new Error(`${move} does not take ${extra.join(', ')}.`);
 }
 
-export function oneOf<T extends string>(move: string, name: string, value: unknown, options: readonly T[]): T {
+export function oneOf<T extends string>(
+  move: string,
+  name: string,
+  value: unknown,
+  options: readonly T[],
+): T {
   if (!options.includes(value as T)) {
     throw new Error(`${move} ${name} must be one of ${options.join(', ')}; got ${String(value)}.`);
   }

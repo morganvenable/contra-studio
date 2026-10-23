@@ -29,7 +29,10 @@ const STEPS = [0, 1, 0, -1, 0];
 export const balance: Figure<BalanceParams> = (state, params, beats) => {
   onlyKeys('balance', params, ['formation', 'style', 'first']);
   oneOf('balance', 'formation', params.formation, ['wave'] as const);
-  const style = oneOf('balance', 'style', params.style ?? 'right-left', ['right-left', 'forward-back'] as const);
+  const style = oneOf('balance', 'style', params.style ?? 'right-left', [
+    'right-left',
+    'forward-back',
+  ] as const);
   const first = oneOf('balance', 'first', params.first ?? 'right', ['right', 'left'] as const);
   if (beats !== 4) throw new Error('A balance takes four beats.');
   const groups = minorSets(state);

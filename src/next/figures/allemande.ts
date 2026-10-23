@@ -17,11 +17,21 @@ import { oneOf, onlyKeys, settle } from '../core/figure.ts';
 import { joined, sameHold } from '../core/contacts.ts';
 import { findWave, lineHolds, middleRole } from '../core/lines.ts';
 import {
-  add, dot, heading, leftOf, length, mean, progress, rotate, scale, smooth, sub, TAU, turn,
+  add,
+  dot,
+  heading,
+  leftOf,
+  length,
+  mean,
+  progress,
+  rotate,
+  scale,
+  smooth,
+  sub,
+  TAU,
+  turn,
 } from '../core/math.ts';
-import {
-  body, holdsBetween, minorSets, pairsIn, withChanges, type Hold,
-} from '../core/state.ts';
+import { body, holdsBetween, minorSets, pairsIn, withChanges, type Hold } from '../core/state.ts';
 
 export interface AllemandeParams {
   who: 'partner' | 'neighbor' | 'larks' | 'robins';
@@ -37,7 +47,12 @@ export const HOLD_RADIUS = 0.45;
 
 export const allemande: Figure<AllemandeParams> = (state, params, beats) => {
   onlyKeys('allemande', params, ['who', 'hand', 'amount', 'wave']);
-  const who = oneOf('allemande', 'who', params.who, ['partner', 'neighbor', 'larks', 'robins'] as const);
+  const who = oneOf('allemande', 'who', params.who, [
+    'partner',
+    'neighbor',
+    'larks',
+    'robins',
+  ] as const);
   const hand = oneOf('allemande', 'hand', params.hand, ['right', 'left'] as const);
   const amount = params.amount;
   if (!(Number.isFinite(amount) && amount > 0 && amount <= 4)) {
@@ -52,15 +67,18 @@ export const allemande: Figure<AllemandeParams> = (state, params, beats) => {
   const holds: Hold[] = pairs.map(([a, b]) => ({ a, handA: hand, b, handB: hand }));
   const orbits = pairs.flatMap(([a, b]) => {
     for (const h of state.hands) {
-      const uses = (id: number) => (h.a === id && h.handA === hand) || (h.b === id && h.handB === hand);
+      const uses = (id: number) =>
+        (h.a === id && h.handA === hand) || (h.b === id && h.handB === hand);
       const isPair = holdsBetween(state, a, b).includes(h);
-      if ((uses(a) || uses(b)) && !isPair) throw new Error(`Dancer ${uses(a) ? a : b}'s ${hand} hand is not free.`);
+      if ((uses(a) || uses(b)) && !isPair)
+        throw new Error(`Dancer ${uses(a) ? a : b}'s ${hand} hand is not free.`);
     }
     const pa = body(state, a);
     const pb = body(state, b);
     const center = mean([pa.position, pb.position]);
     const span = length(sub(pa.position, pb.position));
-    if (span < 0.5 || span > 2) throw new Error(`Dancers ${a} and ${b} are too far apart to turn by the hand.`);
+    if (span < 0.5 || span > 2)
+      throw new Error(`Dancers ${a} and ${b} are too far apart to turn by the hand.`);
     return [a, b].map((id) => {
       const me = id === a ? pa : pb;
       const other = id === a ? pb : pa;
@@ -70,7 +88,10 @@ export const allemande: Figure<AllemandeParams> = (state, params, beats) => {
       let needed = turn(heading(me.position, add(me.position, walk)), me.yaw);
       if (Math.abs(needed) > Math.PI - 0.2) {
         // About-face: turn toward the person you are about to take hands with.
-        needed = dot(leftOf(me.yaw), sub(other.position, me.position)) >= 0 ? Math.abs(needed) : -Math.abs(needed);
+        needed =
+          dot(leftOf(me.yaw), sub(other.position, me.position)) >= 0
+            ? Math.abs(needed)
+            : -Math.abs(needed);
       }
       return { id, center, rel, radius: length(rel), start: me, needed };
     });
@@ -100,7 +121,10 @@ export const allemande: Figure<AllemandeParams> = (state, params, beats) => {
   let waveHolds: Hold[] = [];
   const turned = settle(state, motion, beats);
   if (params.wave) {
-    const middle = oneOf('allemande', 'wave middle', params.wave.middle, ['lark', 'robin'] as const);
+    const middle = oneOf('allemande', 'wave middle', params.wave.middle, [
+      'lark',
+      'robin',
+    ] as const);
     for (const g of groups) {
       const line = findWave(turned, g);
       if (middleRole(turned, line) !== middle) {
@@ -110,5 +134,9 @@ export const allemande: Figure<AllemandeParams> = (state, params, beats) => {
       waveHolds = waveHolds.concat(extra);
     }
   }
-  return { kind: 'allemande', motion, exit: withChanges(turned, { hands: [...holds, ...waveHolds] }) };
+  return {
+    kind: 'allemande',
+    motion,
+    exit: withChanges(turned, { hands: [...holds, ...waveHolds] }),
+  };
 };

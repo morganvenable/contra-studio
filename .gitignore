@@ -4,3 +4,4 @@ dist/
 .openai/
 *.log
 research/contradb/
+e2e/*.png

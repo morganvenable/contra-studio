@@ -18,7 +18,9 @@ export function compileWithEngine(
   if (!nextEngineRequested(search)) return compileOld(dance, couples);
   const stored = findNextDance(dance.sourceUrl);
   if (!stored) {
-    console.info(`engine=next: "${dance.title}" is not in the figure library yet; using the old engine.`);
+    console.info(
+      `engine=next: "${dance.title}" is not in the figure library yet; using the old engine.`,
+    );
     return compileOld(dance, couples);
   }
   return compileNext(stored, couples, dance);

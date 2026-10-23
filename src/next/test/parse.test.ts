@@ -14,16 +14,32 @@ test('row patterns map to moves and parameters', () => {
   assert.deepEqual(one('circle left 3 places').params, { direction: 'left', places: 3 });
   assert.deepEqual(one('circle right').params, { direction: 'right', amount: 1 });
   assert.deepEqual(one('circle left ¾').params, { direction: 'left', amount: 0.75 });
-  assert.deepEqual(one('ladles allemande right 1½').params, { who: 'robins', hand: 'right', amount: 1.5 });
-  assert.deepEqual(one('partners allemande right ¾ to short waves with gentlespoons in the middle', 4).params, {
-    who: 'partner', hand: 'right', amount: 0.75, wave: { middle: 'lark' },
+  assert.deepEqual(one('ladles allemande right 1½').params, {
+    who: 'robins',
+    hand: 'right',
+    amount: 1.5,
   });
+  assert.deepEqual(
+    one('partners allemande right ¾ to short waves with gentlespoons in the middle', 4).params,
+    {
+      who: 'partner',
+      hand: 'right',
+      amount: 0.75,
+      wave: { middle: 'lark' },
+    },
+  );
   assert.equal(one('slice left and straight back ⁋').progression, true);
 });
 
-test('balance & Rory O\'More splits into a balance and a slide', () => {
+test("balance & Rory O'More splits into a balance and a slide", () => {
   const calls = parseRow({ beats: 8, text: "balance &  Rory O'More right" });
-  assert.deepEqual(calls.map((c) => [c.move, c.beats]), [['balance', 4], ['rory', 4]]);
+  assert.deepEqual(
+    calls.map((c) => [c.move, c.beats]),
+    [
+      ['balance', 4],
+      ['rory', 4],
+    ],
+  );
   assert.deepEqual(calls[1].params, { direction: 'right', spin: 'full' });
   assert.equal(calls[0].params.first, 'right');
 });

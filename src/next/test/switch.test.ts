@@ -6,7 +6,13 @@ import { compileWithEngine, isNextCompiled, nextEngineRequested } from '../switc
 const old = { dance: {} } as CompiledDance;
 const compileOld = () => old;
 const base = (sourceUrl: string): Dance => ({
-  id: 'x', title: 'X', author: 'Y', formation: 'becket', description: '', figures: [], sourceUrl,
+  id: 'x',
+  title: 'X',
+  author: 'Y',
+  formation: 'becket',
+  description: '',
+  figures: [],
+  sourceUrl,
 });
 
 test('the old engine stays the default', () => {
@@ -15,13 +21,21 @@ test('the old engine stays the default', () => {
 });
 
 test('?engine=next compiles supported dances and falls back for the rest', () => {
-  const next = compileWithEngine(base('https://contradb.com/dances/2321'), 4, compileOld, '?engine=next');
+  const next = compileWithEngine(
+    base('https://contradb.com/dances/2321'),
+    4,
+    compileOld,
+    '?engine=next',
+  );
   assert.ok(isNextCompiled(next));
   assert.equal(next.dance.id, 'x', 'keeps the app dance identity');
   const info = console.info;
   console.info = () => {};
   try {
-    assert.equal(compileWithEngine(base('https://contradb.com/dances/1'), 4, compileOld, '?engine=next'), old);
+    assert.equal(
+      compileWithEngine(base('https://contradb.com/dances/1'), 4, compileOld, '?engine=next'),
+      old,
+    );
   } finally {
     console.info = info;
   }

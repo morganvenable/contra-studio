@@ -10,7 +10,18 @@
  */
 import type { Figure } from '../core/figure.ts';
 import { oneOf, onlyKeys, settle } from '../core/figure.ts';
-import { add, dot, forward, leftOf, mix, progress, rightOf, scale, sub, turn } from '../core/math.ts';
+import {
+  add,
+  dot,
+  forward,
+  leftOf,
+  mix,
+  progress,
+  rightOf,
+  scale,
+  sub,
+  turn,
+} from '../core/math.ts';
 import { activeIds, body, withChanges } from '../core/state.ts';
 
 export interface PassThroughParams {
@@ -22,7 +33,10 @@ const VEER = 0.3;
 
 export const passThrough: Figure<PassThroughParams> = (state, params, beats) => {
   onlyKeys('pass through', params, ['shoulder']);
-  const shoulder = oneOf('pass through', 'shoulder', params.shoulder ?? 'right', ['right', 'left'] as const);
+  const shoulder = oneOf('pass through', 'shoulder', params.shoulder ?? 'right', [
+    'right',
+    'left',
+  ] as const);
   if (state.hands.length) throw new Error('Pass through needs free hands.');
   const ids = activeIds(state);
 
@@ -33,7 +47,11 @@ export const passThrough: Figure<PassThroughParams> = (state, params, beats) => 
       const them = body(state, other);
       const gap = sub(them.position, me.position);
       const lateral = Math.abs(dot(gap, leftOf(me.yaw)));
-      return lateral < 0.1 && dot(gap, forward(me.yaw)) > 0 && Math.abs(turn(them.yaw, me.yaw + Math.PI)) < 1e-6;
+      return (
+        lateral < 0.1 &&
+        dot(gap, forward(me.yaw)) > 0 &&
+        Math.abs(turn(them.yaw, me.yaw + Math.PI)) < 1e-6
+      );
     });
     if (ahead.length !== 1) throw new Error(`Dancer ${id} must face exactly one dancer to pass.`);
     const veer = scale((shoulder === 'right' ? leftOf : rightOf)(me.yaw), VEER);
@@ -48,5 +66,9 @@ export const passThrough: Figure<PassThroughParams> = (state, params, beats) => 
     }),
     contacts: [],
   });
-  return { kind: 'pass-through', motion, exit: withChanges(settle(state, motion, beats), { hands: [] }) };
+  return {
+    kind: 'pass-through',
+    motion,
+    exit: withChanges(settle(state, motion, beats), { hands: [] }),
+  };
 };

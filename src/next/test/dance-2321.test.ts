@@ -8,11 +8,15 @@ import { compileNext, NEXT_DANCES } from '../dance.ts';
 import { near, facing } from './helpers.ts';
 
 const stored = NEXT_DANCES[0];
-const snapshot = JSON.parse(readFileSync(new URL('../../../' + stored.source.snapshot, import.meta.url), 'utf8'));
+const snapshot = JSON.parse(
+  readFileSync(new URL('../../../' + stored.source.snapshot, import.meta.url), 'utf8'),
+);
 
 test('stored 2321 matches its source snapshot by hash and by parsed rows', () => {
   assert.equal(createHash('sha256').update(snapshot.html).digest('hex'), stored.source.sha256);
-  const parsed = contraDbRows(snapshot.html).flatMap((row) => parseRow(row).map((c) => ({ section: row.section, ...c })));
+  const parsed = contraDbRows(snapshot.html).flatMap((row) =>
+    parseRow(row).map((c) => ({ section: row.section, ...c })),
+  );
   assert.deepEqual(parsed, stored.figures);
   assert.ok(!JSON.stringify(stored).includes('gentlespoons'), 'stored names are larks/robins');
 });
@@ -51,9 +55,17 @@ for (const couples of [3, 4, 6]) {
       expectedSpots(couples, r).forEach((spot, c) => {
         const lark = frame.poses[c * 2];
         const robin = frame.poses[c * 2 + 1];
-        near(lark.position, { x: spot.side * 0.9, z: spot.z + spot.side * 0.9 }, `round ${r} lark ${c + 1}`);
-        near(robin.position, { x: spot.side * 0.9, z: spot.z - spot.side * 0.9 }, `round ${r} robin ${c + 1}`);
-        facing(lark.yaw, -spot.side * Math.PI / 2, `round ${r} lark ${c + 1}`);
+        near(
+          lark.position,
+          { x: spot.side * 0.9, z: spot.z + spot.side * 0.9 },
+          `round ${r} lark ${c + 1}`,
+        );
+        near(
+          robin.position,
+          { x: spot.side * 0.9, z: spot.z - spot.side * 0.9 },
+          `round ${r} robin ${c + 1}`,
+        );
+        facing(lark.yaw, (-spot.side * Math.PI) / 2, `round ${r} lark ${c + 1}`);
       });
     }
   });
@@ -74,7 +86,10 @@ test('frames keep the render contract: one pose per dancer, in id order', () => 
   const dance = compileNext(stored, 4);
   for (const beat of [0, 10, 21, 33, 40, 52, 63.9, 64, 100]) {
     const frame = dance.sample(beat);
-    assert.deepEqual(frame.poses.map((p) => p.id), [0, 1, 2, 3, 4, 5, 6, 7]);
+    assert.deepEqual(
+      frame.poses.map((p) => p.id),
+      [0, 1, 2, 3, 4, 5, 6, 7],
+    );
     assert.ok(frame.contacts.every((c) => Number.isFinite(c.point.x) && c.strength > 0));
   }
   assert.equal(dance.dance.figures.length, stored.figures.length);

@@ -49,7 +49,8 @@ export function physicalCheck(
       for (let b = a + 1; b < poses.length; b++) {
         const d = distance(poses[a].position, poses[b].position);
         minimumClearance = Math.min(minimumClearance, d);
-        if (d < limits.minimumClearance) note(beat, `dancers ${a} and ${b} are ${d.toFixed(2)} m apart`);
+        if (d < limits.minimumClearance)
+          note(beat, `dancers ${a} and ${b} are ${d.toFixed(2)} m apart`);
       }
     }
     if (previous && frame.figureIndex === previous.figureIndex) {
@@ -59,8 +60,10 @@ export function physicalCheck(
         const yawRate = Math.abs(turn(p.yaw, q.yaw)) / step;
         maximumSpeed = Math.max(maximumSpeed, speed);
         maximumYawRate = Math.max(maximumYawRate, yawRate);
-        if (speed > limits.maximumSpeed) note(beat, `dancer ${p.id} moves ${speed.toFixed(2)} m/beat`);
-        if (yawRate > limits.maximumYawRate) note(beat, `dancer ${p.id} turns ${yawRate.toFixed(2)} rad/beat`);
+        if (speed > limits.maximumSpeed)
+          note(beat, `dancer ${p.id} moves ${speed.toFixed(2)} m/beat`);
+        if (yawRate > limits.maximumYawRate)
+          note(beat, `dancer ${p.id} turns ${yawRate.toFixed(2)} rad/beat`);
       }
     }
     const bodies = new Map(poses.map((p) => [p.id, p]));
