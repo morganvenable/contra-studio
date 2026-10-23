@@ -1,0 +1,145 @@
+{
+  "schema": "contra-studio/next-dance",
+  "version": 1,
+  "title": "Treasure of Sierra Madre",
+  "author": "James Hutson",
+  "formation": "improper",
+  "progression": "duple-minor",
+  "music": {
+    "meter": "2/4",
+    "parts": [
+      {
+        "name": "A1",
+        "bars": 8
+      },
+      {
+        "name": "A2",
+        "bars": 8
+      },
+      {
+        "name": "B1",
+        "bars": 8
+      },
+      {
+        "name": "B2",
+        "bars": 8
+      }
+    ],
+    "times": "repeat"
+  },
+  "source": {
+    "url": "https://contradb.com/dances/769",
+    "snapshot": "test-data/contradb/769.json",
+    "sha256": "cf4a773549390716fa0267ec90e58fb203756236abb74ad60bd0c3c2f346592c"
+  },
+  "choices": [
+    "A balance with a partner or neighbor holds both hands.",
+    "A star with no grip named is a basket star (wrist grip)."
+  ],
+  "figures": [
+    {
+      "section": "A1",
+      "move": "balance",
+      "beats": 4,
+      "params": {
+        "formation": "pair",
+        "who": "neighbor",
+        "hand": "right"
+      },
+      "text": "neighbors right hand balance & box the gnat · balance"
+    },
+    {
+      "section": "A1",
+      "move": "twirl",
+      "beats": 4,
+      "params": {
+        "style": "box-the-gnat",
+        "who": "neighbor"
+      },
+      "text": "neighbors right hand balance & box the gnat · twirl"
+    },
+    {
+      "section": "A1",
+      "move": "allemande",
+      "beats": 8,
+      "params": {
+        "who": "larks",
+        "hand": "left",
+        "amount": 1.5
+      },
+      "text": "larks allemande left 1½"
+    },
+    {
+      "section": "A2",
+      "move": "balance",
+      "beats": 4,
+      "params": {
+        "formation": "pair",
+        "who": "partner",
+        "hand": "right"
+      },
+      "text": "partners right hand balance & box the gnat · balance"
+    },
+    {
+      "section": "A2",
+      "move": "twirl",
+      "beats": 4,
+      "params": {
+        "style": "box-the-gnat",
+        "who": "partner"
+      },
+      "text": "partners right hand balance & box the gnat · twirl"
+    },
+    {
+      "section": "A2",
+      "move": "hey",
+      "beats": 8,
+      "params": {
+        "start": "partner",
+        "amount": 0.5,
+        "center": "left"
+      },
+      "text": "partners start a half hey - rights on ends, lefts in center"
+    },
+    {
+      "section": "B1",
+      "move": "balance",
+      "beats": 4,
+      "params": {
+        "formation": "pair",
+        "who": "partner",
+        "hand": "both"
+      },
+      "text": "partners balance & swing · balance"
+    },
+    {
+      "section": "B1",
+      "move": "swing",
+      "beats": 12,
+      "params": {
+        "who": "partner"
+      },
+      "text": "partners balance & swing · swing"
+    },
+    {
+      "section": "B2",
+      "move": "chain",
+      "beats": 8,
+      "params": {
+        "who": "robins"
+      },
+      "text": "robins chain"
+    },
+    {
+      "section": "B2",
+      "move": "star",
+      "beats": 8,
+      "params": {
+        "hand": "left",
+        "places": 4
+      },
+      "text": "star left 4 places",
+      "progression": true
+    }
+  ]
+}

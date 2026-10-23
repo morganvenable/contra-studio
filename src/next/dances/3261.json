@@ -1,0 +1,141 @@
+{
+  "schema": "contra-studio/next-dance",
+  "version": 1,
+  "title": "Opus 4.6.10",
+  "author": "Every Choreographer on Callers Box",
+  "formation": "improper",
+  "progression": "duple-minor",
+  "music": {
+    "meter": "2/4",
+    "parts": [
+      {
+        "name": "A1",
+        "bars": 8
+      },
+      {
+        "name": "A2",
+        "bars": 8
+      },
+      {
+        "name": "B1",
+        "bars": 8
+      },
+      {
+        "name": "B2",
+        "bars": 8
+      }
+    ],
+    "times": "repeat"
+  },
+  "source": {
+    "url": "https://contradb.com/dances/3261",
+    "snapshot": "test-data/contradb/3261.json",
+    "sha256": "cdeec43e184087433ae6a493e7d09e5ac138afaa4ef53adfd3a30854547344ed"
+  },
+  "choices": [
+    "A pass through from a ring goes along the set, to the dancer on your own side."
+  ],
+  "figures": [
+    {
+      "section": "A1",
+      "move": "balance",
+      "beats": 4,
+      "params": {
+        "formation": "pair",
+        "who": "neighbor",
+        "hand": "right"
+      },
+      "text": "neighbors right hand balance & box the gnat · balance"
+    },
+    {
+      "section": "A1",
+      "move": "twirl",
+      "beats": 4,
+      "params": {
+        "style": "box-the-gnat",
+        "who": "neighbor"
+      },
+      "text": "neighbors right hand balance & box the gnat · twirl"
+    },
+    {
+      "section": "A1",
+      "move": "hey",
+      "beats": 8,
+      "params": {
+        "start": "larks",
+        "amount": 0.5,
+        "center": "left"
+      },
+      "text": "larks start a half hey - lefts in center, rights on ends"
+    },
+    {
+      "section": "A2",
+      "move": "allemande",
+      "beats": 8,
+      "params": {
+        "who": "larks",
+        "hand": "left",
+        "amount": 1.5
+      },
+      "text": "larks allemande left 1½"
+    },
+    {
+      "section": "A2",
+      "move": "swing",
+      "beats": 8,
+      "params": {
+        "who": "partner"
+      },
+      "text": "partners swing"
+    },
+    {
+      "section": "B1",
+      "move": "chain",
+      "beats": 8,
+      "params": {
+        "who": "robins",
+        "to": "neighbor"
+      },
+      "text": "robins chain to neighbors"
+    },
+    {
+      "section": "B1",
+      "move": "chain",
+      "beats": 8,
+      "params": {
+        "who": "robins",
+        "to": "partner"
+      },
+      "text": "robins chain to partners"
+    },
+    {
+      "section": "B2",
+      "move": "promenade",
+      "beats": 8,
+      "params": {
+        "who": "partner"
+      },
+      "text": "partners promenade across"
+    },
+    {
+      "section": "B2",
+      "move": "circle",
+      "beats": 6,
+      "params": {
+        "direction": "right",
+        "places": 3
+      },
+      "text": "circle right 3 places"
+    },
+    {
+      "section": "B2",
+      "move": "pass-through",
+      "beats": 2,
+      "params": {
+        "shoulder": "left"
+      },
+      "text": "pass through left shoulders",
+      "progression": true
+    }
+  ]
+}

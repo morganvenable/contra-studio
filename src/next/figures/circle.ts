@@ -27,6 +27,8 @@ export interface CircleParams {
 
 const TIGHTEN = 0.32;
 const EDGE = 0.16;
+/** Beats, at least, to turn in to face the center. */
+const TURN_IN_BEATS = 1;
 
 export const circle: Figure<CircleParams> = (state, params, beats) => {
   onlyKeys('circle', params, ['direction', 'places', 'amount']);
@@ -69,13 +71,11 @@ export const circle: Figure<CircleParams> = (state, params, beats) => {
         );
         // Face the center: turn in over the opening, then turn with the ring.
         const into = turn(heading(s.position, ring.center), s.yaw);
-        const yaw = s.yaw + into * smooth(t / EDGE) - angle;
+        const yaw = s.yaw + into * smooth(beat / Math.max(EDGE * beats, TURN_IN_BEATS)) - angle;
         return { id, position, yaw };
       }),
     );
-    const contacts: FigureContact[] = rings.flatMap((r) =>
-      r.hands.map((h) => joined(h, strength)),
-    );
+    const contacts: FigureContact[] = rings.flatMap((r) => r.hands.map((h) => joined(h, strength)));
     return { bodies, contacts };
   };
   return {

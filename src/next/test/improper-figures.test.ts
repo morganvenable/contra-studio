@@ -160,3 +160,40 @@ test('down the hall, turn as a couple, up the hall and bend into a ring', () => 
   const corners = [0, 1, 2, 3].map((id) => pos(ring, id));
   for (const c of corners) near({ x: Math.abs(c.x), z: Math.abs(c.z) }, { x: 0.9, z: 0.9 });
 });
+
+test('hey from lines across: robins pass right in the middle, everyone crosses, full hey returns', () => {
+  const lines = run([LINES]);
+  const half = FIGURES.hey(lines, { start: 'robins', amount: 0.5, center: 'right' }, 8);
+  const full = FIGURES.hey(lines, { start: 'robins', amount: 1, center: 'right' }, 16);
+  for (const id of [0, 1, 2, 3]) {
+    const before = pos(lines, id);
+    assert.ok(
+      Math.sign(half.exit.bodies.get(id)!.position.x) === -Math.sign(before.x),
+      `${id} crosses`,
+    );
+    near(full.exit.bodies.get(id)!.position, before, `${id} returns`);
+  }
+  // Clearance and speed stay within the ordinary limits all the way through.
+  let closest = Infinity;
+  for (let beat = 0; beat <= 8; beat += 0.05) {
+    const b = half.motion(beat).bodies;
+    for (let i = 0; i < 4; i++)
+      for (let j = i + 1; j < 4; j++)
+        closest = Math.min(
+          closest,
+          Math.hypot(b[i].position.x - b[j].position.x, b[i].position.z - b[j].position.z),
+        );
+  }
+  assert.ok(closest >= 0.5, `closest ${closest.toFixed(2)} m`);
+  // The robins pass each other first, by the right shoulder, in the middle.
+  const robins = [1, 3].map((id) => half.motion(2.5).bodies.find((b) => b.id === id)!);
+  const gap = Math.hypot(
+    robins[0].position.x - robins[1].position.x,
+    robins[0].position.z - robins[1].position.z,
+  );
+  assert.ok(gap < 0.7, `robins meet in the middle (${gap.toFixed(2)} m)`);
+  const [a, b] = robins;
+  const toB = { x: b.position.x - a.position.x, z: b.position.z - a.position.z };
+  const right = { x: -Math.cos(a.yaw), z: Math.sin(a.yaw) };
+  assert.ok(toB.x * right.x + toB.z * right.z > 0, 'the other robin is on the right');
+});
