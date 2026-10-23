@@ -2,10 +2,10 @@
   "schema": "contra-studio/coverage-audit",
   "version": 1,
   "provenance": {
-    "generatedAt": "2026-10-23T00:23:02.660Z",
-    "revision": "54f587d3ce4ce7649377ed5042c4b83fab34b952",
+    "generatedAt": "2026-10-23T00:33:43.628Z",
+    "revision": "666148d4e0509f9e97abc7b68676b3acb973a1a7",
     "workingTreeModified": true,
-    "runtimeMilliseconds": 189637,
+    "runtimeMilliseconds": 196813,
     "node": "v24.12.0",
     "datasets": [
       {
@@ -26,21 +26,21 @@
   },
   "availability": {
     "catalogue": 2422,
-    "retainedSnapshots": 220,
-    "savedReady": 191,
+    "retainedSnapshots": 222,
+    "savedReady": 193,
     "union": 2422,
-    "metadataOnly": 2202,
+    "metadataOnly": 2200,
     "categories": {
-      "catalogue:true snapshot:false saved:false": 2202,
-      "catalogue:true snapshot:true saved:true": 191,
+      "catalogue:true snapshot:false saved:false": 2200,
+      "catalogue:true snapshot:true saved:true": 193,
       "catalogue:true snapshot:true saved:false": 29
     }
   },
   "views": {
     "rawDefaults": {
-      "sources": 220,
+      "sources": 222,
       "statuses": {
-        "interpretation-blocked": 220
+        "interpretation-blocked": 222
       },
       "figures": [
         {
@@ -70,6 +70,7 @@
             "187",
             "188",
             "236",
+            "257",
             "265",
             "314",
             "333",
@@ -165,6 +166,7 @@
             "2305",
             "2322",
             "2330",
+            "2331",
             "2344",
             "2373",
             "2409",
@@ -221,8 +223,8 @@
             "3507",
             "3510"
           ],
-          "occurrences": 217,
-          "sources": 174
+          "occurrences": 221,
+          "sources": 176
         },
         {
           "kind": "circle",
@@ -252,6 +254,7 @@
             "188",
             "192",
             "236",
+            "257",
             "265",
             "333",
             "340",
@@ -387,8 +390,8 @@
             "3507",
             "3510"
           ],
-          "occurrences": 179,
-          "sources": 159
+          "occurrences": 180,
+          "sources": 160
         },
         {
           "kind": "allemande",
@@ -407,6 +410,7 @@
             "182",
             "188",
             "192",
+            "257",
             "265",
             "314",
             "333",
@@ -524,8 +528,8 @@
             "3496",
             "3510"
           ],
-          "occurrences": 165,
-          "sources": 130
+          "occurrences": 166,
+          "sources": 131
         },
         {
           "kind": "long-lines",
@@ -543,6 +547,7 @@
             "185",
             "192",
             "236",
+            "257",
             "443",
             "528",
             "575",
@@ -621,8 +626,8 @@
             "3496",
             "3533"
           ],
-          "occurrences": 94,
-          "sources": 90
+          "occurrences": 95,
+          "sources": 91
         },
         {
           "kind": "do-si-do",
@@ -1121,7 +1126,7 @@
         },
         {
           "code": "chain-receiver",
-          "sources": 79,
+          "sources": 80,
           "sourceIds": [
             "8",
             "9",
@@ -1179,6 +1184,7 @@
             "2322",
             "2329",
             "2330",
+            "2331",
             "2364",
             "2373",
             "2425",
@@ -1505,8 +1511,35 @@
           "soleBlockerSources": 0
         },
         {
+          "code": "unsupported-figure-variant",
+          "sources": 20,
+          "sourceIds": [
+            "257",
+            "265",
+            "266",
+            "495",
+            "761",
+            "776",
+            "907",
+            "1312",
+            "1632",
+            "2006",
+            "2026",
+            "2212",
+            "2305",
+            "2329",
+            "2330",
+            "2331",
+            "2456",
+            "2672",
+            "3363",
+            "3533"
+          ],
+          "soleBlockerSources": 0
+        },
+        {
           "code": "unknown-figure",
-          "sources": 18,
+          "sources": 19,
           "sourceIds": [
             "152",
             "179",
@@ -1524,33 +1557,33 @@
             "2322",
             "2329",
             "2330",
+            "2331",
             "2903",
             "3533"
           ],
           "soleBlockerSources": 0
         },
         {
-          "code": "unsupported-figure-variant",
-          "sources": 18,
+          "code": "circulation-choice",
+          "sources": 17,
           "sourceIds": [
-            "265",
-            "266",
-            "495",
+            "94",
+            "123",
+            "257",
+            "363",
             "761",
-            "776",
-            "907",
-            "1312",
-            "1632",
-            "2006",
-            "2026",
-            "2212",
-            "2305",
+            "840",
+            "1618",
+            "1658",
+            "2247",
             "2329",
             "2330",
-            "2456",
-            "2672",
-            "3363",
-            "3533"
+            "2518",
+            "2522",
+            "2996",
+            "3004",
+            "3181",
+            "3363"
           ],
           "soleBlockerSources": 0
         },
@@ -1603,37 +1636,15 @@
           "soleBlockerSources": 0
         },
         {
-          "code": "circulation-choice",
-          "sources": 16,
-          "sourceIds": [
-            "94",
-            "123",
-            "363",
-            "761",
-            "840",
-            "1618",
-            "1658",
-            "2247",
-            "2329",
-            "2330",
-            "2518",
-            "2522",
-            "2996",
-            "3004",
-            "3181",
-            "3363"
-          ],
-          "soleBlockerSources": 0
-        },
-        {
           "code": "hall-composition",
-          "sources": 15,
+          "sources": 16,
           "sourceIds": [
             "66",
             "123",
             "133",
             "138",
             "188",
+            "257",
             "340",
             "840",
             "1545",
@@ -1649,13 +1660,14 @@
         },
         {
           "code": "hall-return-pair",
-          "sources": 15,
+          "sources": 16,
           "sourceIds": [
             "66",
             "123",
             "133",
             "138",
             "188",
+            "257",
             "340",
             "840",
             "1545",
@@ -1671,13 +1683,14 @@
         },
         {
           "code": "hall-timing-choice",
-          "sources": 15,
+          "sources": 16,
           "sourceIds": [
             "66",
             "123",
             "133",
             "138",
             "188",
+            "257",
             "340",
             "840",
             "1545",
@@ -1693,10 +1706,11 @@
         },
         {
           "code": "source-hook",
-          "sources": 14,
+          "sources": 16,
           "sourceIds": [
             "66",
             "179",
+            "257",
             "495",
             "1976",
             "2006",
@@ -1704,6 +1718,7 @@
             "2305",
             "2329",
             "2330",
+            "2331",
             "2494",
             "2693",
             "2876",
@@ -1714,11 +1729,12 @@
         },
         {
           "code": "source-notes",
-          "sources": 14,
+          "sources": 16,
           "sourceIds": [
             "66",
             "182",
             "236",
+            "257",
             "761",
             "907",
             "1312",
@@ -1726,6 +1742,7 @@
             "2006",
             "2299",
             "2330",
+            "2331",
             "3004",
             "3265",
             "3326",
@@ -1748,6 +1765,24 @@
             "2212",
             "2322",
             "3326"
+          ],
+          "soleBlockerSources": 0
+        },
+        {
+          "code": "progression-location",
+          "sources": 11,
+          "sourceIds": [
+            "257",
+            "840",
+            "1067",
+            "1618",
+            "1632",
+            "2006",
+            "2329",
+            "2331",
+            "2373",
+            "2672",
+            "3363"
           ],
           "soleBlockerSources": 0
         },
@@ -1787,17 +1822,33 @@
           "soleBlockerSources": 0
         },
         {
-          "code": "progression-location",
+          "code": "circulate-timing-choice",
           "sources": 9,
           "sourceIds": [
-            "840",
-            "1067",
-            "1618",
-            "1632",
+            "152",
+            "187",
+            "1591",
             "2006",
+            "2305",
+            "2330",
+            "2331",
+            "3265",
+            "3363"
+          ],
+          "soleBlockerSources": 0
+        },
+        {
+          "code": "long-wave-context",
+          "sources": 9,
+          "sourceIds": [
+            "152",
+            "187",
+            "2006",
+            "2305",
             "2329",
-            "2373",
-            "2672",
+            "2330",
+            "2331",
+            "3265",
             "3363"
           ],
           "soleBlockerSources": 0
@@ -1819,36 +1870,6 @@
           "soleBlockerSources": 0
         },
         {
-          "code": "circulate-timing-choice",
-          "sources": 8,
-          "sourceIds": [
-            "152",
-            "187",
-            "1591",
-            "2006",
-            "2305",
-            "2330",
-            "3265",
-            "3363"
-          ],
-          "soleBlockerSources": 0
-        },
-        {
-          "code": "long-wave-context",
-          "sources": 8,
-          "sourceIds": [
-            "152",
-            "187",
-            "2006",
-            "2305",
-            "2329",
-            "2330",
-            "3265",
-            "3363"
-          ],
-          "soleBlockerSources": 0
-        },
-        {
           "code": "source-notes-alternative-review",
           "sources": 8,
           "sourceIds": [
@@ -1860,6 +1881,21 @@
             "1702",
             "2344",
             "3214"
+          ],
+          "soleBlockerSources": 0
+        },
+        {
+          "code": "source-preamble",
+          "sources": 8,
+          "sourceIds": [
+            "187",
+            "257",
+            "840",
+            "907",
+            "1632",
+            "2331",
+            "2672",
+            "3004"
           ],
           "soleBlockerSources": 0
         },
@@ -1904,15 +1940,27 @@
           "soleBlockerSources": 0
         },
         {
-          "code": "source-preamble",
+          "code": "zero-time-instruction",
           "sources": 6,
           "sourceIds": [
-            "187",
-            "840",
-            "907",
-            "1632",
-            "2672",
-            "3004"
+            "152",
+            "2305",
+            "2329",
+            "2330",
+            "2331",
+            "3265"
+          ],
+          "soleBlockerSources": 0
+        },
+        {
+          "code": "chain-hand-choice",
+          "sources": 5,
+          "sourceIds": [
+            "1000",
+            "1273",
+            "2330",
+            "2331",
+            "3195"
           ],
           "soleBlockerSources": 0
         },
@@ -1997,29 +2045,6 @@
             "3241",
             "3260",
             "3261"
-          ],
-          "soleBlockerSources": 0
-        },
-        {
-          "code": "zero-time-instruction",
-          "sources": 5,
-          "sourceIds": [
-            "152",
-            "2305",
-            "2329",
-            "2330",
-            "3265"
-          ],
-          "soleBlockerSources": 0
-        },
-        {
-          "code": "chain-hand-choice",
-          "sources": 4,
-          "sourceIds": [
-            "1000",
-            "1273",
-            "2330",
-            "3195"
           ],
           "soleBlockerSources": 0
         },
@@ -2860,6 +2885,81 @@
         },
         {
           "codes": [
+            "hall-composition",
+            "hall-return-pair"
+          ],
+          "sources": 16,
+          "sourceIds": [
+            "66",
+            "123",
+            "133",
+            "138",
+            "188",
+            "257",
+            "340",
+            "840",
+            "1545",
+            "1618",
+            "2026",
+            "2605",
+            "2701",
+            "2876",
+            "3490",
+            "3507"
+          ]
+        },
+        {
+          "codes": [
+            "hall-composition",
+            "hall-timing-choice"
+          ],
+          "sources": 16,
+          "sourceIds": [
+            "66",
+            "123",
+            "133",
+            "138",
+            "188",
+            "257",
+            "340",
+            "840",
+            "1545",
+            "1618",
+            "2026",
+            "2605",
+            "2701",
+            "2876",
+            "3490",
+            "3507"
+          ]
+        },
+        {
+          "codes": [
+            "hall-return-pair",
+            "hall-timing-choice"
+          ],
+          "sources": 16,
+          "sourceIds": [
+            "66",
+            "123",
+            "133",
+            "138",
+            "188",
+            "257",
+            "340",
+            "840",
+            "1545",
+            "1618",
+            "2026",
+            "2605",
+            "2701",
+            "2876",
+            "3490",
+            "3507"
+          ]
+        },
+        {
+          "codes": [
             "balance-swing-timing",
             "petronella-choice"
           ],
@@ -2880,78 +2980,6 @@
             "3051",
             "3431",
             "3478"
-          ]
-        },
-        {
-          "codes": [
-            "hall-composition",
-            "hall-return-pair"
-          ],
-          "sources": 15,
-          "sourceIds": [
-            "66",
-            "123",
-            "133",
-            "138",
-            "188",
-            "340",
-            "840",
-            "1545",
-            "1618",
-            "2026",
-            "2605",
-            "2701",
-            "2876",
-            "3490",
-            "3507"
-          ]
-        },
-        {
-          "codes": [
-            "hall-composition",
-            "hall-timing-choice"
-          ],
-          "sources": 15,
-          "sourceIds": [
-            "66",
-            "123",
-            "133",
-            "138",
-            "188",
-            "340",
-            "840",
-            "1545",
-            "1618",
-            "2026",
-            "2605",
-            "2701",
-            "2876",
-            "3490",
-            "3507"
-          ]
-        },
-        {
-          "codes": [
-            "hall-return-pair",
-            "hall-timing-choice"
-          ],
-          "sources": 15,
-          "sourceIds": [
-            "66",
-            "123",
-            "133",
-            "138",
-            "188",
-            "340",
-            "840",
-            "1545",
-            "1618",
-            "2026",
-            "2605",
-            "2701",
-            "2876",
-            "3490",
-            "3507"
           ]
         },
         {
@@ -3074,6 +3102,25 @@
         },
         {
           "codes": [
+            "unknown-figure",
+            "unsupported-figure-variant"
+          ],
+          "sources": 10,
+          "sourceIds": [
+            "265",
+            "761",
+            "776",
+            "907",
+            "1312",
+            "2305",
+            "2329",
+            "2330",
+            "2331",
+            "3533"
+          ]
+        },
+        {
+          "codes": [
             "balance-swing-timing",
             "hall-composition"
           ],
@@ -3182,19 +3229,19 @@
         },
         {
           "codes": [
-            "unknown-figure",
+            "source-notes",
             "unsupported-figure-variant"
           ],
           "sources": 9,
           "sourceIds": [
-            "265",
+            "257",
             "761",
-            "776",
             "907",
             "1312",
-            "2305",
-            "2329",
+            "1632",
+            "2006",
             "2330",
+            "2331",
             "3533"
           ]
         },
@@ -3336,6 +3383,23 @@
         },
         {
           "codes": [
+            "circulate-timing-choice",
+            "long-wave-context"
+          ],
+          "sources": 8,
+          "sourceIds": [
+            "152",
+            "187",
+            "2006",
+            "2305",
+            "2330",
+            "2331",
+            "3265",
+            "3363"
+          ]
+        },
+        {
+          "codes": [
             "circulation-choice",
             "event-policy-choice"
           ],
@@ -3349,6 +3413,23 @@
             "2996",
             "3004",
             "3181"
+          ]
+        },
+        {
+          "codes": [
+            "source-hook",
+            "unsupported-figure-variant"
+          ],
+          "sources": 8,
+          "sourceIds": [
+            "257",
+            "495",
+            "2006",
+            "2212",
+            "2305",
+            "2329",
+            "2330",
+            "2331"
           ]
         },
         {
@@ -3401,33 +3482,49 @@
         },
         {
           "codes": [
-            "circulate-timing-choice",
-            "long-wave-context"
+            "progression-location",
+            "unsupported-figure-variant"
           ],
           "sources": 7,
           "sourceIds": [
-            "152",
-            "187",
+            "257",
+            "1632",
             "2006",
-            "2305",
-            "2330",
-            "3265",
+            "2329",
+            "2331",
+            "2672",
             "3363"
           ]
         },
         {
           "codes": [
+            "source-hook",
+            "source-notes"
+          ],
+          "sources": 7,
+          "sourceIds": [
+            "66",
+            "257",
+            "2006",
+            "2330",
+            "2331",
+            "3004",
+            "3265"
+          ]
+        },
+        {
+          "codes": [
             "source-notes",
-            "unsupported-figure-variant"
+            "unknown-figure"
           ],
           "sources": 7,
           "sourceIds": [
             "761",
             "907",
             "1312",
-            "1632",
-            "2006",
+            "2299",
             "2330",
+            "2331",
             "3533"
           ]
         },
@@ -3494,6 +3591,21 @@
         {
           "codes": [
             "chain-receiver",
+            "source-hook"
+          ],
+          "sources": 6,
+          "sourceIds": [
+            "179",
+            "495",
+            "2329",
+            "2330",
+            "2331",
+            "2494"
+          ]
+        },
+        {
+          "codes": [
+            "chain-receiver",
             "square-through-choice"
           ],
           "sources": 6,
@@ -3504,6 +3616,36 @@
             "1273",
             "2364",
             "3326"
+          ]
+        },
+        {
+          "codes": [
+            "chain-receiver",
+            "unknown-figure"
+          ],
+          "sources": 6,
+          "sourceIds": [
+            "179",
+            "2243",
+            "2322",
+            "2329",
+            "2330",
+            "2331"
+          ]
+        },
+        {
+          "codes": [
+            "chain-receiver",
+            "unsupported-figure-variant"
+          ],
+          "sources": 6,
+          "sourceIds": [
+            "266",
+            "495",
+            "2329",
+            "2330",
+            "2331",
+            "2672"
           ]
         },
         {
@@ -3519,6 +3661,51 @@
             "2531",
             "3010",
             "3328"
+          ]
+        },
+        {
+          "codes": [
+            "long-wave-context",
+            "source-hook"
+          ],
+          "sources": 6,
+          "sourceIds": [
+            "2006",
+            "2305",
+            "2329",
+            "2330",
+            "2331",
+            "3265"
+          ]
+        },
+        {
+          "codes": [
+            "long-wave-context",
+            "unsupported-figure-variant"
+          ],
+          "sources": 6,
+          "sourceIds": [
+            "2006",
+            "2305",
+            "2329",
+            "2330",
+            "2331",
+            "3363"
+          ]
+        },
+        {
+          "codes": [
+            "long-wave-context",
+            "zero-time-instruction"
+          ],
+          "sources": 6,
+          "sourceIds": [
+            "152",
+            "2305",
+            "2329",
+            "2330",
+            "2331",
+            "3265"
           ]
         },
         {
@@ -3549,36 +3736,6 @@
             "3328",
             "3431",
             "3478"
-          ]
-        },
-        {
-          "codes": [
-            "source-hook",
-            "unsupported-figure-variant"
-          ],
-          "sources": 6,
-          "sourceIds": [
-            "495",
-            "2006",
-            "2212",
-            "2305",
-            "2329",
-            "2330"
-          ]
-        },
-        {
-          "codes": [
-            "source-notes",
-            "unknown-figure"
-          ],
-          "sources": 6,
-          "sourceIds": [
-            "761",
-            "907",
-            "1312",
-            "2299",
-            "2330",
-            "3533"
           ]
         },
         {
@@ -3710,43 +3867,85 @@
         {
           "codes": [
             "chain-receiver",
+            "source-notes"
+          ],
+          "sources": 5,
+          "sourceIds": [
+            "182",
+            "236",
+            "2330",
+            "2331",
+            "3326"
+          ]
+        },
+        {
+          "codes": [
+            "circulate-timing-choice",
             "source-hook"
           ],
           "sources": 5,
           "sourceIds": [
-            "179",
-            "495",
-            "2329",
+            "2006",
+            "2305",
             "2330",
-            "2494"
+            "2331",
+            "3265"
           ]
         },
         {
           "codes": [
-            "chain-receiver",
-            "unknown-figure"
-          ],
-          "sources": 5,
-          "sourceIds": [
-            "179",
-            "2243",
-            "2322",
-            "2329",
-            "2330"
-          ]
-        },
-        {
-          "codes": [
-            "chain-receiver",
+            "circulate-timing-choice",
             "unsupported-figure-variant"
           ],
           "sources": 5,
           "sourceIds": [
-            "266",
-            "495",
+            "2006",
+            "2305",
+            "2330",
+            "2331",
+            "3363"
+          ]
+        },
+        {
+          "codes": [
+            "circulate-timing-choice",
+            "zero-time-instruction"
+          ],
+          "sources": 5,
+          "sourceIds": [
+            "152",
+            "2305",
+            "2330",
+            "2331",
+            "3265"
+          ]
+        },
+        {
+          "codes": [
+            "circulation-choice",
+            "progression-location"
+          ],
+          "sources": 5,
+          "sourceIds": [
+            "257",
+            "840",
+            "1618",
+            "2329",
+            "3363"
+          ]
+        },
+        {
+          "codes": [
+            "circulation-choice",
+            "unsupported-figure-variant"
+          ],
+          "sources": 5,
+          "sourceIds": [
+            "257",
+            "761",
             "2329",
             "2330",
-            "2672"
+            "3363"
           ]
         },
         {
@@ -3780,35 +3979,7 @@
         {
           "codes": [
             "long-wave-context",
-            "source-hook"
-          ],
-          "sources": 5,
-          "sourceIds": [
-            "2006",
-            "2305",
-            "2329",
-            "2330",
-            "3265"
-          ]
-        },
-        {
-          "codes": [
-            "long-wave-context",
-            "unsupported-figure-variant"
-          ],
-          "sources": 5,
-          "sourceIds": [
-            "2006",
-            "2305",
-            "2329",
-            "2330",
-            "3363"
-          ]
-        },
-        {
-          "codes": [
-            "long-wave-context",
-            "zero-time-instruction"
+            "unknown-figure"
           ],
           "sources": 5,
           "sourceIds": [
@@ -3816,7 +3987,7 @@
             "2305",
             "2329",
             "2330",
-            "3265"
+            "2331"
           ]
         },
         {
@@ -3836,15 +4007,15 @@
         {
           "codes": [
             "progression-location",
-            "unsupported-figure-variant"
+            "source-preamble"
           ],
           "sources": 5,
           "sourceIds": [
+            "257",
+            "840",
             "1632",
-            "2006",
-            "2329",
-            "2672",
-            "3363"
+            "2331",
+            "2672"
           ]
         },
         {
@@ -3906,15 +4077,71 @@
         {
           "codes": [
             "source-hook",
-            "source-notes"
+            "unknown-figure"
           ],
           "sources": 5,
           "sourceIds": [
-            "66",
-            "2006",
+            "179",
+            "2305",
+            "2329",
             "2330",
-            "3004",
+            "2331"
+          ]
+        },
+        {
+          "codes": [
+            "source-hook",
+            "zero-time-instruction"
+          ],
+          "sources": 5,
+          "sourceIds": [
+            "2305",
+            "2329",
+            "2330",
+            "2331",
             "3265"
+          ]
+        },
+        {
+          "codes": [
+            "source-notes",
+            "source-preamble"
+          ],
+          "sources": 5,
+          "sourceIds": [
+            "257",
+            "907",
+            "1632",
+            "2331",
+            "3004"
+          ]
+        },
+        {
+          "codes": [
+            "source-preamble",
+            "unsupported-figure-variant"
+          ],
+          "sources": 5,
+          "sourceIds": [
+            "257",
+            "907",
+            "1632",
+            "2331",
+            "2672"
+          ]
+        },
+        {
+          "codes": [
+            "unknown-figure",
+            "zero-time-instruction"
+          ],
+          "sources": 5,
+          "sourceIds": [
+            "152",
+            "2305",
+            "2329",
+            "2330",
+            "2331"
           ]
         },
         {
@@ -4011,6 +4238,19 @@
         {
           "codes": [
             "chain-receiver",
+            "long-wave-context"
+          ],
+          "sources": 4,
+          "sourceIds": [
+            "187",
+            "2329",
+            "2330",
+            "2331"
+          ]
+        },
+        {
+          "codes": [
+            "chain-receiver",
             "petronella-choice"
           ],
           "sources": 4,
@@ -4024,66 +4264,105 @@
         {
           "codes": [
             "chain-receiver",
-            "source-notes"
+            "progression-location"
           ],
           "sources": 4,
           "sourceIds": [
-            "182",
-            "236",
-            "2330",
-            "3326"
+            "2329",
+            "2331",
+            "2373",
+            "2672"
           ]
         },
         {
           "codes": [
             "circulate-timing-choice",
-            "source-hook"
+            "source-notes"
           ],
           "sources": 4,
           "sourceIds": [
             "2006",
-            "2305",
             "2330",
+            "2331",
             "3265"
           ]
         },
         {
           "codes": [
             "circulate-timing-choice",
-            "unsupported-figure-variant"
-          ],
-          "sources": 4,
-          "sourceIds": [
-            "2006",
-            "2305",
-            "2330",
-            "3363"
-          ]
-        },
-        {
-          "codes": [
-            "circulate-timing-choice",
-            "zero-time-instruction"
+            "unknown-figure"
           ],
           "sources": 4,
           "sourceIds": [
             "152",
             "2305",
             "2330",
-            "3265"
+            "2331"
           ]
         },
         {
           "codes": [
             "circulation-choice",
-            "progression-location"
+            "hall-composition"
           ],
           "sources": 4,
           "sourceIds": [
+            "123",
+            "257",
             "840",
-            "1618",
+            "1618"
+          ]
+        },
+        {
+          "codes": [
+            "circulation-choice",
+            "hall-return-pair"
+          ],
+          "sources": 4,
+          "sourceIds": [
+            "123",
+            "257",
+            "840",
+            "1618"
+          ]
+        },
+        {
+          "codes": [
+            "circulation-choice",
+            "hall-timing-choice"
+          ],
+          "sources": 4,
+          "sourceIds": [
+            "123",
+            "257",
+            "840",
+            "1618"
+          ]
+        },
+        {
+          "codes": [
+            "circulation-choice",
+            "source-hook"
+          ],
+          "sources": 4,
+          "sourceIds": [
+            "257",
             "2329",
-            "3363"
+            "2330",
+            "3004"
+          ]
+        },
+        {
+          "codes": [
+            "circulation-choice",
+            "source-notes"
+          ],
+          "sources": 4,
+          "sourceIds": [
+            "257",
+            "761",
+            "2330",
+            "3004"
           ]
         },
         {
@@ -4097,19 +4376,6 @@
             "1618",
             "2329",
             "2330"
-          ]
-        },
-        {
-          "codes": [
-            "circulation-choice",
-            "unsupported-figure-variant"
-          ],
-          "sources": 4,
-          "sourceIds": [
-            "761",
-            "2329",
-            "2330",
-            "3363"
           ]
         },
         {
@@ -4154,14 +4420,27 @@
         {
           "codes": [
             "long-wave-context",
-            "unknown-figure"
+            "progression-location"
           ],
           "sources": 4,
           "sourceIds": [
-            "152",
-            "2305",
+            "2006",
             "2329",
-            "2330"
+            "2331",
+            "3363"
+          ]
+        },
+        {
+          "codes": [
+            "long-wave-context",
+            "source-notes"
+          ],
+          "sources": 4,
+          "sourceIds": [
+            "2006",
+            "2330",
+            "2331",
+            "3265"
           ]
         },
         {
@@ -4201,6 +4480,32 @@
             "2305",
             "2494",
             "3265"
+          ]
+        },
+        {
+          "codes": [
+            "progression-location",
+            "source-hook"
+          ],
+          "sources": 4,
+          "sourceIds": [
+            "257",
+            "2006",
+            "2329",
+            "2331"
+          ]
+        },
+        {
+          "codes": [
+            "progression-location",
+            "source-notes"
+          ],
+          "sources": 4,
+          "sourceIds": [
+            "257",
+            "1632",
+            "2006",
+            "2331"
           ]
         },
         {
@@ -4257,32 +4562,6 @@
         },
         {
           "codes": [
-            "source-hook",
-            "unknown-figure"
-          ],
-          "sources": 4,
-          "sourceIds": [
-            "179",
-            "2305",
-            "2329",
-            "2330"
-          ]
-        },
-        {
-          "codes": [
-            "source-hook",
-            "zero-time-instruction"
-          ],
-          "sources": 4,
-          "sourceIds": [
-            "2305",
-            "2329",
-            "2330",
-            "3265"
-          ]
-        },
-        {
-          "codes": [
             "source-notes-alternative-review",
             "source-preamble-review"
           ],
@@ -4296,15 +4575,15 @@
         },
         {
           "codes": [
-            "unknown-figure",
+            "unsupported-figure-variant",
             "zero-time-instruction"
           ],
           "sources": 4,
           "sourceIds": [
-            "152",
             "2305",
             "2329",
-            "2330"
+            "2330",
+            "2331"
           ]
         },
         {
@@ -4465,6 +4744,30 @@
         },
         {
           "codes": [
+            "chain-hand-choice",
+            "chain-receiver"
+          ],
+          "sources": 3,
+          "sourceIds": [
+            "1273",
+            "2330",
+            "2331"
+          ]
+        },
+        {
+          "codes": [
+            "chain-receiver",
+            "circulate-timing-choice"
+          ],
+          "sources": 3,
+          "sourceIds": [
+            "187",
+            "2330",
+            "2331"
+          ]
+        },
+        {
+          "codes": [
             "chain-receiver",
             "event-policy-choice"
           ],
@@ -4473,18 +4776,6 @@
             "123",
             "1658",
             "2247"
-          ]
-        },
-        {
-          "codes": [
-            "chain-receiver",
-            "long-wave-context"
-          ],
-          "sources": 3,
-          "sourceIds": [
-            "187",
-            "2329",
-            "2330"
           ]
         },
         {
@@ -4538,18 +4829,6 @@
         {
           "codes": [
             "chain-receiver",
-            "progression-location"
-          ],
-          "sources": 3,
-          "sourceIds": [
-            "2329",
-            "2373",
-            "2672"
-          ]
-        },
-        {
-          "codes": [
-            "chain-receiver",
             "source-notes-alternative-review"
           ],
           "sources": 3,
@@ -4585,6 +4864,30 @@
         },
         {
           "codes": [
+            "chain-receiver",
+            "source-preamble"
+          ],
+          "sources": 3,
+          "sourceIds": [
+            "187",
+            "2331",
+            "2672"
+          ]
+        },
+        {
+          "codes": [
+            "chain-receiver",
+            "zero-time-instruction"
+          ],
+          "sources": 3,
+          "sourceIds": [
+            "2329",
+            "2330",
+            "2331"
+          ]
+        },
+        {
+          "codes": [
             "circulate-timing-choice",
             "ordinary-hey-choice"
           ],
@@ -4598,61 +4901,13 @@
         {
           "codes": [
             "circulate-timing-choice",
-            "source-notes"
+            "progression-location"
           ],
           "sources": 3,
           "sourceIds": [
             "2006",
-            "2330",
-            "3265"
-          ]
-        },
-        {
-          "codes": [
-            "circulate-timing-choice",
-            "unknown-figure"
-          ],
-          "sources": 3,
-          "sourceIds": [
-            "152",
-            "2305",
-            "2330"
-          ]
-        },
-        {
-          "codes": [
-            "circulation-choice",
-            "hall-composition"
-          ],
-          "sources": 3,
-          "sourceIds": [
-            "123",
-            "840",
-            "1618"
-          ]
-        },
-        {
-          "codes": [
-            "circulation-choice",
-            "hall-return-pair"
-          ],
-          "sources": 3,
-          "sourceIds": [
-            "123",
-            "840",
-            "1618"
-          ]
-        },
-        {
-          "codes": [
-            "circulation-choice",
-            "hall-timing-choice"
-          ],
-          "sources": 3,
-          "sourceIds": [
-            "123",
-            "840",
-            "1618"
+            "2331",
+            "3363"
           ]
         },
         {
@@ -4670,24 +4925,12 @@
         {
           "codes": [
             "circulation-choice",
-            "source-hook"
+            "source-preamble"
           ],
           "sources": 3,
           "sourceIds": [
-            "2329",
-            "2330",
-            "3004"
-          ]
-        },
-        {
-          "codes": [
-            "circulation-choice",
-            "source-notes"
-          ],
-          "sources": 3,
-          "sourceIds": [
-            "761",
-            "2330",
+            "257",
+            "840",
             "3004"
           ]
         },
@@ -4790,6 +5033,18 @@
         {
           "codes": [
             "hall-composition",
+            "progression-location"
+          ],
+          "sources": 3,
+          "sourceIds": [
+            "257",
+            "840",
+            "1618"
+          ]
+        },
+        {
+          "codes": [
+            "hall-composition",
             "ring-pass-choice"
           ],
           "sources": 3,
@@ -4797,6 +5052,30 @@
             "340",
             "840",
             "3507"
+          ]
+        },
+        {
+          "codes": [
+            "hall-composition",
+            "source-hook"
+          ],
+          "sources": 3,
+          "sourceIds": [
+            "66",
+            "257",
+            "2876"
+          ]
+        },
+        {
+          "codes": [
+            "hall-return-pair",
+            "progression-location"
+          ],
+          "sources": 3,
+          "sourceIds": [
+            "257",
+            "840",
+            "1618"
           ]
         },
         {
@@ -4813,6 +5092,30 @@
         },
         {
           "codes": [
+            "hall-return-pair",
+            "source-hook"
+          ],
+          "sources": 3,
+          "sourceIds": [
+            "66",
+            "257",
+            "2876"
+          ]
+        },
+        {
+          "codes": [
+            "hall-timing-choice",
+            "progression-location"
+          ],
+          "sources": 3,
+          "sourceIds": [
+            "257",
+            "840",
+            "1618"
+          ]
+        },
+        {
+          "codes": [
             "hall-timing-choice",
             "ring-pass-choice"
           ],
@@ -4821,6 +5124,18 @@
             "340",
             "840",
             "3507"
+          ]
+        },
+        {
+          "codes": [
+            "hall-timing-choice",
+            "source-hook"
+          ],
+          "sources": 3,
+          "sourceIds": [
+            "66",
+            "257",
+            "2876"
           ]
         },
         {
@@ -4844,30 +5159,6 @@
           "sourceIds": [
             "187",
             "2305",
-            "3265"
-          ]
-        },
-        {
-          "codes": [
-            "long-wave-context",
-            "progression-location"
-          ],
-          "sources": 3,
-          "sourceIds": [
-            "2006",
-            "2329",
-            "3363"
-          ]
-        },
-        {
-          "codes": [
-            "long-wave-context",
-            "source-notes"
-          ],
-          "sources": 3,
-          "sourceIds": [
-            "2006",
-            "2330",
             "3265"
           ]
         },
@@ -4934,13 +5225,13 @@
         {
           "codes": [
             "progression-location",
-            "source-preamble"
+            "unknown-figure"
           ],
           "sources": 3,
           "sourceIds": [
-            "840",
-            "1632",
-            "2672"
+            "1618",
+            "2329",
+            "2331"
           ]
         },
         {
@@ -5041,38 +5332,26 @@
         },
         {
           "codes": [
-            "source-notes",
+            "source-hook",
             "source-preamble"
           ],
           "sources": 3,
           "sourceIds": [
-            "907",
-            "1632",
+            "257",
+            "2331",
             "3004"
           ]
         },
         {
           "codes": [
-            "source-preamble",
-            "unsupported-figure-variant"
-          ],
-          "sources": 3,
-          "sourceIds": [
-            "907",
-            "1632",
-            "2672"
-          ]
-        },
-        {
-          "codes": [
-            "unsupported-figure-variant",
+            "source-notes",
             "zero-time-instruction"
           ],
           "sources": 3,
           "sourceIds": [
-            "2305",
-            "2329",
-            "2330"
+            "2330",
+            "2331",
+            "3265"
           ]
         },
         {
@@ -5463,23 +5742,78 @@
         {
           "codes": [
             "chain-hand-choice",
-            "chain-receiver"
-          ],
-          "sources": 2,
-          "sourceIds": [
-            "1273",
-            "2330"
-          ]
-        },
-        {
-          "codes": [
-            "chain-receiver",
             "circulate-timing-choice"
           ],
           "sources": 2,
           "sourceIds": [
-            "187",
-            "2330"
+            "2330",
+            "2331"
+          ]
+        },
+        {
+          "codes": [
+            "chain-hand-choice",
+            "long-wave-context"
+          ],
+          "sources": 2,
+          "sourceIds": [
+            "2330",
+            "2331"
+          ]
+        },
+        {
+          "codes": [
+            "chain-hand-choice",
+            "source-hook"
+          ],
+          "sources": 2,
+          "sourceIds": [
+            "2330",
+            "2331"
+          ]
+        },
+        {
+          "codes": [
+            "chain-hand-choice",
+            "source-notes"
+          ],
+          "sources": 2,
+          "sourceIds": [
+            "2330",
+            "2331"
+          ]
+        },
+        {
+          "codes": [
+            "chain-hand-choice",
+            "unknown-figure"
+          ],
+          "sources": 2,
+          "sourceIds": [
+            "2330",
+            "2331"
+          ]
+        },
+        {
+          "codes": [
+            "chain-hand-choice",
+            "unsupported-figure-variant"
+          ],
+          "sources": 2,
+          "sourceIds": [
+            "2330",
+            "2331"
+          ]
+        },
+        {
+          "codes": [
+            "chain-hand-choice",
+            "zero-time-instruction"
+          ],
+          "sources": 2,
+          "sourceIds": [
+            "2330",
+            "2331"
           ]
         },
         {
@@ -5502,28 +5836,6 @@
           "sourceIds": [
             "2243",
             "2322"
-          ]
-        },
-        {
-          "codes": [
-            "chain-receiver",
-            "source-preamble"
-          ],
-          "sources": 2,
-          "sourceIds": [
-            "187",
-            "2672"
-          ]
-        },
-        {
-          "codes": [
-            "chain-receiver",
-            "zero-time-instruction"
-          ],
-          "sources": 2,
-          "sourceIds": [
-            "2329",
-            "2330"
           ]
         },
         {
@@ -5551,12 +5863,12 @@
         {
           "codes": [
             "circulate-timing-choice",
-            "progression-location"
+            "source-preamble"
           ],
           "sources": 2,
           "sourceIds": [
-            "2006",
-            "3363"
+            "187",
+            "2331"
           ]
         },
         {
@@ -5590,17 +5902,6 @@
           "sourceIds": [
             "840",
             "2329"
-          ]
-        },
-        {
-          "codes": [
-            "circulation-choice",
-            "source-preamble"
-          ],
-          "sources": 2,
-          "sourceIds": [
-            "840",
-            "3004"
           ]
         },
         {
@@ -5771,17 +6072,6 @@
         {
           "codes": [
             "hall-composition",
-            "progression-location"
-          ],
-          "sources": 2,
-          "sourceIds": [
-            "840",
-            "1618"
-          ]
-        },
-        {
-          "codes": [
-            "hall-composition",
             "promenade-choice"
           ],
           "sources": 2,
@@ -5804,12 +6094,34 @@
         {
           "codes": [
             "hall-composition",
-            "source-hook"
+            "source-notes"
           ],
           "sources": 2,
           "sourceIds": [
             "66",
-            "2876"
+            "257"
+          ]
+        },
+        {
+          "codes": [
+            "hall-composition",
+            "source-preamble"
+          ],
+          "sources": 2,
+          "sourceIds": [
+            "257",
+            "840"
+          ]
+        },
+        {
+          "codes": [
+            "hall-composition",
+            "unsupported-figure-variant"
+          ],
+          "sources": 2,
+          "sourceIds": [
+            "257",
+            "2026"
           ]
         },
         {
@@ -5826,17 +6138,6 @@
         {
           "codes": [
             "hall-return-pair",
-            "progression-location"
-          ],
-          "sources": 2,
-          "sourceIds": [
-            "840",
-            "1618"
-          ]
-        },
-        {
-          "codes": [
-            "hall-return-pair",
             "promenade-choice"
           ],
           "sources": 2,
@@ -5859,12 +6160,34 @@
         {
           "codes": [
             "hall-return-pair",
-            "source-hook"
+            "source-notes"
           ],
           "sources": 2,
           "sourceIds": [
             "66",
-            "2876"
+            "257"
+          ]
+        },
+        {
+          "codes": [
+            "hall-return-pair",
+            "source-preamble"
+          ],
+          "sources": 2,
+          "sourceIds": [
+            "257",
+            "840"
+          ]
+        },
+        {
+          "codes": [
+            "hall-return-pair",
+            "unsupported-figure-variant"
+          ],
+          "sources": 2,
+          "sourceIds": [
+            "257",
+            "2026"
           ]
         },
         {
@@ -5881,17 +6204,6 @@
         {
           "codes": [
             "hall-timing-choice",
-            "progression-location"
-          ],
-          "sources": 2,
-          "sourceIds": [
-            "840",
-            "1618"
-          ]
-        },
-        {
-          "codes": [
-            "hall-timing-choice",
             "promenade-choice"
           ],
           "sources": 2,
@@ -5914,12 +6226,34 @@
         {
           "codes": [
             "hall-timing-choice",
-            "source-hook"
+            "source-notes"
           ],
           "sources": 2,
           "sourceIds": [
             "66",
-            "2876"
+            "257"
+          ]
+        },
+        {
+          "codes": [
+            "hall-timing-choice",
+            "source-preamble"
+          ],
+          "sources": 2,
+          "sourceIds": [
+            "257",
+            "840"
+          ]
+        },
+        {
+          "codes": [
+            "hall-timing-choice",
+            "unsupported-figure-variant"
+          ],
+          "sources": 2,
+          "sourceIds": [
+            "257",
+            "2026"
           ]
         },
         {
@@ -5942,6 +6276,17 @@
           "sourceIds": [
             "265",
             "2243"
+          ]
+        },
+        {
+          "codes": [
+            "long-wave-context",
+            "source-preamble"
+          ],
+          "sources": 2,
+          "sourceIds": [
+            "187",
+            "2331"
           ]
         },
         {
@@ -6101,34 +6446,12 @@
         {
           "codes": [
             "progression-location",
-            "source-hook"
+            "zero-time-instruction"
           ],
           "sources": 2,
           "sourceIds": [
-            "2006",
-            "2329"
-          ]
-        },
-        {
-          "codes": [
-            "progression-location",
-            "source-notes"
-          ],
-          "sources": 2,
-          "sourceIds": [
-            "1632",
-            "2006"
-          ]
-        },
-        {
-          "codes": [
-            "progression-location",
-            "unknown-figure"
-          ],
-          "sources": 2,
-          "sourceIds": [
-            "1618",
-            "2329"
+            "2329",
+            "2331"
           ]
         },
         {
@@ -6298,13 +6621,13 @@
         },
         {
           "codes": [
-            "source-notes",
-            "zero-time-instruction"
+            "source-preamble",
+            "unknown-figure"
           ],
           "sources": 2,
           "sourceIds": [
-            "2330",
-            "3265"
+            "907",
+            "2331"
           ]
         },
         {
@@ -7281,27 +7604,7 @@
         {
           "codes": [
             "chain-hand-choice",
-            "circulate-timing-choice"
-          ],
-          "sources": 1,
-          "sourceIds": [
-            "2330"
-          ]
-        },
-        {
-          "codes": [
-            "chain-hand-choice",
             "circulation-choice"
-          ],
-          "sources": 1,
-          "sourceIds": [
-            "2330"
-          ]
-        },
-        {
-          "codes": [
-            "chain-hand-choice",
-            "long-wave-context"
           ],
           "sources": 1,
           "sourceIds": [
@@ -7316,6 +7619,16 @@
           "sources": 1,
           "sourceIds": [
             "1000"
+          ]
+        },
+        {
+          "codes": [
+            "chain-hand-choice",
+            "progression-location"
+          ],
+          "sources": 1,
+          "sourceIds": [
+            "2331"
           ]
         },
         {
@@ -7341,16 +7654,6 @@
         {
           "codes": [
             "chain-hand-choice",
-            "source-hook"
-          ],
-          "sources": 1,
-          "sourceIds": [
-            "2330"
-          ]
-        },
-        {
-          "codes": [
-            "chain-hand-choice",
             "source-notes-authorship-review"
           ],
           "sources": 1,
@@ -7361,11 +7664,11 @@
         {
           "codes": [
             "chain-hand-choice",
-            "source-notes"
+            "source-preamble"
           ],
           "sources": 1,
           "sourceIds": [
-            "2330"
+            "2331"
           ]
         },
         {
@@ -7376,36 +7679,6 @@
           "sources": 1,
           "sourceIds": [
             "1273"
-          ]
-        },
-        {
-          "codes": [
-            "chain-hand-choice",
-            "unknown-figure"
-          ],
-          "sources": 1,
-          "sourceIds": [
-            "2330"
-          ]
-        },
-        {
-          "codes": [
-            "chain-hand-choice",
-            "unsupported-figure-variant"
-          ],
-          "sources": 1,
-          "sourceIds": [
-            "2330"
-          ]
-        },
-        {
-          "codes": [
-            "chain-hand-choice",
-            "zero-time-instruction"
-          ],
-          "sources": 1,
-          "sourceIds": [
-            "2330"
           ]
         },
         {
@@ -7666,16 +7939,6 @@
           "sources": 1,
           "sourceIds": [
             "3363"
-          ]
-        },
-        {
-          "codes": [
-            "circulate-timing-choice",
-            "source-preamble"
-          ],
-          "sources": 1,
-          "sourceIds": [
-            "187"
           ]
         },
         {
@@ -8781,16 +9044,6 @@
         {
           "codes": [
             "hall-composition",
-            "source-notes"
-          ],
-          "sources": 1,
-          "sourceIds": [
-            "66"
-          ]
-        },
-        {
-          "codes": [
-            "hall-composition",
             "source-preamble-review"
           ],
           "sources": 1,
@@ -8801,31 +9054,11 @@
         {
           "codes": [
             "hall-composition",
-            "source-preamble"
-          ],
-          "sources": 1,
-          "sourceIds": [
-            "840"
-          ]
-        },
-        {
-          "codes": [
-            "hall-composition",
             "unknown-figure"
           ],
           "sources": 1,
           "sourceIds": [
             "1618"
-          ]
-        },
-        {
-          "codes": [
-            "hall-composition",
-            "unsupported-figure-variant"
-          ],
-          "sources": 1,
-          "sourceIds": [
-            "2026"
           ]
         },
         {
@@ -8891,16 +9124,6 @@
         {
           "codes": [
             "hall-return-pair",
-            "source-notes"
-          ],
-          "sources": 1,
-          "sourceIds": [
-            "66"
-          ]
-        },
-        {
-          "codes": [
-            "hall-return-pair",
             "source-preamble-review"
           ],
           "sources": 1,
@@ -8911,31 +9134,11 @@
         {
           "codes": [
             "hall-return-pair",
-            "source-preamble"
-          ],
-          "sources": 1,
-          "sourceIds": [
-            "840"
-          ]
-        },
-        {
-          "codes": [
-            "hall-return-pair",
             "unknown-figure"
           ],
           "sources": 1,
           "sourceIds": [
             "1618"
-          ]
-        },
-        {
-          "codes": [
-            "hall-return-pair",
-            "unsupported-figure-variant"
-          ],
-          "sources": 1,
-          "sourceIds": [
-            "2026"
           ]
         },
         {
@@ -9001,16 +9204,6 @@
         {
           "codes": [
             "hall-timing-choice",
-            "source-notes"
-          ],
-          "sources": 1,
-          "sourceIds": [
-            "66"
-          ]
-        },
-        {
-          "codes": [
-            "hall-timing-choice",
             "source-preamble-review"
           ],
           "sources": 1,
@@ -9021,31 +9214,11 @@
         {
           "codes": [
             "hall-timing-choice",
-            "source-preamble"
-          ],
-          "sources": 1,
-          "sourceIds": [
-            "840"
-          ]
-        },
-        {
-          "codes": [
-            "hall-timing-choice",
             "unknown-figure"
           ],
           "sources": 1,
           "sourceIds": [
             "1618"
-          ]
-        },
-        {
-          "codes": [
-            "hall-timing-choice",
-            "unsupported-figure-variant"
-          ],
-          "sources": 1,
-          "sourceIds": [
-            "2026"
           ]
         },
         {
@@ -9206,16 +9379,6 @@
           "sources": 1,
           "sourceIds": [
             "2329"
-          ]
-        },
-        {
-          "codes": [
-            "long-wave-context",
-            "source-preamble"
-          ],
-          "sources": 1,
-          "sourceIds": [
-            "187"
           ]
         },
         {
@@ -10000,16 +10163,6 @@
         },
         {
           "codes": [
-            "progression-location",
-            "zero-time-instruction"
-          ],
-          "sources": 1,
-          "sourceIds": [
-            "2329"
-          ]
-        },
-        {
-          "codes": [
             "progression-qualifier",
             "progression-variant"
           ],
@@ -10470,16 +10623,6 @@
         },
         {
           "codes": [
-            "source-hook",
-            "source-preamble"
-          ],
-          "sources": 1,
-          "sourceIds": [
-            "3004"
-          ]
-        },
-        {
-          "codes": [
             "source-notes-alternative-review",
             "unknown-figure"
           ],
@@ -10581,11 +10724,11 @@
         {
           "codes": [
             "source-preamble",
-            "unknown-figure"
+            "zero-time-instruction"
           ],
           "sources": 1,
           "sourceIds": [
-            "907"
+            "2331"
           ]
         },
         {
@@ -10621,9 +10764,9 @@
       ]
     },
     "conventionalSuggestions": {
-      "sources": 220,
+      "sources": 222,
       "statuses": {
-        "import-admitted": 178,
+        "import-admitted": 180,
         "interpretation-blocked": 34,
         "motion-or-validation-blocked": 8
       },
@@ -10659,6 +10802,7 @@
             "188",
             "192",
             "236",
+            "257",
             "265",
             "266",
             "314",
@@ -10779,6 +10923,7 @@
             "2322",
             "2329",
             "2330",
+            "2331",
             "2344",
             "2355",
             "2364",
@@ -10849,8 +10994,8 @@
             "3510",
             "3533"
           ],
-          "occurrences": 412,
-          "sources": 217
+          "occurrences": 417,
+          "sources": 219
         },
         {
           "kind": "circle",
@@ -10880,6 +11025,7 @@
             "188",
             "192",
             "236",
+            "257",
             "265",
             "333",
             "340",
@@ -11015,8 +11161,8 @@
             "3507",
             "3510"
           ],
-          "occurrences": 181,
-          "sources": 159
+          "occurrences": 182,
+          "sources": 160
         },
         {
           "kind": "balance",
@@ -11199,6 +11345,7 @@
             "182",
             "188",
             "192",
+            "257",
             "265",
             "314",
             "333",
@@ -11316,8 +11463,8 @@
             "3496",
             "3510"
           ],
-          "occurrences": 165,
-          "sources": 130
+          "occurrences": 166,
+          "sources": 131
         },
         {
           "kind": "long-lines",
@@ -11335,6 +11482,7 @@
             "185",
             "192",
             "236",
+            "257",
             "443",
             "528",
             "575",
@@ -11413,8 +11561,8 @@
             "3496",
             "3533"
           ],
-          "occurrences": 94,
-          "sources": 90
+          "occurrences": 95,
+          "sources": 91
         },
         {
           "kind": "robins-chain",
@@ -11481,6 +11629,7 @@
             "2259",
             "2305",
             "2329",
+            "2331",
             "2364",
             "2373",
             "2425",
@@ -11505,8 +11654,8 @@
             "3490",
             "3510"
           ],
-          "occurrences": 93,
-          "sources": 85
+          "occurrences": 94,
+          "sources": 86
         },
         {
           "kind": "do-si-do",
@@ -11762,6 +11911,7 @@
             "2322",
             "2329",
             "2330",
+            "2331",
             "2344",
             "2364",
             "2418",
@@ -11780,8 +11930,8 @@
             "3464",
             "3465"
           ],
-          "occurrences": 54,
-          "sources": 51
+          "occurrences": 56,
+          "sources": 52
         },
         {
           "kind": "pass-through",
@@ -12055,6 +12205,7 @@
             "133",
             "138",
             "188",
+            "257",
             "340",
             "840",
             "1545",
@@ -12065,8 +12216,8 @@
             "3490",
             "3507"
           ],
-          "occurrences": 14,
-          "sources": 14
+          "occurrences": 15,
+          "sources": 15
         },
         {
           "kind": "balance-box-circulate",
@@ -12078,11 +12229,12 @@
             "2305",
             "2329",
             "2330",
+            "2331",
             "3265",
             "3363"
           ],
-          "occurrences": 16,
-          "sources": 9
+          "occurrences": 18,
+          "sources": 10
         },
         {
           "kind": "pull-by",
@@ -12153,6 +12305,18 @@
           "sources": 5
         },
         {
+          "kind": "larks-chain",
+          "sourceIds": [
+            "1000",
+            "1273",
+            "2330",
+            "2331",
+            "3195"
+          ],
+          "occurrences": 5,
+          "sources": 5
+        },
+        {
           "kind": "long-lines-rollaway",
           "sourceIds": [
             "265",
@@ -12175,17 +12339,6 @@
           ],
           "occurrences": 6,
           "sources": 5
-        },
-        {
-          "kind": "larks-chain",
-          "sourceIds": [
-            "1000",
-            "1273",
-            "2330",
-            "3195"
-          ],
-          "occurrences": 4,
-          "sources": 4
         },
         {
           "kind": "ricochet-hey",
@@ -13841,9 +13994,9 @@
       ]
     },
     "savedInterpretation": {
-      "sources": 191,
+      "sources": 193,
       "statuses": {
-        "import-admitted": 191
+        "import-admitted": 193
       },
       "figures": [
         {
@@ -13875,6 +14028,7 @@
             "188",
             "192",
             "236",
+            "257",
             "265",
             "314",
             "333",
@@ -13981,6 +14135,7 @@
             "2322",
             "2329",
             "2330",
+            "2331",
             "2344",
             "2355",
             "2364",
@@ -14041,8 +14196,159 @@
             "3507",
             "3510"
           ],
-          "occurrences": 369,
-          "sources": 191
+          "occurrences": 374,
+          "sources": 193
+        },
+        {
+          "kind": "circle",
+          "sourceIds": [
+            "8",
+            "9",
+            "57",
+            "65",
+            "66",
+            "83",
+            "94",
+            "99",
+            "115",
+            "123",
+            "133",
+            "138",
+            "152",
+            "159",
+            "166",
+            "175",
+            "180",
+            "182",
+            "185",
+            "187",
+            "188",
+            "192",
+            "236",
+            "257",
+            "265",
+            "333",
+            "340",
+            "354",
+            "363",
+            "410",
+            "443",
+            "457",
+            "458",
+            "480",
+            "522",
+            "528",
+            "542",
+            "549",
+            "575",
+            "624",
+            "671",
+            "682",
+            "773",
+            "780",
+            "823",
+            "831",
+            "840",
+            "867",
+            "881",
+            "885",
+            "892",
+            "928",
+            "933",
+            "975",
+            "1000",
+            "1011",
+            "1021",
+            "1036",
+            "1067",
+            "1072",
+            "1093",
+            "1102",
+            "1144",
+            "1148",
+            "1166",
+            "1174",
+            "1191",
+            "1270",
+            "1420",
+            "1434",
+            "1447",
+            "1448",
+            "1450",
+            "1464",
+            "1495",
+            "1496",
+            "1529",
+            "1545",
+            "1546",
+            "1547",
+            "1550",
+            "1556",
+            "1591",
+            "1617",
+            "1618",
+            "1658",
+            "1744",
+            "1749",
+            "1821",
+            "1942",
+            "1972",
+            "1974",
+            "1976",
+            "2040",
+            "2062",
+            "2063",
+            "2141",
+            "2176",
+            "2194",
+            "2226",
+            "2235",
+            "2243",
+            "2322",
+            "2329",
+            "2330",
+            "2344",
+            "2409",
+            "2418",
+            "2425",
+            "2446",
+            "2490",
+            "2492",
+            "2522",
+            "2530",
+            "2531",
+            "2605",
+            "2684",
+            "2693",
+            "2701",
+            "2876",
+            "2964",
+            "2966",
+            "2996",
+            "3010",
+            "3081",
+            "3086",
+            "3087",
+            "3115",
+            "3138",
+            "3181",
+            "3185",
+            "3214",
+            "3241",
+            "3260",
+            "3261",
+            "3265",
+            "3327",
+            "3335",
+            "3402",
+            "3431",
+            "3490",
+            "3496",
+            "3507",
+            "3510"
+          ],
+          "occurrences": 163,
+          "sources": 144
         },
         {
           "kind": "balance",
@@ -14195,156 +14501,6 @@
           "sources": 143
         },
         {
-          "kind": "circle",
-          "sourceIds": [
-            "8",
-            "9",
-            "57",
-            "65",
-            "66",
-            "83",
-            "94",
-            "99",
-            "115",
-            "123",
-            "133",
-            "138",
-            "152",
-            "159",
-            "166",
-            "175",
-            "180",
-            "182",
-            "185",
-            "187",
-            "188",
-            "192",
-            "236",
-            "265",
-            "333",
-            "340",
-            "354",
-            "363",
-            "410",
-            "443",
-            "457",
-            "458",
-            "480",
-            "522",
-            "528",
-            "542",
-            "549",
-            "575",
-            "624",
-            "671",
-            "682",
-            "773",
-            "780",
-            "823",
-            "831",
-            "840",
-            "867",
-            "881",
-            "885",
-            "892",
-            "928",
-            "933",
-            "975",
-            "1000",
-            "1011",
-            "1021",
-            "1036",
-            "1067",
-            "1072",
-            "1093",
-            "1102",
-            "1144",
-            "1148",
-            "1166",
-            "1174",
-            "1191",
-            "1270",
-            "1420",
-            "1434",
-            "1447",
-            "1448",
-            "1450",
-            "1464",
-            "1495",
-            "1496",
-            "1529",
-            "1545",
-            "1546",
-            "1547",
-            "1550",
-            "1556",
-            "1591",
-            "1617",
-            "1618",
-            "1658",
-            "1744",
-            "1749",
-            "1821",
-            "1942",
-            "1972",
-            "1974",
-            "1976",
-            "2040",
-            "2062",
-            "2063",
-            "2141",
-            "2176",
-            "2194",
-            "2226",
-            "2235",
-            "2243",
-            "2322",
-            "2329",
-            "2330",
-            "2344",
-            "2409",
-            "2418",
-            "2425",
-            "2446",
-            "2490",
-            "2492",
-            "2522",
-            "2530",
-            "2531",
-            "2605",
-            "2684",
-            "2693",
-            "2701",
-            "2876",
-            "2964",
-            "2966",
-            "2996",
-            "3010",
-            "3081",
-            "3086",
-            "3087",
-            "3115",
-            "3138",
-            "3181",
-            "3185",
-            "3214",
-            "3241",
-            "3260",
-            "3261",
-            "3265",
-            "3327",
-            "3335",
-            "3402",
-            "3431",
-            "3490",
-            "3496",
-            "3507",
-            "3510"
-          ],
-          "occurrences": 162,
-          "sources": 143
-        },
-        {
           "kind": "allemande",
           "sourceIds": [
             "9",
@@ -14360,6 +14516,7 @@
             "182",
             "188",
             "192",
+            "257",
             "265",
             "314",
             "333",
@@ -14463,8 +14620,8 @@
             "3496",
             "3510"
           ],
-          "occurrences": 146,
-          "sources": 115
+          "occurrences": 147,
+          "sources": 116
         },
         {
           "kind": "robins-chain",
@@ -14536,6 +14693,7 @@
             "2305",
             "2322",
             "2329",
+            "2331",
             "2364",
             "2373",
             "2425",
@@ -14564,8 +14722,8 @@
             "3490",
             "3510"
           ],
-          "occurrences": 102,
-          "sources": 94
+          "occurrences": 103,
+          "sources": 95
         },
         {
           "kind": "long-lines",
@@ -14583,6 +14741,7 @@
             "185",
             "192",
             "236",
+            "257",
             "443",
             "528",
             "575",
@@ -14650,8 +14809,8 @@
             "3490",
             "3496"
           ],
-          "occurrences": 83,
-          "sources": 79
+          "occurrences": 84,
+          "sources": 80
         },
         {
           "kind": "do-si-do",
@@ -14881,6 +15040,7 @@
             "2322",
             "2329",
             "2330",
+            "2331",
             "2344",
             "2364",
             "2418",
@@ -14898,8 +15058,8 @@
             "3464",
             "3465"
           ],
-          "occurrences": 52,
-          "sources": 49
+          "occurrences": 54,
+          "sources": 50
         },
         {
           "kind": "pass-through",
@@ -15147,6 +15307,7 @@
             "133",
             "138",
             "188",
+            "257",
             "340",
             "840",
             "1545",
@@ -15157,8 +15318,23 @@
             "3490",
             "3507"
           ],
+          "occurrences": 15,
+          "sources": 15
+        },
+        {
+          "kind": "balance-box-circulate",
+          "sourceIds": [
+            "152",
+            "187",
+            "1591",
+            "2305",
+            "2329",
+            "2330",
+            "2331",
+            "3265"
+          ],
           "occurrences": 14,
-          "sources": 14
+          "sources": 8
         },
         {
           "kind": "square-through",
@@ -15174,20 +15350,6 @@
           ],
           "occurrences": 14,
           "sources": 8
-        },
-        {
-          "kind": "balance-box-circulate",
-          "sourceIds": [
-            "152",
-            "187",
-            "1591",
-            "2305",
-            "2329",
-            "2330",
-            "3265"
-          ],
-          "occurrences": 12,
-          "sources": 7
         },
         {
           "kind": "becket-slice",
@@ -15215,6 +15377,18 @@
           ],
           "occurrences": 7,
           "sources": 6
+        },
+        {
+          "kind": "larks-chain",
+          "sourceIds": [
+            "1000",
+            "1273",
+            "2330",
+            "2331",
+            "3195"
+          ],
+          "occurrences": 5,
+          "sources": 5
         },
         {
           "kind": "long-lines-rollaway",
@@ -15247,17 +15421,6 @@
             "1618",
             "2604",
             "3241"
-          ],
-          "occurrences": 4,
-          "sources": 4
-        },
-        {
-          "kind": "larks-chain",
-          "sourceIds": [
-            "1000",
-            "1273",
-            "2330",
-            "3195"
           ],
           "occurrences": 4,
           "sources": 4
@@ -21649,6 +21812,168 @@
           "robins-chain",
           "robins-chain",
           "long-lines",
+          "swing"
+        ],
+        "blockers": [],
+        "diagnostics": [],
+        "unresolvedRows": []
+      }
+    },
+    {
+      "id": "257",
+      "retainedSnapshot": true,
+      "savedReady": true,
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\257.json",
+      "snapshotOrigin": "fixture",
+      "title": "Got Nice Neighbors",
+      "snapshotId": "contradb:257:159a17ed84525746",
+      "rawDefaults": {
+        "status": "interpretation-blocked",
+        "coverage": {
+          "sourceParsed": true,
+          "recognizedRows": 8,
+          "resolvedRows": 5,
+          "totalRows": 8,
+          "semanticallyResolved": false,
+          "executable": false
+        },
+        "figureKinds": [
+          "circle",
+          "swing",
+          "long-lines",
+          "allemande",
+          "swing"
+        ],
+        "blockers": [
+          "circulation-choice",
+          "hall-composition",
+          "hall-return-pair",
+          "hall-timing-choice",
+          "progression-location",
+          "source-hook",
+          "source-notes",
+          "source-preamble",
+          "unsupported-figure-variant"
+        ],
+        "diagnostics": [
+          {
+            "code": "circulation-choice",
+            "message": "The source says Becket without explicitly naming circulation. Select CW to use the current adapter."
+          },
+          {
+            "code": "hall-timing-choice",
+            "message": "Review a four-count walk, four-count turn, four-count return and four-count bend, preserving the source’s two eight-count rows."
+          },
+          {
+            "code": "hall-composition",
+            "message": "This down/turn row requires its adjacent up/return/bend row and an explicitly down-facing paired swing entry."
+          },
+          {
+            "code": "hall-return-pair",
+            "message": "This return/bend row must be consumed with the immediately preceding down/turn source row."
+          },
+          {
+            "code": "unsupported-figure-variant",
+            "message": "The complete figure wording, including qualifiers, needs a semantic/motion adapter."
+          },
+          {
+            "code": "source-preamble",
+            "message": "The source has starting/variant instructions that require a dedicated semantic interpretation."
+          },
+          {
+            "code": "source-hook",
+            "message": "The hook contains a movement, role, hand, direction, timing, scope or end-effect cue not fully corroborated by the retained source clauses."
+          },
+          {
+            "code": "source-notes",
+            "message": "The source has prose notes that may alter movement or end effects; they are retained and block automatic playback."
+          },
+          {
+            "code": "progression-location",
+            "message": "The progression event is not at this formation adapter’s reviewed boundary."
+          }
+        ],
+        "unresolvedRows": [
+          {
+            "row": 0,
+            "text": "down the hall and turn as a couple",
+            "recognized": true,
+            "figureKinds": [],
+            "blockers": [
+              "hall-composition",
+              "hall-timing-choice"
+            ]
+          },
+          {
+            "row": 1,
+            "text": "up the hall and bend into a ring",
+            "recognized": true,
+            "figureKinds": [],
+            "blockers": [
+              "hall-return-pair"
+            ]
+          },
+          {
+            "row": 5,
+            "text": "next neighbors swing",
+            "recognized": true,
+            "figureKinds": [],
+            "blockers": [
+              "unsupported-figure-variant"
+            ]
+          }
+        ]
+      },
+      "conventionalSuggestions": {
+        "status": "import-admitted",
+        "coverage": {
+          "sourceParsed": true,
+          "recognizedRows": 8,
+          "resolvedRows": 8,
+          "totalRows": 8,
+          "semanticallyResolved": true,
+          "executable": true
+        },
+        "figureKinds": [
+          "hall-travel",
+          "circle",
+          "swing",
+          "long-lines",
+          "swing",
+          "allemande",
+          "swing"
+        ],
+        "blockers": [],
+        "diagnostics": [],
+        "unresolvedRows": [],
+        "choiceStatus": "suggested-not-approved",
+        "suggestionKinds": [
+          "conventional-hall"
+        ],
+        "interpretation": {
+          "hallLine": {
+            "convention": "compact-long-lines-hall-v1",
+            "sourceSnapshotId": "contradb:257:159a17ed84525746"
+          }
+        }
+      },
+      "savedInterpretation": {
+        "status": "import-admitted",
+        "coverage": {
+          "sourceParsed": true,
+          "recognizedRows": 8,
+          "resolvedRows": 8,
+          "totalRows": 8,
+          "semanticallyResolved": true,
+          "executable": true
+        },
+        "figureKinds": [
+          "hall-travel",
+          "circle",
+          "swing",
+          "long-lines",
+          "swing",
+          "allemande",
           "swing"
         ],
         "blockers": [],
@@ -41569,6 +41894,226 @@
         "figureKinds": [
           "becket-shift",
           "circle",
+          "hey",
+          "balance-box-circulate",
+          "swing",
+          "larks-chain",
+          "hey",
+          "balance-box-circulate",
+          "swing"
+        ],
+        "blockers": [],
+        "diagnostics": [],
+        "unresolvedRows": []
+      }
+    },
+    {
+      "id": "2331",
+      "retainedSnapshot": true,
+      "savedReady": true,
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\2331.json",
+      "snapshotOrigin": "fixture",
+      "title": "Heat Stroke",
+      "snapshotId": "contradb:2331:2aaa09f220a70654",
+      "rawDefaults": {
+        "status": "interpretation-blocked",
+        "coverage": {
+          "sourceParsed": true,
+          "recognizedRows": 9,
+          "resolvedRows": 2,
+          "totalRows": 10,
+          "semanticallyResolved": false,
+          "executable": false
+        },
+        "figureKinds": [
+          "swing",
+          "swing"
+        ],
+        "blockers": [
+          "chain-hand-choice",
+          "chain-receiver",
+          "circulate-timing-choice",
+          "long-wave-context",
+          "progression-location",
+          "source-hook",
+          "source-notes",
+          "source-preamble",
+          "unknown-figure",
+          "unsupported-figure-variant",
+          "zero-time-instruction"
+        ],
+        "diagnostics": [
+          {
+            "code": "chain-receiver",
+            "message": "Choose the actual partner or neighbor receiving the Lark chain."
+          },
+          {
+            "code": "unsupported-figure-variant",
+            "message": "The complete figure wording, including qualifiers, needs a semantic/motion adapter."
+          },
+          {
+            "code": "zero-time-instruction",
+            "message": "This zero-count setup or transition requires explicit topology semantics; it cannot become an ordinary moving figure."
+          },
+          {
+            "code": "unknown-figure",
+            "message": "The complete figure wording, including qualifiers, needs a semantic/motion adapter."
+          },
+          {
+            "code": "circulate-timing-choice",
+            "message": "Review four counts of right-left wave balance followed by four counts of circulation; the source states only the combined eight counts."
+          },
+          {
+            "code": "long-wave-context",
+            "message": "This full-wave circulation requires the exact source-declared long-wave entry and complementary second circulation."
+          },
+          {
+            "code": "chain-hand-choice",
+            "message": "Review a left-hand pull-by and clockwise Robin-led courtesy for an unqualified Lark chain; explicit right-hand variants remain distinct."
+          },
+          {
+            "code": "source-preamble",
+            "message": "The source has starting/variant instructions that require a dedicated semantic interpretation."
+          },
+          {
+            "code": "source-hook",
+            "message": "The hook contains a movement, role, hand, direction, timing, scope or end-effect cue not fully corroborated by the retained source clauses."
+          },
+          {
+            "code": "source-notes",
+            "message": "The source has prose notes that may alter movement or end effects; they are retained and block automatic playback."
+          },
+          {
+            "code": "progression-location",
+            "message": "The progression event is not at this formation adapter’s reviewed boundary."
+          }
+        ],
+        "unresolvedRows": [
+          {
+            "row": 0,
+            "text": "ladles chain",
+            "recognized": true,
+            "figureKinds": [],
+            "blockers": [
+              "chain-receiver"
+            ]
+          },
+          {
+            "row": 1,
+            "text": "ladles start a half hey - rights in center, lefts on ends - and next neighbors take right hands ⁋",
+            "recognized": true,
+            "figureKinds": [],
+            "blockers": [
+              "unsupported-figure-variant"
+            ]
+          },
+          {
+            "row": 2,
+            "text": "form long waves - ladles face in, gentlespoons face out",
+            "recognized": false,
+            "figureKinds": [],
+            "blockers": [
+              "unknown-figure",
+              "zero-time-instruction"
+            ]
+          },
+          {
+            "row": 3,
+            "text": "balance & box circulate - ladles cross while gentlespoons loop right",
+            "recognized": true,
+            "figureKinds": [],
+            "blockers": [
+              "circulate-timing-choice",
+              "long-wave-context"
+            ]
+          },
+          {
+            "row": 5,
+            "text": "gentlespoons chain",
+            "recognized": true,
+            "figureKinds": [],
+            "blockers": [
+              "chain-hand-choice",
+              "chain-receiver"
+            ]
+          },
+          {
+            "row": 6,
+            "text": "gentlespoons start a half hey - lefts in center, rights on ends - and neighbors take right hands",
+            "recognized": true,
+            "figureKinds": [],
+            "blockers": [
+              "unsupported-figure-variant"
+            ]
+          },
+          {
+            "row": 7,
+            "text": "form long waves - gentlespoons face in, ladles face out",
+            "recognized": true,
+            "figureKinds": [],
+            "blockers": [
+              "long-wave-context",
+              "zero-time-instruction"
+            ]
+          },
+          {
+            "row": 8,
+            "text": "balance & box circulate - gentlespoons cross while ladles loop right",
+            "recognized": true,
+            "figureKinds": [],
+            "blockers": [
+              "circulate-timing-choice",
+              "long-wave-context"
+            ]
+          }
+        ]
+      },
+      "conventionalSuggestions": {
+        "status": "import-admitted",
+        "coverage": {
+          "sourceParsed": true,
+          "recognizedRows": 10,
+          "resolvedRows": 10,
+          "totalRows": 10,
+          "semanticallyResolved": true,
+          "executable": true
+        },
+        "figureKinds": [
+          "robins-chain",
+          "hey",
+          "balance-box-circulate",
+          "swing",
+          "larks-chain",
+          "hey",
+          "balance-box-circulate",
+          "swing"
+        ],
+        "blockers": [],
+        "diagnostics": [],
+        "unresolvedRows": [],
+        "choiceStatus": "suggested-not-approved",
+        "suggestionKinds": [
+          "conventional-wave"
+        ],
+        "interpretation": {
+          "becketWave": {
+            "convention": "compact-becket-interior-right-wave-v1",
+            "sourceSnapshotId": "contradb:2331:2aaa09f220a70654"
+          }
+        }
+      },
+      "savedInterpretation": {
+        "status": "import-admitted",
+        "coverage": {
+          "sourceParsed": true,
+          "recognizedRows": 10,
+          "resolvedRows": 10,
+          "totalRows": 10,
+          "semanticallyResolved": true,
+          "executable": true
+        },
+        "figureKinds": [
+          "robins-chain",
           "hey",
           "balance-box-circulate",
           "swing",
