@@ -90,3 +90,31 @@ test('patterns for the improper figures', () => {
   });
   assert.equal(one('balance', 4).params.formation, 'current');
 });
+
+test('square through, give & take, mad robin and gyre rows', () => {
+  const calls = parseRow({
+    beats: 16,
+    text: 'square through four - partners balance & pull by right, then neighbors pull by left, then repeat',
+  });
+  assert.deepEqual(
+    calls.map((c) => [c.move, c.beats, c.params.who]),
+    [
+      ['balance', 4, 'partner'],
+      ['pass-by', 2, 'partner'],
+      ['pass-by', 2, 'neighbor'],
+      ['balance', 4, 'partner'],
+      ['pass-by', 2, 'partner'],
+      ['pass-by', 2, 'neighbor'],
+    ],
+  );
+  assert.deepEqual(one('gentlespoons give & take partners').params, {
+    who: 'larks',
+    whom: 'partner',
+  });
+  assert.deepEqual(one('mad robin, ladles in front (CW)').params, {
+    front: 'robins',
+    direction: 'clockwise',
+  });
+  assert.deepEqual(one('ladles gyre 1½').params, { who: 'robins', amount: 1.5 });
+  assert.deepEqual(one('ladles gyre once in the center').params, { who: 'robins', amount: 1 });
+});

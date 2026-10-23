@@ -163,6 +163,37 @@ const PATTERNS: readonly (readonly [RegExp, Build])[] = [
     ],
   ],
   [
+    // Square through: balance the first, pull by them, turn to the next and
+    // pull by; "four" does it twice. Each half: 4 beats balance, 2 + 2 pulling.
+    /^square through (two|four) - (\w+) balance (?:&|and) pull by (right|left), then (\w+) pull by (right|left)(?:, then repeat)?$/,
+    (m, b) => {
+      const times = m[1] === 'four' ? 2 : 1;
+      if (b !== 8 * times) throw new Error(`Square through ${m[1]} takes ${8 * times} beats.`);
+      return Array.from({ length: times }, () => [
+        call('balance', 4, { formation: 'pair', who: who(m[2]), hand: m[3] }),
+        call('pass-by', 2, { who: who(m[2]), shoulder: m[3], hands: true }),
+        call('pass-by', 2, { who: who(m[4]), shoulder: m[5], hands: true }),
+      ]).flat();
+    },
+  ],
+  [
+    /^(\w+) give (?:&|and) take (\w+)$/,
+    (m, b) => [call('give-and-take', b, { who: who(m[1]), whom: who(m[2]) })],
+  ],
+  [
+    /^mad robin, (\w+) in front(?: (cw|ccw))?$/,
+    (m, b) => [
+      call('mad-robin', b, {
+        front: who(m[1]),
+        ...(m[2] ? { direction: m[2] === 'cw' ? 'clockwise' : 'counterclockwise' } : {}),
+      }),
+    ],
+  ],
+  [
+    /^((?:next |new )?\w+) gyre (once|[^ ]+)(?: in the center)?$/,
+    (m, b) => [call('gyre', b, { who: who(m[1]), amount: amount(m[2], 1) })],
+  ],
+  [
     /^balance (?:&|and) petronella$/,
     (_m, b) => [call('balance', 4, { formation: 'ring' }), call('petronella', b - 4, {})],
   ],
@@ -235,7 +266,7 @@ export function normalizeRow(text: string): { text: string; progression: boolean
 }
 
 /** How a split row names its parts in labels. */
-const PART_NAMES: Readonly<Record<string, string>> = { rory: 'slide' };
+const PART_NAMES: Readonly<Record<string, string>> = { rory: 'slide', 'pass-by': 'pull by' };
 
 export function parseRow(row: SourceRow): FigureCall[] {
   const { text, progression } = normalizeRow(row.text);

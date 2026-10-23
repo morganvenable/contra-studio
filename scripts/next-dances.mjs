@@ -50,6 +50,18 @@ const CHOICES = [
     (c) => c.move === 'swing' && c.params.meltdown && c.beats < 12,
     'A meltdown swing shorter than 12 beats spends a third of it in the right-shoulder round.',
   ],
+  [
+    (c) => c.move === 'pass-by' && /^square through/i.test(c.text ?? ''),
+    'Square through: each balance takes 4 beats and each pull by 2.',
+  ],
+  [
+    (c) => c.move === 'give-and-take',
+    'Give & take: half the beats to cross, half to back home holding both hands.',
+  ],
+  [
+    (c) => c.move === 'gyre',
+    'A gyre goes by the right shoulder, facing each other, with no hands.',
+  ],
 ];
 
 export function snapshotOf(id) {
@@ -63,9 +75,7 @@ export function buildStored(id) {
   const html = snapshot.html;
   const pick = (re) => (html.match(re)?.[1] ?? '').replace(/&#39;/g, "'").trim();
   const rows = contraDbRows(html);
-  const figures = rows.flatMap((row) =>
-    parseRow(row).map((c) => ({ section: row.section, ...c })),
-  );
+  const figures = rows.flatMap((row) => parseRow(row).map((c) => ({ section: row.section, ...c })));
   const parts = [];
   for (const row of rows) {
     if (parts.at(-1)?.name !== row.section) parts.push({ name: row.section, bars: 0 });

@@ -197,3 +197,44 @@ test('hey from lines across: robins pass right in the middle, everyone crosses, 
   const right = { x: -Math.cos(a.yaw), z: Math.sin(a.yaw) };
   assert.ok(toB.x * right.x + toB.z * right.z > 0, 'the other robin is on the right');
 });
+
+test('mad robin: the front role goes in toward the middle first, facing across, and returns', () => {
+  const lines = run([LINES]);
+  const r = FIGURES['mad-robin'](lines, { front: 'robins' }, 8);
+  for (const id of [0, 1, 2, 3]) near(r.exit.bodies.get(id)!.position, pos(lines, id));
+  const robin = r.motion(2).bodies.find((b) => b.id === 1)!;
+  const lark = r.motion(2).bodies.find((b) => b.id === 0)!;
+  assert.ok(Math.abs(robin.position.x) < Math.abs(pos(lines, 1).x) - 0.2, 'robin in front');
+  assert.ok(Math.abs(lark.position.x) > Math.abs(pos(lines, 0).x) + 0.2, 'lark behind');
+  facing(robin.yaw, yaw(lines, 1), 'robin still faces across');
+  // A written direction must agree with the front role: exactly one does here.
+  const agrees = (['clockwise', 'counterclockwise'] as const).filter((direction) => {
+    try {
+      FIGURES['mad-robin'](lines, { front: 'robins', direction }, 8);
+      return true;
+    } catch {
+      return false;
+    }
+  });
+  assert.equal(agrees.length, 1);
+});
+
+test('gyre: neighbors go around by the right shoulder facing each other', () => {
+  const s0 = start();
+  const once = FIGURES.gyre(s0, { who: 'neighbor', amount: 1 }, 8);
+  const half = FIGURES.gyre(s0, { who: 'neighbor', amount: 1.5 }, 8);
+  near(once.exit.bodies.get(0)!.position, pos(s0, 0));
+  near(half.exit.bodies.get(0)!.position, pos(s0, 3), "1½ ends in the neighbor's place");
+  const a = once.motion(3).bodies.find((b) => b.id === 0)!;
+  const b = once.motion(3).bodies.find((b) => b.id === 3)!;
+  facing(a.yaw, heading(a.position, b.position), 'eye contact');
+});
+
+test('give and take: larks cross, take partners by both hands and back up home', () => {
+  const lines = run([LINES]);
+  const r = FIGURES['give-and-take'](lines, { who: 'larks', whom: 'partner' }, 8);
+  near(r.exit.bodies.get(0)!.position, pos(lines, 0), 'lark 1 is back home');
+  const robin = r.exit.bodies.get(1)!.position;
+  assert.ok(Math.sign(robin.x) === Math.sign(pos(lines, 0).x), "robin 1 is on the lark's side");
+  assert.equal(r.motion(6).contacts.filter((c) => c.strength > 0.9).length, 4);
+});

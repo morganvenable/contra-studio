@@ -5,9 +5,12 @@ import { balance } from './balance.ts';
 import { chain } from './chain.ts';
 import { circle } from './circle.ts';
 import { doSiDo } from './do-si-do.ts';
+import { giveAndTake } from './give-and-take.ts';
+import { gyre } from './gyre.ts';
 import { hall } from './hall.ts';
 import { hey } from './hey.ts';
 import { longLines } from './long-lines.ts';
+import { madRobin } from './mad-robin.ts';
 import { passBy } from './pass-by.ts';
 import { passThrough } from './pass-through.ts';
 import { petronella } from './petronella.ts';
@@ -26,9 +29,12 @@ export const FIGURES: FigureRegistry = Object.freeze({
   chain,
   circle,
   'do-si-do': doSiDo,
+  'give-and-take': giveAndTake,
+  gyre,
   hall,
   hey,
   'long-lines': longLines,
+  'mad-robin': madRobin,
   'pass-by': passBy,
   'pass-through': passThrough,
   petronella,
