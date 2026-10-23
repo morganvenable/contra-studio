@@ -2,6 +2,7 @@
  * The figure contract: (state, params, beats) -> { motion, exit }.
  */
 import type { FigureKind, HandContact, Vec2 } from '../../types.ts';
+import type { Limits } from './config.ts';
 import type { DanceState } from './state.ts';
 
 /** One row step of a dance: which move, with what parameters, for how long. */
@@ -36,6 +37,8 @@ export interface FigureResult {
   readonly exit: DanceState;
   /** Rendering label for the scene and UI. */
   readonly kind: FigureKind;
+  /** Looser physical limits this figure needs, such as a styled spin. */
+  readonly limits?: Partial<Limits>;
 }
 
 export type Figure<P> = (state: DanceState, params: P, beats: number) => FigureResult;

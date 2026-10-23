@@ -191,16 +191,14 @@ test('Rory passes face to face: each bows back so the pair meets front to front'
       dot(forward(yaw(s, 1)), sub(lark.position, robin.position)) > 0.8,
       `${spin}: lark in front of robin`,
     );
-    if (spin === 'none') {
-      assert.ok(
-        dot(forward(lark.yaw), sub(robin.position, lark.position)) > 0,
-        'lark faces the robin',
-      );
-      assert.ok(
-        dot(forward(robin.yaw), sub(lark.position, robin.position)) > 0,
-        'robin faces the lark',
-      );
-    }
+    assert.ok(
+      dot(forward(lark.yaw), sub(robin.position, lark.position)) > 0,
+      `${spin}: lark faces the robin as they pass`,
+    );
+    assert.ok(
+      dot(forward(robin.yaw), sub(lark.position, robin.position)) > 0,
+      `${spin}: robin faces the lark as they pass`,
+    );
   }
 });
 

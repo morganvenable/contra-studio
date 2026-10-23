@@ -5,7 +5,7 @@
  * reach in src/engine.ts; figures carry no budget code of their own.
  */
 import type { Frame } from '../../types.ts';
-import { LIMITS } from './config.ts';
+import { LIMITS, type Limits } from './config.ts';
 import { contactReach } from './contacts.ts';
 import { distance, turn } from './math.ts';
 
@@ -20,12 +20,16 @@ export interface PhysicalReport {
 export interface CheckOptions {
   readonly rounds?: number;
   readonly samplesPerBeat?: number;
-  readonly limits?: Partial<typeof LIMITS>;
+  readonly limits?: Partial<Limits>;
 }
 
 /** Sample `rawSample` (pre-fade frames) across whole rounds. */
 export function physicalCheck(
-  dance: { totalBeats: number; rawSample(beat: number): Frame },
+  dance: {
+    totalBeats: number;
+    rawSample(beat: number): Frame;
+    figureLimits?(repeat: number, figureIndex: number): Partial<Limits> | undefined;
+  },
   options: CheckOptions = {},
 ): PhysicalReport {
   const limits = { ...LIMITS, ...options.limits };
@@ -54,6 +58,8 @@ export function physicalCheck(
       }
     }
     if (previous && frame.figureIndex === previous.figureIndex) {
+      const own = dance.figureLimits?.(frame.repeat, frame.figureIndex);
+      const maximumYaw = own?.maximumYawRate ?? limits.maximumYawRate;
       for (const p of poses) {
         const q = previous.poses[p.id];
         const speed = distance(p.position, q.position) / step;
@@ -62,7 +68,7 @@ export function physicalCheck(
         maximumYawRate = Math.max(maximumYawRate, yawRate);
         if (speed > limits.maximumSpeed)
           note(beat, `dancer ${p.id} moves ${speed.toFixed(2)} m/beat`);
-        if (yawRate > limits.maximumYawRate)
+        if (yawRate > maximumYaw)
           note(beat, `dancer ${p.id} turns ${yawRate.toFixed(2)} rad/beat`);
       }
     }

@@ -16,6 +16,7 @@ import type { Figure, FigureContact } from '../core/figure.ts';
 import { oneOf, onlyKeys, settle } from '../core/figure.ts';
 import { joined, sameHold } from '../core/contacts.ts';
 import { findWave, lineHolds } from '../core/lines.ts';
+import { LIMITS } from '../core/config.ts';
 import { add, ease, forward, mix, progress, scale, TAU } from '../core/math.ts';
 import { body, handOf, minorSets, withChanges, type Hold } from '../core/state.ts';
 
@@ -27,6 +28,14 @@ export interface RoryParams {
 /** Backward bow at the moment of passing, each dancer. */
 const BOW = 0.44;
 const RELEASE = 0.18;
+
+/**
+ * The twirl is quick and comes as the crossing ends, so the passing pair is
+ * still face to face when they pass (travel progress 0.5; about 2 degrees of
+ * twirl by then).
+ */
+const TWIRL_START = 0.45;
+const twirl = (q: number) => ease((q - TWIRL_START) / (1 - TWIRL_START));
 
 export const rory: Figure<RoryParams> = (state, params, beats) => {
   onlyKeys('Rory', params, ['direction', 'spin']);
@@ -66,7 +75,7 @@ export const rory: Figure<RoryParams> = (state, params, beats) => {
       return {
         id: m.id,
         position: add(mix(m.start.position, m.end, q), back),
-        yaw: m.start.yaw + turnBy * q,
+        yaw: m.start.yaw + turnBy * twirl(q),
       };
     });
     const contacts: FigureContact[] = [];
@@ -85,5 +94,10 @@ export const rory: Figure<RoryParams> = (state, params, beats) => {
   if (newHolds.some((h) => state.hands.some((old) => sameHold(old, h)))) {
     throw new Error('Rory must end holding hands with new people.');
   }
-  return { kind: 'balance-rory-slide', motion, exit: withChanges(slid, { hands: newHolds }) };
+  return {
+    kind: 'balance-rory-slide',
+    motion,
+    exit: withChanges(slid, { hands: newHolds }),
+    ...(turnBy ? { limits: { maximumYawRate: LIMITS.spinYawRate } } : {}),
+  };
 };

@@ -13,6 +13,7 @@
 import type { CompiledDance, Dance, Figure as LegacyFigure, Frame, Pose } from '../../types.ts';
 import { complete, contactReach, joined, reachFade, sameHold } from './contacts.ts';
 import type { Figure, FigureCall, FigureContact, FigureResult, MovedBody } from './figure.ts';
+import type { Limits } from './config.ts';
 import { clamp, distance, progress, rotate, smooth, sub, add, turn } from './math.ts';
 import { beatsPerTime, type MusicStructure } from './music.ts';
 import type { Progression } from './progression.ts';
@@ -153,6 +154,8 @@ export interface FoldedDance extends CompiledDance {
   /** Frame before the rendering reach fade, for the physical check. */
   rawSample(beat: number): Frame;
   round(repeat: number): Round;
+  /** Looser limits a figure declared for itself, for the physical check. */
+  figureLimits(repeat: number, figureIndex: number): Partial<Limits> | undefined;
 }
 
 export function compileFold(options: FoldOptions): FoldedDance {
@@ -273,6 +276,7 @@ export function compileFold(options: FoldOptions): FoldedDance {
     sample,
     rawSample,
     round,
+    figureLimits: (repeat, figureIndex) => round(repeat).segments[figureIndex]?.result.limits,
   };
 }
 
