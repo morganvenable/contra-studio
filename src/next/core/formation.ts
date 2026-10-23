@@ -8,7 +8,10 @@
  * Deferred: proper duple minor, triple minor, four-couple sets, squares,
  * circles, Sicilian circles, triplets and other small fixed sets.
  *
- * The top of a longways set is +z: "down the hall" faces -z.
+ * The top of a longways set is -z, next to the band (src/robot-band.ts puts
+ * the band just past the set's lowest z), so "down the hall" faces +z. This
+ * is the old engine's convention; it is a half turn about the vertical from
+ * the first next-engine layout, so every dancer's handedness is unchanged.
  */
 import type { Dancer } from '../../types.ts';
 import { SET } from './config.ts';
@@ -72,9 +75,10 @@ function placeCouple(
 }
 
 /**
- * Becket: couples on the east (+x) and west (-x) side lines facing across,
- * lark on the left, as in src/becket.ts createBecketState. With an odd count
- * one extra west couple waits at the top, ready to enter.
+ * Becket: couples on the west (-x) and east (+x) side lines facing across,
+ * lark on the left, as in src/becket.ts createBecketState. Each row's first
+ * couple stands on the west line; the top row is at the lowest z. With an
+ * odd count one extra east couple waits at the top, ready to enter.
  */
 export const BECKET: Formation = {
   name: 'Becket',
@@ -98,17 +102,17 @@ export const BECKET: Formation = {
     const groups: number[][] = [];
     const neighbor = new Map<number, number>();
     for (let row = 0; row < rows; row++) {
-      const z = (row - (rows - 1) / 2) * 2 * SET.slot;
-      const east = row * 2;
-      const west = row * 2 + 1;
-      place(east, 1, z);
+      const z = ((rows - 1) / 2 - row) * 2 * SET.slot;
+      const west = row * 2;
+      const east = row * 2 + 1;
       place(west, -1, z);
-      groups.push([east * 2, east * 2 + 1, west * 2, west * 2 + 1]);
-      neighbor.set(east * 2, west * 2 + 1).set(west * 2 + 1, east * 2);
-      neighbor.set(east * 2 + 1, west * 2).set(west * 2, east * 2 + 1);
+      place(east, 1, z);
+      groups.push([west * 2, west * 2 + 1, east * 2, east * 2 + 1]);
+      neighbor.set(west * 2, east * 2 + 1).set(east * 2 + 1, west * 2);
+      neighbor.set(west * 2 + 1, east * 2).set(east * 2, west * 2 + 1);
     }
     if (couples % 2) {
-      place(couples - 1, -1, (rows - (rows - 1) / 2) * 2 * SET.slot);
+      place(couples - 1, 1, ((rows - 1) / 2 - rows) * 2 * SET.slot);
       waiting.push({ couple: couples - 1, crossed: true });
     }
     const relations = new Map([
@@ -132,7 +136,7 @@ export const BECKET: Formation = {
  * Improper duple minor: couples stand one place apart along the set, partners
  * side by side across it (lark on the left), the 1s facing down and the 2s
  * facing up, so each 1s couple faces its 2s couple (its neighbors). The 1s
- * are crossed over: 1s larks on the -x line, 2s larks on the +x line. With an
+ * are crossed over: 1s larks on the +x line, 2s larks on the -x line. With an
  * odd count the bottom couple waits out as 2s, already on its proper side.
  * Position labels "1s" and "2s" name who travels down and up.
  */
@@ -151,9 +155,10 @@ export const IMPROPER: Formation = {
     const twos: number[] = [];
     const waiting: WaitingCouple[] = [];
     for (let c = 0; c < couples; c++) {
-      const z = ((couples - 1) / 2 - c) * SET.slot;
+      const z = (c - (couples - 1) / 2) * SET.slot;
       const isOnes = c % 2 === 0 && c + 1 < couples;
-      placeCouple(bodies, c, { x: 0, z }, isOnes ? Math.PI : 0, SET.slot);
+      // Down the set is +z: the 1s face +z (yaw 0), the 2s face -z.
+      placeCouple(bodies, c, { x: 0, z }, isOnes ? 0 : Math.PI, SET.slot);
       (isOnes ? ones : twos).push(c * 2, c * 2 + 1);
       if (!isOnes && c % 2 === 0) waiting.push({ couple: c, crossed: true });
     }
@@ -183,7 +188,7 @@ export const IMPROPER: Formation = {
 
 /**
  * Proper longways, the whole set dancing together: partners face across,
- * larks on the +x line, the 1st couple at the top (highest z).
+ * larks on the -x line, the 1st couple at the top (lowest z).
  */
 function wholeSet(name: string, min: number, max: number): Formation {
   return {
@@ -196,9 +201,9 @@ function wholeSet(name: string, min: number, max: number): Formation {
       const dancers = createDancers(couples);
       const bodies = new Map<number, Body>();
       for (let c = 0; c < couples; c++) {
-        const z = ((couples - 1) / 2 - c) * SET.slot;
-        bodies.set(c * 2, { position: { x: SET.halfWidth, z }, yaw: -Math.PI / 2 });
-        bodies.set(c * 2 + 1, { position: { x: -SET.halfWidth, z }, yaw: Math.PI / 2 });
+        const z = (c - (couples - 1) / 2) * SET.slot;
+        bodies.set(c * 2, { position: { x: -SET.halfWidth, z }, yaw: Math.PI / 2 });
+        bodies.set(c * 2 + 1, { position: { x: SET.halfWidth, z }, yaw: -Math.PI / 2 });
       }
       const state: DanceState = Object.freeze({
         dancers,

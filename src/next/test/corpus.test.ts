@@ -29,9 +29,10 @@ for (const stored of NEXT_DANCES) {
 }
 
 test('the improper model trades places in alternating pairs and waits at the ends', () => {
-  const z = improperModel(3, 2).map((round) => round.map((v) => Math.round(v / 1.8)));
+  // Places in slots from the middle; the top of the set is -z.
+  const z = improperModel(3, 2).map((round) => round.map((v) => Math.round(v / 1.8) + 0));
   assert.deepEqual(z, [
-    [0, 1, -1],
-    [-1, 1, 0],
+    [0, -1, 1],
+    [1, -1, 0],
   ]);
 });

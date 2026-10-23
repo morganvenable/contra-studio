@@ -119,7 +119,8 @@ export const DUPLE_MINOR_PROGRESSION: Progression = {
     const below = (c: number) =>
       [...couples.keys()].filter((k) => {
         if (isOnes(k)) return false;
-        const gap = couples.get(c)!.center.z - couples.get(k)!.center.z;
+        // Down the set is +z.
+        const gap = couples.get(k)!.center.z - couples.get(c)!.center.z;
         return Math.abs(gap - SET.slot) < MEET_TOLERANCE;
       });
     const neighbor = new Map<number, number>();
@@ -185,11 +186,11 @@ export const DUPLE_MINOR_PROGRESSION: Progression = {
   },
 };
 
-/** Name couples by place from the top (highest z) down: "1st couple", ... */
+/** Name couples by place from the top (lowest z) down: "1st couple", ... */
 export const WHOLE_SET_PROGRESSION: Progression = {
   kind: 'whole-set',
   rebind(state) {
-    const order = [...coupleSpots(state).values()].sort((a, b) => b.center.z - a.center.z);
+    const order = [...coupleSpots(state).values()].sort((a, b) => a.center.z - b.center.z);
     const positions = new Map(state.positions);
     order.forEach((spot, i) => positions.set(`${ordinal(i + 1)} couple`, [spot.lark, spot.robin]));
     return withChanges(state, { positions, epoch: state.epoch + 1 });

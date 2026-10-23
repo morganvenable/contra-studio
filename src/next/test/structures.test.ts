@@ -54,7 +54,7 @@ test('a three-couple set, AABB waltz in 3/4, no progression, once through', () =
   const halfway = dance.sample(72);
   near(
     halfway.poses[0].position,
-    { x: -SET.halfWidth, z: -SET.slot },
+    { x: SET.halfWidth, z: SET.slot },
     'half way round, 1st lark is opposite',
   );
   const end = dance.sample(500);
@@ -63,7 +63,7 @@ test('a three-couple set, AABB waltz in 3/4, no progression, once through', () =
   assert.deepEqual(dance.round(0).end.groups, start.groups, 'same set, same people');
 });
 
-/** Test-only figure: the 1st couple casts down outside to the bottom; the rest move up. */
+/** Test-only figure: the 1st couple casts down (+z) outside to the bottom; the rest move up (-z). */
 const castToBottom: Figure<Record<string, never>> = (state, _params, beats) => {
   const top = state.positions.get('1st couple');
   if (!top) throw new Error('No 1st couple to cast.');
@@ -76,14 +76,14 @@ const castToBottom: Figure<Record<string, never>> = (state, _params, beats) => {
       if (!top.includes(d.id)) {
         return {
           id: d.id,
-          position: { x: b.position.x, z: b.position.z + SET.slot * travel },
+          position: { x: b.position.x, z: b.position.z - SET.slot * travel },
           yaw: b.yaw,
         };
       }
       // Step out of the line first, travel down outside it, then step back in.
       const out = Math.sign(b.position.x) * 0.7 * Math.min(smooth(t / 0.2), smooth((1 - t) / 0.2));
       const down = (couples - 1) * SET.slot * travel;
-      return { id: d.id, position: { x: b.position.x + out, z: b.position.z - down }, yaw: b.yaw };
+      return { id: d.id, position: { x: b.position.x + out, z: b.position.z + down }, yaw: b.yaw };
     }),
     contacts: [],
   });

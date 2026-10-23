@@ -23,8 +23,9 @@ test('stored 2321 matches its source snapshot by hash and by parsed rows', () =>
 
 /**
  * Independent Becket model: every round each couple moves one place to its
- * left (east couples up, west couples down); a couple with no one across
- * waits out and crosses to the other side.
+ * left; a couple with no one across waits out and crosses to the other side.
+ * Written with the top of the set at +z, then turned a half turn about the
+ * vertical (x and z negated) to the set's frame, where the top is -z.
  */
 function expectedSpots(couples: number, rounds: number) {
   const rows = Math.floor(couples / 2);
@@ -57,15 +58,15 @@ for (const couples of [3, 4, 6]) {
         const robin = frame.poses[c * 2 + 1];
         near(
           lark.position,
-          { x: spot.side * 0.9, z: spot.z + spot.side * 0.9 },
+          { x: -spot.side * 0.9, z: -(spot.z + spot.side * 0.9) },
           `round ${r} lark ${c + 1}`,
         );
         near(
           robin.position,
-          { x: spot.side * 0.9, z: spot.z - spot.side * 0.9 },
+          { x: -spot.side * 0.9, z: -(spot.z - spot.side * 0.9) },
           `round ${r} robin ${c + 1}`,
         );
-        facing(lark.yaw, (-spot.side * Math.PI) / 2, `round ${r} lark ${c + 1}`);
+        facing(lark.yaw, (spot.side * Math.PI) / 2, `round ${r} lark ${c + 1}`);
       });
     }
   });

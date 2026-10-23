@@ -14,7 +14,7 @@ export const call = (move: string, beats: number, params: Record<string, unknown
   params,
 });
 
-/** One Becket minor set (couple 0 east, couple 1 west) after the given calls. */
+/** One Becket minor set (couple 0 west, couple 1 east) after the given calls. */
 export function after(calls: readonly FigureCall[], couples = 2): DanceState {
   return calls.length
     ? foldRound(calls, BECKET.start(couples), FIGURES).end
@@ -50,8 +50,11 @@ export function facing(actual: number, expected: number, message = '') {
   );
 }
 
-/** Yaws by the direction faced: x is across the set, z along it. */
+/**
+ * Yaws by the direction faced: x is across the set (east is +x), z along it.
+ * The top of the set is -z, so facing up is facing -z.
+ */
 export const FACE_WEST = -Math.PI / 2;
 export const FACE_EAST = Math.PI / 2;
-export const FACE_UP = 0;
-export const FACE_DOWN = Math.PI;
+export const FACE_UP = Math.PI;
+export const FACE_DOWN = 0;

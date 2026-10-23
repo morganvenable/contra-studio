@@ -30,7 +30,8 @@ const coupleZ = (dance: FoldedDance, beat: number, couple: number) => {
 /** Expected couple-center z after each round, improper duple minor. */
 export function improperModel(couples: number, rounds: number): number[][] {
   const place = Array.from({ length: couples }, (_, c) => c); // place 0 is the top
-  const z = (p: number) => ((couples - 1) / 2 - p) * SET.slot;
+  // The top of the set is -z.
+  const z = (p: number) => (p - (couples - 1) / 2) * SET.slot;
   const out: number[][] = [];
   for (let r = 0; r < rounds; r++) {
     const byPlace = new Map(place.map((p, c) => [p, c]));
@@ -62,7 +63,8 @@ export function becketModel(couples: number, rounds: number): number[][] {
       );
       if (!across) s.side = -s.side;
     }
-    out.push(spots.map((s) => s.z));
+    // Built with the top at +z as in the 2321 test; the set's top is -z.
+    out.push(spots.map((s) => -s.z));
   }
   return out;
 }

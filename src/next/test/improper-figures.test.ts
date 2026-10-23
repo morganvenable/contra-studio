@@ -8,7 +8,7 @@ import { DUPLE_MINOR_PROGRESSION } from '../core/progression.ts';
 import { heading } from '../core/math.ts';
 import { body, type DanceState } from '../core/state.ts';
 import { FIGURES } from '../figures/index.ts';
-import { call, facing, FACE_DOWN, FACE_EAST, FACE_UP, FACE_WEST, near } from './helpers.ts';
+import { call, facing, FACE_DOWN, FACE_WEST, FACE_UP, FACE_EAST, near } from './helpers.ts';
 
 /** Couple 0 (1s) at the top facing down, couple 1 (2s) below facing up. */
 const start = (couples = 2) => IMPROPER.start(couples);
@@ -20,9 +20,9 @@ const LINES = call('swing', 8, { who: 'neighbor' });
 
 test('improper start: 1s crossed over at the top facing their neighbors', () => {
   const s = start();
-  near(pos(s, 0), { x: -0.9, z: 0.9 }, 'lark 1');
-  near(pos(s, 1), { x: 0.9, z: 0.9 }, 'robin 1');
-  near(pos(s, 2), { x: 0.9, z: -0.9 }, 'lark 2');
+  near(pos(s, 0), { x: 0.9, z: -0.9 }, 'lark 1');
+  near(pos(s, 1), { x: -0.9, z: -0.9 }, 'robin 1');
+  near(pos(s, 2), { x: -0.9, z: 0.9 }, 'lark 2');
   facing(yaw(s, 0), FACE_DOWN);
   facing(yaw(s, 2), FACE_UP);
   assert.equal(s.relations.get('neighbor')!.get(0), 3);
@@ -41,10 +41,10 @@ test('the duple-minor progression pairs each 1s couple with the 2s one place bel
 
 test('neighbors swing ends in lines across: neighbors side by side, partners across', () => {
   const s = run([LINES]);
-  near(pos(s, 0), { x: -0.9, z: -0.9 }, 'lark 1');
-  near(pos(s, 3), { x: -0.9, z: 0.9 }, 'robin 2');
-  near(pos(s, 1), { x: 0.9, z: -0.9 }, 'robin 1 across from lark 1');
-  facing(yaw(s, 0), FACE_EAST);
+  near(pos(s, 0), { x: 0.9, z: 0.9 }, 'lark 1');
+  near(pos(s, 3), { x: 0.9, z: -0.9 }, 'robin 2');
+  near(pos(s, 1), { x: -0.9, z: 0.9 }, 'robin 1 across from lark 1');
+  facing(yaw(s, 0), FACE_WEST);
 });
 
 test("robins chain: robins cross and end on the far lark's right, facing in", () => {
@@ -53,7 +53,7 @@ test("robins chain: robins cross and end on the far lark's right, facing in", ()
   near(pos(s, 1), pos(lines, 3), "robin 1 takes the other robin's place");
   near(pos(s, 3), pos(lines, 1));
   near(pos(s, 0), pos(lines, 0), 'larks keep their places');
-  facing(yaw(s, 1), FACE_EAST);
+  facing(yaw(s, 1), FACE_WEST);
   assert.throws(
     () => run([call('chain', 8, { who: 'robins', to: 'neighbor' })], lines),
     /not their neighbor/,
@@ -63,10 +63,10 @@ test("robins chain: robins cross and end on the far lark's right, facing in", ()
 test('right and left through: everyone crosses and faces back in', () => {
   const lines = run([LINES]);
   const s = run([call('right-left-through', 8, {})], lines);
-  near(pos(s, 0), { x: 0.9, z: 0.9 }, 'lark 1 crosses and stays on the left');
-  near(pos(s, 3), { x: 0.9, z: -0.9 });
-  facing(yaw(s, 0), FACE_WEST);
-  facing(yaw(s, 3), FACE_WEST);
+  near(pos(s, 0), { x: -0.9, z: -0.9 }, 'lark 1 crosses and stays on the left');
+  near(pos(s, 3), { x: -0.9, z: 0.9 });
+  facing(yaw(s, 0), FACE_EAST);
+  facing(yaw(s, 3), FACE_EAST);
 });
 
 test('star right 4 places goes once around clockwise, back to places', () => {
@@ -74,18 +74,18 @@ test('star right 4 places goes once around clockwise, back to places', () => {
   const result = FIGURES.star(lines, { hand: 'right', places: 4 }, 8);
   near(result.exit.bodies.get(0)!.position, pos(lines, 0));
   // Clockwise from above is increasing polar angle (see core/math.ts): a
-  // quarter of the way, lark 1 has moved from (-x, -z) toward (+x, -z).
+  // quarter of the way, lark 1 has moved from (+x, +z) toward (-x, +z).
   const quarter = result.motion(2).bodies.find((b) => b.id === 0)!;
-  assert.ok(quarter.position.x > pos(lines, 0).x + 0.3, JSON.stringify(quarter));
+  assert.ok(quarter.position.x < pos(lines, 0).x - 0.3, JSON.stringify(quarter));
   assert.ok(result.motion(4).contacts.some((c) => c.strength > 0.5 && c.handA === 'right'));
 });
 
 test('do-si-do passes right shoulders, keeps facing, and 1½ trades places', () => {
   const once = FIGURES['do-si-do'](start(), { who: 'neighbor', amount: 1 }, 8);
   near(once.exit.bodies.get(0)!.position, pos(start(), 0));
-  // Lark 1 faces down (-z), so his left is -x; passing right shoulders he steps left.
+  // Lark 1 faces down (+z), so his left is +x; passing right shoulders he steps left.
   const mid = once.motion(2).bodies.find((b) => b.id === 0)!;
-  assert.ok(mid.position.x < -0.9 - 0.2, `veers to his left: ${mid.position.x}`);
+  assert.ok(mid.position.x > 0.9 + 0.2, `veers to his left: ${mid.position.x}`);
   const half = run([call('do-si-do', 8, { who: 'neighbor', amount: 1.5 })]);
   near(pos(half, 0), pos(start(), 3), "lark 1 ends in robin 2's place");
   facing(yaw(half, 0), FACE_DOWN, 'still facing down, back to his neighbor');
@@ -94,8 +94,8 @@ test('do-si-do passes right shoulders, keeps facing, and 1½ trades places', () 
 test('balance the ring and petronella: one place to the right, facing in', () => {
   const lines = run([LINES]);
   const s = run([call('balance', 4, { formation: 'ring' }), call('petronella', 4, {})], lines);
-  // Lark 1 at (-0.9, -0.9) moves one place counterclockwise (decreasing polar angle).
-  near(pos(s, 0), { x: -0.9, z: 0.9 });
+  // Lark 1 at (0.9, 0.9) moves one place counterclockwise (decreasing polar angle).
+  near(pos(s, 0), { x: 0.9, z: -0.9 });
   facing(yaw(s, 0), heading(pos(s, 0), { x: 0, z: 0 }), 'faces the center');
 });
 
@@ -121,7 +121,7 @@ test('down the hall, turn as a couple, up the hall and bend into a ring', () => 
   const lines = run([LINES]);
   const down = run([call('hall', 8, { direction: 'down', turn: 'couple' })], lines);
   for (const id of [0, 1, 2, 3]) {
-    near({ x: pos(down, id).x, z: pos(down, id).z }, { x: pos(down, id).x, z: -1.8 }, 'line');
+    near({ x: pos(down, id).x, z: pos(down, id).z }, { x: pos(down, id).x, z: 1.8 }, 'line');
     facing(yaw(down, id), FACE_UP);
   }
   const ring = run([call('hall', 8, { direction: 'up', end: 'ring' })], down);

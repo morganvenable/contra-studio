@@ -82,8 +82,9 @@ export const hall: Figure<HallParams> = (state, params, beats) => {
     if (params.end !== undefined) oneOf('hall', 'end', params.end, ['ring'] as const);
   }
   if (beats < 6) throw new Error('Down or up the hall needs at least six beats.');
-  const facing = direction === 'down' ? Math.PI : 0;
-  const travel = { x: 0, z: direction === 'down' ? -DISTANCE : DISTANCE };
+  // The top of the set is -z: down the hall faces +z (yaw 0).
+  const facing = direction === 'down' ? 0 : Math.PI;
+  const travel = { x: 0, z: direction === 'down' ? DISTANCE : -DISTANCE };
   const walkEnd = beats - ENDING;
   const left = leftOf(facing);
 
