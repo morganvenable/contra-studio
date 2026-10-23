@@ -1,17 +1,29 @@
 {
-  "count": 193,
+  "count": 195,
   "entries": [
+    {
+      "id": "1501",
+      "sourceSnapshotId": "contradb:1501:a1df30e786cdcf45",
+      "archiveSha256": "05f0a57cc60a126e63ee31ffdcbe95eabc6ac419b23f2935502a0bb4c4ac2c82",
+      "status": "current-motion-checked"
+    },
+    {
+      "id": "3012",
+      "sourceSnapshotId": "contradb:3012:5ee2b94e221b0d08",
+      "archiveSha256": "0ff01561ac94be654fa8739141a6cc54f43dd8bf1b8c25ba80354bbeefbac052",
+      "status": "current-motion-checked"
+    },
     {
       "id": "2331",
       "sourceSnapshotId": "contradb:2331:2aaa09f220a70654",
       "archiveSha256": "4c3d7dcff030d0b451dc686e6a84bcfc1a5b285b78823fdb9e35fd8b0cda52b3",
-      "status": "current-motion-checked"
+      "status": "assembled-current-motion-pending"
     },
     {
       "id": "257",
       "sourceSnapshotId": "contradb:257:159a17ed84525746",
       "archiveSha256": "906c4512b4a8aabf41b7b8090dbb4095b17f5c1f771a8a60491548aded3c5039",
-      "status": "current-motion-checked"
+      "status": "assembled-current-motion-pending"
     },
     {
       "id": "2330",
