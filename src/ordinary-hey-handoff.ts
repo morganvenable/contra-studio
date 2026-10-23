@@ -1,3 +1,4 @@
+import{capturePlainData}from'./owned-program-cache.ts';
 /** Ordinary full heys may return to persistent partner side-pairs without
  * progressing. The eight pass layers own all sixteen source counts; a typed
  * endpoint is consumed by the balance/swing instead of being repaired by it. */
@@ -18,8 +19,9 @@ function assertSourceDeclaration(figure:Figure):void{
  if(typeof figure.id!=='string'||!figure.id.trim()||typeof figure.label!=='string'||!figure.label.trim()||figure.notes!==undefined&&typeof figure.notes!=='string'||figure.confidence!==undefined&&!['verified','approximate','unsupported'].includes(figure.confidence)||!Number.isFinite(figure.beats)||figure.beats<=0||figure.beats>64)throw new Error('Figure metadata and source counts must be explicit, finite and well-formed.');
  assertFigureArgumentsConsumed(figure);
 }
-export function compileOrdinaryFullHeyHandoff(input:Figure,incoming:FigureContext,sourceBeat=0,options?:{halfWidth:.64;balanceHands:'acquire'}):OrdinaryHeyHandoffPlan{
- if(options&&(Object.keys(options).some(k=>!['halfWidth','balanceHands'].includes(k))||options.halfWidth!==.64||options.balanceHands!=='acquire'||input.exit!=='same-slots-partner-balance'))throw Error('Compact held balance exit requires explicit measured width and hand acquisition.');
+export function compileOrdinaryFullHeyHandoff(input:Figure,incoming:FigureContext,sourceBeat=0,options?:{halfWidth:.64;balanceHands:'acquire';swingHands?:never}|{halfWidth:.64;swingHands:'acquire';balanceHands?:never}):OrdinaryHeyHandoffPlan{
+ if(options!==undefined){options=capturePlainData(options);if(!options)throw Error('Compact held exit options must be explicit.');}
+ if(options&&(Object.keys(options).some(k=>!['halfWidth','balanceHands','swingHands'].includes(k))||options.halfWidth!==.64||!(options.balanceHands==='acquire'&&options.swingHands===undefined&&input.exit==='same-slots-partner-balance'||options.swingHands==='acquire'&&options.balanceHands===undefined&&input.exit==='same-person-swing')))throw Error('Compact held balance exit requires explicit measured width and hand acquisition.');
  const halfWidth=options?.halfWidth??.9;
  assertSourceDeclaration(input);if(incoming.next)assertSourceDeclaration(incoming.next);
  const f=structuredClone(input),context:FigureContext={...incoming,ids:[...incoming.ids],start:structuredClone(incoming.start),dancers:structuredClone(incoming.dancers),next:incoming.next?structuredClone(incoming.next):undefined,relations:{epoch:incoming.relations.epoch,partner:new Map(incoming.relations.partner),neighbor:new Map(incoming.relations.neighbor)}};
@@ -57,9 +59,9 @@ export function compileOrdinaryFullHeyHandoff(input:Figure,incoming:FigureContex
  const path=compilePartialHey({actors,events:graph.events,entry,exit,frame:{origin:center,axis:{x:1,z:0}},beats:16,entryBeats:0,exitBeats:0,boundaryMode:'within-passes',gateBeats:[2,3.75,5.5,7.25,9,10.75,12.5,14.25],slotSpacing:1.05,passClearance:.66,maximumSpeed:1.3,maximumYawRate:4,relationships:{partner:named(partner),neighbor:named(neighbor)},source:f.label});
  const actor=(id:number,t:number)=>{const p=path.sample(t*16).poses.find(p=>p.id===String(id));if(!p)throw new Error('Actor outside the compiled full-hey group.');return p;};
  const basic:MotionPlan={position:(id,t)=>actor(id,t).position,facing:(id,t)=>actor(id,t).yaw,contacts:()=>[]};
- const terminal=sampleFormationEndpoint(context,basic,1),swing=swingExit?compilePrimitiveFigure(context.next!,ids,terminal,dancers,dancers.filter(d=>d?.role==='lark').map(d=>d.direction),{swingEntry:'prepared-circle'}):undefined;
- const balanceHold=options?compilePrimitiveFigure(context.next!,ids,terminal,dancers,[],{balanceEntry:'held-two-hand',balanceExit:'same-person-swing'}):undefined;
- const contacts=(t:number,poses:Pose[])=>{if(balanceHold)return balanceHold.contacts(0,poses).map(h=>({...h,strength:h.strength*smooth((t*16-15.75)/.25)})).filter(h=>h.strength>1e-9);const strength=smooth((t*16-14.25)/1.75);return swing&&strength>0?swing.contacts(0,poses).map(c=>({...c,strength:c.strength*(c.target==='back'?Math.max(0,(strength-.5)/.5)**2:strength)})):[];};
+ const terminal=sampleFormationEndpoint(context,basic,1),swing=swingExit?compilePrimitiveFigure(context.next!,ids,terminal,dancers,dancers.filter(d=>d?.role==='lark').map(d=>d.direction),{swingEntry:'prepared-circle',...(options?.swingHands?{canonicalSwingLayout:true,geometry:{halfWidth:.64,rowGap:1.28}}:{})}):undefined;
+ const balanceHold=options?.balanceHands?compilePrimitiveFigure(context.next!,ids,terminal,dancers,[],{balanceEntry:'held-two-hand',balanceExit:'same-person-swing'}):undefined;
+ const contacts=(t:number,poses:Pose[])=>{if(balanceHold)return balanceHold.contacts(0,poses).map(h=>({...h,strength:h.strength*smooth((t*16-15.75)/.25)})).filter(h=>h.strength>1e-9);const strength=options?.swingHands?smooth((t*16-15.75)/.25):smooth((t*16-14.25)/1.75);return swing&&strength>0?swing.contacts(0,poses).map(c=>({...c,strength:c.strength*(c.target==='back'?Math.max(0,(strength-.5)/.5)**2:strength)})):[];};
  const geometry={kind:'paired-sidelines' as const,sidePair:'partner' as const,origin:center,halfWidth,pairGap:distance(start[west].position,start[westOther].position)};
  const entryState=captureFormationState(context,{sourceBeat,orderedIds:entryOrder,geometry}),exitState=captureFormationState({...context,start:terminal},{sourceBeat:sourceBeat+16,orderedIds:graph.endOrder!.map(Number),geometry:{...geometry,pairGap:desiredGap},heldContacts:contacts(1,terminal)});
  const successor=swing??balanceHold??compilePrimitiveFigure(context.next!,ids,terminal,dancers,dancers.filter(d=>d?.role==='lark').map(d=>d.direction));
