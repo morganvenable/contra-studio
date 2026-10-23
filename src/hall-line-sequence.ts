@@ -1,3 +1,5 @@
+import {compileCompactGiveTakeStep} from './compact-give-take-step.ts';
+import {captureSequenceBoundary} from './sequence-boundary.ts';
 /** Source-counted hall operations over the shared finite Becket ledger. */
 import {createFiniteBecketState,finiteBecketPoses} from './progression-topology.ts';
 import {createDancers,compilePrimitiveFigure,figureContinuity,makeBalanceCue} from './engine.ts';
@@ -33,6 +35,7 @@ export function compileHallLineSequence(program:HallLineProgram,couples:number){
    }
    const localWaiting=[...binding.waitingIds],waitingDirections=new Map(state.couples.map(c=>[c.id,Math.sign(c.rank)||1])),source=poses.map(copy),canonical=finiteBecketPoses(state),plans=binding.groups.map(g=>{const ids=[...g.actors],context={ids,dancers,start:source,bindingEpoch:binding.epoch,relations:binding.relations,next:figures[i+1]};
     if(figure.kind==='hall-travel'){if(i!==0||figure.hallTurn!=='couples')throw Error('Actual-line opening currently preserves the explicit couples turn.');const slots=hallLineSlots({...context,start:canonical});return{ids,plan:compileActualLineHall(context,slots)};}
+    if(figure.kind==='give-and-take')return{ids,plan:compileCompactGiveTakeStep(figure,context,captureSequenceBoundary(context,cursor,contacts.filter(h=>ids.includes(h.a)||ids.includes(h.b))))};
     if(figure.kind==='do-si-do')return{ids,plan:compileHallNeighborDosido(figure,context)};
     if(i===figures.length-1)return{ids,plan:compileHallLineSwing(figure,context)};
     if(!['do-si-do','balance','swing','allemande'].includes(figure.kind)||figure.progression)throw Error('Unconsumed local hall operation.');

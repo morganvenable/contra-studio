@@ -1,0 +1,16 @@
+{
+  "baselineCommit": "ea4e95f",
+  "sourceId": "840",
+  "archiveSha256": "4c34b59abed97d33580c9958aae70a8766374cbb51569185ae10f0062ebb2651",
+  "samplesPerCount": 16,
+  "frames": [
+    {
+      "couples": 3,
+      "sha256": "c408c8425d5bca523a77bec8ad42806849acf08236cbb6ec538174efad76a411"
+    },
+    {
+      "couples": 4,
+      "sha256": "76a63fef166d186e5359ade42b2dc0e230b02b5efb44abadf311e5d97d99e97d"
+    }
+  ]
+}

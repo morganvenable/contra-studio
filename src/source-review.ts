@@ -1,5 +1,5 @@
 import{reversedChainStarHook}from'./source-chain-star.ts';
-import {hallLineChoiceForSource,HALL_LINE_DESCRIPTION} from './source-hall-line.ts';
+import {hallLineChoiceForSource,hallLineDescription} from './source-hall-line.ts';
 import {descriptiveSourceNote} from './source-descriptive-note.ts';
 import {improperWaveChoiceForSource,improperWaveDescription} from './source-improper-wave.ts';
 import {becketWaveChoiceForSource,BECKET_WAVE_DESCRIPTION} from './source-becket-wave.ts';
@@ -59,7 +59,7 @@ export function prepareContraDbReview(input:string,remembered:readonly SourceCho
  const improperWave=improperWaveChoiceForSource(baseline.record);
  if(improperWave){interpretation.improperWave=improperWave;return{result:read(interpretation),interpretation,suggestions:[{kind:'conventional-wave',message:improperWaveDescription(improperWave)}],savedArchive:false};}
  const hallLine=hallLineChoiceForSource(baseline.record);
- if(hallLine){interpretation.hallLine=hallLine;return{result:read(interpretation),interpretation,suggestions:[{kind:'conventional-hall',message:HALL_LINE_DESCRIPTION}],savedArchive:false};}
+ if(hallLine){interpretation.hallLine=hallLine;return{result:read(interpretation),interpretation,suggestions:[{kind:'conventional-hall',message:hallLineDescription(hallLine)}],savedArchive:false};}
  const becketWave=becketWaveChoiceForSource(baseline.record);
  if(becketWave){interpretation.becketWave=becketWave;return{result:read(interpretation),interpretation,suggestions:[{kind:'conventional-wave',message:BECKET_WAVE_DESCRIPTION}],savedArchive:false};}
  if(hasStarWhirlSource(baseline.record)){const rows=interpretation.rows??={};rows[baseline.record.rows[3].id]={starPromenade:copy(CONVENTIONAL_STAR_PROMENADE)};rows[baseline.record.rows[4].id]={butterflyWhirl:copy(CONVENTIONAL_BUTTERFLY_WHIRL)};suggestions.push({rowId:baseline.record.rows[3].id,kind:'qualifier-interpretation',message:STAR_PROMENADE_CHOICE_DESCRIPTION},{rowId:baseline.record.rows[4].id,kind:'qualifier-interpretation',message:BUTTERFLY_WHIRL_CHOICE_DESCRIPTION});}

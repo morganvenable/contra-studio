@@ -62,6 +62,7 @@ function compileChoreographyUncached(dance: Dance, couples: number, capabilities
     return compileImproperWavePolicyDance(dance,couples);
   }
   if(dance.hallLinePolicy!==undefined){
+    if(dance.figures.some(f=>f.kind==='give-and-take')&&(!capabilities.compactGiveTakes||!capabilities.giveAndTakes))throw Error('Four-count give/take requires its separate compact capability.');
     if(!capabilities.hallLineSequences||!capabilities.hallTravel||!capabilities.progressionEvents||!capabilities.stateCarryingSixTwoPasses)throw Error('Hall-line source requires its explicit initial-line, hall and finite pass capabilities.');
     return withBalanceStance(compileHallLinePolicyDance(dance,couples));
   }
