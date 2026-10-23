@@ -2,10 +2,10 @@
   "schema": "contra-studio/coverage-audit",
   "version": 1,
   "provenance": {
-    "generatedAt": "2026-10-23T00:52:36.801Z",
-    "revision": "55c9228a950ba50abdf186effd2962995df3303d",
+    "generatedAt": "2026-10-23T01:06:03.371Z",
+    "revision": "e6a3c6367e4e55e75a602cb75afb9a7e8d9272dc",
     "workingTreeModified": true,
-    "runtimeMilliseconds": 200690,
+    "runtimeMilliseconds": 143913,
     "node": "v24.12.0",
     "datasets": [
       {
@@ -26,21 +26,21 @@
   },
   "availability": {
     "catalogue": 2422,
-    "retainedSnapshots": 224,
-    "savedReady": 195,
+    "retainedSnapshots": 225,
+    "savedReady": 196,
     "union": 2422,
-    "metadataOnly": 2198,
+    "metadataOnly": 2197,
     "categories": {
-      "catalogue:true snapshot:false saved:false": 2198,
-      "catalogue:true snapshot:true saved:true": 195,
+      "catalogue:true snapshot:false saved:false": 2197,
+      "catalogue:true snapshot:true saved:true": 196,
       "catalogue:true snapshot:true saved:false": 29
     }
   },
   "views": {
     "rawDefaults": {
-      "sources": 224,
+      "sources": 225,
       "statuses": {
-        "interpretation-blocked": 224
+        "interpretation-blocked": 225
       },
       "figures": [
         {
@@ -164,6 +164,7 @@
             "2259",
             "2266",
             "2305",
+            "2321",
             "2322",
             "2330",
             "2331",
@@ -224,8 +225,8 @@
             "3507",
             "3510"
           ],
-          "occurrences": 222,
-          "sources": 177
+          "occurrences": 224,
+          "sources": 178
         },
         {
           "kind": "circle",
@@ -344,6 +345,7 @@
             "2235",
             "2243",
             "2299",
+            "2321",
             "2322",
             "2329",
             "2330",
@@ -393,8 +395,8 @@
             "3507",
             "3510"
           ],
-          "occurrences": 183,
-          "sources": 162
+          "occurrences": 184,
+          "sources": 163
         },
         {
           "kind": "allemande",
@@ -491,6 +493,7 @@
             "2247",
             "2259",
             "2266",
+            "2321",
             "2344",
             "2355",
             "2373",
@@ -531,8 +534,8 @@
             "3496",
             "3510"
           ],
-          "occurrences": 166,
-          "sources": 131
+          "occurrences": 167,
+          "sources": 132
         },
         {
           "kind": "long-lines",
@@ -1358,6 +1361,42 @@
           "soleBlockerSources": 1
         },
         {
+          "code": "event-policy-choice",
+          "sources": 29,
+          "sourceIds": [
+            "66",
+            "123",
+            "159",
+            "175",
+            "443",
+            "780",
+            "867",
+            "881",
+            "892",
+            "928",
+            "1447",
+            "1591",
+            "1658",
+            "1992",
+            "2226",
+            "2247",
+            "2321",
+            "2446",
+            "2518",
+            "2522",
+            "2530",
+            "2531",
+            "2693",
+            "2996",
+            "3004",
+            "3010",
+            "3181",
+            "3328",
+            "3507"
+          ],
+          "soleBlockerSources": 0
+        },
+        {
           "code": "promenade-choice",
           "sources": 29,
           "sourceIds": [
@@ -1429,41 +1468,6 @@
           "soleBlockerSources": 0
         },
         {
-          "code": "event-policy-choice",
-          "sources": 28,
-          "sourceIds": [
-            "66",
-            "123",
-            "159",
-            "175",
-            "443",
-            "780",
-            "867",
-            "881",
-            "892",
-            "928",
-            "1447",
-            "1591",
-            "1658",
-            "1992",
-            "2226",
-            "2247",
-            "2446",
-            "2518",
-            "2522",
-            "2530",
-            "2531",
-            "2693",
-            "2996",
-            "3004",
-            "3010",
-            "3181",
-            "3328",
-            "3507"
-          ],
-          "soleBlockerSources": 0
-        },
-        {
           "code": "petronella-choice",
           "sources": 22,
           "sourceIds": [
@@ -1489,6 +1493,35 @@
             "3328",
             "3431",
             "3478"
+          ],
+          "soleBlockerSources": 0
+        },
+        {
+          "code": "unsupported-figure-variant",
+          "sources": 22,
+          "sourceIds": [
+            "257",
+            "265",
+            "266",
+            "495",
+            "761",
+            "776",
+            "907",
+            "1312",
+            "1501",
+            "1632",
+            "2006",
+            "2026",
+            "2212",
+            "2305",
+            "2321",
+            "2329",
+            "2330",
+            "2331",
+            "2456",
+            "2672",
+            "3363",
+            "3533"
           ],
           "soleBlockerSources": 0
         },
@@ -1521,30 +1554,28 @@
           "soleBlockerSources": 0
         },
         {
-          "code": "unsupported-figure-variant",
-          "sources": 21,
+          "code": "circulation-choice",
+          "sources": 19,
           "sourceIds": [
+            "94",
+            "123",
             "257",
-            "265",
-            "266",
-            "495",
+            "363",
             "761",
-            "776",
-            "907",
-            "1312",
+            "840",
             "1501",
-            "1632",
-            "2006",
-            "2026",
-            "2212",
-            "2305",
+            "1618",
+            "1658",
+            "2247",
+            "2321",
             "2329",
             "2330",
-            "2331",
-            "2456",
-            "2672",
-            "3363",
-            "3533"
+            "2518",
+            "2522",
+            "2996",
+            "3004",
+            "3181",
+            "3363"
           ],
           "soleBlockerSources": 0
         },
@@ -1571,31 +1602,6 @@
             "2331",
             "2903",
             "3533"
-          ],
-          "soleBlockerSources": 0
-        },
-        {
-          "code": "circulation-choice",
-          "sources": 18,
-          "sourceIds": [
-            "94",
-            "123",
-            "257",
-            "363",
-            "761",
-            "840",
-            "1501",
-            "1618",
-            "1658",
-            "2247",
-            "2329",
-            "2330",
-            "2518",
-            "2522",
-            "2996",
-            "3004",
-            "3181",
-            "3363"
           ],
           "soleBlockerSources": 0
         },
@@ -1883,6 +1889,21 @@
           "soleBlockerSources": 0
         },
         {
+          "code": "becket-slice-choice",
+          "sources": 8,
+          "sourceIds": [
+            "123",
+            "1658",
+            "2247",
+            "2321",
+            "2518",
+            "2522",
+            "2996",
+            "3181"
+          ],
+          "soleBlockerSources": 0
+        },
+        {
           "code": "source-notes-alternative-review",
           "sources": 8,
           "sourceIds": [
@@ -1909,20 +1930,6 @@
             "2331",
             "2672",
             "3004"
-          ],
-          "soleBlockerSources": 0
-        },
-        {
-          "code": "becket-slice-choice",
-          "sources": 7,
-          "sourceIds": [
-            "123",
-            "1658",
-            "2247",
-            "2518",
-            "2522",
-            "2996",
-            "3181"
           ],
           "soleBlockerSources": 0
         },
@@ -2128,6 +2135,16 @@
           "soleBlockerSources": 0
         },
         {
+          "code": "across-pass-choice",
+          "sources": 3,
+          "sourceIds": [
+            "2321",
+            "2492",
+            "3012"
+          ],
+          "soleBlockerSources": 0
+        },
+        {
           "code": "formation",
           "sources": 3,
           "sourceIds": [
@@ -2158,21 +2175,22 @@
           "soleBlockerSources": 0
         },
         {
+          "code": "rory-slide-choice",
+          "sources": 3,
+          "sourceIds": [
+            "867",
+            "1501",
+            "2321"
+          ],
+          "soleBlockerSources": 0
+        },
+        {
           "code": "source-notes-teaching-review",
           "sources": 3,
           "sourceIds": [
             "83",
             "1556",
             "2364"
-          ],
-          "soleBlockerSources": 0
-        },
-        {
-          "code": "across-pass-choice",
-          "sources": 2,
-          "sourceIds": [
-            "2492",
-            "3012"
           ],
           "soleBlockerSources": 0
         },
@@ -2258,11 +2276,20 @@
           "soleBlockerSources": 0
         },
         {
-          "code": "rory-slide-choice",
+          "code": "rory-slide-source-contract",
           "sources": 2,
           "sourceIds": [
-            "867",
-            "1501"
+            "1501",
+            "2321"
+          ],
+          "soleBlockerSources": 0
+        },
+        {
+          "code": "rory-wave-context",
+          "sources": 2,
+          "sourceIds": [
+            "1501",
+            "2321"
           ],
           "soleBlockerSources": 0
         },
@@ -2290,6 +2317,14 @@
           "sourceIds": [
             "542",
             "682"
+          ],
+          "soleBlockerSources": 0
+        },
+        {
+          "code": "across-pass-source",
+          "sources": 1,
+          "sourceIds": [
+            "2321"
           ],
           "soleBlockerSources": 0
         },
@@ -2482,22 +2517,6 @@
           "sources": 1,
           "sourceIds": [
             "1972"
-          ],
-          "soleBlockerSources": 0
-        },
-        {
-          "code": "rory-slide-source-contract",
-          "sources": 1,
-          "sourceIds": [
-            "1501"
-          ],
-          "soleBlockerSources": 0
-        },
-        {
-          "code": "rory-wave-context",
-          "sources": 1,
-          "sourceIds": [
-            "1501"
           ],
           "soleBlockerSources": 0
         },
@@ -3269,6 +3288,24 @@
         },
         {
           "codes": [
+            "circulation-choice",
+            "event-policy-choice"
+          ],
+          "sources": 9,
+          "sourceIds": [
+            "123",
+            "1658",
+            "2247",
+            "2321",
+            "2518",
+            "2522",
+            "2996",
+            "3004",
+            "3181"
+          ]
+        },
+        {
+          "codes": [
             "event-policy-choice",
             "ring-pass-choice"
           ],
@@ -3373,6 +3410,40 @@
         },
         {
           "codes": [
+            "becket-slice-choice",
+            "circulation-choice"
+          ],
+          "sources": 8,
+          "sourceIds": [
+            "123",
+            "1658",
+            "2247",
+            "2321",
+            "2518",
+            "2522",
+            "2996",
+            "3181"
+          ]
+        },
+        {
+          "codes": [
+            "becket-slice-choice",
+            "event-policy-choice"
+          ],
+          "sources": 8,
+          "sourceIds": [
+            "123",
+            "1658",
+            "2247",
+            "2321",
+            "2518",
+            "2522",
+            "2996",
+            "3181"
+          ]
+        },
+        {
+          "codes": [
             "california-twirl-choice",
             "ordinary-hey-choice"
           ],
@@ -3441,23 +3512,6 @@
         },
         {
           "codes": [
-            "circulation-choice",
-            "event-policy-choice"
-          ],
-          "sources": 8,
-          "sourceIds": [
-            "123",
-            "1658",
-            "2247",
-            "2518",
-            "2522",
-            "2996",
-            "3004",
-            "3181"
-          ]
-        },
-        {
-          "codes": [
             "progression-location",
             "unsupported-figure-variant"
           ],
@@ -3508,34 +3562,18 @@
         },
         {
           "codes": [
-            "becket-slice-choice",
-            "circulation-choice"
+            "circulation-choice",
+            "unsupported-figure-variant"
           ],
           "sources": 7,
           "sourceIds": [
-            "123",
-            "1658",
-            "2247",
-            "2518",
-            "2522",
-            "2996",
-            "3181"
-          ]
-        },
-        {
-          "codes": [
-            "becket-slice-choice",
-            "event-policy-choice"
-          ],
-          "sources": 7,
-          "sourceIds": [
-            "123",
-            "1658",
-            "2247",
-            "2518",
-            "2522",
-            "2996",
-            "3181"
+            "257",
+            "761",
+            "1501",
+            "2321",
+            "2329",
+            "2330",
+            "3363"
           ]
         },
         {
@@ -3717,21 +3755,6 @@
             "1501",
             "1618",
             "2329",
-            "3363"
-          ]
-        },
-        {
-          "codes": [
-            "circulation-choice",
-            "unsupported-figure-variant"
-          ],
-          "sources": 6,
-          "sourceIds": [
-            "257",
-            "761",
-            "1501",
-            "2329",
-            "2330",
             "3363"
           ]
         },
@@ -6030,6 +6053,39 @@
         {
           "codes": [
             "circulation-choice",
+            "rory-slide-choice"
+          ],
+          "sources": 2,
+          "sourceIds": [
+            "1501",
+            "2321"
+          ]
+        },
+        {
+          "codes": [
+            "circulation-choice",
+            "rory-slide-source-contract"
+          ],
+          "sources": 2,
+          "sourceIds": [
+            "1501",
+            "2321"
+          ]
+        },
+        {
+          "codes": [
+            "circulation-choice",
+            "rory-wave-context"
+          ],
+          "sources": 2,
+          "sourceIds": [
+            "1501",
+            "2321"
+          ]
+        },
+        {
+          "codes": [
+            "circulation-choice",
             "zero-time-instruction"
           ],
           "sources": 2,
@@ -6047,6 +6103,17 @@
           "sourceIds": [
             "159",
             "2531"
+          ]
+        },
+        {
+          "codes": [
+            "event-policy-choice",
+            "rory-slide-choice"
+          ],
+          "sources": 2,
+          "sourceIds": [
+            "867",
+            "2321"
           ]
         },
         {
@@ -6689,6 +6756,72 @@
         },
         {
           "codes": [
+            "rory-slide-choice",
+            "rory-slide-source-contract"
+          ],
+          "sources": 2,
+          "sourceIds": [
+            "1501",
+            "2321"
+          ]
+        },
+        {
+          "codes": [
+            "rory-slide-choice",
+            "rory-wave-context"
+          ],
+          "sources": 2,
+          "sourceIds": [
+            "1501",
+            "2321"
+          ]
+        },
+        {
+          "codes": [
+            "rory-slide-choice",
+            "unsupported-figure-variant"
+          ],
+          "sources": 2,
+          "sourceIds": [
+            "1501",
+            "2321"
+          ]
+        },
+        {
+          "codes": [
+            "rory-slide-source-contract",
+            "rory-wave-context"
+          ],
+          "sources": 2,
+          "sourceIds": [
+            "1501",
+            "2321"
+          ]
+        },
+        {
+          "codes": [
+            "rory-slide-source-contract",
+            "unsupported-figure-variant"
+          ],
+          "sources": 2,
+          "sourceIds": [
+            "1501",
+            "2321"
+          ]
+        },
+        {
+          "codes": [
+            "rory-wave-context",
+            "unsupported-figure-variant"
+          ],
+          "sources": 2,
+          "sourceIds": [
+            "1501",
+            "2321"
+          ]
+        },
+        {
+          "codes": [
             "source-hook",
             "source-notes-classification"
           ],
@@ -6745,6 +6878,26 @@
         {
           "codes": [
             "across-pass-choice",
+            "across-pass-source"
+          ],
+          "sources": 1,
+          "sourceIds": [
+            "2321"
+          ]
+        },
+        {
+          "codes": [
+            "across-pass-choice",
+            "becket-slice-choice"
+          ],
+          "sources": 1,
+          "sourceIds": [
+            "2321"
+          ]
+        },
+        {
+          "codes": [
+            "across-pass-choice",
             "california-twirl-choice"
           ],
           "sources": 1,
@@ -6760,6 +6913,26 @@
           "sources": 1,
           "sourceIds": [
             "3012"
+          ]
+        },
+        {
+          "codes": [
+            "across-pass-choice",
+            "circulation-choice"
+          ],
+          "sources": 1,
+          "sourceIds": [
+            "2321"
+          ]
+        },
+        {
+          "codes": [
+            "across-pass-choice",
+            "event-policy-choice"
+          ],
+          "sources": 1,
+          "sourceIds": [
+            "2321"
           ]
         },
         {
@@ -6800,6 +6973,116 @@
           "sources": 1,
           "sourceIds": [
             "3012"
+          ]
+        },
+        {
+          "codes": [
+            "across-pass-choice",
+            "rory-slide-choice"
+          ],
+          "sources": 1,
+          "sourceIds": [
+            "2321"
+          ]
+        },
+        {
+          "codes": [
+            "across-pass-choice",
+            "rory-slide-source-contract"
+          ],
+          "sources": 1,
+          "sourceIds": [
+            "2321"
+          ]
+        },
+        {
+          "codes": [
+            "across-pass-choice",
+            "rory-wave-context"
+          ],
+          "sources": 1,
+          "sourceIds": [
+            "2321"
+          ]
+        },
+        {
+          "codes": [
+            "across-pass-choice",
+            "unsupported-figure-variant"
+          ],
+          "sources": 1,
+          "sourceIds": [
+            "2321"
+          ]
+        },
+        {
+          "codes": [
+            "across-pass-source",
+            "becket-slice-choice"
+          ],
+          "sources": 1,
+          "sourceIds": [
+            "2321"
+          ]
+        },
+        {
+          "codes": [
+            "across-pass-source",
+            "circulation-choice"
+          ],
+          "sources": 1,
+          "sourceIds": [
+            "2321"
+          ]
+        },
+        {
+          "codes": [
+            "across-pass-source",
+            "event-policy-choice"
+          ],
+          "sources": 1,
+          "sourceIds": [
+            "2321"
+          ]
+        },
+        {
+          "codes": [
+            "across-pass-source",
+            "rory-slide-choice"
+          ],
+          "sources": 1,
+          "sourceIds": [
+            "2321"
+          ]
+        },
+        {
+          "codes": [
+            "across-pass-source",
+            "rory-slide-source-contract"
+          ],
+          "sources": 1,
+          "sourceIds": [
+            "2321"
+          ]
+        },
+        {
+          "codes": [
+            "across-pass-source",
+            "rory-wave-context"
+          ],
+          "sources": 1,
+          "sourceIds": [
+            "2321"
+          ]
+        },
+        {
+          "codes": [
+            "across-pass-source",
+            "unsupported-figure-variant"
+          ],
+          "sources": 1,
+          "sourceIds": [
+            "2321"
           ]
         },
         {
@@ -7470,6 +7753,46 @@
           "sources": 1,
           "sourceIds": [
             "2247"
+          ]
+        },
+        {
+          "codes": [
+            "becket-slice-choice",
+            "rory-slide-choice"
+          ],
+          "sources": 1,
+          "sourceIds": [
+            "2321"
+          ]
+        },
+        {
+          "codes": [
+            "becket-slice-choice",
+            "rory-slide-source-contract"
+          ],
+          "sources": 1,
+          "sourceIds": [
+            "2321"
+          ]
+        },
+        {
+          "codes": [
+            "becket-slice-choice",
+            "rory-wave-context"
+          ],
+          "sources": 1,
+          "sourceIds": [
+            "2321"
+          ]
+        },
+        {
+          "codes": [
+            "becket-slice-choice",
+            "unsupported-figure-variant"
+          ],
+          "sources": 1,
+          "sourceIds": [
+            "2321"
           ]
         },
         {
@@ -8175,36 +8498,6 @@
         {
           "codes": [
             "circulation-choice",
-            "rory-slide-choice"
-          ],
-          "sources": 1,
-          "sourceIds": [
-            "1501"
-          ]
-        },
-        {
-          "codes": [
-            "circulation-choice",
-            "rory-slide-source-contract"
-          ],
-          "sources": 1,
-          "sourceIds": [
-            "1501"
-          ]
-        },
-        {
-          "codes": [
-            "circulation-choice",
-            "rory-wave-context"
-          ],
-          "sources": 1,
-          "sourceIds": [
-            "1501"
-          ]
-        },
-        {
-          "codes": [
-            "circulation-choice",
             "source-notes-classification"
           ],
           "sources": 1,
@@ -8385,11 +8678,21 @@
         {
           "codes": [
             "event-policy-choice",
-            "rory-slide-choice"
+            "rory-slide-source-contract"
           ],
           "sources": 1,
           "sourceIds": [
-            "867"
+            "2321"
+          ]
+        },
+        {
+          "codes": [
+            "event-policy-choice",
+            "rory-wave-context"
+          ],
+          "sources": 1,
+          "sourceIds": [
+            "2321"
           ]
         },
         {
@@ -8450,6 +8753,16 @@
           "sources": 1,
           "sourceIds": [
             "881"
+          ]
+        },
+        {
+          "codes": [
+            "event-policy-choice",
+            "unsupported-figure-variant"
+          ],
+          "sources": 1,
+          "sourceIds": [
+            "2321"
           ]
         },
         {
@@ -10865,26 +11178,6 @@
         {
           "codes": [
             "rory-slide-choice",
-            "rory-slide-source-contract"
-          ],
-          "sources": 1,
-          "sourceIds": [
-            "1501"
-          ]
-        },
-        {
-          "codes": [
-            "rory-slide-choice",
-            "rory-wave-context"
-          ],
-          "sources": 1,
-          "sourceIds": [
-            "1501"
-          ]
-        },
-        {
-          "codes": [
-            "rory-slide-choice",
             "short-wave-swing-exit-choice"
           ],
           "sources": 1,
@@ -10900,46 +11193,6 @@
           "sources": 1,
           "sourceIds": [
             "867"
-          ]
-        },
-        {
-          "codes": [
-            "rory-slide-choice",
-            "unsupported-figure-variant"
-          ],
-          "sources": 1,
-          "sourceIds": [
-            "1501"
-          ]
-        },
-        {
-          "codes": [
-            "rory-slide-source-contract",
-            "rory-wave-context"
-          ],
-          "sources": 1,
-          "sourceIds": [
-            "1501"
-          ]
-        },
-        {
-          "codes": [
-            "rory-slide-source-contract",
-            "unsupported-figure-variant"
-          ],
-          "sources": 1,
-          "sourceIds": [
-            "1501"
-          ]
-        },
-        {
-          "codes": [
-            "rory-wave-context",
-            "unsupported-figure-variant"
-          ],
-          "sources": 1,
-          "sourceIds": [
-            "1501"
           ]
         },
         {
@@ -11095,9 +11348,9 @@
       ]
     },
     "conventionalSuggestions": {
-      "sources": 224,
+      "sources": 225,
       "statuses": {
-        "import-admitted": 182,
+        "import-admitted": 183,
         "interpretation-blocked": 34,
         "motion-or-validation-blocked": 8
       },
@@ -11252,6 +11505,7 @@
             "2266",
             "2299",
             "2305",
+            "2321",
             "2322",
             "2329",
             "2330",
@@ -11327,8 +11581,8 @@
             "3510",
             "3533"
           ],
-          "occurrences": 421,
-          "sources": 221
+          "occurrences": 423,
+          "sources": 222
         },
         {
           "kind": "circle",
@@ -11447,6 +11701,7 @@
             "2235",
             "2243",
             "2299",
+            "2321",
             "2322",
             "2329",
             "2330",
@@ -11496,8 +11751,8 @@
             "3507",
             "3510"
           ],
-          "occurrences": 185,
-          "sources": 162
+          "occurrences": 186,
+          "sources": 163
         },
         {
           "kind": "balance",
@@ -11761,6 +12016,7 @@
             "2247",
             "2259",
             "2266",
+            "2321",
             "2344",
             "2355",
             "2373",
@@ -11801,8 +12057,8 @@
             "3496",
             "3510"
           ],
-          "occurrences": 167,
-          "sources": 132
+          "occurrences": 169,
+          "sources": 133
         },
         {
           "kind": "long-lines",
@@ -12307,6 +12563,7 @@
             "1618",
             "1974",
             "2235",
+            "2321",
             "2329",
             "2344",
             "2492",
@@ -12328,8 +12585,8 @@
             "3478",
             "3507"
           ],
-          "occurrences": 53,
-          "sources": 51
+          "occurrences": 54,
+          "sources": 52
         },
         {
           "kind": "right-left-through",
@@ -12580,6 +12837,21 @@
           "sources": 10
         },
         {
+          "kind": "becket-slice",
+          "sourceIds": [
+            "123",
+            "1658",
+            "2247",
+            "2321",
+            "2518",
+            "2522",
+            "2996",
+            "3181"
+          ],
+          "occurrences": 8,
+          "sources": 8
+        },
+        {
           "kind": "pull-by",
           "sourceIds": [
             "115",
@@ -12608,20 +12880,6 @@
           ],
           "occurrences": 14,
           "sources": 8
-        },
-        {
-          "kind": "becket-slice",
-          "sourceIds": [
-            "123",
-            "1658",
-            "2247",
-            "2518",
-            "2522",
-            "2996",
-            "3181"
-          ],
-          "occurrences": 7,
-          "sources": 7
         },
         {
           "kind": "becket-shift",
@@ -12684,6 +12942,16 @@
           "sources": 5
         },
         {
+          "kind": "balance-rory-slide",
+          "sourceIds": [
+            "867",
+            "1501",
+            "2321"
+          ],
+          "occurrences": 5,
+          "sources": 3
+        },
+        {
           "kind": "ricochet-hey",
           "sourceIds": [
             "1067",
@@ -12692,15 +12960,6 @@
           ],
           "occurrences": 3,
           "sources": 3
-        },
-        {
-          "kind": "balance-rory-slide",
-          "sourceIds": [
-            "867",
-            "1501"
-          ],
-          "occurrences": 3,
-          "sources": 2
         },
         {
           "kind": "couples-do-si-do",
@@ -14338,9 +14597,9 @@
       ]
     },
     "savedInterpretation": {
-      "sources": 195,
+      "sources": 196,
       "statuses": {
-        "import-admitted": 195
+        "import-admitted": 196
       },
       "figures": [
         {
@@ -14477,6 +14736,7 @@
             "2259",
             "2266",
             "2305",
+            "2321",
             "2322",
             "2329",
             "2330",
@@ -14542,8 +14802,8 @@
             "3507",
             "3510"
           ],
-          "occurrences": 378,
-          "sources": 195
+          "occurrences": 380,
+          "sources": 196
         },
         {
           "kind": "circle",
@@ -14651,6 +14911,7 @@
             "2226",
             "2235",
             "2243",
+            "2321",
             "2322",
             "2329",
             "2330",
@@ -14695,8 +14956,8 @@
             "3507",
             "3510"
           ],
-          "occurrences": 166,
-          "sources": 146
+          "occurrences": 167,
+          "sources": 147
         },
         {
           "kind": "balance",
@@ -14937,6 +15198,7 @@
             "2247",
             "2259",
             "2266",
+            "2321",
             "2344",
             "2355",
             "2373",
@@ -14971,8 +15233,8 @@
             "3496",
             "3510"
           ],
-          "occurrences": 148,
-          "sources": 117
+          "occurrences": 150,
+          "sources": 118
         },
         {
           "kind": "robins-chain",
@@ -15445,6 +15707,7 @@
             "1618",
             "1974",
             "2235",
+            "2321",
             "2329",
             "2344",
             "2492",
@@ -15465,8 +15728,8 @@
             "3478",
             "3507"
           ],
-          "occurrences": 48,
-          "sources": 47
+          "occurrences": 49,
+          "sources": 48
         },
         {
           "kind": "right-left-through",
@@ -15693,6 +15956,21 @@
           "sources": 8
         },
         {
+          "kind": "becket-slice",
+          "sourceIds": [
+            "123",
+            "1658",
+            "2247",
+            "2321",
+            "2518",
+            "2522",
+            "2996",
+            "3181"
+          ],
+          "occurrences": 8,
+          "sources": 8
+        },
+        {
           "kind": "square-through",
           "sourceIds": [
             "146",
@@ -15706,20 +15984,6 @@
           ],
           "occurrences": 14,
           "sources": 8
-        },
-        {
-          "kind": "becket-slice",
-          "sourceIds": [
-            "123",
-            "1658",
-            "2247",
-            "2518",
-            "2522",
-            "2996",
-            "3181"
-          ],
-          "occurrences": 7,
-          "sources": 7
         },
         {
           "kind": "pull-by",
@@ -15782,6 +16046,16 @@
           "sources": 4
         },
         {
+          "kind": "balance-rory-slide",
+          "sourceIds": [
+            "867",
+            "1501",
+            "2321"
+          ],
+          "occurrences": 5,
+          "sources": 3
+        },
+        {
           "kind": "becket-shift",
           "sourceIds": [
             "94",
@@ -15800,15 +16074,6 @@
           ],
           "occurrences": 3,
           "sources": 3
-        },
-        {
-          "kind": "balance-rory-slide",
-          "sourceIds": [
-            "867",
-            "1501"
-          ],
-          "occurrences": 3,
-          "sources": 2
         },
         {
           "kind": "couples-do-si-do",
@@ -41812,6 +42077,191 @@
           "swing",
           "robins-chain",
           "hey"
+        ],
+        "blockers": [],
+        "diagnostics": [],
+        "unresolvedRows": []
+      }
+    },
+    {
+      "id": "2321",
+      "retainedSnapshot": true,
+      "savedReady": true,
+      "snapshotPath": "C:\\Users\\morga\\OneDrive\\Documents\\GitHub\\contra-studio\\contra-studio\\test-data\\contradb\\2321.json",
+      "snapshotOrigin": "fixture",
+      "title": "Debra's Dance",
+      "snapshotId": "contradb:2321:d90195138c91ac10",
+      "rawDefaults": {
+        "status": "interpretation-blocked",
+        "coverage": {
+          "sourceParsed": true,
+          "recognizedRows": 9,
+          "resolvedRows": 4,
+          "totalRows": 9,
+          "semanticallyResolved": false,
+          "executable": false
+        },
+        "figureKinds": [
+          "allemande",
+          "swing",
+          "circle",
+          "swing"
+        ],
+        "blockers": [
+          "across-pass-choice",
+          "across-pass-source",
+          "becket-slice-choice",
+          "circulation-choice",
+          "event-policy-choice",
+          "rory-slide-choice",
+          "rory-slide-source-contract",
+          "rory-wave-context",
+          "unsupported-figure-variant"
+        ],
+        "diagnostics": [
+          {
+            "code": "circulation-choice",
+            "message": "The source says Becket without explicitly naming circulation. Select CW to use the current adapter."
+          },
+          {
+            "code": "becket-slice-choice",
+            "message": "Retain the source’s left slice and straight-back return in eight counts. Review four counts for the diagonal approach and four for the straight-back retreat, keeping the approach’s along-set offset. The source names the path and progression but does not state this internal timing. Circulation and finite-end waiting are separate choices."
+          },
+          {
+            "code": "across-pass-source",
+            "message": "Across passage retains two or four unmarked source counts in improper formation."
+          },
+          {
+            "code": "across-pass-choice",
+            "message": "Review passing current neighbors by right shoulders across the ring, into the immediately following persistent-partner gyre; the source names across but not shoulder or crossing relation."
+          },
+          {
+            "code": "unsupported-figure-variant",
+            "message": "The complete figure wording, including qualifiers, needs a semantic/motion adapter."
+          },
+          {
+            "code": "rory-slide-source-contract",
+            "message": "The current short-wave Rory contract retains eight source counts in improper formation."
+          },
+          {
+            "code": "rory-slide-choice",
+            "message": "Review four counts of balance beginning right, then four counts sliding one station right, with either no spin or one full right spin. The source names Rory right but omits these details."
+          },
+          {
+            "code": "rory-wave-context",
+            "message": "The current Rory adapter requires an explicitly formed short wave and its exact following held-allemande exits."
+          },
+          {
+            "code": "event-policy-choice",
+            "message": "Review the source event’s lark-left waiting arrangement and eight-count turn at the same physical end; this must not be a wrap to the other end."
+          }
+        ],
+        "unresolvedRows": [
+          {
+            "row": 0,
+            "text": "slice left and straight back ⁋",
+            "recognized": true,
+            "figureKinds": [],
+            "blockers": [
+              "becket-slice-choice"
+            ]
+          },
+          {
+            "row": 1,
+            "text": "pass through across the set",
+            "recognized": true,
+            "figureKinds": [],
+            "blockers": [
+              "across-pass-choice",
+              "across-pass-source"
+            ]
+          },
+          {
+            "row": 2,
+            "text": "partners allemande right ¾ to short waves with gentlespoons in the middle",
+            "recognized": true,
+            "figureKinds": [],
+            "blockers": [
+              "unsupported-figure-variant"
+            ]
+          },
+          {
+            "row": 3,
+            "text": "balance & Rory O'More right",
+            "recognized": true,
+            "figureKinds": [],
+            "blockers": [
+              "rory-slide-choice",
+              "rory-slide-source-contract",
+              "rory-wave-context"
+            ]
+          },
+          {
+            "row": 4,
+            "text": "balance & Rory O'More left",
+            "recognized": true,
+            "figureKinds": [],
+            "blockers": [
+              "unsupported-figure-variant"
+            ]
+          }
+        ]
+      },
+      "conventionalSuggestions": {
+        "status": "import-admitted",
+        "coverage": {
+          "sourceParsed": true,
+          "recognizedRows": 9,
+          "resolvedRows": 9,
+          "totalRows": 9,
+          "semanticallyResolved": true,
+          "executable": true
+        },
+        "figureKinds": [
+          "becket-slice",
+          "pass-through",
+          "allemande",
+          "balance-rory-slide",
+          "balance-rory-slide",
+          "allemande",
+          "swing",
+          "circle",
+          "swing"
+        ],
+        "blockers": [],
+        "diagnostics": [],
+        "unresolvedRows": [],
+        "choiceStatus": "suggested-not-approved",
+        "suggestionKinds": [
+          "conventional-wave"
+        ],
+        "interpretation": {
+          "becketShortWave": {
+            "convention": "across-partner-short-wave-v1",
+            "sourceSnapshotId": "contradb:2321:d90195138c91ac10"
+          }
+        }
+      },
+      "savedInterpretation": {
+        "status": "import-admitted",
+        "coverage": {
+          "sourceParsed": true,
+          "recognizedRows": 9,
+          "resolvedRows": 9,
+          "totalRows": 9,
+          "semanticallyResolved": true,
+          "executable": true
+        },
+        "figureKinds": [
+          "becket-slice",
+          "pass-through",
+          "allemande",
+          "balance-rory-slide",
+          "balance-rory-slide",
+          "allemande",
+          "swing",
+          "circle",
+          "swing"
         ],
         "blockers": [],
         "diagnostics": [],

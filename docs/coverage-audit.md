@@ -1,16 +1,16 @@
 # Offline choreography coverage audit
 
 Regenerate: `node --experimental-strip-types scripts/audit-coverage.mjs --write`.
-Generated 2026-10-23T00:52:36.801Z; code revision 55c9228a950ba50abdf186effd2962995df3303d with local modifications. Runtime 200.7 seconds.
+Generated 2026-10-23T01:06:03.371Z; code revision e6a3c6367e4e55e75a602cb75afb9a7e8d9272dc with local modifications. Runtime 143.9 seconds.
 This reads existing data only. It does not fetch sources, regenerate archives or approve suggested interpretations.
 
-There are **2422 catalogue records**, **224 retained snapshots**, and **195 saved Ready interpretations**. **2198 catalogue records have metadata only**; their figure content and motion coverage are unknown. These are overlapping sets, not additive counts. Exact set intersections are in the JSON.
+There are **2422 catalogue records**, **225 retained snapshots**, and **196 saved Ready interpretations**. **2197 catalogue records have metadata only**; their figure content and motion coverage are unknown. These are overlapping sets, not additive counts. Exact set intersections are in the JSON.
 
 | Input view | Sources | Import admitted | Interpretation blocked | Motion/validation blocked | Unparsed |
 | --- | ---: | ---: | ---: | ---: | ---: |
-| rawDefaults | 224 | 0 | 224 | 0 | 0 |
-| conventionalSuggestions | 224 | 182 | 34 | 8 | 0 |
-| savedInterpretation | 195 | 195 | 0 | 0 | 0 |
+| rawDefaults | 225 | 0 | 225 | 0 | 0 |
+| conventionalSuggestions | 225 | 183 | 34 | 8 | 0 |
+| savedInterpretation | 196 | 196 | 0 | 0 | 0 |
 
 “Import admitted” includes existing importer validation, its internal sampled checks and six-couple compile gate. It is not a new whole-period motion or visual certification. Raw defaults, hypothetical suggestions, and saved interpretations are separate views of overlapping sources.
 “Interpretation blocked” identifies the importer stage, not necessarily ambiguous authorship: this stage also enforces implementation-specific context and capability gates. Read the diagnostic causes before assigning research versus engineering work.
@@ -77,18 +77,18 @@ Saved records that hypothetical suggestions cannot reconstruct: 94 (Butter; chai
 
 These are normalized figure occurrences recognized by the importer, not a linguistic census of every source instruction. Choices can split compound instructions into new figures: raw balance frequency is especially incomplete without balance/swing timing choices. Unsupported text can be missing here; see unresolved rows in JSON. Columns count sources containing each kind, with their different denominators; these views overlap.
 
-| Kind | Raw / 224 | Suggested / 224 | Saved / 195 |
+| Kind | Raw / 225 | Suggested / 225 | Saved / 196 |
 | --- | ---: | ---: | ---: |
-| allemande | 131 | 132 | 117 |
+| allemande | 132 | 133 | 118 |
 | balance | 5 | 159 | 145 |
 | balance-box-circulate | 0 | 10 | 8 |
-| balance-rory-slide | 0 | 2 | 2 |
+| balance-rory-slide | 0 | 3 | 3 |
 | becket-shift | 5 | 5 | 3 |
-| becket-slice | 0 | 7 | 7 |
+| becket-slice | 0 | 8 | 8 |
 | box-the-gnat | 5 | 26 | 23 |
 | butterfly-whirl | 0 | 1 | 1 |
 | california-twirl | 0 | 28 | 25 |
-| circle | 162 | 162 | 146 |
+| circle | 163 | 163 | 147 |
 | couples-do-si-do | 0 | 2 | 2 |
 | cross-trails | 0 | 1 | 1 |
 | do-si-do | 65 | 69 | 62 |
@@ -102,7 +102,7 @@ These are normalized figure occurrences recognized by the importer, not a lingui
 | long-lines | 91 | 91 | 80 |
 | long-lines-rollaway | 0 | 5 | 5 |
 | mad-robin | 0 | 5 | 5 |
-| pass-through | 5 | 51 | 47 |
+| pass-through | 5 | 52 | 48 |
 | pass-to-wave-balance | 0 | 1 | 1 |
 | petronella | 0 | 22 | 19 |
 | promenade | 1 | 30 | 28 |
@@ -116,7 +116,7 @@ These are normalized figure occurrences recognized by the importer, not a lingui
 | square-through | 0 | 8 | 8 |
 | star | 64 | 64 | 56 |
 | star-promenade | 0 | 1 | 1 |
-| swing | 177 | 221 | 195 |
+| swing | 178 | 222 | 196 |
 
 ## What this permits us to conclude
 
