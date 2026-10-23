@@ -1,16 +1,16 @@
 # Offline choreography coverage audit
 
 Regenerate: `node --experimental-strip-types scripts/audit-coverage.mjs --write`.
-Generated 2026-10-23T01:06:03.371Z; code revision e6a3c6367e4e55e75a602cb75afb9a7e8d9272dc with local modifications. Runtime 143.9 seconds.
+Generated 2026-10-23T19:25:17.491Z; code revision 1d5b80e877a2138b877cfcee06fbfee3781a3dc1 with local modifications. Runtime 149.2 seconds.
 This reads existing data only. It does not fetch sources, regenerate archives or approve suggested interpretations.
 
-There are **2422 catalogue records**, **225 retained snapshots**, and **196 saved Ready interpretations**. **2197 catalogue records have metadata only**; their figure content and motion coverage are unknown. These are overlapping sets, not additive counts. Exact set intersections are in the JSON.
+There are **2422 catalogue records**, **228 retained snapshots**, and **199 saved Ready interpretations**. **2194 catalogue records have metadata only**; their figure content and motion coverage are unknown. These are overlapping sets, not additive counts. Exact set intersections are in the JSON.
 
 | Input view | Sources | Import admitted | Interpretation blocked | Motion/validation blocked | Unparsed |
 | --- | ---: | ---: | ---: | ---: | ---: |
-| rawDefaults | 225 | 0 | 225 | 0 | 0 |
-| conventionalSuggestions | 225 | 183 | 34 | 8 | 0 |
-| savedInterpretation | 196 | 196 | 0 | 0 | 0 |
+| rawDefaults | 228 | 0 | 228 | 0 | 0 |
+| conventionalSuggestions | 228 | 186 | 34 | 8 | 0 |
+| savedInterpretation | 199 | 199 | 0 | 0 | 0 |
 
 “Import admitted” includes existing importer validation, its internal sampled checks and six-couple compile gate. It is not a new whole-period motion or visual certification. Raw defaults, hypothetical suggestions, and saved interpretations are separate views of overlapping sources.
 “Interpretation blocked” identifies the importer stage, not necessarily ambiguous authorship: this stage also enforces implementation-specific context and capability gates. Read the diagnostic causes before assigning research versus engineering work.
@@ -77,18 +77,18 @@ Saved records that hypothetical suggestions cannot reconstruct: 94 (Butter; chai
 
 These are normalized figure occurrences recognized by the importer, not a linguistic census of every source instruction. Choices can split compound instructions into new figures: raw balance frequency is especially incomplete without balance/swing timing choices. Unsupported text can be missing here; see unresolved rows in JSON. Columns count sources containing each kind, with their different denominators; these views overlap.
 
-| Kind | Raw / 225 | Suggested / 225 | Saved / 196 |
+| Kind | Raw / 228 | Suggested / 228 | Saved / 199 |
 | --- | ---: | ---: | ---: |
-| allemande | 132 | 133 | 118 |
-| balance | 5 | 159 | 145 |
-| balance-box-circulate | 0 | 10 | 8 |
-| balance-rory-slide | 0 | 3 | 3 |
+| allemande | 134 | 135 | 120 |
+| balance | 5 | 161 | 147 |
+| balance-box-circulate | 0 | 11 | 9 |
+| balance-rory-slide | 0 | 5 | 5 |
 | becket-shift | 5 | 5 | 3 |
 | becket-slice | 0 | 8 | 8 |
 | box-the-gnat | 5 | 26 | 23 |
 | butterfly-whirl | 0 | 1 | 1 |
 | california-twirl | 0 | 28 | 25 |
-| circle | 163 | 163 | 147 |
+| circle | 165 | 165 | 149 |
 | couples-do-si-do | 0 | 2 | 2 |
 | cross-trails | 0 | 1 | 1 |
 | do-si-do | 65 | 69 | 62 |
@@ -99,10 +99,10 @@ These are normalized figure occurrences recognized by the importer, not a lingui
 | hall-travel | 0 | 15 | 15 |
 | hey | 8 | 52 | 50 |
 | larks-chain | 0 | 5 | 5 |
-| long-lines | 91 | 91 | 80 |
+| long-lines | 93 | 93 | 82 |
 | long-lines-rollaway | 0 | 5 | 5 |
 | mad-robin | 0 | 5 | 5 |
-| pass-through | 5 | 52 | 48 |
+| pass-through | 5 | 54 | 50 |
 | pass-to-wave-balance | 0 | 1 | 1 |
 | petronella | 0 | 22 | 19 |
 | promenade | 1 | 30 | 28 |
@@ -114,9 +114,9 @@ These are normalized figure occurrences recognized by the importer, not a lingui
 | robins-chain | 23 | 87 | 96 |
 | rollaway | 0 | 2 | 1 |
 | square-through | 0 | 8 | 8 |
-| star | 64 | 64 | 56 |
+| star | 65 | 65 | 57 |
 | star-promenade | 0 | 1 | 1 |
-| swing | 178 | 222 | 196 |
+| swing | 181 | 225 | 199 |
 
 ## What this permits us to conclude
 
