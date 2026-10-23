@@ -70,16 +70,21 @@ The deployment job runs only after verification succeeds. The workflow includes
 the project and Three.js notices in the distribution.
 
 The public preview is https://morganvenable.github.io/contra-studio/ .
-To publish an already built and browser-checked version while separate motion
-research continues, commit that exact `dist/` artifact (plus distribution license
-notices) to `pages-release`, then run **Publish previewed build** on `main` with its exact
-40-character commit SHA. This workflow checks the revision and required notices,
-then publishes the retained artifact without rebuilding
-unfinished work. It records the artifact revision in `deployed-commit.txt`.
-Both publishing workflows share a deployment lock.
-Keep failed or unreviewed changes out of the published artifact; broader
-regression work continues independently. Verify the public app and asset hashes
-after deployment.
+Current release batches use **Verify and publish Pages**: all four motion-test
+shards and verification must pass for the pinned source revision before deployment.
+Check exact newly added Ready cards on the public site after deployment; a
+successful build alone is not publication evidence.
+
+The optional `--assemble-unchanged` flag on `scripts/generate-ready-library.mjs`
+reuses byte-identical saved archives after exact source and review checks. It
+labels reused entries as awaiting current motion checks. It does not replace
+saved-library replay, swing verification or the full release workflow.
+
+The separate **Publish previewed build** workflow can republish a retained
+`pages-release` artifact by its exact 40-character commit SHA. Use it only for an
+artifact whose source has already passed the release gates; it checks revision
+and notices but does not run motion tests. Both publishing workflows share a
+deployment lock. The normal full workflow is the current release path.
 
 For local use: `npm ci --cache ../.npm-cache`, then `npm run dev`. To preview the
 public build: `npm run build:pages`, then `npm run preview -- --host 127.0.0.1`.
