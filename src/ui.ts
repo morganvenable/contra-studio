@@ -722,5 +722,13 @@ export function createUI(root: HTMLElement, actions: StudioActions, initial: Stu
     if (warnings !== lastWarningKey) { const el = $('#warning-banner'); el.hidden = !state.warnings.length; el.innerHTML = state.warnings.length ? `${icon('warning')}<span>${esc(state.warnings[0])}${state.warnings.length > 1 ? ` (+${state.warnings.length - 1} more; see notes)` : ''}</span><button class="text-button" data-action="source">Review</button>` : ''; lastWarningKey = warnings; }
   }
   update(initial);
+  // `?ready=<id>` opens that Ready dance on load, so review links land on it.
+  const readyId = new URLSearchParams(location.search).get('ready');
+  const preset = READY_LIBRARY.find(item => item.id === readyId);
+  const presetDance = preset ? readInterpretation(preset.archive).dance : undefined;
+  if (preset && presetDance) {
+    sourceText.set(presetDance.id, preset.archive);
+    window.setTimeout(() => actions.loadDance(presetDance));
+  }
   return {viewport, update};
 }
