@@ -1,0 +1,19 @@
+# Progressing halfhey into connected next-neighbor balance
+
+2026-10-23 isolated implementation. Public integration, browser and deployment remain separate lead gates.
+
+1960 Wildflowers B retains6Lark-left once pickup of partners /5half star /5whirl /8Robin chain /8Robin-right-center halfhey looking for next neighbors with explicit progression /16next-neighbor balance and swing /8circle three places /8partner swing. The inversion hook is contextual comparison; actual clauses determine each operation. No equivalence to1959 is assumed. Snapshot and removable interpretation archive remain separate.
+
+The actual prefix was measured first. Partner pickup from the initial clockwise Becket slots reaches a typed partner radial frame, the counted whirl releases on partner sidelines, and the Robin chain reaches actual old-neighbor sidelines with Robin-right center ordering. Both persistent relationship maps remain unchanged throughout this prefix. The explicit six-count once pickup option now names either the actual partner or actual neighbor; default eight-count pickup remains unchanged.
+
+A separate reusable progressing-halfhey adapter consumes that actual released state. Its four pass layers and six named encounters preserve the ordinary halfhey permutation. Topology independently identifies the next neighbor map; active roots finish.05m beyond the usual box corner toward that actual receiver, resulting in1.18m separation. Outgoing waiters retain the unshifted graph corners. No root moves during binding; binding changes only at count32 after all stations are reached. The following four-count balance begins with actual both-hand contacts and consumes the exact paired boundary before twelve swing counts.
+
+Root paths retain their named passing gates at1.95,3.575,5.2,6.9. Pair-facing preparation is a bounded Hermite curve starting only after the final gate, with analytic derivative-extremum check capped3.2rad/count. Hands acquire during the final quarter count only once within the fixed.62m reach envelope and reach full strength at the balance entry. There is no invented zero-count wave or early epoch replacement.
+
+Reentering dancers travel from their actual settled finite positions during the eight source hey counts. Outgoing couples rotate clockwise a quarter around their independently derived after-progression rank center during the following eight counts. Their actual roots and yaw reach the independent next-state waiting poses at40; the whole phrase closes at64. Dense whole-set checks include active dancers versus these moving end couples.
+
+Evidence: complete3/4/6-couple periods compare reached maps and settled roots/yaws against independently constructed finite topology. Source counts, removal, renamed identity, both-hand contact-point seams and acquisition reach are checked. Minimum clearance.5290076469m, maximum speed1.2759163993m/count, maximum yaw3.1685374602rad/count. Native35-phase body check retains inherited4.144806603mm backing-balance wrist residual against2329; new entry5.55e-17m and fixed limbs2.78e-16m. No GPU/audio verification claim.
+
+Direct adversaries reject held incoming contacts, incompatible role/circulation/epoch/maps, missing progression, altered counts/shoulders and non-representable clocks. Translated-origin checks preserve roots, yaws, contact points and waiter paths. Mutating caller data cannot change compiled motion; returned paired boundary is frozen. No main, cards, generated Ready, deployment or private-site settings edited.
+
+Final gates:35/35 combined new source/archive/renamed/direct/native and existing1959/1468/partner-star source/producer regressions passed. The strengthened exact-clock direct test and TypeScript also passed. Independent critic reran6/6 new direct/source/archive tests and approved after reviewing finite topology and native limitation disclosure.
