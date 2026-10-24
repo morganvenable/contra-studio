@@ -1,15 +1,15 @@
 # Offline choreography coverage audit
 
 Regenerate: `node --experimental-strip-types scripts/audit-coverage.mjs --write`.
-Generated 2026-10-23T01:06:03.371Z; code revision e6a3c6367e4e55e75a602cb75afb9a7e8d9272dc with local modifications. Runtime 143.9 seconds.
+Generated 2026-10-24T15:55:51.452Z; code revision 92f022c0c2f9a2aec0381d3f39f2c2686a2c2812. Runtime 200.4 seconds.
 This reads existing data only. It does not fetch sources, regenerate archives or approve suggested interpretations.
 
-There are **2422 catalogue records**, **225 retained snapshots**, and **196 saved Ready interpretations**. **2197 catalogue records have metadata only**; their figure content and motion coverage are unknown. These are overlapping sets, not additive counts. Exact set intersections are in the JSON.
+There are **2422 catalogue records**, **226 retained snapshots**, and **196 saved Ready interpretations**. **2196 catalogue records have metadata only**; their figure content and motion coverage are unknown. These are overlapping sets, not additive counts. Exact set intersections are in the JSON.
 
 | Input view | Sources | Import admitted | Interpretation blocked | Motion/validation blocked | Unparsed |
 | --- | ---: | ---: | ---: | ---: | ---: |
-| rawDefaults | 225 | 0 | 225 | 0 | 0 |
-| conventionalSuggestions | 225 | 183 | 34 | 8 | 0 |
+| rawDefaults | 226 | 0 | 226 | 0 | 0 |
+| conventionalSuggestions | 226 | 184 | 34 | 8 | 0 |
 | savedInterpretation | 196 | 196 | 0 | 0 | 0 |
 
 “Import admitted” includes existing importer validation, its internal sampled checks and six-couple compile gate. It is not a new whole-period motion or visual certification. Raw defaults, hypothetical suggestions, and saved interpretations are separate views of overlapping sources.
@@ -69,19 +69,19 @@ This table uses hypothetical conventional suggestions to expose remaining obstac
 - 2987, Stay in Touch: The event composition violates torso clearance near beat 10.5.
 - 3310, Kiss the Bride variation: A paired-radial swing needs opposite measured sideline pair centers within the .65–1.2 half-width envelope.
 
-The 29 unsaved retained records split into 0 import-admitted candidates, 7 motion/validation blocks and 22 interpretation-stage blocks.
-Candidates, **not saved Ready admissions**: none.
+The 30 unsaved retained records split into 1 import-admitted candidates, 7 motion/validation blocks and 22 interpretation-stage blocks.
+Candidates, **not saved Ready admissions**: 1480 (The 24th of May).
 Saved records that hypothetical suggestions cannot reconstruct: 94 (Butter; chain-receiver, circulation-choice); 363 (Midwest Folklore; circulation-choice); 549 (Jubilation (var); chain-receiver); 1529 (Joe; source-notes-classification); 1658 (Bev's Becket A; chain-receiver); 2266 (Unbelievable!; chain-receiver, source-notes-history-review); 2322 (Rollin' to the Grey Eagle; chain-receiver); 2344 (Jubilation Permutation; motion:event-compile); 3142 (Unbelievable! variation; chain-receiver, source-notes-history-review); 3185 (Fingerling Potatoes; chain-receiver, source-notes-classification); 3326 (Swamp Stomp; chain-receiver, source-notes); 3431 (Robo-nella; dosido-ring-choice); 3478 (Futon Frolic; chain-receiver, source-notes-classification). Their saved interpretation is tested separately. Thus the hypothetical admitted total must not be subtracted from saved Ready to count new candidates.
 
 ## Figure frequencies in retained raw sources
 
 These are normalized figure occurrences recognized by the importer, not a linguistic census of every source instruction. Choices can split compound instructions into new figures: raw balance frequency is especially incomplete without balance/swing timing choices. Unsupported text can be missing here; see unresolved rows in JSON. Columns count sources containing each kind, with their different denominators; these views overlap.
 
-| Kind | Raw / 225 | Suggested / 225 | Saved / 196 |
+| Kind | Raw / 226 | Suggested / 226 | Saved / 196 |
 | --- | ---: | ---: | ---: |
-| allemande | 132 | 133 | 118 |
+| allemande | 133 | 134 | 118 |
 | balance | 5 | 159 | 145 |
-| balance-box-circulate | 0 | 10 | 8 |
+| balance-box-circulate | 0 | 11 | 8 |
 | balance-rory-slide | 0 | 3 | 3 |
 | becket-shift | 5 | 5 | 3 |
 | becket-slice | 0 | 8 | 8 |
@@ -99,7 +99,7 @@ These are normalized figure occurrences recognized by the importer, not a lingui
 | hall-travel | 0 | 15 | 15 |
 | hey | 8 | 52 | 50 |
 | larks-chain | 0 | 5 | 5 |
-| long-lines | 91 | 91 | 80 |
+| long-lines | 92 | 92 | 80 |
 | long-lines-rollaway | 0 | 5 | 5 |
 | mad-robin | 0 | 5 | 5 |
 | pass-through | 5 | 52 | 48 |
@@ -114,9 +114,9 @@ These are normalized figure occurrences recognized by the importer, not a lingui
 | robins-chain | 23 | 87 | 96 |
 | rollaway | 0 | 2 | 1 |
 | square-through | 0 | 8 | 8 |
-| star | 64 | 64 | 56 |
+| star | 65 | 65 | 56 |
 | star-promenade | 0 | 1 | 1 |
-| swing | 178 | 222 | 196 |
+| swing | 179 | 223 | 196 |
 
 ## What this permits us to conclude
 
