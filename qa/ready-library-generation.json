@@ -1,23 +1,41 @@
 {
-  "count": 217,
+  "count": 220,
   "entries": [
+    {
+      "id": "3472",
+      "sourceSnapshotId": "contradb:3472:2d868e3db431651d",
+      "archiveSha256": "05e89742a44b715b3aa19bcfcb45e4c5c984076d95e8996876cb37e26fe0832d",
+      "status": "current-motion-checked"
+    },
+    {
+      "id": "3503",
+      "sourceSnapshotId": "contradb:3503:91d705469029aa9c",
+      "archiveSha256": "3d102d9b37e9626e9163fa4e618ce9c2b7af419de6f7935e8008fb82499245fa",
+      "status": "current-motion-checked"
+    },
+    {
+      "id": "2927",
+      "sourceSnapshotId": "contradb:2927:ebd3f8e024144eab",
+      "archiveSha256": "5a084fd077ef22f6c1a96abfe1acdf77c140885042ea800e174641e5c7229b91",
+      "status": "current-motion-checked"
+    },
     {
       "id": "1960",
       "sourceSnapshotId": "contradb:1960:a4e615d24b2f632b",
       "archiveSha256": "d2b5bf124f39b7f54dbb049cf816e33fdb7246dafa88c87a7220d54da9c1bb51",
-      "status": "current-motion-checked"
+      "status": "assembled-current-motion-pending"
     },
     {
       "id": "1959",
       "sourceSnapshotId": "contradb:1959:df32079ac22387d8",
       "archiveSha256": "ea3ad5a168df88fc5c0bb8d8f183c3c3185c859aa2d874278dba19049d63b1a4",
-      "status": "current-motion-checked"
+      "status": "assembled-current-motion-pending"
     },
     {
       "id": "1468",
       "sourceSnapshotId": "contradb:1468:23750b478fdb9bd2",
       "archiveSha256": "fc72614c5221658c4db6962dda177fc827a8a3801d6a4793e7703a07f7220094",
-      "status": "current-motion-checked"
+      "status": "assembled-current-motion-pending"
     },
     {
       "id": "2135",
@@ -262,8 +280,8 @@
     {
       "id": "1658",
       "sourceSnapshotId": "contradb:1658:6494fe5ee55b2170",
-      "archiveSha256": "53b5e52bc19862e6d0b5055704f7942651267e9696cfe4b5d21016cc0e6eea25",
-      "status": "assembled-current-motion-pending"
+      "archiveSha256": "e2f6b5217a6b4eae2541c1ae826096987969959eff5af9f910de1badc2ac8ed9",
+      "status": "current-motion-checked"
     },
     {
       "id": "83",
