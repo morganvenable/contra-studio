@@ -1,29 +1,47 @@
 {
-  "count": 214,
+  "count": 217,
   "entries": [
+    {
+      "id": "1960",
+      "sourceSnapshotId": "contradb:1960:a4e615d24b2f632b",
+      "archiveSha256": "d2b5bf124f39b7f54dbb049cf816e33fdb7246dafa88c87a7220d54da9c1bb51",
+      "status": "current-motion-checked"
+    },
+    {
+      "id": "1959",
+      "sourceSnapshotId": "contradb:1959:df32079ac22387d8",
+      "archiveSha256": "ea3ad5a168df88fc5c0bb8d8f183c3c3185c859aa2d874278dba19049d63b1a4",
+      "status": "current-motion-checked"
+    },
+    {
+      "id": "1468",
+      "sourceSnapshotId": "contradb:1468:23750b478fdb9bd2",
+      "archiveSha256": "fc72614c5221658c4db6962dda177fc827a8a3801d6a4793e7703a07f7220094",
+      "status": "current-motion-checked"
+    },
     {
       "id": "2135",
       "sourceSnapshotId": "contradb:2135:9795a855a8dc82ff",
       "archiveSha256": "e7dd06fd821d5ea357fe6378d4265190bac75ad7fce5bf6f98107ea48e49eddf",
-      "status": "current-motion-checked"
+      "status": "assembled-current-motion-pending"
     },
     {
       "id": "700",
       "sourceSnapshotId": "contradb:700:c23d5c55707a116f",
       "archiveSha256": "40289c9cc66ccbf19bdf39dc20005dda14775b924718c88b0090e210e07bea1c",
-      "status": "current-motion-checked"
+      "status": "assembled-current-motion-pending"
     },
     {
       "id": "2950",
       "sourceSnapshotId": "contradb:2950:1732b6160dcf7120",
       "archiveSha256": "aa536c9799b3868b5fe5c6cca0b4e9f5d0cc81ba25b68a43503a2fd2beec7d43",
-      "status": "current-motion-checked"
+      "status": "assembled-current-motion-pending"
     },
     {
       "id": "2589",
       "sourceSnapshotId": "contradb:2589:2a58b40061b6b7a5",
       "archiveSha256": "b9b0a9514601d5f8841e97ad13236ff9e04d477bdac9fb93a8538adb337e86a7",
-      "status": "current-motion-checked"
+      "status": "assembled-current-motion-pending"
     },
     {
       "id": "2009",
