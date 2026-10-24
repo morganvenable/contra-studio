@@ -1,17 +1,41 @@
 {
-  "count": 206,
+  "count": 210,
   "entries": [
+    {
+      "id": "2009",
+      "sourceSnapshotId": "contradb:2009:5b3799d410da2d2b",
+      "archiveSha256": "87e20833bcce2d8e30e760bbbbb530019220dfbaadf4feacee3e54a16e3cf28b",
+      "status": "current-motion-checked"
+    },
+    {
+      "id": "1922",
+      "sourceSnapshotId": "contradb:1922:6f16d98224aa0faa",
+      "archiveSha256": "45c813e549326567603f7fac01946fe3dd27a9850078a1499f251f184ac7243f",
+      "status": "current-motion-checked"
+    },
+    {
+      "id": "1844",
+      "sourceSnapshotId": "contradb:1844:f5375c54aafa7cb8",
+      "archiveSha256": "a828cba3296e669937939708bac3ac4176b11f5b74a2150143221a462cce0347",
+      "status": "current-motion-checked"
+    },
+    {
+      "id": "382",
+      "sourceSnapshotId": "contradb:382:8f6736c6ccc2afc8",
+      "archiveSha256": "47fb3730b8db7a7d8365ff31245fbc4a61bba838630df8509580018991ccfbdb",
+      "status": "current-motion-checked"
+    },
     {
       "id": "2032",
       "sourceSnapshotId": "contradb:2032:36445a2f5c0a89ce",
       "archiveSha256": "57d67ba4728fafbdcd1de77a5299c19ee7b440de1532f0006ea00b1170610e0a",
-      "status": "current-motion-checked"
+      "status": "assembled-current-motion-pending"
     },
     {
       "id": "1586",
       "sourceSnapshotId": "contradb:1586:3ec1239b0d45a363",
       "archiveSha256": "e5267fea896e0f2c5d7a8060067f0baefcd4204514fec9c5f5739f71c15bdd87",
-      "status": "current-motion-checked"
+      "status": "assembled-current-motion-pending"
     },
     {
       "id": "3470",
