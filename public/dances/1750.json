@@ -1,0 +1,12 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "1750", "title": "Sharon of the Green variation", "author": "Moose Flores", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/1750", "formation": "improper", "retrievedAt": "2026-10-20T06:12:30.724Z", "sha256": "36ff14696c250b729c97786cfcffb5a76c964748b86f77c881c9b832846bcd0e", "status": "sketchbook" }, "status": "partial", "problems": [ "The progression after row 8 \"mad robins, robins in front\" doesn't work out: Couples 1 and 2 have not passed each other yet." ], "unparsed": [], "choices": [ "A star with no grip named is a basket star (wrist grip)." ],
+ "figures": [
+  {"move":"mad-robin","beats":8,"params":{"front":"robins"},"text":"mad robins, robins in front","section":"A1","row":1},
+  {"move":"circle","beats":8,"params":{"direction":"left","places":4},"text":"circle left 4 places","section":"A1","row":2},
+  {"move":"allemande","beats":8,"params":{"who":"robins","hand":"right","amount":1.5},"text":"robins allemande right 1½","section":"A2","row":3},
+  {"move":"swing","beats":8,"params":{"who":"partner"},"text":"partners swing","section":"A2","row":4},
+  {"move":"chain","beats":8,"params":{"who":"larks"},"text":"larks chain","section":"B1","row":5},
+  {"move":"right-left-through","beats":8,"params":{},"text":"right left through","section":"B1","row":6},
+  {"move":"star","beats":8,"params":{"hand":"left","places":4},"text":"star left 4 places","section":"B2","row":7},
+  {"move":"mad-robin","beats":8,"params":{"front":"robins"},"text":"mad robins, robins in front","progression":true,"section":"B2","row":8}
+ ]
+}

@@ -1,0 +1,13 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "3099", "title": "Get Along", "author": "Luke Donforth", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/3099", "formation": "improper", "retrievedAt": "2026-10-20T05:57:14.025Z", "sha256": "d532fd1ebc5d51e7e58b15caa610a94317516b41a71cf0b6d191168a3009e31c" }, "status": "partial", "problems": [ "Row 8 \"zig right zag left\" isn't drawn yet." ], "unparsed": [ { "row": 8, "text": "zig right zag left", "why": "No figure pattern matches \"zig right zag left ⁋\"." } ], "choices": [ "A balance with a partner or neighbor holds both hands." ],
+ "figures": [
+  {"move":"do-si-do","beats":8,"params":{"who":"neighbor","amount":1,"shoulder":"right"},"text":"neighbors do si do once","section":"A1","row":1},
+  {"move":"swing","beats":8,"params":{"who":"neighbor"},"text":"neighbors swing","section":"A1","row":2},
+  {"move":"long-lines","beats":8,"params":{"back":true},"text":"long lines forward & back","section":"A2","row":3},
+  {"move":"allemande","beats":8,"params":{"who":"robins","hand":"right","amount":1.5},"text":"robins allemande right 1½","section":"A2","row":4},
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"partner","hand":"both"},"text":"partners balance & swing · balance","section":"B1","row":5},
+  {"move":"swing","beats":12,"params":{"who":"partner"},"text":"partners balance & swing · swing","section":"B1","row":5},
+  {"move":"promenade","beats":6,"params":{"who":"partner"},"text":"partners promenade","section":"B2","row":6},
+  {"move":"circle","beats":6,"params":{"direction":"right","places":3},"text":"circle right 3 places","section":"B2","row":7},
+  {"move":"hold","beats":4,"params":{"reason":"unparsed"},"text":"zig right zag left","section":"B2","row":8,"progression":true}
+ ]
+}

@@ -1,0 +1,18 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "1633", "title": "Four Ring Circus", "author": "Jon Greene and Jordan Taylor", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/1633", "formation": "improper", "retrievedAt": "2026-10-20T05:56:27.639Z", "sha256": "857717eeed8e72007471b9255a7bb7ec363e03af7791cfe2bdfd5f2a9a065995" }, "status": "partial", "problems": [ "Row 4 \"robins roll away partners with a half sashay diagonally (so larks trade places)\" isn't drawn yet.", "Row 7 \"pull by right\" isn't drawn yet.", "Row 8 \"neighbors swing\" can't start from where the dancers are: A swing that ends facing across must start nearer one side." ], "unparsed": [ { "row": 4, "text": "robins roll away partners with a half sashay diagonally (so larks trade places)", "why": "No figure pattern matches \"ladles roll away partners with a half sashay diagonally (so gentlespoons trade places)\"." }, { "row": 7, "text": "pull by right", "why": "No figure pattern matches \"pull by right\"." } ], "choices": [ "A star with no grip named is a basket star (wrist grip)." ],
+ "figures": [
+  {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance & petronella · balance","section":"A1","row":1},
+  {"move":"petronella","beats":4,"params":{},"text":"balance & petronella · petronella","section":"A1","row":1},
+  {"move":"swing","beats":8,"params":{"who":"partner"},"text":"partners swing","section":"A1","row":2},
+  {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance the ring","section":"A2","row":3},
+  {"move":"hold","beats":4,"params":{"reason":"unparsed"},"text":"robins roll away partners with a half sashay diagonally (so larks trade places)","section":"A2","row":4},
+  {"move":"star","beats":8,"params":{"hand":"left","places":4},"text":"star left 4 places","section":"A2","row":5},
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"neighbor","hand":"right"},"text":"next neighbors right hand balance & box the gnat · balance","section":"B1","row":6},
+  {"move":"twirl","beats":4,"params":{"style":"box-the-gnat","who":"neighbor"},"text":"next neighbors right hand balance & box the gnat · twirl","section":"B1","row":6},
+  {"move":"hold","beats":2,"params":{"reason":"unparsed"},"text":"pull by right","section":"B1","row":7},
+  {"move":"swing","beats":6,"params":{"who":"neighbor"},"text":"neighbors swing","section":"B1","row":8},
+  {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance the ring","section":"B2","row":9},
+  {"move":"roll-away","beats":4,"params":{"who":"larks","whom":"partner"},"text":"larks roll away partners with a half sashay","section":"B2","row":10},
+  {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance the ring","section":"B2","row":11},
+  {"move":"twirl","beats":4,"params":{"style":"california","who":"partner"},"text":"partners California twirl","progression":true,"section":"B2","row":12}
+ ]
+}

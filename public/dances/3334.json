@@ -1,0 +1,13 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "3334", "title": "Extant Reel", "author": "Mattie Rynkiewicz", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/3334", "formation": "improper", "retrievedAt": "2026-10-20T05:55:02.837Z", "sha256": "866593dcd43369aec8ed072b73c63bdce6cc1ca5aa20fc0e843b91d6af5d7881" }, "status": "ok", "problems": [], "unparsed": [], "choices": [ "A balance with a partner or neighbor holds both hands." ],
+ "figures": [
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"neighbor","hand":"both"},"text":"neighbors balance & swing · balance","section":"A1","row":1},
+  {"move":"swing","beats":12,"params":{"who":"neighbor"},"text":"neighbors balance & swing · swing","section":"A1","row":1},
+  {"move":"allemande","beats":8,"params":{"who":"robins","hand":"right","amount":1.5},"text":"robins allemande right 1½","section":"A2","row":2},
+  {"move":"swing","beats":8,"params":{"who":"partner"},"text":"partners swing","section":"A2","row":3},
+  {"move":"right-left-through","beats":8,"params":{},"text":"right left through","section":"B1","row":4},
+  {"move":"circle","beats":8,"params":{"direction":"left","places":3},"text":"circle left 3 places","section":"B1","row":5},
+  {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance the ring","section":"B2","row":6},
+  {"move":"twirl","beats":4,"params":{"style":"california","who":"partner"},"text":"partners California twirl","progression":true,"section":"B2","row":7},
+  {"move":"do-si-do","beats":8,"params":{"who":"neighbor","amount":1,"shoulder":"right"},"text":"neighbors do si do once (new neighbor)","section":"B2","row":8}
+ ]
+}

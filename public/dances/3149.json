@@ -1,0 +1,14 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "3149", "title": "Calliope's Double Cross", "author": "Luke Donforth", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/3149", "formation": "improper", "retrievedAt": "2026-10-20T05:49:39.019Z", "sha256": "4a10630d56d41c40a33d819270a95b67a3c4fce495597688cc5a9319f084312b" }, "status": "partial", "problems": [ "Row 2 \"ones half figure 8 down between\" isn't drawn yet.", "Row 6 \"second corners half figure 8, first robins leading second larks down between\" isn't drawn yet." ], "unparsed": [ { "row": 2, "text": "ones half figure 8 down between", "why": "No figure pattern matches \"ones half figure 8 down between\"." }, { "row": 6, "text": "second corners half figure 8, first robins leading second larks down between", "why": "No figure pattern matches \"second corners half figure 8, first ladle leading second gentlespoon down between\"." } ], "choices": [],
+ "figures": [
+  {"move":"long-lines","beats":8,"params":{"back":true},"text":"long lines forward & back","section":"A1","row":1},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"ones half figure 8 down between","section":"A1","row":2},
+  {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance & petronella · balance","section":"A2","row":3},
+  {"move":"petronella","beats":4,"params":{},"text":"balance & petronella · petronella","section":"A2","row":3},
+  {"move":"swing","beats":8,"params":{"who":"partner"},"text":"partners swing","section":"A2","row":4},
+  {"move":"promenade","beats":8,"params":{"who":"partner"},"text":"partners promenade","section":"B1","row":5},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"second corners half figure 8, first robins leading second larks down between","section":"B1","row":6},
+  {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance & petronella · balance","section":"B2","row":7},
+  {"move":"petronella","beats":4,"params":{},"text":"balance & petronella · petronella","section":"B2","row":7},
+  {"move":"swing","beats":8,"params":{"who":"neighbor"},"text":"neighbors swing","progression":true,"section":"B2","row":8}
+ ]
+}

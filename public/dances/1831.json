@@ -1,0 +1,13 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "1831", "title": "The Flying Trapeze", "author": "Chris Page", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/1831", "formation": "improper", "retrievedAt": "2026-10-20T06:16:52.848Z", "sha256": "c52dbb990bba2cdce9352e78a665bafb16753ec40fdcfa092cdf5515e60f2f43" }, "status": "partial", "problems": [ "Row 1 \"half poussette - larks pull partners back then left\" isn't drawn yet." ], "unparsed": [ { "row": 1, "text": "half poussette - larks pull partners back then left", "why": "No figure pattern matches \"half poussette - gentlespoons pull partners back then left\"." } ], "choices": [ "A balance with a partner or neighbor holds both hands." ],
+ "figures": [
+  {"move":"hold","beats":6,"params":{"reason":"unparsed"},"text":"half poussette - larks pull partners back then left","section":"A1","row":1},
+  {"move":"roll-away","beats":4,"params":{"who":"robins","whom":"neighbor"},"text":"robins roll away neighbors with a half sashay","section":"A1","row":2},
+  {"move":"hey","beats":6,"params":{"start":"robins","amount":0.5,"center":"left"},"text":"robins start a half hey - lefts in center, rights on ends","section":"A1","row":3},
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"neighbor","hand":"both"},"text":"neighbors balance & swing · balance","section":"A2","row":4},
+  {"move":"swing","beats":12,"params":{"who":"neighbor"},"text":"neighbors balance & swing · swing","section":"A2","row":4},
+  {"move":"allemande","beats":8,"params":{"who":"larks","hand":"left","amount":1.5},"text":"larks allemande left 1½","section":"B1","row":5},
+  {"move":"swing","beats":8,"params":{"who":"partner"},"text":"partners swing","section":"B1","row":6},
+  {"move":"chain","beats":8,"params":{"who":"robins"},"text":"robins chain","section":"B2","row":7},
+  {"move":"circle","beats":8,"params":{"direction":"right","places":4},"text":"circle right 4 places","progression":true,"section":"B2","row":8}
+ ]
+}

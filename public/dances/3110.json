@@ -1,0 +1,15 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "3110", "title": "Adventures in C#", "author": "Bob Isaacs", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/3110", "formation": "Improper", "retrievedAt": "2026-10-20T05:45:49.400Z", "sha256": "ec79060cca2922311ef0ae407d77c4fafee2655c4f22cbc48d5fc9bd00db5ce1" }, "status": "partial", "problems": [ "The progression after row 8 \"neighbors pass by left shoulders\" doesn't work out: Couples 1 and 2 have not passed each other yet." ], "unparsed": [], "choices": [ "A balance with a partner or neighbor holds both hands.", "A star with no grip named is a basket star (wrist grip)." ],
+ "figures": [
+  {"move":"allemande","beats":8,"params":{"who":"larks","hand":"right","amount":1},"text":"larks allemande right once","section":"A1","row":1},
+  {"move":"hey","beats":8,"params":{"start":"partner","amount":0.5,"center":"right"},"text":"partners start a half hey - lefts on ends, rights in center","section":"A1","row":2},
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"partner","hand":"both"},"text":"partners balance & swing · balance","section":"A2","row":3},
+  {"move":"swing","beats":12,"params":{"who":"partner"},"text":"partners balance & swing · swing","section":"A2","row":3},
+  {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance & petronella · balance","section":"B1","row":4},
+  {"move":"petronella","beats":4,"params":{},"text":"balance & petronella · petronella","section":"B1","row":4},
+  {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance & petronella · balance","section":"B1","row":5},
+  {"move":"petronella","beats":4,"params":{},"text":"balance & petronella · petronella","section":"B1","row":5},
+  {"move":"star","beats":8,"params":{"hand":"left","places":4},"text":"star left 4 places","section":"B2","row":6},
+  {"move":"circle","beats":6,"params":{"direction":"right","places":3},"text":"circle right 3 places","section":"B2","row":7},
+  {"move":"pass-by","beats":2,"params":{"who":"neighbor","shoulder":"left","hands":false},"text":"neighbors pass by left shoulders","progression":true,"section":"B2","row":8}
+ ]
+}

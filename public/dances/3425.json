@@ -1,0 +1,15 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "3425", "title": "Listen to the Music", "author": "Dale Wilson", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/3425", "formation": "improper", "retrievedAt": "2026-10-20T06:02:47.815Z", "sha256": "c34c558a5888602bc272f34fddec0aab1b6b75475b9cc8d28beefe7b749e2564" }, "status": "partial", "problems": [ "Row 5 \"robins cast/loop around Neighbor behind you. larks follow Neighbor.\" isn't drawn yet.", "Row 6 \"robins cross, larks stay to meet partner\" isn't drawn yet.", "Row 7 \"partners swing\" can't start from where the dancers are: A swing that ends facing across must start nearer one side." ], "unparsed": [ { "row": 5, "text": "robins cast/loop around Neighbor behind you. larks follow Neighbor.", "why": "No figure pattern matches \"Ladles cast/loop around Neighbor behind you. Gentlespoons follow Neighbor.\"." }, { "row": 6, "text": "robins cross, larks stay to meet partner", "why": "No figure pattern matches \"ladles cross, gentlespoons stay to meet partner\"." } ], "choices": [ "A star with no grip named is a basket star (wrist grip)." ],
+ "figures": [
+  {"move":"do-si-do","beats":8,"params":{"who":"neighbor","amount":1,"shoulder":"right"},"text":"neighbors do si do once","section":"A1","row":1},
+  {"move":"swing","beats":8,"params":{"who":"neighbor"},"text":"neighbors swing","section":"A1","row":2},
+  {"move":"right-left-through","beats":8,"params":{},"text":"right left through","section":"A2","row":3},
+  {"move":"star","beats":8,"params":{"hand":"left","places":4},"text":"star left 4 places","section":"A2","row":4},
+  {"move":"hold","beats":6,"params":{"reason":"unparsed"},"text":"robins cast/loop around Neighbor behind you. larks follow Neighbor.","section":"B1","row":5},
+  {"move":"hold","beats":2,"params":{"reason":"unparsed"},"text":"robins cross, larks stay to meet partner","section":"B1","row":6},
+  {"move":"swing","beats":8,"params":{"who":"partner"},"text":"partners swing","section":"B1","row":7},
+  {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance & petronella · balance","section":"B2","row":8},
+  {"move":"petronella","beats":4,"params":{},"text":"balance & petronella · petronella","section":"B2","row":8},
+  {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance the ring","section":"B2","row":9},
+  {"move":"twirl","beats":4,"params":{"style":"california","who":"partner"},"text":"partners California twirl","progression":true,"section":"B2","row":10}
+ ]
+}

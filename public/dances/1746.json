@@ -1,0 +1,14 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "1746", "title": "Bailey's Dream variation", "author": "Nicholas Rockstroh (Cosette Ailiff)", "formation": "becket", "progression": "minor-set", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/1746", "formation": "becket", "retrievedAt": "2026-10-20T05:47:33.088Z", "sha256": "87db6fdbfbf2da7fb90f160a98f3805feecc1bbaf055521443bc0543b5323df6" }, "status": "partial", "problems": [ "Row 4 \"balance & petronella - turn a little extra to face new neighbors\" isn't drawn yet.", "Row 7 \"partners balance & swing · swing\" can't start from where the dancers are: A swing that ends facing across must start nearer one side." ], "unparsed": [ { "row": 4, "text": "balance & petronella - turn a little extra to face new neighbors", "why": "No figure pattern matches \"balance & petronella - turn a little extra to face new neighbors ⁋\"." } ], "choices": [ "A balance with a partner or neighbor holds both hands." ],
+ "figures": [
+  {"move":"circle","beats":8,"params":{"direction":"left","places":4},"text":"circle left 4 places","section":"A1","row":1},
+  {"move":"chain","beats":8,"params":{"who":"robins"},"text":"robins chain","section":"A1","row":2},
+  {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance & petronella · balance","section":"A2","row":3},
+  {"move":"petronella","beats":4,"params":{},"text":"balance & petronella · petronella","section":"A2","row":3},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"balance & petronella - turn a little extra to face new neighbors","section":"A2","row":4,"progression":true},
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"neighbor","hand":"right"},"text":"neighbors right hand balance & box the gnat · balance","section":"B1","row":5},
+  {"move":"twirl","beats":4,"params":{"style":"box-the-gnat","who":"neighbor"},"text":"neighbors right hand balance & box the gnat · twirl","section":"B1","row":5},
+  {"move":"gyre","beats":8,"params":{"who":"larks","amount":1.5,"shoulder":"left"},"text":"larks gyre left shoulders 1½","section":"B1","row":6},
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"partner","hand":"both"},"text":"partners balance & swing · balance","section":"B2","row":7},
+  {"move":"swing","beats":12,"params":{"who":"partner"},"text":"partners balance & swing · swing","section":"B2","row":7}
+ ]
+}

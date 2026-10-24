@@ -1,0 +1,13 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "3488", "title": "I Like to Walk, I Love to Dance", "author": "Luke Donforth", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 7 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/3488", "formation": "improper", "retrievedAt": "2026-10-20T05:59:53.399Z", "sha256": "84256456c6b10cd5d6a21ed501afe79dfc22e3311a851d1a52e9e239c8e05e87" }, "status": "partial", "problems": [ "Row 5 \"larks allemande left 1½ to your\" isn't drawn yet.", "Row 6 \"partners swing\" can't start from where the dancers are: A swing that ends facing across must start nearer one side." ], "unparsed": [ { "row": 5, "text": "larks allemande left 1½ to your", "why": "No figure pattern matches \"gentlespoons allemande left 1½ to your\"." } ], "choices": [],
+ "figures": [
+  {"move":"do-si-do","beats":8,"params":{"who":"neighbor","amount":1,"shoulder":"right"},"text":"neighbors do si do once","section":"A1","row":1},
+  {"move":"swing","beats":8,"params":{"who":"neighbor"},"text":"neighbors swing","section":"A1","row":2},
+  {"move":"promenade","beats":8,"params":{"who":"neighbor"},"text":"neighbors promenade","section":"A2","row":3},
+  {"move":"long-lines","beats":8,"params":{"back":true},"text":"long lines forward & back","section":"A2","row":4},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"larks allemande left 1½ to your","section":"B1","row":5},
+  {"move":"swing","beats":8,"params":{"who":"partner"},"text":"partners swing","section":"B1","row":6},
+  {"move":"circle","beats":8,"params":{"direction":"left","places":3},"text":"circle left 3 places","section":"B2","row":7},
+  {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance the ring","section":"B2","row":8},
+  {"move":"pass-by","beats":2,"params":{"who":"neighbor","shoulder":"right","hands":false},"text":"neighbors pass by right shoulders to new neighbors","progression":true,"section":"B2","row":9}
+ ]
+}

@@ -1,0 +1,12 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "314", "title": "Parmesan", "author": "Bradley Smith", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/314", "formation": "improper", "sha256": "eefd8fbf5b41175a362d2ba958a58e26f1e5e368cdb6c18f3da81587eaae5cbd" }, "status": "ok", "problems": [], "unparsed": [], "choices": [ "A balance with a partner or neighbor holds both hands.", "A star with no grip named is a basket star (wrist grip)." ],
+ "figures": [
+  {"move":"allemande","beats":8,"params":{"who":"neighbor","hand":"right","amount":1.5},"text":"neighbors allemande right 1½","section":"A1","row":1},
+  {"move":"hey","beats":8,"params":{"start":"larks","amount":0.5,"center":"left"},"text":"larks start a half hey - lefts in center, rights on ends","section":"A1","row":2},
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"neighbor","hand":"both"},"text":"neighbors balance & swing · balance","section":"A2","row":3},
+  {"move":"swing","beats":12,"params":{"who":"neighbor"},"text":"neighbors balance & swing · swing","section":"A2","row":3},
+  {"move":"allemande","beats":8,"params":{"who":"larks","hand":"left","amount":1.5},"text":"larks allemande left 1½","section":"B1","row":4},
+  {"move":"swing","beats":8,"params":{"who":"partner"},"text":"partners swing","section":"B1","row":5},
+  {"move":"chain","beats":8,"params":{"who":"robins"},"text":"robins chain","section":"B2","row":6},
+  {"move":"star","beats":8,"params":{"hand":"left","places":4},"text":"star left 4 places","progression":true,"section":"B2","row":7}
+ ]
+}

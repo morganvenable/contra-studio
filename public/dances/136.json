@@ -1,0 +1,13 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "136", "title": "Midwest Folklore", "author": "Orace Johnson", "formation": "becket", "progression": "minor-set", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 33 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/136", "formation": "Becket", "retrievedAt": "2026-10-20T06:04:09.453Z", "sha256": "026b21d69838f261aa8d6ae61a91ff2517351f02f356ee8bdb19a674825cbcb2" }, "status": "ok", "problems": [], "unparsed": [], "choices": [ "A balance with a partner or neighbor holds both hands." ],
+ "figures": [
+  {"move":"slide","beats":2,"params":{"direction":"left"},"text":"slide left along set","progression":true,"section":"A1","row":1},
+  {"move":"circle","beats":8,"params":{"direction":"left","places":3},"text":"circle left 3 places","section":"A1","row":2},
+  {"move":"do-si-do","beats":8,"params":{"who":"neighbor","amount":1,"shoulder":"right"},"text":"neighbors do si do once","section":"A1","row":3},
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"neighbor","hand":"both"},"text":"neighbors balance & swing · balance","section":"A1","row":4},
+  {"move":"swing","beats":12,"params":{"who":"neighbor"},"text":"neighbors balance & swing · swing","section":"A1","row":4},
+  {"move":"circle","beats":8,"params":{"direction":"left","places":3},"text":"circle left 3 places","section":"A1","row":5},
+  {"move":"do-si-do","beats":8,"params":{"who":"partner","amount":1,"shoulder":"right"},"text":"partners do si do once","section":"A1","row":6},
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"partner","hand":"both"},"text":"partners balance & swing · balance","section":"A1","row":7},
+  {"move":"swing","beats":12,"params":{"who":"partner"},"text":"partners balance & swing · swing","section":"A1","row":7}
+ ]
+}

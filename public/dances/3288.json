@@ -1,0 +1,9 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "3288", "title": "Lucky Seven", "author": "Traditional", "formation": null, "progression": null, "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/3288", "formation": "circle", "retrievedAt": "2026-10-20T06:03:07.003Z", "sha256": "128f403b421545dd9d8427a80c63405ebc435d6c288f000f8dcbb8b9b3a419e0" }, "status": "unsupported", "problems": [ "The \"circle\" formation isn't built yet." ], "unparsed": [ { "row": 1, "text": "into the middle & back", "why": "No figure pattern matches \"into the middle & back\"." }, { "row": 3, "text": "grand right and left, count to seven", "why": "No figure pattern matches \"grand right and left, count to seven ⁋\"." }, { "row": 4, "text": "partners long swing (new partner, number seven)", "why": "No figure pattern matches \"partners long swing (new partner, number seven)\"." } ], "choices": [],
+ "figures": [
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"into the middle & back","section":"A1","row":1},
+  {"move":"do-si-do","beats":8,"params":{"who":"partner","amount":1,"shoulder":"right"},"text":"partners do si do once","section":"A1","row":2},
+  {"move":"hold","beats":16,"params":{"reason":"unparsed"},"text":"grand right and left, count to seven","section":"A2","row":3,"progression":true},
+  {"move":"hold","beats":16,"params":{"reason":"unparsed"},"text":"partners long swing (new partner, number seven)","section":"B1","row":4},
+  {"move":"promenade","beats":16,"params":{"who":"partner"},"text":"partners promenade","section":"B2","row":5}
+ ]
+}

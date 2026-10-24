@@ -1,0 +1,12 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "166", "title": "Kiss the Bride", "author": "Jeffrey Spero", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/166", "formation": "improper", "retrievedAt": "2026-10-20T06:01:44.230Z", "sha256": "4ce1547417d398770040fa9d18d398b5a2259ea23c4362f03bf122d357408560" }, "status": "ok", "problems": [], "unparsed": [], "choices": [ "Pass through goes by right shoulders.", "A pass through from a ring goes along the set, to the dancer on your own side.", "A meltdown swing starts with 4 beats of right-shoulder round, then swings." ],
+ "figures": [
+  {"move":"do-si-do","beats":8,"params":{"who":"neighbor","amount":1,"shoulder":"right"},"text":"neighbors do si do once","section":"A1","row":1},
+  {"move":"swing","beats":8,"params":{"who":"neighbor"},"text":"neighbors swing","section":"A1","row":2},
+  {"move":"long-lines","beats":8,"params":{"back":true},"text":"long lines forward & back","section":"A2","row":3},
+  {"move":"allemande","beats":8,"params":{"who":"robins","hand":"left","amount":1.5},"text":"robins allemande left 1½","section":"A2","row":4},
+  {"move":"swing","beats":16,"params":{"who":"partner","meltdown":true},"text":"partners meltdown swing","section":"B1","row":5},
+  {"move":"promenade","beats":8,"params":{"who":"partner"},"text":"partners promenade","section":"B2","row":6},
+  {"move":"circle","beats":6,"params":{"direction":"right","places":3},"text":"circle right 3 places","section":"B2","row":7},
+  {"move":"pass-through","beats":2,"params":{"shoulder":"right"},"text":"pass through","progression":true,"section":"B2","row":8}
+ ]
+}

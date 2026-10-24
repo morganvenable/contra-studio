@@ -1,0 +1,14 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "3249", "title": "Opus 4.6.8", "author": "Every Choreographer on Callers Box", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/3249", "formation": "improper", "retrievedAt": "2026-10-20T06:07:47.240Z", "sha256": "72f8e92a0ae6b9fa4cea2585d597e8ed9ca5fbb0257e529722f9592a81ea66b4" }, "status": "partial", "problems": [ "Row 5 \"larks pull by left, robins cast over right shoulder\" isn't drawn yet." ], "unparsed": [ { "row": 5, "text": "larks pull by left, robins cast over right shoulder", "why": "No figure pattern matches \"gentlespoons pull by left, ladles cast over right shoulder\"." } ], "choices": [ "A star with no grip named is a basket star (wrist grip).", "A meltdown swing starts with 4 beats of right-shoulder round, then swings." ],
+ "figures": [
+  {"move":"pass-by","beats":2,"params":{"who":"neighbor","shoulder":"right","hands":false},"text":"neighbors pass by right shoulders","section":"A1","row":1},
+  {"move":"gyre","beats":6,"params":{"who":"neighbor","amount":1,"shoulder":"left"},"text":"next neighbors gyre left shoulders once","section":"A1","row":2},
+  {"move":"swing","beats":8,"params":{"who":"neighbor"},"text":"neighbors swing","section":"A1","row":3},
+  {"move":"promenade","beats":6,"params":{"who":"neighbor"},"text":"neighbors promenade","section":"A2","row":4},
+  {"move":"hold","beats":2,"params":{"reason":"unparsed"},"text":"larks pull by left, robins cast over right shoulder","section":"A2","row":5},
+  {"move":"hey","beats":8,"params":{"start":"partner","amount":0.5,"center":"left"},"text":"partners start a half hey - rights on ends, lefts in center","section":"A2","row":6},
+  {"move":"swing","beats":16,"params":{"who":"partner","meltdown":true},"text":"partners meltdown swing","section":"B1","row":7},
+  {"move":"chain","beats":8,"params":{"who":"robins"},"text":"robins chain","section":"B2","row":8},
+  {"move":"star","beats":6,"params":{"hand":"left","places":3},"text":"star left 3 places","section":"B2","row":9},
+  {"move":"pass-by","beats":2,"params":{"who":"neighbor","shoulder":"left","hands":true},"text":"neighbors pull by left","section":"B2","row":10}
+ ]
+}

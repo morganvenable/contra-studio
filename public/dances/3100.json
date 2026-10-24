@@ -1,0 +1,11 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "3100", "title": "Sweet Hominy", "author": "Penn Fix", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/3100", "formation": "improper", "retrievedAt": "2026-10-20T06:15:27.129Z", "sha256": "b74c56a7fac0a0cb3446650e5f98fd044a565e73440c771cc8525061411cd438" }, "status": "partial", "problems": [ "Row 4 \"ones contra corners\" isn't drawn yet.", "Row 3 \"ones do si do 1½\" can't start from where the dancers are: do-si-do who must be one of partner, neighbor, larks, robins; got 1s.", "Row 5 \"ones balance & swing · balance\" can't start from where the dancers are: balance who must be one of partner, neighbor, larks, robins; got 1s." ], "unparsed": [ { "row": 4, "text": "ones contra corners", "why": "No figure pattern matches \"ones contra corners\"." } ], "choices": [ "A balance with a partner or neighbor holds both hands.", "The 1s end their swing side by side in the middle of the set facing down, the way they progress." ],
+ "figures": [
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"neighbor","hand":"both"},"text":"neighbors balance & swing · balance","section":"A1","row":1},
+  {"move":"swing","beats":12,"params":{"who":"neighbor"},"text":"neighbors balance & swing · swing","section":"A1","row":1},
+  {"move":"long-lines","beats":8,"params":{"back":true},"text":"long lines forward & back","section":"A2","row":2},
+  {"move":"do-si-do","beats":8,"params":{"who":"1s","amount":1.5,"shoulder":"right"},"text":"ones do si do 1½","section":"A2","row":3},
+  {"move":"hold","beats":16,"params":{"reason":"unparsed"},"text":"ones contra corners","section":"B1","row":4},
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"1s","hand":"both"},"text":"ones balance & swing · balance","section":"B2","row":5},
+  {"move":"swing","beats":12,"params":{"who":"1s","end":"down"},"text":"ones balance & swing · swing","progression":true,"section":"B2","row":5}
+ ]
+}

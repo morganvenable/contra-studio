@@ -1,0 +1,13 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "3514", "title": "Intergenerational Reel", "author": "Bob Dalsemer", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/3514", "formation": "improper", "retrievedAt": "2026-10-20T06:00:21.607Z", "sha256": "bce8d17dd4c905cb557a62d9b071337a2ad06e4c8b8ac8efb9ff43ce20420875" }, "status": "partial", "problems": [ "Row 3 \"ones arch twos dive\" isn't drawn yet.", "Row 4 \"twos seperate, cast home\" isn't drawn yet." ], "unparsed": [ { "row": 3, "text": "ones arch twos dive", "why": "No figure pattern matches \"ones arch twos dive\"." }, { "row": 4, "text": "twos seperate, cast home", "why": "No figure pattern matches \"twos seperate, cast home\"." } ], "choices": [ "The 1s end their swing side by side in the middle of the set facing down, the way they progress." ],
+ "figures": [
+  {"move":"circle","beats":8,"params":{"direction":"left","places":4},"text":"circle left 4 places","section":"A1","row":1},
+  {"move":"circle","beats":8,"params":{"direction":"right","places":4},"text":"circle right 4 places","section":"A1","row":2},
+  {"move":"hold","beats":4,"params":{"reason":"unparsed"},"text":"ones arch twos dive","section":"A2","row":3},
+  {"move":"hold","beats":4,"params":{"reason":"unparsed"},"text":"twos seperate, cast home","section":"A2","row":4},
+  {"move":"swing","beats":8,"params":{"who":"2s","end":"up"},"text":"twos swing","section":"A2","row":5},
+  {"move":"do-si-do","beats":8,"params":{"who":"neighbor","amount":1,"shoulder":"right"},"text":"neighbors do si do once","section":"B1","row":6},
+  {"move":"swing","beats":8,"params":{"who":"neighbor"},"text":"neighbors swing","section":"B1","row":7},
+  {"move":"long-lines","beats":8,"params":{"back":true},"text":"long lines forward & back","section":"B2","row":8},
+  {"move":"swing","beats":8,"params":{"who":"1s","end":"down"},"text":"ones swing","progression":true,"section":"B2","row":9}
+ ]
+}

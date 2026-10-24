@@ -1,0 +1,13 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "925", "title": "Straighten Up and Slide Right", "author": "Lindsey Dono", "formation": "becket-ccw", "progression": "minor-set", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/925", "formation": "Becket ccw", "retrievedAt": "2026-10-20T06:14:46.757Z", "sha256": "bfd07bb4b45ed10e54c3d5b39bad063e490e5f05dafeb22586876333c9936a3f" }, "status": "partial", "problems": [ "Row 7 \"slide right along set\" can't start from where the dancers are: Couple 1 must stand side by side in a line facing across.", "The progression after row 7 \"slide right along set\" doesn't work out: Couple 1 must face the same way to find new neighbors." ], "unparsed": [], "choices": [],
+ "figures": [
+  {"move":"circle","beats":8,"params":{"direction":"left","places":3},"text":"circle left 3 places","section":"A1","row":1},
+  {"move":"swing","beats":8,"params":{"who":"neighbor"},"text":"neighbors swing","section":"A1","row":2},
+  {"move":"long-lines","beats":8,"params":{"back":true},"text":"long lines forward & back","section":"A2","row":3},
+  {"move":"chain","beats":8,"params":{"who":"robins"},"text":"robins chain","section":"A2","row":4},
+  {"move":"mad-robin","beats":6,"params":{"front":"robins","direction":"counterclockwise"},"text":"mad robins, robins in front (ccw)","section":"B1","row":5},
+  {"move":"circle","beats":8,"params":{"direction":"right","places":4},"text":"circle right 4 places","section":"B1","row":6},
+  {"move":"slide","beats":2,"params":{"direction":"right"},"text":"slide right along set","progression":true,"section":"B1","row":7},
+  {"move":"allemande","beats":6,"params":{"who":"larks","hand":"left","amount":1},"text":"larks allemande left once","section":"B2","row":8},
+  {"move":"swing","beats":10,"params":{"who":"partner"},"text":"partners swing","section":"B2","row":9}
+ ]
+}

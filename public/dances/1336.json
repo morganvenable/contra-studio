@@ -1,0 +1,13 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "1336", "title": "Chris's Poetic Orangutan", "author": "Yoyo Zhou", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/1336", "formation": "improper", "retrievedAt": "2026-10-20T05:50:45.600Z", "sha256": "0d7cb6223e80b765528cd526e3c25de0062afe26d76e493aeb7e5292494b1296" }, "status": "partial", "problems": [ "Row 2 \"mad robins, robins in front (clockwise around neighbors)\" isn't drawn yet.", "Row 3 \"larks gate neighbors to face into the set\" isn't drawn yet." ], "unparsed": [ { "row": 2, "text": "mad robins, robins in front (clockwise around neighbors)", "why": "No figure pattern matches \"mad robin, ladles in front (clockwise around neighbors)\"." }, { "row": 3, "text": "larks gate neighbors to face into the set", "why": "No figure pattern matches \"gentlespoons gate neighbors to face into the set\"." } ], "choices": [ "A meltdown swing starts with 4 beats of right-shoulder round, then swings." ],
+ "figures": [
+  {"move":"long-lines","beats":8,"params":{"back":true},"text":"long lines forward & back","section":"A1","row":1},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"mad robins, robins in front (clockwise around neighbors)","section":"A1","row":2},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"larks gate neighbors to face into the set","section":"A2","row":3},
+  {"move":"pass-by","beats":2,"params":{"who":"robins","shoulder":"left","hands":false},"text":"robins pass by left shoulders","section":"A2","row":4},
+  {"move":"pass-by","beats":2,"params":{"who":"partner","shoulder":"right","hands":false},"text":"partners pass by right shoulders","section":"A2","row":5},
+  {"move":"gyre","beats":4,"params":{"who":"larks","amount":1,"shoulder":"left"},"text":"larks gyre left shoulders once","section":"A2","row":6},
+  {"move":"swing","beats":16,"params":{"who":"partner","meltdown":true},"text":"partners meltdown swing","section":"B1","row":7},
+  {"move":"circle","beats":8,"params":{"direction":"left","places":3},"text":"circle left 3 places","section":"B2","row":8},
+  {"move":"swing","beats":8,"params":{"who":"neighbor"},"text":"neighbors swing","progression":true,"section":"B2","row":9}
+ ]
+}

@@ -1,0 +1,11 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "3240", "title": "Inside Joke", "author": "Bob Isaacs", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/3240", "formation": "improper", "retrievedAt": "2026-10-20T06:00:20.600Z", "sha256": "795d17653bfe031af99f7f5d29012bb6298e1be214fa6eddb8e5725657fc6065" }, "status": "partial", "problems": [ "Row 1 \"neighbors balance and star through\" isn't drawn yet." ], "unparsed": [ { "row": 1, "text": "neighbors balance and star through", "why": "No figure pattern matches \"neighbors balance and star through\"." } ], "choices": [ "A meltdown swing starts with 4 beats of right-shoulder round, then swings." ],
+ "figures": [
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"neighbors balance and star through","section":"A1","row":1},
+  {"move":"hey","beats":8,"params":{"start":"larks","amount":0.5,"center":"left"},"text":"larks start a half hey - lefts in center, rights on ends","section":"A1","row":2},
+  {"move":"swing","beats":16,"params":{"who":"neighbor","meltdown":true},"text":"neighbors meltdown swing","section":"A2","row":3},
+  {"move":"circle","beats":8,"params":{"direction":"left","places":3},"text":"circle left 3 places","section":"B1","row":4},
+  {"move":"swing","beats":8,"params":{"who":"partner"},"text":"partners swing","section":"B1","row":5},
+  {"move":"right-left-through","beats":8,"params":{},"text":"right left through","section":"B2","row":6},
+  {"move":"allemande","beats":8,"params":{"who":"robins","hand":"right","amount":1.5},"text":"robins allemande right 1½ to new neighbors","section":"B2","row":7}
+ ]
+}

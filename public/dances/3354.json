@@ -1,0 +1,13 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "3354", "title": "Astray (current)", "author": "Cary Ravitz", "formation": "becket", "progression": "minor-set", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/3354", "formation": "Becket", "retrievedAt": "2026-10-20T05:47:11.973Z", "sha256": "9b890fa5fae5e82bc367fb80bd9e691f7c120cc92ad68c71eb5e1672ae9f0e99" }, "status": "partial", "problems": [ "Row 3 \"zig right zag left\" isn't drawn yet." ], "unparsed": [ { "row": 3, "text": "zig right zag left", "why": "No figure pattern matches \"zig right zag left ⁋\"." } ], "choices": [ "A balance with a partner or neighbor holds both hands." ],
+ "figures": [
+  {"move":"right-left-through","beats":8,"params":{},"text":"right left through","section":"A1","row":1},
+  {"move":"circle","beats":8,"params":{"direction":"right","places":3},"text":"circle right 3 places","section":"A1","row":2},
+  {"move":"hold","beats":6,"params":{"reason":"unparsed"},"text":"zig right zag left","section":"A2","row":3,"progression":true},
+  {"move":"swing","beats":10,"params":{"who":"neighbor"},"text":"next neighbors swing","section":"A2","row":4},
+  {"move":"circle","beats":8,"params":{"direction":"left","places":3},"text":"circle left 3 places","section":"B1","row":5},
+  {"move":"allemande","beats":3,"params":{"who":"partner","hand":"right","amount":0.75},"text":"partners allemande right ¾","section":"B1","row":6},
+  {"move":"allemande","beats":5,"params":{"who":"larks","hand":"left","amount":1},"text":"larks allemande left once","section":"B1","row":7},
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"partner","hand":"both"},"text":"partners balance & swing · balance","section":"B2","row":8},
+  {"move":"swing","beats":12,"params":{"who":"partner"},"text":"partners balance & swing · swing","section":"B2","row":8}
+ ]
+}

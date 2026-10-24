@@ -1,0 +1,17 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "2055", "title": "Waxmyrtle", "author": "Yoyo Zhou", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/2055", "formation": "improper", "retrievedAt": "2026-10-20T06:22:46.383Z", "sha256": "eb4643f5d1412d70efed451555ee2913890d5dc62cc71ef2cc533273302f12f6" }, "status": "partial", "problems": [ "Row 3 \"(it's a slip jig)\" isn't drawn yet.", "Row 5 \"(it's still a slip jig)\" isn't drawn yet.", "Row 9 \"(i think you see where this is going)\" isn't drawn yet.", "Row 11 \"petronella\" isn't drawn yet.", "Row 13 \"(slip jiiiiig)\" isn't drawn yet.", "Row 8 \"partners swing\" can't start from where the dancers are: A swing needs at least four beats.", "Row 10 \"balance the ring\" can't start from where the dancers are: A balance takes four beats." ], "unparsed": [ { "row": 3, "text": "(it's a slip jig)", "why": "No figure pattern matches \"(it's a slip jig)\"." }, { "row": 5, "text": "(it's still a slip jig)", "why": "No figure pattern matches \"(it's still a slip jig)\"." }, { "row": 9, "text": "(i think you see where this is going)", "why": "No figure pattern matches \"(i think you see where this is going)\"." }, { "row": 11, "text": "petronella", "why": "No figure pattern matches \"petronella\"." }, { "row": 13, "text": "(slip jiiiiig)", "why": "No figure pattern matches \"(slip jiiiiig)\"." } ], "choices": [ "A pass through from a ring goes along the set, to the dancer on your own side.", "A gyre goes by the right shoulder, facing each other, with no hands." ],
+ "figures": [
+  {"move":"gyre","beats":6,"params":{"who":"neighbor","amount":1},"text":"neighbors gyre once","section":"A1","row":1},
+  {"move":"hey","beats":6,"params":{"start":"robins","amount":0.5,"center":"right"},"text":"robins start a half hey - rights in center, lefts on ends","section":"A1","row":2},
+  {"move":"hold","beats":4,"params":{"reason":"unparsed"},"text":"(it's a slip jig)","section":"A1","row":3},
+  {"move":"swing","beats":12,"params":{"who":"neighbor"},"text":"neighbors swing","section":"A2","row":4},
+  {"move":"hold","beats":4,"params":{"reason":"unparsed"},"text":"(it's still a slip jig)","section":"A2","row":5},
+  {"move":"pass-by","beats":3,"params":{"who":"larks","shoulder":"left","hands":false},"text":"larks pass by left shoulders","section":"B1","row":6},
+  {"move":"swing","beats":6,"params":{"who":"partner"},"text":"partners swing","section":"B1","row":7},
+  {"move":"swing","beats":3,"params":{"who":"partner"},"text":"partners swing","section":"B1","row":8},
+  {"move":"hold","beats":4,"params":{"reason":"unparsed"},"text":"(i think you see where this is going)","section":"B1","row":9},
+  {"move":"balance","beats":6,"params":{"formation":"ring"},"text":"balance the ring","section":"B2","row":10},
+  {"move":"hold","beats":3,"params":{"reason":"unparsed"},"text":"petronella","section":"B2","row":11},
+  {"move":"pass-through","beats":3,"params":{"shoulder":"left"},"text":"pass through left shoulders","progression":true,"section":"B2","row":12},
+  {"move":"hold","beats":4,"params":{"reason":"unparsed"},"text":"(slip jiiiiig)","section":"B2","row":13}
+ ]
+}

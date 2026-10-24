@@ -1,0 +1,14 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "2560", "title": "Double Joy", "author": "Chris Page", "formation": "becket", "progression": "minor-set", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/2560", "formation": "Becket", "retrievedAt": "2026-10-20T05:54:03.359Z", "sha256": "86906e8aa4822db862007c8af2b915dc9015d26dbf85f61260e8583d3aae8deb" }, "status": "partial", "problems": [ "Row 1 \"slice left and robins take new neighbor\" isn't drawn yet.", "Row 2 \"half poussette - robins pull neighbors back then left\" isn't drawn yet.", "Row 7 \"half poussette - robins pull partners back then left\" isn't drawn yet." ], "unparsed": [ { "row": 1, "text": "slice left and robins take new neighbor", "why": "No figure pattern matches \"slice left and ladles take new neighbor ⁋\"." }, { "row": 2, "text": "half poussette - robins pull neighbors back then left", "why": "No figure pattern matches \"half poussette - ladles pull neighbors back then left\"." }, { "row": 7, "text": "half poussette - robins pull partners back then left", "why": "No figure pattern matches \"half poussette - ladles pull partners back then left\"." } ], "choices": [ "A meltdown swing starts with 4 beats of right-shoulder round, then swings.", "A gyre goes by the right shoulder, facing each other, with no hands." ],
+ "figures": [
+  {"move":"hold","beats":4,"params":{"reason":"unparsed"},"text":"slice left and robins take new neighbor","section":"A1","row":1,"progression":true},
+  {"move":"hold","beats":4,"params":{"reason":"unparsed"},"text":"half poussette - robins pull neighbors back then left","section":"A1","row":2},
+  {"move":"hey","beats":8,"params":{"start":"robins","amount":0.5,"center":"left"},"text":"robins start a half hey - lefts in center, rights on ends","section":"A1","row":3},
+  {"move":"pass-by","beats":2,"params":{"who":"robins","shoulder":"left","hands":false},"text":"robins pass by left shoulders","section":"A2","row":4},
+  {"move":"gyre","beats":6,"params":{"who":"neighbor","amount":1},"text":"neighbors gyre once","section":"A2","row":5},
+  {"move":"swing","beats":8,"params":{"who":"neighbor"},"text":"neighbors swing","section":"A2","row":6},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"half poussette - robins pull partners back then left","section":"B1","row":7},
+  {"move":"hey","beats":8,"params":{"start":"robins","amount":0.5,"center":"left"},"text":"robins start a half hey - lefts in center, rights on ends","section":"B1","row":8},
+  {"move":"pass-by","beats":2,"params":{"who":"robins","shoulder":"left","hands":false},"text":"robins pass by left shoulders","section":"B2","row":9},
+  {"move":"swing","beats":14,"params":{"who":"partner","meltdown":true},"text":"partners meltdown swing","section":"B2","row":10}
+ ]
+}

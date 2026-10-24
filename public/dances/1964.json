@@ -1,0 +1,13 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "1964", "title": "slapping wood variation", "author": "Don Flaherty", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/1964", "formation": "improper", "retrievedAt": "2026-10-20T06:12:50.894Z", "sha256": "017a3548b285457162648916f418ec10c0321760779988ae28e662f7982e7e4b" }, "status": "partial", "problems": [ "Row 1 \"partners do si do once as a couple around neighbors\" isn't drawn yet.", "Row 2 \"neighbors do si do once do si do neighbor in front of you\" isn't drawn yet.", "Row 4 \"pull by left across the set larks\" isn't drawn yet.", "Row 5 \"partners swing\" can't start from where the dancers are: A swing that ends facing across must start nearer one side." ], "unparsed": [ { "row": 1, "text": "partners do si do once as a couple around neighbors", "why": "No figure pattern matches \"partners do si do once as a couple around neighbors\"." }, { "row": 2, "text": "neighbors do si do once do si do neighbor in front of you", "why": "No figure pattern matches \"neighbors do si do once do si do neighbor in front of you\"." }, { "row": 4, "text": "pull by left across the set larks", "why": "No figure pattern matches \"pull by left across the set gentlespoons\"." } ], "choices": [ "A balance with a partner or neighbor holds both hands." ],
+ "figures": [
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"partners do si do once as a couple around neighbors","section":"A1","row":1},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"neighbors do si do once do si do neighbor in front of you","section":"A1","row":2},
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"neighbor","hand":"both"},"text":"neighbors balance & swing · balance","section":"A2","row":3},
+  {"move":"swing","beats":12,"params":{"who":"neighbor"},"text":"neighbors balance & swing · swing","section":"A2","row":3},
+  {"move":"hold","beats":2,"params":{"reason":"unparsed"},"text":"pull by left across the set larks","section":"B1","row":4},
+  {"move":"swing","beats":14,"params":{"who":"partner"},"text":"partners swing","section":"B1","row":5},
+  {"move":"circle","beats":8,"params":{"direction":"left","places":3},"text":"circle left 3 places","section":"B2","row":6},
+  {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance the ring","section":"B2","row":7},
+  {"move":"twirl","beats":4,"params":{"style":"california","who":"partner"},"text":"partners California twirl","progression":true,"section":"B2","row":8}
+ ]
+}

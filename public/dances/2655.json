@@ -1,0 +1,13 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "2655", "title": "The Nameless Crosstrek", "author": "Isaac Banner", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/2655", "formation": "improper", "retrievedAt": "2026-10-20T06:19:05.820Z", "sha256": "fff32c750157a70eb1d2c1298e8cce7d2314fb9e4bb48a94f824751551a8d2a0" }, "status": "partial", "problems": [ "Row 9 \"zig left zag right, trailing two catching hands (larks left)\" isn't drawn yet.", "Row 2 \"partners swing\" can't start from where the dancers are: A swing that ends facing across must start nearer one side.", "Row 4 \"neighbors swing\" can't start from where the dancers are: A swing that ends facing across must start nearer one side." ], "unparsed": [ { "row": 9, "text": "zig left zag right, trailing two catching hands (larks left)", "why": "No figure pattern matches \"zig left zag right, trailing two catching hands (gentlespoons left) ⁋\"." } ], "choices": [ "A gyre goes by the right shoulder, facing each other, with no hands." ],
+ "figures": [
+  {"move":"allemande","beats":6,"params":{"who":"larks","hand":"left","amount":1},"text":"larks allemande left once","section":"A1","row":1},
+  {"move":"swing","beats":10,"params":{"who":"partner"},"text":"partners swing","section":"A1","row":2},
+  {"move":"circle","beats":8,"params":{"direction":"left","places":3},"text":"circle left 3 places","section":"A2","row":3},
+  {"move":"swing","beats":8,"params":{"who":"neighbor"},"text":"neighbors swing","section":"A2","row":4},
+  {"move":"chain","beats":8,"params":{"who":"larks"},"text":"larks chain","section":"B1","row":5},
+  {"move":"hey","beats":8,"params":{"start":"larks","amount":0.5,"center":"left"},"text":"larks start a half hey - lefts in center, rights on ends","section":"B1","row":6},
+  {"move":"gyre","beats":8,"params":{"who":"partner","amount":1},"text":"partners gyre once","section":"B2","row":7},
+  {"move":"circle","beats":2,"params":{"direction":"left","places":1},"text":"circle left 1 place","section":"B2","row":8},
+  {"move":"hold","beats":6,"params":{"reason":"unparsed"},"text":"zig left zag right, trailing two catching hands (larks left)","section":"B2","row":9,"progression":true}
+ ]
+}

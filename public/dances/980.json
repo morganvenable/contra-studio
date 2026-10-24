@@ -1,0 +1,12 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "980", "title": "Request and Receive B", "author": "Nicholas Rockstroh", "formation": null, "progression": null, "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/980", "formation": "indecent", "retrievedAt": "2026-10-20T06:10:10.525Z", "sha256": "f07afa2b766ee2a16d2583899c200310ee6d5a6febd90e4f13a12d3bc83513ba" }, "status": "unsupported", "problems": [ "The \"indecent\" formation isn't built yet." ], "unparsed": [], "choices": [ "Pass through goes by right shoulders." ],
+ "figures": [
+  {"move":"do-si-do","beats":8,"params":{"who":"neighbor","amount":1,"shoulder":"left"},"text":"neighbors see saw once","section":"A1","row":1},
+  {"move":"allemande","beats":8,"params":{"who":"neighbor","hand":"left","amount":1.5},"text":"neighbors allemande left 1½ to next neighbors","progression":true,"section":"A1","row":2},
+  {"move":"star","beats":8,"params":{"hand":"right","places":4,"grip":"hands-across"},"text":"star right - hands across - 4 places with next neighbors","section":"A2","row":3},
+  {"move":"chain","beats":8,"params":{"who":"robins"},"text":"robins chain","section":"A2","row":4},
+  {"move":"pass-through","beats":2,"params":{"shoulder":"right","axis":"across"},"text":"pass through across the set","section":"B1","row":5},
+  {"move":"swing","beats":14,"params":{"who":"partner"},"text":"partners swing","section":"B1","row":6},
+  {"move":"long-lines","beats":8,"params":{"back":true},"text":"long lines forward & back","section":"B2","row":7},
+  {"move":"gyre","beats":8,"params":{"who":"larks","amount":1.5,"shoulder":"left"},"text":"larks gyre left shoulders 1½","progression":true,"section":"B2","row":8}
+ ]
+}

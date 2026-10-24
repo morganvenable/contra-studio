@@ -1,0 +1,12 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "45", "title": "Get Me Going", "author": "Lisa Greenleaf", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/45", "formation": "improper", "retrievedAt": "2026-10-20T05:57:15.027Z", "sha256": "b802024ee401b94c7ced79edc4459add433343273c85ea22466edc785108baeb" }, "status": "partial", "problems": [ "Row 6 \"star left 4 places and on to the next\" isn't drawn yet." ], "unparsed": [ { "row": 6, "text": "star left 4 places and on to the next", "why": "No figure pattern matches \"star left 4 places and on to the next ⁋\"." } ], "choices": [ "A balance with a partner or neighbor holds both hands." ],
+ "figures": [
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"neighbor","hand":"both"},"text":"neighbors balance & swing · balance","section":"A1","row":1},
+  {"move":"swing","beats":12,"params":{"who":"neighbor"},"text":"neighbors balance & swing · swing","section":"A1","row":1},
+  {"move":"long-lines","beats":8,"params":{"back":true},"text":"long lines forward & back","section":"A2","row":2},
+  {"move":"do-si-do","beats":8,"params":{"who":"robins","amount":1.5,"shoulder":"right"},"text":"robins do si do 1½","section":"A2","row":3},
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"partner","hand":"both"},"text":"partners balance & swing · balance","section":"B1","row":4},
+  {"move":"swing","beats":12,"params":{"who":"partner"},"text":"partners balance & swing · swing","section":"B1","row":4},
+  {"move":"chain","beats":8,"params":{"who":"robins"},"text":"robins chain","section":"B2","row":5},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"star left 4 places and on to the next","section":"B2","row":6,"progression":true}
+ ]
+}

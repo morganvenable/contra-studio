@@ -1,0 +1,14 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "622", "title": "Unknown", "author": "unknown", "formation": null, "progression": null, "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/622", "formation": "proper", "retrievedAt": "2026-10-20T06:22:02.007Z", "sha256": "31b2cf39218295ab5122fb84e0a6dedfed6acfda1e5999bc8ee2338d8d4b5741" }, "status": "unsupported", "problems": [ "The \"proper\" formation isn't built yet." ], "unparsed": [ { "row": 1, "text": "same roles do si do once", "why": "No figure pattern matches \"same roles do si do once\"." }, { "row": 3, "text": "form long waves - first corners face in, second corners face out", "why": "No figure pattern matches \"form long waves - first corners face in, second corners face out\"." }, { "row": 6, "text": "first corners pull by left", "why": "No figure pattern matches \"first corners pull by left\"." }, { "row": 9, "text": "ones half figure 8", "why": "No figure pattern matches \"ones half figure 8 ⁋\"." } ], "choices": [ "Rory O'More spins one full turn in the travel direction (the usual styling).", "The balance before each Rory steps toward the slide direction first." ],
+ "figures": [
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"same roles do si do once","section":"A1","row":1},
+  {"move":"circle","beats":8,"params":{"direction":"left","places":4},"text":"circle left 4 places","section":"A1","row":2},
+  {"move":"balance","beats":4,"params":{"formation":"wave","style":"right-left","first":"right"},"text":"balance & Rory O'More right · balance","section":"A2","row":4},
+  {"move":"rory","beats":4,"params":{"direction":"right","spin":"full"},"text":"balance & Rory O'More right · slide","section":"A2","row":4},
+  {"move":"balance","beats":4,"params":{"formation":"wave","style":"right-left","first":"left"},"text":"balance & Rory O'More left · balance","section":"A2","row":5},
+  {"move":"rory","beats":4,"params":{"direction":"left","spin":"full"},"text":"balance & Rory O'More left · slide","section":"A2","row":5},
+  {"move":"hold","beats":2,"params":{"reason":"unparsed"},"text":"first corners pull by left","section":"B1","row":6},
+  {"move":"swing","beats":14,"params":{"who":"partner"},"text":"partners swing","section":"B1","row":7},
+  {"move":"long-lines","beats":8,"params":{"back":true},"text":"long lines forward & back","section":"B2","row":8},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"ones half figure 8","section":"B2","row":9,"progression":true}
+ ]
+}

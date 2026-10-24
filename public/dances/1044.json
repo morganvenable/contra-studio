@@ -1,0 +1,11 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "1044", "title": "Aqueous", "author": "Don Flaherty", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/1044", "formation": "improper", "retrievedAt": "2026-10-20T05:46:55.876Z", "sha256": "7fbc7b26444ad40c64889e220cdfe7475e69e8ef2e91f91c2c62042600031c1e" }, "status": "partial", "problems": [ "Row 7 \"square through four - partners balance & pull by right, then neighbors pull by left, then repeat across set\" isn't drawn yet." ], "unparsed": [ { "row": 7, "text": "square through four - partners balance & pull by right, then neighbors pull by left, then repeat across set", "why": "No figure pattern matches \"square through four - partners balance & pull by right, then neighbors pull by left, then repeat across set\"." } ], "choices": [ "A balance with a partner or neighbor holds both hands." ],
+ "figures": [
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"neighbor","hand":"both"},"text":"neighbors balance","section":"A1","row":1},
+  {"move":"swing","beats":12,"params":{"who":"neighbor"},"text":"neighbors swing","section":"A1","row":2},
+  {"move":"circle","beats":8,"params":{"direction":"left","places":3},"text":"circle left 3 places","section":"A2","row":3},
+  {"move":"swing","beats":8,"params":{"who":"partner"},"text":"partners swing","section":"A2","row":4},
+  {"move":"long-lines","beats":8,"params":{"back":true},"text":"long lines forward & back","section":"B1","row":5},
+  {"move":"chain","beats":8,"params":{"who":"robins"},"text":"robins chain","section":"B1","row":6},
+  {"move":"hold","beats":16,"params":{"reason":"unparsed"},"text":"square through four - partners balance & pull by right, then neighbors pull by left, then repeat across set","section":"B2","row":7}
+ ]
+}

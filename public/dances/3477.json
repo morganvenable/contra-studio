@@ -1,0 +1,12 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "3477", "title": "Midwinter Night's Dream", "author": "Linda Leslie", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/3477", "formation": "improper", "retrievedAt": "2026-10-20T06:04:11.479Z", "sha256": "fd1a37eb159aa2c7b3d354dd12b984c2849317ef74fb462b2cd3dd2c3a246221" }, "status": "ok", "problems": [], "unparsed": [], "choices": [ "A balance with a partner or neighbor holds both hands.", "Give & take: half the beats to cross, half to back home holding both hands.", "A swing that ends facing down the hall is drawn ending facing across; the down the hall that follows turns the lines." ],
+ "figures": [
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"neighbor","hand":"both"},"text":"neighbors balance & swing · balance","section":"A1","row":1},
+  {"move":"swing","beats":12,"params":{"who":"neighbor"},"text":"neighbors balance & swing · swing","section":"A1","row":1},
+  {"move":"give-and-take","beats":4,"params":{"who":"robins","whom":"partner"},"text":"robins give & take partners","section":"A2","row":2},
+  {"move":"swing","beats":12,"params":{"who":"partner"},"text":"partners swing, end facing down","section":"A2","row":3},
+  {"move":"hall","beats":8,"params":{"direction":"down","turn":"couple"},"text":"down the hall and turn as a couple","section":"B1","row":4},
+  {"move":"hall","beats":8,"params":{"direction":"up","end":"ring"},"text":"up the hall and bend into a ring","section":"B1","row":5},
+  {"move":"chain","beats":8,"params":{"who":"robins"},"text":"robins chain","section":"B2","row":6},
+  {"move":"promenade","beats":8,"params":{"who":"neighbor"},"text":"neighbors promenade","progression":true,"section":"B2","row":7}
+ ]
+}

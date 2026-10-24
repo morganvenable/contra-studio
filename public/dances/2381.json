@@ -1,0 +1,14 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "2381", "title": "Brooklyn Transfer", "author": "Maia McCormick and Michael Karcher", "formation": "becket", "progression": "minor-set", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/2381", "formation": "Becket", "retrievedAt": "2026-10-20T05:49:10.796Z", "sha256": "57dc3dcd14cac3b113f17d601847e68c40226912e5335878e28cff930bbda959" }, "status": "partial", "problems": [ "Row 6 \"balance & Rory O'More right past shadows\" isn't drawn yet.", "Row 7 \"balance & Rory O'More left · balance\" can't start from where the dancers are: Dancers are not in a straight line.", "Row 7 \"balance & Rory O'More left · slide\" can't start from where the dancers are: Dancers are not in a straight line." ], "unparsed": [ { "row": 6, "text": "balance & Rory O'More right past shadows", "why": "No figure pattern matches \"balance & Rory O'More right past shadows\"." } ], "choices": [ "Rory O'More spins one full turn in the travel direction (the usual styling).", "The balance before each Rory steps toward the slide direction first.", "A balance with a partner or neighbor holds both hands.", "A star with no grip named is a basket star (wrist grip)." ],
+ "figures": [
+  {"move":"circle","beats":8,"params":{"direction":"left","places":3},"text":"circle left 3 places","section":"A1","row":1},
+  {"move":"swing","beats":8,"params":{"who":"neighbor"},"text":"neighbors swing","section":"A1","row":2},
+  {"move":"chain","beats":8,"params":{"who":"robins"},"text":"robins chain","section":"A2","row":3},
+  {"move":"star","beats":8,"params":{"hand":"left","places":4},"text":"star left 4 places","section":"A2","row":4},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"balance & Rory O'More right past shadows","section":"B1","row":6},
+  {"move":"balance","beats":4,"params":{"formation":"wave","style":"right-left","first":"left"},"text":"balance & Rory O'More left · balance","section":"B1","row":7},
+  {"move":"rory","beats":4,"params":{"direction":"left","spin":"full"},"text":"balance & Rory O'More left · slide","section":"B1","row":7},
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"partner","hand":"both"},"text":"partners balance & swing · balance","section":"B2","row":8},
+  {"move":"swing","beats":10,"params":{"who":"partner"},"text":"partners balance & swing · swing","section":"B2","row":8},
+  {"move":"slide","beats":2,"params":{"direction":"left"},"text":"slide left along set","progression":true,"section":"B2","row":9}
+ ]
+}

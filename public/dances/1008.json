@@ -1,0 +1,15 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "1008", "title": "Swingin' Off a Ring", "author": "Kelsey Hartman", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/1008", "formation": "improper", "retrievedAt": "2026-10-20T06:15:35.261Z", "sha256": "f01ae043b7dec47665607c1d1923caba0ca3af56f80b27e990560b88bf0078ed" }, "status": "check", "problems": [ "The next time through can't start from where the dancers end (with 3 couples): The robins must start on opposite sides of the set.)." ], "unparsed": [], "choices": [],
+ "figures": [
+  {"move":"allemande","beats":8,"params":{"who":"neighbor","hand":"left","amount":1.5},"text":"neighbors allemande left 1½","section":"A1","row":1},
+  {"move":"chain","beats":8,"params":{"who":"robins"},"text":"robins chain","section":"A1","row":2},
+  {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance & petronella · balance","section":"A2","row":3},
+  {"move":"petronella","beats":4,"params":{},"text":"balance & petronella · petronella","section":"A2","row":3},
+  {"move":"swing","beats":8,"params":{"who":"neighbor"},"text":"neighbors swing","section":"A2","row":4},
+  {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance & petronella · balance","section":"B1","row":5},
+  {"move":"petronella","beats":4,"params":{},"text":"balance & petronella · petronella","section":"B1","row":5},
+  {"move":"swing","beats":8,"params":{"who":"partner"},"text":"partners swing","section":"B1","row":6},
+  {"move":"do-si-do","beats":6,"params":{"who":"larks","amount":1,"shoulder":"left"},"text":"larks see saw once","section":"B2","row":7},
+  {"move":"circle","beats":6,"params":{"direction":"right","places":3},"text":"circle right 3 places","progression":true,"section":"B2","row":8},
+  {"move":"twirl","beats":4,"params":{"style":"california","who":"partner"},"text":"partners California twirl","section":"B2","row":9}
+ ]
+}

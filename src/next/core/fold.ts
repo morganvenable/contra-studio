@@ -25,6 +25,7 @@ import { clamp, distance, progress, rotate, smooth, sub, add, turn } from './mat
 import { beatsPerTime, type MusicStructure } from './music.ts';
 import type { Progression } from './progression.ts';
 import { body, type Body, type DanceState, withChanges } from './state.ts';
+import { hold } from '../figures/hold.ts';
 
 export type FigureRegistry = Readonly<Record<string, Figure<any>>>;
 
@@ -52,6 +53,16 @@ export interface Round {
   readonly segments: readonly Segment[];
   readonly crossings: readonly Crossing[];
   readonly end: DanceState;
+  /** Figures held still because they could not start (lenient folds only). */
+  readonly held: readonly HeldFigure[];
+}
+
+/** A call the lenient fold held still instead of dancing, and why. */
+export interface HeldFigure {
+  readonly index: number;
+  readonly why: string;
+  /** The figure ran, but the progression after it could not rebind. */
+  readonly progression?: boolean;
 }
 
 export function foldRound(
@@ -59,40 +70,73 @@ export function foldRound(
   start: DanceState,
   registry: FigureRegistry,
   progression?: Progression,
+  lenient = false,
 ): Round {
   const marked = calls.some((c) => c.progression);
   if (marked && !progression)
     throw new Error('A row is marked as the progression, but the dance has none.');
   const segments: Segment[] = [];
   const crossings: Crossing[] = [];
+  const held: HeldFigure[] = [];
   const total = calls.reduce((n, c) => n + c.beats, 0);
   let state = scheduleCrossings(start, 0, total, crossings);
   let beat = 0;
   for (const [index, call] of calls.entries()) {
-    const figure = registry[call.move];
-    if (!figure) throw new Error(`No figure named "${call.move}".`);
     if (!(call.beats > 0 && call.beats <= 64)) throw new Error(`${call.move} needs 1-64 beats.`);
     let result: FigureResult;
+    let moved: Set<number>;
     try {
-      result = figure(state, call.params, call.beats);
+      ({ result, moved } = runFigure(registry, state, call, index, beat, crossings));
     } catch (error) {
-      const why = error instanceof Error ? error.message : String(error);
-      throw new Error(`Figure ${index + 1} (${call.text ?? call.move}): ${why}`);
-    }
-    const moved = new Set(result.motion(0).bodies.map((b) => b.id));
-    assertSeam(state, result, call);
-    for (const c of crossings) {
-      const busy = c.start + CROSS_BEATS > beat && c.ids.some((id) => moved.has(id));
-      if (busy) throw new Error(`${call.move} starts before a waiting couple finishes crossing.`);
+      if (!lenient) throw error;
+      // Hold everyone still for this row so the rest keeps its place in time.
+      held.push({ index, why: error instanceof Error ? error.message : String(error) });
+      result = hold(state, { reason: 'cannot-start' }, call.beats);
+      moved = new Set();
     }
     segments.push({ start: beat, call, entry: state, result, moved });
     beat += call.beats;
     const last = index === calls.length - 1;
     let exit = result.exit;
-    if (progression && (call.progression || (!marked && last))) exit = progression.rebind(exit);
+    if (progression && (call.progression || (!marked && last))) {
+      try {
+        exit = progression.rebind(exit);
+      } catch (error) {
+        if (!lenient) throw error;
+        const why = error instanceof Error ? error.message : String(error);
+        held.push({ index, why: `The progression does not work out: ${why}`, progression: true });
+      }
+    }
     state = scheduleCrossings(exit, beat, total, crossings);
   }
-  return { segments, crossings, end: state };
+  return { segments, crossings, end: state, held };
+}
+
+/** Run one call from `state`, checking it meets the dancers where they are. */
+function runFigure(
+  registry: FigureRegistry,
+  state: DanceState,
+  call: FigureCall,
+  index: number,
+  beat: number,
+  crossings: readonly Crossing[],
+) {
+  const figure = registry[call.move];
+  if (!figure) throw new Error(`No figure named "${call.move}".`);
+  let result: FigureResult;
+  try {
+    result = figure(state, call.params, call.beats);
+  } catch (error) {
+    const why = error instanceof Error ? error.message : String(error);
+    throw new Error(`Figure ${index + 1} (${call.text ?? call.move}): ${why}`);
+  }
+  const moved = new Set(result.motion(0).bodies.map((b) => b.id));
+  assertSeam(state, result, call);
+  for (const c of crossings) {
+    const busy = c.start + CROSS_BEATS > beat && c.ids.some((id) => moved.has(id));
+    if (busy) throw new Error(`${call.move} starts before a waiting couple finishes crossing.`);
+  }
+  return { result, moved };
 }
 
 function assertSeam(state: DanceState, result: FigureResult, call: FigureCall) {
@@ -153,6 +197,12 @@ export interface FoldOptions {
   readonly progression: Progression;
   readonly music: MusicStructure;
   readonly warnings?: readonly string[];
+  /**
+   * Hold a figure still when it cannot start, and skip a progression that
+   * cannot rebind, instead of failing the whole dance. For showing partial
+   * dances; the corpus check always folds strictly.
+   */
+  readonly lenient?: boolean;
 }
 
 export interface FoldedDance extends CompiledDance {
@@ -168,6 +218,7 @@ export interface FoldedDance extends CompiledDance {
 
 export function compileFold(options: FoldOptions): FoldedDance {
   const { calls, registry, progression, music } = options;
+  const lenient = options.lenient ?? false;
   const starts: number[] = [];
   let totalBeats = 0;
   for (const c of calls) {
@@ -179,13 +230,13 @@ export function compileFold(options: FoldOptions): FoldedDance {
       `The figures take ${totalBeats} beats but the music has ${beatsPerTime(music)}.`,
     );
   }
-  const rounds: Round[] = [foldRound(calls, options.start, registry, progression)];
+  const rounds: Round[] = [foldRound(calls, options.start, registry, progression, lenient)];
   const warnings = [...(options.warnings ?? [])];
   const times = music.times === 'repeat' ? Infinity : music.times;
   let repeatable = times > 1;
   if (repeatable) {
     try {
-      rounds.push(foldRound(calls, rounds[0].end, registry, progression));
+      rounds.push(foldRound(calls, rounds[0].end, registry, progression, lenient));
     } catch (error) {
       repeatable = false;
       const why = error instanceof Error ? error.message : String(error);
@@ -194,7 +245,7 @@ export function compileFold(options: FoldOptions): FoldedDance {
   }
   const round = (repeat: number) => {
     while (rounds.length <= repeat) {
-      rounds.push(foldRound(calls, rounds.at(-1)!.end, registry, progression));
+      rounds.push(foldRound(calls, rounds.at(-1)!.end, registry, progression, lenient));
     }
     return rounds[repeat];
   };

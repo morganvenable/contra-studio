@@ -1,0 +1,12 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "1570", "title": "Ribbons for Shoe Laces", "author": "Dugan Murphy", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/1570", "formation": "improper", "retrievedAt": "2026-10-20T06:10:18.577Z", "sha256": "40d0d31d7a5902e301ebd96b5f0a6bb45ca2f533b30d8c143cd935d965624d66" }, "status": "partial", "problems": [ "Row 6 \"partners promenade, shifting right along the side to face new neighbors\" isn't drawn yet." ], "unparsed": [ { "row": 6, "text": "partners promenade, shifting right along the side to face new neighbors", "why": "No figure pattern matches \"partners promenade, shifting right along the side to face new neighbors ⁋\"." } ], "choices": [ "A balance with a partner or neighbor holds both hands.", "Give & take: half the beats to cross, half to back home holding both hands." ],
+ "figures": [
+  {"move":"allemande","beats":8,"params":{"who":"neighbor","hand":"left","amount":1.5},"text":"neighbors allemande left 1½","section":"A1","row":1},
+  {"move":"hey","beats":8,"params":{"start":"robins","amount":0.5,"center":"right"},"text":"robins start a half hey - rights in center, lefts on ends","section":"A1","row":2},
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"neighbor","hand":"both"},"text":"neighbors balance & swing · balance","section":"A2","row":3},
+  {"move":"swing","beats":12,"params":{"who":"neighbor"},"text":"neighbors balance & swing · swing","section":"A2","row":3},
+  {"move":"give-and-take","beats":8,"params":{"who":"robins","whom":"partner"},"text":"robins give & take partners","section":"B1","row":4},
+  {"move":"swing","beats":8,"params":{"who":"partner"},"text":"partners swing","section":"B1","row":5},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"partners promenade, shifting right along the side to face new neighbors","section":"B2","row":6,"progression":true},
+  {"move":"circle","beats":8,"params":{"direction":"right","places":3},"text":"circle right 3 places","section":"B2","row":7}
+ ]
+}

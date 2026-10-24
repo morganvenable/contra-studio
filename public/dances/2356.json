@@ -1,0 +1,16 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "2356", "title": "Maximum Fun, Minimum Variation", "author": "Dean Snipes, Isaac Banner", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/2356", "formation": "improper", "retrievedAt": "2026-10-20T06:03:48.278Z", "sha256": "2e21ae3c51ee706a0faa52b24434c417d309da711faeb60301ebb5271e82f372" }, "status": "ok", "problems": [], "unparsed": [], "choices": [ "Pass through goes by right shoulders.", "A pass through from a ring goes along the set, to the dancer on your own side.", "Long waves form during the balance before each box circulate: crossers face in, loopers face out; hands join only where they reach." ],
+ "figures": [
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"neighbor","hand":"right"},"text":"neighbors right hand balance & box the gnat · balance","section":"A1","row":1},
+  {"move":"twirl","beats":4,"params":{"style":"box-the-gnat","who":"neighbor"},"text":"neighbors right hand balance & box the gnat · twirl","section":"A1","row":1},
+  {"move":"balance","beats":4,"params":{"formation":"long-waves","in":"larks"},"text":"balance & box circulate - larks cross while robins loop right · balance","section":"A1","row":2},
+  {"move":"box-circulate","beats":4,"params":{"cross":"larks","loop":"right"},"text":"balance & box circulate - larks cross while robins loop right · box circulate","section":"A1","row":2},
+  {"move":"balance","beats":4,"params":{"formation":"long-waves","in":"robins"},"text":"balance & box circulate - robins cross while larks loop right · balance","section":"A2","row":3},
+  {"move":"box-circulate","beats":4,"params":{"cross":"robins","loop":"right"},"text":"balance & box circulate - robins cross while larks loop right · box circulate","section":"A2","row":3},
+  {"move":"swing","beats":8,"params":{"who":"neighbor"},"text":"neighbors swing","section":"A2","row":4},
+  {"move":"allemande","beats":8,"params":{"who":"larks","hand":"left","amount":1.5},"text":"larks allemande left 1½","section":"B1","row":5},
+  {"move":"swing","beats":8,"params":{"who":"partner"},"text":"partners swing","section":"B1","row":6},
+  {"move":"circle","beats":8,"params":{"direction":"left","places":3},"text":"circle left 3 places","section":"B2","row":7},
+  {"move":"pass-through","beats":2,"params":{"shoulder":"right"},"text":"pass through to next neighbors","progression":true,"section":"B2","row":8},
+  {"move":"do-si-do","beats":6,"params":{"who":"neighbor","amount":1,"shoulder":"right"},"text":"next neighbors do si do once","section":"B2","row":9}
+ ]
+}

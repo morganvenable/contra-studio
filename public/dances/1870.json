@@ -1,0 +1,11 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "1870", "title": "The Hartmann Reel", "author": "Chart Guthrie", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/1870", "formation": "improper", "retrievedAt": "2026-10-20T06:16:56.902Z", "sha256": "fa415ee8441f4463fb8105a7ce46f98f54a41c6a2c17d2e56a4c05863d7f7651" }, "status": "ok", "problems": [], "unparsed": [], "choices": [ "A balance with a partner or neighbor holds both hands." ],
+ "figures": [
+  {"move":"long-lines","beats":8,"params":{"back":true},"text":"long lines forward & back","section":"A1","row":1},
+  {"move":"chain","beats":8,"params":{"who":"larks"},"text":"larks right-hand chain","section":"A1","row":2},
+  {"move":"hey","beats":16,"params":{"start":"larks","amount":1,"center":"right"},"text":"larks start a full hey - rights in center, lefts on ends","section":"A2","row":3},
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"partner","hand":"both"},"text":"partners balance & swing · balance","section":"B1","row":4},
+  {"move":"swing","beats":12,"params":{"who":"partner"},"text":"partners balance & swing · swing","section":"B1","row":4},
+  {"move":"right-left-through","beats":8,"params":{},"text":"right left through","section":"B2","row":5},
+  {"move":"chain","beats":8,"params":{"who":"robins"},"text":"robins chain","progression":true,"section":"B2","row":6}
+ ]
+}

@@ -1,0 +1,13 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "499", "title": "Parkay: Ode to a Dance Floor", "author": "Jim Hemphill", "formation": "becket-ccw", "progression": "minor-set", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 26 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/499", "formation": "Becket ccw", "retrievedAt": "2026-10-20T06:08:07.383Z", "sha256": "f448d114fdb6da603b32b59af8d387b34c231c8d7510cc0f066362198b8af581" }, "status": "partial", "problems": [ "Row 3 \"larks dance in to a long wave in the center - balance the wave\" isn't drawn yet.", "Row 5 \"next neighbors swing\" can't start from where the dancers are: A swing that ends facing across must start nearer one side.", "Row 8 \"partners balance & swing · swing\" can't start from where the dancers are: A swing that ends facing across must start nearer one side." ], "unparsed": [ { "row": 3, "text": "larks dance in to a long wave in the center - balance the wave", "why": "No figure pattern matches \"gentlespoons dance in to a long wave in the center - balance the wave ⁋\"." } ], "choices": [ "A balance with a partner or neighbor holds both hands.", "A star with no grip named is a basket star (wrist grip)." ],
+ "figures": [
+  {"move":"right-left-through","beats":8,"params":{},"text":"right left through","section":"A1","row":1},
+  {"move":"star","beats":8,"params":{"hand":"left","places":3},"text":"star left 3 places","section":"A1","row":2},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"larks dance in to a long wave in the center - balance the wave","section":"A2","row":3,"progression":true},
+  {"move":"allemande","beats":4,"params":{"who":"larks","hand":"right","amount":0.5},"text":"larks allemande right ½","section":"A2","row":4},
+  {"move":"swing","beats":8,"params":{"who":"neighbor"},"text":"next neighbors swing","section":"A2","row":5},
+  {"move":"long-lines","beats":8,"params":{"back":true},"text":"long lines forward & back","section":"A2","row":6},
+  {"move":"allemande","beats":8,"params":{"who":"robins","hand":"right","amount":1.5},"text":"robins allemande right 1½","section":"A2","row":7},
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"partner","hand":"both"},"text":"partners balance & swing · balance","section":"A2","row":8},
+  {"move":"swing","beats":12,"params":{"who":"partner"},"text":"partners balance & swing · swing","section":"A2","row":8}
+ ]
+}

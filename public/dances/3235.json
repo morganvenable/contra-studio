@@ -1,0 +1,13 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "3235", "title": "Rory Amor", "author": "Rick Mohr", "formation": "becket", "progression": "minor-set", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 4 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/3235", "formation": "Becket", "retrievedAt": "2026-10-20T06:11:23.125Z", "sha256": "b5ef26b3b87cf4f26e83bc6926ee81300553c974a3189311406b3058a91eb391" }, "status": "partial", "problems": [ "Row 3 \"slice left and straight back\" can't start from where the dancers are: Couple 1 must stand side by side in a line facing across.", "Row 5 \"balance the wave\" can't start from where the dancers are: Dancers in a wave must face across the line.", "Row 6 \"Rory O'More right\" can't start from where the dancers are: Dancers in a wave must face across the line." ], "unparsed": [], "choices": [ "Rory O'More spins one full turn in the travel direction (the usual styling).", "Slice: half the counts on the diagonal, half straight back." ],
+ "figures": [
+  {"move":"circle","beats":6,"params":{"direction":"left","places":3},"text":"circle left 3 places","section":"A1","row":1},
+  {"move":"swing","beats":10,"params":{"who":"neighbor"},"text":"neighbors swing","section":"A1","row":2},
+  {"move":"slice","beats":8,"params":{"direction":"left","back":"straight"},"text":"slice left and straight back","section":"A2","row":3},
+  {"move":"pass-by","beats":4,"params":{"who":"robins","shoulder":"right","hands":false},"text":"robins pass by right shoulders","section":"A2","row":4},
+  {"move":"balance","beats":4,"params":{"formation":"wave","style":"right-left"},"text":"balance the wave","section":"A2","row":5},
+  {"move":"rory","beats":4,"params":{"direction":"right","spin":"full"},"text":"Rory O'More right","section":"B1","row":6},
+  {"move":"swing","beats":12,"params":{"who":"partner"},"text":"partners swing","section":"B1","row":7},
+  {"move":"pass-by","beats":4,"params":{"who":"neighbor","shoulder":"right","hands":false},"text":"neighbors pass by right shoulders","progression":true,"section":"B2","row":8},
+  {"move":"twirl","beats":4,"params":{"style":"california","who":"partner"},"text":"partners California twirl","section":"B2","row":9}
+ ]
+}

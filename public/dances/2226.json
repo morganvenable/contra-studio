@@ -1,0 +1,13 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "2226", "title": "Yoyo's Ma", "author": "Susan Petrick", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/2226", "formation": "improper", "sha256": "1ee160018fbae87887b28d746dd6d7f99e399ca4ef22af803053fb47b80cc071" }, "status": "partial", "problems": [ "Row 1 \"half poussette - larks pull partners back then left\" isn't drawn yet.", "Row 8 \"partners California twirl then join two hands\" isn't drawn yet." ], "unparsed": [ { "row": 1, "text": "half poussette - larks pull partners back then left", "why": "No figure pattern matches \"half poussette - gentlespoons pull partners back then left\"." }, { "row": 8, "text": "partners California twirl then join two hands", "why": "No figure pattern matches \"partners California twirl then join two hands ⁋\"." } ], "choices": [ "A balance with a partner or neighbor holds both hands." ],
+ "figures": [
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"half poussette - larks pull partners back then left","section":"A1","row":1},
+  {"move":"swing","beats":8,"params":{"who":"neighbor"},"text":"neighbors swing","section":"A1","row":2},
+  {"move":"chain","beats":8,"params":{"who":"robins","to":"partner"},"text":"robins chain to partner","section":"A2","row":3},
+  {"move":"hey","beats":8,"params":{"start":"robins","amount":0.5,"center":"right"},"text":"robins start a half hey - rights in center, lefts on ends","section":"A2","row":4},
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"partner","hand":"both"},"text":"partners balance & swing · balance","section":"B1","row":5},
+  {"move":"swing","beats":12,"params":{"who":"partner"},"text":"partners balance & swing · swing","section":"B1","row":5},
+  {"move":"circle","beats":8,"params":{"direction":"left","places":3},"text":"circle left 3 places","section":"B2","row":6},
+  {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance the ring","section":"B2","row":7},
+  {"move":"hold","beats":4,"params":{"reason":"unparsed"},"text":"partners California twirl then join two hands","section":"B2","row":8,"progression":true}
+ ]
+}

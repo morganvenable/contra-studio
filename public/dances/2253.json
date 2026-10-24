@@ -1,0 +1,17 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "2253", "title": "Made in the Shade", "author": "Rick Mohr", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/2253", "formation": "improper", "retrievedAt": "2026-10-20T06:03:26.104Z", "sha256": "d0b59c9de59823943d3b8753d575dca3bff0ab5611019f3a0d363f0d1cf2dcf9" }, "status": "check", "problems": [ "Row 5 \"robins pull by left\": a dancer has to move 1.42 m in one beat, faster than a walk (with 3 couples)." ], "unparsed": [], "choices": [],
+ "figures": [
+  {"move":"long-lines","beats":8,"params":{"back":true},"text":"long lines forward & back","section":"A1","row":1},
+  {"move":"swing","beats":8,"params":{"who":"neighbor"},"text":"neighbors swing","section":"A1","row":2},
+  {"move":"allemande","beats":8,"params":{"who":"larks","hand":"left","amount":1.5},"text":"larks allemande left 1½","section":"A2","row":3},
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"partner","hand":"right"},"text":"partners balance & pull by right · balance","section":"A2","row":4},
+  {"move":"pass-by","beats":2,"params":{"who":"partner","shoulder":"right","hands":true},"text":"partners balance & pull by right · pull by","section":"A2","row":4},
+  {"move":"pass-by","beats":2,"params":{"who":"robins","shoulder":"left","hands":true},"text":"robins pull by left","section":"A2","row":5},
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"neighbor","hand":"right"},"text":"neighbors balance & pull by right · balance","section":"B1","row":6},
+  {"move":"pass-by","beats":2,"params":{"who":"neighbor","shoulder":"right","hands":true},"text":"neighbors balance & pull by right · pull by","section":"B1","row":6},
+  {"move":"pass-by","beats":2,"params":{"who":"larks","shoulder":"left","hands":true},"text":"larks pull by left","section":"B1","row":7},
+  {"move":"swing","beats":8,"params":{"who":"partner"},"text":"partners swing","section":"B1","row":8},
+  {"move":"circle","beats":8,"params":{"direction":"left","places":3},"text":"circle left 3 places","section":"B2","row":9},
+  {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance the ring","section":"B2","row":10},
+  {"move":"roll-away","beats":4,"params":{"who":"larks","whom":"neighbor"},"text":"larks roll away neighbors with a half sashay","section":"B2","row":11}
+ ]
+}

@@ -1,0 +1,15 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "3496", "title": "Fair and Square", "author": "John Coffman", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/3496", "formation": "improper", "retrievedAt": "2026-10-18T20:51:49.819855+00:00", "sha256": "772d5f4065ddd8acbb209800988bef012e58107c47a37f106ac0a06dc7a12363" }, "status": "ok", "problems": [], "unparsed": [], "choices": [ "A balance with a partner or neighbor holds both hands.", "Square through: each balance takes 4 beats and each pull by 2." ],
+ "figures": [
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"neighbor","hand":"right"},"text":"neighbors right hand balance & box the gnat · balance","section":"A1","row":1},
+  {"move":"twirl","beats":4,"params":{"style":"box-the-gnat","who":"neighbor"},"text":"neighbors right hand balance & box the gnat · twirl","section":"A1","row":1},
+  {"move":"allemande","beats":8,"params":{"who":"larks","hand":"left","amount":1.5},"text":"larks allemande left 1½","section":"A1","row":2},
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"partner","hand":"both"},"text":"partners balance & swing · balance","section":"A2","row":3},
+  {"move":"swing","beats":12,"params":{"who":"partner"},"text":"partners balance & swing · swing","section":"A2","row":3},
+  {"move":"circle","beats":8,"params":{"direction":"left","places":3},"text":"circle left 3 places","section":"B1","row":4},
+  {"move":"swing","beats":8,"params":{"who":"neighbor"},"text":"neighbors swing","section":"B1","row":5},
+  {"move":"long-lines","beats":8,"params":{"back":true},"text":"long lines forward & back","section":"B2","row":6},
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"partner","hand":"right"},"text":"square through two - partners balance & pull by right, then neighbors pull by left · balance","section":"B2","row":7},
+  {"move":"pass-by","beats":2,"params":{"who":"partner","shoulder":"right","hands":true},"text":"square through two - partners balance & pull by right, then neighbors pull by left · pull by","section":"B2","row":7},
+  {"move":"pass-by","beats":2,"params":{"who":"neighbor","shoulder":"left","hands":true},"text":"square through two - partners balance & pull by right, then neighbors pull by left · pull by","progression":true,"section":"B2","row":7}
+ ]
+}

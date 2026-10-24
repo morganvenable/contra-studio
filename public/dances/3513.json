@@ -1,0 +1,12 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "3513", "title": "Northern Zephyr", "author": "Mattie Rynkiewicz", "formation": "becket", "progression": "minor-set", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/3513", "formation": "Becket", "retrievedAt": "2026-10-20T06:06:52.807Z", "sha256": "0e0e2960e5f2292a4609b3f955b925ef9f58879c7135968bc10b53be7026957e" }, "status": "partial", "problems": [ "Row 5 \"shadows allemande left once\" isn't drawn yet.", "Row 8 \"slice left and straight back in long lines\" isn't drawn yet." ], "unparsed": [ { "row": 5, "text": "shadows allemande left once", "why": "Unknown dancers \"shadows\"." }, { "row": 8, "text": "slice left and straight back in long lines", "why": "No figure pattern matches \"slice left and straight back in long lines ⁋\"." } ], "choices": [],
+ "figures": [
+  {"move":"circle","beats":8,"params":{"direction":"right","places":4},"text":"circle right 4 places","section":"A1","row":1},
+  {"move":"circle","beats":8,"params":{"direction":"left","places":4},"text":"circle left 4 places","section":"A1","row":2},
+  {"move":"promenade","beats":8,"params":{"who":"partner"},"text":"partners promenade","section":"A2","row":3},
+  {"move":"promenade","beats":8,"params":{"who":"partner"},"text":"partners promenade","section":"A2","row":4},
+  {"move":"hold","beats":6,"params":{"reason":"unparsed"},"text":"shadows allemande left once","section":"B1","row":5},
+  {"move":"swing","beats":10,"params":{"who":"partner"},"text":"partners swing","section":"B1","row":6},
+  {"move":"long-lines","beats":8,"params":{"back":true},"text":"long lines forward & back","section":"B2","row":7},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"slice left and straight back in long lines","section":"B2","row":8,"progression":true}
+ ]
+}

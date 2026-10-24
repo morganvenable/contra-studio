@@ -1,0 +1,15 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "1425", "title": "Blue and Green Candles", "author": "Isaac Banner", "formation": "becket", "progression": "minor-set", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/1425", "formation": "Becket", "retrievedAt": "2026-10-20T05:48:40.555Z", "sha256": "8d265534842a2fce205480090fe626c3dad3ba5e354daaf3df0718af49087d51" }, "status": "partial", "problems": [ "Row 8 \"larks start a half hey - lefts in center, rights on ends - robins ricochet\" isn't drawn yet." ], "unparsed": [ { "row": 8, "text": "larks start a half hey - lefts in center, rights on ends - robins ricochet", "why": "No figure pattern matches \"gentlespoons start a half hey - lefts in center, rights on ends - ladles ricochet\"." } ], "choices": [ "Long waves form during the balance before each box circulate: crossers face in, loopers face out; hands join only where they reach." ],
+ "figures": [
+  {"move":"pass-by","beats":2,"params":{"who":"robins","shoulder":"right","hands":true},"text":"robins pull by right","section":"A1","row":1},
+  {"move":"allemande","beats":6,"params":{"who":"neighbor","hand":"left","amount":0.75},"text":"neighbors allemande left ¾","progression":true,"section":"A1","row":2},
+  {"move":"balance","beats":4,"params":{"formation":"long-waves","in":"robins"},"text":"balance & box circulate - robins cross while larks loop right · balance","section":"A1","row":3},
+  {"move":"box-circulate","beats":4,"params":{"cross":"robins","loop":"right"},"text":"balance & box circulate - robins cross while larks loop right · box circulate","section":"A1","row":3},
+  {"move":"balance","beats":4,"params":{"formation":"long-waves","in":"larks"},"text":"balance & box circulate - larks cross while robins loop right · balance","section":"A2","row":4},
+  {"move":"box-circulate","beats":4,"params":{"cross":"larks","loop":"right"},"text":"balance & box circulate - larks cross while robins loop right · box circulate","section":"A2","row":4},
+  {"move":"swing","beats":8,"params":{"who":"neighbor"},"text":"neighbors swing","section":"A2","row":5},
+  {"move":"long-lines","beats":8,"params":{"back":true},"text":"long lines forward & back","section":"B1","row":6},
+  {"move":"mad-robin","beats":8,"params":{"front":"larks"},"text":"mad robins, larks in front","section":"B1","row":7},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"larks start a half hey - lefts in center, rights on ends - robins ricochet","section":"B2","row":8},
+  {"move":"swing","beats":8,"params":{"who":"partner"},"text":"partners swing","section":"B2","row":9}
+ ]
+}

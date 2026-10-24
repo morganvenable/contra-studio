@@ -1,0 +1,11 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "1826", "title": "The Hive", "author": "John Coffman", "formation": "becket", "progression": "minor-set", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/1826", "formation": "Becket", "retrievedAt": "2026-10-20T06:18:42.499Z", "sha256": "3b55939b465e87dd86c90e32c6acb7bd333129149378c11b1c74df15ac443a7b" }, "status": "partial", "problems": [ "Row 1 \"left diagonal right left through\" isn't drawn yet.", "Row 3 \"circle right 4 places with 3rd neighbors\" isn't drawn yet.", "Row 4 \"turn alone\" isn't drawn yet." ], "unparsed": [ { "row": 1, "text": "left diagonal right left through", "why": "No figure pattern matches \"left diagonal right left through\"." }, { "row": 3, "text": "circle right 4 places with 3rd neighbors", "why": "No figure pattern matches \"circle right 4 places with 3rd neighbors\"." }, { "row": 4, "text": "turn alone", "why": "0 beats is too short for this row's parts." } ], "choices": [ "A meltdown swing starts with 4 beats of right-shoulder round, then swings." ],
+ "figures": [
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"left diagonal right left through","section":"A1","row":1},
+  {"move":"chain","beats":8,"params":{"who":"robins","to":"neighbor"},"text":"robins chain to 3rd neighbors","section":"A1","row":2},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"circle right 4 places with 3rd neighbors","section":"A2","row":3},
+  {"move":"circle","beats":8,"params":{"direction":"left","places":4},"text":"circle left 4 places with next neighbors","section":"A2","row":5},
+  {"move":"swing","beats":16,"params":{"who":"neighbor","meltdown":true},"text":"next neighbors meltdown swing","section":"B1","row":6},
+  {"move":"allemande","beats":8,"params":{"who":"larks","hand":"left","amount":1.5},"text":"larks allemande left 1½","section":"B2","row":7},
+  {"move":"swing","beats":8,"params":{"who":"partner"},"text":"partners swing","progression":true,"section":"B2","row":8}
+ ]
+}

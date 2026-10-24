@@ -1,0 +1,12 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "554", "title": "Celebration", "author": "Linda Leslie", "formation": null, "progression": null, "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 6 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/554", "formation": "circle mixer", "retrievedAt": "2026-10-20T05:50:09.300Z", "sha256": "bf41f065d776b8b8b679474b3d88480a079fb3130aacf2ee70c26a09650a08c9" }, "status": "unsupported", "problems": [ "The \"circle mixer\" formation isn't built yet." ], "unparsed": [ { "row": 2, "text": "long lines forward & back (face partner and take two hands)", "why": "No figure pattern matches \"long lines forward & back (face partner and take two hands)\"." }, { "row": 3, "text": "sashay in & out", "why": "No figure pattern matches \"sashay in & out\"." }, { "row": 4, "text": "sashay in & out", "why": "No figure pattern matches \"sashay in & out\"." }, { "row": 8, "text": "robins turn alone one place to a new partner", "why": "No figure pattern matches \"ladles turn alone one place to a new partner ⁋\"." } ], "choices": [],
+ "figures": [
+  {"move":"long-lines","beats":8,"params":{"back":true},"text":"long lines forward & back","section":"A1","row":1},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"long lines forward & back (face partner and take two hands)","section":"A1","row":2},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"sashay in & out","section":"A2","row":3},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"sashay in & out","section":"A2","row":4},
+  {"move":"do-si-do","beats":8,"params":{"who":"partner","amount":1,"shoulder":"right"},"text":"partners do si do once","section":"B1","row":5},
+  {"move":"swing","beats":8,"params":{"who":"partner"},"text":"partners swing","section":"B1","row":6},
+  {"move":"promenade","beats":8,"params":{"who":"partner"},"text":"partners promenade","section":"B2","row":7},
+  {"move":"hold","beats":4,"params":{"reason":"unparsed"},"text":"robins turn alone one place to a new partner","section":"B2","row":8,"progression":true}
+ ]
+}

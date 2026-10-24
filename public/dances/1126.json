@@ -1,0 +1,13 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "1126", "title": "Meander", "author": "Andrea Nettleton", "formation": "becket", "progression": "minor-set", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/1126", "formation": "Becket", "retrievedAt": "2026-10-20T06:03:57.357Z", "sha256": "5aca7366879833ad094b5c1fcdb5aacb2308b243609aadd8b2a39039d7625f1b" }, "status": "partial", "problems": [ "Row 5 \"pass through left diagonal (2nd neighbors right), larks catch hands for...\" isn't drawn yet.", "Row 6 \"larks allemande left once with 3rd neighbor larks, who should be ~directly across (it's a double progression)\" isn't drawn yet." ], "unparsed": [ { "row": 5, "text": "pass through left diagonal (2nd neighbors right), larks catch hands for...", "why": "No figure pattern matches \"pass through left diagonal (2nd neighbors right), gentlespoons catch hands for... ⁋\"." }, { "row": 6, "text": "larks allemande left once with 3rd neighbor larks, who should be ~directly across (it's a double progression)", "why": "No figure pattern matches \"gentlespoons allemande left once with 3rd neighbor gentlespoon, who should be ~directly across (it's a double progression)\"." } ], "choices": [ "A gyre goes by the right shoulder, facing each other, with no hands." ],
+ "figures": [
+  {"move":"circle","beats":6,"params":{"direction":"left","places":3},"text":"circle left 3 places","section":"A1","row":1},
+  {"move":"swing","beats":10,"params":{"who":"neighbor"},"text":"1st neighbors swing","section":"A1","row":2},
+  {"move":"long-lines","beats":8,"params":{"back":true},"text":"long lines forward & back","section":"A2","row":3},
+  {"move":"chain","beats":8,"params":{"who":"robins"},"text":"robins chain","section":"A2","row":4},
+  {"move":"hold","beats":4,"params":{"reason":"unparsed"},"text":"pass through left diagonal (2nd neighbors right), larks catch hands for...","section":"B1","row":5,"progression":true},
+  {"move":"hold","beats":4,"params":{"reason":"unparsed"},"text":"larks allemande left once with 3rd neighbor larks, who should be ~directly across (it's a double progression)","section":"B1","row":6},
+  {"move":"gyre","beats":8,"params":{"who":"partner","amount":1},"text":"partners gyre once","section":"B1","row":7},
+  {"move":"hey","beats":8,"params":{"start":"larks","amount":0.5,"center":"left"},"text":"larks start a half hey - lefts in center, rights on ends","section":"B2","row":8},
+  {"move":"swing","beats":8,"params":{"who":"partner"},"text":"partners swing","section":"B2","row":9}
+ ]
+}

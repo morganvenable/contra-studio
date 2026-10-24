@@ -1,0 +1,14 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "103", "title": "Songbird", "author": "Cary Ravitz", "formation": "becket", "progression": "minor-set", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/103", "formation": "Becket", "retrievedAt": "2026-10-20T06:13:26.196Z", "sha256": "81265b7062754cdf624e2dd3089a0cc5bca980a589e22cb5e8d13a9362c6cca6" }, "status": "partial", "problems": [ "Row 5 \"half poussette - robins pull partners back then left\" isn't drawn yet.", "Row 6 \"half poussette - larks pull partners back then right\" isn't drawn yet." ], "unparsed": [ { "row": 5, "text": "half poussette - robins pull partners back then left", "why": "No figure pattern matches \"half poussette - ladles pull partners back then left ⁋\"." }, { "row": 6, "text": "half poussette - larks pull partners back then right", "why": "No figure pattern matches \"half poussette - gentlespoons pull partners back then right\"." } ], "choices": [ "A balance with a partner or neighbor holds both hands." ],
+ "figures": [
+  {"move":"circle","beats":8,"params":{"direction":"left","places":3},"text":"circle left 3 places","section":"A1","row":1},
+  {"move":"swing","beats":8,"params":{"who":"neighbor"},"text":"neighbors swing","section":"A1","row":2},
+  {"move":"circle","beats":4,"params":{"direction":"left","places":2},"text":"circle left 2 places","section":"A2","row":3},
+  {"move":"mad-robin","beats":6,"params":{"front":"larks"},"text":"mad robins, larks in front","section":"A2","row":4},
+  {"move":"hold","beats":6,"params":{"reason":"unparsed"},"text":"half poussette - robins pull partners back then left","section":"A2","row":5,"progression":true},
+  {"move":"hold","beats":6,"params":{"reason":"unparsed"},"text":"half poussette - larks pull partners back then right","section":"B1","row":6},
+  {"move":"mad-robin","beats":6,"params":{"front":"larks"},"text":"mad robins, larks in front","section":"B1","row":7},
+  {"move":"pass-by","beats":4,"params":{"who":"larks","shoulder":"right","hands":false},"text":"larks pass by right shoulders","section":"B1","row":8},
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"partner","hand":"both"},"text":"partners balance & swing · balance","section":"B2","row":9},
+  {"move":"swing","beats":12,"params":{"who":"partner"},"text":"partners balance & swing · swing","section":"B2","row":9}
+ ]
+}

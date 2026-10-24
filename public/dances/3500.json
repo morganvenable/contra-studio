@@ -1,0 +1,16 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "3500", "title": "Is It Jim's Anna or Anna's Jim?", "author": "Mattie Rynkiewicz", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/3500", "formation": "improper", "retrievedAt": "2026-10-20T06:00:27.647Z", "sha256": "3a46d1e8331ae2fc011492ad279afd6b4e450b3c031f05f9f6e84d450c33e029" }, "status": "partial", "problems": [ "Row 5 \"neighbors swing [new neighbors]\" isn't drawn yet.", "Row 6 \"robins start a half hey - rights in center, lefts on ends - larks ricochet\" isn't drawn yet.", "Row 7 \"partners swing\" can't start from where the dancers are: A swing that ends facing across must start nearer one side." ], "unparsed": [ { "row": 5, "text": "neighbors swing [new neighbors]", "why": "No figure pattern matches \"neighbors swing [new neighbors]\"." }, { "row": 6, "text": "robins start a half hey - rights in center, lefts on ends - larks ricochet", "why": "No figure pattern matches \"ladles start a half hey - rights in center, lefts on ends - gentlespoons ricochet\"." } ], "choices": [ "Pass through goes by right shoulders.", "A pass through from a ring goes along the set, to the dancer on your own side." ],
+ "figures": [
+  {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance & petronella · balance","section":"A1","row":1},
+  {"move":"petronella","beats":4,"params":{},"text":"balance & petronella · petronella","section":"A1","row":1},
+  {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance & petronella · balance","section":"A1","row":2},
+  {"move":"petronella","beats":4,"params":{},"text":"balance & petronella · petronella","section":"A1","row":2},
+  {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance the ring","section":"A2","row":3},
+  {"move":"twirl","beats":4,"params":{"style":"california","who":"partner"},"text":"partners California twirl","progression":true,"section":"A2","row":4},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"neighbors swing [new neighbors]","section":"A2","row":5},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"robins start a half hey - rights in center, lefts on ends - larks ricochet","section":"B1","row":6},
+  {"move":"swing","beats":8,"params":{"who":"partner"},"text":"partners swing","section":"B1","row":7},
+  {"move":"circle","beats":8,"params":{"direction":"left","places":3},"text":"circle left 3 places","section":"B2","row":8},
+  {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance the ring","section":"B2","row":9},
+  {"move":"pass-through","beats":4,"params":{"shoulder":"right"},"text":"pass through","progression":true,"section":"B2","row":10}
+ ]
+}

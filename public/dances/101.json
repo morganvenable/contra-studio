@@ -1,0 +1,14 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "101", "title": "Leap Dance", "author": "Ted Crane", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/101", "formation": "improper", "retrievedAt": "2026-10-20T06:02:26.635Z", "sha256": "b42eebe8e23f12944e495adee25a65a08c4b95b1f345aca7700ca75bcc42b4dd" }, "status": "partial", "problems": [ "Row 4 \"larks roll away neighbors with a half sashay **dance says 'corners', DOUBLE CHECK THAT THIS IS NEIGHBORS BEFORE CALLING\" isn't drawn yet.", "Row 2 \"larks roll away partners with a half sashay\" can't start from where the dancers are: A roll away needs the two side by side on one side.", "Row 9 \"slide left along set\" can't start from where the dancers are: Couple 1 must stand side by side in a line facing across." ], "unparsed": [ { "row": 4, "text": "larks roll away neighbors with a half sashay **dance says 'corners', DOUBLE CHECK THAT THIS IS NEIGHBORS BEFORE CALLING", "why": "No figure pattern matches \"gentlespoons roll away neighbors with a half sashay **dance says 'corners', DOUBLE CHECK THAT THIS IS NEIGHBORS BEFORE CALLING\"." } ], "choices": [ "A meltdown swing starts with 4 beats of right-shoulder round, then swings." ],
+ "figures": [
+  {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance the ring","section":"A1","row":1},
+  {"move":"roll-away","beats":4,"params":{"who":"larks","whom":"partner"},"text":"larks roll away partners with a half sashay","section":"A1","row":2},
+  {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance the ring","section":"A1","row":3},
+  {"move":"hold","beats":4,"params":{"reason":"unparsed"},"text":"larks roll away neighbors with a half sashay **dance says 'corners', DOUBLE CHECK THAT THIS IS NEIGHBORS BEFORE CALLING","section":"A1","row":4},
+  {"move":"allemande","beats":8,"params":{"who":"robins","hand":"left","amount":1.5},"text":"robins allemande left 1½","section":"A2","row":5},
+  {"move":"hey","beats":8,"params":{"start":"partner","amount":0.5,"center":"left"},"text":"partners start a half hey - rights on ends, lefts in center","section":"A2","row":6},
+  {"move":"swing","beats":16,"params":{"who":"partner","meltdown":true},"text":"partners meltdown swing","section":"B1","row":7},
+  {"move":"circle","beats":8,"params":{"direction":"left","places":4},"text":"circle left 4 places","section":"B2","row":8},
+  {"move":"slide","beats":2,"params":{"direction":"left"},"text":"slide left along set","progression":true,"section":"B2","row":9},
+  {"move":"circle","beats":6,"params":{"direction":"left","places":3},"text":"circle left 3 places","section":"B2","row":10}
+ ]
+}

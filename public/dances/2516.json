@@ -1,0 +1,11 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "2516", "title": "Icebreaker Mixer", "author": "Mattie Rynkiewicz", "formation": null, "progression": null, "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/2516", "formation": "duple mixer", "retrievedAt": "2026-10-20T06:00:02.474Z", "sha256": "d6dab8ed5e8736a9004296b938708f44de0adca88b2b39e1b7f952d12cfe4ee8" }, "status": "unsupported", "problems": [ "The \"duple mixer\" formation isn't built yet." ], "unparsed": [ { "row": 6, "text": "neighbor is now partner; promenade around the hall and find another couple to dance with", "why": "No figure pattern matches \"neighbor is now partner; promenade around the hall and find another couple to dance with\"." } ], "choices": [ "A balance with a partner or neighbor holds both hands." ],
+ "figures": [
+  {"move":"circle","beats":8,"params":{"direction":"left","places":4},"text":"circle left 4 places","section":"A1","row":1},
+  {"move":"circle","beats":8,"params":{"direction":"right","places":4},"text":"circle right 4 places","section":"A1","row":2},
+  {"move":"allemande","beats":8,"params":{"who":"partner","hand":"right","amount":1},"text":"partners allemande right once","section":"A2","row":3},
+  {"move":"allemande","beats":8,"params":{"who":"partner","hand":"left","amount":1},"text":"partners allemande left once","section":"A2","row":4},
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"neighbor","hand":"both"},"text":"neighbors balance & swing · balance","section":"B1","row":5},
+  {"move":"swing","beats":12,"params":{"who":"neighbor"},"text":"neighbors balance & swing · swing","progression":true,"section":"B1","row":5},
+  {"move":"hold","beats":16,"params":{"reason":"unparsed"},"text":"neighbor is now partner; promenade around the hall and find another couple to dance with","section":"B2","row":6}
+ ]
+}

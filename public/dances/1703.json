@@ -1,0 +1,14 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "1703", "title": "Beach Grass", "author": "Moose Flores", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/1703", "formation": "improper", "retrievedAt": "2026-10-20T05:48:00.307Z", "sha256": "3b528261e39463b2b41b0417528d9674f5ce2b45d9276dc9dd86bd1a9e0a847b" }, "status": "partial", "problems": [ "Row 6 \"larks walk, robins dodge, forming long wavy lines +\" isn't drawn yet.", "Row 7 \"balance the wave\" can't start from where the dancers are: Dancers in a wave must face across the line.", "Row 8 \"balance & Rory O'More right · balance\" can't start from where the dancers are: Dancers in a wave must face across the line.", "Row 8 \"balance & Rory O'More right · slide\" can't start from where the dancers are: Dancers in a wave must face across the line." ], "unparsed": [ { "row": 6, "text": "larks walk, robins dodge, forming long wavy lines +", "why": "No figure pattern matches \"gentlespoons walk, ladles dodge, forming long wavy lines +\"." } ], "choices": [ "Rory O'More spins one full turn in the travel direction (the usual styling).", "The balance before each Rory steps toward the slide direction first.", "A balance with a partner or neighbor holds both hands." ],
+ "figures": [
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"neighbor","hand":"both"},"text":"neighbors balance & swing · balance","section":"A1","row":1},
+  {"move":"swing","beats":12,"params":{"who":"neighbor"},"text":"neighbors balance & swing · swing","section":"A1","row":1},
+  {"move":"circle","beats":8,"params":{"direction":"left","places":3},"text":"circle left 3 places","section":"A2","row":2},
+  {"move":"swing","beats":8,"params":{"who":"partner"},"text":"partners swing","section":"A2","row":3},
+  {"move":"right-left-through","beats":8,"params":{},"text":"right left through","section":"B1","row":4},
+  {"move":"long-lines","beats":8,"params":{"back":true},"text":"long lines forward & back","section":"B1","row":5},
+  {"move":"hold","beats":4,"params":{"reason":"unparsed"},"text":"larks walk, robins dodge, forming long wavy lines +","section":"B2","row":6},
+  {"move":"balance","beats":4,"params":{"formation":"wave","style":"right-left"},"text":"balance the wave","section":"B2","row":7},
+  {"move":"balance","beats":4,"params":{"formation":"wave","style":"right-left","first":"right"},"text":"balance & Rory O'More right · balance","section":"B2","row":8},
+  {"move":"rory","beats":4,"params":{"direction":"right","spin":"full"},"text":"balance & Rory O'More right · slide","progression":true,"section":"B2","row":8}
+ ]
+}

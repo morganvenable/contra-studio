@@ -1,0 +1,11 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "3107", "title": "Strange New Worlds", "author": "Michael Karcher", "formation": "becket", "progression": "minor-set", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/3107", "formation": "becket", "retrievedAt": "2026-10-20T06:14:47.764Z", "sha256": "b19584fd1a1b8ddb3a9e0dcc513651a44b0550be39d55fb14706b890e1ca4f79" }, "status": "partial", "problems": [ "Row 3 \"single file promenade along major set to new neightbors\" isn't drawn yet.", "Row 4 \"star left - hands across - 4 places with the new\" isn't drawn yet.", "Row 5 \"neighbors long swing\" can't start from where the dancers are: A swing that ends facing across must start nearer one side.", "Row 7 \"partners swing\" can't start from where the dancers are: A swing that ends facing across must start nearer one side." ], "unparsed": [ { "row": 3, "text": "single file promenade along major set to new neightbors", "why": "No figure pattern matches \"single file promenade along major set to new neightbors ⁋\"." }, { "row": 4, "text": "star left - hands across - 4 places with the new", "why": "No figure pattern matches \"star left - hands across - 4 places with the new\"." } ], "choices": [ "A long swing is drawn as an ordinary swing." ],
+ "figures": [
+  {"move":"right-left-through","beats":8,"params":{},"text":"right left through","section":"A1","row":1},
+  {"move":"star","beats":8,"params":{"hand":"left","places":4,"grip":"hands-across"},"text":"star left - hands across - 4 places","section":"A1","row":2},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"single file promenade along major set to new neightbors","section":"A2","row":3,"progression":true},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"star left - hands across - 4 places with the new","section":"A2","row":4},
+  {"move":"swing","beats":16,"params":{"who":"neighbor"},"text":"neighbors long swing","section":"B1","row":5},
+  {"move":"circle","beats":8,"params":{"direction":"left","places":3},"text":"circle left 3 places","section":"B2","row":6},
+  {"move":"swing","beats":8,"params":{"who":"partner"},"text":"partners swing","section":"B2","row":7}
+ ]
+}

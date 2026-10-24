@@ -1,0 +1,13 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "2420", "title": "Cut to the Jack (for Annie)", "author": "Moose Flores", "formation": "becket", "progression": "minor-set", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/2420", "formation": "Becket", "retrievedAt": "2026-10-20T05:52:25.588Z", "sha256": "a2f714beb4456666ab7020e14a91541cd8d9fa2dedf473f0c593a328cd88331a" }, "status": "partial", "problems": [ "Row 2 \"larks allemande left 1¼ around while the robins orbit clockwise ½ around\" isn't drawn yet.", "Row 3 \"larks form a long wave in the center - balance the wave, then \"cut the diamond\" ...\" isn't drawn yet." ], "unparsed": [ { "row": 2, "text": "larks allemande left 1¼ around while the robins orbit clockwise ½ around", "why": "No figure pattern matches \"gentlespoons allemande left 1¼ around while the ladles orbit clockwise ½ around\"." }, { "row": 3, "text": "larks form a long wave in the center - balance the wave, then \"cut the diamond\" ...", "why": "No figure pattern matches \"gentlespoons form a long wave in the center - balance the wave, then \"cut the diamond\" ...\"." } ], "choices": [ "Slice: half the counts on the diagonal, half straight back.", "A balance with a partner or neighbor holds both hands." ],
+ "figures": [
+  {"move":"slice","beats":8,"params":{"direction":"left","back":"straight"},"text":"slice left and straight back","progression":true,"section":"A1","row":1},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"larks allemande left 1¼ around while the robins orbit clockwise ½ around","section":"A1","row":2},
+  {"move":"hold","beats":4,"params":{"reason":"unparsed"},"text":"larks form a long wave in the center - balance the wave, then \"cut the diamond\" ...","section":"A2","row":3},
+  {"move":"pass-by","beats":4,"params":{"who":"partner","shoulder":"left","hands":false},"text":"partners pass by left shoulders","section":"A2","row":4},
+  {"move":"allemande","beats":8,"params":{"who":"robins","hand":"right","amount":1.5},"text":"robins allemande right 1½","section":"A2","row":5},
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"neighbor","hand":"both"},"text":"neighbors balance & swing · balance","section":"B1","row":6},
+  {"move":"swing","beats":12,"params":{"who":"neighbor"},"text":"neighbors balance & swing · swing","section":"B1","row":6},
+  {"move":"circle","beats":2,"params":{"direction":"left","places":1},"text":"circle left 1 place","section":"B2","row":7},
+  {"move":"swing","beats":14,"params":{"who":"partner"},"text":"partners swing","section":"B2","row":8}
+ ]
+}

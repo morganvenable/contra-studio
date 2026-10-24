@@ -1,0 +1,14 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "981", "title": "Rim of the Sky", "author": "Nicholas Rockstroh", "formation": "becket", "progression": "minor-set", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/981", "formation": "Becket cw", "retrievedAt": "2026-10-20T06:10:30.699Z", "sha256": "0f8283c9fa44e2b34328c195c34e870606cb1335f9eadf9bb099c3e3a3282ef6" }, "status": "partial", "problems": [ "Row 6 \"neighbors zig right zag left zig right around two couples to 2nd shadow\" isn't drawn yet.", "Row 7 \"2nd shadows allemande left once\" isn't drawn yet.", "Row 8 \"1st shadows pull by right\" isn't drawn yet.", "The progression after row 4 \"partners california twirl and face next neighbors\" doesn't work out: Couple 1 must face the same way to find new neighbors." ], "unparsed": [ { "row": 6, "text": "neighbors zig right zag left zig right around two couples to 2nd shadow", "why": "No figure pattern matches \"neighbors zig right zag left zig right around two couples to 2nd shadow\"." }, { "row": 7, "text": "2nd shadows allemande left once", "why": "No figure pattern matches \"2nd shadows allemande left once\"." }, { "row": 8, "text": "1st shadows pull by right", "why": "No figure pattern matches \"1st shadows pull by right\"." } ], "choices": [ "A balance with a partner or neighbor holds both hands." ],
+ "figures": [
+  {"move":"circle","beats":6,"params":{"direction":"left","places":3},"text":"circle left 3 places","section":"A1","row":1},
+  {"move":"swing","beats":10,"params":{"who":"neighbor"},"text":"neighbors swing","section":"A1","row":2},
+  {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance the ring","section":"A2","row":3},
+  {"move":"twirl","beats":4,"params":{"style":"california","who":"partner"},"text":"partners California twirl and face next neighbors","progression":true,"section":"A2","row":4},
+  {"move":"circle","beats":8,"params":{"direction":"right","places":3},"text":"circle right 3 places with next neighbors","section":"A2","row":5},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"neighbors zig right zag left zig right around two couples to 2nd shadow","section":"B1","row":6},
+  {"move":"hold","beats":6,"params":{"reason":"unparsed"},"text":"2nd shadows allemande left once","section":"B1","row":7},
+  {"move":"hold","beats":2,"params":{"reason":"unparsed"},"text":"1st shadows pull by right","section":"B1","row":8},
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"partner","hand":"both"},"text":"partners balance & swing · balance","section":"B2","row":9},
+  {"move":"swing","beats":12,"params":{"who":"partner"},"text":"partners balance & swing · swing","section":"B2","row":9}
+ ]
+}

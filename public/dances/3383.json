@@ -1,0 +1,14 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "3383", "title": "3 Up The Creek", "author": "Jasmine Davis", "formation": null, "progression": null, "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/3383", "formation": "3 face 3", "retrievedAt": "2026-10-20T05:44:34.877Z", "sha256": "b4ca7d190b504b55da14e288a946c5e08645bffd46ac765f863b929f2ede1100" }, "status": "unsupported", "problems": [ "The \"3 face 3\" formation isn't built yet." ], "unparsed": [ { "row": 5, "text": "partners gyre left shoulders once (leftmost dancer u-turn back to start)", "why": "No figure pattern matches \"partners gyre left shoulders once (leftmost dancer u-turn back to start)\"." }, { "row": 7, "text": "circle right 6 places (open from circle 3 into circle 6, circle to return home)", "why": "No figure pattern matches \"circle right 6 places (open from circle 3 into circle 6, circle to return home)\"." }, { "row": 8, "text": "zig right zag left", "why": "No figure pattern matches \"zig right zag left ⁋\"." } ], "choices": [ "Rory O'More spins one full turn in the travel direction (the usual styling).", "The balance before each Rory steps toward the slide direction first." ],
+ "figures": [
+  {"move":"balance","beats":4,"params":{"formation":"wave","style":"right-left","first":"right"},"text":"balance & Rory O'More right · balance","section":"A1","row":1},
+  {"move":"rory","beats":4,"params":{"direction":"right","spin":"full"},"text":"balance & Rory O'More right · slide","section":"A1","row":1},
+  {"move":"balance","beats":4,"params":{"formation":"wave","style":"right-left","first":"left"},"text":"balance & Rory O'More left · balance","section":"A1","row":2},
+  {"move":"rory","beats":4,"params":{"direction":"left","spin":"full"},"text":"balance & Rory O'More left · slide","section":"A1","row":2},
+  {"move":"do-si-do","beats":8,"params":{"who":"neighbor","amount":1,"shoulder":"right"},"text":"neighbors do si do once","section":"A2","row":3},
+  {"move":"allemande","beats":8,"params":{"who":"neighbor","hand":"right","amount":1},"text":"neighbors allemande right once","section":"A2","row":4},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"partners gyre left shoulders once (leftmost dancer u-turn back to start)","section":"B1","row":5},
+  {"move":"circle","beats":8,"params":{"direction":"right","places":3},"text":"circle right 3 places","section":"B1","row":6},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"circle right 6 places (open from circle 3 into circle 6, circle to return home)","section":"B2","row":7},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"zig right zag left","section":"B2","row":8,"progression":true}
+ ]
+}

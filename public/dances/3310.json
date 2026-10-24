@@ -1,0 +1,13 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "3310", "title": "Kiss the Bride variation", "author": "Jeffrey Spero", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/3310", "formation": "improper", "sha256": "1b26d89a584eca42d1d445ca767436ac6d78436cc6515e4ed9e94652bb1ae2bc", "status": "sketchbook" }, "status": "partial", "problems": [ "Row 5 \"partners balance & swing · swing\" can't start from where the dancers are: A swing that ends facing across must start nearer one side.", "Row 6 \"partners promenade\" can't start from where the dancers are: To promenade across, partners must stand side by side on one side." ], "unparsed": [], "choices": [ "A pass through from a ring goes along the set, to the dancer on your own side.", "A balance with a partner or neighbor holds both hands." ],
+ "figures": [
+  {"move":"do-si-do","beats":8,"params":{"who":"neighbor","amount":1,"shoulder":"right"},"text":"neighbors do si do once","section":"A1","row":1},
+  {"move":"swing","beats":8,"params":{"who":"neighbor"},"text":"neighbors swing","section":"A1","row":2},
+  {"move":"long-lines","beats":8,"params":{"back":true},"text":"long lines forward & back","section":"A2","row":3},
+  {"move":"allemande","beats":8,"params":{"who":"robins","hand":"right","amount":1},"text":"robins allemande right once","section":"A2","row":4},
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"partner","hand":"both"},"text":"partners balance & swing · balance","section":"B1","row":5},
+  {"move":"swing","beats":12,"params":{"who":"partner"},"text":"partners balance & swing · swing","section":"B1","row":5},
+  {"move":"promenade","beats":8,"params":{"who":"partner"},"text":"partners promenade","section":"B2","row":6},
+  {"move":"circle","beats":6,"params":{"direction":"right","places":3},"text":"circle right 3 places","section":"B2","row":7},
+  {"move":"pass-through","beats":2,"params":{"shoulder":"left"},"text":"pass through left shoulders","progression":true,"section":"B2","row":8}
+ ]
+}

@@ -1,0 +1,11 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "2522", "title": "Festival Reel II", "author": "Will Mentor", "formation": "becket", "progression": "minor-set", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/2522", "formation": "Becket", "sha256": "156fcc375bfc04bf1b62c03287e37d4f38496e96bbc4813f2a6a613fcfc982ab" }, "status": "ok", "problems": [], "unparsed": [], "choices": [ "Slice: half the counts on the diagonal, half straight back.", "A star with no grip named is a basket star (wrist grip).", "A long swing is drawn as an ordinary swing.", "Long lines slice left & back is drawn as a slice: couples step diagonally left, then straight back." ],
+ "figures": [
+  {"move":"long-lines","beats":8,"params":{"back":true},"text":"long lines forward & back","section":"A1","row":1},
+  {"move":"slice","beats":8,"params":{"direction":"left","back":"straight"},"text":"long lines slice left & back","progression":true,"section":"A1","row":2},
+  {"move":"star","beats":8,"params":{"hand":"left","places":4},"text":"star left 4 places","section":"A2","row":3},
+  {"move":"star","beats":8,"params":{"hand":"right","places":4},"text":"star right 4 places","section":"A2","row":4},
+  {"move":"circle","beats":8,"params":{"direction":"right","places":4},"text":"circle right 4 places","section":"B1","row":5},
+  {"move":"circle","beats":8,"params":{"direction":"left","places":4},"text":"circle left 4 places","section":"B1","row":6},
+  {"move":"swing","beats":16,"params":{"who":"partner"},"text":"partners long swing","section":"B2","row":7}
+ ]
+}

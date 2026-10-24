@@ -1,0 +1,13 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "983", "title": "Rosie's Rave", "author": "Nicholas Rockstroh", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/983", "formation": "improper", "retrievedAt": "2026-10-20T06:11:33.204Z", "sha256": "558a8ff79c7f292e53e34013888430c5075c49e75887974b9708ee9dc5286443" }, "status": "partial", "problems": [ "Row 6 \"ones contra corners\" isn't drawn yet.", "Row 5 \"ones right hand balance & box the gnat · balance\" can't start from where the dancers are: balance who must be one of partner, neighbor, larks, robins; got 1s.", "Row 5 \"ones right hand balance & box the gnat · twirl\" can't start from where the dancers are: twirl who must be one of partner, neighbor; got 1s.", "Row 7 \"ones balance & swing · balance\" can't start from where the dancers are: balance who must be one of partner, neighbor, larks, robins; got 1s." ], "unparsed": [ { "row": 6, "text": "ones contra corners", "why": "No figure pattern matches \"ones contra corners\"." } ], "choices": [ "A balance with a partner or neighbor holds both hands.", "The 1s end their swing side by side in the middle of the set facing down, the way they progress." ],
+ "figures": [
+  {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance the ring","section":"A1","row":1},
+  {"move":"roll-away","beats":4,"params":{"who":"larks","whom":"neighbor"},"text":"larks roll away neighbors with a half sashay","section":"A1","row":2},
+  {"move":"mad-robin","beats":8,"params":{"front":"larks"},"text":"mad robins, larks in front, look for next neighbors","progression":true,"section":"A1","row":3},
+  {"move":"mad-robin","beats":8,"params":{"front":"larks"},"text":"mad robins, larks in front with next neighbors","section":"A2","row":4},
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"1s","hand":"right"},"text":"ones right hand balance & box the gnat · balance","section":"A2","row":5},
+  {"move":"twirl","beats":4,"params":{"style":"box-the-gnat","who":"1s"},"text":"ones right hand balance & box the gnat · twirl","section":"A2","row":5},
+  {"move":"hold","beats":16,"params":{"reason":"unparsed"},"text":"ones contra corners","section":"B1","row":6},
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"1s","hand":"both"},"text":"ones balance & swing · balance","section":"B2","row":7},
+  {"move":"swing","beats":12,"params":{"who":"1s","end":"down"},"text":"ones balance & swing · swing","section":"B2","row":7}
+ ]
+}

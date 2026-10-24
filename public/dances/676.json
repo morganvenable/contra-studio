@@ -1,0 +1,14 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "676", "title": "Heart of Joy", "author": "Chris Page", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/676", "formation": "improper", "retrievedAt": "2026-10-20T05:58:36.813Z", "sha256": "bc6727be3b541d170cffc3f7792e9eda23b9d0b83bbeb5d2455613b0e744244c" }, "status": "partial", "problems": [ "Row 2 \"single file promenade clockwise 1/2 (facing neighbor) [1]\" isn't drawn yet.", "Row 5 \"robins allemande right 1½ [2]\" isn't drawn yet.", "Row 7 \"single file promenade clockwise 1/2 (facing partner) [3]\" isn't drawn yet.", "Row 8 \"partners swing\" can't start from where the dancers are: A swing that ends facing across must start nearer one side." ], "unparsed": [ { "row": 2, "text": "single file promenade clockwise 1/2 (facing neighbor) [1]", "why": "No figure pattern matches \"single file promenade clockwise 1/2 (facing neighbor) [1]\"." }, { "row": 5, "text": "robins allemande right 1½ [2]", "why": "No figure pattern matches \"ladles allemande right 1½ [2]\"." }, { "row": 7, "text": "single file promenade clockwise 1/2 (facing partner) [3]", "why": "No figure pattern matches \"single file promenade clockwise 1/2 (facing partner) [3]\"." } ], "choices": [ "A star with no grip named is a basket star (wrist grip).", "A gyre goes by the right shoulder, facing each other, with no hands." ],
+ "figures": [
+  {"move":"gyre","beats":4,"params":{"who":"neighbor","amount":0.5},"text":"neighbors gyre ½","section":"A1","row":1},
+  {"move":"hold","beats":4,"params":{"reason":"unparsed"},"text":"single file promenade clockwise 1/2 (facing neighbor) [1]","section":"A1","row":2},
+  {"move":"swing","beats":8,"params":{"who":"neighbor"},"text":"neighbors swing","section":"A1","row":3},
+  {"move":"long-lines","beats":8,"params":{"back":true},"text":"long lines forward & back","section":"A2","row":4},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"robins allemande right 1½ [2]","section":"A2","row":5},
+  {"move":"gyre","beats":4,"params":{"who":"partner","amount":0.5},"text":"partners gyre ½","section":"B1","row":6},
+  {"move":"hold","beats":4,"params":{"reason":"unparsed"},"text":"single file promenade clockwise 1/2 (facing partner) [3]","section":"B1","row":7},
+  {"move":"swing","beats":8,"params":{"who":"partner"},"text":"partners swing","section":"B1","row":8},
+  {"move":"chain","beats":8,"params":{"who":"robins"},"text":"robins chain","section":"B2","row":9},
+  {"move":"star","beats":8,"params":{"hand":"left","places":4},"text":"star left 4 places","progression":true,"section":"B2","row":10}
+ ]
+}

@@ -1,0 +1,13 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "2646", "title": "Gravity Waves", "author": "Jonathan Sivier", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/2646", "formation": "improper", "retrievedAt": "2026-10-20T05:57:54.368Z", "sha256": "8189de435a9604e43c3e3cda3cab79fdc7cba2a981c4afab8847157886a431f4" }, "status": "partial", "problems": [ "Row 4 \"form an ocean wave & balance - larks by left hands and neighbors by right hands\" isn't drawn yet.", "The progression after row 10 \"star left 4 places\" doesn't work out: Couples 1 and 2 have not passed each other yet." ], "unparsed": [ { "row": 4, "text": "form an ocean wave & balance - larks by left hands and neighbors by right hands", "why": "No figure pattern matches \"form an ocean wave & balance - gentlespoons by left hands and neighbors by right hands\"." } ], "choices": [ "A star with no grip named is a basket star (wrist grip).", "A meltdown swing starts with 4 beats of right-shoulder round, then swings." ],
+ "figures": [
+  {"move":"balance","beats":4,"params":{"formation":"current"},"text":"balance","section":"A1","row":2},
+  {"move":"allemande","beats":4,"params":{"who":"neighbor","hand":"right","amount":0.75},"text":"neighbors allemande right ¾","section":"A1","row":3},
+  {"move":"hold","beats":4,"params":{"reason":"unparsed"},"text":"form an ocean wave & balance - larks by left hands and neighbors by right hands","section":"A1","row":4},
+  {"move":"allemande","beats":4,"params":{"who":"larks","hand":"left","amount":0.5},"text":"larks allemande left ½","section":"A1","row":5},
+  {"move":"swing","beats":16,"params":{"who":"partner","meltdown":true},"text":"partners meltdown swing","section":"A2","row":6},
+  {"move":"long-lines","beats":8,"params":{"back":true},"text":"long lines forward & back","section":"B1","row":7},
+  {"move":"chain","beats":8,"params":{"who":"larks"},"text":"larks chain","section":"B1","row":8},
+  {"move":"star","beats":8,"params":{"hand":"right","places":4},"text":"star right 4 places","section":"B2","row":9},
+  {"move":"star","beats":8,"params":{"hand":"left","places":4},"text":"star left 4 places","progression":true,"section":"B2","row":10}
+ ]
+}

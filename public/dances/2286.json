@@ -1,0 +1,11 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "2286", "title": "Festival Jig", "author": "Ted Sannella", "formation": null, "progression": null, "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/2286", "formation": "proper", "retrievedAt": "2026-10-20T05:55:27.037Z", "sha256": "228961a96541cd7444cca4490a8ee69d682607143b0350f231c2e3d37ab13751" }, "status": "unsupported", "problems": [ "The \"proper\" formation isn't built yet." ], "unparsed": [ { "row": 3, "text": "neighbors balance & swing, end in a line of four facing down", "why": "No figure pattern matches \"neighbors balance & swing, end in a line of four facing down\"." }, { "row": 5, "text": "up the hall and hand cast off to face across", "why": "No figure pattern matches \"up the hall and hand cast off to face across\"." }, { "row": 7, "text": "ones half figure 8 above", "why": "No figure pattern matches \"ones half figure 8 above ⁋\"." } ], "choices": [],
+ "figures": [
+  {"move":"long-lines","beats":8,"params":{"back":true},"text":"long lines forward & back","section":"A1","row":1},
+  {"move":"do-si-do","beats":8,"params":{"who":"1s","amount":1.5,"shoulder":"right"},"text":"ones do si do 1½","section":"A1","row":2},
+  {"move":"hold","beats":16,"params":{"reason":"unparsed"},"text":"neighbors balance & swing, end in a line of four facing down","section":"A2","row":3},
+  {"move":"hall","beats":8,"params":{"direction":"down","turn":"couple"},"text":"down the hall and turn as a couple","section":"B1","row":4},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"up the hall and hand cast off to face across","section":"B1","row":5},
+  {"move":"circle","beats":8,"params":{"direction":"left","places":4},"text":"circle left 4 places","section":"B2","row":6},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"ones half figure 8 above","section":"B2","row":7,"progression":true}
+ ]
+}

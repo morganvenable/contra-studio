@@ -1,0 +1,14 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "3361", "title": "Family Contra in the Castle (1s swing variation)", "author": "Seth Tepfer", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/3361", "formation": "improper", "sha256": "8b77e387de1ca131ec7c9aa045dfb47d9f3a9af57a9e0c7d736f7ee15b21f9a1", "status": "sketchbook" }, "status": "ok", "problems": [], "unparsed": [], "choices": [ "The 1s end their swing side by side in the middle of the set facing down, the way they progress." ],
+ "figures": [
+  {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance the ring","section":"A1","row":1},
+  {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance the ring","section":"A1","row":2},
+  {"move":"circle","beats":8,"params":{"direction":"left","places":4},"text":"circle left 4 places","section":"A1","row":3},
+  {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance the ring","section":"A2","row":4},
+  {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance the ring","section":"A2","row":5},
+  {"move":"circle","beats":8,"params":{"direction":"right","places":4},"text":"circle right 4 places","section":"A2","row":6},
+  {"move":"do-si-do","beats":8,"params":{"who":"neighbor","amount":1,"shoulder":"right"},"text":"neighbors do si do once","section":"B1","row":7},
+  {"move":"swing","beats":8,"params":{"who":"neighbor"},"text":"neighbors swing","section":"B1","row":8},
+  {"move":"long-lines","beats":8,"params":{"back":true},"text":"long lines forward & back","section":"B2","row":9},
+  {"move":"swing","beats":8,"params":{"who":"1s","end":"down"},"text":"ones swing and face down to next neighbors","progression":true,"section":"B2","row":10}
+ ]
+}

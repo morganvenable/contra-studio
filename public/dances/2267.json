@@ -1,0 +1,13 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "2267", "title": "A-1 Reel", "author": "Chris Weiler", "formation": "becket-ccw", "progression": "minor-set", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/2267", "formation": "Becket ccw", "retrievedAt": "2026-10-20T05:45:30.293Z", "sha256": "319cf7c2124edc9448ca021f601fd54c32c40a34857d2e46c70677004369c1fa" }, "status": "partial", "problems": [ "The progression after row 3 \"partners california twirl\" doesn't work out: Couple 1 must face the same way to find new neighbors." ], "unparsed": [], "choices": [ "A balance with a partner or neighbor holds both hands." ],
+ "figures": [
+  {"move":"circle","beats":8,"params":{"direction":"left","places":3},"text":"circle left 3 places","section":"A1","row":1},
+  {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance the ring","section":"A1","row":2},
+  {"move":"twirl","beats":4,"params":{"style":"california","who":"partner"},"text":"partners California twirl","progression":true,"section":"A1","row":3},
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"neighbor","hand":"both"},"text":"neighbors balance & swing · balance","section":"A2","row":4},
+  {"move":"swing","beats":12,"params":{"who":"neighbor"},"text":"neighbors balance & swing · swing","section":"A2","row":4},
+  {"move":"right-left-through","beats":8,"params":{},"text":"right left through","section":"B1","row":5},
+  {"move":"allemande","beats":8,"params":{"who":"robins","hand":"right","amount":1.5},"text":"robins allemande right 1½","section":"B1","row":6},
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"partner","hand":"both"},"text":"partners balance & swing · balance","section":"B2","row":7},
+  {"move":"swing","beats":12,"params":{"who":"partner"},"text":"partners balance & swing · swing","section":"B2","row":7}
+ ]
+}

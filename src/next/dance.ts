@@ -1,7 +1,12 @@
 /**
  * Stored dances for the next engine and the one entry point the app uses.
  * A stored dance is its source reference (URL + content hash of the snapshot)
- * plus the FigureCall list and the choices made. No embedded HTML.
+ * plus the FigureCall list, the choices made and the corpus check's status.
+ * No embedded HTML.
+ *
+ * Every ContraDB dance is stored, working or not, as public/dances/<id>.json
+ * (with a small public/dances/index.json). The app fetches one by id and
+ * registers it here before compiling; nothing is bundled.
  */
 import type { Dance } from '../types.ts';
 import type { FigureCall } from './core/figure.ts';
@@ -16,20 +21,33 @@ import {
   type Progression,
 } from './core/progression.ts';
 import { FIGURES } from './figures/index.ts';
-import { STORED } from './dances/index.ts';
 
 export interface StoredCall extends FigureCall {
   readonly section?: string;
+  /** 1-based source row this call came from. */
+  readonly row?: number;
 }
+
+/**
+ * - ok: compiles and passes the corpus check.
+ * - check: compiles, but the physical or progression check reports problems.
+ * - partial: some rows are unparsed or a figure cannot start; those rows are
+ *   held still and labeled, the rest is drawn.
+ * - unsupported: the formation is not built yet.
+ * - unchecked: imported, not run through the corpus check yet.
+ */
+export type DanceStatus = 'ok' | 'check' | 'partial' | 'unsupported' | 'unchecked';
 
 export interface StoredDance {
   readonly schema: 'contra-studio/next-dance';
-  readonly version: 1;
+  readonly version: 2;
+  /** ContraDB id. */
+  readonly id: string;
   readonly title: string;
   readonly author: string;
-  /** Key into FORMATIONS. */
-  readonly formation: string;
-  readonly progression: Progression['kind'];
+  /** Key into FORMATIONS, or null when the formation is not built yet. */
+  readonly formation: string | null;
+  readonly progression: Progression['kind'] | null;
   readonly music: {
     readonly meter: string;
     readonly parts: readonly { readonly name: string; readonly bars: number }[];
@@ -37,15 +55,38 @@ export interface StoredDance {
   };
   readonly source: {
     readonly url: string;
-    readonly snapshot: string;
+    /** Formation as ContraDB writes it. */
+    readonly formation: string;
+    readonly retrievedAt?: string;
+    /** sha256 of the snapshot's HTML. */
     readonly sha256: string;
     readonly status?: string;
   };
+  readonly status: DanceStatus;
+  /** Plain-language problems, most important first; empty when ok. */
+  readonly problems: readonly string[];
+  /** Rows no pattern parses (held still in `figures`). */
+  readonly unparsed: readonly UnparsedRow[];
   readonly choices: readonly string[];
   readonly figures: readonly StoredCall[];
 }
 
-export const NEXT_DANCES: readonly StoredDance[] = STORED;
+export interface UnparsedRow {
+  readonly row: number;
+  readonly text: string;
+  readonly why: string;
+}
+
+/** One line of public/dances/index.json. */
+export interface LibraryEntry {
+  readonly id: string;
+  readonly title: string;
+  readonly author: string;
+  readonly formation: string;
+  readonly status: DanceStatus;
+  /** The first problem, in plain words, when the dance is not ok. */
+  readonly note?: string;
+}
 
 const PROGRESSIONS: Readonly<Record<Progression['kind'], Progression>> = {
   'minor-set': MINOR_SET_PROGRESSION,
@@ -60,33 +101,75 @@ export function musicOf(stored: StoredDance): MusicStructure {
   return { meter, parts: stored.music.parts, times: stored.music.times };
 }
 
-export function findNextDance(sourceUrl: string | undefined): StoredDance | undefined {
-  return NEXT_DANCES.find((d) => d.source.url === sourceUrl);
+/** Dances the app has fetched, by source URL. */
+const registered = new Map<string, StoredDance>();
+
+export function registerNextDance(stored: StoredDance) {
+  registered.set(stored.source.url, stored);
 }
 
-/** Compile a stored dance. `base` keeps the app's dance identity and notes. */
-export function compileNext(stored: StoredDance, couples = 6, base?: Dance): FoldedDance {
-  const formation = FORMATIONS[stored.formation];
-  if (!formation) throw new Error(`Unknown formation ${stored.formation}.`);
+export function findNextDance(sourceUrl: string | undefined): StoredDance | undefined {
+  return sourceUrl === undefined ? undefined : registered.get(sourceUrl);
+}
+
+export interface CompileOptions {
+  /**
+   * Hold figures that cannot start instead of failing (see compileFold).
+   * The default: lenient unless the dance passed the corpus check.
+   */
+  readonly lenient?: boolean;
+}
+
+/** True when the dance's formation is built, so its figures can run. */
+export const formationBuilt = (stored: StoredDance) =>
+  stored.formation !== null && FORMATIONS[stored.formation] !== undefined;
+
+/**
+ * Compile a stored dance. `base` keeps the app's dance identity and notes.
+ * A dance whose formation is not built shows its rows as holds in an
+ * improper set, so its timeline and labels still read.
+ */
+export function compileNext(
+  stored: StoredDance,
+  couples = 6,
+  base?: Dance,
+  options: CompileOptions = {},
+): FoldedDance {
+  const built = formationBuilt(stored);
+  const formation = FORMATIONS[built ? stored.formation! : 'improper'];
+  const calls: readonly FigureCall[] = built
+    ? stored.figures
+    : stored.figures.map((c) => ({
+        move: 'hold',
+        beats: c.beats,
+        params: { reason: 'unsupported' },
+        text: c.text,
+      }));
   const dance: Dance = base ?? {
     id: `next:${stored.source.url}`,
     title: stored.title,
     author: stored.author,
-    formation: stored.formation === 'becket' ? 'becket' : 'duple-improper',
-    circulation: 'cw',
+    formation: stored.formation?.startsWith('becket') ? 'becket' : 'duple-improper',
+    circulation: stored.formation === 'becket-ccw' ? 'ccw' : 'cw',
     sourceUrl: stored.source.url,
     description: '',
     figures: [],
   };
+  const progression =
+    built && stored.progression ? PROGRESSIONS[stored.progression] : NO_PROGRESSION;
+  const notOk = stored.status !== 'ok' && stored.problems.length;
   return compileFold({
     dance,
-    calls: stored.figures,
+    calls,
     start: formation.start(couples),
     registry: FIGURES,
-    progression: PROGRESSIONS[stored.progression],
+    progression,
     music: musicOf(stored),
+    lenient: options.lenient ?? stored.status !== 'ok',
     warnings: [
+      ...(notOk ? [stored.problems[0]] : []),
       'Figure-library engine (preview): every figure is one reusable function.',
+      ...(notOk ? stored.problems.slice(1) : []),
       ...stored.choices.map((c) => `Choice: ${c}`),
     ],
   });

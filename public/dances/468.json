@@ -1,0 +1,10 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "468", "title": "The Contra Matrix Resolution", "author": "Chris Page", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/468", "formation": "improper", "retrievedAt": "2026-10-20T06:16:32.662Z", "sha256": "ef873ac6312600b4f2a5677c6dd1ca6aae30e406f8c0c3c961583577ab0e8456" }, "status": "partial", "problems": [ "The progression after row 1 \"star left - hands across - 4 places\" doesn't work out: Couples 1 and 2 have not passed each other yet." ], "unparsed": [], "choices": [ "A meltdown swing starts with 4 beats of right-shoulder round, then swings." ],
+ "figures": [
+  {"move":"star","beats":8,"params":{"hand":"left","places":4,"grip":"hands-across"},"text":"star left - hands across - 4 places","progression":true,"section":"A1","row":1},
+  {"move":"allemande","beats":8,"params":{"who":"robins","hand":"left","amount":1.5},"text":"robins allemande left 1½","section":"A1","row":2},
+  {"move":"swing","beats":16,"params":{"who":"partner","meltdown":true},"text":"partners meltdown swing","section":"A2","row":3},
+  {"move":"circle","beats":8,"params":{"direction":"left","places":3},"text":"circle left 3 places","section":"B1","row":4},
+  {"move":"swing","beats":8,"params":{"who":"neighbor"},"text":"neighbors swing","section":"B1","row":5},
+  {"move":"hey","beats":16,"params":{"start":"larks","amount":1,"center":"left"},"text":"larks start a full hey - lefts in center, rights on ends","section":"B2","row":6}
+ ]
+}

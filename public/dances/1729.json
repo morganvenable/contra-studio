@@ -1,0 +1,16 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "1729", "title": "The Amazing Sarah Wilcox", "author": "Tom Hinds", "formation": null, "progression": null, "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/1729", "formation": "progressed improper", "retrievedAt": "2026-10-20T06:16:15.500Z", "sha256": "0fa3da8f15e9b59dc8ddad4916f98c46b662e5ecf8c36885f4819508c0121a2e" }, "status": "unsupported", "problems": [ "The \"progressed improper\" formation isn't built yet." ], "unparsed": [ { "row": 8, "text": "partners pass by right shoulders, stay facing out", "why": "No figure pattern matches \"partners pass by right shoulders, stay facing out\"." } ], "choices": [ "A balance with a partner or neighbor holds both hands." ],
+ "figures": [
+  {"move":"circle","beats":8,"params":{"direction":"left","places":3},"text":"circle left 3 places","section":"A1","row":1},
+  {"move":"swing","beats":8,"params":{"who":"partner"},"text":"partners swing","section":"A1","row":2},
+  {"move":"circle","beats":8,"params":{"direction":"left","places":3},"text":"circle left 3 places","section":"A2","row":3},
+  {"move":"swing","beats":8,"params":{"who":"neighbor"},"text":"neighbors swing","section":"A2","row":4},
+  {"move":"long-lines","beats":8,"params":{"back":true},"text":"long lines forward & back","section":"B1","row":5},
+  {"move":"pass-by","beats":3,"params":{"who":"partner","shoulder":"right","hands":false},"text":"partners pass by right shoulders","section":"B1","row":6},
+  {"move":"pass-by","beats":3,"params":{"who":"neighbor","shoulder":"left","hands":false},"text":"neighbors pass by left shoulders","section":"B1","row":7},
+  {"move":"hold","beats":2,"params":{"reason":"unparsed"},"text":"partners pass by right shoulders, stay facing out","section":"B1","row":8},
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"neighbor","hand":"both"},"text":"neighbors balance","section":"B2","row":9},
+  {"move":"roll-away","beats":4,"params":{"who":"larks","whom":"neighbor"},"text":"larks roll away neighbors with a half sashay","progression":true,"section":"B2","row":10},
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"neighbor","hand":"both"},"text":"next neighbors balance","section":"B2","row":11},
+  {"move":"twirl","beats":4,"params":{"style":"california","who":"neighbor"},"text":"next neighbors California twirl","section":"B2","row":12}
+ ]
+}

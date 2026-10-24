@@ -1,0 +1,13 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "1619", "title": "Wasatch Wiggle", "author": "Erik Weberg", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/1619", "formation": "improper", "retrievedAt": "2026-10-20T06:22:37.295Z", "sha256": "67873af748bbf37747f432fed90ecdea490bbfd24b94a9357339e3e37b509424" }, "status": "partial", "problems": [ "Row 5 \"balance & petronella slide right 2 places instead of one\" isn't drawn yet.", "The progression after row 6 \"neighbors balance & swing · swing\" doesn't work out: Couples 1 and 2 have not passed each other yet." ], "unparsed": [ { "row": 5, "text": "balance & petronella slide right 2 places instead of one", "why": "No figure pattern matches \"balance & petronella slide right 2 places instead of one\"." } ], "choices": [ "A balance with a partner or neighbor holds both hands." ],
+ "figures": [
+  {"move":"long-lines","beats":8,"params":{"back":true},"text":"long lines forward & back","section":"A1","row":1},
+  {"move":"allemande","beats":8,"params":{"who":"larks","hand":"right","amount":1.5},"text":"larks allemande right 1½","section":"A1","row":2},
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"partner","hand":"both"},"text":"partners balance & swing · balance","section":"A2","row":3},
+  {"move":"swing","beats":12,"params":{"who":"partner"},"text":"partners balance & swing · swing","section":"A2","row":3},
+  {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance & petronella · balance","section":"B1","row":4},
+  {"move":"petronella","beats":4,"params":{},"text":"balance & petronella · petronella","section":"B1","row":4},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"balance & petronella slide right 2 places instead of one","section":"B1","row":5},
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"neighbor","hand":"both"},"text":"neighbors balance & swing · balance","section":"B2","row":6},
+  {"move":"swing","beats":12,"params":{"who":"neighbor"},"text":"neighbors balance & swing · swing","progression":true,"section":"B2","row":6}
+ ]
+}

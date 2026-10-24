@@ -1,0 +1,12 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "2487", "title": "Halloween's Twisted Heart", "author": "Koren Wake", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/2487", "formation": "improper", "retrievedAt": "2026-10-20T05:58:13.513Z", "sha256": "e5d514e82f3e4e65a9437b286f1c3fee4f56d275f4b3039276de1448842aa1a1" }, "status": "partial", "problems": [ "Row 1 \"face neighbor; robins back up across the set, larks follow their neighbors\" isn't drawn yet.", "The progression after row 7 \"star left 4 places\" doesn't work out: Couples 1 and 2 have not passed each other yet." ], "unparsed": [ { "row": 1, "text": "face neighbor; robins back up across the set, larks follow their neighbors", "why": "No figure pattern matches \"face neighbor; ladles back up across the set, gentlespoons follow their neighbors\"." } ], "choices": [ "A star with no grip named is a basket star (wrist grip).", "A gyre goes by the right shoulder, facing each other, with no hands." ],
+ "figures": [
+  {"move":"hold","beats":4,"params":{"reason":"unparsed"},"text":"face neighbor; robins back up across the set, larks follow their neighbors","section":"A1","row":1},
+  {"move":"swing","beats":12,"params":{"who":"neighbor"},"text":"neighbors swing","section":"A1","row":2},
+  {"move":"circle","beats":8,"params":{"direction":"left","places":3},"text":"circle left 3 places","section":"A2","row":3},
+  {"move":"swing","beats":8,"params":{"who":"partner"},"text":"partners swing","section":"A2","row":4},
+  {"move":"promenade","beats":8,"params":{"who":"partner"},"text":"partners promenade","section":"B1","row":5},
+  {"move":"chain","beats":8,"params":{"who":"robins"},"text":"robins chain","section":"B1","row":6},
+  {"move":"star","beats":8,"params":{"hand":"left","places":4},"text":"star left 4 places","progression":true,"section":"B2","row":7},
+  {"move":"gyre","beats":8,"params":{"who":"neighbor","amount":1},"text":"neighbors gyre once","section":"B2","row":8}
+ ]
+}

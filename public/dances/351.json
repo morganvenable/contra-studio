@@ -1,0 +1,11 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "351", "title": "Grease & Glue", "author": "Linda S. Mrosko", "formation": null, "progression": null, "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/351", "formation": "improper or proper", "retrievedAt": "2026-10-20T05:57:56.378Z", "sha256": "24c23db59ca5d4afbae0fc3f7f19a654163166b2ed1a51759e2f12c1b3cca7c1" }, "status": "unsupported", "problems": [ "The \"improper or proper\" formation isn't built yet." ], "unparsed": [ { "row": 1, "text": "ones split twos, return to place", "why": "No figure pattern matches \"ones split twos, return to place\"." }, { "row": 3, "text": "twos split ones, return to place", "why": "No figure pattern matches \"twos split ones, return to place\"." }, { "row": 7, "text": "neighbors do si do 1½ as couples", "why": "No figure pattern matches \"neighbors do si do 1½ as couples ⁋\"." } ], "choices": [ "A star with no grip named is a basket star (wrist grip)." ],
+ "figures": [
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"ones split twos, return to place","section":"A1","row":1},
+  {"move":"do-si-do","beats":8,"params":{"who":"1s","amount":1,"shoulder":"right"},"text":"ones do si do once","section":"A1","row":2},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"twos split ones, return to place","section":"A2","row":3},
+  {"move":"do-si-do","beats":8,"params":{"who":"2s","amount":1,"shoulder":"right"},"text":"twos do si do once","section":"A2","row":4},
+  {"move":"star","beats":8,"params":{"hand":"right","places":4},"text":"star right 4 places","section":"B1","row":5},
+  {"move":"star","beats":8,"params":{"hand":"left","places":4},"text":"star left 4 places","section":"B1","row":6},
+  {"move":"hold","beats":16,"params":{"reason":"unparsed"},"text":"neighbors do si do 1½ as couples","section":"B2","row":7,"progression":true}
+ ]
+}

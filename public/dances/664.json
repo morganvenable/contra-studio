@@ -1,0 +1,14 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "664", "title": "Accretion Reel", "author": "Chris Page", "formation": null, "progression": null, "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/664", "formation": "scatter mixer", "retrievedAt": "2026-10-20T05:45:39.321Z", "sha256": "9e6f0e171b901129c15e42928827716fc25ba5f338091992184ae5792c96d22c" }, "status": "unsupported", "problems": [ "The \"scatter mixer\" formation isn't built yet." ], "unparsed": [ { "row": 1, "text": "balance ring [1]", "why": "No figure pattern matches \"balance ring [1]\"." }, { "row": 2, "text": "turn alone [2]", "why": "No figure pattern matches \"turn alone [2]\"." }, { "row": 3, "text": "individual scatter promenade", "why": "No figure pattern matches \"individual scatter promenade ⁋\"." }, { "row": 4, "text": "find a new partner", "why": "No figure pattern matches \"find a new partner\"." }, { "row": 5, "text": "partners gyre once [3] [4]", "why": "No figure pattern matches \"partners gyre once [3] [4]\"." }, { "row": 7, "text": "partners promenade scatter [5]", "why": "No figure pattern matches \"partners promenade scatter [5]\"." }, { "row": 8, "text": "join in rings of any number of couples [6]", "why": "No figure pattern matches \"join in rings of any number of couples [6]\"." } ], "choices": [],
+ "figures": [
+  {"move":"hold","beats":4,"params":{"reason":"unparsed"},"text":"balance ring [1]","section":"A1","row":1},
+  {"move":"hold","beats":4,"params":{"reason":"unparsed"},"text":"turn alone [2]","section":"A1","row":2},
+  {"move":"hold","beats":4,"params":{"reason":"unparsed"},"text":"individual scatter promenade","section":"A1","row":3,"progression":true},
+  {"move":"hold","beats":4,"params":{"reason":"unparsed"},"text":"find a new partner","section":"A1","row":4},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"partners gyre once [3] [4]","section":"A2","row":5},
+  {"move":"swing","beats":8,"params":{"who":"partner"},"text":"partners swing","section":"A2","row":6},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"partners promenade scatter [5]","section":"B1","row":7},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"join in rings of any number of couples [6]","section":"B1","row":8},
+  {"move":"circle","beats":8,"params":{"direction":"left","places":4},"text":"circle left 4 places","section":"B2","row":9},
+  {"move":"circle","beats":8,"params":{"direction":"right","places":4},"text":"circle right 4 places","section":"B2","row":10}
+ ]
+}

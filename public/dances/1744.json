@@ -1,0 +1,12 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "1744", "title": "Another First Time", "author": "Nicholas Rockstroh", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/1744", "formation": "improper", "sha256": "8c6a05c7fa8d8bd04250aa372fc73f96bae0ca7c020b51711695a11d6e940f3d" }, "status": "ok", "problems": [], "unparsed": [], "choices": [ "A star with no grip named is a basket star (wrist grip)." ],
+ "figures": [
+  {"move":"allemande","beats":8,"params":{"who":"neighbor","hand":"right","amount":1.5},"text":"neighbors allemande right 1½","section":"A1","row":1},
+  {"move":"promenade","beats":8,"params":{"who":"neighbor"},"text":"neighbors promenade","section":"A1","row":2},
+  {"move":"circle","beats":8,"params":{"direction":"left","places":3},"text":"circle left 3 places","section":"A2","row":3},
+  {"move":"swing","beats":8,"params":{"who":"partner"},"text":"partners swing","section":"A2","row":4},
+  {"move":"allemande","beats":8,"params":{"who":"larks","hand":"left","amount":1.5},"text":"larks allemande left 1½","section":"B1","row":5},
+  {"move":"swing","beats":8,"params":{"who":"neighbor"},"text":"neighbors swing","section":"B1","row":6},
+  {"move":"long-lines","beats":8,"params":{"back":true},"text":"long lines forward & back","section":"B2","row":7},
+  {"move":"star","beats":8,"params":{"hand":"left","places":4},"text":"star left 4 places","progression":true,"section":"B2","row":8}
+ ]
+}

@@ -1,0 +1,12 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "2607", "title": "Rocks and Dirt", "author": "Erik Weberg", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/2607", "formation": "improper", "retrievedAt": "2026-10-20T06:10:59.947Z", "sha256": "9f625f8e85fd2752998913c9ee9b8a7d6c2abbf046c1f18139191a6b56fd633b" }, "status": "partial", "problems": [ "Row 3 \"robins allemande ____ 1½ while larks orbit ccw ½\" isn't drawn yet.", "Row 6 \"square through four - neighbors pull by right, then partners pull by left, then repeat (without hands)\" isn't drawn yet." ], "unparsed": [ { "row": 3, "text": "robins allemande ____ 1½ while larks orbit ccw ½", "why": "No figure pattern matches \"ladles allemande ____ 1½ while gentlespoons orbit ccw ½\"." }, { "row": 6, "text": "square through four - neighbors pull by right, then partners pull by left, then repeat (without hands)", "why": "No figure pattern matches \"square through four - neighbors pull by right, then partners pull by left, then repeat (without hands)\"." } ], "choices": [ "A balance with a partner or neighbor holds both hands." ],
+ "figures": [
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"neighbor","hand":"both"},"text":"neighbors balance & swing · balance","section":"A1","row":1},
+  {"move":"swing","beats":12,"params":{"who":"neighbor"},"text":"neighbors balance & swing · swing","section":"A1","row":1},
+  {"move":"chain","beats":8,"params":{"who":"robins"},"text":"robins chain","section":"A2","row":2},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"robins allemande ____ 1½ while larks orbit ccw ½","section":"A2","row":3},
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"partner","hand":"both"},"text":"partners balance & swing · balance","section":"B1","row":4},
+  {"move":"swing","beats":12,"params":{"who":"partner"},"text":"partners balance & swing · swing","section":"B1","row":4},
+  {"move":"circle","beats":8,"params":{"direction":"left","places":3},"text":"circle left 3 places","section":"B2","row":5},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"square through four - neighbors pull by right, then partners pull by left, then repeat (without hands)","section":"B2","row":6}
+ ]
+}

@@ -1,0 +1,12 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "1521", "title": "“Revolving Poussette”", "author": "Moose Flores", "formation": "becket", "progression": "minor-set", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/1521", "formation": "Becket", "retrievedAt": "2026-10-20T06:24:20.277Z", "sha256": "d3820185ef5b32ba612c45fe9ee1927d2dedb3658463676c9f0c5cd897ac7e99", "status": "sketchbook" }, "status": "partial", "problems": [ "Row 3 \"right diagonal robins chain to shadow\" isn't drawn yet.", "Row 5 \"revolving door - robins take right hands and drop off shadows on other side\" isn't drawn yet.", "Row 7 \"half poussette - larks pull neighbors back then left\" isn't drawn yet." ], "unparsed": [ { "row": 3, "text": "right diagonal robins chain to shadow", "why": "No figure pattern matches \"right diagonal ladles chain to shadow\"." }, { "row": 5, "text": "revolving door - robins take right hands and drop off shadows on other side", "why": "No figure pattern matches \"revolving door - ladles take right hands and drop off shadows on other side\"." }, { "row": 7, "text": "half poussette - larks pull neighbors back then left", "why": "No figure pattern matches \"half poussette - gentlespoons pull neighbors back then left ⁋\"." } ], "choices": [],
+ "figures": [
+  {"move":"circle","beats":8,"params":{"direction":"left","places":3},"text":"circle left 3 places","section":"A1","row":1},
+  {"move":"swing","beats":8,"params":{"who":"neighbor"},"text":"neighbors swing","section":"A1","row":2},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"right diagonal robins chain to shadow","section":"A2","row":3},
+  {"move":"right-left-through","beats":8,"params":{},"text":"right left through","section":"A2","row":4},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"revolving door - robins take right hands and drop off shadows on other side","section":"B1","row":5},
+  {"move":"circle","beats":8,"params":{"direction":"left","places":3},"text":"circle left 3 places","section":"B1","row":6},
+  {"move":"hold","beats":6,"params":{"reason":"unparsed"},"text":"half poussette - larks pull neighbors back then left","section":"B2","row":7,"progression":true},
+  {"move":"swing","beats":10,"params":{"who":"partner"},"text":"partners swing","section":"B2","row":8}
+ ]
+}

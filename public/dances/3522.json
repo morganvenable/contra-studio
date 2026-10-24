@@ -1,0 +1,14 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "3522", "title": "Vivian's Catwalk", "author": "Valerie Young", "formation": "becket", "progression": "minor-set", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/3522", "formation": "becket", "retrievedAt": "2026-10-20T06:22:24.197Z", "sha256": "5ba7eda9223558b78fb30ab8a58675573d44c9f4c3696847d2c49aa53777ad02" }, "status": "partial", "problems": [ "Row 2 \"left diagonal right left through, power courtesy turn to face down\" isn't drawn yet." ], "unparsed": [ { "row": 2, "text": "left diagonal right left through, power courtesy turn to face down", "why": "No figure pattern matches \"left diagonal right left through, power courtesy turn to face down ⁋\"." } ], "choices": [ "A balance with a partner or neighbor holds both hands." ],
+ "figures": [
+  {"move":"long-lines","beats":8,"params":{"back":true},"text":"long lines forward & back","section":"A1","row":1},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"left diagonal right left through, power courtesy turn to face down","section":"A1","row":2,"progression":true},
+  {"move":"hall","beats":8,"params":{"direction":"down","turn":"alone"},"text":"down the hall and turn alone","section":"A2","row":3},
+  {"move":"hall","beats":8,"params":{"direction":"up","end":"ring"},"text":"up the hall and bend into a ring","section":"A2","row":4},
+  {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance & petronella · balance","section":"B1","row":5},
+  {"move":"petronella","beats":4,"params":{},"text":"balance & petronella · petronella","section":"B1","row":5},
+  {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance & petronella · balance","section":"B1","row":6},
+  {"move":"petronella","beats":4,"params":{},"text":"balance & petronella · petronella","section":"B1","row":6},
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"partner","hand":"both"},"text":"partners balance & swing · balance","section":"B2","row":7},
+  {"move":"swing","beats":12,"params":{"who":"partner"},"text":"partners balance & swing · swing","section":"B2","row":7}
+ ]
+}

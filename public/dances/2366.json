@@ -1,0 +1,9 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "2366", "title": "The Dance Angel", "author": "JoLaine Jones-Pokorney", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/2366", "formation": "Duple Improper", "retrievedAt": "2026-10-20T06:16:37.701Z", "sha256": "8e0d95366027812da35423c3743716b04f28bfe4ac96c2551b5f08153ced558a" }, "status": "partial", "problems": [ "Row 3 \"ones contra corners Opposite file\" isn't drawn yet.", "Row 4 \"ones contra corners Home file\" isn't drawn yet.", "Row 5 \"partners balance & swing ones only end facing down\" isn't drawn yet." ], "unparsed": [ { "row": 3, "text": "ones contra corners Opposite file", "why": "No figure pattern matches \"ones contra corners Opposite file\"." }, { "row": 4, "text": "ones contra corners Home file", "why": "No figure pattern matches \"ones contra corners Home file\"." }, { "row": 5, "text": "partners balance & swing ones only end facing down", "why": "No figure pattern matches \"partners balance & swing ones only end facing down ⁋\"." } ], "choices": [],
+ "figures": [
+  {"move":"circle","beats":8,"params":{"direction":"left","places":4},"text":"circle left 4 places","section":"A1","row":1},
+  {"move":"swing","beats":8,"params":{"who":"neighbor"},"text":"neighbors swing","section":"A1","row":2},
+  {"move":"hold","beats":16,"params":{"reason":"unparsed"},"text":"ones contra corners Opposite file","section":"A2","row":3},
+  {"move":"hold","beats":16,"params":{"reason":"unparsed"},"text":"ones contra corners Home file","section":"B1","row":4},
+  {"move":"hold","beats":16,"params":{"reason":"unparsed"},"text":"partners balance & swing ones only end facing down","section":"B2","row":5,"progression":true}
+ ]
+}

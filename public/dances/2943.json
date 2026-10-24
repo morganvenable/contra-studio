@@ -1,0 +1,12 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "2943", "title": "TWIRL & Smile", "author": "Don Flaherty", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/2943", "formation": "Improper", "retrievedAt": "2026-10-20T06:21:40.801Z", "sha256": "5d22c529fced23cf81e118c423c2b5c5712736dad309d028599ef6b3b52c7220" }, "status": "partial", "problems": [ "Row 2 \"balance the ring And roll across with partner half sashay\" isn't drawn yet." ], "unparsed": [ { "row": 2, "text": "balance the ring And roll across with partner half sashay", "why": "No figure pattern matches \"balance the ring And roll across with partner half sashay\"." } ], "choices": [ "A balance with a partner or neighbor holds both hands.", "A meltdown swing starts with 4 beats of right-shoulder round, then swings." ],
+ "figures": [
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"neighbor","hand":"both"},"text":"neighbors balance & swing · balance","section":"A1","row":1},
+  {"move":"swing","beats":12,"params":{"who":"neighbor"},"text":"neighbors balance & swing · swing","section":"A1","row":1},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"balance the ring And roll across with partner half sashay","section":"A2","row":2},
+  {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance & petronella · balance","section":"A2","row":3},
+  {"move":"petronella","beats":4,"params":{},"text":"balance & petronella · petronella","section":"A2","row":3},
+  {"move":"swing","beats":16,"params":{"who":"partner","meltdown":true},"text":"partners meltdown swing","section":"B1","row":4},
+  {"move":"chain","beats":8,"params":{"who":"robins","to":"neighbor"},"text":"robins chain To neighbor","section":"B2","row":5},
+  {"move":"long-lines","beats":8,"params":{"back":true},"text":"long lines forward & back Look for new neighbors","section":"B2","row":6}
+ ]
+}

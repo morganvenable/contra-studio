@@ -1,0 +1,10 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "2494", "title": "[DEPRECATED] Autopilot", "author": "Mattie Rynkiewicz", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/2494", "formation": "improper", "sha256": "44398488ee03aff081566b5b818bc855e464c9e803dc444f572b0154b71738b3", "status": "sketchbook" }, "status": "ok", "problems": [], "unparsed": [], "choices": [ "A meltdown swing starts with 4 beats of right-shoulder round, then swings." ],
+ "figures": [
+  {"move":"swing","beats":16,"params":{"who":"neighbor","meltdown":true},"text":"neighbors meltdown swing","section":"A1","row":1},
+  {"move":"long-lines","beats":8,"params":{"back":true},"text":"long lines forward & back","section":"A2","row":2},
+  {"move":"chain","beats":8,"params":{"who":"robins"},"text":"robins chain","section":"A2","row":3},
+  {"move":"hey","beats":16,"params":{"start":"robins","amount":1,"center":"right"},"text":"robins start a full hey - rights in center, lefts on ends","section":"B1","row":4},
+  {"move":"swing","beats":8,"params":{"who":"partner"},"text":"partners swing","section":"B2","row":5},
+  {"move":"chain","beats":8,"params":{"who":"robins"},"text":"robins chain","progression":true,"section":"B2","row":6}
+ ]
+}

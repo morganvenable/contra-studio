@@ -1,0 +1,12 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "2076", "title": "The Slinky Walk", "author": "Moose Flores, Chris Page", "formation": "becket", "progression": "minor-set", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/2076", "formation": "Becket", "retrievedAt": "2026-10-20T06:19:29.001Z", "sha256": "7fbd2d110298358e91c7e8e0505e73565903f75bf474f54a405432679b4485c4" }, "status": "partial", "problems": [ "Row 6 \"left colonnade - \"ones arch, colonnade!\" +\" isn't drawn yet." ], "unparsed": [ { "row": 6, "text": "left colonnade - \"ones arch, colonnade!\" +", "why": "No figure pattern matches \"left colonnade - \"ones arch, colonnade!\" +\"." } ], "choices": [ "A balance with a partner or neighbor holds both hands.", "A star with no grip named is a basket star (wrist grip)." ],
+ "figures": [
+  {"move":"slide","beats":2,"params":{"direction":"left"},"text":"slide left along set","progression":true,"section":"A1","row":1},
+  {"move":"circle","beats":6,"params":{"direction":"left","places":3},"text":"circle left 3 places","section":"A1","row":2},
+  {"move":"swing","beats":8,"params":{"who":"neighbor"},"text":"neighbors swing","section":"A1","row":3},
+  {"move":"chain","beats":8,"params":{"who":"robins"},"text":"robins chain","section":"A2","row":4},
+  {"move":"star","beats":8,"params":{"hand":"left","places":4},"text":"star left 4 places","section":"A2","row":5},
+  {"move":"hold","beats":16,"params":{"reason":"unparsed"},"text":"left colonnade - \"ones arch, colonnade!\" +","section":"B1","row":6},
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"partner","hand":"both"},"text":"partners balance & swing · balance","section":"B2","row":7},
+  {"move":"swing","beats":12,"params":{"who":"partner"},"text":"partners balance & swing · swing","section":"B2","row":7}
+ ]
+}

@@ -1,0 +1,11 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "2009", "title": "16 for Gregg", "author": "Luke Donforth", "formation": "becket", "progression": "minor-set", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/2009", "formation": "Becket", "retrievedAt": "2026-10-20T05:44:26.829Z", "sha256": "ea87478a8f589d2db6e58172b5267a406b8851a3ce5eddc2c56a265ed6bbb6cb" }, "status": "ok", "problems": [], "unparsed": [], "choices": [ "A meltdown swing starts with 4 beats of right-shoulder round, then swings." ],
+ "figures": [
+  {"move":"circle","beats":8,"params":{"direction":"left","places":3},"text":"circle left 3 places","section":"A1","row":1},
+  {"move":"swing","beats":8,"params":{"who":"neighbor"},"text":"neighbors swing","section":"A1","row":2},
+  {"move":"chain","beats":8,"params":{"who":"robins"},"text":"robins chain","section":"A2","row":3},
+  {"move":"star","beats":8,"params":{"hand":"left","places":4,"grip":"hands-across"},"text":"star left - hands across - 4 places","section":"A2","row":4},
+  {"move":"hey","beats":16,"params":{"start":"larks","amount":1,"center":"left"},"text":"larks start a full hey - lefts in center, rights on ends","section":"B1","row":5},
+  {"move":"swing","beats":14,"params":{"who":"partner","meltdown":true},"text":"partners meltdown swing","section":"B2","row":6},
+  {"move":"slide","beats":2,"params":{"direction":"left"},"text":"slide left along set","progression":true,"section":"B2","row":7}
+ ]
+}

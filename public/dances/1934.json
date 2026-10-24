@@ -1,0 +1,12 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "1934", "title": "It's the Flow, Stupid!", "author": "Devin Nordson", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/1934", "formation": "improper", "retrievedAt": "2026-10-20T06:00:32.700Z", "sha256": "39a1b112e88c7ea6237b33731b9391e554c075e67f19d7bd41fa3a585326a79d" }, "status": "partial", "problems": [ "Row 5 \"pass through across the set (with a courtesy turn, right and left across the set)\" isn't drawn yet.", "The progression after row 7 \"star right 3 places and look for new neighbors\" doesn't work out: Couples 1 and 2 have not passed each other yet." ], "unparsed": [ { "row": 5, "text": "pass through across the set (with a courtesy turn, right and left across the set)", "why": "No figure pattern matches \"pass through across the set (with a courtesy turn, right and left across the set)\"." } ], "choices": [ "A balance with a partner or neighbor holds both hands.", "A star with no grip named is a basket star (wrist grip)." ],
+ "figures": [
+  {"move":"allemande","beats":8,"params":{"who":"neighbor","hand":"left","amount":1.5},"text":"neighbors allemande left 1½","section":"A1","row":1},
+  {"move":"chain","beats":8,"params":{"who":"robins"},"text":"robins chain","section":"A1","row":2},
+  {"move":"hey","beats":16,"params":{"start":"robins","amount":1,"center":"right"},"text":"robins start a full hey - rights in center, lefts on ends","section":"A2","row":3},
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"partner","hand":"both"},"text":"partners balance & swing · balance","section":"B1","row":4},
+  {"move":"swing","beats":12,"params":{"who":"partner"},"text":"partners balance & swing · swing","section":"B1","row":4},
+  {"move":"hold","beats":6,"params":{"reason":"unparsed"},"text":"pass through across the set (with a courtesy turn, right and left across the set)","section":"B2","row":5},
+  {"move":"roll-away","beats":4,"params":{"who":"larks","whom":"partner"},"text":"larks roll away partners with a half sashay","section":"B2","row":6},
+  {"move":"star","beats":6,"params":{"hand":"right","places":3},"text":"star right 3 places and look for new neighbors","section":"B2","row":7}
+ ]
+}

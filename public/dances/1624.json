@@ -1,0 +1,16 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "1624", "title": "[name pending]", "author": "Louisville Callers Collective", "formation": null, "progression": null, "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/1624", "formation": "indecent", "retrievedAt": "2026-10-20T05:44:56.027Z", "sha256": "a294a98cfdeb8cfda924fa8d688d70a27986b665d19743118265a34338c7d837", "status": "sketchbook" }, "status": "unsupported", "problems": [ "The \"indecent\" formation isn't built yet." ], "unparsed": [], "choices": [],
+ "figures": [
+  {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance & petronella · balance","section":"A1","row":1},
+  {"move":"petronella","beats":4,"params":{},"text":"balance & petronella · petronella","section":"A1","row":1},
+  {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance & petronella · balance","section":"A1","row":2},
+  {"move":"petronella","beats":4,"params":{},"text":"balance & petronella · petronella","section":"A1","row":2},
+  {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance & petronella · balance","section":"A2","row":3},
+  {"move":"petronella","beats":4,"params":{},"text":"balance & petronella · petronella","section":"A2","row":3},
+  {"move":"swing","beats":8,"params":{"who":"partner"},"text":"partners swing","section":"A2","row":4},
+  {"move":"chain","beats":8,"params":{"who":"robins"},"text":"robins chain","section":"B1","row":5},
+  {"move":"circle","beats":8,"params":{"direction":"right","places":4},"text":"circle right 4 places","section":"B1","row":6},
+  {"move":"turn-alone","beats":2,"params":{},"text":"turn alone to face next neighbors","progression":true,"section":"B2","row":7},
+  {"move":"circle","beats":4,"params":{"direction":"left","places":2},"text":"circle left 2 places","section":"B2","row":8},
+  {"move":"swing","beats":10,"params":{"who":"neighbor"},"text":"neighbors swing","section":"B2","row":9}
+ ]
+}

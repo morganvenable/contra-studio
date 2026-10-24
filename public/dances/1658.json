@@ -1,0 +1,11 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "1658", "title": "Bev's Becket A", "author": "Cary Ravitz", "formation": "becket", "progression": "minor-set", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/1658", "formation": "Becket", "retrievedAt": "2026-10-20T05:48:20.455Z", "sha256": "019e3dc75a09daaa93f569e2f6741ded8487d91563fb63beffb2af58c4acf5b7" }, "status": "ok", "problems": [], "unparsed": [], "choices": [ "Slice: half the counts on the diagonal, half straight back.", "A balance with a partner or neighbor holds both hands." ],
+ "figures": [
+  {"move":"slice","beats":8,"params":{"direction":"left","back":"straight"},"text":"slice left and straight back","progression":true,"section":"A1","row":1},
+  {"move":"chain","beats":8,"params":{"who":"robins"},"text":"robins chain","section":"A1","row":2},
+  {"move":"hey","beats":16,"params":{"start":"robins","amount":1,"center":"right"},"text":"robins start a full hey - rights in center, lefts on ends","section":"A2","row":3},
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"neighbor","hand":"both"},"text":"neighbors balance & swing · balance","section":"B1","row":4},
+  {"move":"swing","beats":12,"params":{"who":"neighbor"},"text":"neighbors balance & swing · swing","section":"B1","row":4},
+  {"move":"circle","beats":6,"params":{"direction":"left","places":3},"text":"circle left 3 places","section":"B2","row":5},
+  {"move":"swing","beats":10,"params":{"who":"partner"},"text":"partners swing","section":"B2","row":6}
+ ]
+}

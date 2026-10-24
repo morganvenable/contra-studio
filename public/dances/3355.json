@@ -1,0 +1,13 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "3355", "title": "I Did It Wrong!! variation 2 (Rockstroh)", "author": "Callie Allison, Chet Gray, Nedra McNeil, Bob Crawford, Elisabeth Monica, Susan Pope, John Baker", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/3355", "formation": "improper", "retrievedAt": "2026-10-20T05:59:51.384Z", "sha256": "0ec94b8d0c9f9bc98af2813ae80c58512aae4f696befe4931657bd8ab164fee5", "status": "sketchbook" }, "status": "partial", "problems": [ "Row 4 \"balance & petronella 2 places (petronella-nella)\" isn't drawn yet.", "Row 8 \"turn alone to face next neighbors\" isn't drawn yet.", "The progression after row 7 \"circle right 4 places\" doesn't work out: Couples 1 and 2 have not passed each other yet." ], "unparsed": [ { "row": 4, "text": "balance & petronella 2 places (petronella-nella)", "why": "No figure pattern matches \"balance & petronella 2 places (petronella-nella)\"." }, { "row": 8, "text": "turn alone to face next neighbors", "why": "0 beats is too short for this row's parts." } ], "choices": [ "A balance with a partner or neighbor holds both hands." ],
+ "figures": [
+  {"move":"circle","beats":4,"params":{"direction":"left","places":2},"text":"circle left 2 places","section":"A1","row":1},
+  {"move":"swing","beats":12,"params":{"who":"neighbor"},"text":"neighbors swing","section":"A1","row":2},
+  {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance & petronella · balance","section":"A2","row":3},
+  {"move":"petronella","beats":4,"params":{},"text":"balance & petronella · petronella","section":"A2","row":3},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"balance & petronella 2 places (petronella-nella)","section":"A2","row":4},
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"partner","hand":"both"},"text":"partners balance & swing · balance","section":"B1","row":5},
+  {"move":"swing","beats":12,"params":{"who":"partner"},"text":"partners balance & swing · swing","section":"B1","row":5},
+  {"move":"chain","beats":8,"params":{"who":"robins"},"text":"robins chain","section":"B2","row":6},
+  {"move":"circle","beats":8,"params":{"direction":"right","places":4},"text":"circle right 4 places","section":"B2","row":7}
+ ]
+}

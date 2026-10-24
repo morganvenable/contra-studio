@@ -1,0 +1,14 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "2115", "title": "On the Other Hand (It Works Fine With the Music)", "author": "Abigail Golden and Qwill Duvall", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/2115", "formation": "improper", "retrievedAt": "2026-10-20T06:07:24.045Z", "sha256": "cca10774f10965b9223deeb52520640a3b13957778ee7a55ecd5083f705c6273" }, "status": "partial", "problems": [ "Row 2 \"robins roll away partners on the diagonal so that larks end up swapping places\" isn't drawn yet.", "Row 3 \"robins left-hand chain\" isn't drawn yet.", "The progression after row 10 \"partners california twirl\" doesn't work out: Couples 1 and 2 have not passed each other yet." ], "unparsed": [ { "row": 2, "text": "robins roll away partners on the diagonal so that larks end up swapping places", "why": "No figure pattern matches \"ladles roll away partners on the diagonal so that gentlespoons end up swapping places\"." }, { "row": 3, "text": "robins left-hand chain", "why": "No figure pattern matches \"ladles left-hand chain\"." } ], "choices": [],
+ "figures": [
+  {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance the ring","section":"A1","row":1},
+  {"move":"hold","beats":4,"params":{"reason":"unparsed"},"text":"robins roll away partners on the diagonal so that larks end up swapping places","section":"A1","row":2},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"robins left-hand chain","section":"A1","row":3},
+  {"move":"hey","beats":8,"params":{"start":"robins","amount":0.5,"center":"left"},"text":"robins start a half hey - lefts in center, rights on ends","section":"A2","row":4},
+  {"move":"swing","beats":8,"params":{"who":"neighbor"},"text":"neighbors swing","section":"A2","row":5},
+  {"move":"allemande","beats":8,"params":{"who":"larks","hand":"left","amount":1.5},"text":"larks allemande left 1½","section":"B1","row":6},
+  {"move":"swing","beats":8,"params":{"who":"partner"},"text":"partners swing","section":"B1","row":7},
+  {"move":"circle","beats":8,"params":{"direction":"left","places":3},"text":"circle left 3 places","section":"B2","row":8},
+  {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance the ring","section":"B2","row":9},
+  {"move":"twirl","beats":4,"params":{"style":"california","who":"partner"},"text":"partners California twirl","section":"B2","row":10}
+ ]
+}

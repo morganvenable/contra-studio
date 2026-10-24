@@ -1,0 +1,13 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "449", "title": "Southern Summer", "author": "Cary Ravitz", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/449", "formation": "improper", "retrievedAt": "2026-10-20T06:13:36.473Z", "sha256": "74cc26d561754bc7af7755968db499246b3108bd038a60843ce033f6acc35741" }, "status": "partial", "problems": [ "Row 4 \"larks allemande left 1½ around while the robins orbit clockwise ½ around\" isn't drawn yet.", "Row 5 \"partners swing\" can't start from where the dancers are: A swing that ends facing across must start nearer one side." ], "unparsed": [ { "row": 4, "text": "larks allemande left 1½ around while the robins orbit clockwise ½ around", "why": "No figure pattern matches \"gentlespoons allemande left 1½ around while the ladles orbit clockwise ½ around\"." } ], "choices": [ "A balance with a partner or neighbor holds both hands." ],
+ "figures": [
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"neighbor","hand":"both"},"text":"neighbors balance & swing · balance","section":"A1","row":1},
+  {"move":"swing","beats":12,"params":{"who":"neighbor"},"text":"neighbors balance & swing · swing","section":"A1","row":1},
+  {"move":"hey","beats":8,"params":{"start":"larks","amount":0.5,"center":"left"},"text":"larks start a half hey - lefts in center, rights on ends","section":"A2","row":2},
+  {"move":"mad-robin","beats":8,"params":{"front":"larks"},"text":"mad robins, larks in front","section":"A2","row":3},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"larks allemande left 1½ around while the robins orbit clockwise ½ around","section":"B1","row":4},
+  {"move":"swing","beats":8,"params":{"who":"partner"},"text":"partners swing","section":"B1","row":5},
+  {"move":"circle","beats":8,"params":{"direction":"left","places":3},"text":"circle left 3 places","section":"B2","row":6},
+  {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance the ring","section":"B2","row":7},
+  {"move":"twirl","beats":4,"params":{"style":"california","who":"partner"},"text":"partners California twirl","progression":true,"section":"B2","row":8}
+ ]
+}

@@ -1,0 +1,12 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "380", "title": "Dolphiniums & Daisies", "author": "Bob Green", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/380", "formation": "improper", "retrievedAt": "2026-10-20T05:53:51.248Z", "sha256": "ed58d6fb65b7621fac81de46a35ff802b3887ef928bb19816ff83f0d592097d9" }, "status": "partial", "problems": [ "Row 4 \"dolphin gyre+ on left diagonal\" isn't drawn yet." ], "unparsed": [ { "row": 4, "text": "dolphin gyre+ on left diagonal", "why": "No figure pattern matches \"dolphin gyre+ on left diagonal\"." } ], "choices": [ "A long swing is drawn as an ordinary swing.", "A gyre goes by the right shoulder, facing each other, with no hands." ],
+ "figures": [
+  {"move":"allemande","beats":6,"params":{"who":"neighbor","hand":"left","amount":1.5},"text":"neighbors allemande left 1½","section":"A1","row":1},
+  {"move":"pass-by","beats":2,"params":{"who":"robins","shoulder":"right","hands":false},"text":"robins pass by right shoulders","section":"A1","row":2},
+  {"move":"gyre","beats":8,"params":{"who":"partner","amount":1},"text":"partners gyre once","section":"A1","row":3},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"dolphin gyre+ on left diagonal","section":"A2","row":4},
+  {"move":"allemande","beats":8,"params":{"who":"larks","hand":"right","amount":1},"text":"larks allemande right once","section":"A2","row":5},
+  {"move":"swing","beats":16,"params":{"who":"partner"},"text":"partners long swing","section":"B1","row":6},
+  {"move":"circle","beats":8,"params":{"direction":"left","places":4},"text":"circle left 4 places","section":"B2","row":7},
+  {"move":"allemande","beats":8,"params":{"who":"neighbor","hand":"right","amount":1},"text":"neighbors allemande right once","progression":true,"section":"B2","row":8}
+ ]
+}

@@ -1,0 +1,12 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "2515", "title": "Basic Becket", "author": "Mattie Rynkiewicz", "formation": "becket", "progression": "minor-set", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/2515", "formation": "Becket", "retrievedAt": "2026-10-20T05:47:51.240Z", "sha256": "e89c861b6609a7d0a9529610a3d2865532ce994520a0c1e438ffb3056309bc9c" }, "status": "partial", "problems": [ "Row 6 \"half poussette - robins pull neighbors back then left\" isn't drawn yet.", "Row 8 \"half poussette - larks pull neighbors back then left\" isn't drawn yet." ], "unparsed": [ { "row": 6, "text": "half poussette - robins pull neighbors back then left", "why": "No figure pattern matches \"half poussette - ladles pull neighbors back then left\"." }, { "row": 8, "text": "half poussette - larks pull neighbors back then left", "why": "No figure pattern matches \"half poussette - gentlespoons pull neighbors back then left ⁋\"." } ], "choices": [ "Slice: half the counts on the diagonal, half straight back.", "Long lines slice left & back is drawn as a slice: couples step diagonally left, then straight back." ],
+ "figures": [
+  {"move":"long-lines","beats":8,"params":{"back":true},"text":"long lines forward & back","section":"A1","row":1},
+  {"move":"slice","beats":8,"params":{"direction":"left","back":"straight"},"text":"long lines slice left & back","progression":true,"section":"A1","row":2},
+  {"move":"circle","beats":8,"params":{"direction":"left","places":4},"text":"circle left 4 places","section":"A2","row":3},
+  {"move":"do-si-do","beats":8,"params":{"who":"partner","amount":1,"shoulder":"right"},"text":"partners do si do once","section":"A2","row":4},
+  {"move":"do-si-do","beats":8,"params":{"who":"neighbor","amount":1,"shoulder":"right"},"text":"neighbors do si do once","section":"B1","row":5},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"half poussette - robins pull neighbors back then left","section":"B1","row":6},
+  {"move":"do-si-do","beats":8,"params":{"who":"neighbor","amount":1,"shoulder":"right"},"text":"neighbors do si do once","section":"B2","row":7},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"half poussette - larks pull neighbors back then left","section":"B2","row":8,"progression":true}
+ ]
+}

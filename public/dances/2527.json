@@ -1,0 +1,16 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "2527", "title": "Feet in Flight (KW var)", "author": "Dale Rempert", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/2527", "formation": "improper", "retrievedAt": "2026-10-20T05:55:25.027Z", "sha256": "5de860114d3a9b78060a12b5fb08039c65d52741d1f331c02807f4ad6a5a8eed" }, "status": "partial", "problems": [ "Row 7 \"larks gyre ½ (hole in the wall cross)\" isn't drawn yet.", "Row 8 \"robins gyre ½ (hole in the wall cross)\" isn't drawn yet.", "The progression after row 11 \"partners california twirl\" doesn't work out: Couples 1 and 2 have not passed each other yet." ], "unparsed": [ { "row": 7, "text": "larks gyre ½ (hole in the wall cross)", "why": "No figure pattern matches \"gentlespoons gyre ½ (hole in the wall cross)\"." }, { "row": 8, "text": "robins gyre ½ (hole in the wall cross)", "why": "No figure pattern matches \"ladles gyre ½ (hole in the wall cross)\"." } ], "choices": [ "A gyre goes by the right shoulder, facing each other, with no hands." ],
+ "figures": [
+  {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance the ring","section":"A1","row":1},
+  {"move":"roll-away","beats":4,"params":{"who":"robins","whom":"neighbor"},"text":"robins roll away neighbors with a half sashay","section":"A1","row":2},
+  {"move":"chain","beats":8,"params":{"who":"robins","to":"partner"},"text":"robins chain (to partner)","section":"A1","row":3},
+  {"move":"gyre","beats":8,"params":{"who":"robins","amount":1},"text":"robins gyre once","section":"A2","row":4},
+  {"move":"swing","beats":8,"params":{"who":"partner"},"text":"partners swing","section":"A2","row":5},
+  {"move":"long-lines","beats":8,"params":{"back":true},"text":"long lines forward & back","section":"B1","row":6},
+  {"move":"hold","beats":4,"params":{"reason":"unparsed"},"text":"larks gyre ½ (hole in the wall cross)","section":"B1","row":7},
+  {"move":"hold","beats":4,"params":{"reason":"unparsed"},"text":"robins gyre ½ (hole in the wall cross)","section":"B1","row":8},
+  {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance & petronella · balance","section":"B2","row":9},
+  {"move":"petronella","beats":4,"params":{},"text":"balance & petronella · petronella","section":"B2","row":9},
+  {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance the ring","section":"B2","row":10},
+  {"move":"twirl","beats":4,"params":{"style":"california","who":"partner"},"text":"partners California twirl","progression":true,"section":"B2","row":11}
+ ]
+}

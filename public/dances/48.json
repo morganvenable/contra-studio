@@ -1,0 +1,13 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "48", "title": "Seven Sevens", "author": "Jim Kitch", "formation": "becket-ccw", "progression": "minor-set", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/48", "formation": "Becket ccw", "retrievedAt": "2026-10-20T06:12:14.577Z", "sha256": "2ee3c2341689738d651cd9ba82e34eb2c7006a5e437e27511d54c807060ce475" }, "status": "partial", "problems": [ "Row 4 \"star left 4 places to take right hands with next neighbors\" isn't drawn yet." ], "unparsed": [ { "row": 4, "text": "star left 4 places to take right hands with next neighbors", "why": "No figure pattern matches \"star left 4 places to take right hands with next neighbors ⁋\"." } ], "choices": [ "A meltdown swing starts with 4 beats of right-shoulder round, then swings." ],
+ "figures": [
+  {"move":"circle","beats":8,"params":{"direction":"left","places":3},"text":"circle left 3 places","section":"A1","row":1},
+  {"move":"swing","beats":8,"params":{"who":"neighbor"},"text":"neighbors swing","section":"A1","row":2},
+  {"move":"right-left-through","beats":8,"params":{},"text":"right left through","section":"A2","row":3},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"star left 4 places to take right hands with next neighbors","section":"A2","row":4,"progression":true},
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"neighbor","hand":"right"},"text":"next neighbors right hand balance & box the gnat · balance","section":"B1","row":5},
+  {"move":"twirl","beats":4,"params":{"style":"box-the-gnat","who":"neighbor"},"text":"next neighbors right hand balance & box the gnat · twirl","section":"B1","row":5},
+  {"move":"mad-robin","beats":8,"params":{"front":"larks"},"text":"mad robins, larks in front","section":"B1","row":6},
+  {"move":"pass-by","beats":2,"params":{"who":"larks","shoulder":"left","hands":false},"text":"larks pass by left shoulders","section":"B2","row":7},
+  {"move":"swing","beats":14,"params":{"who":"partner","meltdown":true},"text":"partners meltdown swing","section":"B2","row":8}
+ ]
+}

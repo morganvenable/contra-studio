@@ -1,0 +1,14 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "639", "title": "Snow Dance", "author": "Gene Hubert", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/639", "formation": "improper", "retrievedAt": "2026-10-20T06:13:18.132Z", "sha256": "96763d38b962d84598a2d6f8476b3e54329617e371a19709c07c32b721218b0e" }, "status": "check", "problems": [ "Couples don't end the round where the progression puts them (with 3 couples)." ], "unparsed": [], "choices": [ "A balance with a partner or neighbor holds both hands.", "A star with no grip named is a basket star (wrist grip)." ],
+ "figures": [
+  {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance the ring","section":"A1","row":1},
+  {"move":"pass-by","beats":4,"params":{"who":"robins","shoulder":"right","hands":false},"text":"robins pass by right shoulders","section":"A1","row":2},
+  {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance the ring","section":"A1","row":3},
+  {"move":"twirl","beats":4,"params":{"style":"california","who":"neighbor"},"text":"neighbors California twirl","progression":true,"section":"A1","row":4},
+  {"move":"circle","beats":8,"params":{"direction":"left","places":4},"text":"circle left 4 places","section":"A2","row":5},
+  {"move":"star","beats":8,"params":{"hand":"left","places":4},"text":"star left 4 places","section":"A2","row":6},
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"partner","hand":"both"},"text":"partners balance & swing · balance","section":"B1","row":7},
+  {"move":"swing","beats":12,"params":{"who":"partner"},"text":"partners balance & swing · swing","section":"B1","row":7},
+  {"move":"right-left-through","beats":8,"params":{},"text":"right left through","section":"B2","row":8},
+  {"move":"chain","beats":8,"params":{"who":"robins"},"text":"robins chain","section":"B2","row":9}
+ ]
+}

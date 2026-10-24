@@ -31,6 +31,8 @@ export interface GyreParams {
   who: 'partner' | 'neighbor' | 'larks' | 'robins';
   /** Times around: 1 (back home), 1.5 (to the other's place) ... */
   amount: number;
+  /** Shoulder toward the other dancer; right unless the source says left. */
+  shoulder?: 'right' | 'left';
 }
 
 /** Distance from the middle of the pair while going around. */
@@ -40,14 +42,18 @@ const CLOSE = 0.2;
 const FACE_BEATS = 1;
 
 export const gyre: Figure<GyreParams> = (state, params, beats) => {
-  onlyKeys('gyre', params, ['who', 'amount']);
+  onlyKeys('gyre', params, ['who', 'amount', 'shoulder']);
+  const shoulder = oneOf('gyre', 'shoulder', params.shoulder ?? 'right', [
+    'right',
+    'left',
+  ] as const);
   const who = oneOf('gyre', 'who', params.who, ['partner', 'neighbor', 'larks', 'robins'] as const);
   const amount = params.amount;
   if (!(amount > 0 && amount <= 3 && Number.isInteger(amount * 2)))
     throw new Error('Gyre amount must be a whole or half number of times around.');
   if (state.hands.length) throw new Error('A gyre starts with free hands.');
   // By the right shoulder: clockwise from above, increasing polar angle.
-  const sweep = amount * TAU;
+  const sweep = (shoulder === 'right' ? 1 : -1) * amount * TAU;
 
   const plans = minorSets(state)
     .flatMap((g) => pairsIn(state, g, who))

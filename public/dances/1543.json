@@ -1,0 +1,11 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "1543", "title": "Dance All Night", "author": "Rich Mohr", "formation": null, "progression": null, "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/1543", "formation": "four face four", "retrievedAt": "2026-10-20T05:52:30.618Z", "sha256": "d238a7f8a61f5263fc9e037f667792bd7536d466c177650ba3793e2bf7f16be6" }, "status": "unsupported", "problems": [ "The \"four face four\" formation isn't built yet." ], "unparsed": [ { "row": 2, "text": "corners swing", "why": "Unknown dancers \"corners\"." }, { "row": 3, "text": "robins star right once", "why": "No figure pattern matches \"ladles star right once\"." }, { "row": 4, "text": "corners allemande left 1.25", "why": "Unknown dancers \"corners\"." }, { "row": 5, "text": "partners pull by right for grand right and left until they meet their partner", "why": "No figure pattern matches \"partners pull by right for grand right and left until they meet their partner\"." }, { "row": 7, "text": "partners balance & swing and end facing new lines of 4", "why": "No figure pattern matches \"partners balance & swing and end facing new lines of 4 ⁋\"." } ], "choices": [],
+ "figures": [
+  {"move":"long-lines","beats":8,"params":{"back":true},"text":"long lines forward & back","section":"A1","row":1},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"corners swing","section":"A1","row":2},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"robins star right once","section":"A2","row":3},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"corners allemande left 1.25","section":"A2","row":4},
+  {"move":"hold","beats":10,"params":{"reason":"unparsed"},"text":"partners pull by right for grand right and left until they meet their partner","section":"B1","row":5},
+  {"move":"do-si-do","beats":6,"params":{"who":"partner","amount":1,"shoulder":"right"},"text":"partners do si do once","section":"B1","row":6},
+  {"move":"hold","beats":16,"params":{"reason":"unparsed"},"text":"partners balance & swing and end facing new lines of 4","section":"B2","row":7,"progression":true}
+ ]
+}

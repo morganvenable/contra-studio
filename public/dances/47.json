@@ -1,0 +1,13 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "47", "title": "Rang Tang Contra", "author": "Ridge Kennedy", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 16 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/47", "formation": "improper", "retrievedAt": "2026-10-20T06:09:42.268Z", "sha256": "5215c71b7eaf2cd85bbdfa811398118a08c2945985d6d6eb42695a1fdf41b48b" }, "status": "partial", "problems": [ "Row 1 \"neighbors rang tang right\" isn't drawn yet.", "Row 2 \"partners rang tang left\" isn't drawn yet.", "Row 3 \"neighbors rang tang right\" isn't drawn yet.", "Row 4 \"partners rang tang left\" isn't drawn yet." ], "unparsed": [ { "row": 1, "text": "neighbors rang tang right", "why": "No figure pattern matches \"neighbors rang tang right\"." }, { "row": 2, "text": "partners rang tang left", "why": "No figure pattern matches \"partners rang tang left\"." }, { "row": 3, "text": "neighbors rang tang right", "why": "No figure pattern matches \"neighbors rang tang right\"." }, { "row": 4, "text": "partners rang tang left", "why": "No figure pattern matches \"partners rang tang left\"." } ], "choices": [ "A star with no grip named is a basket star (wrist grip)." ],
+ "figures": [
+  {"move":"hold","beats":6,"params":{"reason":"unparsed"},"text":"neighbors rang tang right","section":"A1","row":1},
+  {"move":"hold","beats":6,"params":{"reason":"unparsed"},"text":"partners rang tang left","section":"A1","row":2},
+  {"move":"hold","beats":6,"params":{"reason":"unparsed"},"text":"neighbors rang tang right","section":"A1","row":3},
+  {"move":"hold","beats":6,"params":{"reason":"unparsed"},"text":"partners rang tang left","section":"A1","row":4},
+  {"move":"swing","beats":8,"params":{"who":"neighbor"},"text":"neighbors swing","section":"A1","row":5},
+  {"move":"circle","beats":8,"params":{"direction":"left","places":3},"text":"circle left 3 places","section":"B1","row":6},
+  {"move":"swing","beats":8,"params":{"who":"partner"},"text":"partners swing","section":"B1","row":7},
+  {"move":"chain","beats":8,"params":{"who":"robins"},"text":"robins chain","section":"B2","row":8},
+  {"move":"star","beats":8,"params":{"hand":"left","places":4},"text":"star left 4 places to new neighbor","progression":true,"section":"B2","row":9}
+ ]
+}

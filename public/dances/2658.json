@@ -1,0 +1,13 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "2658", "title": "Cape Fear Contra", "author": "Bob Dalsemer", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/2658", "formation": "improper", "retrievedAt": "2026-10-20T05:49:46.080Z", "sha256": "6d090c0260850036ae56d78ee8d800a2d6b81a33d7c0eb1ba54624b6da741aa6" }, "status": "partial", "problems": [ "Row 2 \"larks roll away neighbors to the right\" isn't drawn yet.", "The progression after row 8 \"robins chain\" doesn't work out: Couples 1 and 2 have not passed each other yet." ], "unparsed": [ { "row": 2, "text": "larks roll away neighbors to the right", "why": "No figure pattern matches \"gentlespoons roll away neighbors to the right\"." } ], "choices": [ "A balance with a partner or neighbor holds both hands.", "A gyre goes by the right shoulder, facing each other, with no hands." ],
+ "figures": [
+  {"move":"circle","beats":8,"params":{"direction":"left","places":4},"text":"circle left 4 places","section":"A1","row":1},
+  {"move":"hold","beats":4,"params":{"reason":"unparsed"},"text":"larks roll away neighbors to the right","section":"A1","row":2},
+  {"move":"gyre","beats":4,"params":{"who":"neighbor","amount":1},"text":"neighbors gyre once","section":"A1","row":3},
+  {"move":"allemande","beats":8,"params":{"who":"larks","hand":"left","amount":1.5},"text":"larks allemande left 1½","section":"A2","row":4},
+  {"move":"do-si-do","beats":8,"params":{"who":"partner","amount":1,"shoulder":"right"},"text":"partners do si do once","section":"A2","row":5},
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"partner","hand":"both"},"text":"partners balance","section":"B1","row":6},
+  {"move":"swing","beats":12,"params":{"who":"partner"},"text":"partners swing","section":"B1","row":7},
+  {"move":"chain","beats":8,"params":{"who":"robins"},"text":"robins chain","progression":true,"section":"B2","row":8},
+  {"move":"hey","beats":8,"params":{"start":"robins","amount":0.5,"center":"left"},"text":"robins start a half hey - lefts in center, rights on ends","section":"B2","row":9}
+ ]
+}

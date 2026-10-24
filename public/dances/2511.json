@@ -1,0 +1,12 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "2511", "title": "Distracted at the Dub", "author": "Mattie Rynkiewicz", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/2511", "formation": "improper", "retrievedAt": "2026-10-20T05:53:38.119Z", "sha256": "83dee9dc1cdbff0a0d731ccce14ec74afec717e9d667b8b944566a4dc6d65aa1" }, "status": "partial", "problems": [ "Row 7 \"larks pass by right shoulders to a new neighbor, robins turn single to face the next\" isn't drawn yet." ], "unparsed": [ { "row": 7, "text": "larks pass by right shoulders to a new neighbor, robins turn single to face the next", "why": "No figure pattern matches \"gentlespoons pass by right shoulders to a new neighbor, ladles turn single to face the next ⁋\"." } ], "choices": [ "A balance with a partner or neighbor holds both hands.", "A meltdown swing starts with 4 beats of right-shoulder round, then swings." ],
+ "figures": [
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"neighbor","hand":"both"},"text":"neighbors balance & swing · balance","section":"A1","row":1},
+  {"move":"swing","beats":12,"params":{"who":"neighbor"},"text":"neighbors balance & swing · swing","section":"A1","row":1},
+  {"move":"long-lines","beats":8,"params":{"back":true},"text":"long lines forward & back","section":"A2","row":2},
+  {"move":"gyre","beats":8,"params":{"who":"larks","amount":1.5,"shoulder":"left"},"text":"larks gyre left shoulders 1½","section":"A2","row":3},
+  {"move":"swing","beats":16,"params":{"who":"partner","meltdown":true},"text":"partners meltdown swing","section":"B1","row":4},
+  {"move":"do-si-do","beats":8,"params":{"who":"robins","amount":1,"shoulder":"right"},"text":"robins do si do once","section":"B2","row":5},
+  {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance the ring","section":"B2","row":6},
+  {"move":"hold","beats":4,"params":{"reason":"unparsed"},"text":"larks pass by right shoulders to a new neighbor, robins turn single to face the next","section":"B2","row":7,"progression":true}
+ ]
+}

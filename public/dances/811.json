@@ -1,0 +1,16 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "811", "title": "Salmonella Evening", "author": "Steve Zakon-Anderson", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 7 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/811", "formation": "improper", "retrievedAt": "2026-10-20T06:11:42.291Z", "sha256": "783da606f92240eb9eefe264884f808de89f2cdd00bca1fc17e544a1f1747be8", "status": "sketchbook" }, "status": "ok", "problems": [], "unparsed": [], "choices": [ "Pass through goes by right shoulders.", "A pass through from a ring goes along the set, to the dancer on your own side.", "A balance with a partner or neighbor holds both hands." ],
+ "figures": [
+  {"move":"allemande","beats":8,"params":{"who":"neighbor","hand":"right","amount":1.75},"text":"neighbors allemande right 1¾","section":"A1","row":1},
+  {"move":"allemande","beats":8,"params":{"who":"larks","hand":"left","amount":1.5},"text":"larks allemande left 1½","section":"A1","row":2},
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"partner","hand":"both"},"text":"partners balance & swing · balance","section":"A2","row":3},
+  {"move":"swing","beats":12,"params":{"who":"partner"},"text":"partners balance & swing · swing","section":"A2","row":3},
+  {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance & petronella · balance","section":"B1","row":4},
+  {"move":"petronella","beats":4,"params":{},"text":"balance & petronella · petronella","section":"B1","row":4},
+  {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance & petronella · balance","section":"B1","row":5},
+  {"move":"petronella","beats":4,"params":{},"text":"balance & petronella · petronella","section":"B1","row":5},
+  {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance & petronella · balance","section":"B2","row":6},
+  {"move":"petronella","beats":4,"params":{},"text":"balance & petronella · petronella","section":"B2","row":6},
+  {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance the ring","section":"B2","row":7},
+  {"move":"pass-through","beats":2,"params":{"shoulder":"right"},"text":"pass through","progression":true,"section":"B2","row":8}
+ ]
+}

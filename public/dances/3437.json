@@ -1,0 +1,13 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "3437", "title": "Left Where You Right It, That's Left", "author": "Cherylyn Geers", "formation": "becket", "progression": "minor-set", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/3437", "formation": "Becket", "retrievedAt": "2026-10-20T06:02:35.707Z", "sha256": "16d01bc747005a206792074a5ae5a0b1fb85ae9ea055633421e5799a1f230b11" }, "status": "partial", "problems": [ "Row 4 \"balance & petronella RIGHT\" isn't drawn yet.", "Row 7 \"balance & petronella LEFT\" isn't drawn yet.", "The progression after row 6 \"partners california twirl\" doesn't work out: Couple 1 must face the same way to find new neighbors." ], "unparsed": [ { "row": 4, "text": "balance & petronella RIGHT", "why": "No figure pattern matches \"balance & petronella RIGHT\"." }, { "row": 7, "text": "balance & petronella LEFT", "why": "No figure pattern matches \"balance & petronella LEFT\"." } ], "choices": [ "A balance with a partner or neighbor holds both hands.", "A swing that ends facing down the hall is drawn ending facing across; the down the hall that follows turns the lines." ],
+ "figures": [
+  {"move":"hall","beats":8,"params":{"direction":"down","turn":"couple"},"text":"down the hall and turn as a couple","section":"A1","row":1},
+  {"move":"hall","beats":8,"params":{"direction":"up","end":"ring"},"text":"up the hall and bend into a ring","section":"A1","row":2},
+  {"move":"right-left-through","beats":8,"params":{},"text":"right left through","section":"A2","row":3},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"balance & petronella RIGHT","section":"A2","row":4},
+  {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance the ring","section":"B1","row":5},
+  {"move":"twirl","beats":4,"params":{"style":"california","who":"partner"},"text":"partners California twirl","progression":true,"section":"B1","row":6},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"balance & petronella LEFT","section":"B1","row":7},
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"partner","hand":"both"},"text":"partners balance & swing, end facing down the hall · balance","section":"B2","row":8},
+  {"move":"swing","beats":12,"params":{"who":"partner"},"text":"partners balance & swing, end facing down the hall · swing","section":"B2","row":8}
+ ]
+}

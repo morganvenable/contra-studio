@@ -1,0 +1,13 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "1849", "title": "Bumbling in the Shower", "author": "Paul Eric Smith", "formation": "becket", "progression": "minor-set", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/1849", "formation": "Becket", "retrievedAt": "2026-10-20T05:49:18.864Z", "sha256": "e5cbab059a10d49c93517b40f6c459897be3b89c9b87dad9dacab7e199f92442" }, "status": "partial", "problems": [ "Row 5 \"pass through across the set, turn right 90 degrees\" isn't drawn yet.", "Row 6 \"walk single file along the set (robins leading) to next neighbors\" isn't drawn yet." ], "unparsed": [ { "row": 5, "text": "pass through across the set, turn right 90 degrees", "why": "No figure pattern matches \"pass through across the set, turn right 90 degrees\"." }, { "row": 6, "text": "walk single file along the set (robins leading) to next neighbors", "why": "No figure pattern matches \"walk single file along the set (ladles leading) to next neighbors ⁋\"." } ], "choices": [ "A balance with a partner or neighbor holds both hands." ],
+ "figures": [
+  {"move":"long-lines","beats":8,"params":{"back":true},"text":"long lines forward & back","section":"A1","row":1},
+  {"move":"allemande","beats":8,"params":{"who":"larks","hand":"left","amount":1.5},"text":"larks allemande left 1½","section":"A1","row":2},
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"neighbor","hand":"both"},"text":"neighbors balance & swing · balance","section":"A2","row":3},
+  {"move":"swing","beats":12,"params":{"who":"neighbor"},"text":"neighbors balance & swing · swing","section":"A2","row":3},
+  {"move":"chain","beats":8,"params":{"who":"robins"},"text":"robins chain","section":"B1","row":4},
+  {"move":"hold","beats":4,"params":{"reason":"unparsed"},"text":"pass through across the set, turn right 90 degrees","section":"B1","row":5},
+  {"move":"hold","beats":4,"params":{"reason":"unparsed"},"text":"walk single file along the set (robins leading) to next neighbors","section":"B1","row":6,"progression":true},
+  {"move":"circle","beats":8,"params":{"direction":"left","places":4},"text":"circle left 4 places","section":"B2","row":7},
+  {"move":"swing","beats":8,"params":{"who":"partner"},"text":"partners swing","section":"B2","row":8}
+ ]
+}

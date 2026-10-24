@@ -1,0 +1,13 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "691", "title": "Three Sisters", "author": "Sarah Kaiser", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/691", "formation": "improper", "retrievedAt": "2026-10-20T06:20:24.066Z", "sha256": "efd8761e0e47d733254c60b582dc83d3b4ba1a26b459fa52be60453b65d43ead" }, "status": "partial", "problems": [ "Row 3 \"larks start a half hey - lefts in center, rights on ends, robins push back to\" isn't drawn yet.", "The progression after row 1 \"long lines forward & back\" doesn't work out: Couples 1 and 2 have not passed each other yet.", "Row 4 \"partners swing\" can't start from where the dancers are: A swing that ends facing across must start nearer one side.", "Row 9 \"neighbors swing\" can't start from where the dancers are: A swing that ends facing across must start nearer one side." ], "unparsed": [ { "row": 3, "text": "larks start a half hey - lefts in center, rights on ends, robins push back to", "why": "No figure pattern matches \"gentlespoons start a half hey - lefts in center, rights on ends, ladles push back to\"." } ], "choices": [],
+ "figures": [
+  {"move":"long-lines","beats":8,"params":{"back":true},"text":"long lines forward & back","progression":true,"section":"A1","row":1},
+  {"move":"swing","beats":8,"params":{"who":"neighbor"},"text":"neighbors swing","section":"A1","row":2},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"larks start a half hey - lefts in center, rights on ends, robins push back to","section":"A2","row":3},
+  {"move":"swing","beats":8,"params":{"who":"partner"},"text":"partners swing","section":"A2","row":4},
+  {"move":"chain","beats":8,"params":{"who":"robins"},"text":"robins chain","section":"B1","row":5},
+  {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance the ring","section":"B1","row":6},
+  {"move":"roll-away","beats":4,"params":{"who":"larks","whom":"partner"},"text":"larks roll away partners with a half sashay","section":"B1","row":7},
+  {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance the ring","section":"B2","row":8},
+  {"move":"swing","beats":12,"params":{"who":"neighbor"},"text":"neighbors swing","section":"B2","row":9}
+ ]
+}

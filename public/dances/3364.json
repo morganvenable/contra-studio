@@ -1,0 +1,15 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "3364", "title": "Kettle Drum", "author": "Jesse Partridge", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/3364", "formation": "improper", "retrievedAt": "2026-10-20T06:01:34.168Z", "sha256": "8edcb1d954dea39e1c3bd07627f8e725d3b03805f02f974e72cc6a4a02a8386f" }, "status": "partial", "problems": [ "Row 7 \"robins trade by the left shoulder, catch left hands\" isn't drawn yet." ], "unparsed": [ { "row": 7, "text": "robins trade by the left shoulder, catch left hands", "why": "No figure pattern matches \"ladles trade by the left shoulder, catch left hands\"." } ], "choices": [ "A balance with a partner or neighbor holds both hands." ],
+ "figures": [
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"neighbor","hand":"both"},"text":"neighbors balance & swing · balance","section":"A1","row":1},
+  {"move":"swing","beats":12,"params":{"who":"neighbor"},"text":"neighbors balance & swing · swing","section":"A1","row":1},
+  {"move":"allemande","beats":8,"params":{"who":"larks","hand":"left","amount":1.5},"text":"larks allemande left 1½","section":"A2","row":2},
+  {"move":"swing","beats":8,"params":{"who":"partner"},"text":"partners swing","section":"A2","row":3},
+  {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance & petronella · balance","section":"B1","row":4},
+  {"move":"petronella","beats":4,"params":{},"text":"balance & petronella · petronella","section":"B1","row":4},
+  {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance & petronella · balance","section":"B1","row":5},
+  {"move":"petronella","beats":4,"params":{},"text":"balance & petronella · petronella","section":"B1","row":5},
+  {"move":"balance","beats":4,"params":{"formation":"current"},"text":"balance","section":"B2","row":6},
+  {"move":"hold","beats":4,"params":{"reason":"unparsed"},"text":"robins trade by the left shoulder, catch left hands","section":"B2","row":7},
+  {"move":"star","beats":8,"params":{"hand":"left","places":4,"grip":"hands-across"},"text":"star left - hands across - 4 places","progression":true,"section":"B2","row":8}
+ ]
+}

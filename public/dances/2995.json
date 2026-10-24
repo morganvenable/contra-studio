@@ -1,0 +1,14 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "2995", "title": "Fueled by Nos", "author": "Mattie Rynkiewicz", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/2995", "formation": "improper", "retrievedAt": "2026-10-20T05:56:43.775Z", "sha256": "e40d87525387e983b927f282bfbc1809c4a32dc0f0c7a9cdd616ebe7fe1e8aa2" }, "status": "partial", "problems": [ "Row 1 \"down the hall and turn alone, ones in the center\" isn't drawn yet.", "Row 7 \"twos arch ones dive\" isn't drawn yet." ], "unparsed": [ { "row": 1, "text": "down the hall and turn alone, ones in the center", "why": "No figure pattern matches \"down the hall and turn alone, ones in the center\"." }, { "row": 7, "text": "twos arch ones dive", "why": "No figure pattern matches \"twos arch ones dive\"." } ], "choices": [ "A long swing is drawn as an ordinary swing.", "The 1s end their swing side by side in the middle of the set facing down, the way they progress." ],
+ "figures": [
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"down the hall and turn alone, ones in the center","section":"A1","row":1},
+  {"move":"hall","beats":8,"params":{"direction":"up","end":"ring"},"text":"up the hall and bend into a ring","section":"A1","row":2},
+  {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance & petronella · balance","section":"A2","row":3},
+  {"move":"petronella","beats":4,"params":{},"text":"balance & petronella · petronella","section":"A2","row":3},
+  {"move":"allemande","beats":8,"params":{"who":"partner","hand":"right","amount":1.5},"text":"partners allemande right 1½","section":"A2","row":4},
+  {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance & petronella · balance","section":"B1","row":5},
+  {"move":"petronella","beats":4,"params":{},"text":"balance & petronella · petronella","section":"B1","row":5},
+  {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance the ring","section":"B1","row":6},
+  {"move":"hold","beats":4,"params":{"reason":"unparsed"},"text":"twos arch ones dive","section":"B1","row":7},
+  {"move":"swing","beats":16,"params":{"who":"1s","end":"down"},"text":"ones long swing","progression":true,"section":"B2","row":8}
+ ]
+}

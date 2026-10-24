@@ -20,6 +20,12 @@ export interface Verdict {
   readonly problem?: string;
   /** Source text of the figure where the check failed, when known. */
   readonly figure?: string;
+  /** Index of that figure in the stored calls, when known. */
+  readonly index?: number;
+  /** Couple count the problem showed up at. */
+  readonly couples?: number;
+  /** What kind of problem: a figure could not run, motion, or the progression model. */
+  readonly kind?: 'compile' | 'repeat' | 'physical' | 'progression' | 'meeting';
 }
 
 const coupleZ = (dance: FoldedDance, beat: number, couple: number) => {
@@ -46,21 +52,23 @@ export function improperModel(couples: number, rounds: number): number[][] {
   return out;
 }
 
-/** Expected couple-center z after each round, Becket (as in the 2321 test). */
-export function becketModel(couples: number, rounds: number): number[][] {
+/**
+ * Expected couple-center z after each round, Becket (as in the 2321 test).
+ * Clockwise, each couple moves one place to its left; counterclockwise
+ * (`direction` -1), to its right, and the extra couple waits at the other end.
+ */
+export function becketModel(couples: number, rounds: number, direction: 1 | -1 = 1): number[][] {
   const rows = Math.floor(couples / 2);
   const spots = Array.from({ length: couples }, (_, c) => {
     if (c === couples - 1 && couples % 2)
-      return { side: -1, z: (rows - (rows - 1) / 2) * 2 * SET.slot };
+      return { side: -1, z: ((direction > 0 ? rows : -1) - (rows - 1) / 2) * 2 * SET.slot };
     return { side: c % 2 ? -1 : 1, z: (Math.floor(c / 2) - (rows - 1) / 2) * 2 * SET.slot };
   });
   const out: number[][] = [];
   for (let r = 0; r < rounds; r++) {
-    for (const s of spots) s.z += s.side * SET.slot;
+    for (const s of spots) s.z += direction * s.side * SET.slot;
     for (const s of spots) {
-      const across = spots.some(
-        (o) => o !== s && o.side === -s.side && Math.abs(o.z - s.z) < 1e-6,
-      );
+      const across = spots.some((o) => o !== s && o.side === -s.side && Math.abs(o.z - s.z) < 1e-6);
       if (!across) s.side = -s.side;
     }
     // Built with the top at +z as in the 2321 test; the set's top is -z.
@@ -78,7 +86,13 @@ export function verifyDance(
     for (const couples of counts) {
       const dance = compile(stored, couples);
       if (!dance.repeatable)
-        return { ok: false, problem: `${couples} couples: ${dance.warnings.at(-1)}` };
+        return {
+          ok: false,
+          problem: `${couples} couples: ${dance.warnings.at(-1)}`,
+          couples,
+          kind: 'repeat',
+          ...figureOf(dance.warnings.at(-1) ?? ''),
+        };
       const rounds = couples + 2;
       const report = physicalCheck(dance, { rounds });
       if (report.problems.length) {
@@ -93,10 +107,17 @@ export function verifyDance(
           ok: false,
           problem: `${couples} couples: ${report.problems[0]} (${figure})`,
           figure,
+          index,
+          couples,
+          kind: 'physical',
         };
       }
-      const model = stored.formation === 'becket' ? becketModel : improperModel;
-      const expected = model(couples, rounds);
+      const expected =
+        stored.formation === 'becket'
+          ? becketModel(couples, rounds)
+          : stored.formation === 'becket-ccw'
+            ? becketModel(couples, rounds, -1)
+            : improperModel(couples, rounds);
       for (let r = 1; r <= rounds; r++) {
         for (let c = 0; c < couples; c++) {
           const z = coupleZ(dance, r * dance.totalBeats, c);
@@ -104,6 +125,8 @@ export function verifyDance(
             return {
               ok: false,
               problem: `${couples} couples: couple ${c + 1} after round ${r} is at z ${z.toFixed(2)}, expected ${expected[r - 1][c].toFixed(2)}`,
+              couples,
+              kind: 'progression',
             };
           }
         }
@@ -120,11 +143,19 @@ export function verifyDance(
         return {
           ok: false,
           problem: `${couples} couples: only ${met.size} of ${pairs} pairs of couples meet`,
+          couples,
+          kind: 'meeting',
         };
     }
     return { ok: true };
   } catch (error) {
     const problem = error instanceof Error ? error.message : String(error);
-    return { ok: false, problem, figure: problem.match(/^Figure \d+ \((.*?)\):/)?.[1] };
+    return { ok: false, problem, kind: 'compile', ...figureOf(problem) };
   }
+}
+
+/** The figure an error message names ("Figure 3 (text): why"), if any. */
+function figureOf(message: string): { figure?: string; index?: number } {
+  const m = message.match(/Figure (\d+) \((.*?)\):/);
+  return m ? { index: Number(m[1]) - 1, figure: m[2] } : {};
 }

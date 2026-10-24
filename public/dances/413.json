@@ -1,0 +1,11 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "413", "title": "Not My Second Rodeo", "author": "Isaac Banner", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/413", "formation": "improper", "retrievedAt": "2026-10-20T06:07:03.908Z", "sha256": "ebb853097415c8c5c19a8300a4f576753eb010116ec547c068ccb050737bfa6c" }, "status": "partial", "problems": [ "Row 6 \"pass through\" isn't drawn yet.", "The progression after row 7 \"next neighbors do si do once\" doesn't work out: Couples 1 and 2 have not passed each other yet." ], "unparsed": [ { "row": 6, "text": "pass through", "why": "0 beats is too short for this row's parts." } ], "choices": [ "A balance with a partner or neighbor holds both hands.", "A meltdown swing starts with 4 beats of right-shoulder round, then swings." ],
+ "figures": [
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"neighbor","hand":"both"},"text":"neighbors balance & swing · balance","section":"A1","row":1},
+  {"move":"swing","beats":12,"params":{"who":"neighbor"},"text":"neighbors balance & swing · swing","section":"A1","row":1},
+  {"move":"hey","beats":8,"params":{"start":"larks","amount":0.5,"center":"left"},"text":"larks start a half hey - lefts in center, rights on ends","section":"A2","row":2},
+  {"move":"allemande","beats":8,"params":{"who":"larks","hand":"left","amount":1.5},"text":"larks allemande left 1½","section":"A2","row":3},
+  {"move":"swing","beats":16,"params":{"who":"partner","meltdown":true},"text":"partners meltdown swing","section":"B1","row":4},
+  {"move":"circle","beats":8,"params":{"direction":"left","places":3},"text":"circle left 3 places","section":"B2","row":5},
+  {"move":"do-si-do","beats":8,"params":{"who":"neighbor","amount":1,"shoulder":"right"},"text":"next neighbors do si do once","section":"B2","row":7}
+ ]
+}

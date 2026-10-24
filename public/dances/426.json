@@ -1,0 +1,12 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "426", "title": "Rock Creek Reel", "author": "David Harris", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/426", "formation": "improper", "retrievedAt": "2026-10-20T06:10:51.889Z", "sha256": "a6e23100ac1b3abd5d335476468728840559e3eaee543b048ff40da2ee1470b2" }, "status": "partial", "problems": [ "Row 1 \"larks dance in to a long wave in the center - balance the wave\" isn't drawn yet.", "Row 2 \"larks dance out while robins dance in to a long wave in the center - balance the wave\" isn't drawn yet." ], "unparsed": [ { "row": 1, "text": "larks dance in to a long wave in the center - balance the wave", "why": "No figure pattern matches \"gentlespoons dance in to a long wave in the center - balance the wave\"." }, { "row": 2, "text": "larks dance out while robins dance in to a long wave in the center - balance the wave", "why": "No figure pattern matches \"gentlespoons dance out while ladles dance in to a long wave in the center - balance the wave\"." } ], "choices": [ "A swing that ends facing down the hall is drawn ending facing across; the down the hall that follows turns the lines." ],
+ "figures": [
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"larks dance in to a long wave in the center - balance the wave","section":"A1","row":1},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"larks dance out while robins dance in to a long wave in the center - balance the wave","section":"A1","row":2},
+  {"move":"allemande","beats":8,"params":{"who":"robins","hand":"right","amount":1.5},"text":"robins allemande right 1½","section":"A2","row":3},
+  {"move":"swing","beats":8,"params":{"who":"partner"},"text":"partners swing and end facing down","section":"A2","row":4},
+  {"move":"hall","beats":8,"params":{"direction":"down","turn":"couple"},"text":"down the hall and turn as a couple","section":"B1","row":5},
+  {"move":"hall","beats":8,"params":{"direction":"up","end":"ring"},"text":"up the hall and bend into a ring","section":"B1","row":6},
+  {"move":"circle","beats":8,"params":{"direction":"left","places":3},"text":"circle left 3 places","section":"B2","row":7},
+  {"move":"swing","beats":8,"params":{"who":"neighbor"},"text":"neighbors swing","progression":true,"section":"B2","row":8}
+ ]
+}

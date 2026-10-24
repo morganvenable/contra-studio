@@ -1,0 +1,13 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "1415", "title": "Adrift", "author": "Cary Ravitz", "formation": "becket-ccw", "progression": "minor-set", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/1415", "formation": "Becket ccw", "retrievedAt": "2026-10-20T05:45:48.387Z", "sha256": "7486565b02ccf9517547d090505ef679629de4329870ed87d26287490b5bee17" }, "status": "partial", "problems": [ "Row 2 \"larks roll away partners with a half sashay on lines back\" isn't drawn yet.", "Row 4 \"zig right zag left\" isn't drawn yet." ], "unparsed": [ { "row": 2, "text": "larks roll away partners with a half sashay on lines back", "why": "No figure pattern matches \"gentlespoons roll away partners with a half sashay on lines back\"." }, { "row": 4, "text": "zig right zag left", "why": "No figure pattern matches \"zig right zag left ⁋\"." } ], "choices": [ "A meltdown swing starts with 4 beats of right-shoulder round, then swings." ],
+ "figures": [
+  {"move":"long-lines","beats":4,"params":{"back":false},"text":"long lines forward","section":"A1","row":1},
+  {"move":"hold","beats":4,"params":{"reason":"unparsed"},"text":"larks roll away partners with a half sashay on lines back","section":"A1","row":2},
+  {"move":"circle","beats":8,"params":{"direction":"right","places":3},"text":"circle right 3 places","section":"A1","row":3},
+  {"move":"hold","beats":4,"params":{"reason":"unparsed"},"text":"zig right zag left","section":"A2","row":4,"progression":true},
+  {"move":"swing","beats":12,"params":{"who":"neighbor"},"text":"next neighbors swing","section":"A2","row":5},
+  {"move":"circle","beats":8,"params":{"direction":"left","places":3},"text":"circle left 3 places","section":"B1","row":6},
+  {"move":"allemande","beats":3,"params":{"who":"partner","hand":"right","amount":0.75},"text":"partners allemande right ¾","section":"B1","row":7},
+  {"move":"allemande","beats":5,"params":{"who":"larks","hand":"left","amount":1},"text":"larks allemande left once","section":"B1","row":8},
+  {"move":"swing","beats":16,"params":{"who":"partner","meltdown":true},"text":"partners meltdown swing","section":"B2","row":9}
+ ]
+}

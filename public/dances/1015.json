@@ -1,0 +1,14 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "1015", "title": "Waldorf Colonnade", "author": "Moose Flores, Devin J. Pohly", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/1015", "formation": "improper", "retrievedAt": "2026-10-20T06:22:28.230Z", "sha256": "a7079ea0c1654f6b957f3c012659e3b4aa09210e9f2e94ecfc640f3c25c146c1" }, "status": "partial", "problems": [ "Row 3 \"Colonnade - \"1's Arch, robins trade: Colonnade!\" +\" isn't drawn yet." ], "unparsed": [ { "row": 3, "text": "Colonnade - \"1's Arch, robins trade: Colonnade!\" +", "why": "No figure pattern matches \"Colonnade - \"1's Arch, Ladles trade: Colonnade!\" +\"." } ], "choices": [ "A balance with a partner or neighbor holds both hands.", "A star with no grip named is a basket star (wrist grip).", "Square through: each balance takes 4 beats and each pull by 2." ],
+ "figures": [
+  {"move":"star","beats":8,"params":{"hand":"right","places":3},"text":"star right 3 places","section":"A1","row":1},
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"partner","hand":"right"},"text":"partners right hand balance & box the gnat · balance","section":"A1","row":2},
+  {"move":"twirl","beats":4,"params":{"style":"box-the-gnat","who":"partner"},"text":"partners right hand balance & box the gnat · twirl","section":"A1","row":2},
+  {"move":"hold","beats":16,"params":{"reason":"unparsed"},"text":"Colonnade - \"1's Arch, robins trade: Colonnade!\" +","section":"A2","row":3},
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"partner","hand":"both"},"text":"partners balance & swing · balance","section":"B1","row":4},
+  {"move":"swing","beats":12,"params":{"who":"partner"},"text":"partners balance & swing · swing","section":"B1","row":4},
+  {"move":"chain","beats":8,"params":{"who":"robins"},"text":"robins chain","section":"B2","row":5},
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"partner","hand":"right"},"text":"square through two - partners balance & pull by right, then neighbors pull by left · balance","section":"B2","row":6},
+  {"move":"pass-by","beats":2,"params":{"who":"partner","shoulder":"right","hands":true},"text":"square through two - partners balance & pull by right, then neighbors pull by left · pull by","section":"B2","row":6},
+  {"move":"pass-by","beats":2,"params":{"who":"neighbor","shoulder":"left","hands":true},"text":"square through two - partners balance & pull by right, then neighbors pull by left · pull by","progression":true,"section":"B2","row":6}
+ ]
+}

@@ -1,0 +1,13 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "505", "title": "Inflation Reel", "author": "Tony Parkes", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/505", "formation": "improper", "retrievedAt": "2026-10-20T06:00:17.584Z", "sha256": "6d36ae405516cd418669c9f2fea6d9e02ea0891fe26e8af7a64d8cd0f6463793" }, "status": "partial", "problems": [ "Row 8 \"balance the ring (not part of original choreography)\" isn't drawn yet.", "Row 9 \"pass through (to new neighbors)\" isn't drawn yet." ], "unparsed": [ { "row": 8, "text": "balance the ring (not part of original choreography)", "why": "No figure pattern matches \"balance the ring (not part of original choreography)\"." }, { "row": 9, "text": "pass through (to new neighbors)", "why": "No figure pattern matches \"pass through (to new neighbors) ⁋\"." } ], "choices": [ "A swing that ends facing down the hall is drawn ending facing across; the down the hall that follows turns the lines." ],
+ "figures": [
+  {"move":"do-si-do","beats":8,"params":{"who":"neighbor","amount":1,"shoulder":"right"},"text":"neighbors do si do once","section":"A1","row":1},
+  {"move":"swing","beats":8,"params":{"who":"neighbor"},"text":"neighbors swing end facing down","section":"A1","row":2},
+  {"move":"hall","beats":8,"params":{"direction":"down","turn":"couple"},"text":"down the hall and turn as a couple","section":"A2","row":3},
+  {"move":"hall","beats":8,"params":{"direction":"up","end":"ring"},"text":"up the hall and bend into a ring","section":"A2","row":4},
+  {"move":"right-left-through","beats":8,"params":{},"text":"right left through","section":"B1","row":5},
+  {"move":"chain","beats":8,"params":{"who":"robins"},"text":"robins chain","section":"B1","row":6},
+  {"move":"circle","beats":8,"params":{"direction":"left","places":5},"text":"circle left 5 places","section":"B2","row":7},
+  {"move":"hold","beats":4,"params":{"reason":"unparsed"},"text":"balance the ring (not part of original choreography)","section":"B2","row":8},
+  {"move":"hold","beats":4,"params":{"reason":"unparsed"},"text":"pass through (to new neighbors)","section":"B2","row":9,"progression":true}
+ ]
+}

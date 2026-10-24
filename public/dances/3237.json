@@ -1,0 +1,12 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "3237", "title": "Maid Marian's Fancy", "author": "David Smukler", "formation": "becket", "progression": "minor-set", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/3237", "formation": "becket", "retrievedAt": "2026-10-20T06:03:28.116Z", "sha256": "052a8cf09fb0da9552566b13c50d2002d5f016634aba4a754abb7e5b3e7cca6d", "status": "sketchbook" }, "status": "partial", "problems": [ "Row 4 \"robins allemande right ¾ to new neighbor robins\" isn't drawn yet.", "Row 5 \"robins allemande left ¾ WHILE larks shift left\" isn't drawn yet." ], "unparsed": [ { "row": 4, "text": "robins allemande right ¾ to new neighbor robins", "why": "No figure pattern matches \"ladles allemande right ¾ to new neighbor ladle ⁋\"." }, { "row": 5, "text": "robins allemande left ¾ WHILE larks shift left", "why": "No figure pattern matches \"ladles allemande left ¾ WHILE gentlespoons shift left\"." } ], "choices": [ "A balance with a partner or neighbor holds both hands." ],
+ "figures": [
+  {"move":"circle","beats":6,"params":{"direction":"left","places":3},"text":"circle left 3 places","section":"A1","row":1},
+  {"move":"swing","beats":10,"params":{"who":"neighbor"},"text":"neighbors swing","section":"A1","row":2},
+  {"move":"long-lines","beats":8,"params":{"back":true},"text":"long lines forward & back","section":"A2","row":3},
+  {"move":"hold","beats":4,"params":{"reason":"unparsed"},"text":"robins allemande right ¾ to new neighbor robins","section":"A2","row":4,"progression":true},
+  {"move":"hold","beats":4,"params":{"reason":"unparsed"},"text":"robins allemande left ¾ WHILE larks shift left","section":"A2","row":5},
+  {"move":"hey","beats":16,"params":{"start":"partner","amount":1,"center":"left"},"text":"partners start a full hey - rights on ends, lefts in center","section":"B1","row":6},
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"partner","hand":"both"},"text":"partners balance & swing · balance","section":"B2","row":7},
+  {"move":"swing","beats":12,"params":{"who":"partner"},"text":"partners balance & swing · swing","section":"B2","row":7}
+ ]
+}

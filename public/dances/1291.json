@@ -1,0 +1,12 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "1291", "title": "Shoot the Moon", "author": "Sarah Kaiser", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/1291", "formation": "improper", "retrievedAt": "2026-10-20T06:12:36.782Z", "sha256": "36056dd78c20823b4fa2dc4ca9080fbb0a2caffd52d39688c4e7692d157da9f3" }, "status": "ok", "problems": [], "unparsed": [], "choices": [ "A balance with a partner or neighbor holds both hands." ],
+ "figures": [
+  {"move":"mad-robin","beats":8,"params":{"front":"robins"},"text":"mad robins, robins in front","section":"A1","row":1},
+  {"move":"allemande","beats":8,"params":{"who":"robins","hand":"right","amount":1.5},"text":"robins allemande right 1½","section":"A1","row":2},
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"partner","hand":"both"},"text":"partners balance & swing · balance","section":"A2","row":3},
+  {"move":"swing","beats":12,"params":{"who":"partner"},"text":"partners balance & swing · swing","section":"A2","row":3},
+  {"move":"do-si-do","beats":8,"params":{"who":"larks","amount":1.5,"shoulder":"right"},"text":"larks do si do 1½","section":"B1","row":4},
+  {"move":"swing","beats":8,"params":{"who":"neighbor"},"text":"neighbors swing","section":"B1","row":5},
+  {"move":"right-left-through","beats":8,"params":{},"text":"right left through","section":"B2","row":6},
+  {"move":"mad-robin","beats":8,"params":{"front":"robins"},"text":"mad robins, robins in front","progression":true,"section":"B2","row":7}
+ ]
+}

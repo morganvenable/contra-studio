@@ -1,0 +1,15 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "1164", "title": "Nightingale", "author": "Don Flaherty", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/1164", "formation": "improper", "retrievedAt": "2026-10-20T06:06:44.748Z", "sha256": "708366b232534a6bbb8ab9560d3677199e7e33ba9884a7f17c644c270fea9e60" }, "status": "partial", "problems": [ "Row 3 \"larks roll away partners with a half sashay across set\" isn't drawn yet.", "Row 5 \"larks roll away neighbors half sashay alone set\" isn't drawn yet.", "The progression after row 8 \"circle left 3 places\" doesn't work out: Couples 1 and 2 have not passed each other yet." ], "unparsed": [ { "row": 3, "text": "larks roll away partners with a half sashay across set", "why": "No figure pattern matches \"gentlespoons roll away partners with a half sashay across set\"." }, { "row": 5, "text": "larks roll away neighbors half sashay alone set", "why": "No figure pattern matches \"gentlespoons roll away neighbors half sashay alone set\"." } ], "choices": [ "A balance with a partner or neighbor holds both hands." ],
+ "figures": [
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"neighbor","hand":"both"},"text":"neighbors balance & swing · balance","section":"A1","row":1},
+  {"move":"swing","beats":12,"params":{"who":"neighbor"},"text":"neighbors balance & swing · swing","section":"A1","row":1},
+  {"move":"circle","beats":4,"params":{"direction":"left","places":2},"text":"circle left 2 places","section":"A2","row":2},
+  {"move":"hold","beats":4,"params":{"reason":"unparsed"},"text":"larks roll away partners with a half sashay across set","section":"A2","row":3},
+  {"move":"circle","beats":4,"params":{"direction":"left","places":2},"text":"circle left 2 places","section":"A2","row":4},
+  {"move":"hold","beats":4,"params":{"reason":"unparsed"},"text":"larks roll away neighbors half sashay alone set","section":"A2","row":5},
+  {"move":"do-si-do","beats":8,"params":{"who":"robins","amount":1.5,"shoulder":"right"},"text":"robins do si do 1½","section":"B1","row":6},
+  {"move":"swing","beats":8,"params":{"who":"partner"},"text":"partners swing","section":"B1","row":7},
+  {"move":"circle","beats":8,"params":{"direction":"left","places":3},"text":"circle left 3 places","progression":true,"section":"B2","row":8},
+  {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance the ring","section":"B2","row":9},
+  {"move":"twirl","beats":4,"params":{"style":"california","who":"partner"},"text":"partners California twirl to face new neighbors","section":"B2","row":10}
+ ]
+}

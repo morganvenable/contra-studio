@@ -1,0 +1,14 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "343", "title": "Winter Slide", "author": "Rhonda K. C. Minnich", "formation": "becket", "progression": "minor-set", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/343", "formation": "Becket", "retrievedAt": "2026-10-20T06:23:38.859Z", "sha256": "593f54e553a7a252905bb5ac7f500013a2c6bfc109cba9a4d9b33e57812b8500" }, "status": "partial", "problems": [ "Row 8 \"larks roll away partners\" isn't drawn yet.", "Row 10 \"robins roll away partners right to left to new larks\" isn't drawn yet.", "Row 9 \"long lines forward\" can't start from where the dancers are: Dancer 0 is not standing in a side line." ], "unparsed": [ { "row": 8, "text": "larks roll away partners", "why": "No figure pattern matches \"gentlespoons roll away partners\"." }, { "row": 10, "text": "robins roll away partners right to left to new larks", "why": "No figure pattern matches \"ladles roll away partners right to left to new gentlespoon ⁋\"." } ], "choices": [ "A swing that ends facing down the hall is drawn ending facing across; the down the hall that follows turns the lines." ],
+ "figures": [
+  {"move":"allemande","beats":8,"params":{"who":"larks","hand":"left","amount":1.5},"text":"larks allemande left 1½","section":"A1","row":1},
+  {"move":"swing","beats":8,"params":{"who":"neighbor"},"text":"neighbors swing end facing down the hall","section":"A1","row":2},
+  {"move":"hall","beats":8,"params":{"direction":"down","turn":"alone"},"text":"down the hall and turn alone","section":"A2","row":3},
+  {"move":"hall","beats":8,"params":{"direction":"up","end":"ring"},"text":"up the hall and bend into a ring","section":"A2","row":4},
+  {"move":"circle","beats":8,"params":{"direction":"left","places":3},"text":"circle left 3 places","section":"B1","row":5},
+  {"move":"swing","beats":8,"params":{"who":"partner"},"text":"partners swing","section":"B1","row":6},
+  {"move":"long-lines","beats":4,"params":{"back":false},"text":"long lines forward","section":"B2","row":7},
+  {"move":"hold","beats":4,"params":{"reason":"unparsed"},"text":"larks roll away partners","section":"B2","row":8},
+  {"move":"long-lines","beats":4,"params":{"back":false},"text":"long lines forward","section":"B2","row":9},
+  {"move":"hold","beats":4,"params":{"reason":"unparsed"},"text":"robins roll away partners right to left to new larks","section":"B2","row":10,"progression":true}
+ ]
+}

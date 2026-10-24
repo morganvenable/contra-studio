@@ -1,0 +1,14 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "2051", "title": "Back to Front", "author": "Luke Donforth", "formation": "becket-ccw", "progression": "minor-set", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/2051", "formation": "Becket ccw", "retrievedAt": "2026-10-20T05:47:27.054Z", "sha256": "3c2ae796ede8137e0d259e7702a2239dd847a2159776e6e30da7acd107624a19" }, "status": "partial", "problems": [ "The progression after row 3 \"partners california twirl\" doesn't work out: Couple 1 must face the same way to find new neighbors." ], "unparsed": [], "choices": [ "A balance with a partner or neighbor holds both hands." ],
+ "figures": [
+  {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance & petronella · balance","section":"A1","row":1},
+  {"move":"petronella","beats":4,"params":{},"text":"balance & petronella · petronella","section":"A1","row":1},
+  {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance the ring","section":"A1","row":2},
+  {"move":"twirl","beats":4,"params":{"style":"california","who":"partner"},"text":"partners California twirl","progression":true,"section":"A1","row":3},
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"neighbor","hand":"both"},"text":"next neighbors balance & swing · balance","section":"A2","row":4},
+  {"move":"swing","beats":12,"params":{"who":"neighbor"},"text":"next neighbors balance & swing · swing","section":"A2","row":4},
+  {"move":"promenade","beats":8,"params":{"who":"neighbor"},"text":"neighbors promenade","section":"B1","row":5},
+  {"move":"allemande","beats":8,"params":{"who":"robins","hand":"right","amount":1.5},"text":"robins allemande right 1½","section":"B1","row":6},
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"partner","hand":"both"},"text":"partners balance & swing · balance","section":"B2","row":7},
+  {"move":"swing","beats":12,"params":{"who":"partner"},"text":"partners balance & swing · swing","section":"B2","row":7}
+ ]
+}

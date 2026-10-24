@@ -1,0 +1,13 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "2678", "title": "Jefferson's Sixpence", "author": "Ann Fallon", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/2678", "formation": "improper", "retrievedAt": "2026-10-20T06:00:48.872Z", "sha256": "33e226bbf7b3aa69b5d45b8b33a4d07cd5663159015709fc1e0aa6a0cbf2dc5f" }, "status": "partial", "problems": [ "Row 7 \"down the hall ones in the middle\" isn't drawn yet.", "Row 8 \"up the hall backward\" isn't drawn yet.", "Row 9 \"ones arch twos dive\" isn't drawn yet." ], "unparsed": [ { "row": 7, "text": "down the hall ones in the middle", "why": "No figure pattern matches \"down the hall ones in the middle ⁋\"." }, { "row": 8, "text": "up the hall backward", "why": "No figure pattern matches \"up the hall backward\"." }, { "row": 9, "text": "ones arch twos dive", "why": "No figure pattern matches \"ones arch twos dive\"." } ], "choices": [ "The 1s end their swing side by side in the middle of the set facing down, the way they progress." ],
+ "figures": [
+  {"move":"circle","beats":8,"params":{"direction":"left","places":4},"text":"circle left 4 places","section":"A1","row":1},
+  {"move":"circle","beats":8,"params":{"direction":"right","places":4},"text":"circle right 4 places","section":"A1","row":2},
+  {"move":"do-si-do","beats":8,"params":{"who":"neighbor","amount":1,"shoulder":"right"},"text":"neighbors do si do once","section":"A2","row":3},
+  {"move":"do-si-do","beats":8,"params":{"who":"partner","amount":1,"shoulder":"right"},"text":"partners do si do once","section":"A2","row":4},
+  {"move":"long-lines","beats":8,"params":{"back":true},"text":"long lines forward & back","section":"B1","row":5},
+  {"move":"swing","beats":8,"params":{"who":"1s","end":"down"},"text":"ones swing","section":"B1","row":6},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"down the hall ones in the middle","section":"B2","row":7,"progression":true},
+  {"move":"hold","beats":4,"params":{"reason":"unparsed"},"text":"up the hall backward","section":"B2","row":8},
+  {"move":"hold","beats":4,"params":{"reason":"unparsed"},"text":"ones arch twos dive","section":"B2","row":9}
+ ]
+}

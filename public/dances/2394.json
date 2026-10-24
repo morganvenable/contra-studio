@@ -1,0 +1,12 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "2394", "title": "Butterfly Wings Improper variation", "author": "Don Flaherty", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/2394", "formation": "improper", "retrievedAt": "2026-10-20T05:49:28.934Z", "sha256": "392c54c1a05481dd2d61d3ad5b4117e02adff75a47f9c2ae11ecb546fb8c06c7" }, "status": "partial", "problems": [ "Row 2 \"robins do si do once back to neighbor\" isn't drawn yet." ], "unparsed": [ { "row": 2, "text": "robins do si do once back to neighbor", "why": "No figure pattern matches \"ladles do si do once back to neighbor\"." } ], "choices": [ "A balance with a partner or neighbor holds both hands." ],
+ "figures": [
+  {"move":"allemande","beats":8,"params":{"who":"neighbor","hand":"left","amount":1.5},"text":"neighbors allemande left 1½","section":"A1","row":1},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"robins do si do once back to neighbor","section":"A1","row":2},
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"neighbor","hand":"both"},"text":"neighbors balance & swing · balance","section":"A2","row":3},
+  {"move":"swing","beats":12,"params":{"who":"neighbor"},"text":"neighbors balance & swing · swing","section":"A2","row":3},
+  {"move":"circle","beats":8,"params":{"direction":"left","places":3},"text":"circle left 3 places","section":"B1","row":4},
+  {"move":"swing","beats":8,"params":{"who":"partner"},"text":"partners swing","section":"B1","row":5},
+  {"move":"circle","beats":8,"params":{"direction":"left","places":3},"text":"circle left 3 places","section":"B2","row":6},
+  {"move":"allemande","beats":8,"params":{"who":"neighbor","hand":"right","amount":1.5},"text":"neighbors allemande right 1½ to new neighbors","section":"B2","row":7}
+ ]
+}

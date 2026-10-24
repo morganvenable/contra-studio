@@ -1,0 +1,14 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "3516", "title": "Elixir of Transmutation", "author": "Declan Bigger", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/3516", "formation": "improper", "retrievedAt": "2026-10-20T05:54:38.648Z", "sha256": "0b44e872c7aaade3c8e6ddd1a9c3f31bf563044f80460d115adc4670606b8683" }, "status": "partial", "problems": [ "Row 1 \"robins allemande right 1½ (with new neighbor robins)\" isn't drawn yet.", "Row 2 \"partners swing\" can't start from where the dancers are: A swing that ends facing across must start nearer one side.", "Row 4 \"robins chain to neighbor\" can't start from where the dancers are: The robins would chain to someone who is not their neighbor." ], "unparsed": [ { "row": 1, "text": "robins allemande right 1½ (with new neighbor robins)", "why": "No figure pattern matches \"ladles allemande right 1½ (with new neighbor ladle)\"." } ], "choices": [ "A balance with a partner or neighbor holds both hands." ],
+ "figures": [
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"robins allemande right 1½ (with new neighbor robins)","section":"A1","row":1},
+  {"move":"swing","beats":8,"params":{"who":"partner"},"text":"partners swing","section":"A1","row":2},
+  {"move":"right-left-through","beats":8,"params":{},"text":"right left through","section":"A2","row":3},
+  {"move":"chain","beats":8,"params":{"who":"robins","to":"neighbor"},"text":"robins chain to neighbor","section":"A2","row":4},
+  {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance & petronella · balance","section":"B1","row":5},
+  {"move":"petronella","beats":4,"params":{},"text":"balance & petronella · petronella","section":"B1","row":5},
+  {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance & petronella · balance","section":"B1","row":6},
+  {"move":"petronella","beats":4,"params":{},"text":"balance & petronella · petronella","section":"B1","row":6},
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"neighbor","hand":"both"},"text":"neighbors balance & swing · balance","section":"B2","row":7},
+  {"move":"swing","beats":12,"params":{"who":"neighbor"},"text":"neighbors balance & swing · swing","progression":true,"section":"B2","row":7}
+ ]
+}

@@ -1,0 +1,11 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "3482", "title": "Reunion (variation I)", "author": "Gene Hubert", "formation": "becket", "progression": "minor-set", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/3482", "formation": "Becket", "retrievedAt": "2026-10-20T06:10:14.562Z", "sha256": "d573b1f8333229a48225576cdf840ee7037be39dbc9281653e00814dc1187d54" }, "status": "partial", "problems": [ "Row 1 \"left diagonal robins chain (to new neighbor)\" isn't drawn yet.", "Row 2 \"robins chain (to trail buddy)\" isn't drawn yet.", "Row 6 \"slice left and straight back in long lines\" isn't drawn yet." ], "unparsed": [ { "row": 1, "text": "left diagonal robins chain (to new neighbor)", "why": "No figure pattern matches \"left diagonal ladles chain (to new neighbor) ⁋\"." }, { "row": 2, "text": "robins chain (to trail buddy)", "why": "No figure pattern matches \"ladles chain (to trail buddy)\"." }, { "row": 6, "text": "slice left and straight back in long lines", "why": "No figure pattern matches \"slice left and straight back in long lines ⁋\"." } ], "choices": [ "A balance with a partner or neighbor holds both hands." ],
+ "figures": [
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"left diagonal robins chain (to new neighbor)","section":"A1","row":1,"progression":true},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"robins chain (to trail buddy)","section":"A1","row":2},
+  {"move":"hey","beats":16,"params":{"start":"robins","amount":1,"center":"right"},"text":"robins start a full hey - rights in center, lefts on ends","section":"A2","row":3},
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"partner","hand":"both"},"text":"partners balance & swing · balance","section":"B1","row":4},
+  {"move":"swing","beats":12,"params":{"who":"partner"},"text":"partners balance & swing · swing","section":"B1","row":4},
+  {"move":"long-lines","beats":8,"params":{"back":true},"text":"long lines forward & back","section":"B2","row":5},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"slice left and straight back in long lines","section":"B2","row":6,"progression":true}
+ ]
+}

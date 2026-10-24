@@ -1,0 +1,15 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "3111", "title": "Limit Up", "author": "Bob Isaacs", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/3111", "formation": "Improper", "retrievedAt": "2026-10-20T06:02:45.790Z", "sha256": "c064f4e07a31ca4266fdfda6ee1503e5b31e07f06e8b7bfbe60cb966f4ffd75f" }, "status": "partial", "problems": [ "Row 6 \"larks roll away neighbors\" isn't drawn yet.", "Row 8 \"larks roll away neighbors\" isn't drawn yet.", "Row 10 \"star left 4 places into a new wave\" isn't drawn yet.", "Row 1 \"balance the wave\" can't start from where the dancers are: Dancers are not in a straight line.", "Row 1 \"balance the wave\" can't start from where the dancers are: Dancers in a wave must face across the line." ], "unparsed": [ { "row": 6, "text": "larks roll away neighbors", "why": "No figure pattern matches \"gentlespoons roll away neighbors\"." }, { "row": 8, "text": "larks roll away neighbors", "why": "No figure pattern matches \"gentlespoons roll away neighbors\"." }, { "row": 10, "text": "star left 4 places into a new wave", "why": "No figure pattern matches \"star left 4 places into a new wave ⁋\"." } ], "choices": [ "A balance with a partner or neighbor holds both hands." ],
+ "figures": [
+  {"move":"balance","beats":4,"params":{"formation":"wave","style":"right-left"},"text":"balance the wave","section":"A1","row":1},
+  {"move":"allemande","beats":4,"params":{"who":"robins","hand":"left","amount":0.5},"text":"robins allemande left ½","section":"A1","row":2},
+  {"move":"hey","beats":8,"params":{"start":"partner","amount":0.5,"center":"left"},"text":"partners start a half hey - rights on ends, lefts in center","section":"A1","row":3},
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"partner","hand":"both"},"text":"partners balance & swing · balance","section":"A2","row":4},
+  {"move":"swing","beats":12,"params":{"who":"partner"},"text":"partners balance & swing · swing","section":"A2","row":4},
+  {"move":"circle","beats":4,"params":{"direction":"left","places":2},"text":"circle left 2 places","section":"B1","row":5},
+  {"move":"hold","beats":4,"params":{"reason":"unparsed"},"text":"larks roll away neighbors","section":"B1","row":6},
+  {"move":"circle","beats":4,"params":{"direction":"left","places":2},"text":"circle left 2 places","section":"B1","row":7},
+  {"move":"hold","beats":4,"params":{"reason":"unparsed"},"text":"larks roll away neighbors","section":"B1","row":8},
+  {"move":"chain","beats":8,"params":{"who":"robins"},"text":"robins chain","section":"B2","row":9},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"star left 4 places into a new wave","section":"B2","row":10,"progression":true}
+ ]
+}

@@ -1,0 +1,13 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "1010", "title": "Chicory", "author": "Cary Ravitz", "formation": "becket", "progression": "minor-set", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/1010", "formation": "Becket cw", "retrievedAt": "2026-10-20T05:50:30.489Z", "sha256": "89242af084b56c92ba665438053e169e3d2467d83368e24b827683689573f5e2" }, "status": "partial", "problems": [ "Row 1 \"larks allemande left once and scoop up partners\" isn't drawn yet.", "Row 2 \"star promenade left ½\" isn't drawn yet.", "Row 3 \"butterfly whirl moving right to next neighbors\" isn't drawn yet." ], "unparsed": [ { "row": 1, "text": "larks allemande left once and scoop up partners", "why": "No figure pattern matches \"gentlespoons allemande left once and scoop up partners\"." }, { "row": 2, "text": "star promenade left ½", "why": "No figure pattern matches \"star promenade left ½\"." }, { "row": 3, "text": "butterfly whirl moving right to next neighbors", "why": "No figure pattern matches \"butterfly whirl moving right to next neighbors ⁋\"." } ], "choices": [ "A balance with a partner or neighbor holds both hands." ],
+ "figures": [
+  {"move":"hold","beats":6,"params":{"reason":"unparsed"},"text":"larks allemande left once and scoop up partners","section":"A1","row":1},
+  {"move":"hold","beats":4,"params":{"reason":"unparsed"},"text":"star promenade left ½","section":"A1","row":2},
+  {"move":"hold","beats":6,"params":{"reason":"unparsed"},"text":"butterfly whirl moving right to next neighbors","section":"A1","row":3,"progression":true},
+  {"move":"allemande","beats":8,"params":{"who":"robins","hand":"right","amount":1.5},"text":"robins allemande right 1½","section":"A2","row":4},
+  {"move":"swing","beats":8,"params":{"who":"neighbor"},"text":"neighbors swing","section":"A2","row":5},
+  {"move":"circle","beats":8,"params":{"direction":"left","places":3},"text":"circle left 3 places","section":"B1","row":6},
+  {"move":"hey","beats":8,"params":{"start":"robins","amount":0.5,"center":"left"},"text":"robins start a half hey - lefts in center, rights on ends","section":"B1","row":7},
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"partner","hand":"both"},"text":"partners balance & swing · balance","section":"B2","row":8},
+  {"move":"swing","beats":12,"params":{"who":"partner"},"text":"partners balance & swing · swing","section":"B2","row":8}
+ ]
+}

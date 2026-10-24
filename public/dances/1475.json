@@ -1,0 +1,14 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "1475", "title": "Cotton Candy", "author": "Don Flaherty", "formation": "becket", "progression": "minor-set", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/1475", "formation": "Becket", "retrievedAt": "2026-10-20T05:51:53.377Z", "sha256": "c2ef6061809c477f111c831cea29a5f65ec0edf370cb0de9554b516c6ffc3b60" }, "status": "partial", "problems": [ "Row 5 \"robins do si do once while larks go straight across set\" isn't drawn yet.", "Row 8 \"circle right 3 places with new neighbors ready to start dance again!\" isn't drawn yet.", "Row 6 \"neighbors swing\" can't start from where the dancers are: A swing that ends facing across must start nearer one side." ], "unparsed": [ { "row": 5, "text": "robins do si do once while larks go straight across set", "why": "No figure pattern matches \"ladles do si do once while gentlespoons go straight across set\"." }, { "row": 8, "text": "circle right 3 places with new neighbors ready to start dance again!", "why": "No figure pattern matches \"circle right 3 places with new neighbors ready to start dance again! ⁋\"." } ], "choices": [],
+ "figures": [
+  {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance & petronella · balance","section":"A1","row":1},
+  {"move":"petronella","beats":4,"params":{},"text":"balance & petronella · petronella","section":"A1","row":1},
+  {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance & petronella · balance","section":"A1","row":2},
+  {"move":"petronella","beats":4,"params":{},"text":"balance & petronella · petronella","section":"A1","row":2},
+  {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance the ring","section":"A2","row":3},
+  {"move":"swing","beats":12,"params":{"who":"partner"},"text":"partners swing","section":"A2","row":4},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"robins do si do once while larks go straight across set","section":"B1","row":5},
+  {"move":"swing","beats":8,"params":{"who":"neighbor"},"text":"neighbors swing","section":"B1","row":6},
+  {"move":"long-lines","beats":8,"params":{"back":true},"text":"long lines forward & back ( look for new neighbors to circle right with! )","section":"B2","row":7},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"circle right 3 places with new neighbors ready to start dance again!","section":"B2","row":8,"progression":true}
+ ]
+}

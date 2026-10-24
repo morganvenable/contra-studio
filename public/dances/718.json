@@ -1,0 +1,14 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "718", "title": "Indigo Silk", "author": "Lynn Ackerson", "formation": null, "progression": null, "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/718", "formation": "proper", "retrievedAt": "2026-10-20T06:00:15.574Z", "sha256": "fa9af2f23db0fa4f08dcdc294a85a143c6f8ae2c671364829879f2ab8a6e22c2" }, "status": "unsupported", "problems": [ "The \"proper\" formation isn't built yet." ], "unparsed": [ { "row": 1, "text": "ones star through (robins left hand, larks right hand)", "why": "No figure pattern matches \"ones star through (ladles left hand, gentlespoons right hand) ⁋\"." }, { "row": 6, "text": "circle left 3 places (til ones are above twos)", "why": "No figure pattern matches \"circle left 3 places (til ones are above twos)\"." }, { "row": 8, "text": "ones arch, twos half figure 8 under ++ to ends of a line of four", "why": "No figure pattern matches \"ones arch, twos half figure 8 under ++ to ends of a line of four\"." }, { "row": 10, "text": "up the hall, ones gate the twos", "why": "No figure pattern matches \"up the hall, ones gate the twos\"." } ], "choices": [],
+ "figures": [
+  {"move":"hold","beats":2,"params":{"reason":"unparsed"},"text":"ones star through (robins left hand, larks right hand)","section":"A1","row":1,"progression":true},
+  {"move":"circle","beats":4,"params":{"direction":"left","places":2},"text":"circle left 2 places","section":"A1","row":2},
+  {"move":"swing","beats":10,"params":{"who":"neighbor"},"text":"neighbors swing","section":"A1","row":3},
+  {"move":"allemande","beats":8,"params":{"who":"larks","hand":"left","amount":1.5},"text":"larks allemande left 1½","section":"A2","row":4},
+  {"move":"swing","beats":8,"params":{"who":"partner"},"text":"partners swing","section":"A2","row":5},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"circle left 3 places (til ones are above twos)","section":"B1","row":6},
+  {"move":"roll-away","beats":4,"params":{"who":"robins","whom":"partner"},"text":"robins roll away partners with a half sashay +","section":"B1","row":7},
+  {"move":"hold","beats":4,"params":{"reason":"unparsed"},"text":"ones arch, twos half figure 8 under ++ to ends of a line of four","section":"B1","row":8},
+  {"move":"hall","beats":8,"params":{"direction":"down","turn":"alone"},"text":"down the hall and turn alone","section":"B2","row":9},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"up the hall, ones gate the twos","section":"B2","row":10}
+ ]
+}

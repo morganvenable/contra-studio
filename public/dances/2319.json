@@ -1,0 +1,12 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "2319", "title": "Apple Pie Quadrille (40 bar tune)", "author": "Ron Benson", "formation": null, "progression": null, "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 16 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/2319", "formation": "four face four", "retrievedAt": "2026-10-20T05:46:51.844Z", "sha256": "07558f2e523c6b30c39d01f833e7fd43fb4a8ef514e65b380edb2d8b26ddd8bd" }, "status": "unsupported", "problems": [ "The \"four face four\" formation isn't built yet." ], "unparsed": [ { "row": 2, "text": "middle 4 dancers star right 1x", "why": "No figure pattern matches \"middle 4 dancers star right 1x\"." }, { "row": 4, "text": "NEW middle 4 dancers star right 1x", "why": "No figure pattern matches \"NEW middle 4 dancers star right 1x\"." }, { "row": 6, "text": "circle left 8 places all 8 circle all the way around", "why": "No figure pattern matches \"circle left 8 places all 8 circle all the way around\"." }, { "row": 7, "text": "Left hand larks of each line cast over left shoulder leading their line", "why": "No figure pattern matches \"Left hand Gentlespoon of each line cast over left shoulder leading their line ⁋\"." } ], "choices": [ "A balance with a partner or neighbor holds both hands." ],
+ "figures": [
+  {"move":"long-lines","beats":8,"params":{"back":true},"text":"long lines forward & back","section":"A1","row":1},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"middle 4 dancers star right 1x","section":"A1","row":2},
+  {"move":"allemande","beats":8,"params":{"who":"partner","hand":"left","amount":1.5},"text":"partners allemande left 1½","section":"A2","row":3},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"NEW middle 4 dancers star right 1x","section":"A2","row":4},
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"partner","hand":"both"},"text":"partners balance & swing · balance","section":"B1","row":5},
+  {"move":"swing","beats":12,"params":{"who":"partner"},"text":"partners balance & swing · swing","section":"B1","row":5},
+  {"move":"hold","beats":16,"params":{"reason":"unparsed"},"text":"circle left 8 places all 8 circle all the way around","section":"B2","row":6},
+  {"move":"hold","beats":16,"params":{"reason":"unparsed"},"text":"Left hand larks of each line cast over left shoulder leading their line","section":"B2","row":7,"progression":true}
+ ]
+}

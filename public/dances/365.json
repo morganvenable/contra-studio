@@ -1,0 +1,12 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "365", "title": "Poetry in Motion", "author": "Lisa Greenleaf", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/365", "formation": "improper", "retrievedAt": "2026-10-20T06:09:01.917Z", "sha256": "ba0afc050891d5b6053e25258da4c96669464f0a16ef5eea587fd8d1c88874b9" }, "status": "partial", "problems": [ "Row 4 \"neighbors swing original neighbor\" isn't drawn yet.", "Row 3 \"next neighbors gyre left shoulders once\" can't start from where the dancers are: A gyre starts with free hands." ], "unparsed": [ { "row": 4, "text": "neighbors swing original neighbor", "why": "No figure pattern matches \"neighbors swing original neighbor\"." } ], "choices": [ "A star with no grip named is a basket star (wrist grip).", "Give & take: half the beats to cross, half to back home holding both hands." ],
+ "figures": [
+  {"move":"star","beats":8,"params":{"hand":"right","places":4},"text":"star right 4 places","section":"A1","row":1},
+  {"move":"allemande","beats":8,"params":{"who":"neighbor","hand":"right","amount":1.25},"text":"neighbors allemande right 1¼","section":"A1","row":2},
+  {"move":"gyre","beats":8,"params":{"who":"neighbor","amount":1,"shoulder":"left"},"text":"next neighbors gyre left shoulders once","section":"A2","row":3},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"neighbors swing original neighbor","section":"A2","row":4},
+  {"move":"give-and-take","beats":8,"params":{"who":"larks","whom":"partner"},"text":"larks give & take partners","section":"B1","row":5},
+  {"move":"swing","beats":8,"params":{"who":"partner"},"text":"partners swing","section":"B1","row":6},
+  {"move":"chain","beats":8,"params":{"who":"robins","to":"neighbor"},"text":"robins chain to neighbor","section":"B2","row":7},
+  {"move":"star","beats":8,"params":{"hand":"left","places":4},"text":"star left 4 places","progression":true,"section":"B2","row":8}
+ ]
+}

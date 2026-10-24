@@ -1,0 +1,14 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "1416", "title": "The Bus Stop", "author": "Bill Olson", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/1416", "formation": "improper", "retrievedAt": "2026-10-20T06:16:27.607Z", "sha256": "2110aa2cc440df9018ddd75cc162969cccf1f6ca0c3fad01b91662f3bcf932c4" }, "status": "partial", "problems": [ "Row 3 \"form an ocean wave & balance - robins by left hands and partners by right hands\" isn't drawn yet." ], "unparsed": [ { "row": 3, "text": "form an ocean wave & balance - robins by left hands and partners by right hands", "why": "No figure pattern matches \"form an ocean wave & balance - ladles by left hands and partners by right hands\"." } ], "choices": [ "A meltdown swing starts with 4 beats of right-shoulder round, then swings." ],
+ "figures": [
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"neighbor","hand":"right"},"text":"neighbors right hand balance & box the gnat · balance","section":"A1","row":1},
+  {"move":"twirl","beats":4,"params":{"style":"box-the-gnat","who":"neighbor"},"text":"neighbors right hand balance & box the gnat · twirl","section":"A1","row":1},
+  {"move":"star","beats":8,"params":{"hand":"right","places":3,"grip":"wrist"},"text":"star right - wrist grip - 3 places","section":"A1","row":2},
+  {"move":"hold","beats":4,"params":{"reason":"unparsed"},"text":"form an ocean wave & balance - robins by left hands and partners by right hands","section":"A2","row":3},
+  {"move":"allemande","beats":4,"params":{"who":"robins","hand":"left","amount":1},"text":"robins allemande left once","section":"A2","row":4},
+  {"move":"hey","beats":8,"params":{"start":"partner","amount":0.5,"center":"left"},"text":"partners start a half hey - rights on ends, lefts in center","section":"A2","row":5},
+  {"move":"swing","beats":16,"params":{"who":"partner","meltdown":true},"text":"partners meltdown swing","section":"B1","row":6},
+  {"move":"promenade","beats":6,"params":{"who":"partner"},"text":"partners promenade","section":"B2","row":7},
+  {"move":"roll-away","beats":4,"params":{"who":"larks","whom":"partner"},"text":"larks roll away partners with a half sashay","section":"B2","row":8},
+  {"move":"star","beats":6,"params":{"hand":"left","places":3,"grip":"wrist"},"text":"star left - wrist grip - 3 places","progression":true,"section":"B2","row":9}
+ ]
+}

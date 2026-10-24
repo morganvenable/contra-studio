@@ -1,0 +1,15 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "3449", "title": "Saoirse's Swirler", "author": "Carolyn Rucks", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/3449", "formation": "Improper", "retrievedAt": "2026-10-20T06:11:48.323Z", "sha256": "77a4bb8355617cf695ae3e7649f3cc1d41d888c11ca5edc01e1bd1105a2ab15c" }, "status": "ok", "problems": [], "unparsed": [], "choices": [ "A balance with a partner or neighbor holds both hands.", "A star with no grip named is a basket star (wrist grip)." ],
+ "figures": [
+  {"move":"circle","beats":8,"params":{"direction":"left","places":4},"text":"circle left 4 places","section":"A1","row":1},
+  {"move":"allemande","beats":8,"params":{"who":"partner","hand":"left","amount":1},"text":"partners allemande left once","section":"A1","row":2},
+  {"move":"allemande","beats":8,"params":{"who":"partner","hand":"right","amount":1},"text":"partners allemande right once","section":"A2","row":3},
+  {"move":"star","beats":8,"params":{"hand":"left","places":4},"text":"star left 4 places","section":"A2","row":4},
+  {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance & petronella · balance","section":"B1","row":5},
+  {"move":"petronella","beats":4,"params":{},"text":"balance & petronella · petronella","section":"B1","row":5},
+  {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance & petronella · balance","section":"B1","row":6},
+  {"move":"petronella","beats":4,"params":{},"text":"balance & petronella · petronella","section":"B1","row":6},
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"partner","hand":"both"},"text":"partners balance","section":"B2","row":7},
+  {"move":"twirl","beats":4,"params":{"style":"california","who":"partner"},"text":"partners California twirl to face next neighbors","section":"B2","row":8},
+  {"move":"swing","beats":8,"params":{"who":"neighbor"},"text":"next neighbors swing","section":"B2","row":9}
+ ]
+}

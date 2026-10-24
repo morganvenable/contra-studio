@@ -1,0 +1,13 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "3491", "title": "Flip A Coin", "author": "Billy Boyer", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/3491", "formation": "improper", "retrievedAt": "2026-10-20T05:55:56.286Z", "sha256": "69e1471be1ee6f8c6006b6ddd4a3cf04e6fe58fd3b9478f87ee569f083c4cd90" }, "status": "partial", "problems": [ "Row 9 \"Pattycake R to R, L to L, both hands, then turn 180° to progress {she called it like \"Pattycake R, L, both, spin, balance and swing! (a new neighbor)\"}\" isn't drawn yet." ], "unparsed": [ { "row": 9, "text": "Pattycake R to R, L to L, both hands, then turn 180° to progress {she called it like \"Pattycake R, L, both, spin, balance and swing! (a new neighbor)\"}", "why": "No figure pattern matches \"Pattycake R to R, L to L, both hands, then turn 180° to progress {she called it like \"Pattycake R, L, both, spin, balance and swing! (a new neighbor)\"} ⁋\"." } ], "choices": [ "A balance with a partner or neighbor holds both hands." ],
+ "figures": [
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"neighbor","hand":"both"},"text":"neighbors balance","section":"A1","row":1},
+  {"move":"swing","beats":12,"params":{"who":"neighbor"},"text":"neighbors swing","section":"A1","row":2},
+  {"move":"circle","beats":8,"params":{"direction":"left","places":3},"text":"circle left 3 places","section":"A2","row":3},
+  {"move":"do-si-do","beats":8,"params":{"who":"partner","amount":1,"shoulder":"right"},"text":"partners do si do once","section":"A2","row":4},
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"partner","hand":"both"},"text":"partners balance","section":"B1","row":5},
+  {"move":"swing","beats":12,"params":{"who":"partner"},"text":"partners swing","section":"B1","row":6},
+  {"move":"chain","beats":8,"params":{"who":"robins"},"text":"robins chain","section":"B2","row":7},
+  {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance the ring","section":"B2","row":8},
+  {"move":"hold","beats":4,"params":{"reason":"unparsed"},"text":"Pattycake R to R, L to L, both hands, then turn 180° to progress {she called it like \"Pattycake R, L, both, spin, balance and swing! (a new neighbor)\"}","section":"B2","row":9,"progression":true}
+ ]
+}

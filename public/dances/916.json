@@ -1,0 +1,11 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "916", "title": "Circassian Circle", "author": "Chestnut", "formation": null, "progression": null, "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/916", "formation": "Circle Mixer", "retrievedAt": "2026-10-20T05:50:57.685Z", "sha256": "39c8a1101219e5539d9cd7e8f535b8b47eaf574d7de0ee8980d87f7d5e581f43" }, "status": "unsupported", "problems": [ "The \"Circle Mixer\" formation isn't built yet." ], "unparsed": [ { "row": 3, "text": "long lines forward & back robins only", "why": "No figure pattern matches \"long lines forward & back Ladles only\"." }, { "row": 4, "text": "long lines forward & back larks only, turn over left shoulder & go to new partner", "why": "No figure pattern matches \"long lines forward & back Gentlespoons only, turn over left shoulder & go to new partner ⁋\"." }, { "row": 6, "text": "partners promenade along the set on the right", "why": "No figure pattern matches \"partners promenade along the set on the right\"." } ], "choices": [ "A balance with a partner or neighbor holds both hands." ],
+ "figures": [
+  {"move":"long-lines","beats":8,"params":{"back":true},"text":"long lines forward & back","section":"A1","row":1},
+  {"move":"long-lines","beats":8,"params":{"back":true},"text":"long lines forward & back","section":"A1","row":2},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"long lines forward & back robins only","section":"A2","row":3},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"long lines forward & back larks only, turn over left shoulder & go to new partner","section":"A2","row":4,"progression":true},
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"partner","hand":"both"},"text":"partners balance & swing · balance","section":"B1","row":5},
+  {"move":"swing","beats":12,"params":{"who":"partner"},"text":"partners balance & swing · swing","section":"B1","row":5},
+  {"move":"hold","beats":16,"params":{"reason":"unparsed"},"text":"partners promenade along the set on the right","section":"B2","row":6}
+ ]
+}

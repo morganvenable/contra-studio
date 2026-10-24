@@ -1,0 +1,11 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "2428", "title": "Ice cream", "author": "Don Flaherty", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/2428", "formation": "improper", "retrievedAt": "2026-10-20T06:00:00.450Z", "sha256": "8a07330e4ca9342079fe50d4471edd08428848efea4555f13e935c84a12720c6" }, "status": "partial", "problems": [ "Row 1 \"balance the ring shift one place to Left\" isn't drawn yet.", "Row 3 \"balance the ring shift Left one place\" isn't drawn yet.", "Row 2 \"partners swing\" can't start from where the dancers are: A swing that ends facing across must start nearer one side.", "The progression after row 7 \"robins start a full hey - rights in center, lefts on ends look for new neighbors to balance ring\" doesn't work out: Couples 1 and 2 have not passed each other yet." ], "unparsed": [ { "row": 1, "text": "balance the ring shift one place to Left", "why": "No figure pattern matches \"balance the ring shift one place to Left\"." }, { "row": 3, "text": "balance the ring shift Left one place", "why": "No figure pattern matches \"balance the ring shift Left one place\"." } ], "choices": [],
+ "figures": [
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"balance the ring shift one place to Left","section":"A1","row":1},
+  {"move":"swing","beats":8,"params":{"who":"partner"},"text":"partners swing","section":"A1","row":2},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"balance the ring shift Left one place","section":"A2","row":3},
+  {"move":"swing","beats":8,"params":{"who":"neighbor"},"text":"neighbors swing","section":"A2","row":4},
+  {"move":"long-lines","beats":8,"params":{"back":true},"text":"long lines forward & back","section":"B1","row":5},
+  {"move":"right-left-through","beats":8,"params":{},"text":"right left through","section":"B1","row":6},
+  {"move":"hey","beats":16,"params":{"start":"robins","amount":1,"center":"right"},"text":"robins start a full hey - rights in center, lefts on ends Look for new neighbors to balance ring","section":"B2","row":7}
+ ]
+}

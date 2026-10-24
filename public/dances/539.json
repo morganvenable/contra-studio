@@ -1,0 +1,13 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "539", "title": "Mama Loo's Reel", "author": "Gene Hubert", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/539", "formation": "improper", "retrievedAt": "2026-10-20T06:03:34.165Z", "sha256": "f6a4ff774ac7715cf574d7feaccf6d494fe4ca9a5425b3f62ae56a886304d942" }, "status": "partial", "problems": [ "Row 8 \"stand still let go hands and turn\" isn't drawn yet." ], "unparsed": [ { "row": 8, "text": "stand still let go hands and turn", "why": "No figure pattern matches \"stand still let go hands and turn ⁋\"." } ], "choices": [ "A balance with a partner or neighbor holds both hands." ],
+ "figures": [
+  {"move":"circle","beats":8,"params":{"direction":"left","places":4},"text":"circle left 4 places","section":"A1","row":1},
+  {"move":"swing","beats":8,"params":{"who":"neighbor"},"text":"neighbors swing","section":"A1","row":2},
+  {"move":"long-lines","beats":8,"params":{"back":true},"text":"long lines forward & back","section":"A2","row":3},
+  {"move":"allemande","beats":8,"params":{"who":"robins","hand":"right","amount":1.5},"text":"robins allemande right 1½","section":"A2","row":4},
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"partner","hand":"both"},"text":"partners balance & swing · balance","section":"B1","row":5},
+  {"move":"swing","beats":12,"params":{"who":"partner"},"text":"partners balance & swing · swing","section":"B1","row":5},
+  {"move":"chain","beats":8,"params":{"who":"robins"},"text":"robins chain","section":"B2","row":6},
+  {"move":"circle","beats":6,"params":{"direction":"right","places":4},"text":"circle right 4 places","section":"B2","row":7},
+  {"move":"hold","beats":2,"params":{"reason":"unparsed"},"text":"stand still let go hands and turn","section":"B2","row":8,"progression":true}
+ ]
+}

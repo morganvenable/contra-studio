@@ -1,0 +1,12 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "3314", "title": "Life is Short; Dance Often", "author": "Yoyo Zhou and Lindsey Dono", "formation": "becket-ccw", "progression": "minor-set", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/3314", "formation": "Becket ccw", "retrievedAt": "2026-10-20T06:02:41.770Z", "sha256": "5549beba964222697862cfbbd1a3a544f9f4f7500bbd3d93af431ed0af73598e" }, "status": "partial", "problems": [ "Row 5 \"zig right zag left\" isn't drawn yet.", "Row 6 \"larks start a hey - lefts in center, rights on ends - until partners meet the second time\" isn't drawn yet.", "Row 7 \"partners balance & swing · swing\" can't start from where the dancers are: A swing that ends facing across must start nearer one side." ], "unparsed": [ { "row": 5, "text": "zig right zag left", "why": "No figure pattern matches \"zig right zag left ⁋\"." }, { "row": 6, "text": "larks start a hey - lefts in center, rights on ends - until partners meet the second time", "why": "No figure pattern matches \"gentlespoons start a hey - lefts in center, rights on ends - until partners meet the second time\"." } ], "choices": [ "A balance with a partner or neighbor holds both hands." ],
+ "figures": [
+  {"move":"circle","beats":8,"params":{"direction":"left","places":4},"text":"circle left 4 places","section":"A1","row":1},
+  {"move":"chain","beats":8,"params":{"who":"robins"},"text":"robins chain","section":"A1","row":2},
+  {"move":"mad-robin","beats":8,"params":{"front":"robins"},"text":"mad robins, robins in front","section":"A2","row":3},
+  {"move":"circle","beats":8,"params":{"direction":"right","places":4},"text":"circle right 4 places","section":"A2","row":4},
+  {"move":"hold","beats":4,"params":{"reason":"unparsed"},"text":"zig right zag left","section":"B1","row":5,"progression":true},
+  {"move":"hold","beats":12,"params":{"reason":"unparsed"},"text":"larks start a hey - lefts in center, rights on ends - until partners meet the second time","section":"B1","row":6},
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"partner","hand":"both"},"text":"partners balance & swing · balance","section":"B2","row":7},
+  {"move":"swing","beats":12,"params":{"who":"partner"},"text":"partners balance & swing · swing","section":"B2","row":7}
+ ]
+}

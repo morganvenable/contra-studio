@@ -1,23 +1,17 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { readFileSync } from 'node:fs';
-import { createHash } from 'node:crypto';
 import { physicalCheck } from '../core/check.ts';
-import { contraDbRows, parseRow } from '../core/parse.ts';
-import { compileNext, NEXT_DANCES } from '../dance.ts';
-import { near, facing } from './helpers.ts';
+import { compileNext } from '../dance.ts';
+import { importDance } from '../import.ts';
+import { near, facing, loadSnapshot, loadStored, sha256 } from './helpers.ts';
 
-const stored = NEXT_DANCES.find((d) => d.source.url.endsWith('/2321'))!;
-const snapshot = JSON.parse(
-  readFileSync(new URL('../../../' + stored.source.snapshot, import.meta.url), 'utf8'),
-);
+const stored = loadStored('2321');
+const snapshot = loadSnapshot('2321')!;
 
 test('stored 2321 matches its source snapshot by hash and by parsed rows', () => {
-  assert.equal(createHash('sha256').update(snapshot.html).digest('hex'), stored.source.sha256);
-  const parsed = contraDbRows(snapshot.html).flatMap((row) =>
-    parseRow(row).map((c) => ({ section: row.section, ...c })),
-  );
-  assert.deepEqual(parsed, stored.figures);
+  assert.equal(sha256(snapshot.html), stored.source.sha256);
+  assert.deepEqual(importDance('2321', snapshot, stored.source.sha256).figures, stored.figures);
+  assert.equal(stored.status, 'ok');
   assert.ok(!JSON.stringify(stored).includes('gentlespoons'), 'stored names are larks/robins');
 });
 

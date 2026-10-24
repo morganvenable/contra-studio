@@ -1,0 +1,14 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "2593", "title": "Early Evening Rollaway", "author": "Bob Isaacs", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 9 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/2593", "formation": "improper", "retrievedAt": "2026-10-20T05:54:27.643Z", "sha256": "e0b615d408be15ae199e48b101e6d6ab84334af3d4c74610256e47aae714af9b" }, "status": "partial", "problems": [ "Row 5 \"larks roll away neighbors with a half sashay across the set\" isn't drawn yet.", "The progression after row 8 \"pass through\" doesn't work out: Couples 1 and 2 have not passed each other yet." ], "unparsed": [ { "row": 5, "text": "larks roll away neighbors with a half sashay across the set", "why": "No figure pattern matches \"gentlespoons roll away neighbors with a half sashay across the set\"." } ], "choices": [ "Pass through goes by right shoulders.", "A pass through from a ring goes along the set, to the dancer on your own side.", "A balance with a partner or neighbor holds both hands." ],
+ "figures": [
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"neighbor","hand":"both"},"text":"neighbors balance & swing · balance","section":"A1","row":1},
+  {"move":"swing","beats":12,"params":{"who":"neighbor"},"text":"neighbors balance & swing · swing","section":"A1","row":1},
+  {"move":"right-left-through","beats":8,"params":{},"text":"right left through","section":"A2","row":2},
+  {"move":"chain","beats":8,"params":{"who":"robins"},"text":"robins chain","section":"A2","row":3},
+  {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance the ring","section":"B1","row":4},
+  {"move":"hold","beats":4,"params":{"reason":"unparsed"},"text":"larks roll away neighbors with a half sashay across the set","section":"B1","row":5},
+  {"move":"swing","beats":8,"params":{"who":"partner"},"text":"partners swing","section":"B1","row":6},
+  {"move":"circle","beats":8,"params":{"direction":"left","places":3},"text":"circle left 3 places","section":"B2","row":7},
+  {"move":"pass-through","beats":2,"params":{"shoulder":"right"},"text":"pass through","progression":true,"section":"B2","row":8},
+  {"move":"do-si-do","beats":8,"params":{"who":"neighbor","amount":1,"shoulder":"right"},"text":"next neighbors do si do once","section":"B2","row":9}
+ ]
+}

@@ -1,0 +1,12 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "3404", "title": "Forgotten Dream", "author": "Michael Karcher", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 7 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/3404", "formation": "improper", "retrievedAt": "2026-10-20T05:56:19.451Z", "sha256": "1554d0b5a5cc012120c94575497585e2cd8f10dadae4af19077ceaac64b3d461" }, "status": "check", "problems": [ "Row 8 \"mad robins, robins in front\": a dancer has to move 1.27 m in one beat, faster than a walk (with 3 couples)." ], "unparsed": [], "choices": [ "A gyre goes by the right shoulder, facing each other, with no hands." ],
+ "figures": [
+  {"move":"gyre","beats":8,"params":{"who":"neighbor","amount":1},"text":"neighbors gyre once","section":"A1","row":1},
+  {"move":"swing","beats":8,"params":{"who":"neighbor"},"text":"neighbors swing","section":"A1","row":2},
+  {"move":"hall","beats":8,"params":{"direction":"down","turn":"couple"},"text":"down the hall and turn as a couple","section":"A2","row":3},
+  {"move":"hall","beats":8,"params":{"direction":"up","end":"ring"},"text":"up the hall and bend into a ring","section":"A2","row":4},
+  {"move":"circle","beats":8,"params":{"direction":"left","places":3},"text":"circle left 3 places","section":"B1","row":5},
+  {"move":"swing","beats":8,"params":{"who":"partner"},"text":"partners swing","section":"B1","row":6},
+  {"move":"chain","beats":8,"params":{"who":"robins"},"text":"robins chain","section":"B2","row":7},
+  {"move":"mad-robin","beats":6,"params":{"front":"robins"},"text":"mad robins, robins in front","progression":true,"section":"B2","row":8}
+ ]
+}

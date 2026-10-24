@@ -1,0 +1,12 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "529", "title": "Anne's Visit", "author": "Phillippe Callens", "formation": null, "progression": null, "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/529", "formation": "Proper", "retrievedAt": "2026-10-20T05:46:32.716Z", "sha256": "1c2ca25bda1ec990e42d3d55937c2ee88ad2024201169e45d4b707cfbf258e75" }, "status": "unsupported", "problems": [ "The \"Proper\" formation isn't built yet." ], "unparsed": [ { "row": 8, "text": "partners two-hand turn", "why": "No figure pattern matches \"partners two-hand turn ⁋\"." } ], "choices": [ "A star with no grip named is a basket star (wrist grip)." ],
+ "figures": [
+  {"move":"long-lines","beats":8,"params":{"back":true},"text":"long lines forward & back","section":"A1","row":1},
+  {"move":"do-si-do","beats":8,"params":{"who":"partner","amount":1,"shoulder":"right"},"text":"partners do si do once","section":"A1","row":2},
+  {"move":"star","beats":8,"params":{"hand":"right","places":4},"text":"star right 4 places","section":"A2","row":3},
+  {"move":"star","beats":8,"params":{"hand":"left","places":4},"text":"star left 4 places","section":"A2","row":4},
+  {"move":"hall","beats":8,"params":{"direction":"down","turn":"alone"},"text":"down the hall and turn alone","section":"B1","row":5},
+  {"move":"hall","beats":8,"params":{"direction":"up","end":"ring"},"text":"up the hall and bend into a ring","section":"B1","row":6},
+  {"move":"circle","beats":8,"params":{"direction":"left","places":4},"text":"circle left 4 places","section":"B2","row":7},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"partners two-hand turn","section":"B2","row":8,"progression":true}
+ ]
+}

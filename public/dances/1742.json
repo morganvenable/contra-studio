@@ -1,0 +1,11 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "1742", "title": "Rural Felicity", "author": "Dudley Laufman", "formation": null, "progression": null, "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/1742", "formation": "proper", "retrievedAt": "2026-10-20T06:11:37.245Z", "sha256": "38ef755cdd77ffb3d691702c1762d163be91df5f9934a28b87e70e8c634e518e" }, "status": "unsupported", "problems": [ "The \"proper\" formation isn't built yet." ], "unparsed": [ { "row": 2, "text": "top couple, sashay down", "why": "No figure pattern matches \"top couple, sashay down\"." }, { "row": 4, "text": "same two, sashay up to top", "why": "No figure pattern matches \"same two, sashay up to top\"." }, { "row": 7, "text": "top couple face down, others form arch. top couple promenade down", "why": "No figure pattern matches \"top couple face down, others form arch. top couple promenade down ⁋\"." } ], "choices": [],
+ "figures": [
+  {"move":"long-lines","beats":8,"params":{"back":true},"text":"long lines forward & back","section":"A1","row":1},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"top couple, sashay down","section":"A1","row":2},
+  {"move":"long-lines","beats":8,"params":{"back":true},"text":"long lines forward & back","section":"A2","row":3},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"same two, sashay up to top","section":"A2","row":4},
+  {"move":"do-si-do","beats":8,"params":{"who":"partner","amount":1,"shoulder":"right"},"text":"partners do si do once","section":"B1","row":5},
+  {"move":"swing","beats":8,"params":{"who":"partner"},"text":"partners swing, end facing up","section":"B1","row":6},
+  {"move":"hold","beats":16,"params":{"reason":"unparsed"},"text":"top couple face down, others form arch. top couple promenade down","section":"B2","row":7,"progression":true}
+ ]
+}

@@ -1,0 +1,14 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "727", "title": "Snake in the Hey", "author": "Cary Ravitz", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/727", "formation": "improper", "retrievedAt": "2026-10-20T06:13:11.069Z", "sha256": "b852040173c8af9bd46017d03f0e13a7c1470b1dc406bf0e33a7aaca16ed2953" }, "status": "partial", "problems": [ "Row 2 \"robins form a long wave in the center - balance the wave\" isn't drawn yet.", "Row 3 \"robins dance out while larks dance in to a long wave in the center - balance the wave\" isn't drawn yet.", "Row 7 \"partners balance & swing · swing\" can't start from where the dancers are: A swing that ends facing across must start nearer one side." ], "unparsed": [ { "row": 2, "text": "robins form a long wave in the center - balance the wave", "why": "No figure pattern matches \"ladles form a long wave in the center - balance the wave\"." }, { "row": 3, "text": "robins dance out while larks dance in to a long wave in the center - balance the wave", "why": "No figure pattern matches \"ladles dance out while gentlespoons dance in to a long wave in the center - balance the wave\"." } ], "choices": [ "A balance with a partner or neighbor holds both hands." ],
+ "figures": [
+  {"move":"allemande","beats":4,"params":{"who":"robins","hand":"right","amount":0.75},"text":"robins allemande right ¾","section":"A1","row":1},
+  {"move":"hold","beats":4,"params":{"reason":"unparsed"},"text":"robins form a long wave in the center - balance the wave","section":"A1","row":2},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"robins dance out while larks dance in to a long wave in the center - balance the wave","section":"A1","row":3},
+  {"move":"allemande","beats":4,"params":{"who":"larks","hand":"left","amount":0.75},"text":"larks allemande left ¾","section":"A2","row":4},
+  {"move":"twirl","beats":4,"params":{"style":"box-the-gnat","who":"partner"},"text":"partners box the gnat","section":"A2","row":5},
+  {"move":"hey","beats":8,"params":{"start":"partner","amount":0.5,"center":"left"},"text":"partners start a half hey - rights on ends, lefts in center","section":"A2","row":6},
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"partner","hand":"both"},"text":"partners balance & swing · balance","section":"B1","row":7},
+  {"move":"swing","beats":12,"params":{"who":"partner"},"text":"partners balance & swing · swing","section":"B1","row":7},
+  {"move":"right-left-through","beats":8,"params":{},"text":"right left through","section":"B2","row":8},
+  {"move":"chain","beats":8,"params":{"who":"robins"},"text":"robins chain","progression":true,"section":"B2","row":9}
+ ]
+}

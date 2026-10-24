@@ -1,0 +1,12 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "1769", "title": "Wicked Smooth (Becket Version (Primary))", "author": "Don Veino", "formation": "becket", "progression": "minor-set", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/1769", "formation": "Becket", "retrievedAt": "2026-10-20T06:23:20.696Z", "sha256": "fddf1868dc3a057e1f1726b5fb00ac49056567aef036e1e2c063e30777ca9203", "status": "sketchbook" }, "status": "partial", "problems": [ "Row 2 \"star left 4 places - progress to next neighbors\" isn't drawn yet.", "Row 5 \"mad robins, larks in front (clockwise)\" isn't drawn yet.", "Row 6 \"larks pass by left shoulders to cross\" isn't drawn yet." ], "unparsed": [ { "row": 2, "text": "star left 4 places - progress to next neighbors", "why": "No figure pattern matches \"star left 4 places - progress to next neighbors ⁋\"." }, { "row": 5, "text": "mad robins, larks in front (clockwise)", "why": "No figure pattern matches \"mad robin, gentlespoons in front (clockwise)\"." }, { "row": 6, "text": "larks pass by left shoulders to cross", "why": "No figure pattern matches \"gentlespoons pass by left shoulders to cross\"." } ], "choices": [ "A meltdown swing starts with 4 beats of right-shoulder round, then swings." ],
+ "figures": [
+  {"move":"chain","beats":8,"params":{"who":"robins","to":"neighbor"},"text":"robins chain (to neighbors)","section":"A1","row":1},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"star left 4 places - progress to next neighbors","section":"A1","row":2,"progression":true},
+  {"move":"circle","beats":8,"params":{"direction":"left","places":4},"text":"circle left 4 places","section":"A2","row":3},
+  {"move":"swing","beats":8,"params":{"who":"neighbor"},"text":"neighbors swing","section":"A2","row":4},
+  {"move":"hold","beats":6,"params":{"reason":"unparsed"},"text":"mad robins, larks in front (clockwise)","section":"B1","row":5},
+  {"move":"hold","beats":2,"params":{"reason":"unparsed"},"text":"larks pass by left shoulders to cross","section":"B1","row":6},
+  {"move":"hey","beats":8,"params":{"start":"partner","amount":0.5,"center":"left"},"text":"partners start a half hey - rights on ends, lefts in center","section":"B1","row":7},
+  {"move":"swing","beats":16,"params":{"who":"partner","meltdown":true},"text":"partners meltdown swing","section":"B2","row":8}
+ ]
+}

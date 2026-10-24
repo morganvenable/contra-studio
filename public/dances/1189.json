@@ -1,0 +1,12 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "1189", "title": "Joy to the World", "author": "Don Flaherty", "formation": "becket-ccw", "progression": "minor-set", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/1189", "formation": "Becket ccw", "retrievedAt": "2026-10-20T06:01:12.971Z", "sha256": "9a6b447bf1daec8fdcd9f6e154677641e3d42fb3ccd4667e6ff6cc242db9acc0" }, "status": "partial", "problems": [ "Row 6 \"partners promenade and too the right little more to face new couple to face a\" isn't drawn yet." ], "unparsed": [ { "row": 6, "text": "partners promenade and too the right little more to face new couple to face a", "why": "No figure pattern matches \"partners promenade and too the right little more to face new couple to face a\"." } ], "choices": [ "A balance with a partner or neighbor holds both hands." ],
+ "figures": [
+  {"move":"circle","beats":8,"params":{"direction":"left","places":3},"text":"circle left 3 places","section":"A1","row":1},
+  {"move":"swing","beats":8,"params":{"who":"neighbor"},"text":"neighbors swing","section":"A1","row":2},
+  {"move":"chain","beats":8,"params":{"who":"robins","to":"partner"},"text":"robins chain to partner","section":"A2","row":3},
+  {"move":"hey","beats":8,"params":{"start":"robins","amount":0.5,"center":"right"},"text":"robins start a half hey - rights in center, lefts on ends","section":"A2","row":4},
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"partner","hand":"both"},"text":"partners balance & swing · balance","section":"B1","row":5},
+  {"move":"swing","beats":12,"params":{"who":"partner"},"text":"partners balance & swing · swing","section":"B1","row":5},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"partners promenade and too the right little more to face new couple to face a","section":"B2","row":6},
+  {"move":"long-lines","beats":8,"params":{"back":true},"text":"long lines forward & back","section":"B2","row":7}
+ ]
+}

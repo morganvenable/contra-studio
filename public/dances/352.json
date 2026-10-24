@@ -1,0 +1,13 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "352", "title": "May Day Mixer", "author": "Tony Parkes", "formation": null, "progression": null, "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/352", "formation": "circle mixer", "retrievedAt": "2026-10-20T06:03:50.292Z", "sha256": "80429f0cc5cba3ae9889c5bed46bbf37fa11c771b9c70823bc901c972b73d2a5" }, "status": "unsupported", "problems": [ "The \"circle mixer\" formation isn't built yet." ], "unparsed": [ { "row": 7, "text": "neighbors balance & swing, this is your new partner", "why": "No figure pattern matches \"neighbors balance & swing, this is your new partner\"." } ], "choices": [],
+ "figures": [
+  {"move":"long-lines","beats":8,"params":{"back":true},"text":"long lines forward & back","section":"A1","row":1},
+  {"move":"long-lines","beats":8,"params":{"back":true},"text":"long lines forward & back","section":"A1","row":2},
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"partner","hand":"right"},"text":"partners right hand balance & box the gnat · balance","section":"A2","row":3},
+  {"move":"twirl","beats":4,"params":{"style":"box-the-gnat","who":"partner"},"text":"partners right hand balance & box the gnat · twirl","section":"A2","row":3},
+  {"move":"do-si-do","beats":8,"params":{"who":"partner","amount":1,"shoulder":"right"},"text":"partners do si do once","section":"A2","row":4},
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"partner","hand":"left"},"text":"partners left hand balance & swat the flea · balance","section":"B1","row":5},
+  {"move":"twirl","beats":4,"params":{"style":"swat-the-flea","who":"partner"},"text":"partners left hand balance & swat the flea · twirl","section":"B1","row":5},
+  {"move":"do-si-do","beats":8,"params":{"who":"partner","amount":1.5,"shoulder":"left"},"text":"partners see saw 1½","progression":true,"section":"B1","row":6},
+  {"move":"hold","beats":16,"params":{"reason":"unparsed"},"text":"neighbors balance & swing, this is your new partner","section":"B2","row":7}
+ ]
+}

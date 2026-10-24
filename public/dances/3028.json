@@ -1,0 +1,11 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "3028", "title": "Regression to the Mean", "author": "Cristy Altamirano", "formation": "becket", "progression": "minor-set", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/3028", "formation": "Becket", "retrievedAt": "2026-10-20T06:10:05.475Z", "sha256": "74cde8955a52fc0b29593429b7539f4d3ac521f90c97c9f9dee4f23d65d3d4b2" }, "status": "partial", "problems": [ "Row 2 \"circle left 3 places\" can't start from where the dancers are: A circle of 4 needs the dancers spaced around a ring.", "Row 3 \"neighbors do si do once\" can't start from where the dancers are: Dancers 0 and 3 are too far apart to do-si-do.", "Row 4 \"neighbors swing\" can't start from where the dancers are: A swing that ends facing across must start nearer one side.", "Row 6 \"circle left 3 places\" can't start from where the dancers are: A circle of 4 needs the dancers spaced around a ring." ], "unparsed": [], "choices": [ "Slice: half the counts on the diagonal, half straight back.", "A meltdown swing starts with 4 beats of right-shoulder round, then swings." ],
+ "figures": [
+  {"move":"slice","beats":8,"params":{"direction":"left","back":"straight"},"text":"slice left and straight back","section":"A1","row":1},
+  {"move":"circle","beats":8,"params":{"direction":"left","places":3},"text":"circle left 3 places","section":"A1","row":2},
+  {"move":"do-si-do","beats":8,"params":{"who":"neighbor","amount":1,"shoulder":"right"},"text":"neighbors do si do once","section":"A2","row":3},
+  {"move":"swing","beats":8,"params":{"who":"neighbor"},"text":"neighbors swing","section":"A2","row":4},
+  {"move":"long-lines","beats":8,"params":{"back":true},"text":"long lines forward & back","section":"B1","row":5},
+  {"move":"circle","beats":8,"params":{"direction":"left","places":3},"text":"circle left 3 places","section":"B1","row":6},
+  {"move":"swing","beats":16,"params":{"who":"partner","meltdown":true},"text":"partners meltdown swing","section":"B2","row":7}
+ ]
+}

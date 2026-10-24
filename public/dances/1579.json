@@ -1,0 +1,12 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "1579", "title": "Two Left Hands", "author": "Don Flaherty", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 6 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/1579", "formation": "Improper", "retrievedAt": "2026-10-20T06:21:48.883Z", "sha256": "ff976107302cef28e4865c72d25d9026dc3d0b018145062b8133eddca9d48a2c" }, "status": "partial", "problems": [ "Row 7 \"circle left 3 places to wave of 4\" isn't drawn yet.", "Row 8 \"balance wave 0f 4 and move straight ahead new robins will meet in center of set\" isn't drawn yet." ], "unparsed": [ { "row": 7, "text": "circle left 3 places to wave of 4", "why": "No figure pattern matches \"circle left 3 places to wave of 4\"." }, { "row": 8, "text": "balance wave 0f 4 and move straight ahead new robins will meet in center of set", "why": "No figure pattern matches \"balance wave 0f 4 and move straight ahead new ladles will meet in center of set ⁋\"." } ], "choices": [],
+ "figures": [
+  {"move":"allemande","beats":8,"params":{"who":"robins","hand":"left","amount":1.5},"text":"robins allemande left 1½","section":"A1","row":1},
+  {"move":"swing","beats":8,"params":{"who":"partner"},"text":"partners swing","section":"A1","row":2},
+  {"move":"allemande","beats":8,"params":{"who":"larks","hand":"left","amount":1.5},"text":"larks allemande left 1½","section":"A2","row":3},
+  {"move":"swing","beats":8,"params":{"who":"neighbor"},"text":"neighbors swing","section":"A2","row":4},
+  {"move":"right-left-through","beats":8,"params":{},"text":"right left through","section":"B1","row":5},
+  {"move":"chain","beats":8,"params":{"who":"robins","to":"partner"},"text":"robins chain to partner","section":"B1","row":6},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"circle left 3 places to wave of 4","section":"B2","row":7},
+  {"move":"hold","beats":4,"params":{"reason":"unparsed"},"text":"balance wave 0f 4 and move straight ahead new robins will meet in center of set","section":"B2","row":8,"progression":true}
+ ]
+}

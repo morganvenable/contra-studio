@@ -1,0 +1,12 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "1070", "title": "Chicken Soup", "author": "Don Flaherty", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/1070", "formation": "improper", "retrievedAt": "2026-10-20T05:50:28.469Z", "sha256": "0ff588212701a5ff31487aa3b36a70b0933e6b982257fd6b99547889ae987f5f" }, "status": "partial", "problems": [ "Row 3 \"larks allemande ____ 1½ larks go to partner\" isn't drawn yet.", "Row 7 \"partners promenade across set\" isn't drawn yet.", "Row 8 \"circle left 3 places & pass thru\" isn't drawn yet.", "Row 4 \"partners swing\" can't start from where the dancers are: A swing that ends facing across must start nearer one side." ], "unparsed": [ { "row": 3, "text": "larks allemande ____ 1½ larks go to partner", "why": "No figure pattern matches \"gentlespoons allemande ____ 1½ men go to partner\"." }, { "row": 7, "text": "partners promenade across set", "why": "No figure pattern matches \"partners promenade across set\"." }, { "row": 8, "text": "circle left 3 places & pass thru", "why": "No figure pattern matches \"circle left 3 places & pass thru ⁋\"." } ], "choices": [],
+ "figures": [
+  {"move":"do-si-do","beats":8,"params":{"who":"neighbor","amount":1,"shoulder":"right"},"text":"neighbors do si do once","section":"A1","row":1},
+  {"move":"swing","beats":8,"params":{"who":"neighbor"},"text":"neighbors swing","section":"A1","row":2},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"larks allemande ____ 1½ larks go to partner","section":"A2","row":3},
+  {"move":"swing","beats":8,"params":{"who":"partner"},"text":"partners swing","section":"A2","row":4},
+  {"move":"right-left-through","beats":8,"params":{},"text":"right left through","section":"B1","row":5},
+  {"move":"hey","beats":8,"params":{"start":"robins","amount":0.5,"center":"right"},"text":"robins start a half hey - rights in center, lefts on ends","section":"B1","row":6},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"partners promenade across set","section":"B2","row":7},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"circle left 3 places & pass thru","section":"B2","row":8,"progression":true}
+ ]
+}

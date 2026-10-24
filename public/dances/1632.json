@@ -1,0 +1,15 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "1632", "title": "Spin Break", "author": "Claire Takemori", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/1632", "formation": "improper", "sha256": "015beaee49106e11c4de26f848b2e7c25f450118d2820141bc7e071c5ec57910" }, "status": "partial", "problems": [ "Row 1 \"balance wave\" isn't drawn yet.", "Row 6 \"robins give & take partners, Swing\" isn't drawn yet.", "Row 7 \"circle left 3 places, reform short wave\" isn't drawn yet.", "Row 8 \"balance wave\" isn't drawn yet.", "Row 9 \"pass through,walk forward to new wave\" isn't drawn yet." ], "unparsed": [ { "row": 1, "text": "balance wave", "why": "No figure pattern matches \"balance wave\"." }, { "row": 6, "text": "robins give & take partners, Swing", "why": "No figure pattern matches \"ladles give & take partners, Swing\"." }, { "row": 7, "text": "circle left 3 places, reform short wave", "why": "No figure pattern matches \"circle left 3 places, reform short wave\"." }, { "row": 8, "text": "balance wave", "why": "No figure pattern matches \"balance wave ⁋\"." }, { "row": 9, "text": "pass through,walk forward to new wave", "why": "No figure pattern matches \"pass through,walk forward to new wave\"." } ], "choices": [],
+ "figures": [
+  {"move":"hold","beats":4,"params":{"reason":"unparsed"},"text":"balance wave","section":"A1","row":1},
+  {"move":"swing","beats":12,"params":{"who":"neighbor"},"text":"neighbors swing","section":"A1","row":2},
+  {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance & petronella · balance","section":"A2","row":3},
+  {"move":"petronella","beats":4,"params":{},"text":"balance & petronella · petronella","section":"A2","row":3},
+  {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance & petronella · balance","section":"A2","row":4},
+  {"move":"petronella","beats":4,"params":{},"text":"balance & petronella · petronella","section":"A2","row":4},
+  {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance the ring","section":"B1","row":5},
+  {"move":"hold","beats":12,"params":{"reason":"unparsed"},"text":"robins give & take partners, Swing","section":"B1","row":6},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"circle left 3 places, reform short wave","section":"B2","row":7},
+  {"move":"hold","beats":4,"params":{"reason":"unparsed"},"text":"balance wave","section":"B2","row":8,"progression":true},
+  {"move":"hold","beats":4,"params":{"reason":"unparsed"},"text":"pass through,walk forward to new wave","section":"B2","row":9}
+ ]
+}

@@ -1,0 +1,17 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "2892", "title": "The Third Time's the Charm", "author": "Roger Diggle", "formation": "becket", "progression": "minor-set", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/2892", "formation": "Becket", "retrievedAt": "2026-10-20T06:19:38.067Z", "sha256": "575a4e08cf66dc6b10aee47e8da9ef4ea36157d2425d4fc63367e4b3027f0f07", "status": "sketchbook" }, "status": "partial", "problems": [ "Row 2 \"shadows allemande left twice\" isn't drawn yet." ], "unparsed": [ { "row": 2, "text": "shadows allemande left twice", "why": "Unknown dancers \"shadows\"." } ], "choices": [ "A balance with a partner or neighbor holds both hands.", "A star with no grip named is a basket star (wrist grip).", "Square through: each balance takes 4 beats and each pull by 2." ],
+ "figures": [
+  {"move":"star","beats":8,"params":{"hand":"right","places":4},"text":"star right 4 places","section":"A1","row":1},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"shadows allemande left twice","section":"A1","row":2},
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"partner","hand":"right"},"text":"square through four - partners balance & pull by right, then neighbors pull by left, then repeat · balance","section":"A2","row":3},
+  {"move":"pass-by","beats":2,"params":{"who":"partner","shoulder":"right","hands":true},"text":"square through four - partners balance & pull by right, then neighbors pull by left, then repeat · pull by","section":"A2","row":3},
+  {"move":"pass-by","beats":2,"params":{"who":"neighbor","shoulder":"left","hands":true},"text":"square through four - partners balance & pull by right, then neighbors pull by left, then repeat · pull by","section":"A2","row":3},
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"partner","hand":"right"},"text":"square through four - partners balance & pull by right, then neighbors pull by left, then repeat · balance","section":"A2","row":3},
+  {"move":"pass-by","beats":2,"params":{"who":"partner","shoulder":"right","hands":true},"text":"square through four - partners balance & pull by right, then neighbors pull by left, then repeat · pull by","section":"A2","row":3},
+  {"move":"pass-by","beats":2,"params":{"who":"neighbor","shoulder":"left","hands":true},"text":"square through four - partners balance & pull by right, then neighbors pull by left, then repeat · pull by","section":"A2","row":3},
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"partner","hand":"both"},"text":"partners balance & swing · balance","section":"B1","row":4},
+  {"move":"swing","beats":12,"params":{"who":"partner"},"text":"partners balance & swing · swing","section":"B1","row":4},
+  {"move":"circle","beats":8,"params":{"direction":"left","places":4},"text":"circle left 4 places","section":"B2","row":5},
+  {"move":"do-si-do","beats":6,"params":{"who":"neighbor","amount":1,"shoulder":"right"},"text":"neighbors do si do once","section":"B2","row":6},
+  {"move":"slide","beats":2,"params":{"direction":"left"},"text":"slide left along set","progression":true,"section":"B2","row":7}
+ ]
+}

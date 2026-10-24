@@ -1,0 +1,12 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "3337", "title": "Two Happy Fiddlers", "author": "Jonathan Southard", "formation": null, "progression": null, "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/3337", "formation": "Becket - Double Progression", "retrievedAt": "2026-10-20T06:21:47.870Z", "sha256": "f69ce1e271cd87c8d9c3f496473f096fcc22b77d91c7def465d1cf9cc9bca791" }, "status": "unsupported", "problems": [ "The \"Becket - Double Progression\" formation isn't built yet." ], "unparsed": [ { "row": 1, "text": "left diagonal right left through (with a courtesy turn)", "why": "No figure pattern matches \"left diagonal right left through (with a courtesy turn)\"." }, { "row": 2, "text": "right left through (across the set with a courtesy turn)", "why": "No figure pattern matches \"right left through (across the set with a courtesy turn)\"." } ], "choices": [ "A balance with a partner or neighbor holds both hands." ],
+ "figures": [
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"left diagonal right left through (with a courtesy turn)","section":"A1","row":1},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"right left through (across the set with a courtesy turn)","section":"A1","row":2},
+  {"move":"circle","beats":8,"params":{"direction":"left","places":3},"text":"circle left 3 places","section":"A2","row":3},
+  {"move":"swing","beats":8,"params":{"who":"neighbor"},"text":"neighbors swing","section":"A2","row":4},
+  {"move":"long-lines","beats":8,"params":{"back":true},"text":"long lines forward & back","section":"B1","row":5},
+  {"move":"do-si-do","beats":8,"params":{"who":"robins","amount":1.5,"shoulder":"right"},"text":"robins do si do 1½","section":"B1","row":6},
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"partner","hand":"both"},"text":"partners balance & swing · balance","section":"B2","row":7},
+  {"move":"swing","beats":12,"params":{"who":"partner"},"text":"partners balance & swing · swing","progression":true,"section":"B2","row":7}
+ ]
+}

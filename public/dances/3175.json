@@ -1,0 +1,13 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "3175", "title": "Expectation", "author": "Don Flaherty", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/3175", "formation": "improper", "retrievedAt": "2026-10-20T05:55:00.819Z", "sha256": "e2cf2ce9e024680dc799e338886d731006b7c0bb177485dec4f9e962d19e70ee" }, "status": "partial", "problems": [ "Row 7 \"neighbors do si do once to wave of 4 robins in center left hands\" isn't drawn yet." ], "unparsed": [ { "row": 7, "text": "neighbors do si do once to wave of 4 robins in center left hands", "why": "No figure pattern matches \"neighbors do si do once to wave of 4 ladles in center left hands\"." } ], "choices": [ "Pass through goes by right shoulders.", "A pass through from a ring goes along the set, to the dancer on your own side.", "A balance with a partner or neighbor holds both hands." ],
+ "figures": [
+  {"move":"balance","beats":4,"params":{"formation":"current"},"text":"balance","section":"A1","row":1},
+  {"move":"swing","beats":12,"params":{"who":"neighbor"},"text":"neighbors swing","section":"A1","row":2},
+  {"move":"star","beats":8,"params":{"hand":"right","places":4,"grip":"hands-across"},"text":"star right - hands across - 4 places","section":"A2","row":3},
+  {"move":"allemande","beats":8,"params":{"who":"robins","hand":"right","amount":1.5},"text":"robins allemande right 1½","section":"A2","row":4},
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"partner","hand":"both"},"text":"partners balance & swing · balance","section":"B1","row":5},
+  {"move":"swing","beats":12,"params":{"who":"partner"},"text":"partners balance & swing · swing","section":"B1","row":5},
+  {"move":"circle","beats":6,"params":{"direction":"left","places":3},"text":"circle left 3 places pass thru to new neighbors · circle","section":"B2","row":6},
+  {"move":"pass-through","beats":2,"params":{"shoulder":"right"},"text":"circle left 3 places pass thru to new neighbors · pass through","section":"B2","row":6},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"neighbors do si do once to wave of 4 robins in center left hands","section":"B2","row":7}
+ ]
+}

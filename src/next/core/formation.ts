@@ -77,60 +77,74 @@ function placeCouple(
 /**
  * Becket: couples on the west (-x) and east (+x) side lines facing across,
  * lark on the left, as in src/becket.ts createBecketState. Each row's first
- * couple stands on the west line; the top row is at the lowest z. With an
- * odd count one extra east couple waits at the top, ready to enter.
+ * couple stands on the west line. With an odd count one extra east couple
+ * waits at an end, ready to enter.
+ *
+ * Clockwise Becket (the usual one) progresses with every couple moving one
+ * place to its own left, so the east line moves down the hall (+z) and the
+ * extra couple waits at the top. Counterclockwise Becket progresses to the
+ * right: the east line moves up, so the extra couple waits at the bottom.
+ * The starting places are otherwise the same; the figures carry the
+ * direction.
  */
-export const BECKET: Formation = {
-  name: 'Becket',
-  shape: 'longways',
-  grouping: 'duple-minor',
-  couples: { min: 2, max: 12 },
-  start(couples) {
-    checkCount(this, couples);
-    const dancers = createDancers(couples);
-    const rows = Math.floor(couples / 2);
-    const bodies = new Map<number, Body>();
-    const waiting: WaitingCouple[] = [];
-    const place = (couple: number, side: 1 | -1, z: number) =>
-      placeCouple(
+function becket(name: string, circulation: 'cw' | 'ccw'): Formation {
+  return {
+    name,
+    shape: 'longways',
+    grouping: 'duple-minor',
+    couples: { min: 2, max: 12 },
+    start(couples) {
+      checkCount(this, couples);
+      const dancers = createDancers(couples);
+      const rows = Math.floor(couples / 2);
+      const bodies = new Map<number, Body>();
+      const waiting: WaitingCouple[] = [];
+      const place = (couple: number, side: 1 | -1, z: number) =>
+        placeCouple(
+          bodies,
+          couple,
+          { x: side * SET.halfWidth, z },
+          side > 0 ? -Math.PI / 2 : Math.PI / 2,
+          SET.slot,
+        );
+      const rowZ = (row: number) => ((rows - 1) / 2 - row) * 2 * SET.slot;
+      const groups: number[][] = [];
+      const neighbor = new Map<number, number>();
+      for (let row = 0; row < rows; row++) {
+        const west = row * 2;
+        const east = row * 2 + 1;
+        place(west, -1, rowZ(row));
+        place(east, 1, rowZ(row));
+        groups.push([west * 2, west * 2 + 1, east * 2, east * 2 + 1]);
+        neighbor.set(west * 2, east * 2 + 1).set(east * 2 + 1, west * 2);
+        neighbor.set(west * 2 + 1, east * 2).set(east * 2, west * 2 + 1);
+      }
+      if (couples % 2) {
+        // Clockwise: past the last row (the top, lowest z); counterclockwise:
+        // before the first row (the bottom).
+        place(couples - 1, 1, rowZ(circulation === 'cw' ? rows : -1));
+        waiting.push({ couple: couples - 1, crossed: true });
+      }
+      const relations = new Map([
+        ['partner', partners(dancers)],
+        ['neighbor', neighbor],
+      ]);
+      return Object.freeze({
+        dancers,
         bodies,
-        couple,
-        { x: side * SET.halfWidth, z },
-        side > 0 ? -Math.PI / 2 : Math.PI / 2,
-        SET.slot,
-      );
-    const groups: number[][] = [];
-    const neighbor = new Map<number, number>();
-    for (let row = 0; row < rows; row++) {
-      const z = ((rows - 1) / 2 - row) * 2 * SET.slot;
-      const west = row * 2;
-      const east = row * 2 + 1;
-      place(west, -1, z);
-      place(east, 1, z);
-      groups.push([west * 2, west * 2 + 1, east * 2, east * 2 + 1]);
-      neighbor.set(west * 2, east * 2 + 1).set(east * 2 + 1, west * 2);
-      neighbor.set(west * 2 + 1, east * 2).set(east * 2, west * 2 + 1);
-    }
-    if (couples % 2) {
-      place(couples - 1, 1, ((rows - 1) / 2 - rows) * 2 * SET.slot);
-      waiting.push({ couple: couples - 1, crossed: true });
-    }
-    const relations = new Map([
-      ['partner', partners(dancers)],
-      ['neighbor', neighbor],
-    ]);
-    return Object.freeze({
-      dancers,
-      bodies,
-      hands: [],
-      relations,
-      groups,
-      positions: new Map(),
-      epoch: 0,
-      waiting,
-    });
-  },
-};
+        hands: [],
+        relations,
+        groups,
+        positions: new Map(),
+        epoch: 0,
+        waiting,
+      });
+    },
+  };
+}
+
+export const BECKET: Formation = becket('Becket', 'cw');
+export const BECKET_CCW: Formation = becket('Becket counterclockwise', 'ccw');
 
 /**
  * Improper duple minor: couples stand one place apart along the set, partners
@@ -225,6 +239,7 @@ export const WHOLE_SET_LONGWAYS = wholeSet('Longways for as many as will', 2, 12
 
 export const FORMATIONS: Readonly<Record<string, Formation>> = {
   becket: BECKET,
+  'becket-ccw': BECKET_CCW,
   improper: IMPROPER,
   'three-couple-set': THREE_COUPLE_SET,
   'whole-set-longways': WHOLE_SET_LONGWAYS,

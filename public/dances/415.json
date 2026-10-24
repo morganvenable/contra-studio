@@ -1,0 +1,12 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "415", "title": "Winter Fog", "author": "Isaac Banner", "formation": "becket", "progression": "minor-set", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/415", "formation": "Becket", "retrievedAt": "2026-10-20T06:23:33.803Z", "sha256": "3ee9da59f8eb4a41308f3ab3f0877d3b7b5567321273d69cc0c95c7fd8adaf55" }, "status": "partial", "problems": [ "Row 8 \"slide left along set\" isn't drawn yet." ], "unparsed": [ { "row": 8, "text": "slide left along set", "why": "0 beats is too short for this row's parts." } ], "choices": [ "A balance with a partner or neighbor holds both hands." ],
+ "figures": [
+  {"move":"chain","beats":8,"params":{"who":"robins"},"text":"robins chain","section":"A1","row":1},
+  {"move":"hey","beats":8,"params":{"start":"robins","amount":0.5,"center":"right"},"text":"robins start a half hey - rights in center, lefts on ends","section":"A1","row":2},
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"neighbor","hand":"both"},"text":"neighbors balance & swing · balance","section":"A2","row":3},
+  {"move":"swing","beats":12,"params":{"who":"neighbor"},"text":"neighbors balance & swing · swing","section":"A2","row":3},
+  {"move":"hey","beats":8,"params":{"start":"larks","amount":0.5,"center":"left"},"text":"larks start a half hey - lefts in center, rights on ends","section":"B1","row":4},
+  {"move":"mad-robin","beats":8,"params":{"front":"larks"},"text":"mad robins, larks in front","section":"B1","row":5},
+  {"move":"circle","beats":6,"params":{"direction":"left","places":3},"text":"circle left 3 places","section":"B2","row":6},
+  {"move":"swing","beats":10,"params":{"who":"partner"},"text":"partners swing","section":"B2","row":7}
+ ]
+}

@@ -1,0 +1,11 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "1574", "title": "House Party", "author": "Don Flaherty", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/1574", "formation": "improper", "retrievedAt": "2026-10-20T05:59:37.292Z", "sha256": "d9d07d2e8d919fa35fc717a28218169ea69b32ef0ffcdb6a194bf829ed86494d" }, "status": "partial", "problems": [ "Row 5 \"down the hall and turn as a couple come back face across\" isn't drawn yet." ], "unparsed": [ { "row": 5, "text": "down the hall and turn as a couple come back face across", "why": "No figure pattern matches \"down the hall and turn as a couple come back face across\"." } ], "choices": [],
+ "figures": [
+  {"move":"do-si-do","beats":8,"params":{"who":"neighbor","amount":1,"shoulder":"right"},"text":"neighbors do si do once","section":"A1","row":1},
+  {"move":"swing","beats":8,"params":{"who":"neighbor"},"text":"neighbors swing","section":"A1","row":2},
+  {"move":"circle","beats":8,"params":{"direction":"left","places":3},"text":"circle left 3 places","section":"A2","row":3},
+  {"move":"swing","beats":8,"params":{"who":"partner"},"text":"partners swing and face down the hall","section":"A2","row":4},
+  {"move":"hold","beats":16,"params":{"reason":"unparsed"},"text":"down the hall and turn as a couple come back face across","section":"B1","row":5},
+  {"move":"chain","beats":8,"params":{"who":"robins","to":"neighbor"},"text":"robins chain to neighbor","section":"B2","row":6},
+  {"move":"star","beats":8,"params":{"hand":"left","places":4,"grip":"wrist"},"text":"star left - wrist grip - 4 places to new neighbors","progression":true,"section":"B2","row":7}
+ ]
+}

@@ -1,0 +1,12 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "600", "title": "Pieces of Eight", "author": "Peter Foster", "formation": null, "progression": null, "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/600", "formation": "proper", "retrievedAt": "2026-10-20T06:08:46.767Z", "sha256": "0d8e932407f3d4a4071bc13e358a9e2c8e5ad8797d36751ff3b2840328fa151f" }, "status": "unsupported", "problems": [ "The \"proper\" formation isn't built yet." ], "unparsed": [ { "row": 1, "text": "ones half figure 8 below", "why": "No figure pattern matches \"ones half figure 8 below\"." }, { "row": 2, "text": "second corners half figure 8 across, first robins leading", "why": "No figure pattern matches \"second corners half figure 8 across, first ladle leading\"." }, { "row": 3, "text": "robins half figure 8, first robins leading", "why": "No figure pattern matches \"ladles half figure 8, first ladle leading\"." }, { "row": 4, "text": "ones half figure 8 across", "why": "No figure pattern matches \"ones half figure 8 across\"." }, { "row": 7, "text": "ones half figure 8 above", "why": "No figure pattern matches \"ones half figure 8 above ⁋\"." } ], "choices": [ "A balance with a partner or neighbor holds both hands." ],
+ "figures": [
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"ones half figure 8 below","section":"A1","row":1},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"second corners half figure 8 across, first robins leading","section":"A1","row":2},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"robins half figure 8, first robins leading","section":"A2","row":3},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"ones half figure 8 across","section":"A2","row":4},
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"partner","hand":"both"},"text":"partners balance & swing · balance","section":"B1","row":5},
+  {"move":"swing","beats":12,"params":{"who":"partner"},"text":"partners balance & swing · swing","section":"B1","row":5},
+  {"move":"chain","beats":8,"params":{"who":"robins"},"text":"robins chain","section":"B2","row":6},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"ones half figure 8 above","section":"B2","row":7,"progression":true}
+ ]
+}

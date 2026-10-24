@@ -1,0 +1,11 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "1442", "title": "Chaos", "author": "unknown", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/1442", "formation": "improper", "retrievedAt": "2026-10-20T05:50:19.383Z", "sha256": "185dfd51ac8e8afce59bdd27abe5944c39eef8ed141cab35eaa25dd767d28e2f" }, "status": "partial", "problems": [ "Row 7 \"partners promenade randomly to find new neighbors\" isn't drawn yet.", "Row 6 \"partners swing\" can't start from where the dancers are: A swing that ends facing across must start nearer one side." ], "unparsed": [ { "row": 7, "text": "partners promenade randomly to find new neighbors", "why": "No figure pattern matches \"partners promenade randomly to find new neighbors ⁋\"." } ], "choices": [ "A star with no grip named is a basket star (wrist grip)." ],
+ "figures": [
+  {"move":"circle","beats":8,"params":{"direction":"left","places":4},"text":"circle left 4 places","section":"A1","row":1},
+  {"move":"circle","beats":8,"params":{"direction":"right","places":4},"text":"circle right 4 places","section":"A1","row":2},
+  {"move":"star","beats":8,"params":{"hand":"right","places":4},"text":"star right 4 places","section":"A2","row":3},
+  {"move":"star","beats":8,"params":{"hand":"left","places":4},"text":"star left 4 places","section":"A2","row":4},
+  {"move":"swing","beats":8,"params":{"who":"neighbor"},"text":"neighbors swing","section":"B1","row":5},
+  {"move":"swing","beats":8,"params":{"who":"partner"},"text":"partners swing","section":"B1","row":6},
+  {"move":"hold","beats":16,"params":{"reason":"unparsed"},"text":"partners promenade randomly to find new neighbors","section":"B2","row":7,"progression":true}
+ ]
+}

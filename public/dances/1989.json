@@ -1,0 +1,14 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "1989", "title": "Where Will I Be", "author": "Cary Ravitz", "formation": "becket-ccw", "progression": "minor-set", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/1989", "formation": "Becket ccw", "retrievedAt": "2026-10-20T06:23:05.564Z", "sha256": "d7d516f1ab5d0d3a38b20fadb44805f21eb9fafc3337db59cb5f0a0c74cc884d", "status": "sketchbook" }, "status": "partial", "problems": [ "Row 2 \"robins roll away shadows with a half sashay on the way back\" isn't drawn yet.", "Row 7 \"star left 4 places, turn to face partner\" isn't drawn yet.", "The progression after row 4 \"star left 4 places, turn to face new neighbors\" doesn't work out: Couple 1 must face the same way to find new neighbors." ], "unparsed": [ { "row": 2, "text": "robins roll away shadows with a half sashay on the way back", "why": "No figure pattern matches \"ladles roll away shadows with a half sashay on the way back\"." }, { "row": 7, "text": "star left 4 places, turn to face partner", "why": "No figure pattern matches \"star left 4 places, turn to face partner\"." } ], "choices": [ "A star with no grip named is a basket star (wrist grip).", "A meltdown swing starts with 4 beats of right-shoulder round, then swings." ],
+ "figures": [
+  {"move":"long-lines","beats":4,"params":{"back":false},"text":"long lines forward","section":"A1","row":1},
+  {"move":"hold","beats":4,"params":{"reason":"unparsed"},"text":"robins roll away shadows with a half sashay on the way back","section":"A1","row":2},
+  {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance & petronella · balance","section":"A1","row":3},
+  {"move":"petronella","beats":4,"params":{},"text":"balance & petronella · petronella","section":"A1","row":3},
+  {"move":"star","beats":8,"params":{"hand":"left","places":4},"text":"star left 4 places, turn to face new neighbors","progression":true,"section":"A2","row":4},
+  {"move":"swing","beats":8,"params":{"who":"neighbor"},"text":"neighbors swing","section":"A2","row":5},
+  {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance & petronella · balance","section":"B1","row":6},
+  {"move":"petronella","beats":4,"params":{},"text":"balance & petronella · petronella","section":"B1","row":6},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"star left 4 places, turn to face partner","section":"B1","row":7},
+  {"move":"swing","beats":16,"params":{"who":"partner","meltdown":true},"text":"partners meltdown swing","progression":true,"section":"B2","row":8}
+ ]
+}

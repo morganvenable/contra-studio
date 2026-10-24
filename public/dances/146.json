@@ -1,0 +1,16 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "146", "title": "Friday Night Fever", "author": "Tony Parkes", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/146", "formation": "improper", "sha256": "ba5b5c319caa509a324f2efb03c7f97f908d26555ab94d258dca5b549c850263", "status": "sketchbook" }, "status": "partial", "problems": [ "Row 5 \"robins chain, end facing partner across, give right hand to partner\" isn't drawn yet." ], "unparsed": [ { "row": 5, "text": "robins chain, end facing partner across, give right hand to partner", "why": "No figure pattern matches \"ladles chain, end facing partner across, give right hand to partner\"." } ], "choices": [ "A balance with a partner or neighbor holds both hands.", "Square through: each balance takes 4 beats and each pull by 2." ],
+ "figures": [
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"neighbor","hand":"both"},"text":"neighbors balance & swing · balance","section":"A1","row":1},
+  {"move":"swing","beats":12,"params":{"who":"neighbor"},"text":"neighbors balance & swing · swing","section":"A1","row":1},
+  {"move":"allemande","beats":8,"params":{"who":"larks","hand":"left","amount":1.5},"text":"larks allemande left 1½","section":"A2","row":2},
+  {"move":"swing","beats":8,"params":{"who":"partner"},"text":"partners swing","section":"A2","row":3},
+  {"move":"promenade","beats":8,"params":{"who":"partner"},"text":"partners promenade","section":"B1","row":4},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"robins chain, end facing partner across, give right hand to partner","section":"B1","row":5},
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"partner","hand":"right"},"text":"square through four - partners balance & pull by right, then neighbors pull by left, then repeat · balance","section":"B2","row":6},
+  {"move":"pass-by","beats":2,"params":{"who":"partner","shoulder":"right","hands":true},"text":"square through four - partners balance & pull by right, then neighbors pull by left, then repeat · pull by","section":"B2","row":6},
+  {"move":"pass-by","beats":2,"params":{"who":"neighbor","shoulder":"left","hands":true},"text":"square through four - partners balance & pull by right, then neighbors pull by left, then repeat · pull by","section":"B2","row":6},
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"partner","hand":"right"},"text":"square through four - partners balance & pull by right, then neighbors pull by left, then repeat · balance","section":"B2","row":6},
+  {"move":"pass-by","beats":2,"params":{"who":"partner","shoulder":"right","hands":true},"text":"square through four - partners balance & pull by right, then neighbors pull by left, then repeat · pull by","section":"B2","row":6},
+  {"move":"pass-by","beats":2,"params":{"who":"neighbor","shoulder":"left","hands":true},"text":"square through four - partners balance & pull by right, then neighbors pull by left, then repeat · pull by","progression":true,"section":"B2","row":6}
+ ]
+}

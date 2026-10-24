@@ -1,137 +1,33 @@
-// Shared helpers for the next-engine dance scripts: turn a retained ContraDB
-// snapshot into a stored next-engine dance, and check a stored dance the way
-// the corpus test does.
-import { readFileSync } from 'node:fs';
+// Node helpers for the next-engine scripts and tests: find a dance's
+// ContraDB snapshot (the research folder first, then test-data/contradb),
+// import it, and load a stored dance from public/dances.
 import { createHash } from 'node:crypto';
-import { contraDbRows, parseRow } from '../src/next/core/parse.ts';
+import { existsSync, readFileSync } from 'node:fs';
+import { importDance } from '../src/next/import.ts';
 
-/** ContraDB formation text -> stored formation and progression. */
-const FORMATIONS = {
-  becket: { formation: 'becket', progression: 'minor-set' },
-  improper: { formation: 'improper', progression: 'duple-minor' },
-};
-
-/** Usual answers the parser filled in, listed so a reviewer can change them. */
-const CHOICES = [
-  [
-    (c) => c.move === 'rory' && c.params.spin === 'full',
-    "Rory O'More spins one full turn in the travel direction (the usual styling).",
-  ],
-  [
-    (c) => c.move === 'balance' && c.params.formation === 'wave' && c.params.first,
-    'The balance before each Rory steps toward the slide direction first.',
-  ],
-  [
-    (c) => c.move === 'pass-through' && c.params.shoulder === 'right',
-    'Pass through goes by right shoulders.',
-  ],
-  [
-    (c) => c.move === 'pass-through' && !c.params.axis,
-    'A pass through from a ring goes along the set, to the dancer on your own side.',
-  ],
-  [(c) => c.move === 'slice', 'Slice: half the counts on the diagonal, half straight back.'],
-  [
-    (c) => c.move === 'balance' && c.params.formation === 'pair' && c.params.hand === 'both',
-    'A balance with a partner or neighbor holds both hands.',
-  ],
-  [
-    (c) => c.move === 'star' && !c.params.grip,
-    'A star with no grip named is a basket star (wrist grip).',
-  ],
-  [
-    (c) => c.move === 'swing' && /long swing/i.test(c.text ?? ''),
-    'A long swing is drawn as an ordinary swing.',
-  ],
-  [
-    (c) => c.move === 'swing' && c.params.meltdown && c.beats >= 12,
-    'A meltdown swing starts with 4 beats of right-shoulder round, then swings.',
-  ],
-  [
-    (c) => c.move === 'swing' && c.params.meltdown && c.beats < 12,
-    'A meltdown swing shorter than 12 beats spends a third of it in the right-shoulder round.',
-  ],
-  [
-    (c) => c.move === 'pass-by' && /^square through/i.test(c.text ?? ''),
-    'Square through: each balance takes 4 beats and each pull by 2.',
-  ],
-  [
-    (c) => c.move === 'give-and-take',
-    'Give & take: half the beats to cross, half to back home holding both hands.',
-  ],
-  [
-    (c) => c.move === 'gyre',
-    'A gyre goes by the right shoulder, facing each other, with no hands.',
-  ],
-  [
-    (c) => c.move === 'box-circulate',
-    'Long waves form during the balance before each box circulate: crossers face in, loopers face out; hands join only where they reach.',
-  ],
-  [
-    (c) => c.move === 'slice' && /long lines slice/i.test(c.text ?? ''),
-    'Long lines slice left & back is drawn as a slice: couples step diagonally left, then straight back.',
-  ],
-  [
-    (c) => c.move === 'hey' && /take (?:right|left) hands/i.test(c.text ?? ''),
-    'Taking hands at the end of a hey is left to the long waves that follow.',
-  ],
-  [
-    (c) => c.move === 'swing' && c.params.end === 'down',
-    'The 1s end their swing side by side in the middle of the set facing down, the way they progress.',
-  ],
-  [
-    (c) => c.move === 'swing' && /end facing down/i.test(c.text ?? ''),
-    'A swing that ends facing down the hall is drawn ending facing across; the down the hall that follows turns the lines.',
-  ],
+export const SNAPSHOT_DIRS = [
+  'C:/Users/morga/OneDrive/Documents/GitHub/contra-studio/contra-studio/research/contradb/snapshots',
+  'test-data/contradb',
 ];
 
+/** The snapshot for a ContraDB id, or undefined when none is on disk. */
 export function snapshotOf(id) {
-  const path = `test-data/contradb/${id}.json`;
-  return { path, snapshot: JSON.parse(readFileSync(path, 'utf8')) };
-}
-
-/** Build a stored dance, or throw with the first row that does not parse. */
-export function buildStored(id) {
-  const { path, snapshot } = snapshotOf(id);
-  const html = snapshot.html;
-  const pick = (re) => (html.match(re)?.[1] ?? '').replace(/&#39;/g, "'").trim();
-  const rows = contraDbRows(html);
-  const figures = rows.flatMap((row) => parseRow(row).map((c) => ({ section: row.section, ...c })));
-  const parts = [];
-  for (const row of rows) {
-    if (parts.at(-1)?.name !== row.section) parts.push({ name: row.section, bars: 0 });
-    parts.at(-1).bars += row.beats / 2;
-  }
-  const formationText = pick(/formation: ([^<]+)</).toLowerCase();
-  const shape = FORMATIONS[formationText];
-  if (!shape) throw new Error(`Formation "${formationText}" is not built yet.`);
-  const choices = CHOICES.filter(([test]) => figures.some(test)).map(([, text]) => text);
-  return {
-    schema: 'contra-studio/next-dance',
-    version: 1,
-    title: pick(/dance-show-title">([^<]+)</),
-    author: pick(/choreographers\/\d+">([^<]+)</),
-    ...shape,
-    music: { meter: '2/4', parts, times: 'repeat' },
-    source: {
-      url: snapshot.sourceUrl,
-      snapshot: path,
-      sha256: createHash('sha256').update(html).digest('hex'),
-      ...(html.includes('sketchbook') ? { status: 'sketchbook' } : {}),
-    },
-    choices,
-    figures,
-  };
-}
-
-/** The first row of a snapshot that no pattern parses, or undefined. */
-export function firstUnparsed(id) {
-  const { snapshot } = snapshotOf(id);
-  for (const row of contraDbRows(snapshot.html)) {
-    try {
-      parseRow(row);
-    } catch {
-      return row.text;
-    }
+  for (const dir of SNAPSHOT_DIRS) {
+    const path = `${dir}/${id}.json`;
+    if (existsSync(path)) return { path, snapshot: JSON.parse(readFileSync(path, 'utf8')) };
   }
   return undefined;
+}
+
+/** Import a snapshot (status unchecked). */
+export function buildStored(id) {
+  const found = snapshotOf(id);
+  if (!found) throw new Error(`No snapshot for ContraDB ${id}.`);
+  const sha = createHash('sha256').update(found.snapshot.html).digest('hex');
+  return importDance(id, found.snapshot, sha);
+}
+
+/** A stored dance from public/dances. */
+export function loadStored(id) {
+  return JSON.parse(readFileSync(`public/dances/${id}.json`, 'utf8'));
 }

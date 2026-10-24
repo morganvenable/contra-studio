@@ -1,0 +1,14 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "2377", "title": "Mirror, Mirror var", "author": "Jim Kitch", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/2377", "formation": "improper", "retrievedAt": "2026-10-20T06:04:18.530Z", "sha256": "64c04007b5bcdc1c4edd703bf618e5649c8db8a12e03c82ca3b08444300ca586" }, "status": "partial", "problems": [ "Row 8 \"larks gate neighbors to face into the set\" isn't drawn yet.", "The progression after row 9 \"star left 4 places\" doesn't work out: Couples 1 and 2 have not passed each other yet." ], "unparsed": [ { "row": 8, "text": "larks gate neighbors to face into the set", "why": "No figure pattern matches \"gentlespoons gate neighbors to face into the set\"." } ], "choices": [ "Pass through goes by right shoulders.", "A star with no grip named is a basket star (wrist grip).", "A meltdown swing starts with 4 beats of right-shoulder round, then swings." ],
+ "figures": [
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"neighbor","hand":"right"},"text":"neighbors right hand balance & box the gnat · balance","section":"A1","row":1},
+  {"move":"twirl","beats":4,"params":{"style":"box-the-gnat","who":"neighbor"},"text":"neighbors right hand balance & box the gnat · twirl","section":"A1","row":1},
+  {"move":"mad-robin","beats":8,"params":{"front":"larks"},"text":"mad robins, larks in front","section":"A1","row":2},
+  {"move":"pass-by","beats":2,"params":{"who":"larks","shoulder":"left","hands":false},"text":"larks pass by left shoulders","section":"A2","row":3},
+  {"move":"swing","beats":14,"params":{"who":"partner","meltdown":true},"text":"partners meltdown swing","section":"A2","row":4},
+  {"move":"circle","beats":8,"params":{"direction":"left","places":3},"text":"circle left 3 places","section":"B1","row":5},
+  {"move":"swing","beats":8,"params":{"who":"neighbor"},"text":"neighbors swing","section":"B1","row":6},
+  {"move":"pass-through","beats":4,"params":{"shoulder":"right","axis":"across"},"text":"pass through across the set","section":"B2","row":7},
+  {"move":"hold","beats":4,"params":{"reason":"unparsed"},"text":"larks gate neighbors to face into the set","section":"B2","row":8},
+  {"move":"star","beats":8,"params":{"hand":"left","places":4},"text":"star left 4 places","progression":true,"section":"B2","row":9}
+ ]
+}

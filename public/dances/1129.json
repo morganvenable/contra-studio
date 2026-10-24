@@ -1,0 +1,10 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "1129", "title": "The Reminder", "author": "Louise Siddons", "formation": null, "progression": null, "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/1129", "formation": "duple minor", "retrievedAt": "2026-10-20T06:19:20.949Z", "sha256": "9f8749d7f50d735b8511a748971712e6a365d554ac17f54cf29fa068de3b7215" }, "status": "unsupported", "problems": [ "The \"duple minor\" formation isn't built yet." ], "unparsed": [ { "row": 6, "text": "larks do si do 1½ OR balance and pull by", "why": "No figure pattern matches \"gentlespoons do si do 1½ OR balance and pull by\"." } ], "choices": [ "A meltdown swing starts with 4 beats of right-shoulder round, then swings." ],
+ "figures": [
+  {"move":"allemande","beats":8,"params":{"who":"neighbor","hand":"right","amount":1.5},"text":"neighbors allemande right 1½","section":"A1","row":1},
+  {"move":"chain","beats":8,"params":{"who":"larks"},"text":"larks chain","section":"A1","row":2},
+  {"move":"hey","beats":16,"params":{"start":"larks","amount":1,"center":"left"},"text":"larks start a full hey - lefts in center, rights on ends","section":"A2","row":3},
+  {"move":"swing","beats":16,"params":{"who":"partner","meltdown":true},"text":"partners meltdown swing","section":"B1","row":4},
+  {"move":"long-lines","beats":8,"params":{"back":true},"text":"long lines forward & back","section":"B2","row":5},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"larks do si do 1½ OR balance and pull by","section":"B2","row":6}
+ ]
+}

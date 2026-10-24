@@ -1,0 +1,14 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "682", "title": "Rod's Grits Lawn variation", "author": "Bill Olson", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/682", "formation": "improper", "sha256": "900bddb709d3d01d95065dea8972b3b8583615a3d0143e361f1b1d8441759876" }, "status": "ok", "problems": [], "unparsed": [], "choices": [ "Pass through goes by right shoulders.", "A pass through from a ring goes along the set, to the dancer on your own side.", "A balance with a partner or neighbor holds both hands." ],
+ "figures": [
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"neighbor","hand":"right"},"text":"neighbors right hand balance & box the gnat · balance","section":"A1","row":1},
+  {"move":"twirl","beats":4,"params":{"style":"box-the-gnat","who":"neighbor"},"text":"neighbors right hand balance & box the gnat · twirl","section":"A1","row":1},
+  {"move":"star","beats":8,"params":{"hand":"right","places":4,"grip":"wrist"},"text":"star right - wrist grip - 4 places +","section":"A1","row":2},
+  {"move":"right-left-through","beats":8,"params":{},"text":"right left through","section":"A2","row":3},
+  {"move":"allemande","beats":8,"params":{"who":"robins","hand":"right","amount":1.5},"text":"robins allemande right 1½","section":"A2","row":4},
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"partner","hand":"both"},"text":"partners balance & swing · balance","section":"B1","row":5},
+  {"move":"swing","beats":12,"params":{"who":"partner"},"text":"partners balance & swing · swing","section":"B1","row":5},
+  {"move":"promenade","beats":8,"params":{"who":"partner"},"text":"partners promenade","section":"B2","row":6},
+  {"move":"circle","beats":6,"params":{"direction":"left","places":3},"text":"circle left 3 places","section":"B2","row":7},
+  {"move":"pass-through","beats":2,"params":{"shoulder":"right"},"text":"pass through to new neighbors","progression":true,"section":"B2","row":8}
+ ]
+}

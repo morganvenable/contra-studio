@@ -1,0 +1,12 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "3306", "title": "Northland Mixer #2", "author": "Mattie Rynkiewicz", "formation": null, "progression": null, "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/3306", "formation": "circle mixer", "retrievedAt": "2026-10-20T06:06:54.831Z", "sha256": "0cba930267353d9a373536abe83089e6685cee92691de7d64fe94cd421d65513" }, "status": "unsupported", "problems": [ "The \"circle mixer\" formation isn't built yet." ], "unparsed": [ { "row": 1, "text": "partners promenade counterclockwise", "why": "No figure pattern matches \"partners promenade counterclockwise\"." }, { "row": 2, "text": "turn alone, back up", "why": "No figure pattern matches \"turn alone, back up\"." }, { "row": 3, "text": "partners promenade clockwise", "why": "No figure pattern matches \"partners promenade clockwise\"." }, { "row": 4, "text": "turn alone, back up", "why": "No figure pattern matches \"turn alone, back up\"." }, { "row": 7, "text": "outside people walk forward four steps", "why": "No figure pattern matches \"outside people walk forward four steps ⁋\"." }, { "row": 8, "text": "swing the next, end in promenade position", "why": "No figure pattern matches \"swing the next, end in promenade position\"." } ], "choices": [],
+ "figures": [
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"partners promenade counterclockwise","section":"A1","row":1},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"turn alone, back up","section":"A1","row":2},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"partners promenade clockwise","section":"A2","row":3},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"turn alone, back up","section":"A2","row":4},
+  {"move":"do-si-do","beats":8,"params":{"who":"partner","amount":1,"shoulder":"right"},"text":"partners do si do once","section":"B1","row":5},
+  {"move":"do-si-do","beats":8,"params":{"who":"partner","amount":1,"shoulder":"left"},"text":"partners see saw once","section":"B1","row":6},
+  {"move":"hold","beats":4,"params":{"reason":"unparsed"},"text":"outside people walk forward four steps","section":"B2","row":7,"progression":true},
+  {"move":"hold","beats":12,"params":{"reason":"unparsed"},"text":"swing the next, end in promenade position","section":"B2","row":8}
+ ]
+}

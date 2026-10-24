@@ -1,0 +1,16 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "2935", "title": "Summer's Back", "author": "Mattie Rynkiewicz", "formation": null, "progression": null, "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/2935", "formation": "duple neutral", "retrievedAt": "2026-10-20T06:15:05.912Z", "sha256": "cdfd771c8dd09e7f8bf95c12b0d5aa177aa41da5b9110afb398d3cbafcc7d948" }, "status": "unsupported", "problems": [ "The \"duple neutral\" formation isn't built yet." ], "unparsed": [], "choices": [ "A balance with a partner or neighbor holds both hands.", "Square through: each balance takes 4 beats and each pull by 2.", "The 1s end their swing side by side in the middle of the set facing down, the way they progress." ],
+ "figures": [
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"neighbor","hand":"right"},"text":"square through four - neighbors balance & pull by right, then partners pull by left, then repeat · balance","section":"A1","row":1},
+  {"move":"pass-by","beats":2,"params":{"who":"neighbor","shoulder":"right","hands":true},"text":"square through four - neighbors balance & pull by right, then partners pull by left, then repeat · pull by","section":"A1","row":1},
+  {"move":"pass-by","beats":2,"params":{"who":"partner","shoulder":"left","hands":true},"text":"square through four - neighbors balance & pull by right, then partners pull by left, then repeat · pull by","section":"A1","row":1},
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"neighbor","hand":"right"},"text":"square through four - neighbors balance & pull by right, then partners pull by left, then repeat · balance","section":"A1","row":1},
+  {"move":"pass-by","beats":2,"params":{"who":"neighbor","shoulder":"right","hands":true},"text":"square through four - neighbors balance & pull by right, then partners pull by left, then repeat · pull by","section":"A1","row":1},
+  {"move":"pass-by","beats":2,"params":{"who":"partner","shoulder":"left","hands":true},"text":"square through four - neighbors balance & pull by right, then partners pull by left, then repeat · pull by","section":"A1","row":1},
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"neighbor","hand":"both"},"text":"neighbors balance & swing · balance","section":"A2","row":2},
+  {"move":"swing","beats":12,"params":{"who":"neighbor"},"text":"neighbors balance & swing · swing","section":"A2","row":2},
+  {"move":"do-si-do","beats":8,"params":{"who":"1s","amount":1,"shoulder":"right"},"text":"ones do si do once","section":"B1","row":3},
+  {"move":"do-si-do","beats":8,"params":{"who":"2s","amount":1,"shoulder":"right"},"text":"twos do si do once","section":"B1","row":4},
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"1s","hand":"both"},"text":"ones balance & swing · balance","section":"B2","row":5},
+  {"move":"swing","beats":12,"params":{"who":"1s","end":"down"},"text":"ones balance & swing · swing","progression":true,"section":"B2","row":5}
+ ]
+}

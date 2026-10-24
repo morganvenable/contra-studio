@@ -1,0 +1,11 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "3439", "title": "Break #8", "author": "[none]", "formation": null, "progression": null, "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 4 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/3439", "formation": "square dance", "retrievedAt": "2026-10-20T05:49:03.739Z", "sha256": "90260c190561d72d27d0841d943e75b2fb5a743e1d16bcb42ded5c7f1147609e" }, "status": "unsupported", "problems": [ "The \"square dance\" formation isn't built yet." ], "unparsed": [ { "row": 3, "text": "one from each couple forward and back", "why": "No figure pattern matches \"one from each couple forward and back\"." }, { "row": 4, "text": "other four star right", "why": "No figure pattern matches \"other four star right\"." }, { "row": 5, "text": "same four star left", "why": "No figure pattern matches \"same four star left\"." }, { "row": 7, "text": "promenade home", "why": "No figure pattern matches \"promenade home\"." } ], "choices": [],
+ "figures": [
+  {"move":"circle","beats":8,"params":{"direction":"left","places":4},"text":"circle left 4 places","section":"A1","row":1},
+  {"move":"circle","beats":8,"params":{"direction":"right","places":4},"text":"circle right 4 places","section":"A1","row":2},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"one from each couple forward and back","section":"A2","row":3},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"other four star right","section":"A2","row":4},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"same four star left","section":"B1","row":5},
+  {"move":"swing","beats":8,"params":{"who":"partner"},"text":"partners swing","section":"B1","row":6},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"promenade home","section":"B2","row":7}
+ ]
+}

@@ -1,0 +1,14 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "170", "title": "Star of the County Alameda", "author": "Yoyo Zhou", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/170", "formation": "improper", "retrievedAt": "2026-10-20T06:14:07.437Z", "sha256": "690320bd13dabe2b80f0b2d85b5c2a0b513b110a6943842e4821b164c768a603" }, "status": "partial", "problems": [ "Row 3 \"pull by right across the set w/partner\" isn't drawn yet.", "Row 9 \"pull by left w/neighbor\" isn't drawn yet." ], "unparsed": [ { "row": 3, "text": "pull by right across the set w/partner", "why": "No figure pattern matches \"pull by right across the set w/partner\"." }, { "row": 9, "text": "pull by left w/neighbor", "why": "No figure pattern matches \"pull by left w/neighbor ⁋\"." } ], "choices": [ "A star with no grip named is a basket star (wrist grip)." ],
+ "figures": [
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"neighbor","hand":"right"},"text":"neighbors right hand balance & box the gnat · balance","section":"A1","row":1},
+  {"move":"twirl","beats":4,"params":{"style":"box-the-gnat","who":"neighbor"},"text":"neighbors right hand balance & box the gnat · twirl","section":"A1","row":1},
+  {"move":"star","beats":8,"params":{"hand":"right","places":4},"text":"star right 4 places","section":"A1","row":2},
+  {"move":"hold","beats":4,"params":{"reason":"unparsed"},"text":"pull by right across the set w/partner","section":"A2","row":3},
+  {"move":"swing","beats":12,"params":{"who":"neighbor"},"text":"neighbors swing","section":"A2","row":4},
+  {"move":"allemande","beats":8,"params":{"who":"larks","hand":"left","amount":1.5},"text":"larks allemande left 1½","section":"B1","row":5},
+  {"move":"swing","beats":8,"params":{"who":"partner"},"text":"partners swing","section":"B1","row":6},
+  {"move":"promenade","beats":8,"params":{"who":"partner"},"text":"partners promenade","section":"B2","row":7},
+  {"move":"star","beats":6,"params":{"hand":"left","places":3},"text":"star left 3 places","section":"B2","row":8},
+  {"move":"hold","beats":2,"params":{"reason":"unparsed"},"text":"pull by left w/neighbor","section":"B2","row":9,"progression":true}
+ ]
+}

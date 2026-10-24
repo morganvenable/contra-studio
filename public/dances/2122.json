@@ -1,0 +1,14 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "2122", "title": "Four Have Sprung (ricochet hey var)", "author": "Yoyo Zhou", "formation": "becket", "progression": "minor-set", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/2122", "formation": "Becket", "retrievedAt": "2026-10-20T05:56:24.792Z", "sha256": "1c2ee403a69a080ad86df43b3791a0aa86bf0ad8573a5feaa4c7196cbb10ed83", "status": "sketchbook" }, "status": "partial", "problems": [ "Row 6 \"balance & Rory O'More right past N3\" isn't drawn yet.", "Row 9 \"robins start a half hey - rights in center, lefts on ends - larks ricochet\" isn't drawn yet.", "The dance can't be put together: Error: The figures take 62 beats but the music has 64." ], "unparsed": [ { "row": 6, "text": "balance & Rory O'More right past N3", "why": "No figure pattern matches \"balance & Rory O'More right past N3\"." }, { "row": 9, "text": "robins start a half hey - rights in center, lefts on ends - larks ricochet", "why": "No figure pattern matches \"ladles start a half hey - rights in center, lefts on ends - gentlespoons ricochet\"." } ], "choices": [ "A balance with a partner or neighbor holds both hands." ],
+ "figures": [
+  {"move":"circle","beats":8,"params":{"direction":"left","places":3},"text":"circle left 3 places","section":"A1","row":1},
+  {"move":"allemande","beats":2,"params":{"who":"neighbor","hand":"right","amount":0.5},"text":"1st neighbors allemande right ½","section":"A1","row":2},
+  {"move":"allemande","beats":2,"params":{"who":"neighbor","hand":"left","amount":0.5},"text":"2nd neighbors allemande left ½","section":"A1","row":3},
+  {"move":"allemande","beats":2,"params":{"who":"neighbor","hand":"right","amount":0.5},"text":"3rd neighbors allemande right ½","section":"A1","row":4},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"balance & Rory O'More right past N3","section":"A2","row":6},
+  {"move":"swing","beats":8,"params":{"who":"neighbor"},"text":"2nd neighbors swing","progression":true,"section":"A2","row":7},
+  {"move":"long-lines","beats":8,"params":{"back":true},"text":"long lines forward & back","progression":true,"section":"B1","row":8},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"robins start a half hey - rights in center, lefts on ends - larks ricochet","section":"B1","row":9},
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"partner","hand":"both"},"text":"partners balance & swing · balance","section":"B2","row":10},
+  {"move":"swing","beats":12,"params":{"who":"partner"},"text":"partners balance & swing · swing","section":"B2","row":10}
+ ]
+}

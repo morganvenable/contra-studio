@@ -1,0 +1,15 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "1671", "title": "The Itchy Bug Reel", "author": "Jim Hemphill", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/1671", "formation": "improper", "retrievedAt": "2026-10-20T06:18:44.617Z", "sha256": "642f0c310c3cde98b57010a517901a5a8e1941a1c50b0c4402d1edd75f3ef890" }, "status": "ok", "problems": [], "unparsed": [], "choices": [ "A star with no grip named is a basket star (wrist grip)." ],
+ "figures": [
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"neighbor","hand":"left"},"text":"neighbors left hand balance & swat the flea · balance","section":"A1","row":1},
+  {"move":"twirl","beats":4,"params":{"style":"swat-the-flea","who":"neighbor"},"text":"neighbors left hand balance & swat the flea · twirl","section":"A1","row":1},
+  {"move":"star","beats":8,"params":{"hand":"left","places":4},"text":"star left 4 places","progression":true,"section":"A1","row":2},
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"neighbor","hand":"right"},"text":"next neighbors right hand balance & box the gnat · balance","section":"A2","row":3},
+  {"move":"twirl","beats":4,"params":{"style":"box-the-gnat","who":"neighbor"},"text":"next neighbors right hand balance & box the gnat · twirl","section":"A2","row":3},
+  {"move":"swing","beats":8,"params":{"who":"neighbor"},"text":"neighbors swing","section":"A2","row":4},
+  {"move":"circle","beats":6,"params":{"direction":"left","places":3},"text":"circle left 3 places","section":"B1","row":5},
+  {"move":"swing","beats":10,"params":{"who":"partner"},"text":"partners swing","section":"B1","row":6},
+  {"move":"long-lines","beats":8,"params":{"back":true},"text":"long lines forward & back","section":"B2","row":7},
+  {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance & petronella · balance","section":"B2","row":8},
+  {"move":"petronella","beats":4,"params":{},"text":"balance & petronella · petronella","section":"B2","row":8}
+ ]
+}

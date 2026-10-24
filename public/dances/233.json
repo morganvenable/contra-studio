@@ -1,0 +1,13 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "233", "title": "Walking on Air", "author": "Rick Mohr", "formation": "becket", "progression": "minor-set", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/233", "formation": "Becket", "retrievedAt": "2026-10-20T06:22:31.251Z", "sha256": "f512a38d7c4358ac613de27ee7ce3425cbba7a3db8dc1137c9d619c762423ad4" }, "status": "partial", "problems": [ "Row 8 \"zig left zag right to home side, across from next neighbor\" isn't drawn yet.", "Row 9 \"partners swing\" can't start from where the dancers are: A swing that ends facing across must start nearer one side." ], "unparsed": [ { "row": 8, "text": "zig left zag right to home side, across from next neighbor", "why": "No figure pattern matches \"zig left zag right to home side, across from next neighbor ⁋\"." } ], "choices": [ "Pass through goes by right shoulders." ],
+ "figures": [
+  {"move":"pass-through","beats":4,"params":{"shoulder":"right","axis":"across"},"text":"pass through across the set","section":"A1","row":1},
+  {"move":"twirl","beats":4,"params":{"style":"california","who":"partner"},"text":"partners California twirl","section":"A1","row":2},
+  {"move":"mad-robin","beats":8,"params":{"front":"larks"},"text":"mad robins, larks in front","section":"A1","row":3},
+  {"move":"circle","beats":8,"params":{"direction":"left","places":4},"text":"circle left 4 places","section":"A2","row":4},
+  {"move":"chain","beats":8,"params":{"who":"robins"},"text":"robins chain","section":"A2","row":5},
+  {"move":"mad-robin","beats":8,"params":{"front":"robins"},"text":"mad robins, robins in front","section":"B1","row":6},
+  {"move":"circle","beats":8,"params":{"direction":"right","places":4},"text":"circle right 4 places","section":"B1","row":7},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"zig left zag right to home side, across from next neighbor","section":"B2","row":8,"progression":true},
+  {"move":"swing","beats":8,"params":{"who":"partner"},"text":"partners swing","section":"B2","row":9}
+ ]
+}

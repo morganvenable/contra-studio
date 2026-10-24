@@ -1,0 +1,10 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "1634", "title": "A Shadowy Affair", "author": "Jordan Taylor", "formation": null, "progression": null, "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/1634", "formation": "Becket cw (gents on right, ladies on left)", "retrievedAt": "2026-10-20T05:45:23.201Z", "sha256": "84505ccebad99fecf1e7c81ad38e2422e1d87cd72309d15d017f1ff9102f2dc8" }, "status": "unsupported", "problems": [ "The \"Becket cw (gents on right, ladies on left)\" formation isn't built yet." ], "unparsed": [ { "row": 3, "text": "left diagonal robins chain", "why": "No figure pattern matches \"left diagonal ladles chain\"." }, { "row": 4, "text": "robins chain across to shadow", "why": "No figure pattern matches \"ladles chain across to shadow\"." }, { "row": 6, "text": "shadows balance & swing", "why": "Unknown dancers \"shadows\"." } ], "choices": [],
+ "figures": [
+  {"move":"circle","beats":8,"params":{"direction":"left","places":4},"text":"circle left 4 places","section":"A1","row":1},
+  {"move":"swing","beats":8,"params":{"who":"partner"},"text":"partners swing","section":"A1","row":2},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"left diagonal robins chain","section":"A2","row":3},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"robins chain across to shadow","section":"A2","row":4},
+  {"move":"hey","beats":16,"params":{"start":"robins","amount":1,"center":"right"},"text":"robins start a full hey - rights in center, lefts on ends","section":"B1","row":5},
+  {"move":"hold","beats":16,"params":{"reason":"unparsed"},"text":"shadows balance & swing","section":"B2","row":6}
+ ]
+}

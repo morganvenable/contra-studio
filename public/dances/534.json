@@ -1,0 +1,15 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "534", "title": "Gold Star Wednesday", "author": "Dale Wilson", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/534", "formation": "improper", "retrievedAt": "2026-10-20T05:57:32.152Z", "sha256": "975f105db682d97e78ca513e83e1e51e4487c6147e34c61526d98f6cc17d639d" }, "status": "partial", "problems": [ "Row 3 \"Invert the star +\" isn't drawn yet.", "Row 5 \"larks loop right around neighbor, robins follow path\" isn't drawn yet.", "Row 6 \"larks pass by right shoulders To meet partner\" isn't drawn yet.", "Row 7 \"partners swing\" can't start from where the dancers are: A swing that ends facing across must start nearer one side." ], "unparsed": [ { "row": 3, "text": "Invert the star +", "why": "No figure pattern matches \"Invert the star +\"." }, { "row": 5, "text": "larks loop right around neighbor, robins follow path", "why": "No figure pattern matches \"Gentlespoons loop right around neighbor, Ladles follow path\"." }, { "row": 6, "text": "larks pass by right shoulders To meet partner", "why": "No figure pattern matches \"gentlespoons pass by right shoulders To meet partner\"." } ], "choices": [ "A balance with a partner or neighbor holds both hands.", "A star with no grip named is a basket star (wrist grip)." ],
+ "figures": [
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"neighbor","hand":"both"},"text":"neighbors balance & swing · balance","section":"A1","row":1},
+  {"move":"swing","beats":12,"params":{"who":"neighbor"},"text":"neighbors balance & swing · swing","section":"A1","row":1},
+  {"move":"star","beats":6,"params":{"hand":"right","places":3},"text":"star right 3 places","section":"A2","row":2},
+  {"move":"hold","beats":4,"params":{"reason":"unparsed"},"text":"Invert the star +","section":"A2","row":3},
+  {"move":"star","beats":6,"params":{"hand":"left","places":3},"text":"star left 3 places","section":"A2","row":4},
+  {"move":"hold","beats":6,"params":{"reason":"unparsed"},"text":"larks loop right around neighbor, robins follow path","section":"B1","row":5},
+  {"move":"hold","beats":2,"params":{"reason":"unparsed"},"text":"larks pass by right shoulders To meet partner","section":"B1","row":6},
+  {"move":"swing","beats":8,"params":{"who":"partner"},"text":"partners swing","section":"B1","row":7},
+  {"move":"circle","beats":8,"params":{"direction":"left","places":3},"text":"circle left 3 places","section":"B2","row":8},
+  {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance the ring","section":"B2","row":9},
+  {"move":"twirl","beats":4,"params":{"style":"california","who":"partner"},"text":"partners California twirl","progression":true,"section":"B2","row":10}
+ ]
+}

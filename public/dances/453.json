@@ -1,0 +1,13 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "453", "title": "504 Wood Street", "author": "Robin Banerji", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/453", "formation": "improper", "retrievedAt": "2026-10-20T05:44:44.950Z", "sha256": "ed226ee08b54c8cdd9cedcc9e62009e3627b8dbb77ad78367e6c8987a3242fdb" }, "status": "partial", "problems": [ "Row 3 \"partners swing\" can't start from where the dancers are: A swing that ends facing across must start nearer one side." ], "unparsed": [], "choices": [ "A balance with a partner or neighbor holds both hands." ],
+ "figures": [
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"neighbor","hand":"both"},"text":"neighbors balance & swing · balance","section":"A1","row":1},
+  {"move":"swing","beats":12,"params":{"who":"neighbor"},"text":"neighbors balance & swing · swing","section":"A1","row":1},
+  {"move":"allemande","beats":8,"params":{"who":"larks","hand":"left","amount":1},"text":"larks allemande left once","section":"A2","row":2},
+  {"move":"swing","beats":8,"params":{"who":"partner"},"text":"partners swing","section":"A2","row":3},
+  {"move":"long-lines","beats":8,"params":{"back":true},"text":"long lines forward & back","section":"B1","row":4},
+  {"move":"chain","beats":8,"params":{"who":"robins"},"text":"robins chain","section":"B1","row":5},
+  {"move":"circle","beats":6,"params":{"direction":"left","places":4},"text":"circle left 4 places","section":"B2","row":6},
+  {"move":"turn-alone","beats":2,"params":{},"text":"turn alone","progression":true,"section":"B2","row":7},
+  {"move":"do-si-do","beats":8,"params":{"who":"neighbor","amount":1,"shoulder":"right"},"text":"next neighbors do si do once","section":"B2","row":8}
+ ]
+}

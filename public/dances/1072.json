@@ -1,0 +1,13 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "1072", "title": "Razzle Dazzle", "author": "Don Flaherty", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/1072", "formation": "improper", "retrievedAt": "2026-10-20T06:09:47.315Z", "sha256": "a21db9f2bf3ffe0d711b76c1112e49c85426932f208f9f9ffdc8ba490b3ddc4f" }, "status": "check", "problems": [ "Row 5 \"robins allemande right once\": a dancer has to move 1.32 m in one beat, faster than a walk (with 3 couples)." ], "unparsed": [], "choices": [],
+ "figures": [
+  {"move":"do-si-do","beats":8,"params":{"who":"neighbor","amount":1,"shoulder":"right"},"text":"neighbors do si do once","section":"A1","row":1},
+  {"move":"swing","beats":8,"params":{"who":"neighbor"},"text":"neighbors swing","section":"A1","row":2},
+  {"move":"chain","beats":8,"params":{"who":"robins","to":"partner"},"text":"robins chain to partner","section":"A2","row":3},
+  {"move":"promenade","beats":8,"params":{"who":"partner"},"text":"partners promenade","section":"A2","row":4},
+  {"move":"allemande","beats":4,"params":{"who":"robins","hand":"right","amount":1},"text":"robins allemande right once","section":"B1","row":5},
+  {"move":"swing","beats":12,"params":{"who":"partner"},"text":"partners swing","section":"B1","row":6},
+  {"move":"circle","beats":8,"params":{"direction":"left","places":3},"text":"circle left 3 places","section":"B2","row":7},
+  {"move":"balance","beats":4,"params":{"formation":"current"},"text":"balance","section":"B2","row":8},
+  {"move":"twirl","beats":4,"params":{"style":"california","who":"partner"},"text":"partners California twirl","progression":true,"section":"B2","row":9}
+ ]
+}

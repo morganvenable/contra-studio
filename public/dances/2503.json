@@ -1,0 +1,11 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "2503", "title": "Diagamania", "author": "Mattie Rynkiewicz", "formation": null, "progression": null, "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/2503", "formation": "longways", "retrievedAt": "2026-10-20T05:53:23.993Z", "sha256": "7a6bbd2d213bf96babac612af5796f51b9e86fd145aa6814fb7c5534ff1a4080" }, "status": "unsupported", "problems": [ "The \"longways\" formation isn't built yet." ], "unparsed": [ { "row": 1, "text": "top couple promenade to the bottom of the set, everyone else move up", "why": "No figure pattern matches \"top couple promenade to the bottom of the set, everyone else move up ⁋\"." }, { "row": 4, "text": "right diagonals allemande right once", "why": "No figure pattern matches \"right diagonals allemande right once\"." }, { "row": 6, "text": "left diagonals allemande left once", "why": "No figure pattern matches \"left diagonals allemande left once\"." } ], "choices": [],
+ "figures": [
+  {"move":"hold","beats":16,"params":{"reason":"unparsed"},"text":"top couple promenade to the bottom of the set, everyone else move up","section":"A1","row":1,"progression":true},
+  {"move":"long-lines","beats":8,"params":{"back":true},"text":"long lines forward & back","section":"A2","row":2},
+  {"move":"long-lines","beats":8,"params":{"back":true},"text":"long lines forward & back","section":"A2","row":3},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"right diagonals allemande right once","section":"B1","row":4},
+  {"move":"do-si-do","beats":8,"params":{"who":"partner","amount":1,"shoulder":"right"},"text":"partners do si do once","section":"B1","row":5},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"left diagonals allemande left once","section":"B2","row":6},
+  {"move":"do-si-do","beats":8,"params":{"who":"partner","amount":1,"shoulder":"left"},"text":"partners see saw once","section":"B2","row":7}
+ ]
+}

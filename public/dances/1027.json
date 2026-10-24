@@ -1,0 +1,11 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "1027", "title": "The Tuckerman Traverse", "author": "JJ Luxe", "formation": null, "progression": null, "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/1027", "formation": "Becket, Double CCW Progression", "retrievedAt": "2026-10-20T06:19:44.167Z", "sha256": "8196c7d7336934d389dff2e3b915ecdf3c6bedc22a569eb281d7db49344df057" }, "status": "unsupported", "problems": [ "The \"Becket, Double CCW Progression\" formation isn't built yet." ], "unparsed": [ { "row": 3, "text": "star left 2 places next couple", "why": "No figure pattern matches \"star left 2 places next couple\"." }, { "row": 4, "text": "next neighbors allemande left once", "why": "No figure pattern matches \"next neighbors allemande left once\"." }, { "row": 6, "text": "robins start a hey - rights in center, lefts on ends - until partners meet the second time", "why": "No figure pattern matches \"ladles start a hey - rights in center, lefts on ends - until partners meet the second time\"." } ], "choices": [ "A star with no grip named is a basket star (wrist grip).", "A meltdown swing starts with 4 beats of right-shoulder round, then swings." ],
+ "figures": [
+  {"move":"chain","beats":8,"params":{"who":"robins"},"text":"robins chain","section":"A1","row":1},
+  {"move":"star","beats":4,"params":{"hand":"right","places":2},"text":"star right 2 places","section":"A1","row":2},
+  {"move":"hold","beats":4,"params":{"reason":"unparsed"},"text":"star left 2 places next couple","section":"A1","row":3},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"next neighbors allemande left once","section":"A2","row":4},
+  {"move":"chain","beats":8,"params":{"who":"robins"},"text":"robins chain","section":"A2","row":5},
+  {"move":"hold","beats":16,"params":{"reason":"unparsed"},"text":"robins start a hey - rights in center, lefts on ends - until partners meet the second time","section":"B1","row":6},
+  {"move":"swing","beats":16,"params":{"who":"partner","meltdown":true},"text":"partners meltdown swing","progression":true,"section":"B2","row":7}
+ ]
+}

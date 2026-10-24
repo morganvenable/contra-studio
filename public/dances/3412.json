@@ -1,0 +1,13 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "3412", "title": "Unknown Dance", "author": "unknown", "formation": "becket", "progression": "minor-set", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/3412", "formation": "Becket", "retrievedAt": "2026-10-20T06:22:04.021Z", "sha256": "a5c1bfd3580a4b8f16a9ed93a854db491301ad67931ec199d5c66130f3dbeeaf" }, "status": "partial", "problems": [ "Row 2 \"left diagonal robins chain\" isn't drawn yet.", "Row 4 \"robins chain (straight across)\" isn't drawn yet.", "Row 6 \"balance & petronella, overspin\" isn't drawn yet.", "Row 3 \"next neighbors promenade across\" can't start from where the dancers are: To promenade across, neighbors must stand side by side on one side.", "Row 7 \"partners balance & swing · swing\" can't start from where the dancers are: A swing that ends facing across must start nearer one side." ], "unparsed": [ { "row": 2, "text": "left diagonal robins chain", "why": "No figure pattern matches \"left diagonal ladles chain ⁋\"." }, { "row": 4, "text": "robins chain (straight across)", "why": "No figure pattern matches \"ladles chain (straight across)\"." }, { "row": 6, "text": "balance & petronella, overspin", "why": "No figure pattern matches \"balance & petronella, overspin\"." } ], "choices": [ "A balance with a partner or neighbor holds both hands." ],
+ "figures": [
+  {"move":"long-lines","beats":8,"params":{"back":true},"text":"long lines forward & back","section":"A1","row":1},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"left diagonal robins chain","section":"A1","row":2,"progression":true},
+  {"move":"promenade","beats":8,"params":{"who":"neighbor"},"text":"next neighbors promenade across","section":"A2","row":3},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"robins chain (straight across)","section":"A2","row":4},
+  {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance & petronella · balance","section":"B1","row":5},
+  {"move":"petronella","beats":4,"params":{},"text":"balance & petronella · petronella","section":"B1","row":5},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"balance & petronella, overspin","section":"B1","row":6},
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"partner","hand":"both"},"text":"partners balance & swing · balance","section":"B2","row":7},
+  {"move":"swing","beats":12,"params":{"who":"partner"},"text":"partners balance & swing · swing","section":"B2","row":7}
+ ]
+}

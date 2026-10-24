@@ -1,0 +1,15 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "1393", "title": "The Wild Woman From North Carolina (original)", "author": "Bill Olson", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/1393", "formation": "improper", "retrievedAt": "2026-10-20T06:19:57.849Z", "sha256": "5ba0b7da506a4af5dea3f36bffb19630e8c5214bfd6bf32206571f1640465fa6" }, "status": "partial", "problems": [ "Row 3 \"larks roll away partners with a half sashay (along the set)\" isn't drawn yet.", "Row 5 \"larks roll away neighbors with a half sashay (across the set)\" isn't drawn yet.", "The progression after row 8 \"pass through\" doesn't work out: Couples 1 and 2 have not passed each other yet." ], "unparsed": [ { "row": 3, "text": "larks roll away partners with a half sashay (along the set)", "why": "No figure pattern matches \"gentlespoons roll away partners with a half sashay (along the set)\"." }, { "row": 5, "text": "larks roll away neighbors with a half sashay (across the set)", "why": "No figure pattern matches \"gentlespoons roll away neighbors with a half sashay (across the set)\"." } ], "choices": [ "Pass through goes by right shoulders.", "A pass through from a ring goes along the set, to the dancer on your own side.", "A balance with a partner or neighbor holds both hands." ],
+ "figures": [
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"neighbor","hand":"both"},"text":"neighbors balance & swing · balance","section":"A1","row":1},
+  {"move":"swing","beats":12,"params":{"who":"neighbor"},"text":"neighbors balance & swing · swing","section":"A1","row":1},
+  {"move":"circle","beats":6,"params":{"direction":"left","places":3},"text":"circle left 3 places","section":"A2","row":2},
+  {"move":"hold","beats":3,"params":{"reason":"unparsed"},"text":"larks roll away partners with a half sashay (along the set)","section":"A2","row":3},
+  {"move":"circle","beats":4,"params":{"direction":"left","places":2},"text":"circle left 2 places","section":"A2","row":4},
+  {"move":"hold","beats":3,"params":{"reason":"unparsed"},"text":"larks roll away neighbors with a half sashay (across the set)","section":"A2","row":5},
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"partner","hand":"both"},"text":"partners balance & swing · balance","section":"B1","row":6},
+  {"move":"swing","beats":12,"params":{"who":"partner"},"text":"partners balance & swing · swing","section":"B1","row":6},
+  {"move":"circle","beats":6,"params":{"direction":"left","places":3},"text":"circle left 3 places","section":"B2","row":7},
+  {"move":"pass-through","beats":2,"params":{"shoulder":"right"},"text":"pass through","progression":true,"section":"B2","row":8},
+  {"move":"do-si-do","beats":8,"params":{"who":"neighbor","amount":1,"shoulder":"right"},"text":"next neighbors do si do once","section":"B2","row":9}
+ ]
+}

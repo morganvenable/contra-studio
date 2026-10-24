@@ -1,0 +1,15 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "878", "title": "George is Rettie, Willing, and Able", "author": "Dean Snipes", "formation": null, "progression": null, "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 9 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/878", "formation": "indecent", "retrievedAt": "2026-10-20T05:57:12.016Z", "sha256": "0e4ebbb87cfbac9cb22cd2242a4889e59f972244c627650c6816e955c8b3f596" }, "status": "unsupported", "problems": [ "The \"indecent\" formation isn't built yet." ], "unparsed": [ { "row": 5, "text": "neighbors pull by right up and down", "why": "No figure pattern matches \"neighbors pull by right up and down ⁋\"." }, { "row": 6, "text": "robins allemande left once around while the larks orbit clockwise ½ around", "why": "No figure pattern matches \"ladles allemande left once around while the gentlespoons orbit clockwise ½ around\"." } ], "choices": [ "Pass through goes by right shoulders.", "A balance with a partner or neighbor holds both hands.", "A star with no grip named is a basket star (wrist grip)." ],
+ "figures": [
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"neighbor","hand":"both"},"text":"neighbors balance & swing · balance","section":"A1","row":1},
+  {"move":"swing","beats":12,"params":{"who":"neighbor"},"text":"neighbors balance & swing · swing","section":"A1","row":1},
+  {"move":"pass-through","beats":2,"params":{"shoulder":"right","axis":"across"},"text":"pass through across the set","section":"A2","row":2},
+  {"move":"turn-alone","beats":4,"params":{},"text":"turn alone","section":"A2","row":3},
+  {"move":"star","beats":8,"params":{"hand":"right","places":4},"text":"star right 4 places","section":"A2","row":4},
+  {"move":"hold","beats":2,"params":{"reason":"unparsed"},"text":"neighbors pull by right up and down","section":"A2","row":5,"progression":true},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"robins allemande left once around while the larks orbit clockwise ½ around","section":"B1","row":6},
+  {"move":"swing","beats":8,"params":{"who":"partner"},"text":"partners swing","section":"B1","row":7},
+  {"move":"long-lines","beats":8,"params":{"back":true},"text":"long lines forward & back","section":"B2","row":8},
+  {"move":"pass-by","beats":2,"params":{"who":"robins","shoulder":"right","hands":true},"text":"robins pull by right","progression":true,"section":"B2","row":9},
+  {"move":"allemande","beats":8,"params":{"who":"neighbor","hand":"left","amount":1.5},"text":"neighbors allemande left 1½","section":"B2","row":10}
+ ]
+}

@@ -1,0 +1,12 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "3281", "title": "Bingham's Pie", "author": "David Smukler", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/3281", "formation": "improper", "retrievedAt": "2026-10-20T05:48:27.497Z", "sha256": "4d7558082b7ba6c5fa87902efc84e7ffd5209307959624bf2dc9f5b5065b836c" }, "status": "partial", "problems": [ "Row 3 \"larks gate neighbors to face into the set\" isn't drawn yet." ], "unparsed": [ { "row": 3, "text": "larks gate neighbors to face into the set", "why": "No figure pattern matches \"gentlespoons gate neighbors to face into the set\"." } ], "choices": [],
+ "figures": [
+  {"move":"long-lines","beats":8,"params":{"back":true},"text":"long lines forward & back","section":"A1","row":1},
+  {"move":"circle","beats":8,"params":{"direction":"left","places":4},"text":"circle left 4 places","section":"A1","row":2},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"larks gate neighbors to face into the set","section":"A2","row":3},
+  {"move":"allemande","beats":8,"params":{"who":"robins","hand":"left","amount":1.5},"text":"robins allemande left 1½","section":"A2","row":4},
+  {"move":"hey","beats":8,"params":{"start":"partner","amount":0.5,"center":"left"},"text":"partners start a half hey - rights on ends, lefts in center","section":"B1","row":5},
+  {"move":"swing","beats":8,"params":{"who":"partner"},"text":"partners swing","section":"B1","row":6},
+  {"move":"allemande","beats":8,"params":{"who":"larks","hand":"left","amount":1.5},"text":"larks allemande left 1½","section":"B2","row":7},
+  {"move":"swing","beats":8,"params":{"who":"neighbor"},"text":"neighbors swing","progression":true,"section":"B2","row":8}
+ ]
+}

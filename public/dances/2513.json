@@ -1,0 +1,15 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "2513", "title": "Take a Dance (adaptation)", "author": "Mattie Rynkiewicz", "formation": null, "progression": null, "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/2513", "formation": "duple neutral", "retrievedAt": "2026-10-20T06:15:43.263Z", "sha256": "1578e9b42729a7eea8b1e26709c4cd1bb287888daca2e86505da02cae14436c3" }, "status": "unsupported", "problems": [ "The \"duple neutral\" formation isn't built yet." ], "unparsed": [ { "row": 1, "text": "ones split the twos, then cast home", "why": "No figure pattern matches \"ones split the twos, then cast home\"." }, { "row": 3, "text": "twos split the ones, then cast home", "why": "No figure pattern matches \"twos split the ones, then cast home\"." } ], "choices": [ "A balance with a partner or neighbor holds both hands.", "The 1s end their swing side by side in the middle of the set facing down, the way they progress." ],
+ "figures": [
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"ones split the twos, then cast home","section":"A1","row":1},
+  {"move":"swing","beats":8,"params":{"who":"1s","end":"down"},"text":"ones swing","section":"A1","row":2},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"twos split the ones, then cast home","section":"A2","row":3},
+  {"move":"swing","beats":8,"params":{"who":"2s","end":"up"},"text":"twos swing","section":"A2","row":4},
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"neighbor","hand":"both"},"text":"neighbors balance & swing · balance","section":"B1","row":5},
+  {"move":"swing","beats":12,"params":{"who":"neighbor"},"text":"neighbors balance & swing · swing","section":"B1","row":5},
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"partner","hand":"both"},"text":"partners balance","section":"B2","row":6},
+  {"move":"pass-by","beats":3,"params":{"who":"partner","shoulder":"right","hands":true},"text":"partners pull by right","section":"B2","row":7},
+  {"move":"pass-by","beats":3,"params":{"who":"neighbor","shoulder":"right","hands":true},"text":"neighbors pull by right","progression":true,"section":"B2","row":8},
+  {"move":"pass-by","beats":3,"params":{"who":"partner","shoulder":"right","hands":true},"text":"partners pull by right","section":"B2","row":9},
+  {"move":"pass-by","beats":3,"params":{"who":"neighbor","shoulder":"right","hands":true},"text":"neighbors pull by right","section":"B2","row":10}
+ ]
+}

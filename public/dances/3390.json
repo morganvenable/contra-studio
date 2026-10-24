@@ -1,0 +1,13 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "3390", "title": "Cookies and Cream", "author": "Cary Ravitz", "formation": "becket", "progression": "minor-set", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/3390", "formation": "Becket", "retrievedAt": "2026-10-20T05:51:49.337Z", "sha256": "5645914e63170329609c43766fafd04be50f38555bd120c6653d19b22f39e9bc" }, "status": "partial", "problems": [ "Row 7 \"robins allemande right 1½ (new robins, on the right diagonal), larks shift left\" isn't drawn yet.", "Row 8 \"partners balance & swing · swing\" can't start from where the dancers are: A swing that ends facing across must start nearer one side.", "Row 5 \"neighbors swing\" can't start from where the dancers are: A swing that ends facing across must start nearer one side." ], "unparsed": [ { "row": 7, "text": "robins allemande right 1½ (new robins, on the right diagonal), larks shift left", "why": "No figure pattern matches \"ladles allemande right 1½ (new ladles, on the right diagonal), gentlespoons shift left ⁋\"." } ], "choices": [ "Pass through goes by right shoulders.", "A balance with a partner or neighbor holds both hands." ],
+ "figures": [
+  {"move":"long-lines","beats":8,"params":{"back":true},"text":"long lines forward & back","section":"A1","row":1},
+  {"move":"chain","beats":8,"params":{"who":"robins"},"text":"robins chain","section":"A1","row":2},
+  {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance the ring","section":"A2","row":3},
+  {"move":"pass-through","beats":2,"params":{"shoulder":"right","axis":"across"},"text":"pass through across the set","section":"A2","row":4},
+  {"move":"swing","beats":10,"params":{"who":"neighbor"},"text":"neighbors swing","section":"A2","row":5},
+  {"move":"right-left-through","beats":8,"params":{},"text":"right left through","section":"B1","row":6},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"robins allemande right 1½ (new robins, on the right diagonal), larks shift left","section":"B1","row":7,"progression":true},
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"partner","hand":"both"},"text":"partners balance & swing · balance","section":"B2","row":8},
+  {"move":"swing","beats":12,"params":{"who":"partner"},"text":"partners balance & swing · swing","section":"B2","row":8}
+ ]
+}

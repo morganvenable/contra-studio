@@ -1,0 +1,13 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "1648", "title": "Balance and Think", "author": "Gene Hubert", "formation": "becket", "progression": "minor-set", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/1648", "formation": "Becket Clockwise", "retrievedAt": "2026-10-20T05:47:37.126Z", "sha256": "831d35572959b2b752d56fd5da4bb8d6971f8ffc7a4b619e599c14287269dbb5" }, "status": "partial", "problems": [ "Row 6 \"All trade on rt diag with same role person (The larks trade with someone in a different foursome, while the robins trade with robins of current foursome.)\" isn't drawn yet." ], "unparsed": [ { "row": 6, "text": "All trade on rt diag with same role person (The larks trade with someone in a different foursome, while the robins trade with robins of current foursome.)", "why": "No figure pattern matches \"All trade on rt diag with same role person (The gentlespoons trade with someone in a different foursome, while the ladles trade with ladle of current foursome.) ⁋\"." } ], "choices": [ "A balance with a partner or neighbor holds both hands." ],
+ "figures": [
+  {"move":"long-lines","beats":8,"params":{"back":true},"text":"long lines forward & back","section":"A1","row":1},
+  {"move":"allemande","beats":8,"params":{"who":"larks","hand":"left","amount":1.5},"text":"larks allemande left 1½","section":"A1","row":2},
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"neighbor","hand":"both"},"text":"neighbors balance & swing · balance","section":"A2","row":3},
+  {"move":"swing","beats":12,"params":{"who":"neighbor"},"text":"neighbors balance & swing · swing","section":"A2","row":3},
+  {"move":"circle","beats":8,"params":{"direction":"left","places":3},"text":"circle left 3 places","section":"B1","row":4},
+  {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance the ring","section":"B1","row":5},
+  {"move":"hold","beats":4,"params":{"reason":"unparsed"},"text":"All trade on rt diag with same role person (The larks trade with someone in a different foursome, while the robins trade with robins of current foursome.)","section":"B1","row":6,"progression":true},
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"partner","hand":"both"},"text":"partners balance & swing · balance","section":"B2","row":7},
+  {"move":"swing","beats":12,"params":{"who":"partner"},"text":"partners balance & swing · swing","section":"B2","row":7}
+ ]
+}

@@ -1,0 +1,13 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "3495", "title": "Mind the Shark (new version)", "author": "Mattie Rynkiewicz", "formation": null, "progression": null, "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/3495", "formation": "four face four", "retrievedAt": "2026-10-20T06:04:15.509Z", "sha256": "dda41df6dd25834a8e26e7e5186933b868cb3a60318ea7e18b40361fc5f908df" }, "status": "unsupported", "problems": [ "The \"four face four\" formation isn't built yet." ], "unparsed": [ { "row": 1, "text": "lines of four forward & back", "why": "No figure pattern matches \"lines of four forward & back\"." }, { "row": 2, "text": "first corners swing", "why": "No figure pattern matches \"first corners swing\"." }, { "row": 3, "text": "[square the sets] head couples forward & back", "why": "No figure pattern matches \"[square the sets] head couples forward & back\"." }, { "row": 4, "text": "side couples forward & back", "why": "No figure pattern matches \"side couples forward & back\"." }, { "row": 5, "text": "first corners pull by right", "why": "No figure pattern matches \"first corners pull by right\"." }, { "row": 7, "text": "circle left 4 places [halfway]", "why": "No figure pattern matches \"circle left 4 places [halfway]\"." } ], "choices": [],
+ "figures": [
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"lines of four forward & back","section":"A1","row":1},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"first corners swing","section":"A1","row":2},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"[square the sets] head couples forward & back","section":"A2","row":3},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"side couples forward & back","section":"A2","row":4},
+  {"move":"hold","beats":2,"params":{"reason":"unparsed"},"text":"first corners pull by right","section":"B1","row":5},
+  {"move":"swing","beats":14,"params":{"who":"partner"},"text":"partners swing","section":"B1","row":6},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"circle left 4 places [halfway]","section":"B2","row":7},
+  {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance the ring","section":"B2","row":8},
+  {"move":"twirl","beats":4,"params":{"style":"california","who":"partner"},"text":"partners California twirl","progression":true,"section":"B2","row":9}
+ ]
+}

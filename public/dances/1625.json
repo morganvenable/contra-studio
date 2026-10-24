@@ -1,0 +1,15 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "1625", "title": "I Did It Wrong!!", "author": "Callie Allison, Chet Gray, Nedra McNeil, Bob Crawford, Elisabeth Monica, Susan Pope, John Baker", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/1625", "formation": "improper", "retrievedAt": "2026-10-20T05:59:50.377Z", "sha256": "49b0f38fce447eea85b18a50416bd34dfe4f75f67c457119a3144c66fb7f6751", "status": "sketchbook" }, "status": "partial", "problems": [ "Row 7 \"turn alone to face next neighbors\" isn't drawn yet.", "The progression after row 9 \"neighbors swing\" doesn't work out: Couples 1 and 2 have not passed each other yet." ], "unparsed": [ { "row": 7, "text": "turn alone to face next neighbors", "why": "0 beats is too short for this row's parts." } ], "choices": [],
+ "figures": [
+  {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance & petronella · balance","section":"A1","row":1},
+  {"move":"petronella","beats":4,"params":{},"text":"balance & petronella · petronella","section":"A1","row":1},
+  {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance & petronella · balance","section":"A1","row":2},
+  {"move":"petronella","beats":4,"params":{},"text":"balance & petronella · petronella","section":"A1","row":2},
+  {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance & petronella · balance","section":"A2","row":3},
+  {"move":"petronella","beats":4,"params":{},"text":"balance & petronella · petronella","section":"A2","row":3},
+  {"move":"swing","beats":8,"params":{"who":"partner"},"text":"partners swing","section":"A2","row":4},
+  {"move":"chain","beats":8,"params":{"who":"robins"},"text":"robins chain","section":"B1","row":5},
+  {"move":"circle","beats":8,"params":{"direction":"right","places":4},"text":"circle right 4 places","section":"B1","row":6},
+  {"move":"circle","beats":4,"params":{"direction":"left","places":2},"text":"circle left 2 places","section":"B2","row":8},
+  {"move":"swing","beats":12,"params":{"who":"neighbor"},"text":"neighbors swing","progression":true,"section":"B2","row":9}
+ ]
+}

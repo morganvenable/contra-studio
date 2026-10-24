@@ -1,0 +1,11 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "2904", "title": "Everest Park", "author": "Isaac Banner", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/2904", "formation": "improper", "retrievedAt": "2026-10-20T05:54:57.802Z", "sha256": "8b48a5701e2d3c56c5e4adaa1efd087f72732d2c4f5de944a46672305eb33d77" }, "status": "partial", "problems": [ "Row 2 \"robins allemande left 1½ around while the larks orbit clockwise ½ around\" isn't drawn yet.", "The progression after row 7 \"robins start a half hey - rights in center, lefts on ends\" doesn't work out: Couples 1 and 2 have not passed each other yet.", "Row 1 \"mad robins, robins in front (CW)\" can't start from where the dancers are: With the robins in front this mad robin turns the other way." ], "unparsed": [ { "row": 2, "text": "robins allemande left 1½ around while the larks orbit clockwise ½ around", "why": "No figure pattern matches \"ladles allemande left 1½ around while the gentlespoons orbit clockwise ½ around\"." } ], "choices": [ "A meltdown swing starts with 4 beats of right-shoulder round, then swings." ],
+ "figures": [
+  {"move":"mad-robin","beats":8,"params":{"front":"robins","direction":"clockwise"},"text":"mad robins, robins in front (CW)","section":"A1","row":1},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"robins allemande left 1½ around while the larks orbit clockwise ½ around","section":"A1","row":2},
+  {"move":"swing","beats":16,"params":{"who":"neighbor","meltdown":true},"text":"neighbors meltdown swing","section":"A2","row":3},
+  {"move":"circle","beats":8,"params":{"direction":"left","places":3},"text":"circle left 3 places","section":"B1","row":4},
+  {"move":"swing","beats":8,"params":{"who":"partner"},"text":"partners swing","section":"B1","row":5},
+  {"move":"chain","beats":8,"params":{"who":"robins"},"text":"robins chain","section":"B2","row":6},
+  {"move":"hey","beats":8,"params":{"start":"robins","amount":0.5,"center":"right"},"text":"robins start a half hey - rights in center, lefts on ends","progression":true,"section":"B2","row":7}
+ ]
+}

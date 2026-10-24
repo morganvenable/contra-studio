@@ -1,0 +1,15 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "411", "title": "Love and Twirls", "author": "James Hutson", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/411", "formation": "improper", "retrievedAt": "2026-10-20T06:02:56.888Z", "sha256": "bb97adfae5244af76e5cc3358e65aab50428c8ebbbbf622812923d43b69dc9f1" }, "status": "partial", "problems": [ "Row 7 \"robins pull by right across\" isn't drawn yet.", "Row 1 \"balance & Rory O'More right · balance\" can't start from where the dancers are: Dancers are not in a straight line.", "Row 1 \"balance & Rory O'More right · slide\" can't start from where the dancers are: Dancers are not in a straight line.", "Row 2 \"balance & Rory O'More left · balance\" can't start from where the dancers are: Dancers are not in a straight line.", "Row 2 \"balance & Rory O'More left · slide\" can't start from where the dancers are: Dancers are not in a straight line." ], "unparsed": [ { "row": 7, "text": "robins pull by right across", "why": "No figure pattern matches \"ladles pull by right across\"." } ], "choices": [ "Rory O'More spins one full turn in the travel direction (the usual styling).", "The balance before each Rory steps toward the slide direction first.", "A balance with a partner or neighbor holds both hands." ],
+ "figures": [
+  {"move":"balance","beats":4,"params":{"formation":"wave","style":"right-left","first":"right"},"text":"balance & Rory O'More right · balance","section":"A1","row":1},
+  {"move":"rory","beats":4,"params":{"direction":"right","spin":"full"},"text":"balance & Rory O'More right · slide","section":"A1","row":1},
+  {"move":"balance","beats":4,"params":{"formation":"wave","style":"right-left","first":"left"},"text":"balance & Rory O'More left · balance","section":"A1","row":2},
+  {"move":"rory","beats":4,"params":{"direction":"left","spin":"full"},"text":"balance & Rory O'More left · slide","section":"A1","row":2},
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"neighbor","hand":"both"},"text":"neighbors balance & swing · balance","section":"A2","row":3},
+  {"move":"swing","beats":12,"params":{"who":"neighbor"},"text":"neighbors balance & swing · swing","section":"A2","row":3},
+  {"move":"circle","beats":8,"params":{"direction":"left","places":3},"text":"circle left 3 places","section":"B1","row":4},
+  {"move":"swing","beats":8,"params":{"who":"partner"},"text":"partners swing","section":"B1","row":5},
+  {"move":"long-lines","beats":8,"params":{"back":true},"text":"long lines forward & back","section":"B2","row":6},
+  {"move":"hold","beats":4,"params":{"reason":"unparsed"},"text":"robins pull by right across","section":"B2","row":7},
+  {"move":"allemande","beats":4,"params":{"who":"neighbor","hand":"left","amount":0.75},"text":"neighbors allemande left ¾","progression":true,"section":"B2","row":8}
+ ]
+}

@@ -1,0 +1,13 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "1696", "title": "Dr. Swinglove or: How I Learned to Stop Worrying and Love COVID-19", "author": "Nicholas Rockstroh", "formation": null, "progression": null, "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/1696", "formation": "indecent", "retrievedAt": "2026-10-20T05:54:13.415Z", "sha256": "827fb23959520083544dac81a042a1f9f25495f586eeeae5d577dc4b4f02f29f" }, "status": "unsupported", "problems": [ "The \"indecent\" formation isn't built yet." ], "unparsed": [ { "row": 3, "text": "revolving door - larks take left hands and drop off partners on other side", "why": "No figure pattern matches \"revolving door - gentlespoons take left hands and drop off partners on other side\"." }, { "row": 4, "text": "neighbors swing, end in a line of four facing down", "why": "No figure pattern matches \"neighbors swing, end in a line of four facing down\"." }, { "row": 5, "text": "down the hall, invert the line with the right side couplet forming the arch", "why": "No figure pattern matches \"down the hall, invert the line with the right side couplet forming the arch\"." } ], "choices": [],
+ "figures": [
+  {"move":"circle","beats":6,"params":{"direction":"left","places":3},"text":"circle left 3 places","section":"A1","row":1},
+  {"move":"swing","beats":10,"params":{"who":"partner"},"text":"partners swing","section":"A1","row":2},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"revolving door - larks take left hands and drop off partners on other side","section":"A2","row":3},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"neighbors swing, end in a line of four facing down","section":"A2","row":4},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"down the hall, invert the line with the right side couplet forming the arch","section":"B1","row":5},
+  {"move":"hall","beats":8,"params":{"direction":"up","end":"ring"},"text":"up the hall and bend into a ring","section":"B1","row":6},
+  {"move":"circle","beats":8,"params":{"direction":"left","places":4},"text":"circle left 4 places","section":"B2","row":7},
+  {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance the ring","section":"B2","row":8},
+  {"move":"twirl","beats":4,"params":{"style":"california","who":"partner"},"text":"partners California twirl","progression":true,"section":"B2","row":9}
+ ]
+}

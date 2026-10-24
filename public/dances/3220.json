@@ -1,0 +1,12 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "3220", "title": "Unruly Reunion (variation)", "author": "Robert Cromartie", "formation": null, "progression": null, "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/3220", "formation": "duple neutral", "retrievedAt": "2026-10-20T06:22:10.067Z", "sha256": "c5841691d0ef9c64a0d2ab71cb2c24463f531a00bb99685a2e4b06c1a43fd814" }, "status": "unsupported", "problems": [ "The \"duple neutral\" formation isn't built yet." ], "unparsed": [], "choices": [ "The 1s end their swing side by side in the middle of the set facing down, the way they progress." ],
+ "figures": [
+  {"move":"hall","beats":8,"params":{"direction":"down","turn":"alone"},"text":"down the hall and turn alone","section":"A1","row":1},
+  {"move":"hall","beats":8,"params":{"direction":"up","end":"ring"},"text":"up the hall and bend into a ring","progression":true,"section":"A1","row":2},
+  {"move":"circle","beats":8,"params":{"direction":"left","places":4},"text":"circle left 4 places","section":"A2","row":3},
+  {"move":"circle","beats":8,"params":{"direction":"right","places":4},"text":"circle right 4 places","section":"A2","row":4},
+  {"move":"do-si-do","beats":8,"params":{"who":"neighbor","amount":1,"shoulder":"right"},"text":"neighbors do si do once","section":"B1","row":5},
+  {"move":"do-si-do","beats":8,"params":{"who":"partner","amount":1,"shoulder":"right"},"text":"partners do si do once","section":"B1","row":6},
+  {"move":"long-lines","beats":8,"params":{"back":true},"text":"long lines forward & back","section":"B2","row":7},
+  {"move":"swing","beats":8,"params":{"who":"1s","end":"down"},"text":"ones swing","section":"B2","row":8}
+ ]
+}

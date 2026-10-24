@@ -3,12 +3,13 @@
 import { READY_LIBRARY } from '../src/ready-library.ts';
 import { readContraDbImport } from '../src/contradb-import.ts';
 import { compileChoreography } from '../src/choreography.ts';
-import { NEXT_DANCES, compileNext } from '../src/next/dance.ts';
+import { compileNext } from '../src/next/dance.ts';
+import { loadStored } from './next-dances.mjs';
 import { canonicalText } from '../src/next/core/roles.ts';
 
 const couples = Number(process.argv[2] ?? 4);
 const rounds = Number(process.argv[3] ?? 2);
-const stored = NEXT_DANCES.find((d) => d.source.url.endsWith('/2321'));
+const stored = loadStored('2321');
 const id = stored.source.url.split('/').pop();
 const archive = READY_LIBRARY.find((e) => e.id === id).archive;
 const old = compileChoreography(readContraDbImport(archive).dance, couples);

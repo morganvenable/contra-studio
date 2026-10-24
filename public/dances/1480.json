@@ -1,0 +1,15 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "1480", "title": "The 24th of May", "author": "Yoyo Zhou", "formation": "becket-ccw", "progression": "minor-set", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/1480", "formation": "Becket ccw", "retrievedAt": "2026-10-20T06:16:13.373Z", "sha256": "303e5778f6b4ed120fc2837d73b8b61be8038d508fb6026732787021ddc4f240" }, "status": "partial", "problems": [ "Row 6 \"balance & box circulate - robins cross while larks loop right · box circulate\" can't start from where the dancers are: Looping right would go the wrong way along the line here.", "Row 9 \"partners swing\" can't start from where the dancers are: A swing that ends facing across must start nearer one side." ], "unparsed": [], "choices": [ "Long waves form during the balance before each box circulate: crossers face in, loopers face out; hands join only where they reach." ],
+ "figures": [
+  {"move":"allemande","beats":8,"params":{"who":"larks","hand":"left","amount":1.5},"text":"larks allemande left 1½","section":"A1","row":1},
+  {"move":"swing","beats":8,"params":{"who":"neighbor"},"text":"neighbors swing","section":"A1","row":2},
+  {"move":"long-lines","beats":8,"params":{"back":true},"text":"long lines forward & back","section":"A2","row":3},
+  {"move":"star","beats":8,"params":{"hand":"left","places":4,"grip":"wrist"},"text":"star left - wrist grip - 4 places","section":"A2","row":4},
+  {"move":"balance","beats":4,"params":{"formation":"long-waves","in":"robins"},"text":"balance & box circulate - robins cross while larks loop right · balance","section":"B1","row":6},
+  {"move":"box-circulate","beats":4,"params":{"cross":"robins","loop":"right"},"text":"balance & box circulate - robins cross while larks loop right · box circulate","section":"B1","row":6},
+  {"move":"balance","beats":4,"params":{"formation":"long-waves","in":"larks"},"text":"balance & box circulate - larks cross while robins loop right · balance","section":"B1","row":7},
+  {"move":"box-circulate","beats":4,"params":{"cross":"larks","loop":"right"},"text":"balance & box circulate - larks cross while robins loop right · box circulate","section":"B1","row":7},
+  {"move":"balance","beats":4,"params":{"formation":"long-waves","in":"robins"},"text":"balance & box circulate - robins cross while larks loop right · balance","section":"B2","row":8},
+  {"move":"box-circulate","beats":4,"params":{"cross":"robins","loop":"right"},"text":"balance & box circulate - robins cross while larks loop right · box circulate","section":"B2","row":8},
+  {"move":"swing","beats":8,"params":{"who":"partner"},"text":"partners swing","section":"B2","row":9}
+ ]
+}

@@ -1,0 +1,12 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "2580", "title": "Summersweet", "author": "Ben Sachs-Hamilton", "formation": "becket", "progression": "minor-set", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/2580", "formation": "Becket", "retrievedAt": "2026-10-20T06:15:06.920Z", "sha256": "bf752f31e762b226ca1472b0ee35ec5a7605a0d700c4d75e2ecd3f68a081b31a" }, "status": "partial", "problems": [ "Row 6 \"half poussette - robins pull partners back then left\" isn't drawn yet." ], "unparsed": [ { "row": 6, "text": "half poussette - robins pull partners back then left", "why": "No figure pattern matches \"half poussette - ladles pull partners back then left\"." } ], "choices": [],
+ "figures": [
+  {"move":"long-lines","beats":8,"params":{"back":true},"text":"long lines forward & back","section":"A1","row":1},
+  {"move":"chain","beats":8,"params":{"who":"robins"},"text":"robins chain","section":"A1","row":2},
+  {"move":"hey","beats":8,"params":{"start":"robins","amount":0.5,"center":"right"},"text":"robins start a half hey - rights in center, lefts on ends","section":"A2","row":3},
+  {"move":"swing","beats":8,"params":{"who":"neighbor"},"text":"neighbors swing","section":"A2","row":4},
+  {"move":"circle","beats":8,"params":{"direction":"left","places":4},"text":"circle left 4 places","section":"B1","row":5},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"half poussette - robins pull partners back then left","section":"B1","row":6},
+  {"move":"circle","beats":8,"params":{"direction":"right","places":3},"text":"circle right 3 places with new neighbors","section":"B2","row":7},
+  {"move":"swing","beats":8,"params":{"who":"partner"},"text":"partners swing","progression":true,"section":"B2","row":8}
+ ]
+}

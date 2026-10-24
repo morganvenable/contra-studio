@@ -1,0 +1,12 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "2254", "title": "United We Dance", "author": "Bob Isaacs", "formation": null, "progression": null, "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/2254", "formation": "long waves, larks facing out", "retrievedAt": "2026-10-20T06:22:00.997Z", "sha256": "37477176f848f5380ccef3b4175807e767fcb9f0948046438154533a16be0216" }, "status": "unsupported", "problems": [ "The \"long waves, larks facing out\" formation isn't built yet." ], "unparsed": [ { "row": 1, "text": "balance & Rory O'More right (in long waves)", "why": "No figure pattern matches \"balance & Rory O'More right (in long waves)\"." }, { "row": 2, "text": "balance & Rory O'More left (in long waves)", "why": "No figure pattern matches \"balance & Rory O'More left (in long waves)\"." }, { "row": 7, "text": "star left 4 places, to long waves", "why": "No figure pattern matches \"star left 4 places, to long waves\"." } ], "choices": [ "A balance with a partner or neighbor holds both hands." ],
+ "figures": [
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"balance & Rory O'More right (in long waves)","section":"A1","row":1},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"balance & Rory O'More left (in long waves)","section":"A1","row":2},
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"neighbor","hand":"both"},"text":"neighbors balance & swing · balance","section":"A2","row":3},
+  {"move":"swing","beats":12,"params":{"who":"neighbor"},"text":"neighbors balance & swing · swing","section":"A2","row":3},
+  {"move":"circle","beats":6,"params":{"direction":"left","places":3},"text":"circle left 3 places","section":"B1","row":4},
+  {"move":"swing","beats":10,"params":{"who":"partner"},"text":"partners swing","section":"B1","row":5},
+  {"move":"chain","beats":8,"params":{"who":"robins"},"text":"robins chain","section":"B2","row":6},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"star left 4 places, to long waves","section":"B2","row":7}
+ ]
+}

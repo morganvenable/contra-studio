@@ -1,0 +1,11 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "3283", "title": "The Tease (Gaye Fifer variation)", "author": "Tom Hinds", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/3283", "formation": "improper", "retrievedAt": "2026-10-20T06:19:37.060Z", "sha256": "4ad47d9afe412ee79a8d897ef855ae46b43f6f568367aff6c83e8a2a966647bf" }, "status": "partial", "problems": [ "Row 6 \"ones half figure 8 above\" isn't drawn yet.", "Row 7 \"ones contra corners\" isn't drawn yet.", "Row 1 \"ones gyre once\" can't start from where the dancers are: gyre who must be one of partner, neighbor, larks, robins; got 1s." ], "unparsed": [ { "row": 6, "text": "ones half figure 8 above", "why": "No figure pattern matches \"ones half figure 8 above\"." }, { "row": 7, "text": "ones contra corners", "why": "No figure pattern matches \"ones contra corners ⁋\"." } ], "choices": [ "A gyre goes by the right shoulder, facing each other, with no hands." ],
+ "figures": [
+  {"move":"gyre","beats":8,"params":{"who":"1s","amount":1},"text":"ones gyre once","section":"A1","row":1},
+  {"move":"swing","beats":8,"params":{"who":"neighbor"},"text":"neighbors swing","section":"A1","row":2},
+  {"move":"circle","beats":8,"params":{"direction":"left","places":3},"text":"circle left 3 places","section":"A2","row":3},
+  {"move":"swing","beats":8,"params":{"who":"partner"},"text":"partners swing","section":"A2","row":4},
+  {"move":"chain","beats":8,"params":{"who":"robins"},"text":"robins chain","section":"B1","row":5},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"ones half figure 8 above","section":"B1","row":6},
+  {"move":"hold","beats":16,"params":{"reason":"unparsed"},"text":"ones contra corners","section":"B2","row":7,"progression":true}
+ ]
+}

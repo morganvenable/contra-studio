@@ -1,0 +1,12 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "501", "title": "Rockin' Robin", "author": "Rick Mohr", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/501", "formation": "improper", "retrievedAt": "2026-10-20T06:10:58.940Z", "sha256": "9c128210799367e198bb3fd4926d26ae2f2e3819e7b0f051be9030f81d1e4626" }, "status": "partial", "problems": [ "Row 4 \"hey, partners passing left shoulders to start\" isn't drawn yet.", "Row 6 \"circle left 5 places to original place\" isn't drawn yet.", "Row 7 \"zig left zag right\" isn't drawn yet." ], "unparsed": [ { "row": 4, "text": "hey, partners passing left shoulders to start", "why": "No figure pattern matches \"hey, partners passing left shoulders to start\"." }, { "row": 6, "text": "circle left 5 places to original place", "why": "No figure pattern matches \"circle left 5 places to original place\"." }, { "row": 7, "text": "zig left zag right", "why": "No figure pattern matches \"zig left zag right ⁋\"." } ], "choices": [ "A balance with a partner or neighbor holds both hands." ],
+ "figures": [
+  {"move":"circle","beats":8,"params":{"direction":"right","places":4},"text":"circle right 4 places","section":"A1","row":1},
+  {"move":"allemande","beats":6,"params":{"who":"neighbor","hand":"left","amount":1},"text":"neighbors allemande left once","section":"A1","row":2},
+  {"move":"pass-by","beats":2,"params":{"who":"larks","shoulder":"right","hands":true},"text":"larks pull by right","section":"A1","row":3},
+  {"move":"hold","beats":16,"params":{"reason":"unparsed"},"text":"hey, partners passing left shoulders to start","section":"A2","row":4},
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"partner","hand":"both"},"text":"partners balance & swing · balance","section":"B1","row":5},
+  {"move":"swing","beats":12,"params":{"who":"partner"},"text":"partners balance & swing · swing","section":"B1","row":5},
+  {"move":"hold","beats":10,"params":{"reason":"unparsed"},"text":"circle left 5 places to original place","section":"B2","row":6},
+  {"move":"hold","beats":6,"params":{"reason":"unparsed"},"text":"zig left zag right","section":"B2","row":7,"progression":true}
+ ]
+}

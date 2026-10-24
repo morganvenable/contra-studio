@@ -1,0 +1,14 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "3351", "title": "Reflect-sive Choreography", "author": "Nicholas Rockstroh", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/3351", "formation": "improper", "retrievedAt": "2026-10-20T06:10:03.456Z", "sha256": "f574b98fb3517421cdb21be225cf37091141ceec4e79350eac94324ad08e2065" }, "status": "ok", "problems": [], "unparsed": [], "choices": [ "A balance with a partner or neighbor holds both hands." ],
+ "figures": [
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"neighbor","hand":"left"},"text":"neighbors left hand balance & swat the flea · balance","section":"A1","row":1},
+  {"move":"twirl","beats":4,"params":{"style":"swat-the-flea","who":"neighbor"},"text":"neighbors left hand balance & swat the flea · twirl","section":"A1","row":1},
+  {"move":"allemande","beats":8,"params":{"who":"robins","hand":"right","amount":1.5},"text":"robins allemande right 1½","section":"A1","row":2},
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"partner","hand":"both"},"text":"partners balance & swing · balance","section":"A2","row":3},
+  {"move":"swing","beats":12,"params":{"who":"partner"},"text":"partners balance & swing · swing","section":"A2","row":3},
+  {"move":"allemande","beats":8,"params":{"who":"larks","hand":"left","amount":1.5},"text":"larks allemande left 1½","section":"B1","row":4},
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"neighbor","hand":"right"},"text":"neighbors right hand balance & box the gnat · balance","section":"B1","row":5},
+  {"move":"twirl","beats":4,"params":{"style":"box-the-gnat","who":"neighbor"},"text":"neighbors right hand balance & box the gnat · twirl","section":"B1","row":5},
+  {"move":"hey","beats":8,"params":{"start":"neighbor","amount":0.5,"center":"left"},"text":"neighbors start a half hey - rights on ends, lefts in center","section":"B2","row":6},
+  {"move":"swing","beats":8,"params":{"who":"neighbor"},"text":"neighbors swing","progression":true,"section":"B2","row":7}
+ ]
+}

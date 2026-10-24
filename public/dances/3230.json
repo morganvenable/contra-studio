@@ -1,0 +1,11 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "3230", "title": "Opus 4.6.5", "author": "Every Choreographer on Callers Box", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/3230", "formation": "improper", "retrievedAt": "2026-10-20T06:07:45.227Z", "sha256": "b37db877bc90ab2512ef4de7aa6ceeec2aa5bc870e454cdad1ce3a4a5b1bd591" }, "status": "ok", "problems": [], "unparsed": [], "choices": [],
+ "figures": [
+  {"move":"long-lines","beats":8,"params":{"back":true},"text":"long lines forward & back","section":"A1","row":1},
+  {"move":"swing","beats":8,"params":{"who":"neighbor"},"text":"neighbors swing","section":"A1","row":2},
+  {"move":"allemande","beats":8,"params":{"who":"larks","hand":"left","amount":1.5},"text":"larks allemande left 1½","section":"A2","row":3},
+  {"move":"swing","beats":8,"params":{"who":"partner"},"text":"partners swing","section":"A2","row":4},
+  {"move":"hey","beats":16,"params":{"start":"robins","amount":1,"center":"right"},"text":"robins start a full hey - rights in center, lefts on ends","section":"B1","row":5},
+  {"move":"chain","beats":8,"params":{"who":"robins","to":"neighbor"},"text":"robins chain to neighbors","section":"B2","row":6},
+  {"move":"promenade","beats":8,"params":{"who":"neighbor"},"text":"neighbors promenade","progression":true,"section":"B2","row":7}
+ ]
+}

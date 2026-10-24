@@ -1,0 +1,13 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "2100", "title": "Garden of Life", "author": "Ron Blechner", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/2100", "formation": "improper", "retrievedAt": "2026-10-20T05:57:01.943Z", "sha256": "d79d7f150826e40a8ba38736068efadc99f0928bdb73c0869fd896cce6be2332" }, "status": "partial", "problems": [ "Row 4 \"robins allemande right 1½ and scoop up partners\" isn't drawn yet.", "Row 5 \"robins star promenade right ½\" isn't drawn yet.", "Row 6 \"butterfly whirl\" isn't drawn yet.", "Row 7 \"partners swing\" can't start from where the dancers are: A swing that ends facing across must start nearer one side." ], "unparsed": [ { "row": 4, "text": "robins allemande right 1½ and scoop up partners", "why": "No figure pattern matches \"ladles allemande right 1½ and scoop up partners\"." }, { "row": 5, "text": "robins star promenade right ½", "why": "No figure pattern matches \"ladles star promenade right ½\"." }, { "row": 6, "text": "butterfly whirl", "why": "No figure pattern matches \"butterfly whirl\"." } ], "choices": [ "Give & take: half the beats to cross, half to back home holding both hands." ],
+ "figures": [
+  {"move":"long-lines","beats":8,"params":{"back":true},"text":"long lines forward & back","section":"A1","row":1},
+  {"move":"star","beats":8,"params":{"hand":"left","places":4,"grip":"wrist"},"text":"star left - wrist grip - 4 places","section":"A1","row":2},
+  {"move":"allemande","beats":8,"params":{"who":"neighbor","hand":"left","amount":1.5},"text":"neighbors allemande left 1½","section":"A2","row":3},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"robins allemande right 1½ and scoop up partners","section":"A2","row":4},
+  {"move":"hold","beats":4,"params":{"reason":"unparsed"},"text":"robins star promenade right ½","section":"B1","row":5},
+  {"move":"hold","beats":4,"params":{"reason":"unparsed"},"text":"butterfly whirl","section":"B1","row":6},
+  {"move":"swing","beats":8,"params":{"who":"partner"},"text":"partners swing","section":"B1","row":7},
+  {"move":"give-and-take","beats":4,"params":{"who":"robins","whom":"neighbor"},"text":"robins give & take neighbors","section":"B2","row":8},
+  {"move":"swing","beats":12,"params":{"who":"neighbor"},"text":"neighbors swing","progression":true,"section":"B2","row":9}
+ ]
+}

@@ -10,6 +10,7 @@ import { giveAndTake } from './give-and-take.ts';
 import { gyre } from './gyre.ts';
 import { hall } from './hall.ts';
 import { hey } from './hey.ts';
+import { hold } from './hold.ts';
 import { longLines } from './long-lines.ts';
 import { madRobin } from './mad-robin.ts';
 import { passBy } from './pass-by.ts';
@@ -23,6 +24,7 @@ import { slice } from './slice.ts';
 import { slide } from './slide.ts';
 import { star } from './star.ts';
 import { swing } from './swing.ts';
+import { turnAlone } from './turn-alone.ts';
 import { twirl } from './twirl.ts';
 
 export const FIGURES: FigureRegistry = Object.freeze({
@@ -36,6 +38,7 @@ export const FIGURES: FigureRegistry = Object.freeze({
   gyre,
   hall,
   hey,
+  hold,
   'long-lines': longLines,
   'mad-robin': madRobin,
   'pass-by': passBy,
@@ -49,5 +52,6 @@ export const FIGURES: FigureRegistry = Object.freeze({
   slide,
   star,
   swing,
+  'turn-alone': turnAlone,
   twirl,
 });

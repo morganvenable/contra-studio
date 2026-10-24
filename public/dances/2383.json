@@ -1,0 +1,11 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "2383", "title": "The Birds are the Words (CW) variation", "author": "Nicholas Rockstroh", "formation": "becket", "progression": "minor-set", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/2383", "formation": "Becket cw", "retrievedAt": "2026-10-20T06:16:25.585Z", "sha256": "c140631d1274e572d80d9a7e80ac80ac2dbd1085ecca5c9cb6627f647ec45fd9" }, "status": "partial", "problems": [ "The progression after row 3 \"mad robins, larks in front, look for next neighbors\" doesn't work out: Couple 1 must face the same way to find new neighbors." ], "unparsed": [], "choices": [ "A star with no grip named is a basket star (wrist grip).", "A meltdown swing starts with 4 beats of right-shoulder round, then swings." ],
+ "figures": [
+  {"move":"long-lines","beats":8,"params":{"back":true},"text":"long lines forward & back","section":"A1","row":1},
+  {"move":"star","beats":8,"params":{"hand":"left","places":3},"text":"star left 3 places","section":"A1","row":2},
+  {"move":"mad-robin","beats":8,"params":{"front":"larks"},"text":"mad robins, larks in front, look for next neighbors","progression":true,"section":"A2","row":3},
+  {"move":"star","beats":8,"params":{"hand":"right","places":3},"text":"star right 3 places with next neighbors","section":"A2","row":4},
+  {"move":"allemande","beats":8,"params":{"who":"partner","hand":"right","amount":1.5},"text":"partners allemande right 1½","section":"B1","row":5},
+  {"move":"hey","beats":8,"params":{"start":"larks","amount":0.5,"center":"left"},"text":"larks start a half hey - lefts in center, rights on ends","section":"B1","row":6},
+  {"move":"swing","beats":16,"params":{"who":"partner","meltdown":true},"text":"partners meltdown swing","section":"B2","row":7}
+ ]
+}

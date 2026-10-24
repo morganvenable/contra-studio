@@ -1,0 +1,16 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "2416", "title": "Help Wanted", "author": "Steve Zakon-Anderson", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/2416", "formation": "improper", "retrievedAt": "2026-10-20T05:58:50.941Z", "sha256": "eae36dc3c9521456c306256d210aa516890ac2f619ff6ebfe36f05839b807790" }, "status": "check", "problems": [ "Row 8 \"robins gyre once\": a dancer has to move 1.34 m in one beat, faster than a walk (with 3 couples)." ], "unparsed": [], "choices": [ "A gyre goes by the right shoulder, facing each other, with no hands.", "Long waves form during the balance before each box circulate: crossers face in, loopers face out; hands join only where they reach." ],
+ "figures": [
+  {"move":"balance","beats":4,"params":{"formation":"long-waves","in":"robins"},"text":"balance & box circulate - robins cross while larks loop right · balance","section":"A1","row":1},
+  {"move":"box-circulate","beats":4,"params":{"cross":"robins","loop":"right"},"text":"balance & box circulate - robins cross while larks loop right · box circulate","section":"A1","row":1},
+  {"move":"balance","beats":4,"params":{"formation":"long-waves","in":"larks"},"text":"balance & box circulate - larks cross while robins loop right · balance","section":"A1","row":2},
+  {"move":"box-circulate","beats":4,"params":{"cross":"larks","loop":"right"},"text":"balance & box circulate - larks cross while robins loop right · box circulate","section":"A1","row":2},
+  {"move":"balance","beats":4,"params":{"formation":"long-waves","in":"robins"},"text":"balance & box circulate - robins cross while larks loop right · balance","section":"A2","row":3},
+  {"move":"box-circulate","beats":4,"params":{"cross":"robins","loop":"right"},"text":"balance & box circulate - robins cross while larks loop right · box circulate","section":"A2","row":3},
+  {"move":"swing","beats":8,"params":{"who":"partner"},"text":"partners swing","section":"A2","row":4},
+  {"move":"long-lines","beats":8,"params":{"back":true},"text":"long lines forward & back","section":"B1","row":5},
+  {"move":"chain","beats":8,"params":{"who":"robins"},"text":"robins chain","section":"B1","row":6},
+  {"move":"hey","beats":8,"params":{"start":"robins","amount":0.5,"center":"right"},"text":"robins start a half hey - rights in center, lefts on ends","section":"B2","row":7},
+  {"move":"gyre","beats":4,"params":{"who":"robins","amount":1},"text":"robins gyre once","section":"B2","row":8},
+  {"move":"allemande","beats":4,"params":{"who":"neighbor","hand":"left","amount":0.75},"text":"neighbors allemande left ¾","progression":true,"section":"B2","row":9}
+ ]
+}

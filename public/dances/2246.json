@@ -1,0 +1,13 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "2246", "title": "To Live Is To Dance (improper version)", "author": "Jim Kitch", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/2246", "formation": "improper", "retrievedAt": "2026-10-20T06:20:41.307Z", "sha256": "b16992d4f96fead0bf094aebdfe07d4a8e8954b602cb598b2ad5bf730711a9c6", "status": "sketchbook" }, "status": "partial", "problems": [ "Row 3 \"larks roll away partners on the side\" isn't drawn yet." ], "unparsed": [ { "row": 3, "text": "larks roll away partners on the side", "why": "No figure pattern matches \"gentlespoons roll away partners on the side\"." } ], "choices": [ "A balance with a partner or neighbor holds both hands.", "A gyre goes by the right shoulder, facing each other, with no hands." ],
+ "figures": [
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"neighbor","hand":"both"},"text":"neighbors balance & swing · balance","section":"A1","row":1},
+  {"move":"swing","beats":12,"params":{"who":"neighbor"},"text":"neighbors balance & swing · swing","section":"A1","row":1},
+  {"move":"circle","beats":6,"params":{"direction":"left","places":3},"text":"circle left 3 places","section":"A2","row":2},
+  {"move":"hold","beats":2,"params":{"reason":"unparsed"},"text":"larks roll away partners on the side","section":"A2","row":3},
+  {"move":"hey","beats":8,"params":{"start":"larks","amount":0.5,"center":"left"},"text":"larks start a half hey - lefts in center, rights on ends","section":"A2","row":4},
+  {"move":"gyre","beats":8,"params":{"who":"partner","amount":1},"text":"partners gyre once","section":"B1","row":5},
+  {"move":"swing","beats":8,"params":{"who":"partner"},"text":"partners swing","section":"B1","row":6},
+  {"move":"chain","beats":8,"params":{"who":"robins"},"text":"robins chain","section":"B2","row":7},
+  {"move":"hey","beats":8,"params":{"start":"robins","amount":0.5,"center":"right"},"text":"robins start a half hey - rights in center, lefts on ends","progression":true,"section":"B2","row":8}
+ ]
+}

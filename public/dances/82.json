@@ -1,0 +1,13 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "82", "title": "Scooter", "author": "Tom Hinds", "formation": "becket", "progression": "minor-set", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/82", "formation": "Becket", "retrievedAt": "2026-10-20T06:11:59.426Z", "sha256": "8b3cc18015e6bdb19e53116f3cf591f6a2cef8ddc6ac0fe34fce45092ff95f94" }, "status": "partial", "problems": [ "Row 3 \"robins chain meanwhile larks scoot*\" isn't drawn yet.", "Row 5 \"neighbors swing\" can't start from where the dancers are: A swing that ends facing across must start nearer one side.", "Row 1 \"partners balance & swing · swing\" can't start from where the dancers are: A swing that ends facing across must start nearer one side." ], "unparsed": [ { "row": 3, "text": "robins chain meanwhile larks scoot*", "why": "No figure pattern matches \"ladles chain meanwhile gentlespoons scoot* ⁋\"." } ], "choices": [ "Pass through goes by right shoulders.", "A pass through from a ring goes along the set, to the dancer on your own side.", "A balance with a partner or neighbor holds both hands.", "A gyre goes by the right shoulder, facing each other, with no hands." ],
+ "figures": [
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"partner","hand":"both"},"text":"partners balance & swing · balance","section":"A1","row":1},
+  {"move":"swing","beats":12,"params":{"who":"partner"},"text":"partners balance & swing · swing","section":"A1","row":1},
+  {"move":"long-lines","beats":8,"params":{"back":true},"text":"long lines forward & back","section":"A2","row":2},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"robins chain meanwhile larks scoot*","section":"A2","row":3,"progression":true},
+  {"move":"gyre","beats":8,"params":{"who":"robins","amount":1},"text":"robins gyre once","section":"B1","row":4},
+  {"move":"swing","beats":8,"params":{"who":"neighbor"},"text":"neighbors swing","section":"B1","row":5},
+  {"move":"circle","beats":8,"params":{"direction":"left","places":3},"text":"circle left 3 places","section":"B2","row":6},
+  {"move":"pass-through","beats":2,"params":{"shoulder":"right"},"text":"pass through","section":"B2","row":7},
+  {"move":"do-si-do","beats":6,"params":{"who":"partner","amount":1,"shoulder":"right"},"text":"partners do si do once","section":"B2","row":8}
+ ]
+}

@@ -1,0 +1,12 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "2551", "title": "Delay, Deny, Do si do", "author": "Alan Smithee", "formation": "becket", "progression": "minor-set", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 16 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/2551", "formation": "Becket", "retrievedAt": "2026-10-20T05:53:15.950Z", "sha256": "ad50a1f1f6ea2f5139641bd988e4304548fa05a875c5bfffaf1cf9ca80b70469" }, "status": "check", "problems": [ "Row 2 \"mad robins, larks in front\": a dancer has to move 1.27 m in one beat, faster than a walk (with 3 couples)." ], "unparsed": [], "choices": [],
+ "figures": [
+  {"move":"slide","beats":2,"params":{"direction":"right"},"text":"slide right along set","progression":true,"section":"A1","row":1},
+  {"move":"mad-robin","beats":6,"params":{"front":"larks"},"text":"mad robins, larks in front","section":"A1","row":2},
+  {"move":"do-si-do","beats":8,"params":{"who":"neighbor","amount":1,"shoulder":"right"},"text":"neighbors do si do once","section":"A1","row":3},
+  {"move":"do-si-do","beats":8,"params":{"who":"partner","amount":1,"shoulder":"right"},"text":"partners do si do once","section":"A2","row":4},
+  {"move":"hey","beats":16,"params":{"start":"larks","amount":1,"center":"right"},"text":"larks start a full hey - rights in center, lefts on ends","section":"A2","row":5},
+  {"move":"allemande","beats":8,"params":{"who":"partner","hand":"left","amount":1.5},"text":"partners allemande left 1½","section":"A2","row":6},
+  {"move":"allemande","beats":8,"params":{"who":"neighbor","hand":"right","amount":1},"text":"neighbors allemande right once","section":"B2","row":7},
+  {"move":"swing","beats":8,"params":{"who":"partner"},"text":"partners swing","section":"B2","row":8}
+ ]
+}

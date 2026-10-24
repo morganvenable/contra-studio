@@ -1,0 +1,12 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "182", "title": "Flirt Hurt", "author": "Karl Senseman", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/182", "formation": "improper", "sha256": "7b436ef1b06c660f920fc5eefa51d81205f3802a45c9253553c7267ab3162a9e" }, "status": "ok", "problems": [], "unparsed": [], "choices": [],
+ "figures": [
+  {"move":"circle","beats":8,"params":{"direction":"left","places":4},"text":"circle left 4 places","section":"A1","row":1},
+  {"move":"mad-robin","beats":8,"params":{"front":"robins","direction":"clockwise"},"text":"mad robins, robins in front (CW)","section":"A1","row":2},
+  {"move":"hey","beats":8,"params":{"start":"robins","amount":0.5,"center":"left"},"text":"robins start a half hey - lefts in center, rights on ends","section":"A2","row":3},
+  {"move":"swing","beats":8,"params":{"who":"neighbor"},"text":"neighbors swing","section":"A2","row":4},
+  {"move":"allemande","beats":8,"params":{"who":"larks","hand":"left","amount":1.5},"text":"larks allemande left 1½","section":"B1","row":5},
+  {"move":"swing","beats":8,"params":{"who":"partner"},"text":"partners swing","section":"B1","row":6},
+  {"move":"chain","beats":8,"params":{"who":"robins"},"text":"robins chain","section":"B2","row":7},
+  {"move":"circle","beats":8,"params":{"direction":"right","places":4},"text":"circle right 4 places (look for new neighbors)","progression":true,"section":"B2","row":8}
+ ]
+}

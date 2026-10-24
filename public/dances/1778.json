@@ -1,0 +1,15 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "1778", "title": "Swing Into Spring", "author": "Orace Johnson", "formation": "becket", "progression": "minor-set", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/1778", "formation": "Becket", "retrievedAt": "2026-10-20T06:15:34.288Z", "sha256": "8266b15268983628be564551fd23843be8518e2ba89f0ef27b9dc740e6df819d" }, "status": "partial", "problems": [ "Row 9 \"larks roll away partners\" isn't drawn yet.", "Row 7 \"larks roll away neighbors with a half sashay\" can't start from where the dancers are: A roll away needs the two side by side on one side." ], "unparsed": [ { "row": 9, "text": "larks roll away partners", "why": "No figure pattern matches \"gentlespoons roll away partners\"." } ], "choices": [ "A balance with a partner or neighbor holds both hands." ],
+ "figures": [
+  {"move":"slide","beats":2,"params":{"direction":"left"},"text":"slide left along set","progression":true,"section":"A1","row":1},
+  {"move":"circle","beats":6,"params":{"direction":"left","places":3},"text":"circle left 3 places","section":"A1","row":2},
+  {"move":"swing","beats":8,"params":{"who":"neighbor"},"text":"neighbors swing","section":"A1","row":3},
+  {"move":"chain","beats":8,"params":{"who":"larks"},"text":"larks chain","section":"A2","row":4},
+  {"move":"long-lines","beats":8,"params":{"back":true},"text":"long lines forward & back","section":"A2","row":5},
+  {"move":"circle","beats":4,"params":{"direction":"left","places":2},"text":"circle left 2 places","section":"B1","row":6},
+  {"move":"roll-away","beats":4,"params":{"who":"larks","whom":"neighbor"},"text":"larks roll away neighbors with a half sashay","section":"B1","row":7},
+  {"move":"circle","beats":4,"params":{"direction":"left","places":2},"text":"circle left 2 places","section":"B1","row":8},
+  {"move":"hold","beats":4,"params":{"reason":"unparsed"},"text":"larks roll away partners","section":"B1","row":9},
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"partner","hand":"both"},"text":"partners balance & swing · balance","section":"B2","row":10},
+  {"move":"swing","beats":12,"params":{"who":"partner"},"text":"partners balance & swing · swing","section":"B2","row":10}
+ ]
+}

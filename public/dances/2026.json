@@ -1,0 +1,12 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "2026", "title": "Broken Sixpence", "author": "Don Armstrong", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/2026", "formation": "improper", "sha256": "4279f898e1310321a8277fccd8644bdb5804fe467561f7c447ed7e092988a7aa" }, "status": "partial", "problems": [ "Row 4 \"ones swing end facing down to split the twos\" isn't drawn yet.", "Row 8 \"star left 4 places to a new neighbor couple\" isn't drawn yet." ], "unparsed": [ { "row": 4, "text": "ones swing end facing down to split the twos", "why": "No figure pattern matches \"ones swing end facing down to split the twos\"." }, { "row": 8, "text": "star left 4 places to a new neighbor couple", "why": "No figure pattern matches \"star left 4 places to a new neighbor couple ⁋\"." } ], "choices": [],
+ "figures": [
+  {"move":"do-si-do","beats":8,"params":{"who":"neighbor","amount":1,"shoulder":"right"},"text":"neighbors do si do once","section":"A1","row":1},
+  {"move":"do-si-do","beats":8,"params":{"who":"larks","amount":1,"shoulder":"right"},"text":"larks do si do once","section":"A1","row":2},
+  {"move":"do-si-do","beats":8,"params":{"who":"robins","amount":1,"shoulder":"right"},"text":"robins do si do once","section":"A2","row":3},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"ones swing end facing down to split the twos","section":"A2","row":4},
+  {"move":"hall","beats":8,"params":{"direction":"down","turn":"alone"},"text":"down the hall and turn alone","section":"B1","row":5},
+  {"move":"hall","beats":8,"params":{"direction":"up","end":"ring"},"text":"up the hall and bend into a ring","section":"B1","row":6},
+  {"move":"circle","beats":8,"params":{"direction":"left","places":4},"text":"circle left 4 places","section":"B2","row":7},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"star left 4 places to a new neighbor couple","section":"B2","row":8,"progression":true}
+ ]
+}

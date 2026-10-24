@@ -1,0 +1,13 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "1013", "title": "Happy Birthday", "author": "Dean Snipes", "formation": "becket", "progression": "minor-set", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/1013", "formation": "Becket cw", "retrievedAt": "2026-10-20T05:58:19.562Z", "sha256": "32fa19b2d93c081fbc41b3ea320a4206d69ffc3a6ef8e1a14d671836ef202fb6" }, "status": "partial", "problems": [ "Row 7 \"MEANWHILE larks orbit CCW ½ around the set\" isn't drawn yet.", "Row 10 \"MEANWHILE robins orbit CCW ½ around the set\" isn't drawn yet." ], "unparsed": [ { "row": 7, "text": "MEANWHILE larks orbit CCW ½ around the set", "why": "No figure pattern matches \"MEANWHILE gentlespoons orbit CCW ½ around the set\"." }, { "row": 10, "text": "MEANWHILE robins orbit CCW ½ around the set", "why": "No figure pattern matches \"MEANWHILE ladles orbit CCW ½ around the set\"." } ], "choices": [ "Pass through goes by right shoulders.", "A pass through from a ring goes along the set, to the dancer on your own side." ],
+ "figures": [
+  {"move":"circle","beats":6,"params":{"direction":"left","places":3},"text":"circle left 3 places","section":"A1","row":1},
+  {"move":"pass-through","beats":2,"params":{"shoulder":"right"},"text":"pass through","progression":true,"section":"A1","row":2},
+  {"move":"swing","beats":8,"params":{"who":"neighbor"},"text":"next neighbors swing","section":"A1","row":3},
+  {"move":"long-lines","beats":8,"params":{"back":true},"text":"long lines forward & back","section":"A2","row":4},
+  {"move":"chain","beats":8,"params":{"who":"robins"},"text":"robins chain","section":"A2","row":5},
+  {"move":"allemande","beats":8,"params":{"who":"robins","hand":"right","amount":1.5},"text":"robins allemande right 1½","section":"B1","row":6},
+  {"move":"allemande","beats":8,"params":{"who":"partner","hand":"left","amount":1.5},"text":"partners allemande left 1½","section":"B1","row":8},
+  {"move":"allemande","beats":8,"params":{"who":"larks","hand":"right","amount":1.5},"text":"larks allemande right 1½","section":"B2","row":9},
+  {"move":"swing","beats":8,"params":{"who":"partner"},"text":"partners swing","section":"B2","row":11}
+ ]
+}

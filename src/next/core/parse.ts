@@ -209,8 +209,14 @@ const PATTERNS: readonly (readonly [RegExp, Build])[] = [
     ],
   ],
   [
-    /^((?:next |new )?\w+) gyre (once|[^ ]+)(?: in the center)?$/,
-    (m, b) => [call('gyre', b, { who: who(m[1]), amount: amount(m[2], 1) })],
+    /^((?:next |new )?\w+) gyre (?:(right|left) shoulders? )?(once|[^ ]+)(?: in the center)?$/,
+    (m, b) => [
+      call('gyre', b, {
+        who: who(m[1]),
+        amount: amount(m[3], 1),
+        ...(m[2] === 'left' ? { shoulder: 'left' } : {}),
+      }),
+    ],
   ],
   [
     // A zero-beat row: the box circulate that follows forms the waves itself
@@ -263,6 +269,22 @@ const PATTERNS: readonly (readonly [RegExp, Build])[] = [
     /^up the hall and bend into a ring$/,
     (_m, b) => [call('hall', b, { direction: 'up', end: 'ring' })],
   ],
+  [/^turn alone$/, (_m, b) => [call('turn-alone', b, {})]],
+  [
+    /^((?:next |new )?\w+) balance (?:&|and) pull by (right|left)$/,
+    (m, b) => [
+      call('balance', 4, { formation: 'pair', who: who(m[1]), hand: m[2] }),
+      call('pass-by', b - 4, { who: who(m[1]), shoulder: m[2], hands: true }),
+    ],
+  ],
+  [
+    // "Circle left 3 places and pass through": the last 2 beats pass through.
+    /^circle (left|right) (\w+) places?,? (?:and )?pass through(?: (across|along) the set)?$/,
+    (m, b) => [
+      call('circle', b - 2, { direction: m[1], places: NUMBERS[m[2]] ?? Number(m[2]) }),
+      call('pass-through', 2, { shoulder: 'right', ...(m[3] ? { axis: m[3] } : {}) }),
+    ],
+  ],
   [
     /^circle (left|right)(?: (\w+) places?| ([^ ]+))?$/,
     (m, b) => {
@@ -296,14 +318,31 @@ export function normalizeRow(text: string): { text: string; progression: boolean
     .replace(/\s+/g, ' ')
     .trim()
     .toLowerCase();
-  return { text: plain, progression };
+  return { text: tidy(plain), progression };
 }
+
+/**
+ * Wording that names the same call, folded to one spelling (applied after
+ * lowercasing). Which neighbors ("next", "2nd") is carried by the
+ * progression mark, so the ordinal goes; "around" after an amount and
+ * "thru" are spelling.
+ */
+const TIDY: readonly (readonly [RegExp, string])[] = [
+  [/\bthru\b/g, 'through'],
+  [/\b(?:1st|2nd|3rd|4th|first|second|third|fourth) (neighbors?)\b/g, '$1'],
+  [/(once|twice|¼|½|¾|1¼|1½|1¾|\d\/\d)(?: times)? around\b/g, '$1'],
+  [/\s+(?:with )?(?:your |the |this is a |this is your )?(?:new|next) neighbors?$/, ''],
+  [/(\bswing),? (?:and )?(?:end )?fac(?:e|ing) (down|up)(?: the hall)?$/, '$1, end facing $2'],
+  [/\bright-hand chain\b/, 'chain'],
+];
+const tidy = (text: string) => TIDY.reduce((t, [re, to]) => t.replace(re, to), text).trim();
 
 /** How a split row names its parts in labels. */
 const PART_NAMES: Readonly<Record<string, string>> = {
   rory: 'slide',
   'pass-by': 'pull by',
   'box-circulate': 'box circulate',
+  'pass-through': 'pass through',
 };
 
 export function parseRow(row: SourceRow): FigureCall[] {
@@ -330,7 +369,10 @@ const ENTITIES: Readonly<Record<string, string>> = {
   '&gt;': '>',
   '&nbsp;': ' ',
 };
-const decode = (s: string) => s.replace(/&(?:amp|#39|quot|lt|gt|nbsp);/g, (e) => ENTITIES[e]);
+export const decodeEntities = (s: string) =>
+  s
+    .replace(/&(?:amp|#39|quot|lt|gt|nbsp);/g, (e) => ENTITIES[e])
+    .replace(/&#(\d+);/g, (_e, n) => String.fromCodePoint(Number(n)));
 
 /** Rows of a ContraDB dance page: section label, beats and figure text. */
 export function contraDbRows(html: string): SourceRow[] {
@@ -338,7 +380,7 @@ export function contraDbRows(html: string): SourceRow[] {
   let section: string | undefined;
   for (const tr of html.split(/<tr\b/).slice(1)) {
     const cells = [...tr.matchAll(/<td[^>]*>([\s\S]*?)<\/td>/g)].map((m) =>
-      decode(m[1].replace(/<[^>]+>/g, ''))
+      decodeEntities(m[1].replace(/<[^>]+>/g, ''))
         .replace(/\s+/g, ' ')
         .trim(),
     );

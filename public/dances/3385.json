@@ -1,0 +1,15 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "3385", "title": "Opus 4.6.15", "author": "Every Choreographer on Callers Box", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/3385", "formation": "improper", "retrievedAt": "2026-10-20T06:07:41.188Z", "sha256": "e33914c444d1bf01d861f24c12ce1b6f4e995c3c52ba0116f4d740a747587246" }, "status": "partial", "problems": [ "Row 2 \"balance long waves\" isn't drawn yet.", "Row 4 \"form an ocean wave & balance - larks by left hands and neighbors by right hands\" isn't drawn yet." ], "unparsed": [ { "row": 2, "text": "balance long waves", "why": "No figure pattern matches \"balance long waves\"." }, { "row": 4, "text": "form an ocean wave & balance - larks by left hands and neighbors by right hands", "why": "No figure pattern matches \"form an ocean wave & balance - gentlespoons by left hands and neighbors by right hands\"." } ], "choices": [ "A balance with a partner or neighbor holds both hands.", "A star with no grip named is a basket star (wrist grip)." ],
+ "figures": [
+  {"move":"hold","beats":4,"params":{"reason":"unparsed"},"text":"balance long waves","section":"A1","row":2},
+  {"move":"allemande","beats":4,"params":{"who":"neighbor","hand":"right","amount":0.75},"text":"neighbors allemande right ¾","section":"A1","row":3},
+  {"move":"hold","beats":4,"params":{"reason":"unparsed"},"text":"form an ocean wave & balance - larks by left hands and neighbors by right hands","section":"A1","row":4},
+  {"move":"allemande","beats":2,"params":{"who":"neighbor","hand":"right","amount":0.5},"text":"neighbors allemande right ½","section":"A1","row":5},
+  {"move":"allemande","beats":2,"params":{"who":"robins","hand":"left","amount":0.5},"text":"robins allemande left ½","section":"A1","row":6},
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"partner","hand":"both"},"text":"partners balance & swing · balance","section":"A2","row":7},
+  {"move":"swing","beats":12,"params":{"who":"partner"},"text":"partners balance & swing · swing","section":"A2","row":7},
+  {"move":"allemande","beats":8,"params":{"who":"larks","hand":"left","amount":1.5},"text":"larks allemande left 1½","section":"B1","row":8},
+  {"move":"swing","beats":8,"params":{"who":"neighbor"},"text":"neighbors swing","section":"B1","row":9},
+  {"move":"hey","beats":8,"params":{"start":"robins","amount":0.5,"center":"right"},"text":"robins start a half hey - rights in center, lefts on ends","progression":true,"section":"B2","row":10},
+  {"move":"star","beats":8,"params":{"hand":"right","places":4},"text":"star right 4 places with next neighbors","section":"B2","row":11}
+ ]
+}

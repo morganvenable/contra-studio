@@ -1,0 +1,12 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "570", "title": "The Erik Effect", "author": "Ben Werner & Danielle Boudreau", "formation": "becket", "progression": "minor-set", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/570", "formation": "Becket", "retrievedAt": "2026-10-20T06:16:44.782Z", "sha256": "74aad7782a3c905e8a2b17bfb5042d501a5faabe40e9459750039192b910ac93" }, "status": "partial", "problems": [ "Row 1 \"slice left (Yearn to new Neighbor)\" isn't drawn yet.", "Row 2 \"robins take neighbors\" isn't drawn yet.", "Row 3 \"neighbors swing\" can't start from where the dancers are: A swing that ends facing across must start nearer one side.", "Row 8 \"partners meltdown swing\" can't start from where the dancers are: A swing that ends facing across must start nearer one side." ], "unparsed": [ { "row": 1, "text": "slice left (Yearn to new Neighbor)", "why": "No figure pattern matches \"slice left (Yearn to new Neighbor) ⁋\"." }, { "row": 2, "text": "robins take neighbors", "why": "No figure pattern matches \"ladles take neighbors\"." } ], "choices": [ "A meltdown swing starts with 4 beats of right-shoulder round, then swings.", "A gyre goes by the right shoulder, facing each other, with no hands." ],
+ "figures": [
+  {"move":"hold","beats":4,"params":{"reason":"unparsed"},"text":"slice left (Yearn to new Neighbor)","section":"A1","row":1,"progression":true},
+  {"move":"hold","beats":2,"params":{"reason":"unparsed"},"text":"robins take neighbors","section":"A1","row":2},
+  {"move":"swing","beats":10,"params":{"who":"neighbor"},"text":"neighbors swing","section":"A1","row":3},
+  {"move":"right-left-through","beats":8,"params":{},"text":"right left through","section":"A2","row":4},
+  {"move":"chain","beats":8,"params":{"who":"robins"},"text":"robins chain","section":"A2","row":5},
+  {"move":"hey","beats":16,"params":{"start":"robins","amount":1,"center":"right"},"text":"robins start a full hey - rights in center, lefts on ends","section":"B1","row":6},
+  {"move":"gyre","beats":4,"params":{"who":"partner","amount":1},"text":"partners gyre once","section":"B2","row":7},
+  {"move":"swing","beats":12,"params":{"who":"partner","meltdown":true},"text":"partners meltdown swing","section":"B2","row":8}
+ ]
+}

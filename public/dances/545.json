@@ -1,0 +1,15 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "545", "title": "Return to Sender", "author": "Dane Wallinga", "formation": "becket", "progression": "minor-set", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/545", "formation": "Becket", "retrievedAt": "2026-10-20T06:10:12.549Z", "sha256": "71aedaedfc1162478f7087362d23b4d0a3fe832dfcb25bce1bf3ceb21b52d5a0" }, "status": "partial", "problems": [ "Row 7 \"partners pull by right into\" isn't drawn yet." ], "unparsed": [ { "row": 7, "text": "partners pull by right into", "why": "No figure pattern matches \"partners pull by right into\"." } ], "choices": [ "Give & take: half the beats to cross, half to back home holding both hands." ],
+ "figures": [
+  {"move":"slide","beats":2,"params":{"direction":"left"},"text":"slide left along set","progression":true,"section":"A1","row":1},
+  {"move":"circle","beats":6,"params":{"direction":"left","places":3},"text":"circle left 3 places","section":"A1","row":2},
+  {"move":"swing","beats":8,"params":{"who":"neighbor"},"text":"next neighbors swing","section":"A1","row":3},
+  {"move":"hey","beats":8,"params":{"start":"larks","amount":0.5,"center":"left"},"text":"larks start a half hey - lefts in center, rights on ends","section":"A2","row":4},
+  {"move":"allemande","beats":8,"params":{"who":"larks","hand":"left","amount":1.5},"text":"larks allemande left 1½","section":"A2","row":5},
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"partner","hand":"right"},"text":"partners right hand balance & box the gnat · balance","section":"B1","row":6},
+  {"move":"twirl","beats":4,"params":{"style":"box-the-gnat","who":"partner"},"text":"partners right hand balance & box the gnat · twirl","section":"B1","row":6},
+  {"move":"hold","beats":2,"params":{"reason":"unparsed"},"text":"partners pull by right into","section":"B1","row":7},
+  {"move":"chain","beats":6,"params":{"who":"larks"},"text":"larks chain","section":"B1","row":8},
+  {"move":"give-and-take","beats":8,"params":{"who":"robins","whom":"partner"},"text":"robins give & take partners","section":"B2","row":9},
+  {"move":"swing","beats":8,"params":{"who":"partner"},"text":"partners swing","section":"B2","row":10}
+ ]
+}

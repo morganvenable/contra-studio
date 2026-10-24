@@ -1,0 +1,16 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "525", "title": "Vallimont's Steamboat", "author": "Chris Weiler", "formation": "becket", "progression": "minor-set", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/525", "formation": "Becket", "retrievedAt": "2026-10-20T06:22:19.182Z", "sha256": "ae3154f00f500feaef278b83a0288870e6559f032ecb8567bf18d1d02780fed7" }, "status": "partial", "problems": [ "Row 7 \"larks roll away shadows with a half sashay\" isn't drawn yet.", "Row 9 \"petronella\" isn't drawn yet.", "Row 11 \"petronella and halfway more to\" isn't drawn yet.", "Row 1 \"slide left along set\" can't start from where the dancers are: Couple 1 must stand side by side in a line facing across." ], "unparsed": [ { "row": 7, "text": "larks roll away shadows with a half sashay", "why": "Unknown dancers \"shadows\"." }, { "row": 9, "text": "petronella", "why": "No figure pattern matches \"petronella\"." }, { "row": 11, "text": "petronella and halfway more to", "why": "No figure pattern matches \"petronella and halfway more to\"." } ], "choices": [],
+ "figures": [
+  {"move":"slide","beats":2,"params":{"direction":"left"},"text":"slide left along set","progression":true,"section":"A1","row":1},
+  {"move":"circle","beats":6,"params":{"direction":"left","places":3},"text":"circle left 3 places","section":"A1","row":2},
+  {"move":"swing","beats":8,"params":{"who":"neighbor"},"text":"neighbors swing","section":"A1","row":3},
+  {"move":"right-left-through","beats":8,"params":{},"text":"right left through","section":"A2","row":4},
+  {"move":"chain","beats":8,"params":{"who":"robins"},"text":"robins chain","section":"A2","row":5},
+  {"move":"long-lines","beats":4,"params":{"back":false},"text":"long lines forward","section":"B1","row":6},
+  {"move":"hold","beats":4,"params":{"reason":"unparsed"},"text":"larks roll away shadows with a half sashay","section":"B1","row":7,"progression":true},
+  {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance the ring","section":"B1","row":8},
+  {"move":"hold","beats":4,"params":{"reason":"unparsed"},"text":"petronella","section":"B1","row":9},
+  {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance the ring","section":"B2","row":10},
+  {"move":"hold","beats":4,"params":{"reason":"unparsed"},"text":"petronella and halfway more to","section":"B2","row":11},
+  {"move":"swing","beats":8,"params":{"who":"partner"},"text":"partners swing","section":"B2","row":12}
+ ]
+}

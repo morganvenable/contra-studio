@@ -1,0 +1,12 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "2478", "title": "Becket Eyes", "author": "Cary Ravitz", "formation": "becket", "progression": "minor-set", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/2478", "formation": "Becket", "retrievedAt": "2026-10-20T05:48:04.337Z", "sha256": "422c422c4466b82d57621187b0eda5926dd2ed021b1ae6ad4ef2ae6ad74b2a57" }, "status": "partial", "problems": [ "The progression after row 3 \"star left 4 places\" doesn't work out: Couple 1 must face the same way to find new neighbors." ], "unparsed": [], "choices": [ "Pass through goes by right shoulders.", "A star with no grip named is a basket star (wrist grip).", "A meltdown swing starts with 4 beats of right-shoulder round, then swings." ],
+ "figures": [
+  {"move":"long-lines","beats":8,"params":{"back":true},"text":"long lines forward & back","section":"A1","row":1},
+  {"move":"chain","beats":8,"params":{"who":"robins"},"text":"robins chain","section":"A1","row":2},
+  {"move":"star","beats":8,"params":{"hand":"left","places":4},"text":"star left 4 places","progression":true,"section":"A2","row":3},
+  {"move":"swing","beats":8,"params":{"who":"neighbor"},"text":"next neighbors swing","section":"A2","row":4},
+  {"move":"pass-through","beats":4,"params":{"shoulder":"right","axis":"across"},"text":"pass through across the set","section":"B1","row":5},
+  {"move":"twirl","beats":4,"params":{"style":"california","who":"neighbor"},"text":"neighbors California twirl","section":"B1","row":6},
+  {"move":"allemande","beats":8,"params":{"who":"larks","hand":"left","amount":1.5},"text":"larks allemande left 1½","section":"B1","row":7},
+  {"move":"swing","beats":16,"params":{"who":"partner","meltdown":true},"text":"partners meltdown swing","section":"B2","row":8}
+ ]
+}

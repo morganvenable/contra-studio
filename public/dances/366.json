@@ -1,0 +1,14 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "366", "title": "Rollin' & Tumblin'", "author": "Cis Hinkle", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/366", "formation": "improper", "retrievedAt": "2026-10-20T06:11:17.086Z", "sha256": "480ff9e9aaefce39b90729ff189cd2cfef5381995ccf034c27943082d007274e" }, "status": "partial", "problems": [ "Row 3 \"larks roll away neighbors\" isn't drawn yet.", "Row 5 \"robins roll away neighbors\" isn't drawn yet.", "Row 4 \"long lines forward\" can't start from where the dancers are: Dancer 0 is not standing in a side line.", "Row 7 \"partners swing\" can't start from where the dancers are: A swing that ends facing across must start nearer one side." ], "unparsed": [ { "row": 3, "text": "larks roll away neighbors", "why": "No figure pattern matches \"gentlespoons roll away neighbors\"." }, { "row": 5, "text": "robins roll away neighbors", "why": "No figure pattern matches \"ladles roll away neighbors\"." } ], "choices": [ "A balance with a partner or neighbor holds both hands.", "A star with no grip named is a basket star (wrist grip)." ],
+ "figures": [
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"neighbor","hand":"both"},"text":"neighbors balance & swing · balance","section":"A1","row":1},
+  {"move":"swing","beats":12,"params":{"who":"neighbor"},"text":"neighbors balance & swing · swing","section":"A1","row":1},
+  {"move":"long-lines","beats":4,"params":{"back":false},"text":"long lines forward","section":"A2","row":2},
+  {"move":"hold","beats":4,"params":{"reason":"unparsed"},"text":"larks roll away neighbors","section":"A2","row":3},
+  {"move":"long-lines","beats":4,"params":{"back":false},"text":"long lines forward","section":"A2","row":4},
+  {"move":"hold","beats":4,"params":{"reason":"unparsed"},"text":"robins roll away neighbors","section":"A2","row":5},
+  {"move":"allemande","beats":8,"params":{"who":"robins","hand":"right","amount":1.5},"text":"robins allemande right 1½","section":"B1","row":6},
+  {"move":"swing","beats":8,"params":{"who":"partner"},"text":"partners swing","section":"B1","row":7},
+  {"move":"chain","beats":8,"params":{"who":"robins","to":"neighbor"},"text":"robins chain to neighbor","section":"B2","row":8},
+  {"move":"star","beats":8,"params":{"hand":"left","places":4},"text":"star left 4 places","progression":true,"section":"B2","row":9}
+ ]
+}

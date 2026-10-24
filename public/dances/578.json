@@ -1,0 +1,11 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "578", "title": "Leave the Wine", "author": "Rick Mohr", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/578", "formation": "improper", "retrievedAt": "2026-10-20T06:02:29.691Z", "sha256": "061327dbe49d4756752deb4c3c06455f9903281be2802cfbc887b9189824f140" }, "status": "partial", "problems": [ "Row 5 \"Weave the line Zig past 1st neighbors, zag past 2nd neighbors, zig to third neighbor\" isn't drawn yet." ], "unparsed": [ { "row": 5, "text": "Weave the line Zig past 1st neighbors, zag past 2nd neighbors, zig to third neighbor", "why": "No figure pattern matches \"Weave the line Zig past 1st neighbors, zag past 2nd neighbors, zig to third neighbor ⁋\"." } ], "choices": [ "A meltdown swing starts with 4 beats of right-shoulder round, then swings." ],
+ "figures": [
+  {"move":"allemande","beats":8,"params":{"who":"larks","hand":"left","amount":1.5},"text":"larks allemande left 1½","section":"A1","row":1},
+  {"move":"hey","beats":8,"params":{"start":"partner","amount":0.5,"center":"left"},"text":"partners start a half hey - rights on ends, lefts in center","section":"A1","row":2},
+  {"move":"swing","beats":16,"params":{"who":"partner","meltdown":true},"text":"partners meltdown swing","section":"A2","row":3},
+  {"move":"circle","beats":8,"params":{"direction":"left","places":3},"text":"circle left 3 places","section":"B1","row":4},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"Weave the line Zig past 1st neighbors, zag past 2nd neighbors, zig to third neighbor","section":"B1","row":5,"progression":true},
+  {"move":"do-si-do","beats":6,"params":{"who":"neighbor","amount":1,"shoulder":"right"},"text":"3rd neighbors do si do once","section":"B2","row":6},
+  {"move":"swing","beats":10,"params":{"who":"neighbor"},"text":"2nd neighbors swing","section":"B2","row":7}
+ ]
+}

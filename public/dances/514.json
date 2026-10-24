@@ -1,0 +1,10 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "514", "title": "Contra Corners Special", "author": "Al Olson", "formation": null, "progression": null, "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/514", "formation": "Proper", "retrievedAt": "2026-10-20T05:51:39.235Z", "sha256": "0087ac78f84b0f04d29533f91e16bb18d2b832366932c62f646b683cafd7a3e3" }, "status": "unsupported", "problems": [ "The \"Proper\" formation isn't built yet." ], "unparsed": [ { "row": 1, "text": "twos contra corners", "why": "No figure pattern matches \"twos contra corners\"." }, { "row": 3, "text": "larks allemande left 1 1/2 WHILE robins allemande right 1 1/2", "why": "No figure pattern matches \"gentlespoons allemande left 1 1/2 WHILE ladles allemande right 1 1/2\"." }, { "row": 4, "text": "ones contra corners", "why": "No figure pattern matches \"ones contra corners\"." } ], "choices": [ "The 1s end their swing side by side in the middle of the set facing down, the way they progress." ],
+ "figures": [
+  {"move":"hold","beats":16,"params":{"reason":"unparsed"},"text":"twos contra corners","section":"A1","row":1},
+  {"move":"swing","beats":8,"params":{"who":"2s","end":"up"},"text":"twos swing end facing up","section":"A2","row":2},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"larks allemande left 1 1/2 WHILE robins allemande right 1 1/2","section":"A2","row":3},
+  {"move":"hold","beats":16,"params":{"reason":"unparsed"},"text":"ones contra corners","section":"B1","row":4},
+  {"move":"swing","beats":8,"params":{"who":"1s","end":"down"},"text":"ones swing end facing up","section":"B2","row":5},
+  {"move":"circle","beats":8,"params":{"direction":"left","places":4},"text":"circle left 4 places","section":"B2","row":6}
+ ]
+}

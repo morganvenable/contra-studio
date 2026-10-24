@@ -1,0 +1,13 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "2117", "title": "Lark and Found", "author": "Moose Flores", "formation": "becket-ccw", "progression": "minor-set", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/2117", "formation": "Becket ccw", "retrievedAt": "2026-10-20T06:02:16.528Z", "sha256": "4c085a42ac2423acdd0c44da871d2b1f5ce0d640a7789705d8eb49d4012bbb98" }, "status": "partial", "problems": [ "Row 2 \"right diagonal larks chain\" isn't drawn yet.", "Row 4 \"shadows swing\" isn't drawn yet.", "Row 6 \"balance & petronella, turn around to face partner\" isn't drawn yet." ], "unparsed": [ { "row": 2, "text": "right diagonal larks chain", "why": "No figure pattern matches \"right diagonal gentlespoons chain\"." }, { "row": 4, "text": "shadows swing", "why": "Unknown dancers \"shadows\"." }, { "row": 6, "text": "balance & petronella, turn around to face partner", "why": "No figure pattern matches \"balance & petronella, turn around to face partner\"." } ], "choices": [ "A balance with a partner or neighbor holds both hands.", "A star with no grip named is a basket star (wrist grip)." ],
+ "figures": [
+  {"move":"long-lines","beats":8,"params":{"back":true},"text":"long lines forward & back","section":"A1","row":1},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"right diagonal larks chain","section":"A1","row":2},
+  {"move":"star","beats":8,"params":{"hand":"right","places":3},"text":"star right 3 places","section":"A2","row":3},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"shadows swing","section":"A2","row":4},
+  {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance & petronella · balance","section":"B1","row":5},
+  {"move":"petronella","beats":4,"params":{},"text":"balance & petronella · petronella","section":"B1","row":5},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"balance & petronella, turn around to face partner","section":"B1","row":6},
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"partner","hand":"both"},"text":"partners balance & swing · balance","section":"B2","row":7},
+  {"move":"swing","beats":12,"params":{"who":"partner"},"text":"partners balance & swing · swing","progression":true,"section":"B2","row":7}
+ ]
+}

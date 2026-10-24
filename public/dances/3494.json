@@ -1,0 +1,15 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "3494", "title": "Sutton Hey (variation)", "author": "Ken Bonner", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/3494", "formation": "improper", "retrievedAt": "2026-10-20T06:15:21.079Z", "sha256": "5df098e86ed423094102beaabac04e34b118a5ee84f0041ee69fe4b4e0fb2a8f" }, "status": "partial", "problems": [ "Row 5 \"partners start a full hey - rights on ends, lefts in center [begin partner pull by right]\" isn't drawn yet." ], "unparsed": [ { "row": 5, "text": "partners start a full hey - rights on ends, lefts in center [begin partner pull by right]", "why": "No figure pattern matches \"partners start a full hey - rights on ends, lefts in center [begin partner pull by right]\"." } ], "choices": [ "A balance with a partner or neighbor holds both hands." ],
+ "figures": [
+  {"move":"do-si-do","beats":6,"params":{"who":"neighbor","amount":1,"shoulder":"right"},"text":"neighbors do si do once","section":"A1","row":1},
+  {"move":"allemande","beats":3,"params":{"who":"neighbor","hand":"right","amount":0.75},"text":"neighbors allemande right ¾","section":"A1","row":2},
+  {"move":"allemande","beats":3,"params":{"who":"larks","hand":"left","amount":0.5},"text":"larks allemande left ½","section":"A1","row":3},
+  {"move":"twirl","beats":4,"params":{"style":"box-the-gnat","who":"partner"},"text":"partners box the gnat","section":"A1","row":4},
+  {"move":"hold","beats":16,"params":{"reason":"unparsed"},"text":"partners start a full hey - rights on ends, lefts in center [begin partner pull by right]","section":"A2","row":5},
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"partner","hand":"both"},"text":"partners balance & swing · balance","section":"B1","row":6},
+  {"move":"swing","beats":12,"params":{"who":"partner"},"text":"partners balance & swing · swing","section":"B1","row":6},
+  {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance & petronella · balance","section":"B2","row":7},
+  {"move":"petronella","beats":4,"params":{},"text":"balance & petronella · petronella","section":"B2","row":7},
+  {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance the ring","section":"B2","row":8},
+  {"move":"twirl","beats":4,"params":{"style":"california","who":"partner"},"text":"partners California twirl","progression":true,"section":"B2","row":9}
+ ]
+}

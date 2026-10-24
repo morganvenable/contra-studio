@@ -1,0 +1,11 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "2925", "title": "Jimi's Banana Bread", "author": "Mattie Rynkiewicz", "formation": null, "progression": null, "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/2925", "formation": "triad (triple minor dutribecket)", "retrievedAt": "2026-10-20T06:00:59.875Z", "sha256": "b78fccbc995a58aac08c4c11def4e264c67229802e71664234f45f5c41cb3621" }, "status": "unsupported", "problems": [ "The \"triad (triple minor dutribecket)\" formation isn't built yet." ], "unparsed": [ { "row": 1, "text": "into the middle and back", "why": "No figure pattern matches \"into the middle and back\"." }, { "row": 3, "text": "first corners meltdown swing", "why": "No figure pattern matches \"first corners meltdown swing\"." }, { "row": 4, "text": "first corner balance right, pull by", "why": "No figure pattern matches \"first corner balance right, pull by\"." }, { "row": 5, "text": "second corners swing", "why": "No figure pattern matches \"second corners swing\"." }, { "row": 6, "text": "second corners do si do 1½", "why": "No figure pattern matches \"second corners do si do 1½\"." } ], "choices": [],
+ "figures": [
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"into the middle and back","section":"A1","row":1},
+  {"move":"do-si-do","beats":8,"params":{"who":"partner","amount":1.5,"shoulder":"right"},"text":"partners do si do 1½","section":"A1","row":2},
+  {"move":"hold","beats":16,"params":{"reason":"unparsed"},"text":"first corners meltdown swing","section":"A2","row":3},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"first corner balance right, pull by","section":"B1","row":4},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"second corners swing","section":"B1","row":5},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"second corners do si do 1½","section":"B2","row":6},
+  {"move":"swing","beats":8,"params":{"who":"partner"},"text":"partners swing","progression":true,"section":"B2","row":7}
+ ]
+}

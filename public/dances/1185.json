@@ -1,0 +1,14 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "1185", "title": "Beauty and the Bees", "author": "John Coffman", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/1185", "formation": "improper", "retrievedAt": "2026-10-20T05:48:02.325Z", "sha256": "65eb4e14f1eb1fcb60f1bd23f0003b33162b3663186bf161b7907774ddc6cf4c" }, "status": "partial", "problems": [ "Row 5 \"turn alone to Original neighbors\" isn't drawn yet.", "Row 6 \"circle left 3 places with Original neighbors\" isn't drawn yet.", "Row 9 \"robins chain - look away toward next neighbors\" isn't drawn yet.", "Row 7 \"partners swing\" can't start from where the dancers are: A swing that ends facing across must start nearer one side." ], "unparsed": [ { "row": 5, "text": "turn alone to Original neighbors", "why": "No figure pattern matches \"turn alone to Original neighbors\"." }, { "row": 6, "text": "circle left 3 places with Original neighbors", "why": "No figure pattern matches \"circle left 3 places with Original neighbors\"." }, { "row": 9, "text": "robins chain - look away toward next neighbors", "why": "No figure pattern matches \"ladles chain - look away toward next neighbors ⁋\"." } ], "choices": [ "A balance with a partner or neighbor holds both hands." ],
+ "figures": [
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"neighbor","hand":"both"},"text":"neighbors balance & swing · balance","section":"A1","row":1},
+  {"move":"swing","beats":12,"params":{"who":"neighbor"},"text":"neighbors balance & swing · swing","section":"A1","row":1},
+  {"move":"circle","beats":7,"params":{"direction":"left","places":4},"text":"circle left 4 places","section":"A2","row":2},
+  {"move":"turn-alone","beats":2,"params":{},"text":"turn alone to next neighbors","section":"A2","row":3},
+  {"move":"circle","beats":7,"params":{"direction":"left","places":4},"text":"circle left 4 places with next neighbors","section":"A2","row":4},
+  {"move":"hold","beats":2,"params":{"reason":"unparsed"},"text":"turn alone to Original neighbors","section":"B1","row":5},
+  {"move":"hold","beats":6,"params":{"reason":"unparsed"},"text":"circle left 3 places with Original neighbors","section":"B1","row":6},
+  {"move":"swing","beats":8,"params":{"who":"partner"},"text":"partners swing","section":"B1","row":7},
+  {"move":"long-lines","beats":8,"params":{"back":true},"text":"long lines forward & back","section":"B2","row":8},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"robins chain - look away toward next neighbors","section":"B2","row":9,"progression":true}
+ ]
+}

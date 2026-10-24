@@ -1,0 +1,12 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "2923", "title": "Gossamer Wings 1", "author": "Don Flaherty", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/2923", "formation": "improper", "retrievedAt": "2026-10-20T05:57:42.253Z", "sha256": "7b9867211580cfa218eabad4d14d8d104883816d0f61a30aa2e4c87d77fa5158" }, "status": "partial", "problems": [ "Row 2 \"robins do si do once Back to neighbor\" isn't drawn yet.", "Row 4 \"robins allemande right 1½ Go to partner\" isn't drawn yet.", "Row 7 \"neighbors allemande right 1½ Go to new neighbors\" isn't drawn yet.", "Row 5 \"partners swing\" can't start from where the dancers are: A swing that ends facing across must start nearer one side." ], "unparsed": [ { "row": 2, "text": "robins do si do once Back to neighbor", "why": "No figure pattern matches \"ladles do si do once Back to neighbor\"." }, { "row": 4, "text": "robins allemande right 1½ Go to partner", "why": "No figure pattern matches \"ladles allemande right 1½ Go to partner\"." }, { "row": 7, "text": "neighbors allemande right 1½ Go to new neighbors", "why": "No figure pattern matches \"neighbors allemande right 1½ Go to new neighbors\"." } ], "choices": [ "A balance with a partner or neighbor holds both hands." ],
+ "figures": [
+  {"move":"allemande","beats":8,"params":{"who":"neighbor","hand":"left","amount":1.5},"text":"neighbors allemande left 1½","section":"A1","row":1},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"robins do si do once Back to neighbor","section":"A1","row":2},
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"neighbor","hand":"both"},"text":"neighbors balance & swing · balance","section":"A2","row":3},
+  {"move":"swing","beats":12,"params":{"who":"neighbor"},"text":"neighbors balance & swing · swing","section":"A2","row":3},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"robins allemande right 1½ Go to partner","section":"B1","row":4},
+  {"move":"swing","beats":8,"params":{"who":"partner"},"text":"partners swing","section":"B1","row":5},
+  {"move":"circle","beats":8,"params":{"direction":"left","places":3},"text":"circle left 3 places","section":"B2","row":6},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"neighbors allemande right 1½ Go to new neighbors","section":"B2","row":7}
+ ]
+}

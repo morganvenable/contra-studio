@@ -1,0 +1,14 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "571", "title": "Rip and Snort", "author": "Ben Werner", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/571", "formation": "improper", "retrievedAt": "2026-10-20T06:10:36.750Z", "sha256": "aa213a0e5522542eef3b69866982e0e27440a87ccd8bc720187e94f3cf49af58" }, "status": "partial", "problems": [ "Row 1 \"balance the ring then Rip and Snort (1s Arch, 2s Dive Through, 2s drop hands with partner, go around 1s, 1s turn under joined hands and end in short lines facing down the hall)\" isn't drawn yet.", "Row 3 \"up the hall\" isn't drawn yet." ], "unparsed": [ { "row": 1, "text": "balance the ring then Rip and Snort (1s Arch, 2s Dive Through, 2s drop hands with partner, go around 1s, 1s turn under joined hands and end in short lines facing down the hall)", "why": "No figure pattern matches \"balance the ring then Rip and Snort (1s Arch, 2s Dive Through, 2s drop hands with partner, go around 1s, 1s turn under joined hands and end in short lines facing down the hall)\"." }, { "row": 3, "text": "up the hall", "why": "No figure pattern matches \"up the hall\"." } ], "choices": [ "A balance with a partner or neighbor holds both hands." ],
+ "figures": [
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"balance the ring then Rip and Snort (1s Arch, 2s Dive Through, 2s drop hands with partner, go around 1s, 1s turn under joined hands and end in short lines facing down the hall)","section":"A1","row":1},
+  {"move":"hall","beats":8,"params":{"direction":"down","turn":"couple"},"text":"down the hall and turn as a couple","section":"A1","row":2},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"up the hall","section":"A2","row":3},
+  {"move":"allemande","beats":8,"params":{"who":"larks","hand":"right","amount":1.5},"text":"larks allemande right 1½","section":"A2","row":4},
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"partner","hand":"both"},"text":"partners balance & swing · balance","section":"B1","row":5},
+  {"move":"swing","beats":12,"params":{"who":"partner"},"text":"partners balance & swing · swing","section":"B1","row":5},
+  {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance & petronella · balance","section":"B2","row":6},
+  {"move":"petronella","beats":4,"params":{},"text":"balance & petronella · petronella","section":"B2","row":6},
+  {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance the ring","section":"B2","row":7},
+  {"move":"twirl","beats":4,"params":{"style":"california","who":"partner"},"text":"partners California twirl","progression":true,"section":"B2","row":8}
+ ]
+}

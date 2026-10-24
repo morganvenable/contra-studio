@@ -1,0 +1,13 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "369", "title": "With Thanks to the Dean", "author": "Steve Zakon-Anderson", "formation": null, "progression": null, "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/369", "formation": "improper, double progression", "retrievedAt": "2026-10-20T06:23:41.899Z", "sha256": "801ae9b2e60484f7808826727e044ca5b26092cb24178f3fb8827109cef70347" }, "status": "unsupported", "problems": [ "The \"improper, double progression\" formation isn't built yet." ], "unparsed": [], "choices": [],
+ "figures": [
+  {"move":"allemande","beats":8,"params":{"who":"neighbor","hand":"left","amount":1.5},"text":"neighbors allemande left 1½","section":"A1","row":1},
+  {"move":"chain","beats":8,"params":{"who":"robins","to":"partner"},"text":"robins chain to partner","section":"A1","row":2},
+  {"move":"allemande","beats":8,"params":{"who":"robins","hand":"right","amount":1},"text":"robins allemande right once","section":"A2","row":3},
+  {"move":"swing","beats":8,"params":{"who":"partner"},"text":"partners swing","section":"A2","row":4},
+  {"move":"circle","beats":8,"params":{"direction":"left","places":4},"text":"circle left 4 places","section":"B1","row":5},
+  {"move":"slide","beats":2,"params":{"direction":"left"},"text":"slide left along set","progression":true,"section":"B1","row":6},
+  {"move":"circle","beats":6,"params":{"direction":"left","places":3},"text":"circle left 3 places","section":"B1","row":7},
+  {"move":"do-si-do","beats":8,"params":{"who":"neighbor","amount":1,"shoulder":"right"},"text":"neighbors do si do once","section":"B2","row":8},
+  {"move":"allemande","beats":8,"params":{"who":"neighbor","hand":"right","amount":1.5},"text":"neighbors allemande right 1½","progression":true,"section":"B2","row":9}
+ ]
+}

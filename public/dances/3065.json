@@ -1,0 +1,14 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "3065", "title": "Earth Balance", "author": "Olivia B-R", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/3065", "formation": "improper", "retrievedAt": "2026-10-20T05:54:30.557Z", "sha256": "919e49527e5b902b4202608c91a507d98383cf8129ec11f4240e2164509e40df" }, "status": "partial", "problems": [ "Row 1 \"robins allemande left ½ - to an ocean wave. robins in the center, by the left\" isn't drawn yet.", "Row 2 \"balance the wave - Right and left (partner first)\" isn't drawn yet.", "Row 8 \"neighbors balance & swing -- to new neighbors\" isn't drawn yet.", "Row 3 \"partners swing\" can't start from where the dancers are: A swing that ends facing across must start nearer one side." ], "unparsed": [ { "row": 1, "text": "robins allemande left ½ - to an ocean wave. robins in the center, by the left", "why": "No figure pattern matches \"ladles allemande left ½ - to an ocean wave. Ladles in the center, by the left\"." }, { "row": 2, "text": "balance the wave - Right and left (partner first)", "why": "No figure pattern matches \"balance the wave - Right and left (partner first)\"." }, { "row": 8, "text": "neighbors balance & swing -- to new neighbors", "why": "No figure pattern matches \"neighbors balance & swing -- to new neighbors ⁋\"." } ], "choices": [],
+ "figures": [
+  {"move":"hold","beats":4,"params":{"reason":"unparsed"},"text":"robins allemande left ½ - to an ocean wave. robins in the center, by the left","section":"A1","row":1},
+  {"move":"hold","beats":4,"params":{"reason":"unparsed"},"text":"balance the wave - Right and left (partner first)","section":"A1","row":2},
+  {"move":"swing","beats":8,"params":{"who":"partner"},"text":"partners swing","section":"A1","row":3},
+  {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance & petronella · balance","section":"A2","row":4},
+  {"move":"petronella","beats":4,"params":{},"text":"balance & petronella · petronella","section":"A2","row":4},
+  {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance & petronella · balance","section":"A2","row":5},
+  {"move":"petronella","beats":4,"params":{},"text":"balance & petronella · petronella","section":"A2","row":5},
+  {"move":"chain","beats":8,"params":{"who":"robins"},"text":"robins chain","section":"B1","row":6},
+  {"move":"hey","beats":8,"params":{"start":"robins","amount":0.5,"center":"right"},"text":"robins start a half hey - rights in center, lefts on ends","section":"B1","row":7},
+  {"move":"hold","beats":16,"params":{"reason":"unparsed"},"text":"neighbors balance & swing -- to new neighbors","section":"B2","row":8,"progression":true}
+ ]
+}

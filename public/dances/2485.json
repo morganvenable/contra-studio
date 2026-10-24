@@ -1,0 +1,13 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "2485", "title": "The Eyes Have Hills", "author": "Abigail Golden", "formation": "becket", "progression": "minor-set", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/2485", "formation": "Becket", "retrievedAt": "2026-10-20T06:16:46.796Z", "sha256": "a780c1b2d577d150dfa211afbed95b702d38718ddcb0c313628f3bd29971d1ef" }, "status": "partial", "problems": [ "Row 3 \"left diagonal robins chain to shadow\" isn't drawn yet.", "Row 6 \"partners swing\" can't start from where the dancers are: A swing that ends facing across must start nearer one side.", "The progression after row 6 \"partners swing\" doesn't work out: Couple 1 must face the same way to find new neighbors.", "Row 2 \"neighbors swing\" can't start from where the dancers are: A swing that ends facing across must start nearer one side." ], "unparsed": [ { "row": 3, "text": "left diagonal robins chain to shadow", "why": "No figure pattern matches \"left diagonal ladles chain to shadow\"." } ], "choices": [ "Pass through goes by right shoulders." ],
+ "figures": [
+  {"move":"circle","beats":8,"params":{"direction":"left","places":3},"text":"circle left 3 places","section":"A1","row":1},
+  {"move":"swing","beats":8,"params":{"who":"neighbor"},"text":"neighbors swing","section":"A1","row":2},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"left diagonal robins chain to shadow","section":"A2","row":3},
+  {"move":"mad-robin","beats":8,"params":{"front":"robins"},"text":"mad robins, robins in front","section":"A2","row":4},
+  {"move":"hey","beats":8,"params":{"start":"robins","amount":0.5,"center":"right"},"text":"robins start a half hey - rights in center, lefts on ends","section":"B1","row":5},
+  {"move":"swing","beats":8,"params":{"who":"partner"},"text":"partners swing","progression":true,"section":"B1","row":6},
+  {"move":"long-lines","beats":8,"params":{"back":true},"text":"long lines forward & back","section":"B2","row":7},
+  {"move":"pass-through","beats":4,"params":{"shoulder":"right","axis":"across"},"text":"pass through across the set","section":"B2","row":8},
+  {"move":"twirl","beats":4,"params":{"style":"california","who":"partner"},"text":"partners California twirl","section":"B2","row":9}
+ ]
+}

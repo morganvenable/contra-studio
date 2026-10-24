@@ -1,0 +1,14 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "327", "title": "Sarah Said Yes!", "author": "Grant Goodyear", "formation": "becket", "progression": "minor-set", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/327", "formation": "Becket", "retrievedAt": "2026-10-20T06:11:49.333Z", "sha256": "c0067d6a261f40f63c5ce76aa9bb10abedbd224b1f2afa0ef436b701dc9d75be" }, "status": "partial", "problems": [ "Row 2 \"left diagonal robins chain\" isn't drawn yet.", "Row 3 \"robins chain across the set\" isn't drawn yet.", "Row 4 \"right left through, end in a ring\" isn't drawn yet." ], "unparsed": [ { "row": 2, "text": "left diagonal robins chain", "why": "No figure pattern matches \"left diagonal ladles chain\"." }, { "row": 3, "text": "robins chain across the set", "why": "No figure pattern matches \"ladles chain across the set\"." }, { "row": 4, "text": "right left through, end in a ring", "why": "No figure pattern matches \"right left through, end in a ring\"." } ], "choices": [ "A balance with a partner or neighbor holds both hands." ],
+ "figures": [
+  {"move":"long-lines","beats":8,"params":{"back":true},"text":"long lines forward & back","section":"A1","row":1},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"left diagonal robins chain","section":"A1","row":2},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"robins chain across the set","section":"A2","row":3},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"right left through, end in a ring","section":"A2","row":4},
+  {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance & petronella · balance","section":"B1","row":5},
+  {"move":"petronella","beats":4,"params":{},"text":"balance & petronella · petronella","section":"B1","row":5},
+  {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance & petronella · balance","section":"B1","row":6},
+  {"move":"petronella","beats":4,"params":{},"text":"balance & petronella · petronella","section":"B1","row":6},
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"partner","hand":"both"},"text":"partners balance & swing · balance","section":"B2","row":7},
+  {"move":"swing","beats":12,"params":{"who":"partner"},"text":"partners balance & swing · swing","progression":true,"section":"B2","row":7}
+ ]
+}

@@ -1,0 +1,12 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "974", "title": "The Contra Dancer's New Groove", "author": "Nicholas Rockstroh", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/974", "formation": "improper", "retrievedAt": "2026-10-20T06:16:31.645Z", "sha256": "1f2a21063ab8bd8729d05f9917a5a44722993c68979d4cae00612d13f4a9eca5" }, "status": "partial", "problems": [ "Row 4 \"left right through\" isn't drawn yet.", "Row 8 \"circle right 4 places, turn alone to face next neighbors\" isn't drawn yet." ], "unparsed": [ { "row": 4, "text": "left right through", "why": "No figure pattern matches \"left right through\"." }, { "row": 8, "text": "circle right 4 places, turn alone to face next neighbors", "why": "No figure pattern matches \"circle right 4 places, turn alone to face next neighbors ⁋\"." } ], "choices": [],
+ "figures": [
+  {"move":"circle","beats":8,"params":{"direction":"left","places":4},"text":"circle left 4 places","section":"A1","row":1},
+  {"move":"swing","beats":8,"params":{"who":"neighbor"},"text":"neighbors swing","section":"A1","row":2},
+  {"move":"long-lines","beats":8,"params":{"back":true},"text":"long lines forward & back","section":"A2","row":3},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"left right through","section":"A2","row":4},
+  {"move":"allemande","beats":8,"params":{"who":"larks","hand":"left","amount":1.5},"text":"larks allemande left 1½","section":"B1","row":5},
+  {"move":"swing","beats":8,"params":{"who":"partner"},"text":"partners swing","section":"B1","row":6},
+  {"move":"chain","beats":8,"params":{"who":"robins"},"text":"robins chain","section":"B2","row":7},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"circle right 4 places, turn alone to face next neighbors","section":"B2","row":8,"progression":true}
+ ]
+}

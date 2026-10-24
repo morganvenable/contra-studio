@@ -1,0 +1,12 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "2088", "title": "Moose's Intro Lesson NOT A DANCE", "author": "unknown", "formation": null, "progression": null, "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/2088", "formation": "circle", "retrievedAt": "2026-10-20T06:04:39.715Z", "sha256": "2c3222f7ee4e0ad1b270a0e6709462690af7005592b8067520dceecb31c6ddea", "status": "sketchbook" }, "status": "unsupported", "problems": [ "The \"circle\" formation isn't built yet." ], "unparsed": [], "choices": [ "A star with no grip named is a basket star (wrist grip)." ],
+ "figures": [
+  {"move":"circle","beats":8,"params":{"direction":"left","places":4},"text":"circle left 4 places","section":"A1","row":1},
+  {"move":"long-lines","beats":8,"params":{"back":true},"text":"long lines forward & back","section":"A1","row":2},
+  {"move":"allemande","beats":8,"params":{"who":"neighbor","hand":"left","amount":1},"text":"neighbors allemande left once","section":"A2","row":3},
+  {"move":"do-si-do","beats":8,"params":{"who":"neighbor","amount":1,"shoulder":"right"},"text":"neighbors do si do once","section":"A2","row":4},
+  {"move":"swing","beats":8,"params":{"who":"partner"},"text":"partners swing","section":"B1","row":5},
+  {"move":"right-left-through","beats":8,"params":{},"text":"right left through","section":"B1","row":6},
+  {"move":"chain","beats":8,"params":{"who":"robins"},"text":"robins chain","section":"B2","row":7},
+  {"move":"star","beats":8,"params":{"hand":"left","places":4},"text":"star left 4 places","section":"B2","row":8}
+ ]
+}

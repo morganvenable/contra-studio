@@ -1,0 +1,13 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "2625", "title": "Petronella Stompshake", "author": "Cherylyn Geers", "formation": null, "progression": null, "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/2625", "formation": "scatter mixer", "retrievedAt": "2026-10-20T06:08:37.671Z", "sha256": "e52872bf529166d06ad1c591277b9c5fd1b66c95159e666898d6970718bc23ab" }, "status": "unsupported", "problems": [ "The \"scatter mixer\" formation isn't built yet." ], "unparsed": [ { "row": 6, "text": "neighbors scatter promenade", "why": "No figure pattern matches \"neighbors scatter promenade\"." } ], "choices": [ "A balance with a partner or neighbor holds both hands." ],
+ "figures": [
+  {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance & petronella · balance","section":"A1","row":1},
+  {"move":"petronella","beats":4,"params":{},"text":"balance & petronella · petronella","section":"A1","row":1},
+  {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance & petronella · balance","section":"A1","row":2},
+  {"move":"petronella","beats":4,"params":{},"text":"balance & petronella · petronella","section":"A1","row":2},
+  {"move":"star","beats":8,"params":{"hand":"left","places":4,"grip":"wrist"},"text":"star left - wrist grip - 4 places","section":"A2","row":3},
+  {"move":"star","beats":8,"params":{"hand":"right","places":4,"grip":"wrist"},"text":"star right - wrist grip - 4 places","section":"A2","row":4},
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"neighbor","hand":"both"},"text":"neighbors balance & swing · balance","section":"B1","row":5},
+  {"move":"swing","beats":12,"params":{"who":"neighbor"},"text":"neighbors balance & swing · swing","section":"B1","row":5},
+  {"move":"hold","beats":16,"params":{"reason":"unparsed"},"text":"neighbors scatter promenade","section":"B2","row":6}
+ ]
+}

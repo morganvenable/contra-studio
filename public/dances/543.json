@@ -1,0 +1,11 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "543", "title": "String of Swings", "author": "Rick Mohr and Bob Isaacs", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/543", "formation": "improper", "retrievedAt": "2026-10-20T06:14:50.782Z", "sha256": "be2a0ba1004549062f2a2d0d56b46f14c4f0d522ad09ee69e548199d9f9c9257" }, "status": "partial", "problems": [ "Row 2 \"up the hall, ones back to back in the center, face neighbors\" isn't drawn yet.", "Row 4 \"neighbors allemande left 1½\" can't start from where the dancers are: Dancers 0 and 3 are too far apart to turn by the hand.", "Row 1 \"down the hall and turn alone\" can't start from where the dancers are: hall starts before a waiting couple finishes crossing." ], "unparsed": [ { "row": 2, "text": "up the hall, ones back to back in the center, face neighbors", "why": "No figure pattern matches \"up the hall, ones back to back in the center, face neighbors\"." } ], "choices": [ "The 1s end their swing side by side in the middle of the set facing down, the way they progress." ],
+ "figures": [
+  {"move":"hall","beats":8,"params":{"direction":"down","turn":"alone"},"text":"down the hall and turn alone","section":"A1","row":1},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"up the hall, ones back to back in the center, face neighbors","section":"A1","row":2},
+  {"move":"hey","beats":16,"params":{"start":"neighbor","amount":1,"center":"right"},"text":"neighbors start a full hey - lefts on ends, rights in center","section":"A2","row":3},
+  {"move":"allemande","beats":8,"params":{"who":"neighbor","hand":"left","amount":1.5},"text":"neighbors allemande left 1½","section":"B1","row":4},
+  {"move":"swing","beats":8,"params":{"who":"2s","end":"up"},"text":"twos swing","section":"B1","row":5},
+  {"move":"swing","beats":8,"params":{"who":"neighbor"},"text":"neighbors swing","section":"B2","row":6},
+  {"move":"swing","beats":8,"params":{"who":"1s","end":"down"},"text":"ones swing","progression":true,"section":"B2","row":7}
+ ]
+}

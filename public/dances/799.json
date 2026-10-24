@@ -1,0 +1,13 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "799", "title": "Pinwheels", "author": "Adam Carlson", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/799", "formation": "improper", "retrievedAt": "2026-10-20T06:08:54.843Z", "sha256": "c5c4016fdd1aa7a4094a9926a754d9c9dc0f01413ba3b5751dde458f3b6a5ac5" }, "status": "partial", "problems": [ "Row 2 \"partners allemande right once to wavy lines across\" isn't drawn yet.", "Row 4 \"partners allemande right ¾ to long wavy lines with larks facing out\" isn't drawn yet." ], "unparsed": [ { "row": 2, "text": "partners allemande right once to wavy lines across", "why": "No figure pattern matches \"partners allemande right once to wavy lines across\"." }, { "row": 4, "text": "partners allemande right ¾ to long wavy lines with larks facing out", "why": "No figure pattern matches \"partners allemande right ¾ to long wavy lines with gentlespoons facing out\"." } ], "choices": [],
+ "figures": [
+  {"move":"allemande","beats":2,"params":{"who":"robins","hand":"left","amount":0.5},"text":"robins allemande left ½","section":"A1","row":1},
+  {"move":"hold","beats":6,"params":{"reason":"unparsed"},"text":"partners allemande right once to wavy lines across","section":"A1","row":2},
+  {"move":"balance","beats":4,"params":{"formation":"current"},"text":"balance","section":"A1","row":3},
+  {"move":"hold","beats":4,"params":{"reason":"unparsed"},"text":"partners allemande right ¾ to long wavy lines with larks facing out","section":"A1","row":4},
+  {"move":"balance","beats":4,"params":{"formation":"current"},"text":"balance","section":"A2","row":5},
+  {"move":"swing","beats":12,"params":{"who":"partner"},"text":"partners swing","section":"A2","row":6},
+  {"move":"hey","beats":16,"params":{"start":"robins","amount":1,"center":"right"},"text":"robins start a full hey - rights in center, lefts on ends","section":"B1","row":7},
+  {"move":"pass-by","beats":2,"params":{"who":"robins","shoulder":"right","hands":false},"text":"robins pass by right shoulders","section":"B2","row":8},
+  {"move":"swing","beats":14,"params":{"who":"neighbor"},"text":"neighbors swing","section":"B2","row":9}
+ ]
+}

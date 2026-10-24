@@ -1,0 +1,12 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "891", "title": "I’ve a Right to Be Left-Handed", "author": "Louise Siddons", "formation": null, "progression": null, "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/891", "formation": "Duple improper longways", "retrievedAt": "2026-10-20T06:00:33.715Z", "sha256": "74a2eb333d108c3040d54902323961a646225c38d6e91edb3aadf00521a6d820" }, "status": "unsupported", "problems": [ "The \"Duple improper longways\" formation isn't built yet." ], "unparsed": [], "choices": [ "A balance with a partner or neighbor holds both hands." ],
+ "figures": [
+  {"move":"allemande","beats":8,"params":{"who":"neighbor","hand":"left","amount":1},"text":"neighbors allemande left once","section":"A1","row":1},
+  {"move":"chain","beats":8,"params":{"who":"larks"},"text":"larks right-hand chain","section":"A1","row":2},
+  {"move":"circle","beats":8,"params":{"direction":"right","places":3},"text":"circle right 3 places","section":"A2","row":3},
+  {"move":"do-si-do","beats":8,"params":{"who":"robins","amount":1.5,"shoulder":"left"},"text":"robins see saw 1½","section":"A2","row":4},
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"partner","hand":"both"},"text":"partners balance & swing · balance","section":"B1","row":5},
+  {"move":"swing","beats":12,"params":{"who":"partner"},"text":"partners balance & swing · swing","section":"B1","row":5},
+  {"move":"chain","beats":8,"params":{"who":"larks"},"text":"larks chain","section":"B2","row":6},
+  {"move":"star","beats":8,"params":{"hand":"right","places":4,"grip":"wrist"},"text":"star right - wrist grip - 4 places","progression":true,"section":"B2","row":7}
+ ]
+}

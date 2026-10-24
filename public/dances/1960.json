@@ -1,0 +1,13 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "1960", "title": "Wildflowers B", "author": "Cary Ravitz", "formation": "becket", "progression": "minor-set", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/1960", "formation": "Becket", "retrievedAt": "2026-10-20T06:23:25.746Z", "sha256": "d291fbe43ab36462a5989840134a6abb245cb12b55c320333e38fd70d50dfca4" }, "status": "partial", "problems": [ "Row 1 \"larks allemande left once, scoop up partners\" isn't drawn yet.", "Row 2 \"star promenade left ½\" isn't drawn yet.", "Row 3 \"butterfly whirl\" isn't drawn yet.", "The progression after row 5 \"robins start a half hey - rights in center, lefts on ends, look for next neighbors\" doesn't work out: Couple 1 must face the same way to find new neighbors." ], "unparsed": [ { "row": 1, "text": "larks allemande left once, scoop up partners", "why": "No figure pattern matches \"gentlespoons allemande left once, scoop up partners\"." }, { "row": 2, "text": "star promenade left ½", "why": "No figure pattern matches \"star promenade left ½\"." }, { "row": 3, "text": "butterfly whirl", "why": "No figure pattern matches \"butterfly whirl\"." } ], "choices": [ "A balance with a partner or neighbor holds both hands." ],
+ "figures": [
+  {"move":"hold","beats":6,"params":{"reason":"unparsed"},"text":"larks allemande left once, scoop up partners","section":"A1","row":1},
+  {"move":"hold","beats":5,"params":{"reason":"unparsed"},"text":"star promenade left ½","section":"A1","row":2},
+  {"move":"hold","beats":5,"params":{"reason":"unparsed"},"text":"butterfly whirl","section":"A1","row":3},
+  {"move":"chain","beats":8,"params":{"who":"robins"},"text":"robins chain","section":"A2","row":4},
+  {"move":"hey","beats":8,"params":{"start":"robins","amount":0.5,"center":"right"},"text":"robins start a half hey - rights in center, lefts on ends, look for next neighbors","progression":true,"section":"A2","row":5},
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"neighbor","hand":"both"},"text":"next neighbors balance & swing · balance","section":"B1","row":6},
+  {"move":"swing","beats":12,"params":{"who":"neighbor"},"text":"next neighbors balance & swing · swing","section":"B1","row":6},
+  {"move":"circle","beats":8,"params":{"direction":"left","places":3},"text":"circle left 3 places","section":"B2","row":7},
+  {"move":"swing","beats":8,"params":{"who":"partner"},"text":"partners swing","section":"B2","row":8}
+ ]
+}

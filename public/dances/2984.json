@@ -1,0 +1,14 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "2984", "title": "Festival Petronella #3", "author": "Will Mentor", "formation": "becket", "progression": "minor-set", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/2984", "formation": "becket", "retrievedAt": "2026-10-20T05:55:29.063Z", "sha256": "31d83e03e611e50dd965368709a02e70eb38510875f45777fd1923a57f4d7711" }, "status": "partial", "problems": [ "Row 7 \"balance & petronella (everyone is home)\" isn't drawn yet.", "Row 8 \"partners balance & swing · swing\" can't start from where the dancers are: A swing that ends facing across must start nearer one side.", "Row 1 \"slide left along set\" can't start from where the dancers are: Couple 1 must stand side by side in a line facing across.", "The progression after row 1 \"slide left along set\" doesn't work out: Couple 1 must face the same way to find new neighbors.", "Row 3 \"neighbors swing\" can't start from where the dancers are: A swing that ends facing across must start nearer one side.", "Row 5 \"robins chain to partner\" can't start from where the dancers are: The robins would chain to someone who is not their partner." ], "unparsed": [ { "row": 7, "text": "balance & petronella (everyone is home)", "why": "No figure pattern matches \"balance & petronella (everyone is home)\"." } ], "choices": [ "A balance with a partner or neighbor holds both hands." ],
+ "figures": [
+  {"move":"slide","beats":2,"params":{"direction":"left"},"text":"slide left along set","progression":true,"section":"A1","row":1},
+  {"move":"pass-by","beats":2,"params":{"who":"larks","shoulder":"right","hands":false},"text":"larks pass by right shoulders","section":"A1","row":2},
+  {"move":"swing","beats":12,"params":{"who":"neighbor"},"text":"neighbors swing","section":"A1","row":3},
+  {"move":"long-lines","beats":8,"params":{"back":true},"text":"long lines forward & back","section":"A2","row":4},
+  {"move":"chain","beats":8,"params":{"who":"robins","to":"partner"},"text":"robins chain to partner","section":"A2","row":5},
+  {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance & petronella · balance","section":"B1","row":6},
+  {"move":"petronella","beats":4,"params":{},"text":"balance & petronella · petronella","section":"B1","row":6},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"balance & petronella (everyone is home)","section":"B1","row":7},
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"partner","hand":"both"},"text":"partners balance & swing · balance","section":"B2","row":8},
+  {"move":"swing","beats":12,"params":{"who":"partner"},"text":"partners balance & swing · swing","section":"B2","row":8}
+ ]
+}

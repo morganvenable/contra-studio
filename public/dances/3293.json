@@ -1,0 +1,11 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "3293", "title": "Northland Reel", "author": "Mattie Rynkiewicz", "formation": null, "progression": null, "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/3293", "formation": "proper", "retrievedAt": "2026-10-20T06:06:55.838Z", "sha256": "7dd6f91415a26904eff9d02a2dbac3d22ec7beccac351c15d8490a2a2252c762" }, "status": "unsupported", "problems": [ "The \"proper\" formation isn't built yet." ], "unparsed": [ { "row": 1, "text": "ones set & turn single right", "why": "No figure pattern matches \"ones set & turn single right\"." }, { "row": 2, "text": "ones two-hand turn once", "why": "No figure pattern matches \"ones two-hand turn once\"." }, { "row": 3, "text": "twos set & turn single right", "why": "No figure pattern matches \"twos set & turn single right\"." }, { "row": 4, "text": "twos two-hand turn once", "why": "No figure pattern matches \"twos two-hand turn once\"." }, { "row": 5, "text": "neighbors do si do 2½", "why": "Unknown amount \"2½\"." } ], "choices": [],
+ "figures": [
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"ones set & turn single right","section":"A1","row":1},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"ones two-hand turn once","section":"A1","row":2},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"twos set & turn single right","section":"A2","row":3},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"twos two-hand turn once","section":"A2","row":4},
+  {"move":"hold","beats":16,"params":{"reason":"unparsed"},"text":"neighbors do si do 2½","section":"B1","row":5,"progression":true},
+  {"move":"do-si-do","beats":8,"params":{"who":"partner","amount":1,"shoulder":"right"},"text":"partners do si do once","section":"B2","row":6},
+  {"move":"long-lines","beats":8,"params":{"back":true},"text":"long lines forward & back","section":"B2","row":7}
+ ]
+}

@@ -1,0 +1,9 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "717", "title": "The Dancing Sailors", "author": "Ed Shaw", "formation": null, "progression": null, "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/717", "formation": "proper", "retrievedAt": "2026-10-20T06:16:40.741Z", "sha256": "7fd65438fb05cd89d6f3841bed5668f092b3d6195d7db9e7cdc45a7835cce89e" }, "status": "unsupported", "problems": [ "The \"proper\" formation isn't built yet." ], "unparsed": [ { "row": 1, "text": "ones down the outsides past two couples", "why": "No figure pattern matches \"ones down the outsides past two couples ⁋\"." }, { "row": 2, "text": "ones up the center and turn alone (cast one place)", "why": "No figure pattern matches \"ones up the center and turn alone (cast one place)\"." }, { "row": 3, "text": "ones contra corners", "why": "No figure pattern matches \"ones contra corners\"." } ], "choices": [ "A long swing is drawn as an ordinary swing.", "The 1s end their swing side by side in the middle of the set facing down, the way they progress." ],
+ "figures": [
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"ones down the outsides past two couples","section":"A1","row":1,"progression":true},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"ones up the center and turn alone (cast one place)","section":"A1","row":2},
+  {"move":"hold","beats":16,"params":{"reason":"unparsed"},"text":"ones contra corners","section":"A2","row":3},
+  {"move":"hey","beats":16,"params":{"start":"1s","amount":1,"center":"right"},"text":"ones start a full hey - rights in center, lefts on ends","section":"B1","row":4},
+  {"move":"swing","beats":16,"params":{"who":"1s","end":"down"},"text":"ones long swing and end facing up","section":"B2","row":5}
+ ]
+}

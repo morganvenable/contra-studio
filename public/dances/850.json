@@ -1,0 +1,13 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "850", "title": "The Farmer's Bride", "author": "Bill Pope", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/850", "formation": "improper", "retrievedAt": "2026-10-20T06:16:51.837Z", "sha256": "c0250cf1073f1b39cfd22e0cfa8305c8fab5b956933a7b26b78fd71f0d6443b9" }, "status": "partial", "problems": [ "Row 5 \"form an ocean wave - robins by left hands and partners by right hands\" isn't drawn yet.", "The progression after row 1 \"long lines forward & back\" doesn't work out: Couples 1 and 2 have not passed each other yet.", "Row 6 \"balance the wave\" can't start from where the dancers are: Dancers in a wave must face across the line." ], "unparsed": [ { "row": 5, "text": "form an ocean wave - robins by left hands and partners by right hands", "why": "No figure pattern matches \"form an ocean wave - ladles by left hands and partners by right hands\"." } ], "choices": [],
+ "figures": [
+  {"move":"long-lines","beats":8,"params":{"back":true},"text":"long lines forward & back","progression":true,"section":"A1","row":1},
+  {"move":"swing","beats":8,"params":{"who":"neighbor"},"text":"neighbors swing (new neighbors)","section":"A1","row":2},
+  {"move":"right-left-through","beats":8,"params":{},"text":"right left through","section":"A2","row":3},
+  {"move":"circle","beats":6,"params":{"direction":"left","places":3},"text":"circle left 3 places","section":"A2","row":4},
+  {"move":"hold","beats":2,"params":{"reason":"unparsed"},"text":"form an ocean wave - robins by left hands and partners by right hands","section":"A2","row":5},
+  {"move":"balance","beats":4,"params":{"formation":"wave","style":"right-left"},"text":"balance the wave","section":"B1","row":6},
+  {"move":"swing","beats":12,"params":{"who":"partner"},"text":"partners swing","section":"B1","row":7},
+  {"move":"promenade","beats":8,"params":{"who":"partner"},"text":"partners promenade","section":"B2","row":8},
+  {"move":"chain","beats":8,"params":{"who":"robins"},"text":"robins chain","section":"B2","row":9}
+ ]
+}

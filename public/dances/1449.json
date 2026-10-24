@@ -1,0 +1,12 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "1449", "title": "Fiddle Hill Jig", "author": "Ralph Page", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/1449", "formation": "improper", "retrievedAt": "2026-10-20T05:55:32.091Z", "sha256": "76192ec4a9f1cbd8aafd3fc104c3a43d233e9f2a92320048ce85fe9eb40ac051" }, "status": "partial", "problems": [ "Row 5 \"ones down the center and turn alone\" isn't drawn yet.", "Row 6 \"ones up the center and end below the twos and take hands four\" isn't drawn yet.", "The progression after row 8 \"star left 4 places\" doesn't work out: Couples 1 and 2 have not passed each other yet." ], "unparsed": [ { "row": 5, "text": "ones down the center and turn alone", "why": "No figure pattern matches \"ones down the center and turn alone\"." }, { "row": 6, "text": "ones up the center and end below the twos and take hands four", "why": "No figure pattern matches \"ones up the center and end below the twos and take hands four\"." } ], "choices": [ "A star with no grip named is a basket star (wrist grip).", "The 1s end their swing side by side in the middle of the set facing down, the way they progress." ],
+ "figures": [
+  {"move":"do-si-do","beats":8,"params":{"who":"neighbor","amount":1,"shoulder":"right"},"text":"neighbors do si do once","section":"A1","row":1},
+  {"move":"do-si-do","beats":8,"params":{"who":"partner","amount":1,"shoulder":"right"},"text":"partners do si do once","section":"A1","row":2},
+  {"move":"allemande","beats":8,"params":{"who":"neighbor","hand":"left","amount":1},"text":"neighbors allemande left once","section":"A2","row":3},
+  {"move":"swing","beats":8,"params":{"who":"1s","end":"down"},"text":"ones swing","section":"A2","row":4},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"ones down the center and turn alone","section":"B1","row":5},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"ones up the center and end below the twos and take hands four","section":"B1","row":6},
+  {"move":"circle","beats":8,"params":{"direction":"left","places":4},"text":"circle left 4 places","section":"B2","row":7},
+  {"move":"star","beats":8,"params":{"hand":"left","places":4},"text":"star left 4 places","progression":true,"section":"B2","row":8}
+ ]
+}

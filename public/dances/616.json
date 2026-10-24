@@ -1,0 +1,17 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "616", "title": "A Gentle Turn", "author": "Nicholas Rockstroh", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/616", "formation": "improper", "retrievedAt": "2026-10-20T05:45:05.069Z", "sha256": "fc63d69571653a18cc28a65fd6dbf99a629d2fbd76ebd2d2adfd37e0df74e1a3" }, "status": "partial", "problems": [ "Row 3 \"robins courtesy turn larks\" isn't drawn yet.", "Row 5 \"form an ocean wave & balance - larks by left hands and neighbors by right hands\" isn't drawn yet.", "Row 11 \"zig right zag left to next neighbor\" isn't drawn yet." ], "unparsed": [ { "row": 3, "text": "robins courtesy turn larks", "why": "No figure pattern matches \"ladles courtesy turn gentlespoons\"." }, { "row": 5, "text": "form an ocean wave & balance - larks by left hands and neighbors by right hands", "why": "No figure pattern matches \"form an ocean wave & balance - gentlespoons by left hands and neighbors by right hands\"." }, { "row": 11, "text": "zig right zag left to next neighbor", "why": "No figure pattern matches \"zig right zag left to next neighbor ⁋\"." } ], "choices": [ "Square through: each balance takes 4 beats and each pull by 2." ],
+ "figures": [
+  {"move":"do-si-do","beats":8,"params":{"who":"neighbor","amount":1,"shoulder":"right"},"text":"neighbors do si do once","section":"A1","row":1},
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"neighbor","hand":"right"},"text":"square through two - neighbors balance & pull by right, then partners pull by left · balance","section":"A1","row":2},
+  {"move":"pass-by","beats":2,"params":{"who":"neighbor","shoulder":"right","hands":true},"text":"square through two - neighbors balance & pull by right, then partners pull by left · pull by","section":"A1","row":2},
+  {"move":"pass-by","beats":2,"params":{"who":"partner","shoulder":"left","hands":true},"text":"square through two - neighbors balance & pull by right, then partners pull by left · pull by","section":"A1","row":2},
+  {"move":"hold","beats":4,"params":{"reason":"unparsed"},"text":"robins courtesy turn larks","section":"A2","row":3},
+  {"move":"do-si-do","beats":8,"params":{"who":"larks","amount":1,"shoulder":"left"},"text":"larks see saw once","section":"A2","row":4},
+  {"move":"hold","beats":4,"params":{"reason":"unparsed"},"text":"form an ocean wave & balance - larks by left hands and neighbors by right hands","section":"A2","row":5},
+  {"move":"pass-by","beats":2,"params":{"who":"neighbor","shoulder":"right","hands":false},"text":"neighbors pass by right shoulders","section":"B1","row":6},
+  {"move":"pass-by","beats":2,"params":{"who":"robins","shoulder":"left","hands":false},"text":"robins pass by left shoulders","section":"B1","row":7},
+  {"move":"swing","beats":12,"params":{"who":"partner"},"text":"partners swing","section":"B1","row":8},
+  {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance the ring","section":"B2","row":9},
+  {"move":"circle","beats":6,"params":{"direction":"right","places":3},"text":"circle right 3 places","section":"B2","row":10},
+  {"move":"hold","beats":6,"params":{"reason":"unparsed"},"text":"zig right zag left to next neighbor","section":"B2","row":11,"progression":true}
+ ]
+}

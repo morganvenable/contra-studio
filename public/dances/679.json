@@ -1,0 +1,14 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "679", "title": "Two + Two Makes 3", "author": "Jim Hemphill", "formation": null, "progression": null, "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/679", "formation": "proper", "retrievedAt": "2026-10-20T06:21:46.856Z", "sha256": "51daaa19028fc0daf2bdebe6477ba3b3e4a6f9e6f777a48f6009b9a804338ff5" }, "status": "unsupported", "problems": [ "The \"proper\" formation isn't built yet." ], "unparsed": [ { "row": 1, "text": "second corners California twirl, pick up robins two +", "why": "No figure pattern matches \"second corners California twirl, pick up ladle two +\"." }, { "row": 3, "text": "twos arch ones dive, send robins one back to partner", "why": "No figure pattern matches \"twos arch ones dive, send ladle one back to partner\"." }, { "row": 9, "text": "ones half figure 8 above the twos +", "why": "No figure pattern matches \"ones half figure 8 above the twos + ⁋\"." } ], "choices": [ "A balance with a partner or neighbor holds both hands.", "Give & take: half the beats to cross, half to back home holding both hands." ],
+ "figures": [
+  {"move":"hold","beats":4,"params":{"reason":"unparsed"},"text":"second corners California twirl, pick up robins two +","section":"A1","row":1},
+  {"move":"circle","beats":8,"params":{"direction":"left","places":6},"text":"circle left 6 places","section":"A1","row":2},
+  {"move":"hold","beats":4,"params":{"reason":"unparsed"},"text":"twos arch ones dive, send robins one back to partner","section":"A1","row":3},
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"partner","hand":"both"},"text":"partners balance & swing · balance","section":"A2","row":4},
+  {"move":"swing","beats":12,"params":{"who":"partner"},"text":"partners balance & swing · swing","section":"A2","row":4},
+  {"move":"long-lines","beats":4,"params":{"back":false},"text":"long lines forward","section":"B1","row":5},
+  {"move":"give-and-take","beats":4,"params":{"who":"larks","whom":"neighbor"},"text":"larks give & take neighbors","section":"B1","row":6},
+  {"move":"swing","beats":8,"params":{"who":"neighbor"},"text":"neighbors swing","section":"B1","row":7},
+  {"move":"right-left-through","beats":8,"params":{},"text":"right left through","section":"B2","row":8},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"ones half figure 8 above the twos +","section":"B2","row":9,"progression":true}
+ ]
+}

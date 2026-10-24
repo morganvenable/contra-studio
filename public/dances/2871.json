@@ -1,0 +1,14 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "2871", "title": "Backup Star Break", "author": "unknown", "formation": null, "progression": null, "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 24 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/2871", "formation": "square dance", "retrievedAt": "2026-10-20T05:47:30.080Z", "sha256": "719fc92ccfc3206cb7250864acdbd81d866ada521a22fdd794c8e34d558987ed" }, "status": "unsupported", "problems": [ "The \"square dance\" formation isn't built yet." ], "unparsed": [ { "row": 4, "text": "backup star, larks in the middle robins on the outside", "why": "No figure pattern matches \"backup star, gentlespoons in the middle ladles on the outside\"." }, { "row": 8, "text": "backup star, larks in the middle robins on the outside", "why": "No figure pattern matches \"backup star, gentlespoons in the middle ladles on the outside\"." } ], "choices": [],
+ "figures": [
+  {"move":"allemande","beats":4,"params":{"who":"neighbor","hand":"left","amount":1},"text":"1st neighbors allemande left once","section":"A1","row":1},
+  {"move":"pass-by","beats":2,"params":{"who":"partner","shoulder":"right","hands":true},"text":"partners pull by right","section":"A1","row":2},
+  {"move":"allemande","beats":4,"params":{"who":"neighbor","hand":"left","amount":0.75},"text":"2nd neighbors allemande left ¾","section":"A1","row":3},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"backup star, larks in the middle robins on the outside","section":"A1","row":4},
+  {"move":"allemande","beats":4,"params":{"who":"neighbor","hand":"left","amount":0.75},"text":"2nd neighbors allemande left ¾","section":"A1","row":5},
+  {"move":"pass-by","beats":2,"params":{"who":"neighbor","shoulder":"right","hands":true},"text":"3rd neighbors pull by right","section":"A1","row":6},
+  {"move":"allemande","beats":4,"params":{"who":"neighbor","hand":"left","amount":0.75},"text":"1st neighbors allemande left ¾","section":"A1","row":7},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"backup star, larks in the middle robins on the outside","section":"A1","row":8},
+  {"move":"allemande","beats":4,"params":{"who":"neighbor","hand":"left","amount":0.75},"text":"1st neighbors allemande left ¾","section":"A1","row":9},
+  {"move":"swing","beats":8,"params":{"who":"partner"},"text":"partners swing","section":"A1","row":10}
+ ]
+}

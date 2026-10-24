@@ -1,0 +1,14 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "2200", "title": "Rod's Velvety Lawn (\"Rod's Grits Lawn\" variation)", "author": "Variations on a Bill Olson dance, by Unknown and Aden Water", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/2200", "formation": "Improper", "retrievedAt": "2026-10-20T06:11:00.950Z", "sha256": "bad0f07aada842946c2a45f67b606e30914bc64aa5f6b063cee17f7ecc122e83" }, "status": "partial", "problems": [ "Row 2 \"star right - wrist grip - 4 places, face across\" isn't drawn yet.", "Row 3 \"right left through, pull past partner\" isn't drawn yet.", "The progression after row 8 \"partners california twirl\" doesn't work out: Couples 1 and 2 have not passed each other yet." ], "unparsed": [ { "row": 2, "text": "star right - wrist grip - 4 places, face across", "why": "No figure pattern matches \"star right - wrist grip - 4 places, face across\"." }, { "row": 3, "text": "right left through, pull past partner", "why": "No figure pattern matches \"right left through, pull past partner\"." } ], "choices": [ "A balance with a partner or neighbor holds both hands." ],
+ "figures": [
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"neighbor","hand":"right"},"text":"neighbors right hand balance & box the gnat · balance","section":"A1","row":1},
+  {"move":"twirl","beats":4,"params":{"style":"box-the-gnat","who":"neighbor"},"text":"neighbors right hand balance & box the gnat · twirl","section":"A1","row":1},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"star right - wrist grip - 4 places, face across","section":"A1","row":2},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"right left through, pull past partner","section":"A2","row":3},
+  {"move":"allemande","beats":8,"params":{"who":"robins","hand":"right","amount":1.5},"text":"robins allemande right 1½","section":"A2","row":4},
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"partner","hand":"both"},"text":"partners balance & swing · balance","section":"B1","row":5},
+  {"move":"swing","beats":12,"params":{"who":"partner"},"text":"partners balance & swing · swing","section":"B1","row":5},
+  {"move":"promenade","beats":8,"params":{"who":"partner"},"text":"partners promenade","section":"B2","row":6},
+  {"move":"circle","beats":6,"params":{"direction":"right","places":3},"text":"circle right 3 places","section":"B2","row":7},
+  {"move":"twirl","beats":2,"params":{"style":"california","who":"partner"},"text":"partners California twirl","progression":true,"section":"B2","row":8}
+ ]
+}

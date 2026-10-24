@@ -1,0 +1,12 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "1342", "title": "Summer Delight", "author": "Don Flaherty", "formation": "becket", "progression": "minor-set", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/1342", "formation": "Becket", "retrievedAt": "2026-10-20T06:14:56.823Z", "sha256": "b9119841bceb07725e769687b6f98a5e09a2edb1a81bdf403b72c3f7b384721a" }, "status": "partial", "problems": [ "Row 1 \"circle left 2 places larks roll neighbor half sashay across set\" isn't drawn yet.", "Row 2 \"circle left 2 places larks roll neighbor along set\" isn't drawn yet.", "Row 8 \"right diagonal right left through to new neighbor\" isn't drawn yet." ], "unparsed": [ { "row": 1, "text": "circle left 2 places larks roll neighbor half sashay across set", "why": "No figure pattern matches \"circle left 2 places gentlespoons roll neighbor half sashay across set\"." }, { "row": 2, "text": "circle left 2 places larks roll neighbor along set", "why": "No figure pattern matches \"circle left 2 places gentlespoons roll neighbor along set\"." }, { "row": 8, "text": "right diagonal right left through to new neighbor", "why": "No figure pattern matches \"right diagonal right left through to new neighbor ⁋\"." } ], "choices": [],
+ "figures": [
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"circle left 2 places larks roll neighbor half sashay across set","section":"A1","row":1},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"circle left 2 places larks roll neighbor along set","section":"A1","row":2},
+  {"move":"hey","beats":8,"params":{"start":"larks","amount":0.5,"center":"left"},"text":"larks start a half hey - lefts in center, rights on ends","section":"A2","row":3},
+  {"move":"swing","beats":8,"params":{"who":"partner"},"text":"partners swing","section":"A2","row":4},
+  {"move":"allemande","beats":8,"params":{"who":"larks","hand":"left","amount":1.5},"text":"larks allemande left 1½","section":"B1","row":5},
+  {"move":"swing","beats":8,"params":{"who":"neighbor"},"text":"neighbors swing","section":"B1","row":6},
+  {"move":"chain","beats":8,"params":{"who":"robins"},"text":"robins chain","section":"B2","row":7},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"right diagonal right left through to new neighbor","section":"B2","row":8,"progression":true}
+ ]
+}

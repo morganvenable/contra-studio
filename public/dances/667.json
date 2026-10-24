@@ -1,0 +1,17 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "667", "title": "Four Have Sprung", "author": "Yoyo Zhou", "formation": "becket", "progression": "minor-set", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/667", "formation": "Becket", "retrievedAt": "2026-10-20T05:56:24.523Z", "sha256": "273a36a8c98bc40da199e009db85a676e4f401e9224ec5bdffcd827c27520273" }, "status": "partial", "problems": [ "Row 7 \"2nd neighbors swing ²\" isn't drawn yet.", "The dance can't be put together: Error: The figures take 62 beats but the music has 64." ], "unparsed": [ { "row": 7, "text": "2nd neighbors swing ²", "why": "No figure pattern matches \"2nd neighbors swing ² ⁋\"." } ], "choices": [ "Rory O'More spins one full turn in the travel direction (the usual styling).", "The balance before each Rory steps toward the slide direction first.", "A balance with a partner or neighbor holds both hands." ],
+ "figures": [
+  {"move":"circle","beats":8,"params":{"direction":"left","places":3},"text":"circle left 3 places","section":"A1","row":1},
+  {"move":"allemande","beats":2,"params":{"who":"neighbor","hand":"right","amount":0.5},"text":"1st neighbors allemande right ½","section":"A1","row":2},
+  {"move":"allemande","beats":2,"params":{"who":"neighbor","hand":"left","amount":0.5},"text":"2nd neighbors allemande left ½","section":"A1","row":3},
+  {"move":"allemande","beats":2,"params":{"who":"neighbor","hand":"right","amount":0.5},"text":"3rd neighbors allemande right ½","section":"A1","row":4},
+  {"move":"balance","beats":4,"params":{"formation":"wave","style":"right-left","first":"right"},"text":"balance & Rory O'More right · balance","section":"A2","row":6},
+  {"move":"rory","beats":4,"params":{"direction":"right","spin":"full"},"text":"balance & Rory O'More right · slide","section":"A2","row":6},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"2nd neighbors swing ²","section":"A2","row":7,"progression":true},
+  {"move":"long-lines","beats":8,"params":{"back":true},"text":"long lines forward & back","section":"B1","row":8},
+  {"move":"pass-by","beats":2,"params":{"who":"robins","shoulder":"right","hands":true},"text":"robins pull by right","section":"B1","row":9},
+  {"move":"pass-by","beats":2,"params":{"who":"partner","shoulder":"left","hands":true},"text":"partners pull by left","section":"B1","row":10},
+  {"move":"allemande","beats":4,"params":{"who":"larks","hand":"right","amount":1},"text":"larks allemande right once","section":"B1","row":11},
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"partner","hand":"both"},"text":"partners balance & swing · balance","section":"B2","row":12},
+  {"move":"swing","beats":12,"params":{"who":"partner"},"text":"partners balance & swing · swing","section":"B2","row":12}
+ ]
+}

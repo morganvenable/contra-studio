@@ -1,0 +1,15 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "3083", "title": "Droppings From A Raven", "author": "Kenny Greer", "formation": "becket-ccw", "progression": "minor-set", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/3083", "formation": "Becket ccw", "retrievedAt": "2026-10-20T05:54:16.437Z", "sha256": "36afaa6aa972df07661647d06202957d61d9efadfd40172dff71daf97ce8d4ff" }, "status": "partial", "problems": [ "Row 3 \"form an ocean wave - larks by left hands and neighbors by right hands\" isn't drawn yet.", "Row 5 \"Walk Forward To New Wave\" isn't drawn yet.", "Row 10 \"shadows allemande left once\" isn't drawn yet.", "Row 4 \"Balance The Wave\" can't start from where the dancers are: Dancers are not in a straight line.", "Row 6 \"Balance The Wave\" can't start from where the dancers are: Dancers are not in a straight line." ], "unparsed": [ { "row": 3, "text": "form an ocean wave - larks by left hands and neighbors by right hands", "why": "No figure pattern matches \"form an ocean wave - gentlespoons by left hands and neighbors by right hands\"." }, { "row": 5, "text": "Walk Forward To New Wave", "why": "No figure pattern matches \"Walk Forward To New Wave ⁋\"." }, { "row": 10, "text": "shadows allemande left once", "why": "Unknown dancers \"shadows\"." } ], "choices": [],
+ "figures": [
+  {"move":"hey","beats":8,"params":{"start":"larks","amount":0.5,"center":"left"},"text":"larks start a half hey - lefts in center, rights on ends","section":"A1","row":1},
+  {"move":"allemande","beats":4,"params":{"who":"larks","hand":"left","amount":0.5},"text":"larks allemande left ½","section":"A1","row":2},
+  {"move":"balance","beats":4,"params":{"formation":"wave","style":"right-left"},"text":"Balance The Wave","section":"A1","row":4},
+  {"move":"hold","beats":4,"params":{"reason":"unparsed"},"text":"Walk Forward To New Wave","section":"A2","row":5,"progression":true},
+  {"move":"balance","beats":4,"params":{"formation":"wave","style":"right-left"},"text":"Balance The Wave","section":"A2","row":6},
+  {"move":"allemande","beats":8,"params":{"who":"larks","hand":"left","amount":1.5},"text":"larks allemande left 1½","section":"A2","row":7},
+  {"move":"hey","beats":8,"params":{"start":"partner","amount":0.5,"center":"left"},"text":"partners start a half hey - rights on ends, lefts in center","section":"B1","row":8},
+  {"move":"allemande","beats":2,"params":{"who":"partner","hand":"right","amount":0.5},"text":"partners allemande right ½","section":"B1","row":9},
+  {"move":"hold","beats":6,"params":{"reason":"unparsed"},"text":"shadows allemande left once","section":"B1","row":10},
+  {"move":"do-si-do","beats":8,"params":{"who":"partner","amount":1,"shoulder":"right"},"text":"partners do si do once","section":"B2","row":11},
+  {"move":"swing","beats":8,"params":{"who":"partner"},"text":"partners swing","section":"B2","row":12}
+ ]
+}

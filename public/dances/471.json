@@ -1,0 +1,14 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "471", "title": "West By Midwest", "author": "Carol Ormand", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/471", "formation": "improper", "retrievedAt": "2026-10-20T06:22:58.497Z", "sha256": "6df210afeb3e5ed750cc57940861c66a30e598b7fdcf9bc6e32c53bdb64d84a7" }, "status": "partial", "problems": [ "Row 3 \"pass through to an ocean wave - robins by left in the center, neighbors by right on the sides\" isn't drawn yet.", "Row 4 \"swing though\" isn't drawn yet.", "Row 5 \"partners balance & swing · swing\" can't start from where the dancers are: A swing that ends facing across must start nearer one side." ], "unparsed": [ { "row": 3, "text": "pass through to an ocean wave - robins by left in the center, neighbors by right on the sides", "why": "No figure pattern matches \"pass through to an ocean wave - ladles by left in the center, neighbors by right on the sides\"." }, { "row": 4, "text": "swing though", "why": "No figure pattern matches \"swing though\"." } ], "choices": [ "Pass through goes by right shoulders.", "A pass through from a ring goes along the set, to the dancer on your own side.", "A balance with a partner or neighbor holds both hands." ],
+ "figures": [
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"neighbor","hand":"both"},"text":"neighbors balance & swing · balance","section":"A1","row":1},
+  {"move":"swing","beats":12,"params":{"who":"neighbor"},"text":"neighbors balance & swing · swing","section":"A1","row":1},
+  {"move":"long-lines","beats":8,"params":{"back":true},"text":"long lines forward & back","section":"A2","row":2},
+  {"move":"hold","beats":4,"params":{"reason":"unparsed"},"text":"pass through to an ocean wave - robins by left in the center, neighbors by right on the sides","section":"A2","row":3},
+  {"move":"hold","beats":4,"params":{"reason":"unparsed"},"text":"swing though","section":"A2","row":4},
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"partner","hand":"both"},"text":"partners balance & swing · balance","section":"B1","row":5},
+  {"move":"swing","beats":12,"params":{"who":"partner"},"text":"partners balance & swing · swing","section":"B1","row":5},
+  {"move":"circle","beats":8,"params":{"direction":"left","places":3},"text":"circle left 3 places","section":"B2","row":6},
+  {"move":"pass-through","beats":2,"params":{"shoulder":"right"},"text":"pass through","progression":true,"section":"B2","row":7},
+  {"move":"do-si-do","beats":6,"params":{"who":"neighbor","amount":1,"shoulder":"right"},"text":"next neighbors do si do once","section":"B2","row":8}
+ ]
+}

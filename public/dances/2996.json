@@ -1,0 +1,10 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "2996", "title": "Hey For Us Chickens", "author": "Mattie Rynkiewicz", "formation": "becket", "progression": "minor-set", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/2996", "formation": "Becket", "sha256": "88ffe88ca8b95f7abfa1809811f5c56f8ca54be9ee993d1ccbda9c426fa76a87" }, "status": "ok", "problems": [], "unparsed": [], "choices": [ "Slice: half the counts on the diagonal, half straight back.", "A long swing is drawn as an ordinary swing." ],
+ "figures": [
+  {"move":"long-lines","beats":8,"params":{"back":true},"text":"long lines forward & back","section":"A1","row":1},
+  {"move":"slice","beats":8,"params":{"direction":"left","back":"straight"},"text":"slice left and straight back","progression":true,"section":"A1","row":2},
+  {"move":"circle","beats":8,"params":{"direction":"left","places":4},"text":"circle left 4 places","section":"A2","row":3},
+  {"move":"circle","beats":8,"params":{"direction":"right","places":4},"text":"circle right 4 places","section":"A2","row":4},
+  {"move":"hey","beats":16,"params":{"start":"robins","amount":1,"center":"right"},"text":"robins start a full hey - rights in center, lefts on ends","section":"B1","row":5},
+  {"move":"swing","beats":16,"params":{"who":"partner"},"text":"partners long swing","section":"B2","row":6}
+ ]
+}

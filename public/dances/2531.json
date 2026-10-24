@@ -1,0 +1,15 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "2531", "title": "I Wish They All Could be California Twirls", "author": "Jim Kitch", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/2531", "formation": "improper", "sha256": "4b899d28d3800bf660fa1872724945b33405a2a9c7488c84591696e6ced6c9b7" }, "status": "partial", "problems": [ "Row 4 \"star promenade left ½\" isn't drawn yet.", "Row 5 \"butterfly whirl\" isn't drawn yet.", "The progression after row 10 \"partners california twirl\" doesn't work out: Couples 1 and 2 have not passed each other yet." ], "unparsed": [ { "row": 4, "text": "star promenade left ½", "why": "No figure pattern matches \"star promenade left ½\"." }, { "row": 5, "text": "butterfly whirl", "why": "No figure pattern matches \"butterfly whirl\"." } ], "choices": [ "A gyre goes by the right shoulder, facing each other, with no hands." ],
+ "figures": [
+  {"move":"circle","beats":4,"params":{"direction":"left","places":2},"text":"circle left 2 places","section":"A1","row":1},
+  {"move":"swing","beats":12,"params":{"who":"neighbor"},"text":"neighbors swing","section":"A1","row":2},
+  {"move":"allemande","beats":8,"params":{"who":"larks","hand":"left","amount":1.5},"text":"larks allemande left 1½","section":"A2","row":3},
+  {"move":"hold","beats":4,"params":{"reason":"unparsed"},"text":"star promenade left ½","section":"A2","row":4},
+  {"move":"hold","beats":4,"params":{"reason":"unparsed"},"text":"butterfly whirl","section":"A2","row":5},
+  {"move":"gyre","beats":8,"params":{"who":"robins","amount":1},"text":"robins gyre once","section":"B1","row":6},
+  {"move":"swing","beats":8,"params":{"who":"partner"},"text":"partners swing","section":"B1","row":7},
+  {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance & petronella · balance","section":"B2","row":8},
+  {"move":"petronella","beats":4,"params":{},"text":"balance & petronella · petronella","section":"B2","row":8},
+  {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance the ring","section":"B2","row":9},
+  {"move":"twirl","beats":4,"params":{"style":"california","who":"partner"},"text":"partners California twirl","progression":true,"section":"B2","row":10}
+ ]
+}

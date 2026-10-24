@@ -1,0 +1,12 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "2657", "title": "Kennebunk Plaza", "author": "Isaac Banner", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/2657", "formation": "improper", "retrievedAt": "2026-10-20T06:01:32.150Z", "sha256": "0c6d324a22eb332c8b776db4a702c7dbeab1ff2bb66e6f4720f4612546c605ce" }, "status": "partial", "problems": [ "The progression after row 6 \"star right 4 places\" doesn't work out: Couples 1 and 2 have not passed each other yet." ], "unparsed": [], "choices": [ "A balance with a partner or neighbor holds both hands.", "A star with no grip named is a basket star (wrist grip)." ],
+ "figures": [
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"neighbor","hand":"both"},"text":"neighbors balance & swing · balance","section":"A1","row":1},
+  {"move":"swing","beats":12,"params":{"who":"neighbor"},"text":"neighbors balance & swing · swing","section":"A1","row":1},
+  {"move":"allemande","beats":8,"params":{"who":"larks","hand":"left","amount":1.5},"text":"larks allemande left 1½","section":"A2","row":2},
+  {"move":"swing","beats":8,"params":{"who":"partner"},"text":"partners swing","section":"A2","row":3},
+  {"move":"long-lines","beats":8,"params":{"back":true},"text":"long lines forward & back","section":"B1","row":4},
+  {"move":"chain","beats":8,"params":{"who":"larks"},"text":"larks chain","section":"B1","row":5},
+  {"move":"star","beats":8,"params":{"hand":"right","places":4},"text":"star right 4 places","progression":true,"section":"B2","row":6},
+  {"move":"do-si-do","beats":8,"params":{"who":"neighbor","amount":1,"shoulder":"left"},"text":"next neighbors see saw once","section":"B2","row":7}
+ ]
+}

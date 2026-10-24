@@ -1,0 +1,13 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "2613", "title": "Potpourri", "author": "Bob Isaacs", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/2613", "formation": "improper", "retrievedAt": "2026-10-20T06:09:08.986Z", "sha256": "7596d1cb4348392cf138f8cb3c3fd84881923e278d2fa0e9e7a1d6fa38b16ab0" }, "status": "partial", "problems": [ "Row 1 \"neighbors balance and star through (inside hand)\" isn't drawn yet.", "Row 4 \"larks roll away neighbors across the set\" isn't drawn yet.", "The progression after row 8 \"long lines forward & back\" doesn't work out: Couples 1 and 4 have not passed each other yet." ], "unparsed": [ { "row": 1, "text": "neighbors balance and star through (inside hand)", "why": "No figure pattern matches \"neighbors balance and star through (inside hand)\"." }, { "row": 4, "text": "larks roll away neighbors across the set", "why": "No figure pattern matches \"gentlespoons roll away neighbors across the set\"." } ], "choices": [],
+ "figures": [
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"neighbors balance and star through (inside hand)","section":"A1","row":1},
+  {"move":"chain","beats":8,"params":{"who":"robins"},"text":"robins chain","section":"A1","row":2},
+  {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance the ring","section":"A2","row":3},
+  {"move":"hold","beats":4,"params":{"reason":"unparsed"},"text":"larks roll away neighbors across the set","section":"A2","row":4},
+  {"move":"swing","beats":8,"params":{"who":"partner"},"text":"partners swing","section":"A2","row":5},
+  {"move":"circle","beats":8,"params":{"direction":"left","places":3},"text":"circle left 3 places","section":"B1","row":6},
+  {"move":"swing","beats":8,"params":{"who":"neighbor"},"text":"neighbors swing","section":"B1","row":7},
+  {"move":"long-lines","beats":8,"params":{"back":true},"text":"long lines forward & back","progression":true,"section":"B2","row":8},
+  {"move":"hey","beats":8,"params":{"start":"robins","amount":0.5,"center":"right"},"text":"robins start a half hey - rights in center, lefts on ends to new neighbors","section":"B2","row":9}
+ ]
+}

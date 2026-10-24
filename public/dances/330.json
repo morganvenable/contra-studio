@@ -1,0 +1,13 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "330", "title": "Three Klicks North", "author": "Isaac Banner", "formation": "becket", "progression": "minor-set", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/330", "formation": "Becket", "retrievedAt": "2026-10-20T06:20:21.043Z", "sha256": "9527dc9f7b625e7de2a88f40f04ed1e17910b55fdda9d2899cd83dd83b6326c8" }, "status": "partial", "problems": [ "The progression after row 3 \"partners california twirl\" doesn't work out: Couple 1 must face the same way to find new neighbors." ], "unparsed": [], "choices": [ "A meltdown swing starts with 4 beats of right-shoulder round, then swings." ],
+ "figures": [
+  {"move":"right-left-through","beats":8,"params":{},"text":"right left through","section":"A1","row":1},
+  {"move":"circle","beats":6,"params":{"direction":"left","places":3},"text":"circle left 3 places","section":"A1","row":2},
+  {"move":"twirl","beats":2,"params":{"style":"california","who":"partner"},"text":"partners California twirl","progression":true,"section":"A1","row":3},
+  {"move":"circle","beats":8,"params":{"direction":"left","places":2},"text":"circle left 2 places","section":"A2","row":4},
+  {"move":"swing","beats":8,"params":{"who":"neighbor"},"text":"neighbors swing","section":"A2","row":5},
+  {"move":"long-lines","beats":8,"params":{"back":true},"text":"long lines forward & back","section":"B1","row":6},
+  {"move":"mad-robin","beats":8,"params":{"front":"larks"},"text":"mad robins, larks in front","section":"B1","row":7},
+  {"move":"pass-by","beats":2,"params":{"who":"larks","shoulder":"left","hands":false},"text":"larks pass by left shoulders","section":"B2","row":8},
+  {"move":"swing","beats":14,"params":{"who":"partner","meltdown":true},"text":"partners meltdown swing","section":"B2","row":9}
+ ]
+}

@@ -1,0 +1,12 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "1165", "title": "Spring Beauty", "author": "Don Flaherty", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/1165", "formation": "improper", "retrievedAt": "2026-10-20T06:13:51.284Z", "sha256": "20e496270e2f88eb68111d5bed3e106695de1fd1eb79d48ffe659657292f4b4c" }, "status": "check", "problems": [ "Row 4 \"robins allemande right once\": a dancer has to move 1.32 m in one beat, faster than a walk (with 3 couples)." ], "unparsed": [], "choices": [ "A balance with a partner or neighbor holds both hands." ],
+ "figures": [
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"neighbor","hand":"both"},"text":"neighbors balance & swing · balance","section":"A1","row":1},
+  {"move":"swing","beats":12,"params":{"who":"neighbor"},"text":"neighbors balance & swing · swing","section":"A1","row":1},
+  {"move":"right-left-through","beats":8,"params":{},"text":"right left through","section":"A2","row":2},
+  {"move":"chain","beats":8,"params":{"who":"robins","to":"partner"},"text":"robins chain to partner","section":"A2","row":3},
+  {"move":"allemande","beats":4,"params":{"who":"robins","hand":"right","amount":1},"text":"robins allemande right once","section":"B1","row":4},
+  {"move":"swing","beats":12,"params":{"who":"partner"},"text":"partners swing","section":"B1","row":5},
+  {"move":"long-lines","beats":8,"params":{"back":true},"text":"long lines forward & back","section":"B2","row":6},
+  {"move":"hey","beats":8,"params":{"start":"robins","amount":0.5,"center":"right"},"text":"robins start a half hey - rights in center, lefts on ends and look for new neighbors in line of direction","section":"B2","row":7}
+ ]
+}

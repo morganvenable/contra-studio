@@ -1,0 +1,14 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "433", "title": "Hull's Victory", "author": "Chestnut", "formation": null, "progression": null, "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/433", "formation": "proper", "retrievedAt": "2026-10-20T05:59:41.323Z", "sha256": "00430a1fc05256b351ffa7d216948a4fcadc66585fc64a0f684725f5ba659204" }, "status": "unsupported", "problems": [ "The \"proper\" formation isn't built yet." ], "unparsed": [ { "row": 2, "text": "form an ocean wave & balance - ones by right hands and neighbors by left hands", "why": "No figure pattern matches \"form an ocean wave & balance - ones by right hands and neighbors by left hands\"." }, { "row": 5, "text": "ones form a long wave in the center - balance the wave", "why": "No figure pattern matches \"ones form a long wave in the center - balance the wave\"." }, { "row": 7, "text": "ones down the center and turn as a couple", "why": "No figure pattern matches \"ones down the center and turn as a couple\"." }, { "row": 8, "text": "ones up the center and cast a place +", "why": "No figure pattern matches \"ones up the center and cast a place + ⁋\"." } ], "choices": [ "The 1s end their swing side by side in the middle of the set facing down, the way they progress." ],
+ "figures": [
+  {"move":"allemande","beats":4,"params":{"who":"1s","hand":"right","amount":0.5},"text":"ones allemande right ½","section":"A1","row":1},
+  {"move":"hold","beats":4,"params":{"reason":"unparsed"},"text":"form an ocean wave & balance - ones by right hands and neighbors by left hands","section":"A1","row":2},
+  {"move":"allemande","beats":8,"params":{"who":"neighbor","hand":"left","amount":2},"text":"neighbors allemande left twice","section":"A1","row":3},
+  {"move":"allemande","beats":4,"params":{"who":"1s","hand":"right","amount":1},"text":"ones allemande right once to","section":"A2","row":4},
+  {"move":"hold","beats":4,"params":{"reason":"unparsed"},"text":"ones form a long wave in the center - balance the wave","section":"A2","row":5},
+  {"move":"swing","beats":8,"params":{"who":"1s","end":"down"},"text":"ones swing","section":"A2","row":6},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"ones down the center and turn as a couple","section":"B1","row":7},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"ones up the center and cast a place +","section":"B1","row":8,"progression":true},
+  {"move":"right-left-through","beats":8,"params":{},"text":"right left through","section":"B2","row":9},
+  {"move":"right-left-through","beats":8,"params":{},"text":"right left through","section":"B2","row":10}
+ ]
+}

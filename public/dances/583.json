@@ -1,0 +1,13 @@
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "583", "title": "Happy as a Cold Pig in Warm Mud", "author": "Mike Boerschig", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/583", "formation": "improper", "retrievedAt": "2026-10-20T05:58:18.558Z", "sha256": "94454863e09c6195bef772df84938eedcb9247ef452a36de57d9c3d11f890f9d" }, "status": "partial", "problems": [ "Row 4 \"The first larks and second robins star left above, and the second larks and first robins star left below\" isn't drawn yet." ], "unparsed": [ { "row": 4, "text": "The first larks and second robins star left above, and the second larks and first robins star left below", "why": "No figure pattern matches \"The first gentlespoon and second ladle star left above, and the second gentlespoon and first ladle star left below\"." } ], "choices": [ "A balance with a partner or neighbor holds both hands." ],
+ "figures": [
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"neighbor","hand":"both"},"text":"neighbors balance & swing · balance","section":"A1","row":1},
+  {"move":"swing","beats":12,"params":{"who":"neighbor"},"text":"neighbors balance & swing · swing","section":"A1","row":1},
+  {"move":"allemande","beats":8,"params":{"who":"larks","hand":"left","amount":1.5},"text":"larks allemande left 1½","section":"A2","row":2},
+  {"move":"allemande","beats":8,"params":{"who":"partner","hand":"right","amount":1.5},"text":"partners allemande right 1½","section":"A2","row":3},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"The first larks and second robins star left above, and the second larks and first robins star left below","section":"B1","row":4},
+  {"move":"swing","beats":8,"params":{"who":"partner"},"text":"partners swing","section":"B1","row":5},
+  {"move":"circle","beats":8,"params":{"direction":"left","places":3},"text":"circle left 3 places","section":"B2","row":6},
+  {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance the ring","section":"B2","row":7},
+  {"move":"twirl","beats":4,"params":{"style":"california","who":"partner"},"text":"partners California twirl","progression":true,"section":"B2","row":8}
+ ]
+}
