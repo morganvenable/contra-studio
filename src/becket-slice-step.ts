@@ -14,6 +14,7 @@ export interface BecketSliceBoundary {
  readonly poses:readonly SequenceBoundaryPose[];readonly heldContacts:readonly HandContact[];
 }
 export interface BecketSliceOptions {
+ readonly compactAdvance?:.34;
  readonly progressionSource:ProgressionEvidence;
  /** Separate reviewed allocation; the source says eight total counts only. */
  readonly timingSource:ProgressionEvidence;
@@ -66,7 +67,7 @@ export function compileBecketSliceStep(input:Figure,incoming:BecketSliceBoundary
  const f=capturePlainData(input),boundary=ownBecketSliceBoundary(incoming),o=capturePlainData(options);
  keys(f,['id','kind','beats','label','who','direction','phaseBeats','entry','exit','sliceReturn','progression','confidence','notes'],'Slice figure');
  if(f.kind!=='becket-slice'||f.beats!==8||f.who!=='all'||f.direction!=='left'||f.entry!=='side-couples'||f.exit!=='progressed-neighbors'||f.sliceReturn!=='straight-back'||f.progression!==true||!Array.isArray(f.phaseBeats)||f.phaseBeats.length!==2||f.phaseBeats.some(n=>n!==4)||typeof f.id!=='string'||!f.id.trim()||typeof f.label!=='string'||!f.label.trim()||f.confidence!==undefined&&!['verified','approximate'].includes(f.confidence)||f.notes!==undefined&&typeof f.notes!=='string')throw new Error('This slice consumes only eight-count all-dancer left diagonal-forward / straight-back with reviewed four-plus-four timing and its endpoint marker.');
- keys(o,['progressionSource','timingSource','endPolicy'],'Slice options');const source=evidence(o.progressionSource,'source-explicit'),timing=evidence(o.timingSource,'reviewed-interpretation'),policy=o.endPolicy;
+ keys(o,['progressionSource','timingSource','endPolicy','compactAdvance'],'Slice options');if(o.compactAdvance!==undefined&&o.compactAdvance!==.34)throw Error('Compact slice requires its explicit .34m inward approach.');const source=evidence(o.progressionSource,'source-explicit'),timing=evidence(o.timingSource,'reviewed-interpretation'),policy=o.endPolicy;
  keys(policy,['waitingRoleArrangement','sameEndTurnBeats','sameEndTurnOffsetBeats','reentryPreparationBeats','source'],'Slice end policy');const endSource=evidence(policy.source,'reviewed-interpretation');
  if(timing.sourceId!==source.sourceId||timing.url!==source.url||endSource.sourceId!==source.sourceId||endSource.url!==source.url)throw new Error('Slice timing, progression and finite-end choices must bind the same retained source snapshot.');
  if(policy.waitingRoleArrangement!=='lark-left'||policy.sameEndTurnBeats!==8||policy.sameEndTurnOffsetBeats!==undefined&&policy.sameEndTurnOffsetBeats!==0||policy.reentryPreparationBeats!==0)throw new Error('This slice needs a separately reviewed eight-count same-end exchange with lark-left waiting.');
@@ -78,8 +79,8 @@ export function compileBecketSliceStep(input:Figure,incoming:BecketSliceBoundary
  state=topology.before;
  const canonical=finiteBecketPoses(topology.before),origin={x:boundary.poses[0].position.x-canonical[0].position.x,z:boundary.poses[0].position.z-canonical[0].position.z};
  if(boundary.poses.some(p=>Math.hypot(p.position.x-canonical[p.id].position.x-origin.x,p.position.z-canonical[p.id].position.z-origin.z)>EPS))throw new Error('The measured incoming roots must occupy the declared finite Becket slots; no canonical reset is allowed.');
- if(state.halfWidth<.75||state.halfWidth>1.2||state.rowGap<1.4||state.rowGap>2.4)throw new Error('The left slice requires reviewed finite spacing and across-set torso clearance.');
- const start=boundary.sourceBeat,end=advanceSequenceBeat(start,8),advance=.52,byId=new Map(state.couples.flatMap(c=>[[c.larkId,c],[c.robinId,c]] as const));
+ if(o.compactAdvance!==undefined?state.halfWidth!==.64||state.rowGap!==1.28:state.halfWidth<.75||state.halfWidth>1.2||state.rowGap<1.4||state.rowGap>2.4)throw new Error('The left slice requires reviewed finite spacing and across-set torso clearance.');
+ const start=boundary.sourceBeat,end=advanceSequenceBeat(start,8),advance=o.compactAdvance??.52,byId=new Map(state.couples.flatMap(c=>[[c.larkId,c],[c.robinId,c]] as const));
  const sample=(sourceBeat:number):{poses:Pose[];contacts:HandContact[]}=>{
   if(!Number.isFinite(sourceBeat)||sourceBeat<start||sourceBeat>end)throw new Error('A slice sample must stay inside its exact source-count interval.');
   const elapsed=sourceBeat-start,out=ease(elapsed/4),back=ease((elapsed-4)/4),inward=advance*(out-back);
