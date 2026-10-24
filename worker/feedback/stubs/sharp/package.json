@@ -1,0 +1,7 @@
+{
+  "name": "sharp",
+  "version": "0.35.5",
+  "description": "Empty stand-in so wrangler's local simulator installs without libvips (LGPL). Only the Images binding needs sharp; this Worker does not use it.",
+  "license": "MIT",
+  "main": "index.js"
+}
