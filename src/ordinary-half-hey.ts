@@ -1,3 +1,4 @@
+import{compileHeyExitFacing}from'./hey-exit-facing.ts';
 import {compilePrimitiveFigure} from './engine.ts';
 /** Source-semantic ordinary half hey. Role, shoulder and exit relation are explicit;
  * all four pass layers are expanded against the incoming identity epoch. */
@@ -19,8 +20,8 @@ function assertGyreExitData(input:unknown):asserts input is Figure {
  if(typeof f.id!=='string'||!f.id.trim()||typeof f.label!=='string'||!f.label.trim()||f.notes!==undefined&&typeof f.notes!=='string'||f.confidence!==undefined&&!['verified','approximate','unsupported'].includes(f.confidence)||!Number.isFinite(f.beats))throw new Error('The half-hey gyre exit requires explicit finite source counts and well-formed metadata.');
  assertFigureArgumentsConsumed(f);
 }
-export function compileOrdinaryHalfHeyFigure(f:Figure,context:FigureContext,options?:{halfWidth:.64;balanceHands:'acquire'}):MotionPlan {
- if(options&&(Object.keys(options).some(k=>!['halfWidth','balanceHands'].includes(k))||options.halfWidth!==.64||options.balanceHands!=='acquire'||f.exit!=='opposite-paired-balance'))throw Error('Compact half-hey needs explicit held balance exit.');
+export function compileOrdinaryHalfHeyFigure(f:Figure,context:FigureContext,options?:{halfWidth:.64;balanceHands:'acquire';archHands?:never;swingHands?:never}|{halfWidth:.64;archHands:'acquire';balanceHands?:never;swingHands?:never}|{halfWidth:.64;swingHands:'acquire';balanceHands?:never;archHands?:never}):MotionPlan {
+ if(options!==undefined){options=capturePlainData(options);if(!options||typeof options!=='object'||Array.isArray(options))throw Error('Compact half-hey options must be a plain record.');const mode=options.archHands?'archHands':options.swingHands?'swingHands':'balanceHands';if(Object.keys(options).some(k=>!['halfWidth',mode].includes(k))||options.halfWidth!==.64||options[mode]!=='acquire'||f.exit!==(mode==='swingHands'?'opposite-paired-swing':'opposite-paired-balance')||mode==='archHands'&&context.next?.hands!=='right')throw Error('Compact half-hey requires an explicit matching hand exit.');}
  const halfWidth=options?.halfWidth??.9;
  if(f.exit==='opposite-paired-gyre'){const owned=capturePlainData({figure:f,next:context.next});assertGyreExitData(owned.figure);if(owned.next===undefined)throw new Error('The half-hey gyre exit requires its declared same-pair four-count right-shoulder once-around gyre.');assertGyreExitData(owned.next);f=owned.figure;context={...context,next:owned.next};}
  f=structuredClone(f);context={...context,ids:[...context.ids],start:structuredClone(context.start),dancers:structuredClone(context.dancers),next:context.next?structuredClone(context.next):undefined,relations:{epoch:context.relations.epoch,partner:new Map(context.relations.partner),neighbor:new Map(context.relations.neighbor)}};
@@ -54,7 +55,7 @@ export function compileOrdinaryHalfHeyFigure(f:Figure,context:FigureContext,opti
  const actors=ids.map(id=>({id:String(id),role:dancers[id].role,couple:String(dancers[id].couple)})),events=compileBasicPassEvents(parseHeyNotation(`(8) Hey 1/2 (${tokens.join(';')})`),actors,entryOrder.map(String));
  const entry=new Map(ids.map(id=>[String(id),{position:{...start[id].position},velocity:{x:0,z:0},yaw:start[id].yaw}]));
  const end=new Map(ids.map(id=>[id,{x:2*center.x-start[id].position.x,z:2*center.z-start[id].position.z}]));
- const desiredGap=swingExit?.62:gyreExit?1.1:exitKind==='opposite-paired-balance'?1.18:1.8;
+ const desiredGap=swingExit?.62:gyreExit||options?.archHands?1.1:exitKind==='opposite-paired-balance'?1.18:1.8;
  for(const a of ids.filter(id=>id<pairs.get(id)!)){const b=pairs.get(a)!,A=end.get(a)!,B=end.get(b)!,c={x:(A.x+B.x)/2,z:(A.z+B.z)/2},gap=distance(A,B);for(const id of[a,b]){const p=end.get(id)!;end.set(id,{x:c.x+(p.x-c.x)*desiredGap/gap,z:c.z+(p.z-c.z)*desiredGap/gap});}}
  const exit=new Map(ids.map(id=>[String(id),{position:end.get(id)!,velocity:{x:0,z:0},yaw:swingExit?heading(end.get(id)!,end.get(pairs.get(id)!)!)+Math.PI/3:exitKind==='opposite-paired-balance'||gyreExit?heading(end.get(id)!,end.get(pairs.get(id)!)!):end.get(id)!.z<center.z?Math.PI:0}]));
  const named=(map:ReadonlyMap<number,number>)=>new Map(ids.map(id=>[String(id),String(map.get(id)!)]));
@@ -68,14 +69,15 @@ export function compileOrdinaryHalfHeyFigure(f:Figure,context:FigureContext,opti
  const wideBalanceEntry=exitKind==='opposite-paired-balance'&&[[westStart,westOther],[eastStart,eastOther]].every(([a,b])=>Math.abs(distance(start[a].position,start[b].position)-1.8)<.001);
  const path=compilePartialHey({actors,events:events.events,entry,exit,frame:{origin:center,axis:{x:1,z:0}},beats:8,entryBeats:0,exitBeats:0,boundaryMode:'within-passes',gateBeats:options?[17/8,43/12,121/24,13/2]:swingExit?[wideSwingEntry?2.25:2,3.75,5.5,7.25]:exitKind==='opposite-paired-balance'||gyreExit?[2,3.75,5.5,7.25]:[2.25,3.75,5.25,6.75],slotSpacing:1.05,passClearance:.66,maximumSpeed:wideBalanceEntry?1.35:1.3,maximumYawRate:4,relationships:{partner:named(partner),neighbor:named(neighbor)}});
  const actor=(id:number,t:number)=>{const p=path.sample(t*8).poses.find(p=>p.id===String(id));if(!p)throw new Error('Actor outside the compiled half-hey group.');return p;};
- const basic:MotionPlan={position:(id,t)=>actor(id,t).position,facing:(id,t)=>actor(id,t).yaw,contacts:()=>[]};
+ const prepared=options?.swingHands?compileHeyExitFacing(path):undefined;
+ const basic:MotionPlan={position:(id,t)=>actor(id,t).position,facing:(id,t)=>prepared?prepared.facing(String(id),t*8):actor(id,t).yaw,contacts:()=>[]};
  if(gyreExit){
   if(events.events.length!==4||events.events.reduce((n,e)=>n+e.pairs.length,0)!==6||events.needsPartialExit||events.endOrder?.some((id,i)=>id!==String(entryOrder[3-i])))throw new Error('The released half hey must retain all six named encounters and its exact reversed slot permutation.');
   const terminal=sampleFormationEndpoint(context,basic,1),exitState=captureFormationState({...context,start:terminal},{sourceBeat:8,orderedIds:events.endOrder!.map(Number),geometry:{kind:'paired-sidelines',sidePair:relation,origin:center,halfWidth:.9,pairGap:1.1}});
   const successor=compileGyreFigure(context.next as GyreFigure,{...context,start:terminal,next:undefined});
   assertSuccessorEntry(exitState,{...context,start:terminal},successor);
  }
- if(options){const terminal=sampleFormationEndpoint(context,basic,1),balance=compilePrimitiveFigure(context.next!,ids,terminal,dancers,[],{balanceEntry:'held-two-hand',balanceExit:'same-person-swing'});return Object.freeze({...basic,contacts:(t:number,poses:Pose[])=>{const q=Math.max(0,Math.min(1,(t*8-7.75)/.25));return balance.contacts(0,poses).map(h=>({...h,strength:h.strength*q*q*(3-2*q)})).filter(h=>h.strength>1e-9);}});}
+ if(options){const terminal=sampleFormationEndpoint(context,basic,1),next=compilePrimitiveFigure(context.next!,ids,terminal,dancers,[],options.swingHands?{swingEntry:'prepared-circle',canonicalSwingLayout:true,geometry:{halfWidth:.64,rowGap:1.28}}:options.archHands?{balanceEntry:'held-right-hand',balanceExit:'right-hand-arch'}:{balanceEntry:'held-two-hand',balanceExit:'same-person-swing'});return Object.freeze({...basic,contacts:(t:number,poses:Pose[])=>{const q=Math.max(0,Math.min(1,(t*8-7.75)/.25));const strength=q*q*(3-2*q);return next.contacts(0,poses).map(h=>({...h,strength:h.strength*(options.swingHands&&h.target==='back'?Math.max(0,(strength-.5)/.5)**2:strength)})).filter(h=>h.strength>1e-9);}});}
  if(!swingExit)return Object.freeze(basic);
  const terminal=structuredClone(start);for(const id of ids){terminal[id].position={...end.get(id)!};terminal[id].yaw=exit.get(String(id))!.yaw;}
  const swing=compilePrimitiveFigure(context.next!,ids,terminal,dancers,dancers.filter(d=>d.role==='lark').map(d=>d.direction),{swingEntry:'prepared-circle'});
