@@ -1,29 +1,53 @@
 {
-  "count": 210,
+  "count": 214,
   "entries": [
+    {
+      "id": "2135",
+      "sourceSnapshotId": "contradb:2135:9795a855a8dc82ff",
+      "archiveSha256": "e7dd06fd821d5ea357fe6378d4265190bac75ad7fce5bf6f98107ea48e49eddf",
+      "status": "current-motion-checked"
+    },
+    {
+      "id": "700",
+      "sourceSnapshotId": "contradb:700:c23d5c55707a116f",
+      "archiveSha256": "40289c9cc66ccbf19bdf39dc20005dda14775b924718c88b0090e210e07bea1c",
+      "status": "current-motion-checked"
+    },
+    {
+      "id": "2950",
+      "sourceSnapshotId": "contradb:2950:1732b6160dcf7120",
+      "archiveSha256": "aa536c9799b3868b5fe5c6cca0b4e9f5d0cc81ba25b68a43503a2fd2beec7d43",
+      "status": "current-motion-checked"
+    },
+    {
+      "id": "2589",
+      "sourceSnapshotId": "contradb:2589:2a58b40061b6b7a5",
+      "archiveSha256": "b9b0a9514601d5f8841e97ad13236ff9e04d477bdac9fb93a8538adb337e86a7",
+      "status": "current-motion-checked"
+    },
     {
       "id": "2009",
       "sourceSnapshotId": "contradb:2009:5b3799d410da2d2b",
       "archiveSha256": "87e20833bcce2d8e30e760bbbbb530019220dfbaadf4feacee3e54a16e3cf28b",
-      "status": "current-motion-checked"
+      "status": "assembled-current-motion-pending"
     },
     {
       "id": "1922",
       "sourceSnapshotId": "contradb:1922:6f16d98224aa0faa",
       "archiveSha256": "45c813e549326567603f7fac01946fe3dd27a9850078a1499f251f184ac7243f",
-      "status": "current-motion-checked"
+      "status": "assembled-current-motion-pending"
     },
     {
       "id": "1844",
       "sourceSnapshotId": "contradb:1844:f5375c54aafa7cb8",
       "archiveSha256": "a828cba3296e669937939708bac3ac4176b11f5b74a2150143221a462cce0347",
-      "status": "current-motion-checked"
+      "status": "assembled-current-motion-pending"
     },
     {
       "id": "382",
       "sourceSnapshotId": "contradb:382:8f6736c6ccc2afc8",
       "archiveSha256": "47fb3730b8db7a7d8365ff31245fbc4a61bba838630df8509580018991ccfbdb",
-      "status": "current-motion-checked"
+      "status": "assembled-current-motion-pending"
     },
     {
       "id": "2032",
