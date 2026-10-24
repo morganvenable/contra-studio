@@ -46,3 +46,14 @@
 .music-audio-controls{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 18px}.music-audio-controls [aria-pressed=true]{background:#eaf0e6;border-color:#8da581;color:#285e4d}
 /* Standalone timing study uses the same navigation treatment as studio tools. */
 a.nav-item { display: inline-flex; align-items: center; text-decoration: none; }
+/* Every ContraDB dance: status filters and quiet status badges. */
+.status-filters{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 4px}
+.status-filter{border:1px solid var(--line);border-radius:999px;padding:4px 11px;font-size:11px;color:var(--muted);background:var(--panel)}
+.status-filter[aria-pressed="true"]{border-color:var(--green);color:var(--green);background:var(--green-light)}
+.status-filter span{opacity:.75}
+.next-library-card{flex-direction:row;align-items:center}
+.source-library-card .status-badge{display:inline-block;margin-left:6px;padding:1px 7px;border-radius:999px;font-size:10px;font-weight:550;vertical-align:1px;color:var(--muted);background:#eef0ea;border:1px solid var(--line)}
+.source-library-card .status-badge.status-ok{color:var(--green);background:var(--green-light);border-color:#d4dfcf}
+.source-library-card .status-badge.status-check{color:#8a6a2a;background:#f6efdf;border-color:#eadfc4}
+.source-library-card .status-badge.status-partial{color:#8a5a43;background:#f6ebe4;border-color:#ecd9cd}
+#next-library-list{max-height:420px;overflow-y:auto}

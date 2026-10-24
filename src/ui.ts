@@ -18,6 +18,8 @@ import {CONVENTIONAL_MAD_ROBIN_POLICY,MAD_ROBIN_ROW_CHOICE_DESCRIPTION,MAD_ROBIN
 import {squareThroughDescription} from './source-square-through.ts';
 import {CONVENTIONAL_RING_TWIRL,RING_TWIRL_CHOICE_DESCRIPTION} from './ring-twirl-policy.ts';
 import {READY_LIBRARY} from './ready-library.ts';
+import {STATUS_LABEL,STATUS_ORDER,countByStatus,danceFromStored,fetchStoredDance,filterLibrary,loadLibraryIndex} from './next/library-ui.ts';
+import type {DanceStatus,LibraryEntry} from './next/dance.ts';
 import {CONVENTIONAL_DIAGONAL_HEY,DIAGONAL_HEY_CHOICE_DESCRIPTION} from './source-diagonal-hey.ts';
 import {CONVENTIONAL_REVOLVING_DOOR,REVOLVING_DOOR_CHOICE_DESCRIPTION} from './source-revolving-door.ts';
 import {sixTwoPassChoiceForSource,sixTwoPassDescription} from './source-six-two.ts';
@@ -85,6 +87,8 @@ export function createUI(root: HTMLElement, actions: StudioActions, initial: Stu
   let figureLoop = false;
   let importGeneration = 0;
   let readyOpenGeneration=0,readyOpenPending=false;
+  // Every stored ContraDB dance (the next engine's library), fetched when the library opens.
+  let libraryIndex:LibraryEntry[]|undefined,libraryIndexError='',libraryStatus:DanceStatus|'all'='all',libraryLimit=40;
   let contraDbChoices:ContraDbInterpretation={};
   let sourceReviewPrepared=false,sourceSavedArchive=false;
   let sourceChoiceSuggestions:SourceChoiceSuggestion[]=[];
@@ -279,9 +283,10 @@ export function createUI(root: HTMLElement, actions: StudioActions, initial: Stu
     previousFigure = -1;
   }
   function showLibrary() {
-    openDialog('Find your next dance', 'DANCE LIBRARY', `<label class="search-field">${icon('search')}<input id="library-search" aria-label="Search dance library" type="search" placeholder="Search by dance or choreographer" autocomplete="off"></label><div class="source-shortcuts">${FAVORITE_WRITERS.map(name=>`<button type="button" class="text-button" data-search-author="${esc(name)}">${esc(name)}</button>`).join('')}</div><h3 class="section-label">Ready to play · ${READY_LIBRARY.length} reviewed source interpretations</h3><p id="ready-library-status" class="field-help" role="status" aria-live="polite"></p><div class="source-library-list" id="ready-library-list"></div><h3 class="section-label">Built-in and saved dances</h3><div class="library-list" id="library-list"></div><details class="source-catalog"><summary>Search the full ContraDB catalog · many records are not yet playable</summary><p class="field-help">This separate catalog lists public titles, credited choreographers and formations. Unchecked records require source review and may not play.</p><p id="source-index-status" class="field-help" role="status"></p><div class="source-library-list" id="source-index-list"></div><button class="button button-secondary" data-action="import">${sourceDownloaderAvailable?'Import any ContraDB URL or ID':'Import a saved source file'}</button></details><div class="dialog-bottom-note">${icon('info')}Each sequence is a supported interpretation. Movement and holds are illustrative.${storageReadBlocked ? ' Your existing saved library could not be read and will not be overwritten.' : preservedStoredEntries.length ? ` ${preservedStoredEntries.length} saved record(s) cannot open in this version; their stored data is retained.` : ''}</div>`, true);
-    sourceIndexLimit=30;renderLibrary('');
-    $<HTMLInputElement>('#library-search').addEventListener('input', e => {sourceIndexLimit=30;renderLibrary((e.target as HTMLInputElement).value);});
+    openDialog('Find your next dance', 'DANCE LIBRARY', `<label class="search-field">${icon('search')}<input id="library-search" aria-label="Search dance library" type="search" placeholder="Search by dance or choreographer" autocomplete="off"></label><div class="source-shortcuts">${FAVORITE_WRITERS.map(name=>`<button type="button" class="text-button" data-search-author="${esc(name)}">${esc(name)}</button>`).join('')}</div><h3 class="section-label">Every ContraDB dance</h3><div class="status-filters" role="group" aria-label="Filter by status">${(['all',...STATUS_ORDER] as const).map(s=>`<button type="button" class="status-filter" data-status-filter="${s}" aria-pressed="${s===libraryStatus}">${s==='all'?'all':STATUS_LABEL[s]} <span data-status-count="${s}"></span></button>`).join('')}</div><p id="next-library-status" class="field-help" role="status" aria-live="polite"></p><div class="source-library-list" id="next-library-list"></div><h3 class="section-label">Ready to play · ${READY_LIBRARY.length} reviewed source interpretations</h3><p id="ready-library-status" class="field-help" role="status" aria-live="polite"></p><div class="source-library-list" id="ready-library-list"></div><h3 class="section-label">Built-in and saved dances</h3><div class="library-list" id="library-list"></div><details class="source-catalog"><summary>Search the full ContraDB catalog · many records are not yet playable</summary><p class="field-help">This separate catalog lists public titles, credited choreographers and formations. Unchecked records require source review and may not play.</p><p id="source-index-status" class="field-help" role="status"></p><div class="source-library-list" id="source-index-list"></div><button class="button button-secondary" data-action="import">${sourceDownloaderAvailable?'Import any ContraDB URL or ID':'Import a saved source file'}</button></details><div class="dialog-bottom-note">${icon('info')}Each sequence is a supported interpretation. Movement and holds are illustrative.${storageReadBlocked ? ' Your existing saved library could not be read and will not be overwritten.' : preservedStoredEntries.length ? ` ${preservedStoredEntries.length} saved record(s) cannot open in this version; their stored data is retained.` : ''}</div>`, true);
+    sourceIndexLimit=30;libraryLimit=40;renderLibrary('');
+    if(!libraryIndex)void loadLibraryIndex().then(entries=>{libraryIndex=entries;libraryIndexError='';},error=>{libraryIndexError=error instanceof Error?error.message:'The dance index is unavailable.';}).finally(()=>{const input=root.querySelector<HTMLInputElement>('#library-search');if(input&&dialog.open)renderNextLibrary(input.value);});
+    $<HTMLInputElement>('#library-search').addEventListener('input', e => {sourceIndexLimit=30;libraryLimit=40;renderLibrary((e.target as HTMLInputElement).value);});
     root.querySelector<HTMLDetailsElement>('.source-catalog')?.addEventListener('toggle',()=>{if(!root.querySelector<HTMLDetailsElement>('.source-catalog')?.open)return;if(!sourceIndexRequest&&!sourceIndex){sourceIndexRequest=(async()=>{try{const response=await fetch(catalogueUrl,{credentials:'omit'});if(!response.ok)throw new Error('Index unavailable');const body=await response.text();if(body.length>1_500_000)throw new Error('Index too large');sourceIndex=readSourceIndex(JSON.parse(body));sourceIndexError='';}catch{sourceIndexError=sourceDownloaderAvailable?'The public search index is unavailable. You can still open a source link or import a ContraDB URL / ID.':'The public search index is unavailable. You can still use the Ready library or import a saved source file.';}finally{sourceIndexRequest=undefined;const input=root.querySelector<HTMLInputElement>('#library-search');if(input&&dialog.open)renderSourceIndex(input.value);}})();}});
   }
   function renderSourceIndex(query:string){
@@ -291,8 +296,25 @@ export function createUI(root: HTMLElement, actions: StudioActions, initial: Stu
     status.textContent=`${sourceIndex.records.length.toLocaleString()} records · snapshot ${sourceIndex.retrievedAt.slice(0,10)}${missing?` · ${missing} reported records were unavailable`:''}. ${result.matches.length.toLocaleString()} matches${result.matches.length>visible.length?`; showing ${visible.length}`:''}.${result.notice?' '+result.notice:''}`;
     list.innerHTML=visible.map(d=>`<article class="source-library-card"><div><strong>${esc(d.title)}</strong><span>${esc(d.author)} · ${esc(d.formation)} · #${esc(d.id)}</span><p>${REVIEWED_SOURCE_IDS.has(d.id)?'A retained version passed independent source / runtime checks. The downloaded version is rechecked; motion remains schematic.':'Support not yet checked. Review the entire source and any unresolved choices before opening.'}</p></div><div><a href="https://contradb.com/dances/${esc(d.id)}" target="_blank" rel="noopener noreferrer">Original source ${icon('external')}</a><button class="button button-secondary" data-review-source="${esc(d.id)}">${sourceDownloaderAvailable?'Download & review':'Review saved-source instructions'} ${icon('arrow')}</button></div></article>`).join('')+(result.matches.length>visible.length?'<button class="button button-secondary" data-action="more-source-results">Show 30 more</button>':'');
   }
+  function renderNextLibrary(query:string){
+    const status=root.querySelector('#next-library-status'),list=root.querySelector('#next-library-list');if(!status||!list)return;
+    root.querySelectorAll<HTMLElement>('[data-status-filter]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.statusFilter===libraryStatus)));
+    if(!libraryIndex){status.textContent=libraryIndexError||'Loading every dance…';list.innerHTML='';return;}
+    const counts=countByStatus(filterLibrary(libraryIndex,query,'all'));
+    root.querySelectorAll<HTMLElement>('[data-status-count]').forEach(el=>{el.textContent=String(counts[el.dataset.statusCount!]??0);});
+    const matches=filterLibrary(libraryIndex,query,libraryStatus),visible=matches.slice(0,libraryLimit);
+    status.textContent=`${matches.length.toLocaleString()} of ${libraryIndex.length.toLocaleString()} dances${matches.length>visible.length?`; showing ${visible.length}`:''}.`;
+    list.innerHTML=visible.map(d=>`<button type="button" class="source-library-card ready-library-card next-library-card" data-open-dance="${esc(d.id)}" aria-label="Open ${esc(d.title)} by ${esc(d.author)} (${esc(d.status)})"><span class="ready-library-copy"><strong>${esc(d.title)} <span class="status-badge status-${esc(d.status)}">${esc(STATUS_LABEL[d.status])}</span></strong><span>${esc(d.author)} · ${esc(d.formation)} · #${esc(d.id)}</span>${d.note?`<span class="ready-library-summary">${esc(d.note)}</span>`:''}</span><span class="ready-library-open" aria-hidden="true">${icon('arrow')}</span></button>`).join('')+(matches.length>visible.length?'<button type="button" class="button button-secondary" data-action="more-library-results">Show 40 more</button>':'')||'<p class="field-help">No dances match.</p>';
+  }
+  /** Open a stored dance by ContraDB id: its Ready interpretation when there is one, else the stored program. */
+  async function openLibraryDance(id:string){
+    const stored=await fetchStoredDance(id);
+    const ready=READY_LIBRARY.find(item=>item.id===id),loaded=ready?readInterpretation(ready.archive).dance:undefined;
+    if(ready&&loaded){sourceText.set(loaded.id,ready.archive);actions.loadDance(loaded);}else actions.loadDance(danceFromStored(stored));
+    return stored;
+  }
   function renderLibrary(query: string) {
-    renderSourceIndex(query);
+    renderSourceIndex(query);renderNextLibrary(query);
     const matches = libraryDances().filter(d => `${d.title} ${d.author}`.toLowerCase().includes(query.toLowerCase()));
     $('#ready-library-list').innerHTML=READY_LIBRARY.filter(d=>`${d.title} ${d.author} ${d.id}`.toLowerCase().includes(query.toLowerCase())).map(d=>`<div class="ready-library-entry"><button type="button" class="source-library-card ready-library-card" data-open-reviewed="${esc(d.id)}" aria-label="Open ${esc(d.title)} by ${esc(d.author)} in studio"${readyOpenPending?' disabled':''}><span class="ready-library-copy"><strong>${esc(d.title)}</strong><span>${esc(d.author)} · ${esc(d.formation)} · #${esc(d.id)}</span>${SOURCE_LIBRARY.find(item=>item.id===d.id)?.summary?`<span class="ready-library-summary">${esc(SOURCE_LIBRARY.find(item=>item.id===d.id)!.summary)}</span>`:''}</span><span class="ready-library-open" aria-hidden="true">${icon('arrow')}</span></button><button type="button" class="text-button ready-library-source" data-review-ready="${esc(d.id)}" aria-label="Inspect source and choices for ${esc(d.title)}"${readyOpenPending?' disabled':''}>Source &amp; choices</button></div>`).join('')||'<p class="field-help">No ready-to-play dances match. The full catalog below may have additional unreviewed records.</p>';
     $('#library-list').innerHTML = matches.length ? matches.map((dance, i) => `<button class="library-card ${dance.id === state.dance.id ? 'is-selected' : ''}" data-dance="${esc(dance.id)}"><span class="library-dance-icon">${icon(i % 2 ? 'trail' : 'people')}</span><span class="library-card-copy"><span class="library-card-title">${esc(dance.title)}</span><span class="library-author">${isEdited(dance) ? 'Original by ' : ''}${esc(dance.author)}${isEdited(dance) ? ' · edited interpretation' : ''}</span><span class="library-description">${esc(dance.description)}</span><span class="library-tags"><span>${esc(formationLabel(dance))}</span><span>${sumBeats(dance)} beats</span><span>${dance.figures.length} figures</span>${storedIds.has(dance.id) ? '<span>Saved in this browser</span>' : savedDances.some(d => d.id === dance.id) ? '<span>This session only</span>' : ''}</span></span><span class="library-arrow">${dance.id === state.dance.id ? icon('check') : icon('arrow')}</span></button>`).join('') : '<div class="empty-state">No dances match that search.</div>';
@@ -586,6 +608,9 @@ export function createUI(root: HTMLElement, actions: StudioActions, initial: Stu
     if (target.dataset.camera) { if (target.dataset.camera === 'dancer' && state.selectedDancer < 0 && state.dancers.length) actions.selectDancer(state.dancers[0].id); actions.setCamera(target.dataset.camera as CameraMode); return; }
     if (target.dataset.figure !== undefined) { const index = Number(target.dataset.figure); const start = state.dance.figures.slice(0, index).reduce((n, f) => n + f.beats, 0); actions.seek(Math.floor(state.beat / state.totalBeats) * state.totalBeats + start); return; }
     if(target.dataset.searchAuthor){const input=root.querySelector<HTMLInputElement>('#library-search');if(input){input.value=target.dataset.searchAuthor;sourceIndexLimit=30;renderLibrary(input.value);}return;}
+    if(target.dataset.statusFilter){libraryStatus=target.dataset.statusFilter as DanceStatus|'all';libraryLimit=40;renderNextLibrary($<HTMLInputElement>('#library-search').value);return;}
+    if(target.dataset.action==='more-library-results'){libraryLimit+=40;renderNextLibrary($<HTMLInputElement>('#library-search').value);return;}
+    if(target.dataset.openDance){const id=target.dataset.openDance;text('#next-library-status','Opening…');void openLibraryDance(id).then(stored=>{closeDialog();notify(stored.status==='ok'?`Opened ${stored.title}.`:`Opened ${stored.title} (${stored.status}): ${stored.problems[0]??''}`);},error=>{text('#next-library-status',`Could not open #${id}: ${error instanceof Error?error.message:'unavailable'}`);});return;}
     if(target.dataset.action==='more-source-results'){sourceIndexLimit+=30;renderSourceIndex($<HTMLInputElement>('#library-search').value);return;}
     if(target.dataset.openReviewed){
       const entry=READY_LIBRARY.find(item=>item.id===target.dataset.openReviewed);if(!entry||readyOpenPending)return;
@@ -597,7 +622,7 @@ export function createUI(root: HTMLElement, actions: StudioActions, initial: Stu
         // archive validation/program preparation. A replaced dialog cancels it.
         await new Promise<void>(resolve=>window.requestAnimationFrame(()=>window.requestAnimationFrame(()=>resolve())));
         if(request!==readyOpenGeneration||!dialog.open||!root.querySelector('#ready-library-list'))return;
-        try{const loaded=readInterpretation(entry.archive);if(!loaded.dance)throw new Error(loaded.errors.join(' ')||'The bundled interpretation did not pass validation.');
+        try{await fetchStoredDance(entry.id).catch(()=>undefined);const loaded=readInterpretation(entry.archive);if(!loaded.dance)throw new Error(loaded.errors.join(' ')||'The bundled interpretation did not pass validation.');
           sourceText.set(loaded.dance.id,entry.archive);actions.loadDance(loaded.dance);closeDialog();notify('Opened the included reviewed interpretation. Source and choices are available in Source & notes.');
         }catch(error){if(request===readyOpenGeneration&&dialog.open)text('#ready-library-status',`Could not open ${entry.title}: ${error instanceof Error?error.message:'validation failed'}`);
         }finally{if(request===readyOpenGeneration){readyOpenPending=false;root.querySelectorAll<HTMLButtonElement>('[data-open-reviewed],[data-review-ready]').forEach(button=>{button.disabled=false;});}}
@@ -723,12 +748,16 @@ export function createUI(root: HTMLElement, actions: StudioActions, initial: Stu
   }
   update(initial);
   // `?ready=<id>` opens that Ready dance on load, so review links land on it.
+  // Every stored ContraDB dance opens this way, Ready or not.
   const readyId = new URLSearchParams(location.search).get('ready');
-  const preset = READY_LIBRARY.find(item => item.id === readyId);
-  const presetDance = preset ? readInterpretation(preset.archive).dance : undefined;
-  if (preset && presetDance) {
-    sourceText.set(presetDance.id, preset.archive);
-    window.setTimeout(() => actions.loadDance(presetDance));
+  if (readyId) {
+    void openLibraryDance(readyId).catch(error => {
+      // No stored dance: a Ready interpretation still opens on its own.
+      const preset = READY_LIBRARY.find(item => item.id === readyId);
+      const presetDance = preset ? readInterpretation(preset.archive).dance : undefined;
+      if (preset && presetDance) { sourceText.set(presetDance.id, preset.archive); actions.loadDance(presetDance); }
+      else notify(error instanceof Error ? error.message : `ContraDB dance #${readyId} is not in the library.`);
+    });
   }
   return {viewport, update};
 }
