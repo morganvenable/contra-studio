@@ -129,6 +129,69 @@ function passIntoWave(
   return fits ? { ids: [...set], target, holds } : undefined;
 }
 
+/**
+ * Each named pair (a middle and the end it holds) stands side by side
+ * facing the same way (as after a swing ending facing across): the wave
+ * runs through the minor set's middle across that facing, each end on its
+ * own half 1.35 m out keeping its facing, its middle 0.45 m out facing the
+ * other way (the middles passing each other on the way when they come from
+ * opposite corners). Undefined when the pairs do not stand so or the hands
+ * named cannot join.
+ */
+function sideBySideWave(
+  state: Parameters<typeof oceanWave>[0],
+  set: readonly number[],
+  role: Role,
+  endFor: (mid: number) => number | undefined,
+  middleHand: Hand,
+  endHand: Hand,
+) {
+  const mids = set.filter((id) => roleOf(state, id) === role);
+  if (mids.length !== 2) return;
+  const pairs = mids.map((mid) => ({ mid, end: endFor(mid) }));
+  if (pairs.some((p) => p.end === undefined || !set.includes(p.end) || mids.includes(p.end)))
+    return;
+  const center = mean(set.map((id) => body(state, id).position));
+  let facing: Vec2 | undefined;
+  for (const p of pairs) {
+    const m = body(state, p.mid);
+    const e = body(state, p.end!);
+    if (Math.abs(turn(m.yaw, e.yaw)) > 0.3) return;
+    const gap = sub(e.position, m.position);
+    if (length(gap) < 0.6 || Math.abs(dot(gap, forward(m.yaw))) > 0.3) return;
+    const f = forward(m.yaw);
+    // On a side line, across from the other pair (not already in one line).
+    if (Math.abs(dot(sub(mean([m.position, e.position]), center), f)) < 0.5) return;
+    if (!facing) facing = f;
+    else if (Math.abs(Math.abs(dot(facing, f)) - 1) > 0.05) return;
+  }
+  const line: Vec2 = { x: -facing!.z, z: facing!.x };
+  const target = new Map<number, Body>();
+  for (const p of pairs) {
+    const end = body(state, p.end!);
+    const side = Math.sign(dot(sub(end.position, center), line));
+    if (!side) return;
+    const out = scale(line, side);
+    if (dot(handSide(end.yaw, endHand), out) >= 0) return;
+    target.set(p.end!, { position: add(center, scale(out, 1.5 * WAVE_GAP)), yaw: end.yaw });
+    target.set(p.mid, {
+      position: add(center, scale(out, 0.5 * WAVE_GAP)),
+      yaw: end.yaw + Math.PI,
+    });
+  }
+  const [a, b] = mids;
+  const ta = target.get(a)!;
+  const tb = target.get(b)!;
+  if (length(sub(ta.position, tb.position)) < 0.1) return;
+  if (dot(handSide(ta.yaw, middleHand), sub(tb.position, ta.position)) <= 0) return;
+  if (dot(handSide(tb.yaw, middleHand), sub(ta.position, tb.position)) <= 0) return;
+  const holds: Hold[] = [
+    { a, handA: middleHand, b, handB: middleHand },
+    ...pairs.map((p) => ({ a: p.end!, handA: endHand, b: p.mid, handB: endHand })),
+  ];
+  return { ids: [...set], target, holds };
+}
+
 export const oceanWave: Figure<OceanWaveParams> = (state, params, beats) => {
   onlyKeys('ocean wave', params, ['middle', 'middleHand', 'ends', 'endHand', 'balance']);
   const middle = oneOf('ocean wave', 'middle', params.middle, ['larks', 'robins'] as const);
@@ -240,6 +303,10 @@ export const oceanWave: Figure<OceanWaveParams> = (state, params, beats) => {
       // one it can reach), stepping or passing into the wave.
       const others = set.filter((id) => roleOf(state, id) !== role);
       const swapped = (m: number) => others.find((o) => o !== named(m));
+      // The pairs the row names stand side by side facing the same way:
+      // the wave forms with those pairs, as the row says (sideBySideWave).
+      const beside = sideBySideWave(state, set, role, named, middleHand, endHand);
+      if (beside) return beside;
       const passed = passIntoWave(state, set, role, named, middleHand, endHand);
       if (passed) return passed;
       try {

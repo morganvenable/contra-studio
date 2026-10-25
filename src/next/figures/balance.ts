@@ -84,7 +84,28 @@ const PAIR_IN = 0.75;
 /** Beats to turn and face into the balance. */
 const FACE_BEATS = 1.5;
 
+/**
+ * A balance is four beats. A row that gives it two or three beats balances
+ * quickly; five or six beats balance in four and stand the rest; seven or
+ * eight beats balance twice.
+ */
 export const balance: Figure<BalanceParams> = (state, params, beats) => {
+  if (beats === 4) return fourBeatBalance(state, params, 4);
+  if (!(beats >= 2 && beats <= 8)) throw new Error('A balance takes four beats (two to eight).');
+  const first = fourBeatBalance(state, params, 4);
+  if (beats < 4) return { ...first, motion: (beat: number) => first.motion((beat * 4) / beats) };
+  if (beats <= 6)
+    return { ...first, motion: (beat: number) => first.motion(Math.min(4, beat)) };
+  const second = fourBeatBalance(first.exit, params, 4);
+  const k = 8 / beats;
+  return {
+    ...second,
+    motion: (beat: number) =>
+      beat * k < 4 ? first.motion(beat * k) : second.motion(Math.min(4, beat * k - 4)),
+  };
+};
+
+const fourBeatBalance: Figure<BalanceParams> = (state, params, beats) => {
   onlyKeys('balance', params, ['formation', 'style', 'first', 'who', 'hand', 'in']);
   const formation = oneOf('balance', 'formation', params.formation, [
     'wave',
@@ -108,7 +129,7 @@ export const balance: Figure<BalanceParams> = (state, params, beats) => {
     });
     const style = waved ? { style: 'right-left' as const } : {};
     if (!waved && state.hands.length && !ringed(state)) return heldBalance(state, beats);
-    return balance(state, { formation: waved ? 'wave' : 'ring', ...style }, beats);
+    return fourBeatBalance(state, { formation: waved ? 'wave' : 'ring', ...style }, beats);
   }
   if (formation === 'wave') return waveBalance(state, params, beats);
   if (formation === 'ring') return ringBalance(state, params, beats);

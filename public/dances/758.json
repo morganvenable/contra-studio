@@ -1,4 +1,4 @@
-{ "schema": "contra-studio/next-dance", "version": 2, "id": "758", "title": "To Call a Mockingjay", "author": "Dale Wilson", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/758", "formation": "improper", "retrievedAt": "2026-10-20T06:20:39.400Z", "sha256": "b59d16fdb05823d66ef5b04d64000e83ba702aafb48d0d624f0d39dc4cf884ec" }, "status": "partial", "problems": [ "Row 7 \"star left 4 places then robins join free (right) hands over star before letting go of star)\" isn't drawn yet." ], "unparsed": [ { "row": 7, "text": "star left 4 places then robins join free (right) hands over star before letting go of star)", "why": "The star row adds \"then ladles join free right hands over star before letting go of star\"." } ], "choices": [],
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "758", "title": "To Call a Mockingjay", "author": "Dale Wilson", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/758", "formation": "improper", "retrievedAt": "2026-10-20T06:20:39.400Z", "sha256": "b59d16fdb05823d66ef5b04d64000e83ba702aafb48d0d624f0d39dc4cf884ec" }, "status": "ok", "problems": [], "unparsed": [], "choices": [ "A star with no grip named is a basket star (wrist grip)." ],
  "figures": [
   {"move":"do-si-do","beats":8,"params":{"who":"neighbor","amount":1,"shoulder":"right"},"text":"neighbors do si do once","section":"A1","row":1},
   {"move":"swing","beats":8,"params":{"who":"neighbor"},"text":"neighbors swing","section":"A1","row":2},
@@ -8,7 +8,7 @@
   {"move":"petronella","beats":4,"params":{},"text":"balance & petronella Encourage Clapping Here · petronella","section":"B1","row":5},
   {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance & petronella Try to talk them out of clapping here · balance","section":"B1","row":6},
   {"move":"petronella","beats":4,"params":{},"text":"balance & petronella Try to talk them out of clapping here · petronella","section":"B1","row":6},
-  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"star left 4 places then robins join free (right) hands over star before letting go of star)","section":"B2","row":7},
+  {"move":"star","beats":8,"params":{"hand":"left","places":4},"text":"star left 4 places then robins join free (right) hands over star before letting go of star)","section":"B2","row":7},
   {"move":"chain","beats":8,"params":{"who":"robins"},"text":"robins chain","progression":true,"section":"B2","row":8}
  ]
 }

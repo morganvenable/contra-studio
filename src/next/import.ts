@@ -13,6 +13,7 @@ import { contraDbRows, decodeEntities, parseRow, type SourceRow } from './core/p
 import type { StoredCall, StoredDance, UnparsedRow } from './dance.ts';
 import { FORMATIONS } from './core/formation.ts';
 import { GROUPS_FORMATION_TEXT } from './core/formation-groups.ts';
+import { joinHandRows } from './import-hands.ts';
 
 export interface ContraDbSnapshot {
   readonly sourceUrl: string;
@@ -616,6 +617,7 @@ export function importDance(id: string, snapshot: ContraDbSnapshot, sha256: stri
   });
   repeatSections(rows, parsed);
   joinWhile(rows, parsed);
+  joinHandRows(rows, parsed);
   joinLeadIns(parsed);
   startAsTold(parsed, html);
   rows.forEach((row, i) => {

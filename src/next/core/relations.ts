@@ -23,6 +23,8 @@
  */
 import type { Figure } from './figure.ts';
 import { distance } from './math.ts';
+import { regroupAcross } from './cross-group.ts';
+import { cornerPairs } from './corners.ts';
 import {
   activeIds,
   body,
@@ -37,7 +39,15 @@ import {
 export const SHADOW_REACH = 2.7;
 
 /** Relationship names this module computes from where dancers stand. */
-export const COMPUTED_RELATIONS = ['shadow', 'same-role', 'next-neighbor'] as const;
+export const COMPUTED_RELATIONS = [
+  'shadow',
+  'same-role',
+  'first-corner',
+  'second-corner',
+  'next-neighbor',
+  'first-corner',
+  'second-corner',
+] as const;
 /** Relationship names that regroup the set for the figure's duration. */
 export const REGROUPING = new Set<string>([...COMPUTED_RELATIONS, 'previous-neighbor']);
 
@@ -131,6 +141,9 @@ export function relationPairs(state: DanceState, who: string): [number, number][
   switch (who) {
     case 'shadow':
       return shadowPairs(state);
+    case 'first-corner':
+    case 'second-corner':
+      return cornerPairs(state, who);
     case 'same-role':
       return sameRolePairs(state);
     case 'next-neighbor':
@@ -166,9 +179,31 @@ export function regroupFor(state: DanceState, who: unknown): DanceState {
  * the minor sets and relations back.
  */
 export function withRelations<P>(figure: Figure<P>): Figure<P> {
+  const run = plainWithRelations(figure);
+  return (state, params, beats) => {
+    // "New/next neighbors" named before the progression rebinds neighbors
+    // (orNext, import-hands.ts): the neighbors as stored, else the next
+    // neighbors as the dancers stand.
+    const { orNext, ...rest } = params as P & { orNext?: boolean };
+    if (!orNext) return run(state, params, beats);
+    try {
+      return run(state, rest as P, beats);
+    } catch (error) {
+      try {
+        return run(state, { ...rest, who: 'next-neighbor' } as P, beats);
+      } catch {
+        throw error;
+      }
+    }
+  };
+}
+
+function plainWithRelations<P>(figure: Figure<P>): Figure<P> {
   return (state, params, beats) => {
     const who = (params as { who?: unknown }).who;
-    const regrouped = regroupFor(state, who);
+    let regrouped = regroupFor(state, who);
+    // Partners (or neighbors) standing across a group boundary (core/cross-group.ts).
+    if (regrouped === state) regrouped = regroupAcross(state, who);
     if (regrouped === state) return figure(state, params, beats);
     const result = figure(regrouped, params, beats);
     return {

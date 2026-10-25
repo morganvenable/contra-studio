@@ -185,7 +185,7 @@ export const SETS_PATTERNS: readonly Pattern[] = [
     // corner (corners.ts), the neighbor where a square names corners so.
     /^(?:first |1st )?corners? ((?:allemande|pull by|pass by|do si do|balance)(?: .+)?)$/,
     (m, b) =>
-      again(`neighbors ${m[1].replace(/1\.25/, '1¼')}`, b).map((c) => {
+      again(`neighbors ${m[1].replace(/\b1\.25\b/, '1¼')}`, b).map((c) => {
         if (!(c.move in CORNER_MOVES)) throw new Error(`Corners do not ${c.move}.`);
         return call('corners', c.beats, { move: c.move, params: c.params });
       }),

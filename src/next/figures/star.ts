@@ -48,8 +48,20 @@ export interface StarParams {
 
 /** Distance from each dancer to the center while starring. */
 export const STAR_RADIUS = 0.75;
-/** Share of the figure spent stepping in, and again stepping out. */
-const EDGE = 0.15;
+/** Dancers side by side round a star stay at least this far apart (a big ring's star is wider). */
+const STAR_SPACING = 0.6;
+const radiusFor = (n: number) => Math.max(STAR_RADIUS, STAR_SPACING / (2 * Math.sin(Math.PI / n)));
+/**
+ * Share of the figure spent stepping in, and again stepping out: at least
+ * 0.15, and at least STEP_BEATS so a short star does not lunge in (a 4-beat
+ * star of two places steps in over 1.2 beats) and long enough to step in
+ * at an easy pace from a big ring, at most 0.4.
+ */
+const EDGE_SHARE = 0.15;
+const STEP_BEATS = 1.2;
+/** Average pace stepping in, m per beat. */
+const STEP_PACE = 0.55;
+const EDGE_MAX = 0.4;
 const FACE_BEATS = 1.5;
 
 export const star: Figure<StarParams> = (state, params, beats) => {
@@ -100,6 +112,19 @@ export const star: Figure<StarParams> = (state, params, beats) => {
     return { ...ring, sweep, contacts };
   });
 
+  // A star of a big ring steps in farther: give the step its own time.
+  const farthest = Math.max(
+    0,
+    ...stars.flatMap((s) =>
+      s.order.map(
+        (id) => length(sub(body(state, id).position, s.center)) - radiusFor(s.order.length),
+      ),
+    ),
+  );
+  const EDGE = Math.min(
+    EDGE_MAX,
+    Math.max(EDGE_SHARE, STEP_BEATS / beats, farthest / (STEP_PACE * beats)),
+  );
   const motion = (beat: number) => {
     const t = beat / beats;
     const inward = Math.min(smooth(t / EDGE), smooth((1 - t) / EDGE));
@@ -108,13 +133,16 @@ export const star: Figure<StarParams> = (state, params, beats) => {
         const b = body(state, id);
         const rel = sub(b.position, s.center);
         const r0 = length(rel);
-        const r = r0 + (STAR_RADIUS - r0) * inward;
+        const r = r0 + (radiusFor(s.order.length) - r0) * inward;
         const angle = s.sweep * progress(t);
         const position = add(s.center, rotate(scale(rel, r / r0), angle));
         // Dancers backing up face against the way they walk.
         const walk = rotate(rel, ((backs(id) ? -sign : sign) * Math.PI) / 2);
         const tangent = heading(b.position, add(b.position, walk));
-        const yaw = b.yaw + turn(tangent, b.yaw) * smooth(beat / FACE_BEATS) - angle;
+        // A dancer turning far to face the way round takes longer to turn.
+        const facing = turn(tangent, b.yaw);
+        const faceBeats = Math.min(beats / 2, Math.max(FACE_BEATS, 0.7 * Math.abs(facing)));
+        const yaw = b.yaw + facing * smooth(beat / faceBeats) - angle;
         return { id, position, yaw };
       }),
     );

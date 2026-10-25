@@ -71,3 +71,24 @@ test('row names: shadows, 2nd shadows, prev neighbors, same roles', () => {
   assert.equal(canonical('prev_neighbors'), 'previous-neighbor');
   assert.equal(canonical('same_roles'), 'same-role');
 });
+
+test('first corners are the 1s lark and the 2s robin; second corners the 1s robin and the 2s lark', async () => {
+  const { FORMATIONS } = await import('../core/formation.ts');
+  const { cornerPairs } = await import('../core/corners.ts');
+  const s = FORMATIONS.proper.start(4);
+  const ones = new Set(s.positions.get('1s'));
+  for (const [which, larkOnes] of [
+    ['first-corner', true],
+    ['second-corner', false],
+  ] as const) {
+    const pairs = cornerPairs(s, which);
+    assert.equal(pairs.length, s.groups.length);
+    for (const [a, b] of pairs) {
+      const lark = s.dancers[a].role === 'lark' ? a : b;
+      const robin = lark === a ? b : a;
+      assert.equal(s.dancers[robin].role, 'robin');
+      assert.equal(ones.has(lark), larkOnes);
+      assert.equal(ones.has(robin), !larkOnes);
+    }
+  }
+});

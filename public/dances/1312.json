@@ -1,4 +1,4 @@
-{ "schema": "contra-studio/next-dance", "version": 2, "id": "1312", "title": "Never Enough", "author": "Don Flaherty", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/1312", "formation": "improper", "sha256": "c1add35f1e9296403063c28bb26a8401e037c5b6b353470953a29b746ce43e92" }, "status": "partial", "problems": [ "Row 8 \"neighbors swing at the end of swing robins look in line of progression for new robins to chain too\" isn't drawn yet." ], "unparsed": [ { "row": 8, "text": "neighbors swing at the end of swing robins look in line of progression for new robins to chain too", "why": "No figure pattern matches \"neighbors swing at the end of swing ladles look in line of progression for new ladle to chain too ⁋\"." } ], "choices": [],
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "1312", "title": "Never Enough", "author": "Don Flaherty", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/1312", "formation": "improper", "sha256": "c1add35f1e9296403063c28bb26a8401e037c5b6b353470953a29b746ce43e92" }, "status": "ok", "problems": [], "unparsed": [], "choices": [],
  "figures": [
   {"move":"chain","beats":8,"params":{"who":"robins","to":"partner"},"text":"robins chain partner","section":"A1","row":1},
   {"move":"right-left-through","beats":8,"params":{},"text":"right left through","section":"A1","row":2},
@@ -9,6 +9,6 @@
   {"move":"do-si-do","beats":8,"params":{"who":"larks","amount":1,"shoulder":"right"},"text":"larks do si do once back to partner","section":"B1","row":5},
   {"move":"swing","beats":8,"params":{"who":"partner"},"text":"partners swing","section":"B1","row":6},
   {"move":"allemande","beats":8,"params":{"who":"robins","hand":"right","amount":1.5},"text":"robins allemande right 1½","section":"B2","row":7},
-  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"neighbors swing at the end of swing robins look in line of progression for new robins to chain too","section":"B2","row":8,"progression":true}
+  {"move":"swing","beats":8,"params":{"who":"neighbor"},"text":"neighbors swing at the end of swing robins look in line of progression for new robins to chain too","progression":true,"section":"B2","row":8}
  ]
 }

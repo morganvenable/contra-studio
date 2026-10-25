@@ -5,6 +5,7 @@
  */
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
 import { physicalCheck } from '../core/check.ts';
 import type { FigureCall } from '../core/figure.ts';
 import { compileFold, foldRound } from '../core/fold.ts';
@@ -320,4 +321,15 @@ test('Sicilian circle: rolling arches, then on to the next couple', { skip: !mer
     call('swing-out', 12, { who: 'partner' }),
   ]);
   assert.deepEqual(verifyDance(dance, strict), { ok: true });
+});
+
+test('corners read 1.25 as 1¼, only as a whole number', () => {
+  const read = (text: string) => parseRow({ text, beats: 8 });
+  assert.deepEqual(
+    read('first corners allemande left 1.25').map((c) => c.params),
+    read('first corners allemande left 1¼').map((c) => c.params),
+  );
+  assert.throws(() => read('corners allemande left 11.25'), /Unknown amount "11\.25"/);
+  const source = readFileSync(new URL('../core/parse-sets.ts', import.meta.url), 'utf8');
+  assert.doesNotMatch(source, /[\u0000-\u0008\u000b\u000c\u000e-\u001f]/);
 });
