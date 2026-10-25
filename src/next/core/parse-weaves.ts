@@ -96,6 +96,8 @@ const NOTES: readonly RegExp[] = [
   /^(?:the )?(?:trailing two|new \w+|original \w+|\w+ )?\s*catch(?:ing)?(?: (?:\w+ )?(?:hands?|partners?|shadows?|neighbors?))?(?: in (?:the )?(?:left|right) hands?)?(?: \w+)?$/,
   /^(?:just )?(?:halfway|once around)$/,
   /^to progress$/,
+  // Flaherty's heys: who veers off at the end to face the next people.
+  /^but .*\bveer (?:right|left) to face .*$/,
   /^-?\s*(?:and )?end next(?: to .*)?$/,
   /^balance (?:left|right) first(?: to (?:neighbors?|partners?))?$/,
   /^;?\s*return to (?:partners?|neighbors?)$/,
@@ -175,6 +177,19 @@ function heyRest(rest: string) {
 }
 
 const PATTERNS: readonly (readonly [RegExp, Build])[] = [
+  [
+    // "larks chevron into neighbors' place" (what follows a dash spells the
+    // figure out).
+    /^(\w+) chevron into (?:their )?neighbors'? places?(?:\s*[—-].*)?$/,
+    (m, b) => [call('chevron', b, { who: who(m[1]) })],
+  ],
+  [
+    // Flaherty: "1/2 hey, robins start right shoulders, upon facing neighbor
+    // veer to right to face new (2nd) neighbor": the half hey; the veer to
+    // the next neighbor is the next row's to make.
+    /^(?:with these new (?:\w+ )?neighbors,? )?(?:1\/2|half) hey,? (\w+) start (?:passing )?(right|left) shoulders?(?:,? and|,)? (?:upon|when) (?:facing|passing) .*\bveer (?:to )?(?:right|left)\b.*$/,
+    (m, b) => [call('hey', b, { start: who(m[1]), amount: 0.5, center: m[2] })],
+  ],
   [
     // Stars by eighths of a turn: "star l 7/8", "hands across star l 9/8",
     // "star left - hands across - 3 places (7/8ths places)". Four dancers

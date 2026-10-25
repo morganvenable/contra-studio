@@ -50,3 +50,5 @@ below. One line each; change any of them by telling us the other reading.
 - "A while B" rows run B during the last part of A, on other dancers (a meanwhile figure); a row whose two parts move the same dancer stays undrawn. Named Rory slides join no new hands, since the wave may be re-formed by the others meanwhile.
 - Stars by eighths ("star l 7/8", "hands across star l 9/8"): four dancers go n/8 of the way round, n/2 places; half places end on a diamond.
 - "Star ____ - wrist grip - 4 places": a star of whole turns ends where it began whichever hand is in; drawn as a left-hand star.
+- Chevron ("larks chevron into neighbors' place"): neighbors trade places; the named role walks a V in toward the middle (passing the other of their role by the right), the others walk straight across a little to the outside.
+- Flaherty's "1/2 hey, robins start right shoulders, upon facing neighbor veer to right to face new neighbor": the half hey; the veer to the next neighbor is left to the next row.

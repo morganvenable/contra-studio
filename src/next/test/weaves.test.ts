@@ -629,3 +629,15 @@ test('a star by eighths: 7/8 ends on a diamond', () => {
     assert.ok(Math.abs(p.x) < 1e-6 || Math.abs(p.z) < 1e-6, `${id} on a diamond point`);
   }
 });
+
+test('chevron: neighbors trade places, the named role along a V', () => {
+  const lines = improper([LINES]);
+  const [c] = parseRow({ beats: 6, text: "larks chevron into neighbors' place" });
+  assert.deepEqual(c.params, { who: 'larks' });
+  const r = FIGURES.chevron(lines, c.params, 6);
+  for (const id of [0, 1, 2, 3]) {
+    const other = lines.relations.get('neighbor')!.get(id)!;
+    near(r.exit.bodies.get(id)!.position, body(lines, other).position);
+  }
+  withinLimits(r, 6, 'chevron');
+});
