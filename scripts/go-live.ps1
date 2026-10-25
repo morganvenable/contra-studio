@@ -1,11 +1,19 @@
 # Puts the current branch live on GitHub Pages, with the feedback box.
-# Run: powershell -File C:\Users\morga\contra-rebuild\scripts\go-live.ps1
+# Run: powershell -File C:/Users/morga/contra-rebuild/scripts/go-live.ps1
+# Without a real terminal (Claude Code's ! prefix), it reopens itself in a
+# new PowerShell window so the Cloudflare sign-in can run.
 $ErrorActionPreference = 'Stop'
+if ([Console]::IsInputRedirected) {
+  Start-Process powershell -ArgumentList @(
+    '-NoExit', '-ExecutionPolicy', 'Bypass', '-File', $PSCommandPath)
+  Write-Host 'Opened a PowerShell window to finish there.'
+  exit 0
+}
 $repo = Resolve-Path (Join-Path $PSScriptRoot '..')
 Set-Location $repo
 
 # 1. Feedback Worker on Cloudflare (browser sign-in the first time).
-powershell -File (Join-Path $PSScriptRoot 'feedback-setup.ps1')
+powershell -ExecutionPolicy Bypass -File (Join-Path $PSScriptRoot 'feedback-setup.ps1')
 if ($LASTEXITCODE -ne 0) { throw 'Feedback setup failed.' }
 Set-Location $repo
 
@@ -23,4 +31,5 @@ if ($LASTEXITCODE -ne 0) { throw 'Push failed.' }
 
 # 3. Deploy the site.
 gh workflow run pages.yml -R morganvenable/contra-studio -f deploy=true
-Write-Host 'Deploy started. Claude will check the live site.'
+if ($LASTEXITCODE -ne 0) { throw 'Deploy dispatch failed.' }
+Write-Host 'Done. Deploy started; Claude will check the live site.'
