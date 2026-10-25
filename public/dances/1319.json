@@ -7,7 +7,7 @@
   {"move":"swing","beats":12,"params":{"who":"neighbor"},"text":"neighbors balance & swing · swing","section":"A2","row":3},
   {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance the ring and twirl one place to the right · balance","section":"B1","row":4},
   {"move":"petronella","beats":4,"params":{},"text":"balance the ring and twirl one place to the right · petronella","section":"B1","row":4},
-  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"balance the ring and twirl one place to the right and a little more to face new neighbor","section":"B1","row":5},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"balance the ring and twirl one place to the right and a little more to face new neighbor","section":"B1","row":5,"progression":true},
   {"move":"allemande","beats":8,"params":{"who":"robins","hand":"right","amount":1.5},"text":"robins allemande right 1½","section":"B2","row":6},
   {"move":"swing","beats":8,"params":{"who":"partner"},"text":"partners swing Dance starts with this couple!","section":"B2","row":7}
  ]

@@ -4,9 +4,9 @@
  "catalogue": 2422,
  "stored": 2422,
  "counts": {
-  "ok": 742,
-  "check": 285,
-  "partial": 1395,
+  "ok": 749,
+  "check": 279,
+  "partial": 1394,
   "unsupported": 0
  },
  "formations": [
@@ -21,9 +21,9 @@
   {
    "formation": "becket",
    "dances": 655,
-   "ok": 137,
-   "check": 113,
-   "partial": 405,
+   "ok": 144,
+   "check": 107,
+   "partial": 404,
    "unsupported": 0
   },
   {
@@ -3206,11 +3206,11 @@
   "figuresThatCannotStart": [
    {
     "name": "progression or other",
-    "unlocks": 101
+    "unlocks": 102
    },
    {
     "name": "swing variant",
-    "unlocks": 40
+    "unlocks": 39
    },
    {
     "name": "rory o'more",
@@ -3249,16 +3249,16 @@
     "unlocks": 7
    },
    {
-    "name": "hey (other)",
-    "unlocks": 7
-   },
-   {
     "name": "square through",
     "unlocks": 7
    },
    {
     "name": "promenade",
     "unlocks": 7
+   },
+   {
+    "name": "hey (other)",
+    "unlocks": 6
    },
    {
     "name": "petronella",
@@ -3360,7 +3360,7 @@
   "checkFailures": [
    {
     "name": "Couples don't end the round where the progression puts them.",
-    "unlocks": 75
+    "unlocks": 68
    },
    {
     "name": "allemande variant",
@@ -3368,7 +3368,7 @@
    },
    {
     "name": "ocean wave / long wave",
-    "unlocks": 24
+    "unlocks": 25
    },
    {
     "name": "swing variant",

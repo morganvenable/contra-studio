@@ -114,6 +114,8 @@ line each, for review.
 - "Circle of threes", "three-person mixer": lines of three in a big ring facing counterclockwise, the inside end on the center's left; "promenade anywhere" is drawn round the ring; a basket swing "with a different person in the center" stops a third of a turn on.
 - "9-person mixer": a Becket set of four couples plus a lonesome fifth lark at the top facing down; "swing at random": each robin swings the lark on her other side round the loop, the leftover lark becomes the lonesome dancer.
 - "Tempest": a line of four 1s facing down, then the 2s, one couple per side line facing in; down the hall the line walks 2 m and each couple wheels to face up while the 2s slide up one level.
+- Couples out at the ends of a Becket set dance with ghosts: they repeat the matching couple of the nearest minor set (crossing the set when the active couples do), and a couple that comes out at an end changes ends by walking half way round its ghost minor set over the next eight beats or more. Figures with shadows or on a diagonal leave them be.
+- A Becket dance whose source marks no progression progresses where its rows meet the new neighbors: at the end of a row that goes "to new neighbors", or just before the first row danced "with next neighbors". Improper dances keep the end of the round.
 
 ## Heys, stars, petronella, roll away, Rory O'More, passes
 

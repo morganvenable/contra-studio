@@ -6,7 +6,7 @@
   {"move":"balance","beats":4,"params":{"formation":"pair","who":"partner","hand":"both"},"text":"partners balance & swing · balance","section":"A2","row":4},
   {"move":"swing","beats":12,"params":{"who":"partner"},"text":"partners balance & swing · swing","section":"A2","row":4},
   {"move":"circle","beats":6,"params":{"direction":"left","places":3},"text":"circle left 3 places and pass thru to new neighbors · circle","section":"B1","row":5},
-  {"move":"pass-through","beats":2,"params":{"shoulder":"right"},"text":"circle left 3 places and pass thru to new neighbors · pass through","section":"B1","row":5},
+  {"move":"pass-through","beats":2,"params":{"shoulder":"right"},"text":"circle left 3 places and pass thru to new neighbors · pass through","section":"B1","row":5,"progression":true},
   {"move":"swing","beats":8,"params":{"who":"neighbor"},"text":"neighbors swing (new)","section":"B1","row":6},
   {"move":"mad-ricochet","beats":6,"params":{"front":"larks"},"text":"mad robins, larks in front (Mad Ricochet) the same gender ricochet out of center with both hands","section":"B2","row":7},
   {"move":"mad-ricochet","beats":6,"params":{"front":"larks"},"text":"mad robins, larks in front ( Mad Ricochet) repeat above","section":"B2","row":8},

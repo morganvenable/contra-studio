@@ -3,7 +3,7 @@
   {"move":"circle","beats":8,"params":{"direction":"left","places":3},"text":"Circle left 3 places","section":"A1","row":1},
   {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"neighbors do-si-do 1 1/2, ending with larks facing in, robins out, as if for a wavy line along the set, but don't take hands","section":"A1","row":2},
   {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"1/2 hey larks start left shoulder, finish in long waves on opposite side, larks facing in, neighbor's right hands joined.","section":"A2","row":3},
-  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"balance towards and way then away from current neighbor, spin (or slide) past this neighbor to face new neighbor","section":"A2","row":4},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"balance towards and way then away from current neighbor, spin (or slide) past this neighbor to face new neighbor","section":"A2","row":4,"progression":true},
   {"move":"balance","beats":4,"params":{"formation":"pair","who":"neighbor","hand":"both"},"text":"new neighbors balance and swing · balance","section":"B1","row":5},
   {"move":"swing","beats":12,"params":{"who":"neighbor"},"text":"new neighbors balance and swing · swing","section":"B1","row":5},
   {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"star left 3 places (putting everyone on side of set they started the dance) then larks turn turn back over right shoulder","section":"B2","row":6},

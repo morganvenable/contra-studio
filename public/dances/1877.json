@@ -5,7 +5,7 @@
   {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance the ring","section":"A2","row":3},
   {"move":"circle","beats":4,"params":{"direction":"left","places":2},"text":"circle left 2 places","section":"A2","row":4},
   {"move":"roll-away","beats":4,"params":{"who":"larks","whom":"partner"},"text":"larks roll away partners with a half sashay","section":"A2","row":5},
-  {"move":"zig-zag","beats":4,"params":{"first":"left"},"text":"zig left zag right larks move out with partner pass current couples and robins lead to face new neighbors","section":"A2","row":6},
+  {"move":"zig-zag","beats":4,"params":{"first":"left"},"text":"zig left zag right larks move out with partner pass current couples and robins lead to face new neighbors","section":"A2","row":6,"progression":true},
   {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"neighbors gyre once into a ring","section":"B1","row":7},
   {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance the ring","section":"B1","row":8},
   {"move":"pass-by","beats":4,"params":{"who":"robins","shoulder":"right","hands":false},"text":"robins trade right shoulder","section":"B1","row":9},
