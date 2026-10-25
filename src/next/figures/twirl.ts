@@ -21,6 +21,7 @@
 import type { Figure, FigureContact } from '../core/figure.ts';
 import { oneOf, onlyKeys, settle } from '../core/figure.ts';
 import { bodyMap, withinReach } from '../core/contacts.ts';
+import { PAIR_NAMES, type PairName } from '../core/relations.ts';
 import {
   add,
   dot,
@@ -40,7 +41,7 @@ import { body, minorSets, pairsIn, roleOf, withChanges } from '../core/state.ts'
 
 export interface TwirlParams {
   style: 'box-the-gnat' | 'swat-the-flea' | 'california';
-  who: 'partner' | 'neighbor' | '1s' | '2s';
+  who: PairName;
 }
 
 /** Half the pair's gap while trading places under the arch. */
@@ -54,7 +55,7 @@ export const twirl: Figure<TwirlParams> = (state, params, beats) => {
     'swat-the-flea',
     'california',
   ] as const);
-  const who = oneOf('twirl', 'who', params.who, ['partner', 'neighbor', '1s', '2s'] as const);
+  const who = oneOf('twirl', 'who', params.who, PAIR_NAMES);
   // Right-hand arches trade places clockwise from above (positive in rotate()).
   const sweep = style === 'swat-the-flea' ? -Math.PI : Math.PI;
   const pairs = minorSets(state).flatMap((g) => pairsIn(state, g, who));

@@ -28,6 +28,7 @@ import type { HandContact, Vec2 } from '../../types.ts';
 import type { Figure } from '../core/figure.ts';
 import { oneOf, onlyKeys, settle } from '../core/figure.ts';
 import { SET } from '../core/config.ts';
+import { PAIR_NAMES, type PairName } from '../core/relations.ts';
 import {
   add,
   leftOf,
@@ -56,7 +57,7 @@ import {
 } from '../core/state.ts';
 
 export interface SwingParams {
-  who: 'partner' | 'neighbor' | '1s' | '2s';
+  who: PairName;
   /** Start with a right-shoulder round and melt into the swing. */
   meltdown?: boolean;
   /**
@@ -95,7 +96,7 @@ export const swing: Figure<SwingParams> = (state, params, beats) => {
   const end = oneOf('swing', 'end', params.end ?? 'across', ['across', 'down', 'up'] as const);
   if (params.meltdown !== undefined && typeof params.meltdown !== 'boolean')
     throw new Error('swing meltdown must be true or false.');
-  const who = oneOf('swing', 'who', params.who, ['partner', 'neighbor', '1s', '2s'] as const);
+  const who = oneOf('swing', 'who', params.who, PAIR_NAMES);
   if (beats < 4) throw new Error('A swing needs at least four beats.');
   const turns = Math.max(1, Math.floor(beats / 4 - 0.5));
   const pairs = minorSets(state).flatMap((g) => pairsIn(state, g, who));

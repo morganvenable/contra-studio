@@ -32,6 +32,11 @@ import { starPromenade } from './star-promenade.ts';
 import { swing } from './swing.ts';
 import { turnAlone } from './turn-alone.ts';
 import { twirl } from './twirl.ts';
+import { centerWave } from './center-wave.ts';
+import { couplesDoSiDo } from './couples-do-si-do.ts';
+import { orbit } from './orbit.ts';
+import { standStill } from './stand-still.ts';
+import { twoHandTurn } from './two-hand-turn.ts';
 
 const BASE: FigureRegistry = {
   allemande,
@@ -64,6 +69,11 @@ const BASE: FigureRegistry = {
   swing,
   'turn-alone': turnAlone,
   twirl,
+  'center-wave': centerWave,
+  'couples-do-si-do': couplesDoSiDo,
+  orbit,
+  'stand-still': standStill,
+  'two-hand-turn': twoHandTurn,
 };
 
 /**

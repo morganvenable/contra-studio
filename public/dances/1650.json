@@ -3,10 +3,10 @@
   {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"right and left through on 1/2 right diagonal (larks pull by larks in their current foursome, robins pull by robins in the next foursome, courtesy turn with partner, adjust to face first neighbors.)","section":"A1","row":1},
   {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"right and left through on left 1/2 diagonal (robins pull by robins in their current foursome; larks pull by larks in the next foursome, courtesy turn with partner, adjust to face second neighbors.)","section":"A1","row":2},
   {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"promenade across, passing second neighbors, and loop to face first neighbors. (Everyone now on side of set opposite from which they started dance.)","section":"A2","row":3},
-  {"move":"allemande","beats":8,"params":{"who":"robins","hand":"right","amount":1.5},"text":"robins allemande right 1 1/2","section":"A2","row":4},
+  {"move":"allemande","beats":8,"params":{"who":"robins","hand":"right","amount":1},"text":"robins allemande right 1 1/2","section":"A2","row":4},
   {"move":"balance","beats":4,"params":{"formation":"pair","who":"neighbor","hand":"both"},"text":"neighbors balance and swing · balance","section":"B1","row":5},
   {"move":"swing","beats":12,"params":{"who":"neighbor"},"text":"neighbors balance and swing · swing","section":"B1","row":5},
-  {"move":"allemande","beats":8,"params":{"who":"larks","hand":"left","amount":1.5},"text":"larks allemande left 1 1/2","section":"B2","row":6},
+  {"move":"allemande","beats":8,"params":{"who":"larks","hand":"left","amount":1},"text":"larks allemande left 1 1/2","section":"B2","row":6},
   {"move":"swing","beats":8,"params":{"who":"partner"},"text":"partners swing","section":"B2","row":7}
  ]
 }

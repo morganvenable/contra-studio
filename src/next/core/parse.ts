@@ -7,6 +7,7 @@
  */
 import type { FigureCall } from './figure.ts';
 import { canonical, canonicalText, roleOfGroup } from './roles.ts';
+import { morePatterns, moreTidy } from './parse-more.ts';
 
 export interface SourceRow {
   readonly section?: string;
@@ -388,7 +389,8 @@ const TIDY: readonly (readonly [RegExp, string])[] = [
   [/,? (?:and )?scoop (?:up )?(?:your )?partners?(?: on the side)?$/, ''],
   [/^(butterfly whirl) with (?:your )?partners?(?: on the side)?$/, '$1'],
 ];
-const tidy = (text: string) => TIDY.reduce((t, [re, to]) => t.replace(re, to), text).trim();
+const tidy = (text: string) =>
+  moreTidy(TIDY.reduce((t, [re, to]) => t.replace(re, to), text).trim());
 
 /** How a split row names its parts in labels. */
 const PART_NAMES: Readonly<Record<string, string>> = {
@@ -410,11 +412,14 @@ function onDiagonal(text: string): { text: string; diagonal?: 'left' | 'right' }
   return { text };
 }
 
+/** The patterns in parse-more.ts, after this file's own. */
+const MORE_PATTERNS = morePatterns({ who, amount, call, numbers: NUMBERS });
+
 export function parseRow(row: SourceRow): FigureCall[] {
   const normal = normalizeRow(row.text);
   const progression = normal.progression;
   const { text, diagonal } = onDiagonal(normal.text);
-  for (const [pattern, build] of PATTERNS) {
+  for (const [pattern, build] of [...PATTERNS, ...MORE_PATTERNS]) {
     const m = text.match(pattern);
     if (!m) continue;
     const calls = build(m, row.beats).map((c) =>

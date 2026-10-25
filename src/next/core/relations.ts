@@ -12,7 +12,10 @@
  *   on the floor; "1st shadows" and "2nd shadows" are whichever shadow is
  *   nearest at the time. Dancers with no shadow nearby stand still.
  * - previous-neighbor: the neighbor before the last progression (the
- *   progression records it), wherever they now stand.
+ *   progression records it), when near enough to dance with. Before the
+ *   first progression (and for dancers whose old neighbor was out at an
+ *   end), the nearest dancer of the other role outside your minor set: the
+ *   couple you met last time through.
  * - same-role: the other dancer of your role in your minor set.
  * - next-neighbor: the couple you will meet after the progression, before
  *   the progression mark is reached: the nearest dancer of the other role
@@ -82,14 +85,13 @@ export function shadowPairs(state: DanceState): [number, number][] {
 export function nextNeighborPairs(state: DanceState): [number, number][] {
   const groupOf = new Map<number, number>();
   state.groups.forEach((g, i) => g.forEach((id) => groupOf.set(id, i)));
-  const ids = state.dancers.map((d) => d.id);
   return nearestPairs(
     state,
-    ids,
+    activeIds(state),
     (a, b) =>
       roleOf(state, a) !== roleOf(state, b) &&
       partnerOf(state, a) !== b &&
-      (groupOf.get(a) === undefined || groupOf.get(a) !== groupOf.get(b)),
+      groupOf.get(a) !== groupOf.get(b),
     SHADOW_REACH,
   );
 }
@@ -101,6 +103,18 @@ export function sameRolePairs(state: DanceState): [number, number][] {
       for (const b of g) if (a < b && roleOf(state, a) === roleOf(state, b)) pairs.push([a, b]);
     return pairs;
   });
+}
+
+export function previousNeighborPairs(state: DanceState): [number, number][] {
+  const before = state.relations.get('previous-neighbor');
+  const stored = nearestPairs(
+    state,
+    activeIds(state),
+    (a, b) => before?.get(a) === b,
+    SHADOW_REACH,
+  );
+  if (stored.length) return stored;
+  return nextNeighborPairs(state);
 }
 
 function storedPairs(state: DanceState, name: string): [number, number][] {
@@ -121,6 +135,8 @@ export function relationPairs(state: DanceState, who: string): [number, number][
       return sameRolePairs(state);
     case 'next-neighbor':
       return nextNeighborPairs(state);
+    case 'previous-neighbor':
+      return previousNeighborPairs(state);
     default:
       return storedPairs(state, who);
   }
@@ -133,7 +149,9 @@ export function relationPairs(state: DanceState, who: string): [number, number][
 export function regroupFor(state: DanceState, who: unknown): DanceState {
   if (typeof who !== 'string' || !REGROUPING.has(who)) return state;
   const pairs = relationPairs(state, who);
-  if (!pairs.length) throw new Error(`Nobody stands near enough to a ${who.replace('-', ' ')}.`);
+  // With a single minor set there is nobody outside it: everyone stands still.
+  if (!pairs.length && state.groups.length > 1)
+    throw new Error(`Nobody stands near enough to a ${who.replace('-', ' ')}.`);
   const map = new Map<number, number>();
   for (const [a, b] of pairs) map.set(a, b).set(b, a);
   return withChanges(state, {
@@ -161,4 +179,29 @@ export function withRelations<P>(figure: Figure<P>): Figure<P> {
       }),
     };
   };
+}
+
+/** Every name a two-dancer figure's `who` may take. */
+export const PAIR_NAMES = [
+  'partner',
+  'neighbor',
+  'shadow',
+  'previous-neighbor',
+  'next-neighbor',
+  'same-role',
+  'larks',
+  'robins',
+  '1s',
+  '2s',
+] as const;
+export type PairName = (typeof PAIR_NAMES)[number];
+
+/** Who `who` names for each dancer now, stored or computed, as a map. */
+export function relationMap(state: DanceState, who: string): ReadonlyMap<number, number> {
+  const stored = state.relations.get(who);
+  if (stored && !COMPUTED_RELATIONS.includes(who as (typeof COMPUTED_RELATIONS)[number]))
+    return stored;
+  const map = new Map<number, number>();
+  for (const [a, b] of relationPairs(state, who)) map.set(a, b).set(b, a);
+  return map;
 }

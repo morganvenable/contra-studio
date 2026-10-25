@@ -43,10 +43,10 @@ import {
   turn,
 } from '../core/math.ts';
 import { roleOfGroup } from '../core/roles.ts';
+import { relationMap } from '../core/relations.ts';
 import {
   body,
   minorSets,
-  related,
   roleOf,
   withChanges,
   type Body,
@@ -58,8 +58,8 @@ export interface OceanWaveParams {
   middle: 'larks' | 'robins';
   /** The hand the middle two join. */
   middleHand: 'right' | 'left';
-  /** Who each end holds: their partner or neighbor in the middle. */
-  ends: 'partner' | 'neighbor';
+  /** Who each end holds: their partner, neighbor or shadow in the middle. */
+  ends: 'partner' | 'neighbor' | 'shadow' | 'previous-neighbor';
   /** The hand ends and middles join. */
   endHand: 'right' | 'left';
   /** Balance the wave right and left once formed (the last 4 beats, or half a short row). */
@@ -80,7 +80,15 @@ export const oceanWave: Figure<OceanWaveParams> = (state, params, beats) => {
     'right',
     'left',
   ] as const);
-  const ends = oneOf('ocean wave', 'ends', params.ends, ['partner', 'neighbor'] as const);
+  const ends = oneOf('ocean wave', 'ends', params.ends, [
+    'partner',
+    'neighbor',
+    'shadow',
+    'previous-neighbor',
+  ] as const);
+  // Shadows and previous neighbors stand outside the minor set: each wave is
+  // the minor set's two middles and whoever each of them holds on the end.
+  const endOf = relationMap(state, ends);
   const endHand = oneOf('ocean wave', 'endHand', params.endHand, ['right', 'left'] as const);
   if (middleHand === endHand)
     throw new Error('An ocean wave joins different hands in the middle and on the ends.');
@@ -88,12 +96,20 @@ export const oceanWave: Figure<OceanWaveParams> = (state, params, beats) => {
   const formBeats = params.balance ? (beats >= 8 ? beats - 4 : beats / 2) : beats;
   if (formBeats < 1) throw new Error('An ocean wave needs a beat to form.');
 
-  const plans = minorSets(state).map((g) => {
-    if (g.length !== 4) throw new Error('An ocean wave needs four dancers.');
-    const mids = g.filter((id) => roleOf(state, id) === role);
+  const outside = ends === 'shadow' || ends === 'previous-neighbor';
+  const sets = minorSets(state).filter(
+    // Minor sets with nobody to hold on an end (at the ends of the set) wait.
+    (set) => !outside || set.every((id) => roleOf(state, id) !== role || endOf.has(id)),
+  );
+  if (!sets.length && minorSets(state).length)
+    throw new Error(`Nobody has a ${ends.replace('-', ' ')} to hold on an end.`);
+  const plans = sets.map((set) => {
+    if (set.length !== 4) throw new Error('An ocean wave needs four dancers.');
+    const mids = set.filter((id) => roleOf(state, id) === role);
     if (mids.length !== 2) throw new Error(`An ocean wave needs two ${middle} in the middle.`);
+    const g = [...mids, ...mids.map((m) => endOf.get(m) ?? -1)];
     const pairs = mids.map((m) => {
-      const e = related(state, ends, m);
+      const e = endOf.get(m);
       if (e === undefined || !g.includes(e) || mids.includes(e))
         throw new Error(`Each of the ${middle} needs their ${ends} on an end.`);
       return { mid: m, end: e };
