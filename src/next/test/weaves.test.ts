@@ -193,7 +193,17 @@ test('star rows with grips in other places and notes', () => {
     grip: 'hands-across',
   });
   assert.equal(one('star left 3/4 (wrist grip) with these previous neighbors').params.places, 3);
-  assert.throws(() => one('star right 3 places; robins turn back over right shoulder'), /adds/);
+  // A trailing motion becomes its own call over the last two beats.
+  assert.deepEqual(
+    parseRow({ beats: 8, text: 'star right 3 places; robins turn back over right shoulder' }).map(
+      (c) => [c.move, c.beats],
+    ),
+    [
+      ['star', 6],
+      ['turn-back', 2],
+    ],
+  );
+  assert.throws(() => one('star right 3 places, robins form a tower'), /adds/);
 });
 
 test('petronella rows: notes, alone, and to the left', () => {
@@ -522,4 +532,33 @@ test('dolphin hey: the 1s weave as one with the 2s and everyone ends home', () =
   const r = FIGURES['dolphin-hey'](start, c.params, 16);
   for (const id of [0, 1, 2, 3]) near(r.exit.bodies.get(id)!.position, body(start, id).position);
   withinLimits(r, 16, 'dolphin hey');
+});
+
+test('facing star: the robins back up around the star with their other hand in', () => {
+  const ring = becket([]);
+  const [c] = parseRow({
+    beats: 8,
+    text: 'facing star clockwise 3 places with robins putting their left hands in and backing up',
+  });
+  assert.deepEqual(c.params, { hand: 'right', places: 3, backing: 'robins' });
+  const r = FIGURES.star(ring, c.params, 8);
+  withinLimits(r, 8, 'facing star');
+  // Mid-star the robins face against the way they walk.
+  const before = r.motion(3.9).bodies.find((b) => b.id === 1)!;
+  const after = r.motion(4.1).bodies.find((b) => b.id === 1)!;
+  const walk = { x: after.position.x - before.position.x, z: after.position.z - before.position.z };
+  const ahead = { x: Math.sin(after.yaw), z: Math.cos(after.yaw) };
+  assert.ok(walk.x * ahead.x + walk.z * ahead.z < 0, 'the robin backs up');
+});
+
+test('petronella two places turns twice and ends facing in', () => {
+  const start = BECKET.start(2);
+  const r = FIGURES.petronella(start, { places: 2 }, 4);
+  for (const id of [0, 1, 2, 3]) {
+    const p = r.exit.bodies.get(id)!;
+    assert.ok(
+      Math.abs(turn(p.yaw, Math.atan2(-p.position.x, -p.position.z))) < 0.05,
+      `${id} faces in`,
+    );
+  }
 });

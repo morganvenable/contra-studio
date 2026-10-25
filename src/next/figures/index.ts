@@ -40,6 +40,7 @@ import { contraCorners } from './contra-corners.ts';
 import { madRicochet } from './mad-ricochet.ts';
 import { starThru } from './star-thru.ts';
 import { dolphinHey } from './dolphin-hey.ts';
+import { turnBack } from './turn-back.ts';
 
 const BASE: FigureRegistry = {
   allemande,
@@ -81,6 +82,7 @@ const BASE: FigureRegistry = {
   'mad-ricochet': madRicochet,
   'star-thru': starThru,
   'dolphin-hey': dolphinHey,
+  'turn-back': turnBack,
 };
 
 /** Every figure, each also able to run on a diagonal (core/diagonal.ts). */

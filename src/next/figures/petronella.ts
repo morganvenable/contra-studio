@@ -31,13 +31,20 @@ import { body, minorSets, withChanges } from '../core/state.ts';
 export interface PetronellaParams {
   /** Which way everyone moves and turns; right when not given. */
   direction?: 'right' | 'left';
+  /**
+   * Places moved: 1 when not given; 2 for a "petronella-nella" (a turn per
+   * place), 1½ to a diamond (two turns, ending facing in).
+   */
+  places?: number;
 }
 
 /** Dancers swing a little wide of the ring as they spin past each other. */
 const BULGE = 0.15;
 
 export const petronella: Figure<PetronellaParams> = (state, params, beats) => {
-  onlyKeys('petronella', params, ['direction']);
+  onlyKeys('petronella', params, ['direction', 'places']);
+  const places = params.places ?? 1;
+  if (![1, 1.5, 2].includes(places)) throw new Error('A petronella moves 1, 1½ or 2 places.');
   const way = oneOf('petronella', 'direction', params.direction ?? 'right', [
     'right',
     'left',
@@ -46,7 +53,7 @@ export const petronella: Figure<PetronellaParams> = (state, params, beats) => {
   const rings = minorSets(state).map((g) => {
     const ring = findRing(state, g, 'petronella');
     // One place to the right: counterclockwise, decreasing angle in rotate().
-    return { ...ring, sweep: (sign * TAU) / ring.order.length };
+    return { ...ring, sweep: (sign * places * TAU) / ring.order.length };
   });
   const motion = (beat: number) => {
     const q = progress(beat / beats);
@@ -61,7 +68,7 @@ export const petronella: Figure<PetronellaParams> = (state, params, beats) => {
         // is a quarter turn left of facing in here, so the right turn is 3/4.
         const inward = heading(s.position, r.center);
         const start = s.yaw + turn(inward, s.yaw) * ease(Math.min(1, beat / 0.5));
-        const spin = (sign * TAU - r.sweep) * ease(beat / beats);
+        const spin = (sign * Math.round(places) * TAU - r.sweep) * ease(beat / beats);
         return { id, position, yaw: start + spin };
       }),
     );

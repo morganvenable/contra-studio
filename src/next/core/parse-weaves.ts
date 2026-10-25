@@ -91,8 +91,18 @@ const NOTES: readonly RegExp[] = [
   /^(?:the )?(?:dance starts|ones are back)\b.*$/,
   /^\(?roll (?:left to right|right to left)\)?$/,
   // Taking hands for the next figure: that figure joins them.
-  /^(?:the )?(?:trailing two|new \w+|\w+) catch(?:ing)? (?:\w+ )?hands?(?: \w+)?$/,
-  /^(?:halfway|once around)$/,
+  /^(?:the )?(?:trailing two|new \w+|original \w+|\w+) catch(?:ing)? (?:\w+ )?hands?(?: \w+)?$/,
+  /^(?:just )?(?:halfway|once around)$/,
+  /^to progress$/,
+  /^(?:to |in )?(?:a |that |the )?diamond.*$/,
+  /^(?:\w+ )?(?:turn(?:ing)?|spinning) (?:extra|a little (?:more|extra)|around)\b.*$/,
+  /^(?:everyone is home|new ring|across|shift right)$/,
+  /^on the side(?: of the set)?$/,
+  /^to the (?:right|left)$/,
+  /^(?:then )?with (?:the )?(?:new|next|old|original|prev\w*|previous)\b.*$/,
+  /^(?:seek|find)\b.*$/,
+  /^to take (?:right|left) hands\b.*$/,
+  /^(?:and )?(?:a bit|a little|a little bit) (?:more|extra)\b.*$/,
   // Clapping is styling.
   /^(?:\w+ )*clap\w*(?: \w+)*$/,
   // Footnote marks.
@@ -104,6 +114,7 @@ export function onlyNotes(rest: string): boolean {
   const r = rest
     .replace(/\[[^\]]*\]/g, ' ')
     .replace(/[*+]+/g, ' ')
+    .replace(/#\d+/g, ' ')
     .replace(/^[\s,;:&–-]+/, '')
     .replace(/[\s,;:.!&–-]+$/, '')
     .replace(/\s+/g, ' ')
@@ -142,7 +153,30 @@ function heyRest(rest: string) {
   return ricochet;
 }
 
-export const WEAVE_PATTERNS: readonly (readonly [RegExp, Build])[] = [
+const PATTERNS: readonly (readonly [RegExp, Build])[] = [
+  [
+    // "facing star clockwise 3 places with robins putting their left hands
+    // in and backing up", "facing star, robins back up 3 places".
+    /^facing star,? (?:(clockwise|counter-?clockwise) )?(?:(\w+) back up )?(\w+|3\/4)(?: places?)?(?: with (\w+) putting their (?:left|right) hands in and backing up)?(.*)$/,
+    (m, b) => {
+      notes(
+        m[5]
+          .replace(/^\s*keep outside hands with partners?\b.*$/, '')
+          .replace(/^\s*the facing star ends on the \w+ side$/, ''),
+        'facing star',
+      );
+      const places = NUMBER[m[3]] ?? Number(m[3]);
+      if (!Number.isInteger(places)) throw new Error(`Unknown star amount "${m[3]}".`);
+      const back = who(m[4] ?? m[2] ?? 'robins');
+      return [
+        call('star', b, {
+          hand: m[1]?.startsWith('counter') ? 'left' : 'right',
+          places,
+          backing: back,
+        }),
+      ];
+    },
+  ],
   [
     // "dolphin hey - start with ones passing second robins by right shoulders".
     /^dolphin hey(?: (1\/2|½))?(?: -)? start with (\w+) passing (?:first |second )?(\w+) by (right|left) shoulders?(.*)$/,
@@ -398,7 +432,18 @@ export const WEAVE_PATTERNS: readonly (readonly [RegExp, Build])[] = [
       const places = NUMBER[m[3]] ?? Number(m[3]);
       if (!Number.isInteger(places)) throw new Error(`Unknown star amount "${m[3]}".`);
       const grip = m[2] ?? m[4];
-      notes(m[5].replace(/\b\w+ drop out(?: at (?:home|the end))?/, ''), 'star');
+      notes(
+        m[5]
+          .replace(
+            /(?:,? ?(?:then )?\w+ drop out(?: at (?:home|the end)| on (?:their |the )?home side)?(?:,? \w+ stay connected)?)/,
+            '',
+          )
+          .replace(
+            /^\s*,?\s*(?:\w+ )?(?:join(?:ing)?|falling in|stepping in) behind (?:your |their )?partners?\b.*$/,
+            '',
+          ),
+        'star',
+      );
       return [
         call('star', b, {
           hand: m[1],
@@ -411,11 +456,21 @@ export const WEAVE_PATTERNS: readonly (readonly [RegExp, Build])[] = [
   [
     // "balance & petronella (no clap)", "balance & petronella left",
     // "balance & petronella one place to the right", and a petronella alone.
-    /^(balance (?:&|and) )?petronella(?: (left|right))?(?: turn)?(?: (?:–|-)? ?(?:move |spin (?:left|right) |twirl )?(?:one|1) place(?: (?:to (?:the )?)?(right|left))?)?(.*)$/,
+    /^(balance (?:&|and) )?petronella(?: \*?(left|right)\*?)?(?: turn\b)?(?: (?:–|-)? ?(?:move |spin (?:left|right) |twirl |slide right )?(?:one|1|(two|2|1½|1&½|1 1\/2)) places?(?: (?:to (?:the )?)?(right|left))?(?: instead of one)?)?(?: moving (two) places| x(2))?(.*)$/,
     (m, b) => {
-      notes(m[4].replace(/^,? ?(?:spin (?:left|right)|overspin)\b/, ''), 'petronella');
-      const direction = m[2] ?? m[3];
-      const turn = direction === 'left' ? { direction: 'left' } : {};
+      notes(
+        m[7]
+          .replace(/^,? ?(?:spin (?:left|right)|overspin)\b/, '')
+          .replace(/^\s*,?\s*(?:a )?“?petronella-nella”?\.?$/, ''),
+        'petronella',
+      );
+      const direction = m[2] ?? m[4];
+      const many = m[3] ?? m[5] ?? m[6];
+      const places = many ? (/^(?:two|2)$/.test(many) ? 2 : 1.5) : 1;
+      const turn = {
+        ...(direction === 'left' ? { direction: 'left' } : {}),
+        ...(places !== 1 ? { places } : {}),
+      };
       if (!m[1]) return [call('petronella', b, turn)];
       const balance = b >= 8 ? 4 : b / 2;
       return [
@@ -427,7 +482,7 @@ export const WEAVE_PATTERNS: readonly (readonly [RegExp, Build])[] = [
   [
     // "larks roll away neighbors", "... with a half sashay across the set",
     // "... on the way back".
-    /^(\w+) roll away ((?:next |new )?\w+)(?: (?:with )?a? ?half[- ]sashay)?(?: (?:roll )?(?:left to right|right to left))?(?: (across|along|alone|up and down)(?: the)?(?: set)?)?(?: (?:on|as) (?:the )?(?:way|lines?) back(?: up)?| backing up)?(.*)$/,
+    /^(\w+) roll away ((?:next |new |\d\w* )?\w+)(?: (?:with )?a? ?half[- ]sashay)?(?: (?:roll )?(?:from )?(?:left to right|right to left))?(?: \*?(across|along|alone|up and down)\*?(?: the)?(?: set)?)?(?: (?:on|as|while) (?:the )?(?:way|lines?|long lines) (?:back|go back)(?: up)?| backing up| while walking back)?(.*)$/,
     (m, b) => {
       notes(m[4], 'roll away');
       const axis = m[3] === 'up and down' || m[3] === 'alone' ? 'along' : m[3];
@@ -484,3 +539,57 @@ export const WEAVE_PATTERNS: readonly (readonly [RegExp, Build])[] = [
     },
   ],
 ];
+
+/**
+ * A short motion some rows add after their figure: "; robins turn back
+ * over right shoulder", "robins turn around", "and pass thru to new
+ * neighbors". It takes the last two beats (a quarter of a short row).
+ */
+const TAILS: readonly (readonly [RegExp, (m: RegExpMatchArray) => Omit<FigureCall, 'beats'>])[] = [
+  [
+    /[,;]?\s*(?:then |and )?(?:(\w+) )?turns? (?:turn )?(?:(?:back|around|out)(?: over (?:their |your )?(right|left) shoulders?)?|over (?:their |your )?(right|left) shoulders?)$/,
+    (m) => ({
+      move: 'turn-back',
+      params: {
+        ...(m[1] ? { who: who(m[1]) } : {}),
+        ...(m[2] || m[3] ? { shoulder: m[2] ?? m[3] } : {}),
+      },
+    }),
+  ],
+  [
+    /[,;]?\s*(?:and |then )?pass th(?:ru|rough)(?: (?:to|across) .*)?$/,
+    () => ({ move: 'pass-through', params: { shoulder: 'right' } }),
+  ],
+];
+
+/**
+ * Every pattern, also read with a trailing motion (TAILS) split off when
+ * the row as a whole does not read: the figure first, then that motion.
+ */
+export const WEAVE_PATTERNS: readonly (readonly [RegExp, Build])[] = PATTERNS.map(
+  ([pattern, build]) =>
+    [
+      pattern,
+      (m: RegExpMatchArray, beats: number) => {
+        try {
+          return build(m, beats);
+        } catch (error) {
+          for (const [tail, make] of TAILS) {
+            const t = m[0].match(tail);
+            if (!t || !t.index) continue;
+            const head = m[0].slice(0, t.index).trim().match(pattern);
+            if (!head) continue;
+            let extra: Omit<FigureCall, 'beats'>;
+            try {
+              extra = make(t);
+            } catch {
+              continue;
+            }
+            const tb = Math.min(2, beats / 4);
+            return [...build(head, beats - tb), { ...extra, beats: tb }];
+          }
+          throw error;
+        }
+      },
+    ] as const,
+);
