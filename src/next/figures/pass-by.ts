@@ -14,6 +14,7 @@
  * place, as far as a walk gets.
  */
 import type { Figure, FigureContact } from '../core/figure.ts';
+import { PAIR_NAMES } from '../core/relations.ts';
 import { oneOf, onlyKeys, settle } from '../core/figure.ts';
 import { bodyMap, withinReach } from '../core/contacts.ts';
 import { add, heading, leftOf, mix, progress, rightOf, scale, smooth, turn } from '../core/math.ts';
@@ -44,15 +45,8 @@ export const passBy: Figure<PassByParams> = (state, params, beats) => {
   onlyKeys('pass by', params, ['who', 'shoulder', 'hands', 'arrive']);
   if (params.arrive !== undefined && params.arrive !== true)
     throw new Error('pass by arrive must be true when given.');
-  const who = oneOf('pass by', 'who', params.who, [
-    'partner',
-    'neighbor',
-    'larks',
-    'robins',
-    '1s',
-    '2s',
-    'facing',
-  ] as const);
+  // Any pair a two-dancer figure names (shadows regroup, core/relations.ts).
+  const who = oneOf('pass by', 'who', params.who, [...PAIR_NAMES, 'facing'] as const);
   const shoulder = oneOf('pass by', 'shoulder', params.shoulder, ['right', 'left'] as const);
   if (typeof params.hands !== 'boolean') throw new Error('pass by hands must be true or false.');
   // Whoever faces whom may stand in another minor set (shadows).

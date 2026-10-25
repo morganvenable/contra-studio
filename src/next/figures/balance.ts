@@ -199,8 +199,8 @@ const waveBalance: Figure<BalanceParams> = (state, params, beats) => {
 };
 
 /**
- * Everyone active stands on a side line facing across, and dancers next to
- * each other along a side line face opposite ways: long waves.
+ * Everyone active stands on a side line facing across, and on each side
+ * line some dancers next to each other face opposite ways: long waves.
  */
 function inSideLines(state: Parameters<typeof balance>[0]): boolean {
   const ids = activeIds(state);
@@ -213,11 +213,13 @@ function inSideLines(state: Parameters<typeof balance>[0]): boolean {
     const line = ids
       .filter((id) => Math.sign(body(state, id).position.x) === side)
       .sort((a, b) => body(state, a).position.z - body(state, b).position.z);
+    // Mostly alternating: after a Rory along the side line the ends, with
+    // no one to slide past, can stand facing the same way as the next one.
     return (
       line.length >= 2 &&
-      line.every(
+      line.some(
         (id, i) =>
-          i === 0 || Math.sin(body(state, id).yaw) * Math.sin(body(state, line[i - 1]).yaw) < 0,
+          i > 0 && Math.sin(body(state, id).yaw) * Math.sin(body(state, line[i - 1]).yaw) < 0,
       )
     );
   });

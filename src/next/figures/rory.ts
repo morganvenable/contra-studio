@@ -151,7 +151,10 @@ export const rory: Figure<RoryParams> = (state, params, beats) => {
   return {
     kind: 'balance-rory-slide',
     motion,
-    exit: withChanges(slid, { hands: newHolds }),
+    exit: withChanges(slid, {
+      hands: newHolds,
+      ...(held ? { relations: withSlid(state, held.swaps) } : {}),
+    }),
     ...(turnBy ? { styled: { name: 'Rory twirl' } } : {}),
   };
 };
@@ -186,11 +189,17 @@ function heldLine(state: DanceState, direction: Hand, failure: unknown) {
     }
     return best;
   };
+  // Not back past the one just slid past (in long waves the Rory back
+  // passes the next person along; at the ends there may be none).
+  const passed = state.relations.get(slidKey(state));
   for (const id of active) {
     const other = beside(id);
-    if (other !== undefined && beside(other) === id) swaps.set(id, other);
+    if (other === undefined || beside(other) !== id || passed?.get(id) === other) continue;
+    swaps.set(id, other);
   }
-  if (!swaps.size) throw failure;
+  // In long waves whose slide partners are all out at the ends (one minor
+  // set dancing, the next couple waiting), nobody here slides.
+  if (!swaps.size && !inLongWaves(state, active)) throw failure;
   const at = (id: number) => swaps.get(id) ?? id;
   const kept = state.hands.filter((h) => swaps.get(h.a) !== h.b);
   const after = (slid: DanceState): Hold[] =>
@@ -206,3 +215,34 @@ function heldLine(state: DanceState, direction: Hand, failure: unknown) {
 
 /** Farthest a long-wave neighbor stands to slide past (one place along a side line). */
 const SIDE_REACH = 2.2;
+
+/** Everyone on a side line facing across, some neighbors along each facing opposite ways. */
+function inLongWaves(state: DanceState, ids: readonly number[]): boolean {
+  const across = ids.every((id) => {
+    const b = body(state, id);
+    return Math.abs(b.position.x) > 0.5 && Math.abs(Math.abs(Math.sin(b.yaw)) - 1) < 1e-3;
+  });
+  return (
+    across &&
+    [-1, 1].every((side) => {
+      const line = ids
+        .filter((id) => Math.sign(body(state, id).position.x) === side)
+        .sort((a, b) => body(state, a).position.z - body(state, b).position.z);
+      return line.some(
+        (id, i) =>
+          i > 0 && Math.sin(body(state, id).yaw) * Math.sin(body(state, line[i - 1]).yaw) < 0,
+      );
+    })
+  );
+}
+
+/** Who each dancer last slid past in long waves, this time through (the epoch). */
+const slidKey = (state: DanceState) => `rory-slid-past@${state.epoch}`;
+
+function withSlid(state: DanceState, swaps: ReadonlyMap<number, number>) {
+  const relations = new Map(
+    [...state.relations].filter(([name]) => !name.startsWith('rory-slid-past@')),
+  );
+  relations.set(slidKey(state), new Map(swaps));
+  return relations;
+}

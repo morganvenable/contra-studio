@@ -118,7 +118,46 @@ const HALL_NOTES: readonly RegExp[] = [
   /^towards (?:your )?neighbors?,? 4 steps,? rejoin hands in (?:a )?line of four$/,
 ];
 
+const HALL_WHO = String.raw`(?:centers |ends )?\(?(ones|twos|1s|2s|larks|robins)\)?`;
+
 export const TURN_PATTERNS: readonly (readonly [RegExp, Build])[] = [
+  [
+    // "down the hall, 1s turn as a couple, 2s turn alone", "down the hall and
+    // centers (ones) turn as a couple while ends (twos) turn alone", "down
+    // the hall, larks wheel, robins turn alone".
+    new RegExp(
+      String.raw`^down the hall(?:,| and| -)? (?:(?:ones|twos|1s|2s) (?:are )?in the middle\.? )?${HALL_WHO} (?:turn as a couple|wheel),? ?(?:\(|while |and )?${HALL_WHO} turn alone\)?(?: \(?ending .*)?\.?$`,
+    ),
+    (m, b) => {
+      const a = who(m[1]);
+      const other = who(m[2]);
+      if (a === other) throw new Error('One couple wheels, the others turn alone.');
+      return [call('hall', b, { direction: 'down', turn: 'couple', couple: a })];
+    },
+  ],
+  [
+    // "ones split the twos, then cast home", "ones split twos, return to place".
+    /^(ones|twos|1s|2s) split (?:the )?(?:ones|twos|1s|2s),? (?:then )?(?:cast home|return to (?:your )?places?)$/,
+    (m, b) => [call('split', b, { who: who(m[1]) })],
+  ],
+  [
+    // Colonnade (Moose Flores): one couple holds an arch the whole figure;
+    // the two of one role trade places by the right shoulder (the one not
+    // in the arch going under it, the arch moving with the other), then the
+    // two of the other role, then the first two back, then the second.
+    // "Left colonnade" trades by the left. The role that trades first is
+    // the one named ("ones arch, robins trade"), else the larks.
+    /^(left )?colonnade -? ?["“]?(?:ones|twos|1s|2s|1's|2's) arch,? (?:(larks|robins) trade:? )?colonnade!?["”]?$/,
+    (m, b) => {
+      if (b < 8) throw new Error('A colonnade takes four trades.');
+      const first = m[2] ?? 'larks';
+      const second = first === 'larks' ? 'robins' : 'larks';
+      const shoulder = m[1] ? 'left' : 'right';
+      return [first, second, first, second].map((role) =>
+        call('pass-by', b / 4, { who: role, shoulder, hands: false }),
+      );
+    },
+  ],
   [
     // "down the hall and turn as a couple (down the aisle in lines of four)";
     // "down the hall and turn as a couple, come back, bend line to circle"

@@ -141,6 +141,10 @@ const NOTES: readonly RegExp[] = [
   /^(?:pull by|pass) (?:\w+ )?to start,? end on (?:the )?home sides?$/,
   /^end on (?:the )?(?:home sides?|opposite side\b.*)$/,
   /^half hey for \w+, full hey for \w+$/,
+  /^half hey for \w+,?\s+full hey for \w+$/,
+  /^everyone (?:is )?now on (?:the )?side of (?:the )?set they started(?: the dance)?$/,
+  /^(?:and )?end facing .*\bneighbors?\b.*$/,
+  /^then turn$/,
   /^to form a ring$/,
   /^they meet$/,
   /^\w+ pass (?:right|left) (?:the )?last time$/,
@@ -205,7 +209,11 @@ export function heyRest(rest: string) {
     )
     .replace(/,\s*(?:\w+ )?finish(?:es)? (?:an? )?(?:ordinary |standard )?hey\.?/g, ',')
     .replace(LONG_WAVE_END, ',');
-  if (!onlyNotes(left.replace(/,/g, ' ')))
+  // The rest as a whole, or each part between dashes, semicolons and full
+  // stops, is a note.
+  const parts = left.split(/\s[-–]\s|;|\.\s/);
+  const noted = (t: string) => onlyNotes(t.replace(/,/g, ' '));
+  if (!noted(left) && !parts.every(noted))
     throw new Error(`The hey row adds "${left.replace(/^[\s,-]+|[\s,-]+$/g, '')}".`);
   return ricochet;
 }

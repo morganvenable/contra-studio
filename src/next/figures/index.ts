@@ -63,6 +63,7 @@ import { cloverleaf, diamond } from './diamond.ts';
 import { roll } from './roll.ts';
 import { oval } from './oval.ts';
 import { walkForward } from './walk-forward.ts';
+import { split } from './split.ts';
 
 const BASE: FigureRegistry = {
   allemande,
@@ -125,6 +126,7 @@ const BASE: FigureRegistry = {
   'couples-do-si-do': couplesDoSiDo,
   'two-hand-turn': twoHandTurn,
   'forward-back': forwardBack,
+  split,
 };
 
 /**

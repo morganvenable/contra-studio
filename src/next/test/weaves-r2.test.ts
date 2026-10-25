@@ -66,16 +66,19 @@ test('Rory right in long waves: each pair holding right sides slides past, along
     assert.ok(Math.abs(Math.abs(to.z - from.z) - 1.8) < 1e-6, `dancer ${id} slides one place`);
   }
   withinLimits(r, 4, 'Rory in long waves');
-  // Balance and Rory left bring everyone back.
-  const back = FIGURES.rory(
+  // Balance and Rory left: on along the line, past the next dancer, never
+  // back past the one just slid past.
+  const passed = new Map(moved.map((id) => [id, r.exit.bodies.get(id)!.position]));
+  const left = FIGURES.rory(
     FIGURES.balance(r.exit, { formation: 'wave', style: 'right-left', first: 'left' }, 4).exit,
     { direction: 'left', spin: 'none' },
     4,
-  ).exit;
-  for (const id of moved) {
-    const a = body(s, id).position;
-    const b = back.bodies.get(id)!.position;
-    assert.ok(Math.hypot(a.x - b.x, a.z - b.z) < 1e-6, `dancer ${id} back home`);
+  );
+  for (const id of left.motion(0).bodies.map((b) => b.id)) {
+    const home = body(s, id).position;
+    const now = left.exit.bodies.get(id)!.position;
+    assert.ok(Math.hypot(home.x - now.x, home.z - now.z) > 1, `dancer ${id} does not slide back`);
+    assert.ok(passed.has(id) || id >= 0);
   }
 });
 
@@ -142,4 +145,20 @@ test('a three-quarters hey runs six passes and ends at the next meeting', () => 
   const r = FIGURES.hey(s, { start: 'neighbor', center: 'left', passes: 6 }, 12);
   withinLimits(r, 12, 'three-quarters hey');
   assert.throws(() => FIGURES.hey(s, { start: 'neighbor', center: 'left', passes: 1 }, 12), /2 to 24/);
+});
+
+test('ones split the twos and cast home: everyone ends where they started, at a walk', () => {
+  const s = improper([], 2);
+  const r = FIGURES.split(s, { who: '1s' }, 8);
+  for (const [id, b] of s.bodies) {
+    const e = r.exit.bodies.get(id)!;
+    assert.ok(Math.hypot(e.position.x - b.position.x, e.position.z - b.position.z) < 1e-6, `dancer ${id} home`);
+    assert.ok(Math.abs(turn(e.yaw, b.yaw)) < 1e-6, `dancer ${id} facing as before`);
+  }
+  withinLimits(r, 8, 'ones split the twos, cast home');
+  assert.equal(one('ones split the twos, then cast home').move, 'split');
+  assert.deepEqual(
+    parseRow({ beats: 16, text: 'colonnade - "ones arch, colonnade!" +' }).map((c) => c.params.who),
+    ['larks', 'robins', 'larks', 'robins'],
+  );
 });
