@@ -12,7 +12,7 @@
  */
 import type { Figure, FigureContact } from '../core/figure.ts';
 import { oneOf, onlyKeys, settle } from '../core/figure.ts';
-import { joined } from '../core/contacts.ts';
+import { bodyMap, joined, withinReach } from '../core/contacts.ts';
 import { add, heading, progress, rotate, scale, smooth, sub, TAU, turn } from '../core/math.ts';
 import { findRing, ringHolds } from '../core/ring.ts';
 import { body, minorSets, withChanges } from '../core/state.ts';
@@ -34,6 +34,8 @@ const TIGHTEN = 0.32;
 const EDGE = 0.16;
 /** Beats, at least, to turn in to face the center. */
 const TURN_IN_BEATS = 1;
+/** Radians a beat, at most, for the turn in. */
+const TURN_IN_RATE = 2.5;
 
 export const circle: Figure<CircleParams> = (state, params, beats) => {
   onlyKeys('circle', params, ['direction', 'places', 'amount', 'singleFile']);
@@ -77,16 +79,23 @@ export const circle: Figure<CircleParams> = (state, params, beats) => {
         );
         // Face the center: turn in over the opening, then turn with the ring.
         const into = turn(heading(s.position, ring.center), s.yaw);
-        const yaw = s.yaw + into * smooth(beat / Math.max(EDGE * beats, TURN_IN_BEATS)) - angle;
+        // A dancer with farther to turn takes longer (a smooth turn peaks at 1.5x).
+        const inBeats = Math.min(
+          beats / 2,
+          Math.max(EDGE * beats, TURN_IN_BEATS, (1.5 * Math.abs(into)) / TURN_IN_RATE),
+        );
+        const yaw = s.yaw + into * smooth(beat / inBeats) - angle;
         if (!single) return { id, position, yaw };
         // Single file: a quarter turn toward the travel, and back in at the end.
         const along = Math.min(smooth(t / 0.2), smooth((1 - t) / 0.2));
         return { id, position, yaw: yaw + sign * (Math.PI / 2) * along };
       }),
     );
+    // Hands join only where they reach (a dancer still arriving from afar).
+    const map = bodyMap(bodies);
     const contacts: FigureContact[] = single
       ? []
-      : rings.flatMap((r) => r.hands.map((h) => joined(h, strength)));
+      : rings.flatMap((r) => r.hands.map((h) => withinReach(joined(h, strength), map)));
     return { bodies, contacts };
   };
   return {

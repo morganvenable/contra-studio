@@ -4,8 +4,8 @@
  "catalogue": 2422,
  "stored": 2422,
  "counts": {
-  "ok": 354,
-  "check": 153,
+  "ok": 360,
+  "check": 147,
   "partial": 1633,
   "unsupported": 282
  },
@@ -13,8 +13,8 @@
   {
    "formation": "improper",
    "dances": 1189,
-   "ok": 304,
-   "check": 80,
+   "ok": 310,
+   "check": 74,
    "partial": 805,
    "unsupported": 0
   },
@@ -2740,7 +2740,7 @@
   "checkFailures": [
    {
     "name": "Couples don't end the round where the progression puts them",
-    "unlocks": 36
+    "unlocks": 39
    },
    {
     "name": "pull by / pass by",
@@ -2767,15 +2767,7 @@
     "unlocks": 8
    },
    {
-    "name": "gyre",
-    "unlocks": 7
-   },
-   {
     "name": "hey (other)",
-    "unlocks": 5
-   },
-   {
-    "name": "circle variant",
     "unlocks": 5
    },
    {
@@ -2784,6 +2776,10 @@
    },
    {
     "name": "roll away",
+    "unlocks": 2
+   },
+   {
+    "name": "circle variant",
     "unlocks": 2
    },
    {
@@ -2796,6 +2792,10 @@
    },
    {
     "name": "star variant",
+    "unlocks": 1
+   },
+   {
+    "name": "gyre",
     "unlocks": 1
    },
    {

@@ -67,3 +67,5 @@ reading below. One line each; change any of them and the figure follows.
 - "Pass through with partner / past partners / passing partner; going to shadow": an ordinary pass through.
 - Gyre notes ("gypsy", "look into partner's eyes", "walk around partner") are not drawn; a gyre may go a quarter at a time (1¼).
 - "Partners promenade, shifting right along the side": the promenade, then a 2-beat slide right.
+- Turning in to face (circles, gyres) takes longer the farther a dancer has to turn: at least one beat, at most half the figure, at a walking turn rate.
+- Circle hands join only where they reach, so a dancer still arriving from the far side of the set takes hands as they close in.

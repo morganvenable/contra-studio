@@ -41,6 +41,10 @@ const RADIUS = 0.45;
 /** Share of the figure spent closing in, and again opening out. */
 const CLOSE = 0.2;
 const FACE_BEATS = 1;
+/** Turning in to face the other takes longer the farther there is to turn. */
+const FACE_RATE = 2.5;
+const faceBeats = (into: number, beats: number) =>
+  Math.min(beats / 2, Math.max(FACE_BEATS, (1.5 * Math.abs(into)) / FACE_RATE));
 
 export const gyre: Figure<GyreParams> = (state, params, beats) => {
   onlyKeys('gyre', params, ['who', 'amount', 'shoulder']);
@@ -82,7 +86,8 @@ export const gyre: Figure<GyreParams> = (state, params, beats) => {
       const r = p.half + (Math.min(p.half, RADIUS) - p.half) * close;
       const position = add(p.center, rotate(scale(p.offset, r / p.half), phi));
       // Face the other dancer: turn in at the start, then turn with the orbit.
-      const yaw = p.start.yaw + turn(p.face, p.start.yaw) * smooth(beat / FACE_BEATS) - phi;
+      const into = turn(p.face, p.start.yaw);
+      const yaw = p.start.yaw + into * smooth(beat / faceBeats(into, beats)) - phi;
       return { id: p.id, position, yaw };
     }),
     contacts: [],
