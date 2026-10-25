@@ -73,3 +73,4 @@ line each, for review.
 - In a whole set (triplet, longways set), a partner swing from across the set ends back in the partners' own places, facing each other across.
 - A whole set renamed by place (triplet, longways set) renames once, at the end of each time through, even where several rows carry the progression mark.
 - "Top four" and "bottom four" are the four standing nearest the top or the bottom now, by place.
+- Becket progression where partners do not face the same way (out of a star, or a ring balance and California twirl): the new neighbors are the couple standing square to them one place away that they did not just dance with; couples pair only when they choose each other.

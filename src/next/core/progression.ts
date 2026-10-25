@@ -74,11 +74,14 @@ export const MINOR_SET_PROGRESSION: Progression = {
   kind: 'minor-set',
   rebind(state) {
     const couples = coupleSpots(state);
-    for (const [c, spot] of couples) {
-      if (dot(spot.facing, forward(body(state, spot.robin).yaw)) < 0.9) {
-        throw new Error(`Couple ${c + 1} must face the same way to find new neighbors.`);
-      }
-    }
+    // Partners facing the same way find the couple they face. Partners who
+    // do not (out of a star, or a ring balance and California twirl) find
+    // the couple standing square to them one place away that they did not
+    // just dance with.
+    const aligned = [...couples].every(
+      ([, spot]) => dot(spot.facing, forward(body(state, spot.robin).yaw)) >= 0.9,
+    );
+    if (!aligned) return rebindByPlace(state, couples);
     const neighbor = new Map<number, number>();
     const groups: number[][] = [];
     for (const [c, me] of couples) {
@@ -112,6 +115,62 @@ export const MINOR_SET_PROGRESSION: Progression = {
     return withChanges(state, { relations, groups, waiting, epoch: state.epoch + 1 });
   },
 };
+
+/** Minor-set rebind by where couples stand, for partners not facing alike. */
+function rebindByPlace(state: DanceState, couples: Map<number, CoupleSpot>): DanceState {
+  const axis = new Map<number, Vec2>();
+  for (const [c, spot] of couples) {
+    const v = sub(body(state, spot.robin).position, body(state, spot.lark).position);
+    const n = Math.hypot(v.x, v.z);
+    if (n > SET.slot + 0.3)
+      throw new Error(`Couple ${c + 1} must stand side by side to find new neighbors.`);
+    axis.set(c, { x: v.x / n, z: v.z / n });
+  }
+  const oldGroup = new Map<number, number>();
+  state.groups.forEach((g, i) => g.forEach((id) => oldGroup.set(state.dancers[id].couple, i)));
+  const choose = (c: number) => {
+    const me = couples.get(c)!;
+    let found = [...couples.keys()].filter((k) => {
+      if (k === c) return false;
+      const gap = sub(couples.get(k)!.center, me.center);
+      const d = Math.hypot(gap.x, gap.z);
+      if (Math.abs(d - SET.slot) > 0.05) return false;
+      const u = { x: gap.x / d, z: gap.z / d };
+      return Math.abs(dot(axis.get(c)!, u)) < 0.3 && Math.abs(dot(axis.get(k)!, u)) < 0.3;
+    });
+    if (found.length > 1) {
+      const fresh = found.filter((k) => oldGroup.get(k) !== oldGroup.get(c));
+      if (fresh.length) found = fresh;
+    }
+    if (found.length > 1) throw new Error(`Couple ${c + 1} stands between two couples.`);
+    return found[0];
+  };
+  const neighbor = new Map<number, number>();
+  const groups: number[][] = [];
+  for (const [c, me] of couples) {
+    const k = choose(c);
+    // Only couples that choose each other become neighbors.
+    if (k === undefined || choose(k) !== c) continue;
+    const other = couples.get(k)!;
+    neighbor.set(me.lark, other.robin).set(me.robin, other.lark);
+    if (c < k) groups.push([me.lark, me.robin, other.lark, other.robin]);
+  }
+  const previous = new Map(state.waiting.map((w) => [w.couple, w]));
+  const waiting: WaitingCouple[] = [...couples.keys()]
+    .filter((c) => !neighbor.has(couples.get(c)!.lark))
+    .map((c) => {
+      const before = previous.get(c);
+      return before && !before.crossed ? before : { couple: c, crossed: false };
+    });
+  const activeZ = groups.flat().map((id) => body(state, id).position.z);
+  for (const w of waiting) {
+    const z = couples.get(w.couple)!.center.z;
+    if (z > Math.min(...activeZ) && z < Math.max(...activeZ))
+      throw new Error(`Couple ${w.couple + 1} has no neighbors in the middle of the set.`);
+  }
+  const relations = new Map(state.relations).set('neighbor', neighbor);
+  return withChanges(state, { relations, groups, waiting, epoch: state.epoch + 1 });
+}
 
 /** Distance along the set (z) between the 1s and the 2s they meet. */
 const MEET_TOLERANCE = 0.3;
