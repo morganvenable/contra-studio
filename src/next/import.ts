@@ -12,6 +12,7 @@ import { canonicalText } from './core/roles.ts';
 import { contraDbRows, decodeEntities, parseRow, type SourceRow } from './core/parse.ts';
 import type { StoredCall, StoredDance, UnparsedRow } from './dance.ts';
 import { FORMATIONS } from './core/formation.ts';
+import { GROUPS_FORMATION_TEXT } from './core/formation-groups.ts';
 
 export interface ContraDbSnapshot {
   readonly sourceUrl: string;
@@ -197,6 +198,8 @@ export const FORMATION_TEXT: Readonly<Record<string, Shape>> = {
   '3 face 3': { formation: 'three-face-three', progression: 'trios' },
   'three facing three': { formation: 'three-face-three', progression: 'trios' },
   'three-facing-three': { formation: 'three-face-three', progression: 'trios' },
+  // Sets not made of couples (core/formation-groups.ts).
+  ...(GROUPS_FORMATION_TEXT as Readonly<Record<string, Shape>>),
 };
 
 export function shapeOf(formation: string): Shape | undefined {

@@ -34,7 +34,13 @@ export interface Progression {
     | 'sicilian'
     | 'lines'
     | 'mixer'
-    | 'trios';
+    | 'trios'
+    // formation-groups.ts
+    | 'lead-left'
+    | 'line-renumber'
+    | 'trio-ring'
+    | 'lonesome'
+    | 'tempest';
   rebind(state: DanceState): DanceState;
   /**
    * Rebind once, at the end of each time through, even where rows carry the

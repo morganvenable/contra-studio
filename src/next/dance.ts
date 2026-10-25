@@ -33,6 +33,7 @@ import {
 import { bendFrame } from './core/bend.ts';
 import { MIXER_PROGRESSION } from './core/formation-ring.ts';
 import { TRIOS_PROGRESSION } from './core/formation-trios.ts';
+import { GROUPS_PROGRESSIONS } from './core/formation-groups.ts';
 
 export interface StoredCall extends FigureCall {
   readonly section?: string;
@@ -114,7 +115,8 @@ const PROGRESSIONS: Readonly<Record<Progression['kind'], Progression>> = {
   lines: LINES_PROGRESSION,
   mixer: MIXER_PROGRESSION,
   trios: TRIOS_PROGRESSION,
-};
+  ...(GROUPS_PROGRESSIONS as unknown as Record<string, Progression>),
+} as Readonly<Record<Progression['kind'], Progression>>;
 
 export function musicOf(stored: StoredDance): MusicStructure {
   const meter = METERS[stored.music.meter];

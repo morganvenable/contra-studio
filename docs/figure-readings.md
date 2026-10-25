@@ -106,3 +106,11 @@ line each, for review.
 - In "separate and go around", each dancer goes away from their partner.
 - In a square, partners standing across the square (or in the middle) meet at the nearest two free places before a swing, balance or do si do.
 - A brisk promenade home draws the square in toward the middle on the way.
+- "5 dancers": a ring of five places 1.53 m apart; the dancer on the first's left becomes first each time through.
+- Solo strip the willow: the active turns each other dancer once round, left hand first, going round the ring to the left from just inside it.
+- Birdie in the cage: the ring closes up, circles once round and opens back to its places; "slide back into place" backs the birdie out to the empty place.
+- "Line of 5": numbered 1-5 from stage left; renumbered by place each time through (no.1 goes to the far end).
+- Double dolphin hey: a hey for three on a figure eight, tandems 1.0 m nose to tail; thread the needle: 2 and 3 arch, no.1 leads the rest once through and back to place.
+- "Circle of threes", "three-person mixer": lines of three in a big ring facing counterclockwise, the inside end on the center's left; "promenade anywhere" is drawn round the ring; a basket swing "with a different person in the center" stops a third of a turn on.
+- "9-person mixer": a Becket set of four couples plus a lonesome fifth lark at the top facing down; "swing at random": each robin swings the lark on her other side round the loop, the leftover lark becomes the lonesome dancer.
+- "Tempest": a line of four 1s facing down, then the 2s, one couple per side line facing in; down the hall the line walks 2 m and each couple wheels to face up while the 2s slide up one level.
