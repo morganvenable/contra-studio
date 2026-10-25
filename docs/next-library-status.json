@@ -1109,7 +1109,7 @@
    },
    {
     "name": "ocean wave / long wave",
-    "unlocks": 38,
+    "unlocks": 40,
     "uses": 96
    },
    {
@@ -1363,11 +1363,6 @@
     "uses": 1
    },
    {
-    "name": "other: all into center and back at the end of l6 turned",
-    "unlocks": 1,
-    "uses": 1
-   },
-   {
     "name": "other: pass through past partners to face shadows",
     "unlocks": 1,
     "uses": 1
@@ -1424,11 +1419,6 @@
    },
    {
     "name": "other: do the hotpoint special progression, robins in front",
-    "unlocks": 1,
-    "uses": 1
-   },
-   {
-    "name": "other: everyone take one step forward, turn to face right, and single-file one place clockwise",
     "unlocks": 1,
     "uses": 1
    },
@@ -2343,11 +2333,6 @@
     "uses": 1
    },
    {
-    "name": "other: dance forward to new diamond",
-    "unlocks": 0,
-    "uses": 1
-   },
-   {
     "name": "other: robins take right hand with same neighbor",
     "unlocks": 0,
     "uses": 1
@@ -2593,11 +2578,6 @@
     "uses": 1
    },
    {
-    "name": "other: dance fwd to new wave",
-    "unlocks": 0,
-    "uses": 1
-   },
-   {
     "name": "other: end couples 1 and 3 take ballroom waltz hold and dance across the set, larks passing back to back, then dance back again, robins passing back to back",
     "unlocks": 0,
     "uses": 1
@@ -2831,11 +2811,11 @@
     "unlocks": 31
    },
    {
-    "name": "ocean wave / long wave",
-    "unlocks": 29
+    "name": "allemande variant",
+    "unlocks": 30
    },
    {
-    "name": "allemande variant",
+    "name": "ocean wave / long wave",
     "unlocks": 29
    },
    {
@@ -2940,6 +2920,10 @@
    },
    {
     "name": "orbit allemande",
+    "unlocks": 1
+   },
+   {
+    "name": "other: everyone take one step forward, turn to face right, and single-file one place clockwise",
     "unlocks": 1
    },
    {

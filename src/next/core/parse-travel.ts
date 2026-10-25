@@ -370,6 +370,12 @@ const PATTERNS: readonly (readonly [RegExp, Build])[] = [
   [/^bend the line$/, (_m, b) => [call('hall', b, { direction: 'up', end: 'ring', stay: true })]],
   [/^march (left|right) along (?:the )?set$/, (m, b) => [call('slide', b, { direction: m[1], facing: 'travel' })]],
   [/^walk to (?:the )?next neighbors?(?:,? 1s up,? 2s down)?$/, (_m, b) => [call('walk-forward', b, {})]],
+  [/^dance (?:forward|fwd) to (?:a )?new (?:diamond|wave)$/, (_m, b) => [call('walk-forward', b, {})]],
+  [/^all into (?:the )?cent(?:er|re) and back(?: .*)?$/, as('into the middle & back')],
+  [
+    /^everyone take one step forward,? turn to face right,? and single-file one place (clockwise|counterclockwise)$/,
+    (m, b) => [call('slide', b, { direction: m[1] === 'clockwise' ? 'left' : 'right', facing: 'travel' })],
+  ],
   [
     // Who the dancers dance with next: the progression and the figures say it.
     /^(?:look away from partners? to form (?:a )?minor set with .*|dance begins in (?:a )?group of four with shadows)$/,
