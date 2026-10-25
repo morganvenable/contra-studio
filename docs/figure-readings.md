@@ -371,3 +371,6 @@ line each, for review.
 - "Keep circling 3 more places 'sunny side out'": a cloverleaf left that many places.
 - "Two-hand turn once" with no one named: partners.
 - A single-file walk of 2 beats turns over a larger share of its beats, so nobody spins.
+- A circle of four in a contra set standing a little off its places (off the middle line, or squeezed in after a roll away from long lines forward) drifts onto the minor set's places as it goes round, so it ends on the side lines.
+- A down the hall of 12 beats or more that turns, with no up the hall after it ("down the hall and turn as a couple, come back to face across"): half the beats down and turning, half back up bending into a ring.
+- "Swing, end swing facing up/down (the hall)": the swing ending facing that way.

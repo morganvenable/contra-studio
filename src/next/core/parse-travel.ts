@@ -217,6 +217,7 @@ const PATTERNS: readonly (readonly [RegExp, Build])[] = [
     as('$1'),
   ],
   [/^ones swing ones swing in the middle of set .*$/, as('ones swing')],
+  [/^(.*\bswing),? end swing facing (up|down)(?: (?:the )?hall)?$/, as('$1, end facing $2')],
   [/^(\w+ pass by (?:right|left)(?: shoulders?)?) to reform circle(?: .*)?$/, as('$1')],
   [
     // "robins allemande right 1½ with next robins; larks slide left 1 place".

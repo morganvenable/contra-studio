@@ -4,26 +4,26 @@
  "catalogue": 2422,
  "stored": 2422,
  "counts": {
-  "ok": 686,
-  "check": 381,
-  "partial": 1355,
+  "ok": 691,
+  "check": 380,
+  "partial": 1351,
   "unsupported": 0
  },
  "formations": [
   {
    "formation": "improper",
    "dances": 1189,
-   "ok": 502,
-   "check": 117,
-   "partial": 570,
+   "ok": 506,
+   "check": 115,
+   "partial": 568,
    "unsupported": 0
   },
   {
    "formation": "becket",
    "dances": 655,
-   "ok": 86,
-   "check": 175,
-   "partial": 394,
+   "ok": 87,
+   "check": 176,
+   "partial": 392,
    "unsupported": 0
   },
   {
@@ -2910,7 +2910,7 @@
    },
    {
     "name": "circle variant",
-    "unlocks": 19
+    "unlocks": 18
    },
    {
     "name": "pull by / pass by",
@@ -2929,15 +2929,15 @@
     "unlocks": 9
    },
    {
-    "name": "star variant",
-    "unlocks": 9
-   },
-   {
     "name": "hey (other)",
     "unlocks": 8
    },
    {
     "name": "promenade",
+    "unlocks": 8
+   },
+   {
+    "name": "star variant",
     "unlocks": 8
    },
    {
@@ -2977,10 +2977,6 @@
     "unlocks": 4
    },
    {
-    "name": "slide along set",
-    "unlocks": 4
-   },
-   {
     "name": "diagonal hey",
     "unlocks": 3
    },
@@ -3002,6 +2998,10 @@
    },
    {
     "name": "turn alone / as a couple",
+    "unlocks": 2
+   },
+   {
+    "name": "slide along set",
     "unlocks": 2
    },
    {
@@ -3048,7 +3048,7 @@
   "checkFailures": [
    {
     "name": "Couples don't end the round where the progression puts them.",
-    "unlocks": 184
+    "unlocks": 185
    },
    {
     "name": "allemande variant",
@@ -3079,11 +3079,11 @@
     "unlocks": 6
    },
    {
-    "name": "box circulate",
+    "name": "gyre",
     "unlocks": 5
    },
    {
-    "name": "do-si-do variant",
+    "name": "box circulate",
     "unlocks": 5
    },
    {
@@ -3099,10 +3099,6 @@
     "unlocks": 4
    },
    {
-    "name": "gyre",
-    "unlocks": 4
-   },
-   {
     "name": "turn alone / as a couple",
     "unlocks": 4
    },
@@ -3112,6 +3108,10 @@
    },
    {
     "name": "chain variant",
+    "unlocks": 4
+   },
+   {
+    "name": "do-si-do variant",
     "unlocks": 4
    },
    {
@@ -3135,11 +3135,11 @@
     "unlocks": 3
    },
    {
-    "name": "box the gnat / swat the flea",
-    "unlocks": 3
+    "name": "roll away",
+    "unlocks": 2
    },
    {
-    "name": "roll away",
+    "name": "box the gnat / swat the flea",
     "unlocks": 2
    },
    {
@@ -3164,10 +3164,6 @@
    },
    {
     "name": "The next time through can't start from where the dancers end: A ring balance of 4 needs the dancers spaced around a ring.).",
-    "unlocks": 1
-   },
-   {
-    "name": "zig zag",
     "unlocks": 1
    },
    {

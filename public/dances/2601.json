@@ -2,7 +2,8 @@
  "figures": [
   {"move":"circle","beats":8,"params":{"direction":"left","places":3},"text":"circle left 3 places","section":"A1","row":1},
   {"move":"swing","beats":8,"params":{"who":"neighbor"},"text":"neighbors swing and face down hall","section":"A1","row":2},
-  {"move":"hall","beats":16,"params":{"direction":"down","turn":"couple"},"text":"down the hall and turn as a couple turn as a couple and come back to face across","section":"A2","row":3},
+  {"move":"hall","beats":8,"params":{"direction":"down","turn":"couple"},"text":"down the hall and turn as a couple turn as a couple and come back to face across","section":"A2","row":3},
+  {"move":"hall","beats":8,"params":{"direction":"up","end":"ring"},"text":"down the hall and turn as a couple turn as a couple and come back to face across","section":"A2","row":3},
   {"move":"allemande","beats":8,"params":{"who":"robins","hand":"right","amount":1.5},"text":"robins allemande right 1½ to face partner","section":"B1","row":4},
   {"move":"swing","beats":8,"params":{"who":"partner"},"text":"partners swing","section":"B1","row":5},
   {"move":"star","beats":8,"params":{"hand":"right","places":4,"grip":"wrist"},"text":"star right - wrist grip - 4 places","section":"B2","row":6},

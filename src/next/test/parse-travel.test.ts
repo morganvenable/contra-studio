@@ -150,3 +150,21 @@ test('bend the line, march along the set, ovals and long lines with notes', () =
     ['cast', 4, { who: '1s', places: 1 }],
   ]);
 });
+
+test('a 16-beat down the hall that turns, with no up the hall after it, comes back and bends', () => {
+  const d = importDance(
+    '0',
+    page('improper', [
+      ['A1', 16, 'down the hall and turn as a couple come back to face across'],
+      ['A2', 48, 'stand still'],
+    ]),
+    'x',
+  );
+  assert.deepEqual(
+    d.figures.slice(0, 2).map((c) => [c.beats, c.params]),
+    [
+      [8, { direction: 'down', turn: 'couple' }],
+      [8, { direction: 'up', end: 'ring' }],
+    ],
+  );
+});

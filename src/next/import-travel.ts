@@ -202,7 +202,35 @@ export function wholeSetShape<S extends { formation: string; progression: string
   return wholeSet ? { formation: 'longways-set', progression: 'places' } : shape;
 }
 
+/**
+ * A down the hall of 12 beats or more that turns, with no up the hall after
+ * it ("down the hall and turn as a couple (come back to face across)", 16
+ * beats): half the beats down and turning, half back up bending into a ring
+ * on the side lines.
+ */
+function downAndUp(parsed: Parsed) {
+  const calls = parsed.flatMap((p, i) => (Array.isArray(p) ? p.map((c, k) => ({ c, i, k })) : []));
+  calls.forEach(({ c, i, k }, n) => {
+    if (c.move !== 'hall' || c.params.direction !== 'down' || !c.params.turn || c.beats < 12) return;
+    const next = calls[n + 1]?.c;
+    if (next?.move === 'hall') return;
+    const row = parsed[i] as StoredCall[];
+    row.splice(
+      k,
+      1,
+      { ...c, beats: c.beats / 2, progression: undefined },
+      {
+        ...c,
+        beats: c.beats / 2,
+        params: { direction: 'up', end: 'ring' },
+      },
+    );
+    for (const x of row) if (x.progression === undefined) delete (x as { progression?: boolean }).progression;
+  });
+}
+
 export function joinTravelRows(rows: readonly SourceRow[], parsed: Parsed) {
+  downAndUp(parsed);
   downAndBack(rows, parsed);
   simultaneous(rows, parsed);
   meanwhileRows(rows, parsed);

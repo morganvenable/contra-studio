@@ -28,6 +28,7 @@ import {
 } from '../core/math.ts';
 import { findRing, ringHolds } from '../core/ring.ts';
 import { body, minorSets, withChanges, type DanceState } from '../core/state.ts';
+import { SET } from '../core/config.ts';
 
 export interface CircleParams {
   direction: 'left' | 'right';
@@ -111,6 +112,39 @@ function fastRing(
   };
 }
 
+/**
+ * A minor set's ring standing a little off its places (off the set's middle
+ * line, or squeezed after a roll away from long lines forward) drifts onto
+ * them as it goes round, so the circle ends on the side lines: each dancer
+ * ends on the place of the minor set's square nearest where the plain ring
+ * would leave them. Only in a contra set, for a ring of four, when each
+ * place is within 0.7 m across the set and 0.15 m along it, and no two
+ * dancers share one.
+ */
+function settleOnPlaces(
+  state: DanceState,
+  order: readonly number[],
+  center: Vec2,
+  sweep: number,
+): ReadonlyMap<number, Vec2> {
+  const none = new Map<number, Vec2>();
+  if (state.layout || order.length !== 4) return none;
+  const square = [-1, 1].flatMap((sx) =>
+    [-1, 1].map((sz) => ({ x: sx * SET.halfWidth, z: center.z + sz * SET.halfWidth })),
+  );
+  const drift = new Map<number, Vec2>();
+  const used = new Set<number>();
+  for (const id of order) {
+    const end = add(center, rotate(sub(body(state, id).position, center), sweep));
+    const k = square.reduce((best, p, i) => (distance(p, end) < distance(square[best], end) ? i : best), 0);
+    const d = sub(square[k], end);
+    if (used.has(k) || Math.abs(d.x) > 0.7 || Math.abs(d.z) > 0.15) return none;
+    used.add(k);
+    drift.set(id, d);
+  }
+  return [...drift.values()].some((d) => Math.hypot(d.x, d.z) > 1e-6) ? drift : none;
+}
+
 export const circle: Figure<CircleParams> = (state, params, beats) => {
   onlyKeys('circle', params, ['direction', 'places', 'amount', 'singleFile']);
   const single = params.singleFile === true;
@@ -135,7 +169,14 @@ export const circle: Figure<CircleParams> = (state, params, beats) => {
     const turns = params.amount ?? params.places! / n;
     const hands = ringHolds({ center, order });
     const sweep = sign * turns * TAU;
-    return { center, ids: order, hands, sweep, fast: fastRing(state, order, center, sweep, beats) };
+    return {
+      center,
+      ids: order,
+      hands,
+      sweep,
+      drift: settleOnPlaces(state, order, center, sweep),
+      fast: fastRing(state, order, center, sweep, beats),
+    };
   });
 
   const motion = (beat: number) => {
@@ -155,7 +196,7 @@ export const circle: Figure<CircleParams> = (state, params, beats) => {
         const angle = ring.sweep * turned;
         const s = body(state, id);
         const position = add(
-          ring.center,
+          add(ring.center, scale(ring.drift.get(id) ?? { x: 0, z: 0 }, smooth(t))),
           rotate(scale(sub(s.position, ring.center), fast?.radius ?? radius), angle),
         );
         // Face the center: turn in over the opening, then turn with the ring.

@@ -205,3 +205,15 @@ test('bend the line on its own: a line facing up bends into a ring without walki
   const usual = run([call('hall', 8, { direction: 'up', end: 'ring' })], s0);
   for (const id of [0, 1, 2, 3]) near(body(ring, id).position, body(usual, id).position, `dancer ${id}`);
 });
+
+test('a circle from a squeezed ring (after a roll away from long lines forward) ends on the side lines', () => {
+  const s0 = BECKET.start(2);
+  const bodies = new Map<number, Body>(s0.bodies);
+  for (const id of [0, 1, 2, 3]) {
+    const b = body(s0, id);
+    bodies.set(id, { position: { x: b.position.x * 0.6, z: b.position.z }, yaw: b.yaw });
+  }
+  const end = run([call('circle', 8, { direction: 'left', places: 3 })], withChanges(s0, { bodies }));
+  for (const id of [0, 1, 2, 3])
+    assert.ok(Math.abs(Math.abs(body(end, id).position.x) - 0.9) < 1e-6, `dancer ${id} on a side line`);
+});

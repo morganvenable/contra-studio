@@ -4,7 +4,8 @@
   {"move":"circle","beats":4,"params":{"direction":"right","places":2},"text":"circle right 2 places With next neighbors, Circle R halfway","section":"A1","row":2},
   {"move":"circle","beats":4,"params":{"direction":"right","places":2},"text":"circle right 2 places Finish the Circle R so that you are back to where you began the circle","section":"A2","row":3},
   {"move":"swing","beats":12,"params":{"who":"neighbor"},"text":"neighbors swing Turn around and swing original neighbor","section":"A2","row":4},
-  {"move":"hall","beats":16,"params":{"direction":"down","turn":"alone"},"text":"down the hall and turn alone Down the hall, 2s are in the middle. 2s cast, 1s lead up, 2s fall in behind 1s to come up the hall, 2s following the 1s.","section":"B1","row":5},
+  {"move":"hall","beats":8,"params":{"direction":"down","turn":"alone"},"text":"down the hall and turn alone Down the hall, 2s are in the middle. 2s cast, 1s lead up, 2s fall in behind 1s to come up the hall, 2s following the 1s.","section":"B1","row":5},
+  {"move":"hall","beats":8,"params":{"direction":"up","end":"ring"},"text":"down the hall and turn alone Down the hall, 2s are in the middle. 2s cast, 1s lead up, 2s fall in behind 1s to come up the hall, 2s following the 1s.","section":"B1","row":5},
   {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"same roles allemande ____ 1½ 1s Cast to a handy-hand allemande with same role neighbors 1 1/2","section":"B2","row":6},
   {"move":"swing","beats":8,"params":{"who":"1s","end":"down"},"text":"ones swing","section":"B2","row":7}
  ]
