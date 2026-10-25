@@ -11,17 +11,23 @@
  * BACKWARD (0.44 m at the crossing) so the passing pair goes face to face,
  * and the spin is one full turn in the travel direction. Hands release at the
  * start and the new wave joins hands at the end.
+ *
+ * Named dancers ("balance & larks Rory O'More right", "centers Rory O'More
+ * right"): only the pairs holding that hand with a named dancer slide; the
+ * others stand still, and the wave may end holding some of the same hands.
  */
 import type { Figure, FigureContact } from '../core/figure.ts';
 import { oneOf, onlyKeys, settle } from '../core/figure.ts';
 import { joined, sameHold } from '../core/contacts.ts';
 import { findWave, lineHolds } from '../core/lines.ts';
 import { add, ease, forward, mix, progress, scale, TAU } from '../core/math.ts';
-import { body, handOf, minorSets, withChanges, type Hold } from '../core/state.ts';
+import { body, handOf, minorSets, roleOf, withChanges, type Hold } from '../core/state.ts';
 
 export interface RoryParams {
   direction: 'right' | 'left';
   spin?: 'full' | 'none';
+  /** Only these slide: a role, a couple number, or the two in the middle of the wave. */
+  who?: 'larks' | 'robins' | '1s' | '2s' | 'centers';
 }
 
 /** Backward bow at the moment of passing, each dancer. */
@@ -33,7 +39,11 @@ const TWIRL_SPAN = 0.6;
 const twirl = (q: number) => ease((q - 0.5) / TWIRL_SPAN + 0.5);
 
 export const rory: Figure<RoryParams> = (state, params, beats) => {
-  onlyKeys('Rory', params, ['direction', 'spin']);
+  onlyKeys('Rory', params, ['direction', 'spin', 'who']);
+  const named =
+    params.who === undefined
+      ? undefined
+      : oneOf('Rory', 'who', params.who, ['larks', 'robins', '1s', '2s', 'centers'] as const);
   const direction = oneOf('Rory', 'direction', params.direction, ['right', 'left'] as const);
   const spin = oneOf('Rory', 'spin', params.spin ?? 'full', ['full', 'none'] as const);
   const turnBy = spin === 'full' ? (direction === 'right' ? -TAU : TAU) : 0;
@@ -42,10 +52,18 @@ export const rory: Figure<RoryParams> = (state, params, beats) => {
   const swaps = new Map<number, number>();
   for (const g of groups) {
     const line = findWave(state, g);
+    const slides = (id: number) =>
+      named === undefined ||
+      (named === 'centers'
+        ? id === line.order[1] || id === line.order[2]
+        : named === 'larks' || named === 'robins'
+          ? roleOf(state, id) === (named === 'larks' ? 'lark' : 'robin')
+          : (state.positions.get(named)?.includes(id) ?? false));
     for (const id of line.order) {
       const hold = state.hands.find(
         (h) => handOf(h, id) === direction && g.includes(h.a) && g.includes(h.b),
       );
+      if (!hold && !slides(id)) continue;
       if (!hold)
         throw new Error(
           `Dancer ${id} must hold the ${direction} hand of the person to slide past.`,
@@ -53,7 +71,7 @@ export const rory: Figure<RoryParams> = (state, params, beats) => {
       const other = hold.a === id ? hold.b : hold.a;
       if (handOf(hold, other) !== direction)
         throw new Error(`A Rory pass needs ${direction} hands joined.`);
-      swaps.set(id, other);
+      if (slides(id) || slides(other)) swaps.set(id, other);
     }
   }
 
@@ -86,7 +104,7 @@ export const rory: Figure<RoryParams> = (state, params, beats) => {
   let newHolds: Hold[] = [];
   const slid = settle(state, motion, beats);
   newHolds = groups.flatMap((g) => lineHolds(slid, findWave(slid, g)));
-  if (newHolds.some((h) => state.hands.some((old) => sameHold(old, h)))) {
+  if (named === undefined && newHolds.some((h) => state.hands.some((old) => sameHold(old, h)))) {
     throw new Error('Rory must end holding hands with new people.');
   }
   return {

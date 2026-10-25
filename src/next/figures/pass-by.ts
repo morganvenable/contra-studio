@@ -8,25 +8,19 @@
  * Source: Caller's Box glossary, "Pull by" and "Pass by"; ContraDB rows
  * "gentlespoons pass by left shoulders", "ladles pull by right", "neighbors
  * pull by left". Walkers face each other over the first beat.
+ * With no one named ("pull by right") or named only as shadows, the
+ * dancers who face each other pass; "ones pass by" names the two 1s.
  */
 import type { Figure, FigureContact } from '../core/figure.ts';
 import { oneOf, onlyKeys, settle } from '../core/figure.ts';
 import { bodyMap, withinReach } from '../core/contacts.ts';
-import {
-  add,
-  heading,
-  leftOf,
-  mix,
-  progress,
-  rightOf,
-  scale,
-  smooth,
-  turn,
-} from '../core/math.ts';
+import { add, heading, leftOf, mix, progress, rightOf, scale, smooth, turn } from '../core/math.ts';
+import { facingPairs } from '../core/facing.ts';
 import { body, minorSets, pairsIn, withChanges } from '../core/state.ts';
 
 export interface PassByParams {
-  who: 'partner' | 'neighbor' | 'larks' | 'robins';
+  /** 'facing': whoever stands facing each other. */
+  who: 'partner' | 'neighbor' | 'larks' | 'robins' | '1s' | '2s' | 'facing';
   shoulder: 'right' | 'left';
   /** True for a pull by: the passing hands join. */
   hands: boolean;
@@ -43,10 +37,17 @@ export const passBy: Figure<PassByParams> = (state, params, beats) => {
     'neighbor',
     'larks',
     'robins',
+    '1s',
+    '2s',
+    'facing',
   ] as const);
   const shoulder = oneOf('pass by', 'shoulder', params.shoulder, ['right', 'left'] as const);
   if (typeof params.hands !== 'boolean') throw new Error('pass by hands must be true or false.');
-  const pairs = minorSets(state).flatMap((g) => pairsIn(state, g, who));
+  // Whoever faces whom may stand in another minor set (shadows).
+  const pairs =
+    who === 'facing'
+      ? facingPairs(state, minorSets(state).flat())
+      : minorSets(state).flatMap((g) => pairsIn(state, g, who));
   const walkers = pairs.flatMap(([a, b]) =>
     [
       [a, b],

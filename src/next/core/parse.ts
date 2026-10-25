@@ -7,6 +7,7 @@
  */
 import type { FigureCall } from './figure.ts';
 import { canonical, canonicalText, roleOfGroup } from './roles.ts';
+import { WEAVE_PATTERNS } from './parse-weaves.ts';
 
 export interface SourceRow {
   readonly section?: string;
@@ -249,8 +250,12 @@ const PATTERNS: readonly (readonly [RegExp, Build])[] = [
     ],
   ],
   [
+    // Under 8 beats the balance and the petronella share the row evenly.
     /^balance (?:&|and) petronella$/,
-    (_m, b) => [call('balance', 4, { formation: 'ring' }), call('petronella', b - 4, {})],
+    (_m, b) => {
+      const balance = b >= 8 ? 4 : b / 2;
+      return [call('balance', balance, { formation: 'ring' }), call('petronella', b - balance, {})];
+    },
   ],
   [
     /^((?:next |new )?\w+) (?:(right|left) hand )?balance (?:&|and) (box the gnat|swat the flea)$/,
@@ -409,12 +414,20 @@ export function parseRow(row: SourceRow): FigureCall[] {
   const normal = normalizeRow(row.text);
   const progression = normal.progression;
   const { text, diagonal } = onDiagonal(normal.text);
-  for (const [pattern, build] of PATTERNS) {
+  // A pattern that matches but cannot build (an unknown dancer name, say)
+  // gives later patterns a chance; its reason is kept if none builds.
+  let failure: unknown;
+  for (const [pattern, build] of [...PATTERNS, ...WEAVE_PATTERNS]) {
     const m = text.match(pattern);
     if (!m) continue;
-    const calls = build(m, row.beats).map((c) =>
-      diagonal ? { ...c, params: { ...c.params, diagonal } } : c,
-    );
+    let built: FigureCall[];
+    try {
+      built = build(m, row.beats);
+    } catch (error) {
+      failure ??= error;
+      continue;
+    }
+    const calls = built.map((c) => (diagonal ? { ...c, params: { ...c.params, diagonal } } : c));
     const label = canonicalText(row.text.replace(/⁋/g, '').replace(/\s+/g, ' ').trim());
     return calls.map((c, i) => ({
       ...c,
@@ -422,6 +435,7 @@ export function parseRow(row: SourceRow): FigureCall[] {
       ...(progression && i === calls.length - 1 ? { progression: true } : {}),
     }));
   }
+  if (failure) throw failure;
   throw new Error(`No figure pattern matches "${row.text}".`);
 }
 

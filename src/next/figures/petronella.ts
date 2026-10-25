@@ -9,9 +9,10 @@
  * Source: Caller's Box glossary, "Petronella"; ContraDB rows "balance &
  * petronella", "balance & petronella and turn to face new neighbors" (the
  * turn to face is a reminder for the next figure, which turns them).
+ * "Petronella left" mirrors it: one place to the left, turning left.
  */
 import type { Figure } from '../core/figure.ts';
-import { onlyKeys, settle } from '../core/figure.ts';
+import { oneOf, onlyKeys, settle } from '../core/figure.ts';
 import {
   add,
   ease,
@@ -27,17 +28,25 @@ import {
 import { findRing } from '../core/ring.ts';
 import { body, minorSets, withChanges } from '../core/state.ts';
 
-export type PetronellaParams = Record<string, never>;
+export interface PetronellaParams {
+  /** Which way everyone moves and turns; right when not given. */
+  direction?: 'right' | 'left';
+}
 
 /** Dancers swing a little wide of the ring as they spin past each other. */
 const BULGE = 0.15;
 
 export const petronella: Figure<PetronellaParams> = (state, params, beats) => {
-  onlyKeys('petronella', params, []);
+  onlyKeys('petronella', params, ['direction']);
+  const way = oneOf('petronella', 'direction', params.direction ?? 'right', [
+    'right',
+    'left',
+  ] as const);
+  const sign = way === 'right' ? -1 : 1;
   const rings = minorSets(state).map((g) => {
     const ring = findRing(state, g, 'petronella');
     // One place to the right: counterclockwise, decreasing angle in rotate().
-    return { ...ring, sweep: -TAU / ring.order.length };
+    return { ...ring, sweep: (sign * TAU) / ring.order.length };
   });
   const motion = (beat: number) => {
     const q = progress(beat / beats);
@@ -52,7 +61,7 @@ export const petronella: Figure<PetronellaParams> = (state, params, beats) => {
         // is a quarter turn left of facing in here, so the right turn is 3/4.
         const inward = heading(s.position, r.center);
         const start = s.yaw + turn(inward, s.yaw) * ease(Math.min(1, beat / 0.5));
-        const spin = (-TAU - r.sweep) * ease(beat / beats);
+        const spin = (sign * TAU - r.sweep) * ease(beat / beats);
         return { id, position, yaw: start + spin };
       }),
     );

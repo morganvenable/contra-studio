@@ -31,6 +31,9 @@ import { starPromenade } from './star-promenade.ts';
 import { swing } from './swing.ts';
 import { turnAlone } from './turn-alone.ts';
 import { twirl } from './twirl.ts';
+import { revolvingDoor } from './revolving-door.ts';
+import { archDive } from './arch-dive.ts';
+import { figureEight } from './figure-eight.ts';
 
 const BASE: FigureRegistry = {
   allemande,
@@ -63,6 +66,9 @@ const BASE: FigureRegistry = {
   swing,
   'turn-alone': turnAlone,
   twirl,
+  'revolving-door': revolvingDoor,
+  'arch-dive': archDive,
+  'figure-eight': figureEight,
 };
 
 /** Every figure, each also able to run on a diagonal (core/diagonal.ts). */
