@@ -39,6 +39,30 @@ export function morePatterns(h: ParseHelpers): readonly (readonly [RegExp, Build
   return [
     [/^stand still$/, (_m, b) => [h.call('stand-still', b, {})]],
     [
+      /^(?:turn the )?clover(?:leaf)? (left|right) (\w+) places?$|^circle (left|right) (\w+) places? in (?:a )?cloverleaf$/,
+      (m, b) => [
+        call('cloverleaf', b, {
+          direction: m[1] ?? m[3],
+          places: h.numbers[m[2] ?? m[4]] ?? Number(m[2] ?? m[4]),
+        }),
+      ],
+    ],
+    [
+      /^(down|up) the hall and bend into a cloverleaf\b.*$/,
+      (m, b) => [call('hall', b, { direction: m[1], end: 'ring' })],
+    ],
+    [
+      // "Robins trade passing right in the middle", "... by the left shoulder".
+      /^(\w+) trade (?:passing |by (?:the )?)?(r|right|l|left)(?: shoulders?)?(?: in (?:the )?(?:middle|center))?(?:,? catch (?:left|right) hands)?$/,
+      (m, b) => [
+        call('pass-by', b, {
+          who: roleOf(who(m[1])),
+          shoulder: m[2].startsWith('r') ? 'right' : 'left',
+          hands: false,
+        }),
+      ],
+    ],
+    [
       // "Next neighbors mirror do si do, ones splitting twos".
       re(
         `${WHO} mirror do si do(?: (once|twice|[^ ,]+))?,? (ones|twos|1s|2s) splitting (?:the )?(?:ones|twos|1s|2s)`,
@@ -382,6 +406,24 @@ export function morePatterns(h: ParseHelpers): readonly (readonly [RegExp, Build
       ],
     ],
     [
+      // "Circle left 3 places to a diamond, robins in the center": the figure,
+      // then 2 beats to shift an eighth around into the diamond.
+      /^(.+?),? (?:(?:and )?a little (?:bit )?more |- turn a little extra |turn a little extra )?(?:and )?to (?:form )?(?:a )?diamonds?(?:,? (\w+) in the (?:center|middle))?(?:[ ,].*)?$/,
+      (m, b) => {
+        if (b < 4) throw new Error('Too short to dance a figure and then shift to a diamond.');
+        const base = moreTidy(m[1].replace(/ -$/, ''))
+          .replace(/^(balance (?:&|and) petronella) 1½ places$/, '$1')
+          .replace(/^(circle (?:left|right)) (?:1\.5|1½) places$/, '$1 one place');
+        const calls = h.match(base, b - 2);
+        if (!calls) throw new Error(`No figure pattern matches "${base}".`);
+        const center = m[2] ? who(m[2]) : undefined;
+        return [
+          ...calls,
+          call('diamond', 2, center === 'larks' || center === 'robins' ? { center } : {}),
+        ];
+      },
+    ],
+    [
       // A figure that ends in a wave of four ("circle left 3 places to wave of
       // four, robins in center left hands, right hand to neighbor"): the
       // figure, then 2 beats to step into the wave the row describes.
@@ -438,7 +480,7 @@ function waveFrom(note: string) {
 
 /** Notes after a figure that name another figure, and so must be kept. */
 const KEEP =
-  /\b(?:waves?|wavy|lines?|ring|circle|star|hey|promenade|orbit|while|meanwhile|slide|swing|pass|pull|chain|allemande|do si do|see saw|as (?:a )?couples?|backward|balance|twirl|roll|turn alone|cast|trade|cross|arch|dive|gate|hands|petronella|diagonal|zig|zag|mad robin|figure|gyre|through|split|mirror|basket|ricochet|shift|places?|facing (?:down|up)|face (?:down|up))\b/;
+  /\b(?:waves?|wavy|lines?|ring|circle|star|hey|promenade|orbit|while|meanwhile|slide|swing|pass|pull|chain|allemande|do si do|see saw|as (?:a )?couples?|backward|balance|clover\w*|diamonds?|twirl|roll|turn alone|cast|trade|cross|arch|dive|gate|hands|petronella|diagonal|zig|zag|mad robin|figure|gyre|through|split|mirror|basket|ricochet|shift|places?|facing (?:down|up)|face (?:down|up))\b/;
 
 const SWING_CORE =
   /^((?:(?:next|new) )?\w+ (?:balance (?:&|and) )?(?:long |meltdown )?swing)([ ,;-].+)$/;
@@ -512,6 +554,7 @@ const MORE_TIDY: readonly (readonly [RegExp, string])[] = [
     /^(\w+) balance and twirl to swap(?: with)? inside hands$/,
     '$1 right hand balance & box the gnat',
   ],
+  [/^(\w+ california twirl),? keep hands and reach back to partners to form a cloverleaf$/, '$1'],
   [/^balance yourself(?:,? end facing\b.*)?$/, 'balance alone'],
   [/\b3\/2\b/g, '1½'],
   [/^balance (?:the )?wave 0f/, 'balance wave of'],

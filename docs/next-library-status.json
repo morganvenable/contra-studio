@@ -4,18 +4,18 @@
  "catalogue": 2422,
  "stored": 2422,
  "counts": {
-  "ok": 356,
+  "ok": 358,
   "check": 159,
-  "partial": 1625,
+  "partial": 1623,
   "unsupported": 282
  },
  "formations": [
   {
    "formation": "improper",
    "dances": 1189,
-   "ok": 313,
+   "ok": 315,
    "check": 87,
-   "partial": 789,
+   "partial": 787,
    "unsupported": 0
   },
   {
@@ -1100,7 +1100,7 @@
    {
     "name": "star variant",
     "unlocks": 55,
-    "uses": 172
+    "uses": 171
    },
    {
     "name": "ricochet hey",
@@ -1114,7 +1114,7 @@
    },
    {
     "name": "petronella",
-    "unlocks": 43,
+    "unlocks": 42,
     "uses": 115
    },
    {
@@ -1125,7 +1125,7 @@
    {
     "name": "circle variant",
     "unlocks": 35,
-    "uses": 151
+    "uses": 147
    },
    {
     "name": "promenade",
@@ -1145,7 +1145,7 @@
    {
     "name": "chain variant",
     "unlocks": 23,
-    "uses": 60
+    "uses": 58
    },
    {
     "name": "diagonal chain / right left through",
@@ -1178,14 +1178,14 @@
     "uses": 39
    },
    {
+    "name": "down/up the hall",
+    "unlocks": 10,
+    "uses": 57
+   },
+   {
     "name": "cross trails",
     "unlocks": 10,
     "uses": 17
-   },
-   {
-    "name": "down/up the hall",
-    "unlocks": 8,
-    "uses": 57
    },
    {
     "name": "mad robin",
@@ -1238,6 +1238,11 @@
     "uses": 18
    },
    {
+    "name": "allemande variant",
+    "unlocks": 4,
+    "uses": 65
+   },
+   {
     "name": "balance variant",
     "unlocks": 4,
     "uses": 57
@@ -1258,11 +1263,6 @@
     "uses": 12
    },
    {
-    "name": "allemande variant",
-    "unlocks": 3,
-    "uses": 65
-   },
-   {
     "name": "swing variant",
     "unlocks": 3,
     "uses": 48
@@ -1270,7 +1270,7 @@
    {
     "name": "do-si-do variant",
     "unlocks": 3,
-    "uses": 36
+    "uses": 37
    },
    {
     "name": "poussette",
@@ -1389,11 +1389,6 @@
    },
    {
     "name": "other: pass through across the set with a courtesy turn, right and left across the set",
-    "unlocks": 1,
-    "uses": 1
-   },
-   {
-    "name": "other: robins trade by the left shoulder, catch left hands",
     "unlocks": 1,
     "uses": 1
    },
@@ -1818,16 +1813,6 @@
     "uses": 1
    },
    {
-    "name": "other: robins trade passing r in middle",
-    "unlocks": 0,
-    "uses": 1
-   },
-   {
-    "name": "other: larks trade passing r in middle",
-    "unlocks": 0,
-    "uses": 1
-   },
-   {
     "name": "other: larks take",
     "unlocks": 0,
     "uses": 1
@@ -1866,11 +1851,6 @@
     "name": "other: larks take right hands, robins take left hands to form",
     "unlocks": 0,
     "uses": 1
-   },
-   {
-    "name": "other: cloverleaf left 3 places",
-    "unlocks": 0,
-    "uses": 2
    },
    {
     "name": "other: right left through conga line again",
@@ -2124,11 +2104,6 @@
    },
    {
     "name": "other: right left through with partners",
-    "unlocks": 0,
-    "uses": 1
-   },
-   {
-    "name": "other: robins trade right shoulder",
     "unlocks": 0,
     "uses": 1
    },
@@ -2563,11 +2538,6 @@
     "uses": 1
    },
    {
-    "name": "other: turn the clover left 3 places",
-    "unlocks": 0,
-    "uses": 1
-   },
-   {
     "name": "other: larks catch left hands",
     "unlocks": 0,
     "uses": 2
@@ -2639,11 +2609,6 @@
    },
    {
     "name": "other: holding your hand with your partner, turn to your partner and continue turning this direction until you can give your other hand to the next neighbor that you passed",
-    "unlocks": 0,
-    "uses": 1
-   },
-   {
-    "name": "other: clover left 2 places",
     "unlocks": 0,
     "uses": 1
    },
@@ -2736,7 +2701,7 @@
   "figuresThatCannotStart": [
    {
     "name": "progression or other",
-    "unlocks": 100
+    "unlocks": 101
    },
    {
     "name": "diagonal chain / right left through",

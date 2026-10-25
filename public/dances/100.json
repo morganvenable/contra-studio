@@ -3,7 +3,7 @@
   {"move":"slide","beats":2,"params":{"direction":"left"},"text":"slide left along set","progression":true,"section":"A1","row":1},
   {"move":"circle","beats":6,"params":{"direction":"left","places":3},"text":"circle left 3 places","section":"A1","row":2},
   {"move":"swing","beats":8,"params":{"who":"neighbor"},"text":"neighbors swing, finish facing down the hall","section":"A1","row":3},
-  {"move":"hall","beats":8,"params":{"direction":"down"},"text":"down the hall and bend into a cloverleaf +","section":"A2","row":4},
+  {"move":"hall","beats":8,"params":{"direction":"down","end":"ring"},"text":"down the hall and bend into a cloverleaf +","section":"A2","row":4},
   {"move":"hall","beats":8,"params":{"direction":"up"},"text":"up the hall","section":"A2","row":5},
   {"move":"balance","beats":4,"params":{"formation":"current"},"text":"balance the cloverleaf","section":"B1","row":6},
   {"move":"hold","beats":4,"params":{"reason":"unparsed"},"text":"Unwind to an outward facing circle, just turning on the spot, do not let go of hands","section":"B1","row":7},

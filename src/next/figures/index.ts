@@ -38,6 +38,7 @@ import { orbit } from './orbit.ts';
 import { standStill } from './stand-still.ts';
 import { twoHandTurn } from './two-hand-turn.ts';
 import { coupleTravel } from './couple-travel.ts';
+import { cloverleaf, diamond } from './diamond.ts';
 import { walkForward } from './walk-forward.ts';
 
 const BASE: FigureRegistry = {
@@ -78,6 +79,8 @@ const BASE: FigureRegistry = {
   'two-hand-turn': twoHandTurn,
   'walk-forward': walkForward,
   'couple-travel': coupleTravel,
+  diamond,
+  cloverleaf,
 };
 
 /**

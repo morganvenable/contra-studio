@@ -293,3 +293,24 @@ test('import: a zero-beat turn alone takes the last 2 beats of a long figure bef
     ],
   );
 });
+
+test('circle to a diamond: robins end on the middle line; cloverleaf faces out', () => {
+  const start = BECKET.start(2);
+  const calls = row('circle left 3 places to a diamond, ladles in the center', 8);
+  assert.deepEqual(
+    calls.map((c) => [c.move, c.beats]),
+    [
+      ['circle', 6],
+      ['diamond', 2],
+    ],
+  );
+  const ringed = run(start, calls[0]);
+  const end = run(ringed, calls[1]);
+  for (const id of [1, 3]) assert.ok(Math.abs(body(end, id).position.x) < 1e-6, `robin ${id} centered`);
+  const clover = run(BECKET.start(2), row('cloverleaf left 3 places', 6)[0]);
+  for (const id of [0, 1, 2, 3]) {
+    const b = body(clover, id);
+    const out = Math.atan2(b.position.x, b.position.z);
+    assert.ok(Math.abs(turn(b.yaw, out)) < 1e-6, `${id} faces out`);
+  }
+});
