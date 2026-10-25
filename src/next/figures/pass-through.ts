@@ -10,6 +10,10 @@
  * Source: Caller's Box glossary, "Pass through"; ContraDB rows "pass through
  * across the set" (dance 2321) and "pass through" after a ring. Dancers turn
  * square to the direction of travel over the first beat.
+ *
+ * From an ocean wave ("balance the wave, pass through" as the progression)
+ * nobody faces anyone: each dancer lets go and walks forward one place
+ * along the set, where the dancers walking out of the next wave meet them.
  */
 import type { Figure } from '../core/figure.ts';
 import { oneOf, onlyKeys, settle } from '../core/figure.ts';
@@ -26,7 +30,8 @@ import {
   sub,
   turn,
 } from '../core/math.ts';
-import { activeIds, body, withChanges } from '../core/state.ts';
+import { SET } from '../core/config.ts';
+import { activeIds, body, withChanges, type DanceState } from '../core/state.ts';
 
 export interface PassThroughParams {
   shoulder?: 'right' | 'left';
@@ -65,6 +70,10 @@ export const passThrough: Figure<PassThroughParams> = (state, params, beats) => 
         lateral < 0.3 && along > 0.5 && along < 2.8 && Math.abs(turn(back, yaw + Math.PI)) < 0.1
       );
     });
+    if (ahead.length === 0 && inWave(state, id)) {
+      const end = add(me.position, scale(forward(yaw), SET.slot));
+      return { id, start: me, yaw, end, veer: { x: 0, z: 0 } };
+    }
     if (ahead.length !== 1) throw new Error(`Dancer ${id} must face exactly one dancer to pass.`);
     const veer = scale((shoulder === 'right' ? leftOf : rightOf)(yaw), VEER);
     return { id, start: me, yaw, end: body(state, ahead[0]).position, veer };
@@ -85,6 +94,19 @@ export const passThrough: Figure<PassThroughParams> = (state, params, beats) => 
     exit: withChanges(settle(state, motion, beats), { hands: [] }),
   };
 };
+
+/** Holding hands with someone beside them who faces the other way: in a wave. */
+function inWave(state: DanceState, id: number): boolean {
+  const me = body(state, id);
+  return state.hands.some((h) => {
+    if (h.a !== id && h.b !== id) return false;
+    const them = body(state, h.a === id ? h.b : h.a);
+    const gap = sub(them.position, me.position);
+    return (
+      Math.abs(dot(gap, forward(me.yaw))) < 0.3 && Math.abs(turn(them.yaw, me.yaw + Math.PI)) < 0.3
+    );
+  });
+}
 
 /** The square direction a dancer facing `yaw` travels in. */
 function travelYaw(yaw: number, axis: PassThroughParams['axis']): number {

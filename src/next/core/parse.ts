@@ -7,6 +7,7 @@
  */
 import type { FigureCall } from './figure.ts';
 import { canonical, canonicalText, roleOfGroup } from './roles.ts';
+import { looseCalls, MORE_PATTERNS } from './parse-more.ts';
 
 export interface SourceRow {
   readonly section?: string;
@@ -337,6 +338,7 @@ const PATTERNS: readonly (readonly [RegExp, Build])[] = [
       return [call('circle', b, { direction: m[1], amount: amount(m[3], 1) })];
     },
   ],
+  ...MORE_PATTERNS,
 ];
 
 /** Lowercase, plain spacing, straight quotes, progression mark removed. */
@@ -405,16 +407,22 @@ function onDiagonal(text: string): { text: string; diagonal?: 'left' | 'right' }
   return { text };
 }
 
-export function parseRow(row: SourceRow): FigureCall[] {
-  const normal = normalizeRow(row.text);
-  const progression = normal.progression;
-  const { text, diagonal } = onDiagonal(normal.text);
+/** The calls one plain row text names (on a diagonal, if it says so), if any pattern matches. */
+function matchText(plain: string, beats: number): FigureCall[] | undefined {
+  const { text, diagonal } = onDiagonal(plain);
   for (const [pattern, build] of PATTERNS) {
     const m = text.match(pattern);
     if (!m) continue;
-    const calls = build(m, row.beats).map((c) =>
-      diagonal ? { ...c, params: { ...c.params, diagonal } } : c,
-    );
+    return build(m, beats).map((c) => (diagonal ? { ...c, params: { ...c.params, diagonal } } : c));
+  }
+  return undefined;
+}
+
+export function parseRow(row: SourceRow): FigureCall[] {
+  const normal = normalizeRow(row.text);
+  const progression = normal.progression;
+  const calls = matchText(normal.text, row.beats) ?? looseCalls(normal.text, row.beats, matchText);
+  if (calls) {
     const label = canonicalText(row.text.replace(/⁋/g, '').replace(/\s+/g, ' ').trim());
     return calls.map((c, i) => ({
       ...c,

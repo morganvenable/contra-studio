@@ -23,6 +23,11 @@ export interface CircleParams {
   places?: number;
   /** Or: times around (0.75, 1, 1.5). */
   amount?: number;
+  /**
+   * Single file: no hands, each dancer turns to walk along the ring behind
+   * the one ahead, and turns back in to face the center at the end.
+   */
+  singleFile?: boolean;
 }
 
 const TIGHTEN = 0.32;
@@ -31,7 +36,8 @@ const EDGE = 0.16;
 const TURN_IN_BEATS = 1;
 
 export const circle: Figure<CircleParams> = (state, params, beats) => {
-  onlyKeys('circle', params, ['direction', 'places', 'amount']);
+  onlyKeys('circle', params, ['direction', 'places', 'amount', 'singleFile']);
+  const single = params.singleFile === true;
   const direction = oneOf('circle', 'direction', params.direction, ['left', 'right'] as const);
   if ((params.places === undefined) === (params.amount === undefined)) {
     throw new Error('A circle needs either places or an amount.');
@@ -72,10 +78,15 @@ export const circle: Figure<CircleParams> = (state, params, beats) => {
         // Face the center: turn in over the opening, then turn with the ring.
         const into = turn(heading(s.position, ring.center), s.yaw);
         const yaw = s.yaw + into * smooth(beat / Math.max(EDGE * beats, TURN_IN_BEATS)) - angle;
-        return { id, position, yaw };
+        if (!single) return { id, position, yaw };
+        // Single file: a quarter turn toward the travel, and back in at the end.
+        const along = Math.min(smooth(t / 0.2), smooth((1 - t) / 0.2));
+        return { id, position, yaw: yaw + sign * (Math.PI / 2) * along };
       }),
     );
-    const contacts: FigureContact[] = rings.flatMap((r) => r.hands.map((h) => joined(h, strength)));
+    const contacts: FigureContact[] = single
+      ? []
+      : rings.flatMap((r) => r.hands.map((h) => joined(h, strength)));
     return { bodies, contacts };
   };
   return {

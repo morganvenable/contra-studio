@@ -1,4 +1,4 @@
-{ "schema": "contra-studio/next-dance", "version": 2, "id": "105", "title": "Pete's Dark Roast", "author": "Andy Shore", "formation": "becket", "progression": "minor-set", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/105", "formation": "Becket", "retrievedAt": "2026-10-20T06:08:28.588Z", "sha256": "e5ecf88ebb633ff653f2ec850504315cfb204f3f0a99110bf15dbfe0cbd35267" }, "status": "partial", "problems": [ "Row 6 \"right left through - courtesy turn new neighbor\" isn't drawn yet." ], "unparsed": [ { "row": 6, "text": "right left through - courtesy turn new neighbor", "why": "No figure pattern matches \"right left through - courtesy turn new neighbor ⁋\"." } ], "choices": [],
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "105", "title": "Pete's Dark Roast", "author": "Andy Shore", "formation": "becket", "progression": "minor-set", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/105", "formation": "Becket", "retrievedAt": "2026-10-20T06:08:28.588Z", "sha256": "e5ecf88ebb633ff653f2ec850504315cfb204f3f0a99110bf15dbfe0cbd35267" }, "status": "partial", "problems": [ "The progression after row 6 \"right left through - courtesy turn new neighbor\" doesn't work out: Couple 1 must face the same way to find new neighbors." ], "unparsed": [], "choices": [],
  "figures": [
   {"move":"allemande","beats":8,"params":{"who":"larks","hand":"left","amount":1.5},"text":"larks allemande left 1½","section":"A1","row":1},
   {"move":"swing","beats":8,"params":{"who":"neighbor"},"text":"neighbors swing","section":"A1","row":2},
@@ -6,7 +6,7 @@
   {"move":"mad-robin","beats":8,"params":{"front":"robins"},"text":"mad robins, robins in front","section":"A2","row":4},
   {"move":"balance","beats":4,"params":{"formation":"pair","who":"partner","hand":"right"},"text":"partners right hand balance & box the gnat · balance","section":"B1","row":5},
   {"move":"twirl","beats":4,"params":{"style":"box-the-gnat","who":"partner"},"text":"partners right hand balance & box the gnat · twirl","section":"B1","row":5},
-  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"right left through - courtesy turn new neighbor","section":"B1","row":6,"progression":true},
+  {"move":"right-left-through","beats":8,"params":{},"text":"right left through - courtesy turn new neighbor","progression":true,"section":"B1","row":6},
   {"move":"do-si-do","beats":8,"params":{"who":"robins","amount":1.5,"shoulder":"right"},"text":"robins do si do 1½","section":"B2","row":7},
   {"move":"swing","beats":8,"params":{"who":"partner"},"text":"partners swing","section":"B2","row":8}
  ]

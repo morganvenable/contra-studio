@@ -31,6 +31,7 @@ import { starPromenade } from './star-promenade.ts';
 import { swing } from './swing.ts';
 import { turnAlone } from './turn-alone.ts';
 import { twirl } from './twirl.ts';
+import { roll } from './roll.ts';
 
 const BASE: FigureRegistry = {
   allemande,
@@ -63,6 +64,7 @@ const BASE: FigureRegistry = {
   swing,
   'turn-alone': turnAlone,
   twirl,
+  roll,
 };
 
 /** Every figure, each also able to run on a diagonal (core/diagonal.ts). */

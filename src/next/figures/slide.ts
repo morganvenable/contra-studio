@@ -13,7 +13,7 @@ import type { Figure } from '../core/figure.ts';
 import { oneOf, onlyKeys, settle } from '../core/figure.ts';
 import { add, progress, scale } from '../core/math.ts';
 import { withChanges } from '../core/state.ts';
-import { sideMoves } from './slice.ts';
+import { sideMoves, squareUp } from './slice.ts';
 
 export interface SlideParams {
   direction: 'left' | 'right';
@@ -28,7 +28,7 @@ export const slide: Figure<SlideParams> = (state, params, beats) => {
     bodies: moves.map((m) => ({
       id: m.id,
       position: add(m.start.position, scale(m.lateral, progress(beat / beats))),
-      yaw: m.start.yaw,
+      yaw: squareUp(m.start.yaw, m.across, beat),
     })),
     contacts: [],
   });

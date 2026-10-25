@@ -6,13 +6,14 @@
  * minor sets come back afterward (the progression, when the source marks
  * this row, finds the new ones).
  *
- * The diagonal couple: for a couple facing across the set, the couple on
+ * A couple is a lark and the robin beside him (partner, else neighbor). The
+ * diagonal couple: for a couple facing across the set, the couple on
  * the other side line that is nearest along the couple's own left (or right)
  * and that names this couple on its own matching diagonal. Couples with no
  * one on that diagonal (at the ends of the set) stand still.
  */
 import type { Figure } from './figure.ts';
-import { dot, forward, leftOf, mean, rightOf, sub } from './math.ts';
+import { dot, forward, leftOf, mean, rightOf, sub, turn } from './math.ts';
 import { body, partnerOf, withChanges, type DanceState } from './state.ts';
 
 /** How far along the set a diagonal couple may stand: up to two rows. */
@@ -22,7 +23,7 @@ export function diagonalGroups(state: DanceState, side: 'left' | 'right'): numbe
   const couples = state.dancers
     .filter((d) => d.role === 'lark')
     .map((d) => {
-      const robin = partnerOf(state, d.id);
+      const robin = besideOf(state, d.id);
       const lark = body(state, d.id);
       const center = mean([lark.position, body(state, robin).position]);
       return { lark: d.id, robin, center, yaw: lark.yaw };
@@ -53,6 +54,24 @@ export function diagonalGroups(state: DanceState, side: 'left' | 'right'): numbe
   }
   if (!groups.length) throw new Error(`No couples face each other on the ${side} diagonal.`);
   return groups;
+}
+
+/**
+ * The robin a lark stands with as a couple: his partner when she stands
+ * beside him on his side line facing the same way, else his neighbor when
+ * she does (after a chain, or a neighbor swing in Becket).
+ */
+function besideOf(state: DanceState, lark: number): number {
+  const me = body(state, lark);
+  for (const name of ['partner', 'neighbor']) {
+    const robin = state.relations.get(name)?.get(lark);
+    if (robin === undefined) continue;
+    const her = body(state, robin);
+    const gap = sub(her.position, me.position);
+    if (Math.abs(dot(gap, forward(me.yaw))) < 0.3 && Math.abs(turn(her.yaw, me.yaw)) < 0.3)
+      return robin;
+  }
+  return partnerOf(state, lark);
 }
 
 /** Let any figure take `diagonal: 'left' | 'right'`. */

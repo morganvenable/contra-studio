@@ -9,12 +9,13 @@
  * Source: Caller's Box glossary, "Mad robin"; ContraDB rows "mad robin,
  * gentlespoons in front", "mad robin, ladles in front (CW)". Orbit ported
  * from src/mad-robin.ts: x swings 0.34 m in front of and behind the side
- * line while z swaps the pair's places, one C2-eased turn, facing fixed.
+ * line while z swaps the pair's places at a steady walk (short ramps at each
+ * end, core/math.ts progress), facing fixed.
  */
 import type { Vec2 } from '../../types.ts';
 import type { Figure } from '../core/figure.ts';
 import { oneOf, onlyKeys, settle } from '../core/figure.ts';
-import { ease, heading, smooth, TAU, turn } from '../core/math.ts';
+import { heading, progress, smooth, TAU, turn } from '../core/math.ts';
 import { roleOfGroup } from '../core/roles.ts';
 import { body, groupCenter, minorSets, roleOf, withChanges } from '../core/state.ts';
 
@@ -23,6 +24,11 @@ export interface MadRobinParams {
   front: 'larks' | 'robins';
   /** Optional, as some sources write it: must agree with the front role. */
   direction?: 'clockwise' | 'counterclockwise';
+  /**
+   * Times around: 1 unless the source says otherwise. "Mad robin ½" ends
+   * with the two on each side line traded; "twice" goes around two times.
+   */
+  amount?: number;
 }
 
 /** How far in front of and behind the side line the dancers swing. */
@@ -30,11 +36,16 @@ const LANE = 0.34;
 const FACE_BEATS = 1;
 
 export const madRobin: Figure<MadRobinParams> = (state, params, beats) => {
-  onlyKeys('mad robin', params, ['front', 'direction']);
+  onlyKeys('mad robin', params, ['front', 'direction', 'amount']);
+  const amount = params.amount ?? 1;
+  if (!(amount > 0 && amount <= 2 && Number.isInteger(amount * 2)))
+    throw new Error('A mad robin goes around ½, once, 1½ or twice.');
   const front = roleOfGroup(
     oneOf('mad robin', 'front', params.front, ['larks', 'robins'] as const),
   )!;
-  if (beats < 6) throw new Error('A mad robin needs at least six beats.');
+  // Six beats around at the least; a half needs three.
+  const least = 6 * amount;
+  if (beats < least) throw new Error(`This mad robin needs at least ${least} beats.`);
   if (state.hands.length) throw new Error('A mad robin starts with free hands.');
 
   const movers = minorSets(state).flatMap((group) => {
@@ -65,7 +76,7 @@ export const madRobin: Figure<MadRobinParams> = (state, params, beats) => {
       const half = Math.abs(s.position.z - middle.z);
       const across = heading(s.position, { x: 2 * middle.x - s.position.x, z: s.position.z });
       const at = (t: number): Vec2 => {
-        const theta = TAU * ease(t);
+        const theta = TAU * amount * progress(t);
         return {
           x: s.position.x - sense * end * LANE * Math.sin(theta),
           z: middle.z + end * half * Math.cos(theta),

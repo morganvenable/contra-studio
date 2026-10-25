@@ -23,11 +23,18 @@ import {
   walk,
 } from '../core/courtesy.ts';
 import { clamp, forward, scale, smooth, sub } from '../core/math.ts';
+import { mirrored } from '../core/mirror.ts';
 import { roleOfGroup } from '../core/roles.ts';
 import { body, groupCenter, minorSets, related, roleOf, withChanges } from '../core/state.ts';
 
 export interface ChainParams {
   who: 'robins' | 'larks';
+  /**
+   * The hand the chainers pull by: right unless the source says a left-hand
+   * chain, which is the mirror image (pull by left, courtesy turn by the
+   * right hand, the turner on the right wheeling clockwise).
+   */
+  hand?: 'right' | 'left';
   /** Who courtesy turns the chainers, as the source names it (checked). */
   to?: 'partner' | 'neighbor';
 }
@@ -49,7 +56,14 @@ const TURNER_FROM = 0.2;
 const TURNER_TO = 0.75;
 
 export const chain: Figure<ChainParams> = (state, params, beats) => {
-  onlyKeys('chain', params, ['who', 'to']);
+  onlyKeys('chain', params, ['who', 'to', 'hand']);
+  const { hand, ...rest } = params;
+  if (hand === undefined || hand === 'right') return rightHandChain(state, rest, beats);
+  oneOf('chain', 'hand', hand, ['right', 'left'] as const);
+  return mirrored(rightHandChain)(state, rest, beats);
+};
+
+const rightHandChain: Figure<Omit<ChainParams, 'hand'>> = (state, params, beats) => {
   const who = oneOf('chain', 'who', params.who, ['robins', 'larks'] as const);
   if (params.to !== undefined) oneOf('chain', 'to', params.to, ['partner', 'neighbor'] as const);
   const role = roleOfGroup(who)!;

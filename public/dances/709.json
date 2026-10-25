@@ -1,4 +1,4 @@
-{ "schema": "contra-studio/next-dance", "version": 2, "id": "709", "title": "Mad For Ogontz", "author": "Don Veino", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/709", "formation": "improper", "retrievedAt": "2026-10-20T06:03:17.044Z", "sha256": "36b77d3aa3bdc7f23eb9fbac948ddbbed8d1fde37724f1eeff615432a5e68c43" }, "status": "partial", "problems": [ "Row 7 \"mad robins, robins in front counterclockwise, to next\" isn't drawn yet." ], "unparsed": [ { "row": 7, "text": "mad robins, robins in front counterclockwise, to next", "why": "No figure pattern matches \"mad robin, ladles in front counterclockwise, to next ⁋\"." } ], "choices": [ "A meltdown swing starts with 4 beats of right-shoulder round, then swings." ],
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "709", "title": "Mad For Ogontz", "author": "Don Veino", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/709", "formation": "improper", "retrievedAt": "2026-10-20T06:03:17.044Z", "sha256": "36b77d3aa3bdc7f23eb9fbac948ddbbed8d1fde37724f1eeff615432a5e68c43" }, "status": "ok", "problems": [], "unparsed": [], "choices": [ "A meltdown swing starts with 4 beats of right-shoulder round, then swings." ],
  "figures": [
   {"move":"swing","beats":16,"params":{"who":"neighbor","meltdown":true},"text":"neighbors meltdown swing","section":"A1","row":1},
   {"move":"allemande","beats":8,"params":{"who":"larks","hand":"left","amount":1.5},"text":"larks allemande left 1½","section":"A2","row":2},
@@ -6,6 +6,6 @@
   {"move":"long-lines","beats":8,"params":{"back":true},"text":"long lines forward & back","section":"B1","row":4},
   {"move":"hey","beats":8,"params":{"start":"robins","amount":0.5,"center":"right"},"text":"robins start a half hey - rights in center, lefts on ends","section":"B1","row":5},
   {"move":"chain","beats":8,"params":{"who":"robins"},"text":"robins chain","section":"B2","row":6},
-  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"mad robins, robins in front counterclockwise, to next","section":"B2","row":7,"progression":true}
+  {"move":"mad-robin","beats":8,"params":{"front":"robins","direction":"counterclockwise"},"text":"mad robins, robins in front counterclockwise, to next","progression":true,"section":"B2","row":7}
  ]
 }

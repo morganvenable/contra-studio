@@ -24,11 +24,11 @@ import {
   progress,
   rightOf,
   scale,
-  sub,
+  smooth,
   distance,
   turn,
 } from '../core/math.ts';
-import { body, partnerOf, withChanges, type DanceState } from '../core/state.ts';
+import { body, withChanges, type DanceState } from '../core/state.ts';
 
 export interface SliceParams {
   direction: 'left' | 'right';
@@ -46,7 +46,7 @@ export const slice: Figure<SliceParams> = (state, params, beats) => {
 
   const moves = sideMoves(state, direction).map((m) => ({
     ...m,
-    inward: scale(forward(m.start.yaw), DEPTH),
+    inward: scale(forward(m.across), DEPTH),
   }));
 
   const half = beats / 2;
@@ -55,7 +55,7 @@ export const slice: Figure<SliceParams> = (state, params, beats) => {
       const out = beat <= half ? progress(beat / half) : 1 - progress((beat - half) / half);
       const across = progress(beat / half);
       const position = add(m.start.position, add(scale(m.lateral, across), scale(m.inward, out)));
-      return { id: m.id, position, yaw: m.start.yaw };
+      return { id: m.id, position, yaw: squareUp(m.start.yaw, m.across, beat) };
     }),
     contacts: [],
   });
@@ -69,25 +69,32 @@ export const slice: Figure<SliceParams> = (state, params, beats) => {
   return { kind: 'becket-slice', motion, exit: withChanges(moved, { hands: [] }) };
 };
 
+/** Facing: from where the dancer faced to square across, over the first beat. */
+export const squareUp = (from: number, across: number, beat: number) =>
+  from + turn(across, from) * smooth(beat / FACE_BEATS);
+const FACE_BEATS = 1;
+
 /**
- * Every couple (waiting couples too), each moving one place to its left or
- * right along its side line. Couples must stand side by side facing across.
+ * Every dancer (waiting couples too), each moving one place to its left or
+ * right along its side line. Everyone must stand on a side line facing
+ * across, or facing into a ring of four (they square up as they go); who
+ * stands beside whom does not matter ("slice left with neighbors").
  */
 export function sideMoves(state: DanceState, direction: 'left' | 'right') {
   return state.dancers.map((d) => {
     const b = body(state, d.id);
-    const other = body(state, partnerOf(state, d.id));
-    const offset = sub(other.position, b.position);
-    const sideways = Math.abs(dot(offset, leftOf(b.yaw)));
-    const aligned = Math.abs(dot(offset, forward(b.yaw))) < 0.05;
+    // Facing across: toward the other side line. Dancers facing into a ring
+    // (on the diagonal) square up to it as they go.
+    const side = Math.sign(b.position.x);
+    const across = side > 0 ? -Math.PI / 2 : Math.PI / 2;
     if (
-      !aligned ||
-      Math.abs(sideways - SET.slot) > 0.05 ||
-      Math.abs(turn(b.yaw, other.yaw)) > 1e-6
+      side === 0 ||
+      Math.abs(Math.abs(b.position.x) - SET.halfWidth) > 0.05 ||
+      dot(forward(b.yaw), forward(across)) < 0.5
     ) {
-      throw new Error(`Couple ${d.couple + 1} must stand side by side in a line facing across.`);
+      throw new Error(`Dancer ${d.id} (couple ${d.couple + 1}) must stand on a side line facing across.`);
     }
-    const lateral = scale((direction === 'left' ? leftOf : rightOf)(b.yaw), SET.slot);
-    return { id: d.id, start: b, lateral };
+    const lateral = scale((direction === 'left' ? leftOf : rightOf)(across), SET.slot);
+    return { id: d.id, start: b, lateral, across };
   });
 }
