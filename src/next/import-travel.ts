@@ -229,7 +229,47 @@ function downAndUp(parsed: Parsed) {
   });
 }
 
+/**
+ * Grand square rows ("Heads walk forward, sides back up"), one leg each:
+ * numbered through the run of such rows, the heads go in first (and the
+ * sides away from their partners first) for four legs, then the other way
+ * round for the next four.
+ */
+function grandSquare(rows: readonly SourceRow[], parsed: Parsed) {
+  const LEG = /^(heads|sides) (walk forward|back up),? (heads|sides) (walk forward|back up)$/;
+  const IN_FIRST = ['in', 'away', 'out', 'toward'];
+  const AWAY_FIRST = ['away', 'in', 'toward', 'out'];
+  let k = 0;
+  rows.forEach((row, i) => {
+    const m = plain(row).match(LEG);
+    if (!m || m[1] === m[3] || !(row.beats > 0)) {
+      k = 0;
+      return;
+    }
+    const half = Math.floor(k / 4) % 2;
+    const step = k % 4;
+    const facing = (said: string) => (said === 'walk forward' ? 'forward' : 'back');
+    const said = { [m[1]]: m[2], [m[3]]: m[4] } as Record<'heads' | 'sides', string>;
+    parsed[i] = [
+      {
+        move: 'grand-square',
+        beats: row.beats,
+        params: {
+          heads: { move: (half ? AWAY_FIRST : IN_FIRST)[step], facing: facing(said.heads) },
+          sides: { move: (half ? IN_FIRST : AWAY_FIRST)[step], facing: facing(said.sides) },
+        },
+        text: row.text.replace(/⁋/g, '').trim(),
+        section: row.section,
+        row: i + 1,
+        ...(row.text.includes('⁋') ? { progression: true } : {}),
+      },
+    ];
+    k++;
+  });
+}
+
 export function joinTravelRows(rows: readonly SourceRow[], parsed: Parsed) {
+  grandSquare(rows, parsed);
   downAndUp(parsed);
   downAndBack(rows, parsed);
   simultaneous(rows, parsed);

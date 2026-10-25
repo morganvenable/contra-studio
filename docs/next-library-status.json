@@ -4,9 +4,9 @@
  "catalogue": 2422,
  "stored": 2422,
  "counts": {
-  "ok": 692,
+  "ok": 693,
   "check": 380,
-  "partial": 1350,
+  "partial": 1349,
   "unsupported": 0
  },
  "formations": [
@@ -77,9 +77,9 @@
   {
    "formation": "square dance",
    "dances": 23,
-   "ok": 9,
+   "ok": 10,
    "check": 5,
-   "partial": 9,
+   "partial": 8,
    "unsupported": 0
   },
   {
@@ -1223,14 +1223,14 @@
     "uses": 9
    },
    {
-    "name": "into the middle / forward & back",
-    "unlocks": 6,
-    "uses": 9
-   },
-   {
     "name": "orbit allemande",
     "unlocks": 5,
     "uses": 20
+   },
+   {
+    "name": "into the middle / forward & back",
+    "unlocks": 5,
+    "uses": 8
    },
    {
     "name": "zig zag",

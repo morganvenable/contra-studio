@@ -65,6 +65,7 @@ import { oval } from './oval.ts';
 import { walkForward } from './walk-forward.ts';
 import { promenadeAround } from './promenade-around.ts';
 import { makeSimultaneous } from './simultaneous.ts';
+import { grandSquare } from './grand-square.ts';
 
 const BASE: FigureRegistry = {
   allemande,
@@ -129,6 +130,7 @@ const BASE: FigureRegistry = {
   'forward-back': forwardBack,
   'promenade-around': promenadeAround,
   simultaneous: makeSimultaneous(() => FIGURES),
+  'grand-square': grandSquare,
 };
 
 /**

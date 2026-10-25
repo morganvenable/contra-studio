@@ -174,3 +174,27 @@ test('scatter mixers: scattering to a new partner moves the larks on; group note
   assert.deepEqual(row('join in rings of any number of couples', 8), [['stand-still', 8, {}]]);
   assert.deepEqual(row('all form a ring of six', 0), []);
 });
+
+test('grand square rows number their legs: heads in first, then the other way round', () => {
+  const legs = [
+    'Heads walk forward, sides back up',
+    'Sides walk forward, heads back up',
+    'Sides back up, heads walk forward',
+    'Heads back up, sides walk forward',
+    'Sides back up, heads walk forward',
+    'Heads back up, sides walk forward',
+    'Sides walk forward, heads back up',
+    'Heads walk forward, sides back up',
+  ];
+  const d = importDance(
+    '0',
+    page('square dance', legs.map((t, i) => [i ? '' : 'A1', 8, t] as [string, number, string])),
+    'x',
+  );
+  assert.deepEqual(d.unparsed, []);
+  assert.deepEqual(
+    d.figures.map((c) => `${(c.params as any).heads.move}/${(c.params as any).sides.move}`),
+    ['in/away', 'away/in', 'out/toward', 'toward/out', 'away/in', 'in/away', 'toward/out', 'out/toward'],
+  );
+  assert.equal(d.status, 'unchecked');
+});
