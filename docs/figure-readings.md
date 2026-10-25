@@ -381,3 +381,4 @@ line each, for review.
 - "As a couple go forward on the left diagonal and come back straight": a slice left and straight back. "All walk forward, on very slight right diagonal, to meet new neighbor": walk forward.
 - "Do si do / see saw / gyre once and form a ring", "partners swing, form ring": the figure; the ring forms itself. "Ones (balance &) swing, end swing facing down (to new neighbors)": the swing ending facing down.
 - "Partners promenade single file ccw 1x, robins turn around": a single-file circle right once round, then the robins turn back.
+- "With neighbor, slide along set to shadows": a slide along the set the formation's progression way. "Star promenade left ½ and move right along set to new couple": the star promenade, then a 2-beat slide that way.

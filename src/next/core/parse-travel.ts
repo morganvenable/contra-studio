@@ -217,7 +217,9 @@ const PATTERNS: readonly (readonly [RegExp, Build])[] = [
     as('$1'),
   ],
   [/^ones swing ones swing in the middle of set .*$/, as('ones swing')],
-  [/^(.*\bswing),? end swing facing (up|down)(?: (?:the )?hall)?$/, as('$1, end facing $2')],
+  [/^(.*\bswing),? end swing,? (?:end )?facing (up|down)(?: (?:the )?hall)?$/, as('$1, end facing $2')],
+  [/^with (?:neighbors?|partners?),? slide along (?:the )?set(?: to \w+)?$/, (_m, b) => [call('slide', b, { direction: 'progression' })]],
+  [/^(star promenade (?:left|right) \S+) and move (left|right) along (?:the )?set(?: to (?:a )?new couple)?$/, both('$1', 'slide $2 along set', (b) => b - 2)],
   [/^(\w+ pass by (?:right|left)(?: shoulders?)?) to reform circle(?: .*)?$/, as('$1')],
   [
     // "robins allemande right 1½ with next robins; larks slide left 1 place".

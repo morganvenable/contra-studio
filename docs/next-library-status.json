@@ -4,18 +4,18 @@
  "catalogue": 2422,
  "stored": 2422,
  "counts": {
-  "ok": 698,
+  "ok": 699,
   "check": 383,
-  "partial": 1341,
+  "partial": 1340,
   "unsupported": 0
  },
  "formations": [
   {
    "formation": "improper",
    "dances": 1189,
-   "ok": 509,
+   "ok": 510,
    "check": 116,
-   "partial": 564,
+   "partial": 563,
    "unsupported": 0
   },
   {
@@ -1138,14 +1138,14 @@
     "uses": 38
    },
    {
-    "name": "swing variant",
-    "unlocks": 17,
-    "uses": 67
-   },
-   {
     "name": "roll away",
     "unlocks": 17,
     "uses": 44
+   },
+   {
+    "name": "swing variant",
+    "unlocks": 16,
+    "uses": 66
    },
    {
     "name": "gyre",
@@ -1213,11 +1213,6 @@
     "uses": 11
    },
    {
-    "name": "star promenade",
-    "unlocks": 6,
-    "uses": 12
-   },
-   {
     "name": "mad robin",
     "unlocks": 6,
     "uses": 9
@@ -1226,6 +1221,11 @@
     "name": "orbit allemande",
     "unlocks": 5,
     "uses": 20
+   },
+   {
+    "name": "star promenade",
+    "unlocks": 5,
+    "uses": 11
    },
    {
     "name": "into the middle / forward & back",
@@ -1519,11 +1519,6 @@
    },
    {
     "name": "other: pass through",
-    "unlocks": 1,
-    "uses": 1
-   },
-   {
-    "name": "other: with neighbor, slide along set to shadows",
     "unlocks": 1,
     "uses": 1
    },
@@ -2839,15 +2834,15 @@
     "unlocks": 9
    },
    {
+    "name": "star variant",
+    "unlocks": 9
+   },
+   {
     "name": "hey (other)",
     "unlocks": 8
    },
    {
     "name": "promenade",
-    "unlocks": 8
-   },
-   {
-    "name": "star variant",
     "unlocks": 8
    },
    {
@@ -2903,6 +2898,10 @@
     "unlocks": 2
    },
    {
+    "name": "star promenade",
+    "unlocks": 2
+   },
+   {
     "name": "other: pass through across the set",
     "unlocks": 2
    },
@@ -2936,10 +2935,6 @@
    },
    {
     "name": "other: right left through",
-    "unlocks": 1
-   },
-   {
-    "name": "star promenade",
     "unlocks": 1
    },
    {
