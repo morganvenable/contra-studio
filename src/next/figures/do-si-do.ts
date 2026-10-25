@@ -16,6 +16,7 @@ import type { Figure } from '../core/figure.ts';
 import { oneOf, onlyKeys, settle } from '../core/figure.ts';
 import {
   add,
+  dot,
   heading,
   length,
   mix,
@@ -30,7 +31,7 @@ import {
 import { PAIR_NAMES, type PairName } from '../core/relations.ts';
 import { findWave, lineHolds } from '../core/lines.ts';
 import { joined } from '../core/contacts.ts';
-import { body, minorSets, pairsIn, withChanges, type Hold } from '../core/state.ts';
+import { body, groupCenter, minorSets, pairsIn, withChanges, type Hold } from '../core/state.ts';
 
 export interface DoSiDoParams {
   who: PairName;
@@ -38,6 +39,12 @@ export interface DoSiDoParams {
   amount: number;
   /** Shoulder passed first: right for a do-si-do, left for a see-saw. */
   shoulder?: 'right' | 'left';
+  /**
+   * "Mirror do-si-do, ones splitting twos": each pair passes by the shoulder
+   * that sends this couple between the others (through the middle of the
+   * set first), mirror-image on the two sides.
+   */
+  split?: '1s' | '2s';
   /** A quarter-turn do-si-do "to a wave": the minor set takes wave hands at the end. */
   wave?: boolean;
 }
@@ -52,7 +59,11 @@ const CLOSE = 0.2;
 const FACE_BEATS = 1.5;
 
 export const doSiDo: Figure<DoSiDoParams> = (state, params, beats) => {
-  onlyKeys('do-si-do', params, ['who', 'amount', 'shoulder', 'wave']);
+  onlyKeys('do-si-do', params, ['who', 'amount', 'shoulder', 'wave', 'split']);
+  const split =
+    params.split === undefined
+      ? undefined
+      : oneOf('do-si-do', 'split', params.split, ['1s', '2s'] as const);
   if (params.wave !== undefined && params.wave !== true)
     throw new Error('do-si-do wave must be true when given.');
   const who = oneOf('do-si-do', 'who', params.who, PAIR_NAMES);
@@ -67,7 +78,7 @@ export const doSiDo: Figure<DoSiDoParams> = (state, params, beats) => {
   // opposite ways, as for a short wave: open out to a wave's hand gap.
   const sideBySide = !Number.isInteger(amount * 2);
   // Passing right shoulders goes clockwise from above: increasing polar angle.
-  const sweep = (shoulder === 'right' ? 1 : -1) * amount * TAU;
+  const turns = (shoulder === 'right' ? 1 : -1) * amount * TAU;
 
   const pairs = minorSets(state).flatMap((g) => pairsIn(state, g, who));
   const plans = pairs.flatMap(([a, b]) => {
@@ -77,6 +88,19 @@ export const doSiDo: Figure<DoSiDoParams> = (state, params, beats) => {
     const half = length(sub(pa.position, pb.position)) / 2;
     if (half < 0.3 || half > 1.4)
       throw new Error(`Dancers ${a} and ${b} are too far apart to do-si-do.`);
+    let sweep = turns;
+    if (split) {
+      const splitters = state.positions.get(split) ?? [];
+      const s = splitters.includes(a) ? a : splitters.includes(b) ? b : undefined;
+      if (s === undefined)
+        throw new Error(`Each pair needs one of the ${split} to split the others.`);
+      const me = body(state, s).position;
+      const group = minorSets(state).find((g) => g.includes(s))!;
+      const set = groupCenter(state, group);
+      // Passing right shoulders, the splitter first steps along rotate(rel, +90 degrees).
+      const step = rotate(sub(me, center), Math.PI / 2);
+      sweep = Math.abs(turns) * (dot(step, sub(set, me)) >= 0 ? 1 : -1);
+    }
     return [
       [a, pa, pb],
       [b, pb, pa],
@@ -85,7 +109,7 @@ export const doSiDo: Figure<DoSiDoParams> = (state, params, beats) => {
       const axis = scale(sub(self.position, center), 1 / half);
       const side = rotate(axis, Math.PI / 2);
       const face = heading(self.position, (other as typeof pa).position);
-      return { id: id as number, start: self, center, axis, side, half, face };
+      return { id: id as number, start: self, center, axis, side, half, face, sweep };
     });
   });
 
@@ -94,7 +118,7 @@ export const doSiDo: Figure<DoSiDoParams> = (state, params, beats) => {
   const walk = (beat: number) => ({
     bodies: plans.map((p) => {
       const t = beat / beats;
-      const phi = sweep * progress(t);
+      const phi = p.sweep * progress(t);
       const close = Math.min(smooth(t / CLOSE), smooth((1 - t) / CLOSE));
       const along = p.half + (Math.min(p.half, MIDDLE_HALF) - p.half) * close;
       const position = add(

@@ -70,3 +70,7 @@ reading below. One line each; change any of them and the figure follows.
 - "Balance the ring and roll partner/neighbor ..." with no roller named: the larks roll.
 - "Neighbors two-hand turn counterclockwise 1/2/3+ times": once around.
 - "Larks give & take partners and swing": half the beats each.
+- "Ones split the twos with a handy hand allemande", "ones mirror allemande neighbors", "mirror do si do, ones splitting twos": each pair turns (or passes) the way that sends the 1s through the middle of the set first, so the two sides mirror each other.
+- "Balance (and move) straight (ahead) to a new wave": balance, then walk forward; "balance new wave of four ..." is a wave balance.
+- "Balance the ring & pass through": ring balance, then the pass through; "and walk forward" after a circle takes its last 2 beats.
+- Petronella "to long waves, larks face out": the petronella; the long waves are left to what follows.

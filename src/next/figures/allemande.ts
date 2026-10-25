@@ -36,11 +36,26 @@ import {
   TAU,
   turn,
 } from '../core/math.ts';
-import { body, holdsBetween, minorSets, pairsIn, withChanges, type Hold } from '../core/state.ts';
+import {
+  body,
+  groupCenter,
+  holdsBetween,
+  minorSets,
+  pairsIn,
+  withChanges,
+  type Hold,
+} from '../core/state.ts';
 
 export interface AllemandeParams {
   who: PairName;
-  hand: 'right' | 'left';
+  /** The hand joined; with `split`, chosen per pair. */
+  hand?: 'right' | 'left';
+  /**
+   * "Ones split the twos with a handy hand allemande": each pair turns by
+   * the hand that sends this couple between the others (through the middle
+   * of the set first), mirror-image on the two sides.
+   */
+  split?: '1s' | '2s';
   /** Turns: 0.5, 0.75, 1, 1.5 ... */
   amount: number;
   /** End in a short wave with this role in the middle. */
@@ -62,25 +77,47 @@ const GATHER_TURNS = 0.3;
 const PATH_STEPS = 240;
 
 export const allemande: Figure<AllemandeParams> = (state, params, beats) => {
-  onlyKeys('allemande', params, ['who', 'hand', 'amount', 'wave', 'longWaves']);
+  onlyKeys('allemande', params, ['who', 'hand', 'amount', 'wave', 'longWaves', 'split']);
   if (params.longWaves !== undefined && params.longWaves !== true)
     throw new Error('allemande longWaves must be true when given.');
   if (params.longWaves && params.wave)
     throw new Error('An allemande ends in short waves or long waves, not both.');
   const who = oneOf('allemande', 'who', params.who, PAIR_NAMES);
-  const hand = oneOf('allemande', 'hand', params.hand, ['right', 'left'] as const);
+  const split =
+    params.split === undefined
+      ? undefined
+      : oneOf('allemande', 'split', params.split, ['1s', '2s'] as const);
+  const hand = split
+    ? undefined
+    : oneOf('allemande', 'hand', params.hand, ['right', 'left'] as const);
   const amount = params.amount;
   if (!(Number.isFinite(amount) && amount > 0 && amount <= 4)) {
     throw new Error('Allemande amount must be a number of turns between 0 and 4.');
   }
-  const sign = hand === 'right' ? 1 : -1;
-  const sweep = sign * amount * TAU;
   const stepsOut = !params.wave && !params.longWaves && Number.isInteger(amount * 2);
   const groups = minorSets(state);
 
   const pairs = groups.flatMap((g) => pairsIn(state, g, who));
-  const holds: Hold[] = pairs.map(([a, b]) => ({ a, handA: hand, b, handB: hand }));
-  const orbits = pairs.flatMap(([a, b]) => {
+  // The hand each pair joins: as named, or the one that sends the splitting
+  // dancer first toward the middle of the set.
+  const handOf = ([a, b]: [number, number]): 'right' | 'left' => {
+    if (hand) return hand;
+    const splitters = state.positions.get(split!) ?? [];
+    const s = splitters.includes(a) ? a : splitters.includes(b) ? b : undefined;
+    if (s === undefined) throw new Error(`Each pair needs one of the ${split} to split the others.`);
+    const me = body(state, s).position;
+    const center = mean([body(state, a).position, body(state, b).position]);
+    const set = groupCenter(state, groups.find((g) => g.includes(s))!);
+    // A right-hand turn walks the splitter along rotate(rel, +90 degrees).
+    const walk = rotate(sub(me, center), Math.PI / 2);
+    return dot(walk, sub(set, me)) >= 0 ? 'right' : 'left';
+  };
+  const hands = pairs.map(handOf);
+  const holds: Hold[] = pairs.map(([a, b], i) => ({ a, handA: hands[i], b, handB: hands[i] }));
+  const orbits = pairs.flatMap(([a, b], i) => {
+    const hand = hands[i];
+    const sign = hand === 'right' ? 1 : -1;
+    const sweep = sign * amount * TAU;
     for (const h of state.hands) {
       const uses = (id: number) =>
         (h.a === id && h.handA === hand) || (h.b === id && h.handB === hand);
@@ -108,7 +145,7 @@ export const allemande: Figure<AllemandeParams> = (state, params, beats) => {
             ? Math.abs(needed)
             : -Math.abs(needed);
       }
-      return { id, center, rel, radius: length(rel), start: me, needed };
+      return { id, center, rel, radius: length(rel), start: me, needed, sweep };
     });
   });
 
@@ -130,10 +167,10 @@ export const allemande: Figure<AllemandeParams> = (state, params, beats) => {
     if (stepsOut && u > 1 - share) return 1 - ((1 - u) * (1 - u)) / (2 * share) / span;
     return (u - lead) / span;
   };
-  const shape = (radius: number, u: number) => {
+  const shape = (o: { radius: number; sweep: number }, u: number) => {
     const g = smooth(u / share);
     const out = stepsOut ? smooth((u - (1 - share)) / share) : 0;
-    return { g, out, r: radius + (inner - radius) * g * (1 - out), angle: sweep * swept(u) };
+    return { g, out, r: o.radius + (inner - o.radius) * g * (1 - out), angle: o.sweep * swept(u) };
   };
   // Walk the path at one steady pace (with the usual ramps at the ends), so
   // closing in from far apart does not rush the first beat.
@@ -142,7 +179,7 @@ export const allemande: Figure<AllemandeParams> = (state, params, beats) => {
       const lengths = [0];
       let last = o.rel;
       for (let k = 1; k <= PATH_STEPS; k++) {
-        const { r, angle } = shape(o.radius, k / PATH_STEPS);
+        const { r, angle } = shape(o, k / PATH_STEPS);
         const here = rotate(scale(o.rel, r / o.radius), angle);
         lengths.push(lengths[k - 1] + length(sub(here, last)));
         last = here;
@@ -166,7 +203,7 @@ export const allemande: Figure<AllemandeParams> = (state, params, beats) => {
 
   const motion = (beat: number) => {
     const t = beat / beats;
-    const at = new Map(orbits.map((o) => [o.id, { o, ...shape(o.radius, along(o.id, t)) }]));
+    const at = new Map(orbits.map((o) => [o.id, { o, ...shape(o, along(o.id, t)) }]));
     const bodies = [...at.values()].map(({ o, g, r, angle }) => {
       const position = add(o.center, rotate(scale(o.rel, r / o.radius), angle));
       return { id: o.id, position, yaw: o.start.yaw + o.needed * g - angle };

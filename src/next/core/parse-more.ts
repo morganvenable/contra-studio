@@ -39,6 +39,22 @@ export function morePatterns(h: ParseHelpers): readonly (readonly [RegExp, Build
   return [
     [/^stand still$/, (_m, b) => [h.call('stand-still', b, {})]],
     [
+      // "Next neighbors mirror do si do, ones splitting twos".
+      re(
+        `${WHO} mirror do si do(?: (once|twice|[^ ,]+))?,? (ones|twos|1s|2s) splitting (?:the )?(?:ones|twos|1s|2s)`,
+      ),
+      (m, b) => [
+        call('do-si-do', b, { who: who(m[1]), amount: amount(m[2], 1), split: who(m[3]) }),
+      ],
+    ],
+    [
+      // "Ones split the twos with a handy hand allemande 1½", "ones mirror allemande neighbors 1½".
+      /^(ones|twos|1s|2s) (?:split (?:the )?(?:ones|twos|1s|2s) with a (?:handy hand |mirror )?allemande|mirror allemande (?:neighbors?|partners?)) ([^ ]+)$/,
+      (m, b) => [
+        call('allemande', b, { who: 'neighbor', amount: amount(m[2], 1), split: who(m[1]) }),
+      ],
+    ],
+    [
       re(`${WHO} (do si do|see saw) ([^ ]+) to a wave`),
       (m, b) => [
         call('do-si-do', b, {
@@ -62,7 +78,7 @@ export function morePatterns(h: ParseHelpers): readonly (readonly [RegExp, Build
     ],
     [
       // "Balance (the wave) and move straight ahead to a new wave": balance, walk forward.
-      /^balance(?: the)?(?: ocean)?(?: wave)?(?: of (?:4|four))?,? (?:and )?(?:move|go|walk) (?:straight|forward)(?: ahead)?(?: to (?:a )?new (?:wave|ocean|neighbor)(?: of (?:4|four))?)?$/,
+      /^balance(?: the)?(?: ocean)?(?: wave)?(?: of (?:4|four))?,? (?:and )?(?:(?:move|go|walk) (?:straight|forward)|straight)(?: ahead)?(?: to (?:a )?new (?:wave|ocean|neighbor)(?: of (?:4|four))?)?(?: .*)?$/,
       (_m, b) => [call('balance', 4, { formation: 'current' }), call('walk-forward', b - 4, {})],
     ],
     [
@@ -85,6 +101,20 @@ export function morePatterns(h: ParseHelpers): readonly (readonly [RegExp, Build
           who: roleOf(who(m[1])),
           whom: m[2].startsWith('partner') ? 'partner' : 'neighbor',
         }),
+      ],
+    ],
+    [
+      /^balance the ring,? (?:&|and) pass through(?: (across|along) the set)?$/,
+      (m, b) => [
+        call('balance', 4, { formation: 'ring' }),
+        call('pass-through', b - 4, { shoulder: 'right', ...(m[1] ? { axis: m[1] } : {}) }),
+      ],
+    ],
+    [
+      /^circle (left|right) (\w+) places?,? (?:and )?walk forward$/,
+      (m, b) => [
+        call('circle', b - 2, { direction: m[1], places: h.numbers[m[2]] ?? Number(m[2]) }),
+        call('walk-forward', 2, {}),
       ],
     ],
     [/^balance alone$/, (_m, b) => [call('balance', b, { formation: 'solo' })]],
@@ -138,7 +168,7 @@ export function morePatterns(h: ParseHelpers): readonly (readonly [RegExp, Build
     [
       // "Robins allemande left ½, hold on to form waves", "... 1½ to a short wave".
       re(
-        `(larks|robins|gentlespoons?|ladles?) allemande (left|right) ([^ ,]+),? (?:- )?(?:hold on )?(?:(?:and|&) )?(?:to )?(?:form )?(?:a |an )?(?:short |ocean )?(?:waves?|wavy lines?)(?: of (?:4|four))?(?: [^,]*)?`,
+        `(larks|robins|gentlespoons?|ladles?) allemande (left|right) ([^ ,]+),? (?:- )?(?:hold on )?(?:(?:and|&) )?(?:to )?(?:form )?(?:a |an )?(?:short |ocean )?(?:waves?|wavy lines?)(?: of (?:4|four))?(?:[ ,.].*)?`,
       ),
       (m, b) => [
         call('allemande', b, {
@@ -349,7 +379,7 @@ export function morePatterns(h: ParseHelpers): readonly (readonly [RegExp, Build
       // four, robins in center left hands, right hand to neighbor"): the
       // figure, then 2 beats to step into the wave the row describes.
       // "... to a wave and balance" balances it too (4 beats for both).
-      /^(.+?),? (?:and )?(?:end (?:the )?swing in|(?:step )?(?:in)?to(?: form)?) (?:a |an |new )?(?:short |ocean )?wav(?:e|y line)s?(?: of (?:4|four))?(?: across)?(?: with (?:next |new )?neighbors)?(?:,? -? ?(.*))?$/,
+      /^(.+?),? (?:and )?(?:end (?:the )?swing in|(?:step )?(?:in)?to(?: form)?) (?:a |an |new |original |the original )?(?:short |ocean )?wav(?:e|y line)s?(?: of (?:4|four))?(?: across)?(?: with (?:next |new )?neighbors)?(?:,? -? ?(.*))?$/,
       (m, b) => {
         if (/\blong\b|\bwave\b/.test(m[1])) throw new Error('A long wave is not a wave of four.');
         const note = m[2] ?? '';
@@ -360,7 +390,10 @@ export function morePatterns(h: ParseHelpers): readonly (readonly [RegExp, Build
         if (!base) throw new Error(`No figure pattern matches "${m[1]}".`);
         return [
           ...base,
-          call('ocean-wave', waveBeats, { ...waveFrom(note), ...(balance ? { balance: true } : {}) }),
+          call('ocean-wave', waveBeats, {
+            ...waveFrom(note),
+            ...(balance ? { balance: true } : {}),
+          }),
         ];
       },
     ],
@@ -461,7 +494,7 @@ const MORE_TIDY: readonly (readonly [RegExp, string])[] = [
     'balance the ring larks roll $1 across',
   ],
   [
-    /^balance the ring,? (?:and )?roll (?:across with )?(partners?|neighbors?)( .*)?$/,
+    /^balance the ring,? (?:and )?roll (partners?|neighbors?)( .*)?$/,
     'balance the ring larks roll $1$2',
   ],
   [
@@ -472,7 +505,36 @@ const MORE_TIDY: readonly (readonly [RegExp, string])[] = [
     /^(\w+) balance and twirl to swap(?: with)? inside hands$/,
     '$1 right hand balance & box the gnat',
   ],
-  [/^balance yourself$/, 'balance alone'],
+  [/^balance yourself(?:,? end facing\b.*)?$/, 'balance alone'],
+  [/\b3\/2\b/g, '1½'],
+  [/^balance (?:the )?wave 0f/, 'balance wave of'],
+  [/^balance new wave of (?:4|four)\b.*$/, 'balance the wave'],
+  [/^balance right and then left$/, 'balance'],
+  [/^custom (balance the wave)$/, '$1'],
+  [/^balance the ring (?:&|and) twirl right one place$/, 'balance & petronella'],
+  [/\b11\/2 sashay\b/, 'half sashay'],
+  [
+    /^balance the ring (?:and )?half sashay roll (partners?|neighbors?) (?:across|along|alone)(?: set)?$/,
+    'balance the ring larks roll $1 with half sashay across',
+  ],
+  [
+    /roll (partners?|neighbors?) across with (?:a )?half sashay$/,
+    'roll $1 with half sashay across',
+  ],
+  [
+    /^balance the ring and roll across with (partners?|neighbors?) half sashay$/,
+    'balance the ring larks roll $1 with half sashay across',
+  ],
+  [/^(balance (?:&|and) petronella) (?:in)?to long waves,? \w+ face (?:in|out)$/, '$1'],
+  [
+    /^(form an? .*ocean wave .*? by (?:left|right)(?: hands?)?) (?:smush|with next \w+ and next neighbors)$/,
+    '$1',
+  ],
+  [/\bto along ocean wave\b/, 'to a long ocean wave'],
+  [
+    /^(.*allemande (?:left|right) ½),? and reform the wave - (\w+) by \w+ in the center.*$/,
+    '$1 and reform the wave with $2 in the middle',
+  ],
   [
     /(\bswing),? (?:end swing facing across to rejoin (?:the )?ring|end in a ring|form a ring|- and get ready to slide along (?:the )?set left)$/,
     '$1',
