@@ -39,6 +39,20 @@ export function morePatterns(h: ParseHelpers): readonly (readonly [RegExp, Build
   return [
     [/^stand still$/, (_m, b) => [h.call('stand-still', b, {})]],
     [
+      /^balance the ring and circle left one place$/,
+      (_m, b) => [
+        call('balance', 4, { formation: 'ring' }),
+        call('circle', b - 4, { direction: 'left', places: 1 }),
+      ],
+    ],
+    [
+      /^balance (?:the )?wave forward (?:and|&) back,? (?:and )?walk forward(?: to new waves?)?$/,
+      (_m, b) => [
+        call('balance', 4, { formation: 'wave', style: 'forward-back' }),
+        call('walk-forward', b - 4, {}),
+      ],
+    ],
+    [
       /^(?:turn the )?clover(?:leaf)? (left|right) (\w+) places?$|^circle (left|right) (\w+) places? in (?:a )?cloverleaf$/,
       (m, b) => [
         call('cloverleaf', b, {
@@ -103,7 +117,11 @@ export function morePatterns(h: ParseHelpers): readonly (readonly [RegExp, Build
     [
       // "Balance (the wave) and move straight ahead to a new wave": balance, walk forward.
       /^balance(?: the)?(?: ocean)?(?: wave)?(?: of (?:4|four))?,? (?:and )?(?:(?:move|go|walk) (?:straight|forward)|straight)(?: ahead)?(?: to (?:a )?new (?:wave|ocean|neighbor)(?: of (?:4|four))?)?(?: .*)?$/,
-      (_m, b) => [call('balance', 4, { formation: 'current' }), call('walk-forward', b - 4, {})],
+      // A row too short to balance as well (4 beats) only walks forward.
+      (_m, b) =>
+        b < 8
+          ? [call('walk-forward', b, {})]
+          : [call('balance', 4, { formation: 'current' }), call('walk-forward', b - 4, {})],
     ],
     [
       /^(?:dance|walk) forward to (?:form )?new waves? and balance$/,
@@ -500,6 +518,9 @@ const CORES: readonly RegExp[] = [
 
 /** Wording folded to one spelling before the notes come off. */
 const MORE_TIDY: readonly (readonly [RegExp, string])[] = [
+  // Role names to larks and robins first, so the wordings below match them.
+  [/\b(?:gentlespoons?|gents?|men)\b/g, 'larks'],
+  [/\b(?:ladles?|ladies|women)\b/g, 'robins'],
   [/^_+\s*/, ''],
   [/[\[\]]/g, ''],
   [/\*/g, ''],
@@ -555,6 +576,9 @@ const MORE_TIDY: readonly (readonly [RegExp, string])[] = [
     '$1 right hand balance & box the gnat',
   ],
   [/^(\w+ california twirl),? keep hands and reach back to partners to form a cloverleaf$/, '$1'],
+  [/^balance (?:the )?wave,? -? ?right and left(?: partners? first)?$/, 'balance the wave'],
+  [/^(\w+ give (?:&|and) take (?:partners|neighbors)) (?:larks|robins) bring back (?:larks|robins|partners?|neighbors?)$/, '$1'],
+  [/^balance the ring,? shift one place to (?:the )?left$/, 'balance the ring and circle left one place'],
   [/^balance yourself(?:,? end facing\b.*)?$/, 'balance alone'],
   [/\b3\/2\b/g, '1½'],
   [/^balance (?:the )?wave 0f/, 'balance wave of'],

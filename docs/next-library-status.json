@@ -4,18 +4,18 @@
  "catalogue": 2422,
  "stored": 2422,
  "counts": {
-  "ok": 358,
-  "check": 159,
-  "partial": 1623,
+  "ok": 359,
+  "check": 160,
+  "partial": 1621,
   "unsupported": 282
  },
  "formations": [
   {
    "formation": "improper",
    "dances": 1189,
-   "ok": 315,
-   "check": 87,
-   "partial": 787,
+   "ok": 316,
+   "check": 88,
+   "partial": 785,
    "unsupported": 0
   },
   {
@@ -1158,14 +1158,14 @@
     "uses": 51
    },
    {
-    "name": "ocean wave / long wave",
-    "unlocks": 17,
-    "uses": 98
-   },
-   {
     "name": "pull by / pass by",
     "unlocks": 16,
     "uses": 59
+   },
+   {
+    "name": "ocean wave / long wave",
+    "unlocks": 14,
+    "uses": 93
    },
    {
     "name": "square through",
@@ -1193,6 +1193,11 @@
     "uses": 56
    },
    {
+    "name": "turn alone / as a couple",
+    "unlocks": 7,
+    "uses": 47
+   },
+   {
     "name": "gyre",
     "unlocks": 7,
     "uses": 46
@@ -1206,11 +1211,6 @@
     "name": "star promenade",
     "unlocks": 7,
     "uses": 29
-   },
-   {
-    "name": "turn alone / as a couple",
-    "unlocks": 6,
-    "uses": 47
    },
    {
     "name": "gate",
@@ -1233,14 +1233,14 @@
     "uses": 15
    },
    {
+    "name": "allemande variant",
+    "unlocks": 5,
+    "uses": 65
+   },
+   {
     "name": "diagonal hey",
     "unlocks": 5,
     "uses": 18
-   },
-   {
-    "name": "allemande variant",
-    "unlocks": 4,
-    "uses": 65
    },
    {
     "name": "balance variant",
@@ -1268,11 +1268,6 @@
     "uses": 48
    },
    {
-    "name": "do-si-do variant",
-    "unlocks": 3,
-    "uses": 37
-   },
-   {
     "name": "poussette",
     "unlocks": 3,
     "uses": 23
@@ -1283,9 +1278,9 @@
     "uses": 3
    },
    {
-    "name": "take hands (wave/line set-up)",
+    "name": "do-si-do variant",
     "unlocks": 2,
-    "uses": 28
+    "uses": 33
    },
    {
     "name": "stand still / no figure",
@@ -1296,6 +1291,11 @@
     "name": "other: next larks catch left",
     "unlocks": 2,
     "uses": 2
+   },
+   {
+    "name": "take hands (wave/line set-up)",
+    "unlocks": 1,
+    "uses": 21
    },
    {
     "name": "orbit allemande",
@@ -2701,7 +2701,7 @@
   "figuresThatCannotStart": [
    {
     "name": "progression or other",
-    "unlocks": 101
+    "unlocks": 103
    },
    {
     "name": "diagonal chain / right left through",
@@ -2713,7 +2713,7 @@
    },
    {
     "name": "ocean wave / long wave",
-    "unlocks": 14
+    "unlocks": 15
    },
    {
     "name": "allemande variant",
@@ -2721,7 +2721,7 @@
    },
    {
     "name": "rory o'more",
-    "unlocks": 13
+    "unlocks": 14
    },
    {
     "name": "slide along set",
@@ -2827,7 +2827,7 @@
    },
    {
     "name": "allemande variant",
-    "unlocks": 10
+    "unlocks": 11
    },
    {
     "name": "hey (other)",

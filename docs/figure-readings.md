@@ -80,3 +80,5 @@ reading below. One line each; change any of them and the figure follows.
 - "... to a diamond (X in the center)": the figure takes all but 2 beats, then the four shift an eighth of the way around their ring so that X ends on the middle line of the set (clockwise when no one is named), facing in.
 - Cloverleaf: the four of a minor set join hands in a ring facing out; "cloverleaf left 3 places" turns it three quarters, left being clockwise seen from above as for a circle left. "Bend into a cloverleaf" bends the lines into a ring; the cloverleaf figure turns it out.
 - "Robins trade passing right in the middle", "... by the left shoulder": the robins pass by that shoulder and trade places.
+- "Balance and move straight ahead to a new wave" in a 4-beat row: too short to balance as well, so the dancers only walk forward.
+- "Balance the ring, shift one place to the left": a ring balance, then circle left one place.
