@@ -148,7 +148,8 @@ function planPair(
     const larkAcross = start.get(lark)!.position.x - middle.x;
     // The pair's side. One dancer in the very middle and the other out on a
     // side line (as after an allemande in the center) swing on that side;
-    // both in a wave down the middle of the set, on the side the lark faces.
+    // both in a wave down the middle of the set, on the side the lark faces;
+    // straddling the middle evenly, on the lark's side.
     const robinAcross = start.get(robin)!.position.x - middle.x;
     const centered = (v: number) => Math.abs(v) < CENTERED;
     const from =
@@ -162,7 +163,10 @@ function planPair(
               ? // Both on the center line (a wave down the middle): the side
                 // the lark faces.
                 Math.sign(forward(start.get(lark)!.yaw).x) * SET.halfWidth
-              : larkAcross;
+              : centered(across) && !centered(larkAcross)
+                ? // Straddling the middle evenly: the lark's side.
+                  Math.sign(larkAcross) * SET.halfWidth
+                : larkAcross;
     if (Math.abs(from) < SIDE_MARGIN)
       throw new Error('A swing that ends facing across must start nearer one side.');
     const side = Math.sign(from);

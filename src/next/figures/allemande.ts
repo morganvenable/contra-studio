@@ -23,6 +23,7 @@ import { PAIR_NAMES, type PairName } from '../core/relations.ts';
 import {
   add,
   dot,
+  forward,
   heading,
   leftOf,
   length,
@@ -44,13 +45,22 @@ export interface AllemandeParams {
   amount: number;
   /** End in a short wave with this role in the middle. */
   wave?: { middle: Role };
+  /**
+   * "To long waves": end facing across the set, still holding on and close
+   * (a pair turning ¾ out of a short wave, or 1½ along a side line).
+   */
+  longWaves?: boolean;
 }
 
 /** Distance from each dancer to the joined hands while turning. */
 export const HOLD_RADIUS = 0.45;
 
 export const allemande: Figure<AllemandeParams> = (state, params, beats) => {
-  onlyKeys('allemande', params, ['who', 'hand', 'amount', 'wave']);
+  onlyKeys('allemande', params, ['who', 'hand', 'amount', 'wave', 'longWaves']);
+  if (params.longWaves !== undefined && params.longWaves !== true)
+    throw new Error('allemande longWaves must be true when given.');
+  if (params.longWaves && params.wave)
+    throw new Error('An allemande ends in short waves or long waves, not both.');
   const who = oneOf('allemande', 'who', params.who, PAIR_NAMES);
   const hand = oneOf('allemande', 'hand', params.hand, ['right', 'left'] as const);
   const amount = params.amount;
@@ -60,7 +70,7 @@ export const allemande: Figure<AllemandeParams> = (state, params, beats) => {
   const sign = hand === 'right' ? 1 : -1;
   const sweep = sign * amount * TAU;
   const gather = Math.min(0.4, 1.5 / beats);
-  const stepsOut = !params.wave && Number.isInteger(amount * 2);
+  const stepsOut = !params.wave && !params.longWaves && Number.isInteger(amount * 2);
   const groups = minorSets(state);
 
   const pairs = groups.flatMap((g) => pairsIn(state, g, who));
@@ -136,6 +146,11 @@ export const allemande: Figure<AllemandeParams> = (state, params, beats) => {
       const extra = lineHolds(turned, line).filter((h) => !holds.some((p) => sameHold(p, h)));
       waveHolds = waveHolds.concat(extra);
     }
+  }
+  if (params.longWaves) {
+    for (const [a] of pairs)
+      if (Math.abs(forward(body(turned, a).yaw).x) < 0.9)
+        throw new Error('This allemande does not end facing across, in long waves.');
   }
   return {
     kind: 'allemande',

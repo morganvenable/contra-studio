@@ -4,26 +4,26 @@
  "catalogue": 2422,
  "stored": 2422,
  "counts": {
-  "ok": 323,
-  "check": 122,
-  "partial": 1695,
+  "ok": 325,
+  "check": 127,
+  "partial": 1688,
   "unsupported": 282
  },
  "formations": [
   {
    "formation": "improper",
    "dances": 1189,
-   "ok": 284,
-   "check": 67,
-   "partial": 838,
+   "ok": 285,
+   "check": 71,
+   "partial": 833,
    "unsupported": 0
   },
   {
    "formation": "becket",
    "dances": 655,
-   "ok": 29,
-   "check": 48,
-   "partial": 578,
+   "ok": 30,
+   "check": 49,
+   "partial": 576,
    "unsupported": 0
   },
   {
@@ -1099,12 +1099,12 @@
   "missingFigures": [
    {
     "name": "star variant",
-    "unlocks": 45,
+    "unlocks": 49,
     "uses": 172
    },
    {
     "name": "ricochet hey",
-    "unlocks": 43,
+    "unlocks": 44,
     "uses": 157
    },
    {
@@ -1118,19 +1118,19 @@
     "uses": 145
    },
    {
-    "name": "ocean wave / long wave",
-    "unlocks": 41,
-    "uses": 186
-   },
-   {
     "name": "roll away",
-    "unlocks": 34,
+    "unlocks": 35,
     "uses": 106
    },
    {
     "name": "circle variant",
     "unlocks": 31,
     "uses": 156
+   },
+   {
+    "name": "ocean wave / long wave",
+    "unlocks": 28,
+    "uses": 161
    },
    {
     "name": "pull by / pass by",
@@ -1163,24 +1163,19 @@
     "uses": 51
    },
    {
-    "name": "allemande variant",
-    "unlocks": 19,
-    "uses": 102
-   },
-   {
     "name": "rory o'more",
     "unlocks": 18,
     "uses": 62
    },
    {
+    "name": "allemande variant",
+    "unlocks": 17,
+    "uses": 96
+   },
+   {
     "name": "balance variant",
     "unlocks": 17,
     "uses": 83
-   },
-   {
-    "name": "do-si-do variant",
-    "unlocks": 13,
-    "uses": 50
    },
    {
     "name": "revolving door",
@@ -1189,8 +1184,13 @@
    },
    {
     "name": "square through",
-    "unlocks": 12,
+    "unlocks": 13,
     "uses": 39
+   },
+   {
+    "name": "do-si-do variant",
+    "unlocks": 9,
+    "uses": 44
    },
    {
     "name": "cross trails",
@@ -1199,7 +1199,7 @@
    },
    {
     "name": "swing variant",
-    "unlocks": 7,
+    "unlocks": 8,
     "uses": 74
    },
    {
@@ -1273,6 +1273,11 @@
     "uses": 33
    },
    {
+    "name": "box circulate",
+    "unlocks": 3,
+    "uses": 15
+   },
+   {
     "name": "poussette",
     "unlocks": 2,
     "uses": 23
@@ -1281,11 +1286,6 @@
     "name": "orbit allemande",
     "unlocks": 2,
     "uses": 21
-   },
-   {
-    "name": "box circulate",
-    "unlocks": 2,
-    "uses": 15
    },
    {
     "name": "california twirl",
@@ -1364,6 +1364,11 @@
    },
    {
     "name": "other: pass through pass partner right",
+    "unlocks": 1,
+    "uses": 1
+   },
+   {
+    "name": "other: trade the wave - partners passing right, larks taking right hands and neighbors taking left hands on the other side of the set",
     "unlocks": 1,
     "uses": 1
    },
@@ -1494,6 +1499,11 @@
    },
    {
     "name": "other: right left through [straight across]",
+    "unlocks": 1,
+    "uses": 1
+   },
+   {
+    "name": "other: neighbors turn right 1/2, larks turn left 1/2",
     "unlocks": 1,
     "uses": 1
    },
@@ -1779,11 +1789,6 @@
    },
    {
     "name": "other: eggbeater++",
-    "unlocks": 0,
-    "uses": 1
-   },
-   {
-    "name": "other: trade the wave - partners passing right, larks taking right hands and neighbors taking left hands on the other side of the set",
     "unlocks": 0,
     "uses": 1
    },
@@ -2643,11 +2648,6 @@
     "uses": 1
    },
    {
-    "name": "other: neighbors turn right 1/2, larks turn left 1/2",
-    "unlocks": 0,
-    "uses": 1
-   },
-   {
     "name": "other: holding your hand with your partner, turn to your partner and continue turning this direction until you can give your other hand to the next neighbor that you passed",
     "unlocks": 0,
     "uses": 1
@@ -2751,14 +2751,22 @@
   "figuresThatCannotStart": [
    {
     "name": "progression or other",
-    "unlocks": 86
+    "unlocks": 88
    },
    {
     "name": "ocean wave / long wave",
-    "unlocks": 18
+    "unlocks": 21
    },
    {
     "name": "diagonal chain / right left through",
+    "unlocks": 13
+   },
+   {
+    "name": "other: pass through",
+    "unlocks": 13
+   },
+   {
+    "name": "rory o'more",
     "unlocks": 12
    },
    {
@@ -2766,32 +2774,20 @@
     "unlocks": 11
    },
    {
-    "name": "other: pass through",
-    "unlocks": 10
-   },
-   {
-    "name": "swing variant",
+    "name": "circle variant",
     "unlocks": 8
    },
    {
-    "name": "rory o'more",
-    "unlocks": 7
+    "name": "allemande variant",
+    "unlocks": 6
    },
    {
     "name": "gyre",
     "unlocks": 6
    },
    {
-    "name": "circle variant",
+    "name": "swing variant",
     "unlocks": 5
-   },
-   {
-    "name": "allemande variant",
-    "unlocks": 5
-   },
-   {
-    "name": "take hands (wave/line set-up)",
-    "unlocks": 3
    },
    {
     "name": "pull by / pass by",
@@ -2838,6 +2834,10 @@
     "unlocks": 1
    },
    {
+    "name": "do-si-do variant",
+    "unlocks": 1
+   },
+   {
     "name": "orbit allemande",
     "unlocks": 1
    },
@@ -2853,11 +2853,11 @@
   "checkFailures": [
    {
     "name": "Couples don't end the round where the progression puts them",
-    "unlocks": 26
+    "unlocks": 27
    },
    {
     "name": "allemande variant",
-    "unlocks": 17
+    "unlocks": 18
    },
    {
     "name": "pull by / pass by",
@@ -2865,7 +2865,7 @@
    },
    {
     "name": "swing variant",
-    "unlocks": 12
+    "unlocks": 13
    },
    {
     "name": "star promenade",
@@ -2885,7 +2885,7 @@
    },
    {
     "name": "ocean wave / long wave",
-    "unlocks": 4
+    "unlocks": 5
    },
    {
     "name": "circle variant",
@@ -2902,6 +2902,10 @@
    {
     "name": "mad robin",
     "unlocks": 2
+   },
+   {
+    "name": "take hands (wave/line set-up)",
+    "unlocks": 1
    },
    {
     "name": "promenade",

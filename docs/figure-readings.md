@@ -41,3 +41,7 @@ reading below. One line each; change any of them and the figure follows.
 - "As couples do si do" with no amount is once around.
 - Ones down the center: the couple walks one place down between the other couple, 0.6 m apart with inside hands; down the outsides runs 0.6 m outside the side lines; up the center/outsides walks one place back up.
 - Partners swinging out of a wave down the middle of the set (both on the center line) end on the side the lark faces.
+- "Start in long waves, ... X face in" (the notes before the figures): when the dance opens with a wave balance, that balance forms the long waves on the side lines; "start in short waves, right hand to neighbors" forms a short wave with robins in the middle by the left unless the notes name the middles.
+- "Allemande ... to long wave(s)/forming long waves": the pair keeps hold and stays close instead of stepping back out, ending facing across on a side line; the role named facing in is not checked.
+- "Do si do 1¼ to a (short) wave": the minor set takes wave hands as the do-si-do ends.
+- Partners straddling the middle evenly when they swing ("larks take neighbors" from a ring) swing on the lark's side.

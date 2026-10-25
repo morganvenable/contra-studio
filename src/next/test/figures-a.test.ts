@@ -176,7 +176,7 @@ test('trailing notes come off; notes naming a figure stay', () => {
   assert.deepEqual(parsed('partners California twirl to face new couple', 4), ['twirl']);
   assert.deepEqual(parsed('turn alone (towards your partner)', 2), ['turn-alone']);
   assert.deepEqual(parsed('circle right 4 places and turn alone'), ['circle', 'turn-alone']);
-  assert.throws(() => row('neighbors allemande right ¾ to long wave, ladles facing in', 4));
+  assert.throws(() => row('ladles allemande right ¾ to a fleeting long line', 4));
   assert.deepEqual(parsed('neighbors allemande right ½ gentlespoons pass left in center', 4), [
     'allemande',
     'pass-by',
@@ -226,4 +226,25 @@ test('ones down the outsides and turn alone stay outside the side lines', () => 
   const start = IMPROPER.start(4);
   const down = run(start, row('ones down the outsides and turn alone', 8)[0]);
   for (const id of [0, 1, 4, 5]) assert.ok(Math.abs(body(down, id).position.x) > 1.4);
+});
+
+test('allemande ¾ out of a short wave ends in long waves on the side lines', () => {
+  const start = IMPROPER.start(4);
+  const [wave] = row('form an ocean wave & balance - ladles by left hands and neighbors by right hands', 4);
+  const inWave = run(start, wave);
+  const [c] = row('neighbors allemande right ¾ to long wave, ladles facing in', 4);
+  assert.equal(c.params.longWaves, true);
+  const end = run(inWave, c);
+  for (const id of [0, 1, 2, 3]) {
+    assert.ok(Math.abs(Math.abs(body(end, id).position.x) - 0.9) < 1e-6, `${id} on a side line`);
+    assert.ok(Math.abs(Math.sin(body(end, id).yaw)) > 0.99, `${id} faces across`);
+  }
+  assert.equal(end.hands.length, 4, 'each neighbor pair still holds on');
+});
+
+test('do si do 1¼ to a wave: the minor set takes wave hands', () => {
+  const start = IMPROPER.start(2);
+  const [c] = row('neighbors do si do 1¼ to a wave of 4', 8);
+  const end = run(start, c);
+  assert.equal(end.hands.length, 3);
 });

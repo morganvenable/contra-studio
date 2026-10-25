@@ -37,6 +37,28 @@ export function morePatterns(h: ParseHelpers): readonly (readonly [RegExp, Build
   return [
     [/^stand still$/, (_m, b) => [h.call('stand-still', b, {})]],
     [
+      re(`${WHO} (do si do|see saw) ([^ ]+) to a wave`),
+      (m, b) => [
+        call('do-si-do', b, {
+          who: who(m[1]),
+          amount: amount(m[3], 1),
+          shoulder: m[2] === 'see saw' ? 'left' : 'right',
+          wave: true,
+        }),
+      ],
+    ],
+    [
+      re(`${WHO} allemande (left|right) ([^ ]+) to long waves`),
+      (m, b) => [
+        call('allemande', b, {
+          who: who(m[1]),
+          hand: m[2],
+          amount: amount(m[3], 1),
+          longWaves: true,
+        }),
+      ],
+    ],
+    [
       /^(?:all )?(?:walk|dance|move) forward(?: (?:\d+ steps|along the set))?(?: to (?:a |the )?(?:new|next)?(?: (?:wave|wavy line|couple|neighbors?|minor set))?(?: of (?:4|four))?(?: with (?:next|new) neighbors)?)?(?: progression)?$/,
       (_m, b) => [call('walk-forward', b, {})],
     ],
@@ -219,6 +241,15 @@ const MORE_TIDY: readonly (readonly [RegExp, string])[] = [
   [/^long lines go back$/, 'long lines back'],
   [/^balance (?:right|left),? (?:(?:&|and|then) )?(?:right|left)$/, 'balance'],
   [/^balance (?:the )?long waves?$/, 'balance'],
+  [
+    /^((?:(?:next|new) )?\w+ do si do [^ ,]+),? (?:in)?to (?:a |short )?(?:ocean )?waves?(?: of (?:4|four))?$/,
+    '$1 to a wave',
+  ],
+  // "Allemande right ¾ to long wave, robins facing in", "..., forming long waves".
+  [
+    /^((?:(?:next|new) )?\w+ allemande (?:left|right) [^ ,]+)(?:,? (?:to|and|,)? ?(?:form(?:ing)? |make (?:new )?)?(?:a |new )?long (?:ocean )?wav(?:es?|y lines?)\b.*)$/,
+    '$1 to long waves',
+  ],
   [
     /^balance (?:the )?wave,? -? ?(right|left),? (?:&|and|then) (?:left|right)$/,
     'balance the wave $1',

@@ -8,7 +8,7 @@
  * Pure: no file or network access, so the app, tests and scripts share it.
  */
 import type { Progression } from './core/progression.ts';
-import { canonicalText } from './core/roles.ts';
+import { canonical, canonicalText } from './core/roles.ts';
 import { contraDbRows, decodeEntities, parseRow } from './core/parse.ts';
 import type { StoredCall, StoredDance, UnparsedRow } from './dance.ts';
 
@@ -244,6 +244,62 @@ function startInWave(parsed: (StoredCall[] | Error)[]) {
 }
 
 /**
+ * The notes before the figures say how the dance starts ("start in long
+ * waves, neighbor by right, ladles face in", "starts in short waves, right
+ * hand to neighbors"). When the first figure balances that wave, it forms
+ * it as it balances: long waves on the side lines with the named role facing
+ * in, or a short wave by the hands named (robins in the middle by the left
+ * unless the notes name the middles).
+ */
+function startAsTold(parsed: (StoredCall[] | Error)[], html: string) {
+  const first = Array.isArray(parsed[0]) ? parsed[0][0] : undefined;
+  if (!first || first.move !== 'balance') return;
+  if (first.params.formation !== 'wave' && first.params.formation !== 'current') return;
+  const note = text(html, /dance-show-preamble">([\s\S]*?)<\/div>/).toLowerCase();
+  const role = (word: string | undefined) =>
+    word === undefined
+      ? undefined
+      : canonical(word) === 'larks'
+        ? 'larks'
+        : canonical(word) === 'robins'
+          ? 'robins'
+          : undefined;
+  const other = (r: string) => (r === 'larks' ? 'robins' : 'larks');
+  const long = note.match(
+    /\bstart\w* in long (?:ocean )?wav(?:es|y lines?)\b[^.]*?\b(\w+) fac(?:e|ing) (in|out)\b/,
+  );
+  if (long) {
+    const named = role(long[1]);
+    if (!named) return;
+    (parsed[0] as StoredCall[])[0] = {
+      ...first,
+      params: { formation: 'long-waves', in: long[2] === 'in' ? named : other(named) },
+    };
+    return;
+  }
+  const short = note.match(/\bstart\w* in (?:a )?short waves?\b([^.]*)/);
+  if (
+    !short ||
+    !/right hands? to neighbors?|neighbors? by right|neighbors? in right hand/.test(short[1])
+  )
+    return;
+  const mid = short[1].match(
+    /\b(\w+) (?:by left|left in (?:the )?(?:middle|center)|in the (?:middle|center))/,
+  );
+  (parsed[0] as StoredCall[])[0] = {
+    ...first,
+    move: 'ocean-wave',
+    params: {
+      middle: role(mid?.[1]) ?? 'robins',
+      middleHand: 'left',
+      ends: 'neighbor',
+      endHand: 'right',
+      balance: true,
+    },
+  };
+}
+
+/**
  * Import one snapshot. `sha256` is the hex hash of `snapshot.html` (the
  * caller hashes; this module stays free of Node APIs).
  */
@@ -267,6 +323,7 @@ export function importDance(id: string, snapshot: ContraDbSnapshot, sha256: stri
     }
   });
   joinLeadIns(parsed);
+  startAsTold(parsed, html);
   rows.forEach((row, i) => {
     const number = i + 1;
     const beats = beatsOf(row.beats);

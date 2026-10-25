@@ -28,7 +28,9 @@ import {
   turn,
 } from '../core/math.ts';
 import { PAIR_NAMES, type PairName } from '../core/relations.ts';
-import { body, minorSets, pairsIn, withChanges } from '../core/state.ts';
+import { findWave, lineHolds } from '../core/lines.ts';
+import { joined } from '../core/contacts.ts';
+import { body, minorSets, pairsIn, withChanges, type Hold } from '../core/state.ts';
 
 export interface DoSiDoParams {
   who: PairName;
@@ -36,6 +38,8 @@ export interface DoSiDoParams {
   amount: number;
   /** Shoulder passed first: right for a do-si-do, left for a see-saw. */
   shoulder?: 'right' | 'left';
+  /** A quarter-turn do-si-do "to a wave": the minor set takes wave hands at the end. */
+  wave?: boolean;
 }
 
 /** Half the gap between the pair as they pass shoulder to shoulder. */
@@ -48,7 +52,9 @@ const CLOSE = 0.2;
 const FACE_BEATS = 1.5;
 
 export const doSiDo: Figure<DoSiDoParams> = (state, params, beats) => {
-  onlyKeys('do-si-do', params, ['who', 'amount', 'shoulder']);
+  onlyKeys('do-si-do', params, ['who', 'amount', 'shoulder', 'wave']);
+  if (params.wave !== undefined && params.wave !== true)
+    throw new Error('do-si-do wave must be true when given.');
   const who = oneOf('do-si-do', 'who', params.who, PAIR_NAMES);
   const shoulder = oneOf('do-si-do', 'shoulder', params.shoulder ?? 'right', [
     'right',
@@ -85,7 +91,7 @@ export const doSiDo: Figure<DoSiDoParams> = (state, params, beats) => {
 
   const lateral = (t: number) =>
     sideBySide ? PASS_HALF + (END_HALF - PASS_HALF) * smooth((t - 0.75) / 0.25) : PASS_HALF;
-  const motion = (beat: number) => ({
+  const walk = (beat: number) => ({
     bodies: plans.map((p) => {
       const t = beat / beats;
       const phi = sweep * progress(t);
@@ -100,9 +106,22 @@ export const doSiDo: Figure<DoSiDoParams> = (state, params, beats) => {
     }),
     contacts: [],
   });
+  const settled = settle(state, walk, beats);
+  // "To a wave": the dancers now side by side in each minor set take hands
+  // along their line as the do-si-do finishes.
+  let waveHolds: Hold[] = [];
+  if (params.wave) {
+    if (!sideBySide) throw new Error('Only a quarter-turn do-si-do ends side by side in a wave.');
+    waveHolds = minorSets(state).flatMap((g) => lineHolds(settled, findWave(settled, g)));
+  }
+  const motion = (beat: number) => {
+    const frame = walk(beat);
+    const strength = smooth((beat - (beats - 0.5)) / 0.5);
+    return { ...frame, contacts: waveHolds.map((h) => joined(h, strength)) };
+  };
   return {
     kind: 'do-si-do',
     motion,
-    exit: withChanges(settle(state, motion, beats), { hands: [] }),
+    exit: withChanges(settled, { hands: waveHolds }),
   };
 };
