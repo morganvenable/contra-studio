@@ -8,6 +8,7 @@
  * (with a small public/dances/index.json). The app fetches one by id and
  * registers it here before compiling; nothing is bundled.
  */
+import { TRIPLE_MINOR_PROGRESSION } from './core/formation-triple.ts';
 import type { Dance } from '../types.ts';
 import type { FigureCall } from './core/figure.ts';
 import { compileFold, type FoldedDance } from './core/fold.ts';
@@ -119,6 +120,7 @@ const PROGRESSIONS: Readonly<Record<Progression['kind'], Progression>> = {
   lines: LINES_PROGRESSION,
   mixer: MIXER_PROGRESSION,
   trios: TRIOS_PROGRESSION,
+  'triple-minor': TRIPLE_MINOR_PROGRESSION,
   ...(GROUPS_PROGRESSIONS as unknown as Record<string, Progression>),
 } as Readonly<Record<Progression['kind'], Progression>>;
 

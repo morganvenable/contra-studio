@@ -40,6 +40,8 @@ export interface Progression {
     | 'lines'
     | 'mixer'
     | 'trios'
+    // formation-triple.ts
+    | 'triple-minor'
     // formation-groups.ts
     | 'lead-left'
     | 'line-renumber'

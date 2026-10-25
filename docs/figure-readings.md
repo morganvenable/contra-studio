@@ -24,7 +24,7 @@ line each, for review.
 - "One couple", "singlet", "solo/couple" (Zoom contras): drawn in an improper set, the imagined neighbors danced by real couples.
 - A row that names who dances ("star right 4 places (heads)", "middle 4 star right", "ones and twos circle left", "hands six"): the figure for just those dancers; everyone else stands.
 - "Stand still", claps and stomps, "heel, toe": everyone keeps their place.
-- "Triple minor", "triple proper", "triad", "dutribecket": drawn as one minor set of three couples, proper; the 1s progress to second place each time through and couples are renamed by place; the step on to the next minor set down a long set is not drawn.
+- "Triple minor", "triple proper", "triad", "dutribecket": a proper longways set of six or more couples in minor sets of three, every set dancing at once; each time through the 1s go down a place and the 2s up, then new sets form from the top: each 1s couple with the two couples below it; a 1s couple with fewer than two below waits at the bottom and turns inactive; at the top a couple with two inactive couples below it starts a new set.
 - "Sawtooth cw", "quadruple minor Becket", "Becket quadruplet", "Becket men in center ...": drawn as clockwise Becket.
 - "Cross contra", "long waves, larks facing out", "proper, ladles traded": drawn from the plain improper (or proper) start; rows that need the traded start stay labeled.
 - "Reverse progression" (improper, indecent): the same formation; where the couples travel is left to the figures, and the check expects the usual places.

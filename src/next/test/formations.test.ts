@@ -143,3 +143,17 @@ test('proper starts with partners facing across', () => {
     assert.ok(Math.sign(b.position.x) === -Math.sign(Math.sin(b.yaw)), 'facing the other line');
   }
 });
+
+test('triple minor: a long set of minor sets of three that progress', async () => {
+  const { TRIPLE_MINOR_SET, tripleMinorModel } = await import('../core/formation-triple.ts');
+  const s = TRIPLE_MINOR_SET.start(7);
+  assert.equal(s.groups.length, 2, 'two minor sets of three');
+  assert.equal(s.waiting.length, 1, 'the seventh couple waits');
+  assert.throws(() => TRIPLE_MINOR_SET.start(3), /6-15/);
+  // 6 couples: A B C | D E F. After round 1 A has gone down a place and B up.
+  const z = tripleMinorModel(6, 4);
+  const place = (r: number, c: number) => Math.round(z[r][c] / 1.8 + 2.5);
+  assert.deepEqual([0, 1, 2, 3, 4, 5].map((c) => place(0, c)), [1, 0, 2, 4, 3, 5]);
+  // Round 3: B, waiting at the top, starts a new set with two inactive couples.
+  assert.deepEqual([0, 1, 2, 3, 4, 5].map((c) => place(2, c)), [3, 0, 1, 4, 2, 5]);
+});
