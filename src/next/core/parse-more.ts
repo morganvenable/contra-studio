@@ -75,6 +75,17 @@ export function morePatterns(h: ParseHelpers): readonly (readonly [RegExp, Build
       ],
     ],
     [
+      // "Balance the ring, larks roll neighbor along the set (half sashay)".
+      /^balance the ring,? (?:and )?(\w+) roll (?:away )?(partners?|neighbors?)(?: with (?:a )?half sashay)?(?: (?:alone|along|across)(?: the)?(?: set)?)?$/,
+      (m, b) => [
+        call('balance', 4, { formation: 'ring' }),
+        call('roll-away', b - 4, {
+          who: roleOf(who(m[1])),
+          whom: m[2].startsWith('partner') ? 'partner' : 'neighbor',
+        }),
+      ],
+    ],
+    [
       /^balance the ring and partners california twirl$/,
       (_m, b) => [
         call('balance', 4, { formation: 'ring' }),

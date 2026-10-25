@@ -1163,11 +1163,6 @@
     "uses": 62
    },
    {
-    "name": "balance variant",
-    "unlocks": 15,
-    "uses": 74
-   },
-   {
     "name": "pull by / pass by",
     "unlocks": 15,
     "uses": 59
@@ -1176,6 +1171,11 @@
     "name": "allemande variant",
     "unlocks": 14,
     "uses": 90
+   },
+   {
+    "name": "balance variant",
+    "unlocks": 14,
+    "uses": 72
    },
    {
     "name": "square through",
@@ -1193,14 +1193,14 @@
     "uses": 17
    },
    {
+    "name": "down/up the hall",
+    "unlocks": 8,
+    "uses": 57
+   },
+   {
     "name": "do-si-do variant",
     "unlocks": 8,
     "uses": 43
-   },
-   {
-    "name": "down/up the hall",
-    "unlocks": 7,
-    "uses": 57
    },
    {
     "name": "mad robin",
@@ -2784,6 +2784,10 @@
     "unlocks": 3
    },
    {
+    "name": "balance variant",
+    "unlocks": 3
+   },
+   {
     "name": "turn alone / as a couple",
     "unlocks": 3
    },
@@ -2801,10 +2805,6 @@
    },
    {
     "name": "star variant",
-    "unlocks": 2
-   },
-   {
-    "name": "balance variant",
     "unlocks": 2
    },
    {

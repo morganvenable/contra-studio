@@ -14,6 +14,7 @@ import { distance, turn } from '../core/math.ts';
 import { parseRow } from '../core/parse.ts';
 import { body, type DanceState } from '../core/state.ts';
 import { FIGURES } from '../figures/index.ts';
+import { importDance } from '../import.ts';
 import { call, facing, FACE_DOWN, FACE_EAST, FACE_WEST, near } from './helpers.ts';
 
 const fold = (start: DanceState, calls: readonly FigureCall[]) =>
@@ -247,4 +248,48 @@ test('do si do 1¼ to a wave: the minor set takes wave hands', () => {
   const [c] = row('neighbors do si do 1¼ to a wave of 4', 8);
   const end = run(start, c);
   assert.equal(end.hands.length, 3);
+});
+
+const page = (preamble: string, rows: [string, number, string][]) => ({
+  sourceUrl: 'https://contradb.com/dances/0',
+  html: `<p class="dance-show-formation">formation: improper</p><div class="dance-show-preamble"><p>${preamble}</p></div><table>${rows
+    .map(([s, b, t]) => `<tr><td>${s}</td><td>${b}</td><td>${t}</td></tr>`)
+    .join('')}</table>`,
+});
+
+test('import: an opening wave balance forms the waves the notes start in', () => {
+  const long = importDance(
+    'x',
+    page('start in long waves, neighbor by right, <u>ladles</u> face in', [
+      ['A1', 4, 'balance the wave'],
+      ['', 4, 'neighbors allemande right ¾'],
+    ]),
+    '0',
+  );
+  assert.deepEqual(long.figures[0].params, { formation: 'long-waves', in: 'robins' });
+  const short = importDance(
+    'x',
+    page('starts in short waves, right hand to neighbors', [['A1', 4, 'balance the wave']]),
+    '0',
+  );
+  assert.equal(short.figures[0].move, 'ocean-wave');
+  assert.equal(short.figures[0].params.middle, 'robins');
+});
+
+test('import: a zero-beat turn alone takes the last 2 beats of a long figure before it', () => {
+  const d = importDance(
+    'x',
+    page('', [
+      ['A1', 8, 'circle right 4 places'],
+      ['', 0, 'turn alone to face next neighbors'],
+    ]),
+    '0',
+  );
+  assert.deepEqual(
+    d.figures.map((f) => [f.move, f.beats]),
+    [
+      ['circle', 6],
+      ['turn-alone', 2],
+    ],
+  );
 });
