@@ -48,6 +48,24 @@ export function morePatterns(h: ParseHelpers): readonly (readonly [RegExp, Build
       ],
     ],
     [
+      // Long lines, rolling away on the way back: forward, then the roll away.
+      /^long lines forward (?:&|and) back,? (?:and )?(\w+) roll (?:away )?(partners?|neighbors?|new n|a new neighbor|the robins|the larks|the ladles|the gentlespoons)(?: away)?(?: (?:left to right|right to left))?(?: on the way back)?$/,
+      (m, b) => {
+        const whom = /^partner|^the /.test(m[2]) ? 'partner' : 'neighbor';
+        return [
+          call('long-lines', b / 2, { back: false }),
+          call('roll-away', b / 2, { who: roleOf(who(m[1])), whom }),
+        ];
+      },
+    ],
+    [
+      /^pass through,? (?:and )?walk forward(?: to (?:a )?new waves?)?$/,
+      (_m, b) => [
+        call('pass-through', b / 2, { shoulder: 'right' }),
+        call('walk-forward', b / 2, {}),
+      ],
+    ],
+    [
       // A swing through spelled out: two half allemandes.
       re(`swing through,? ${WHO} allemande (right|left) (?:½|1/2),? ${WHO} allemande (right|left) (?:½|1/2)`),
       (m, b) => [

@@ -84,7 +84,7 @@ export const orbit: Figure<OrbitParams> = (state, params, beats) => {
         return { id, s, rel, middle };
       });
   });
-  if (!orbiters.length) throw new Error('Nobody is left to orbit.');
+  if (!orbiters.length && minorSets(state).length) throw new Error('Nobody is left to orbit.');
 
   const motion = (beat: number): FigureFrame => {
     const t = beat / beats;
