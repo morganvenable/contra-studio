@@ -4,8 +4,8 @@
  "catalogue": 2422,
  "stored": 2422,
  "counts": {
-  "ok": 340,
-  "check": 140,
+  "ok": 344,
+  "check": 136,
   "partial": 1660,
   "unsupported": 282
  },
@@ -13,8 +13,8 @@
   {
    "formation": "improper",
    "dances": 1189,
-   "ok": 298,
-   "check": 77,
+   "ok": 302,
+   "check": 73,
    "partial": 814,
    "unsupported": 0
   },
@@ -2862,10 +2862,6 @@
     "unlocks": 9
    },
    {
-    "name": "swing variant",
-    "unlocks": 7
-   },
-   {
     "name": "hey (other)",
     "unlocks": 5
    },
@@ -2883,6 +2879,10 @@
    },
    {
     "name": "mad robin",
+    "unlocks": 3
+   },
+   {
+    "name": "swing variant",
     "unlocks": 3
    },
    {

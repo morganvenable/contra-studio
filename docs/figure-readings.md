@@ -60,3 +60,4 @@ reading below. One line each; change any of them and the figure follows.
 - A jersey twirl with no one named is partners.
 - Allemande path: the pair closes straight in over the first part of the turn and (a whole or half turn) steps straight back out over the last part, turning at 0.38 m from the joined hands in between; it walks the whole path at one steady pace. Quarter turns still end at the wave spacing (0.45 m).
 - A couple still crossing over at an end when down the hall starts stays out of the hall; waiting couples cross passing close by each other (the half turn squashed to 0.4 of a circle along the set), so two couples waiting side by side do not meet.
+- A swing drifts to where it ends over the first 70% of the figure (not the whole of it), so pairs swinging near the middle clear each other.

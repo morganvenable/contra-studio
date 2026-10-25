@@ -76,6 +76,8 @@ export function meltdownRoundBeats(beats: number): number {
 const RADIUS = 0.31;
 /** How far off the middle a pair must start to know which side it ends on. */
 const SIDE_MARGIN = 0.5;
+/** Share of the swing over which the pair drifts to where it ends. */
+const CENTER_DRIFT = 0.7;
 /** Within this of the middle a dancer stands in the center line. */
 const CENTERED = 0.2;
 const LEAD = 0.14;
@@ -190,7 +192,8 @@ function planPair(
   // whole number of turns so a short swing never spins much faster.
   const net = TAU * turns + offset - (offset > Math.PI ? TAU : 0);
   const spin = (t: number) => net * progress((t - lead) / (1 - lead), ramp);
-  const centerAt = (t: number) => mix(center0, exitCenter, smooth(t));
+  // The pair drifts to where it ends early on, clearing the middle for others.
+  const centerAt = (t: number) => mix(center0, exitCenter, smooth(t / CENTER_DRIFT));
 
   const radiusAt = (id: number, t: number) => {
     const r0 = length(sub(start.get(id)!.position, center0));
