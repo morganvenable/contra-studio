@@ -72,7 +72,7 @@ const icon = (name: string, cls = '') => `<svg class="icon ${cls}" viewBox="0 0 
 const esc = (value: unknown) => String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]!));
 const phrase = (n: number) => ['A1', 'A2', 'B1', 'B2'][n] || `P${n + 1}`;
 const sumBeats = (dance: Dance) => dance.figures.reduce((n, f) => n + f.beats, 0);
-const formationLabel = (dance: Dance) => dance.formation === 'becket' ? `Becket${dance.circulation === 'cw' ? ' · clockwise' : dance.circulation === 'ccw' ? ' · counterclockwise' : ''}` : 'Duple improper';
+const formationLabel = (dance: Dance) => dance.formationName ?? (dance.formation === 'becket' ? `Becket${dance.circulation === 'cw' ? ' · clockwise' : dance.circulation === 'ccw' ? ' · counterclockwise' : ''}` : 'Duple improper');
 const safeUrl = (value?: string) => { try { const u = new URL(value || ''); return ['https:', 'http:'].includes(u.protocol) ? u.href : ''; } catch { return ''; } };
 
 export function createUI(root: HTMLElement, actions: StudioActions, initial: StudioState): StudioUI {
