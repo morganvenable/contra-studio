@@ -387,6 +387,16 @@ export function importDance(id: string, snapshot: ContraDbSnapshot, sha256: stri
         });
     }
   });
+  // "Same four": whoever the row before named.
+  figures.forEach((c, i) => {
+    const among = (c.params as { among?: string[] }).among;
+    if (!among?.includes('@same')) return;
+    const before = i > 0 ? (figures[i - 1].params as { among?: string[] }).among : undefined;
+    const rest = among.filter((a) => a !== '@same');
+    const named = [...rest, ...(before ?? [])];
+    const { among: _drop, ...params } = c.params as Record<string, unknown>;
+    figures[i] = { ...c, params: named.length ? { ...params, among: named } : params };
+  });
   // Calls that mean another move in this formation ("long lines" facing along the hall).
   const moves = shape ? FORMATIONS[shape.formation]?.moves : undefined;
   if (moves)

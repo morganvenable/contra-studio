@@ -68,7 +68,8 @@ const QUALIFIERS: readonly (readonly [string, readonly string[]])[] = [
   ['all 8', []],
   ['hands six', []],
   ['hands eight', []],
-  ['same four', []],
+  // The dancers the row before named; import.ts fills them in.
+  ['same four', ['@same']],
   ['robins', ['robins']],
   ['larks', ['larks']],
 ];

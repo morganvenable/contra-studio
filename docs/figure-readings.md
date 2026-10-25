@@ -52,3 +52,4 @@ line each, for review.
 - Promenade home: counterclockwise to the lark's home place; a couple already home goes once all the way round.
 - A grand chain crosses to the opposite couple (half a star) and ends with a courtesy turn beside the one who receives them.
 - "Heads separate, go around two": pass behind the side couple and end in lark-lark-robin-robin lines facing across; in a line roll away the lark rolls the robin.
+- "Same four": the dancers the row before named.
