@@ -4,18 +4,18 @@
  "catalogue": 2422,
  "stored": 2422,
  "counts": {
-  "ok": 309,
+  "ok": 317,
   "check": 93,
-  "partial": 1738,
+  "partial": 1730,
   "unsupported": 282
  },
  "formations": [
   {
    "formation": "improper",
    "dances": 1189,
-   "ok": 276,
+   "ok": 284,
    "check": 57,
-   "partial": 856,
+   "partial": 848,
    "unsupported": 0
   },
   {
@@ -1104,7 +1104,7 @@
    },
    {
     "name": "ocean wave / long wave",
-    "unlocks": 63,
+    "unlocks": 64,
     "uses": 269
    },
    {
@@ -1118,11 +1118,6 @@
     "uses": 123
    },
    {
-    "name": "star variant",
-    "unlocks": 28,
-    "uses": 112
-   },
-   {
     "name": "hey (other)",
     "unlocks": 27,
     "uses": 113
@@ -1133,19 +1128,19 @@
     "uses": 156
    },
    {
-    "name": "ricochet hey",
+    "name": "star variant",
+    "unlocks": 25,
+    "uses": 98
+   },
+   {
+    "name": "down/up the hall",
     "unlocks": 20,
-    "uses": 91
+    "uses": 111
    },
    {
     "name": "turn alone / as a couple",
     "unlocks": 19,
     "uses": 115
-   },
-   {
-    "name": "down/up the hall",
-    "unlocks": 19,
-    "uses": 111
    },
    {
     "name": "promenade",
@@ -1163,14 +1158,19 @@
     "uses": 59
    },
    {
+    "name": "mad robin",
+    "unlocks": 17,
+    "uses": 57
+   },
+   {
+    "name": "balance variant",
+    "unlocks": 16,
+    "uses": 127
+   },
+   {
     "name": "chain variant",
     "unlocks": 15,
     "uses": 63
-   },
-   {
-    "name": "mad robin",
-    "unlocks": 15,
-    "uses": 57
    },
    {
     "name": "petronella",
@@ -1178,14 +1178,14 @@
     "uses": 52
    },
    {
-    "name": "balance variant",
-    "unlocks": 14,
-    "uses": 127
-   },
-   {
     "name": "pull by / pass by",
     "unlocks": 13,
     "uses": 65
+   },
+   {
+    "name": "ricochet hey",
+    "unlocks": 12,
+    "uses": 51
    },
    {
     "name": "gyre",
@@ -1194,7 +1194,7 @@
    },
    {
     "name": "roll away",
-    "unlocks": 10,
+    "unlocks": 11,
     "uses": 45
    },
    {
@@ -1229,8 +1229,8 @@
    },
    {
     "name": "california twirl",
-    "unlocks": 3,
-    "uses": 42
+    "unlocks": 4,
+    "uses": 40
    },
    {
     "name": "take hands (wave/line set-up)",
@@ -1338,6 +1338,11 @@
     "uses": 1
    },
    {
+    "name": "other: larks cross to partner",
+    "unlocks": 1,
+    "uses": 1
+   },
+   {
     "name": "other: twos seperate, cast home",
     "unlocks": 1,
     "uses": 1
@@ -1399,6 +1404,11 @@
    },
    {
     "name": "other: long lines go back",
+    "unlocks": 1,
+    "uses": 1
+   },
+   {
+    "name": "other: with neighbor, slide along set to shadows",
     "unlocks": 1,
     "uses": 1
    },
@@ -1928,11 +1938,6 @@
     "uses": 1
    },
    {
-    "name": "other: larks cross to partner",
-    "unlocks": 0,
-    "uses": 1
-   },
-   {
     "name": "other: pass through straight ahead",
     "unlocks": 0,
     "uses": 1
@@ -2249,11 +2254,6 @@
    },
    {
     "name": "other: ones spin right to form a diamond, larks below, robins above",
-    "unlocks": 0,
-    "uses": 1
-   },
-   {
-    "name": "other: with neighbor, slide along set to shadows",
     "unlocks": 0,
     "uses": 1
    },
@@ -2851,7 +2851,7 @@
   "figuresThatCannotStart": [
    {
     "name": "progression or other",
-    "unlocks": 55
+    "unlocks": 56
    },
    {
     "name": "diagonal chain / right left through",
@@ -2874,16 +2874,16 @@
     "unlocks": 11
    },
    {
+    "name": "ocean wave / long wave",
+    "unlocks": 11
+   },
+   {
     "name": "hey (other)",
     "unlocks": 10
    },
    {
     "name": "slide along set",
     "unlocks": 10
-   },
-   {
-    "name": "ocean wave / long wave",
-    "unlocks": 9
    },
    {
     "name": "swing variant",

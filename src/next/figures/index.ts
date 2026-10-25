@@ -37,6 +37,8 @@ import { figureEight } from './figure-eight.ts';
 import { zigZag } from './zig-zag.ts';
 import { gate } from './gate.ts';
 import { contraCorners } from './contra-corners.ts';
+import { madRicochet } from './mad-ricochet.ts';
+import { starThru } from './star-thru.ts';
 
 const BASE: FigureRegistry = {
   allemande,
@@ -75,6 +77,8 @@ const BASE: FigureRegistry = {
   'zig-zag': zigZag,
   gate,
   'contra-corners': contraCorners,
+  'mad-ricochet': madRicochet,
+  'star-thru': starThru,
 };
 
 /** Every figure, each also able to run on a diagonal (core/diagonal.ts). */

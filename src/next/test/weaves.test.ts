@@ -471,7 +471,43 @@ test('ones contra corners: the 1s turn each other and two corners each, reaching
       return b && Math.hypot(a.x - b.x, a.z - b.z) > 0.3;
     });
   });
-  assert.ok(moved.some((d) => !ones.includes(d.id)), 'corners turn too');
+  assert.ok(
+    moved.some((d) => !ones.includes(d.id)),
+    'corners turn too',
+  );
   for (const d of s.dancers)
     if (!ones.includes(d.id)) near(r.exit.bodies.get(d.id)!.position, body(s, d.id).position);
+});
+
+test('mad ricochet: the dancers in front meet in the middle and bounce back; all end home', () => {
+  const lines = improper([LINES]);
+  const [c] = parseRow({
+    beats: 8,
+    text: 'mad robins, gentlespoons in front Mad Ricochet same gender ricochet out of center with both hands',
+  });
+  assert.equal(c.move, 'mad-ricochet');
+  const r = FIGURES['mad-ricochet'](lines, c.params, 8);
+  for (const id of [0, 1, 2, 3]) near(r.exit.bodies.get(id)!.position, body(lines, id).position);
+  // The larks come within reach of each other in the middle.
+  let closest = Infinity;
+  for (let t = 0; t <= 8; t += 0.1) {
+    const [a, b] = [0, 2].map((id) => r.motion(t).bodies.find((x) => x.id === id)!.position);
+    closest = Math.min(closest, Math.hypot(a.x - b.x, a.z - b.z));
+  }
+  assert.ok(closest < 1, `larks meet (${closest.toFixed(2)} m)`);
+  withinLimits(r, 8, 'mad ricochet');
+});
+
+test('neighbors balance and star thru: they trade places, both turning a quarter', () => {
+  const start = IMPROPER.start(2);
+  const calls = parseRow({ beats: 8, text: 'neighbors balance and star through' });
+  assert.deepEqual(
+    calls.map((c) => c.move),
+    ['balance', 'star-thru'],
+  );
+  const r = FIGURES['star-thru'](start, { who: 'neighbor' }, 4);
+  near(r.exit.bodies.get(0)!.position, body(start, 3).position, 'lark 1 in robin 2 place');
+  // Lark 1 faced down; a quarter right faces across into the set.
+  assert.ok(Math.abs(turn(r.exit.bodies.get(0)!.yaw, -Math.PI / 2)) < 1e-6);
+  withinLimits(r, 4, 'star thru');
 });

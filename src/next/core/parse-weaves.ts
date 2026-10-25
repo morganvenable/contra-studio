@@ -144,6 +144,50 @@ function heyRest(rest: string) {
 
 export const WEAVE_PATTERNS: readonly (readonly [RegExp, Build])[] = [
   [
+    // "neighbors California twirl (star through)": from facing, a star thru.
+    /^(\w+) california twirl,? \(?star th(?:ru|rough)\)?$/,
+    (m, b) => [call('star-thru', b, { who: who(m[1]) })],
+  ],
+  [
+    // "mad robins, larks in front - mad ricochet: same role ricochet out of
+    // center with both hands", "mad robins twice around, larks in front ...".
+    /^mad robins?,? (?:(once|twice) around,? )?(\w+) in front\b(.*\bricochet.*)$/,
+    (m, b) => [
+      call('mad-ricochet', b, { front: who(m[2]), ...(m[1] === 'twice' ? { times: 2 } : {}) }),
+    ],
+  ],
+  [
+    // "mad ricochet larks start in center ...", "walking the path of a mad
+    // robins do a mad ricochet larks in front ...".
+    /^(?:walking the path of a mad robins? )?(?:do a )?mad ricochet,? (\w+) (?:start in (?:the )?center|in front)\b.*$/,
+    (m, b) => [call('mad-ricochet', b, { front: who(m[1]) })],
+  ],
+  [
+    // "neighbors balance and star through", "star thru (use inside hands)",
+    // "neighbor star through", "star through with neighbor".
+    /^(?:((?:\d\w* )*\w+) )?(?:handy hand )?(?:take inside hands,? )?(?:(\w+ )?balance (?:and|&) )?star th(?:ru|rough)(?: with (\w+))?(.*)$/,
+    (m, b) => {
+      notes(
+        m[4]
+          .replace(/^\s*(?:\w+ (?:right|left) hands?,? ?)+/, '')
+          .replace(/^\s*(?:larks right,? robins left|robins left,? larks right)/, '')
+          .replace(/^\s*(?:use |using |with )?(?:the )?inside hands?\b.*$/, '')
+          .replace(/^\s*to (?:face in|a ring)$/, ''),
+        'star thru',
+      );
+      const named = m[1] ?? m[2]?.trim() ?? m[3];
+      const w = named ? who(named) : 'facing';
+      const pair = w === 'shadow' ? 'facing' : w;
+      const balanced = !!m[2] || /balance/.test(m[0].slice(0, m[0].indexOf('star')));
+      if (!balanced) return [call('star-thru', b, { who: pair })];
+      const first = b >= 8 ? 4 : b / 2;
+      return [
+        call('balance', first, { formation: 'pair', who: pair, hand: 'both' }),
+        call('star-thru', b - first, { who: pair }),
+      ];
+    },
+  ],
+  [
     // "ones contra corners", "twos contra corners (opposite role - first
     // corners then second corners)".
     /^(\w+) contra corners(.*)$/,
