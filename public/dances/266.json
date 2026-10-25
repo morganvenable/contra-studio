@@ -1,4 +1,4 @@
-{ "schema": "contra-studio/next-dance", "version": 2, "id": "266", "title": "Hey in the Barn", "author": "Chart Guthrie", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/266", "formation": "improper", "sha256": "51477b081e2bb8cde55e92f3d738826c8db9440709b57e0d0c40b49841375427" }, "status": "partial", "problems": [ "Row 6 \"robins start a half hey - ____ in center, ____ on ends\" isn't drawn yet." ], "unparsed": [ { "row": 6, "text": "robins start a half hey - ____ in center, ____ on ends", "why": "No figure pattern matches \"ladles start a half hey - ____ in center, ____ on ends ⁋\"." } ], "choices": [ "A balance with a partner or neighbor holds both hands." ],
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "266", "title": "Hey in the Barn", "author": "Chart Guthrie", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/266", "formation": "improper", "sha256": "51477b081e2bb8cde55e92f3d738826c8db9440709b57e0d0c40b49841375427" }, "status": "ok", "problems": [], "unparsed": [], "choices": [ "A balance with a partner or neighbor holds both hands." ],
  "figures": [
   {"move":"balance","beats":4,"params":{"formation":"pair","who":"neighbor","hand":"both"},"text":"neighbors balance & swing · balance","section":"A1","row":1},
   {"move":"swing","beats":12,"params":{"who":"neighbor"},"text":"neighbors balance & swing · swing","section":"A1","row":1},
@@ -7,6 +7,6 @@
   {"move":"balance","beats":4,"params":{"formation":"pair","who":"partner","hand":"both"},"text":"partners balance & swing · balance","section":"B1","row":4},
   {"move":"swing","beats":12,"params":{"who":"partner"},"text":"partners balance & swing · swing","section":"B1","row":4},
   {"move":"chain","beats":8,"params":{"who":"robins"},"text":"robins chain","section":"B2","row":5},
-  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"robins start a half hey - ____ in center, ____ on ends","section":"B2","row":6,"progression":true}
+  {"move":"hey","beats":8,"params":{"start":"robins","amount":0.5,"center":"right"},"text":"robins start a half hey - ____ in center, ____ on ends","progression":true,"section":"B2","row":6}
  ]
 }

@@ -8,6 +8,7 @@
 import type { FigureCall } from './figure.ts';
 import { canonical, canonicalText, roleOfGroup } from './roles.ts';
 import { MORE_PATTERNS, qualifiers } from './parse-more.ts';
+import { WEAVE_PATTERNS } from './parse-weaves.ts';
 
 export interface SourceRow {
   readonly section?: string;
@@ -257,8 +258,13 @@ const PATTERNS: readonly (readonly [RegExp, Build])[] = [
     ],
   ],
   [
+    // The balance takes 4 beats when it leaves the petronella at least 2; under 6
+    // beats the two share the row evenly.
     /^balance (?:&|and) petronella$/,
-    (_m, b) => [call('balance', 4, { formation: 'ring' }), call('petronella', b - 4, {})],
+    (_m, b) => {
+      const balance = b >= 6 ? 4 : b / 2;
+      return [call('balance', balance, { formation: 'ring' }), call('petronella', b - balance, {})];
+    },
   ],
   [
     /^((?:next |new )?\w+) (?:(right|left) hand )?balance (?:&|and) (box the gnat|swat the flea)$/,
@@ -324,10 +330,15 @@ const PATTERNS: readonly (readonly [RegExp, Build])[] = [
   ],
   [
     /^((?:next |new )?\w+) balance (?:&|and) pull by (right|left)$/,
-    (m, b) => [
-      call('balance', 4, { formation: 'pair', who: who(m[1]), hand: m[2] }),
-      call('pass-by', b - 4, { who: who(m[1]), shoulder: m[2], hands: true }),
-    ],
+    (m, b) => {
+      // The balance takes 4 beats when it leaves the pull by at least 2; under 6
+      // beats the two share the row evenly.
+      const balance = b >= 6 ? 4 : b / 2;
+      return [
+        call('balance', balance, { formation: 'pair', who: who(m[1]), hand: m[2] }),
+        call('pass-by', b - balance, { who: who(m[1]), shoulder: m[2], hands: true }),
+      ];
+    },
   ],
   [
     // "Circle left 3 places and pass through": the last 2 beats pass through.
@@ -421,8 +432,18 @@ export function parseRow(row: SourceRow): FigureCall[] {
   const lifted = qualifiers(plain);
   const tries = [{ text: plain, among: undefined as readonly string[] | undefined }];
   if (lifted) tries.push({ text: lifted.text, among: lifted.among });
-  for (const { text, among } of tries) {
-    const found = matchRow(text, row.beats);
+  // A pattern that matches but cannot build (an unknown dancer name, say)
+  // gives later patterns a chance; its reason is kept if none builds.
+  let failure: unknown;
+  // The contra and formation tables read the row as written and lifted
+  // before the weaving table's looser readings (which drop trailing notes).
+  const attempts = [coreTable(), WEAVE_PATTERNS].flatMap((table) =>
+    tries.map((t) => ({ ...t, table })),
+  );
+  for (const { text, among, table } of attempts) {
+    const found = matchRow(table, text, row.beats, (error) => {
+      failure ??= error;
+    });
     if (!found) continue;
     const calls = found.map((c) => ({
       ...c,
@@ -439,16 +460,78 @@ export function parseRow(row: SourceRow): FigureCall[] {
       ...(progression && i === calls.length - 1 ? { progression: true } : {}),
     }));
   }
+  // "A while B": B happens during A's last part, on other dancers.
+  const both = splitMeanwhile(row, normal.text);
+  if (both) return both;
+  if (failure) throw failure;
   throw new Error(`No figure pattern matches "${row.text}".`);
 }
 
-/** The calls the first matching pattern builds, contra patterns first. */
-function matchRow(text: string, beats: number): FigureCall[] | undefined {
-  for (const [pattern, build] of [...PATTERNS, ...MORE_PATTERNS]) {
+/**
+ * Contra patterns first, then other formations (parse-more.ts). Read at
+ * call time: parse-more.ts and parse.ts import each other.
+ */
+const coreTable = (): readonly (readonly [RegExp, Build])[] => [...PATTERNS, ...MORE_PATTERNS];
+
+/**
+ * The calls the first matching pattern of `table` builds. A pattern whose
+ * build throws is reported to `failed` and skipped.
+ */
+function matchRow(
+  table: readonly (readonly [RegExp, Build])[],
+  text: string,
+  beats: number,
+  failed: (error: unknown) => void,
+): FigureCall[] | undefined {
+  for (const [pattern, build] of table) {
     const m = text.match(pattern);
-    if (m) return build(m, beats);
+    if (!m) continue;
+    try {
+      return build(m, beats);
+    } catch (error) {
+      failed(error);
+    }
   }
   return undefined;
+}
+
+/**
+ * A row of two figures at once ("balance & centers Rory O'More right while
+ * ends turn over right shoulder"): the first figure as usual, its last part
+ * run together with the second (figures/meanwhile.ts). Undefined when the
+ * row is not of that shape or either part does not read.
+ */
+function splitMeanwhile(row: SourceRow, text: string): FigureCall[] | undefined {
+  const m = text.match(/^(.+?)(?:,? while |,? meanwhile |; meanwhile )(?:the )?(.+)$/);
+  if (!m) return undefined;
+  let first: FigureCall[];
+  try {
+    first = parseRow({ ...row, text: m[1] });
+  } catch {
+    return undefined;
+  }
+  const last = first.at(-1)!;
+  let second: FigureCall[];
+  try {
+    second = parseRow({ ...row, text: m[2], beats: last.beats });
+  } catch {
+    return undefined;
+  }
+  if (second.length !== 1) return undefined;
+  const label = canonicalText(row.text.replace(/⁋/g, '').replace(/\s+/g, ' ').trim());
+  return [
+    ...first.slice(0, -1),
+    {
+      move: 'meanwhile',
+      beats: last.beats,
+      params: {
+        first: { move: last.move, params: last.params },
+        second: { move: second[0].move, params: second[0].params },
+      },
+      text: first.length > 1 ? last.text : label,
+      ...(last.progression ? { progression: true } : {}),
+    },
+  ];
 }
 
 const ENTITIES: Readonly<Record<string, string>> = {

@@ -38,7 +38,9 @@ import { body, minorSets, pairsIn, roleOf, withChanges } from '../core/state.ts'
 /** Partners' distance apart while whirling. */
 const CLOSE = 0.6;
 /** Share of the figure spent opening out to the side places. */
-const OPEN = 0.25;
+const OPEN = 0.3;
+/** Share of the figure by which the whirl itself is done. */
+const WHIRL_END = 0.85;
 
 /** Couple facing with the robin on the lark's right: d = robin - lark. */
 const coupleYaw = (d: Vec2) => Math.atan2(d.z, -d.x);
@@ -81,7 +83,8 @@ export const butterflyWhirl: Figure<Record<string, never>> = (state, params, bea
   const motion = (beat: number) => {
     const t = beat / beats;
     const bodies = plans.flatMap((p) => {
-      const a = p.sweep * progress(t);
+      // The whirl slows to its end as the couple opens out to its places.
+      const a = p.sweep * progress(Math.min(1, t / WHIRL_END));
       const center = mix(p.c0, p.c1, smooth(t));
       const apart =
         t < 0.5

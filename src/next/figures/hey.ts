@@ -32,7 +32,7 @@
 import type { Role, Vec2 } from '../../types.ts';
 import type { Figure } from '../core/figure.ts';
 import { oneOf, onlyKeys, settle } from '../core/figure.ts';
-import { add, forward, heading, length, smooth, sub, turn } from '../core/math.ts';
+import { add, forward, heading, length, rotate, smooth, sub, turn } from '../core/math.ts';
 import {
   body,
   counterpart,
@@ -44,13 +44,40 @@ import {
 } from '../core/state.ts';
 
 export interface HeyParams {
-  /** Who makes the first pass: a role (in the middle) or a relationship (on the ends). */
-  start: 'robins' | 'larks' | 'partner' | 'neighbor';
+  /**
+   * Who makes the first pass: a role or a couple number (in the middle) or a
+   * relationship (on the ends).
+   */
+  start: 'robins' | 'larks' | '1s' | '2s' | 'partner' | 'neighbor';
   /** 0.5 for a half hey, 1 for a full hey. */
   amount: number;
   /** Shoulder passed in the middle; the ends pass by the other shoulder. */
   center: 'right' | 'left';
+  /**
+   * Ricochets: when these dancers meet in the middle for the `time`-th time
+   * (1 when not given), they do not pass; each turns back to the side it
+   * came from (see NAMED below).
+   */
+  ricochet?: readonly { who: 'robins' | 'larks' | '1s' | '2s'; time?: number }[];
+  /**
+   * "Until partners meet the second time": the hey goes on, pass after
+   * pass, until these dancers meet for the `time`-th time (1 when not
+   * given), and ends there, the two facing each other where they meet,
+   * everyone else on the hey where that leaves them. Replaces `amount`.
+   */
+  until?: { who: 'robins' | 'larks' | '1s' | '2s' | 'partner' | 'neighbor'; time?: number };
 }
+
+/**
+ * Dancers a hey can name for the middle. Ricochet (ContraDB "larks start a
+ * half hey - lefts in center, rights on ends - robins ricochet"): the two
+ * dancers who would pass in the middle walk in as if to pass, then each
+ * curls back away from the other, toward the side of the line its pass
+ * shoulder put it on, and walks back out the way it came. Everyone else
+ * dances the hey as usual, so the ricochet dancers meet the same end dancers
+ * again, by the ends' shoulder, and end on their own side.
+ */
+const NAMED = ['robins', 'larks', '1s', '2s'] as const;
 
 /** Distance between neighboring slots on the hey line. */
 const SPACING = 0.9;
@@ -66,9 +93,18 @@ const LAST_EXIT = 1.75;
 const JOIN = 0.25;
 /** The track must lead on from the dancer's place at least this much (a cosine) to join. */
 const AHEAD = 0.3;
+/** How much later than that (in passes) a dancer may join, looking for a track that leads on. */
+const JOIN_SEARCH = 0.6;
+/** An entry turning at most this fast (radians per beat) is gentle enough. */
+const GENTLE_TURN = 3.2;
 /** Samples used to keep a dancer's facing continuous on entry and exit. */
 const YAW_SAMPLES = 64;
 const SLOTS = [-1.5, -0.5, 0.5, 1.5];
+/**
+ * A ricochet loops back like an end dancer, centered this much short of its
+ * middle slot, so the two ricochet dancers stay apart.
+ */
+const RICOCHET_SHORT = 0.15;
 
 type Phase = 'center' | 'sides';
 
@@ -78,40 +114,118 @@ interface Track {
 }
 
 export const hey: Figure<HeyParams> = (state, params, beats) => {
-  onlyKeys('hey', params, ['start', 'amount', 'center']);
-  const start = oneOf('hey', 'start', params.start, [
-    'robins',
-    'larks',
-    'partner',
-    'neighbor',
-  ] as const);
+  onlyKeys('hey', params, ['start', 'amount', 'center', 'ricochet', 'until']);
+  const start = oneOf('hey', 'start', params.start, [...NAMED, 'partner', 'neighbor'] as const);
+  const ricochets = (params.ricochet ?? []).map((r) => ({
+    who: oneOf('hey', 'ricochet', r.who, NAMED),
+    time: r.time ?? 1,
+  }));
+  for (const r of ricochets)
+    if (!(Number.isInteger(r.time) && r.time >= 1))
+      throw new Error('A ricochet happens on a whole-numbered meeting, 1 or more.');
   const center = oneOf('hey', 'center', params.center, ['right', 'left'] as const);
-  if (params.amount !== 0.5 && params.amount !== 1)
+  const until = params.until && {
+    who: oneOf('hey', 'until', params.until.who, [...NAMED, 'partner', 'neighbor'] as const),
+    time: params.until.time ?? 1,
+  };
+  if (!until && params.amount !== 0.5 && params.amount !== 1)
     throw new Error('A hey goes half way (0.5) or all the way (1).');
-  if (beats < 6) throw new Error('A hey needs at least six beats.');
-  const passes = params.amount === 1 ? 8 : 4;
-  const first: Phase = start === 'robins' || start === 'larks' ? 'center' : 'sides';
-  const phases: Phase[] = Array.from({ length: passes }, (_, i) =>
-    (i % 2 === 0) === (first === 'center') ? 'center' : 'sides',
-  );
+  if (until && !(Number.isInteger(until.time) && until.time >= 1))
+    throw new Error('A hey ends on a whole-numbered meeting, 1 or more.');
+  if (beats < 4) throw new Error('A hey needs at least four beats.');
+  const first: Phase = (NAMED as readonly string[]).includes(start) ? 'center' : 'sides';
+  const phasesOf = (n: number): Phase[] =>
+    Array.from({ length: n }, (_, i) =>
+      (i % 2 === 0) === (first === 'center') ? 'center' : 'sides',
+    );
+
+  /**
+   * Slot orders at the start of each pass, which middle passes ricochet, and
+   * the pass where the `until` dancers meet the asked-for time.
+   */
+  const simulate = (group: readonly number[], order: number[], n: number) => {
+    const orders: number[][] = [order];
+    const ric: boolean[] = [];
+    const meetings = new Map<string, number>();
+    let met = 0;
+    let meet: number | undefined;
+    const pair = (a: number, b: number, w: string) =>
+      w === 'partner' || w === 'neighbor'
+        ? counterpart(state, a, w, group) === b
+        : isNamed(state, a, w) && isNamed(state, b, w);
+    phasesOf(n).forEach((phase, k) => {
+      const o = [...orders[k]];
+      ric.push(false);
+      const meeting: [number, number][] =
+        phase === 'center'
+          ? [[o[1], o[2]]]
+          : [
+              [o[0], o[1]],
+              [o[2], o[3]],
+            ];
+      if (until && meet === undefined && meeting.some(([a, b]) => pair(a, b, until.who))) {
+        met++;
+        if (met === until.time) meet = k;
+      }
+      if (phase === 'center') {
+        for (const r of ricochets) {
+          if (!pair(o[1], o[2], r.who)) continue;
+          const c = (meetings.get(r.who) ?? 0) + 1;
+          meetings.set(r.who, c);
+          if (c === r.time) ric[k] = true;
+        }
+        if (!ric[k]) [o[1], o[2]] = [o[2], o[1]];
+      } else [o[0], o[1], o[2], o[3]] = [o[1], o[0], o[3], o[2]];
+      if (k < n - 1) orders.push(o);
+    });
+    return { orders, ric, meetings, meet };
+  };
+
+  let passes = params.amount === 1 ? 8 : 4;
+  if (until) {
+    // As many passes as come before the meeting.
+    const group = minorSets(state)[0];
+    if (!group) throw new Error('A hey needs a group of four.');
+    const local = heyFrame(state, group).state;
+    const middle0 = groupCenter(local, group);
+    const { meet } = simulate(group, entryOrder(local, group, middle0, first, start), 24);
+    if (meet === undefined)
+      throw new Error(`The ${until.who} do not meet ${until.time} times in this hey.`);
+    if (meet < 2) throw new Error('A hey goes at least two passes before the meeting.');
+    passes = meet;
+  }
+  const phases = phasesOf(passes);
   const sign = center === 'right' ? 1 : -1;
-  // Even pass timing between an entry before the first gate and an exit after the last.
+  // Even pass timing between an entry before the first gate and an exit
+  // after the last. A hey that ends at a meeting walks on half a pass after
+  // its last one, slowing to a stop as the two meet.
   const short = Math.min(1, beats / 8);
   const firstGate = FIRST_GATE * short;
-  const unit = (beats - firstGate - LAST_EXIT * short) / (passes - 1);
+  const unit = until
+    ? (beats - firstGate) / passes
+    : (beats - firstGate - LAST_EXIT * short) / (passes - 1);
   const gate = (k: number) => firstGate + k * unit;
+  /** Track time at figure time t: a meeting hey slows to a stop over its last pass. */
+  const warp = (t: number) => {
+    if (!until || t <= beats - unit) return t;
+    const s = (t - (beats - unit)) / unit;
+    return beats - unit + unit * (s - (s * s) / 2);
+  };
 
   /** Track position and velocity (per beat) of whoever is in `slot` during pass `index`. */
-  const trackSlot = (index: number, slot: number, u: number): Track => {
+  const trackSlot = (index: number, slot: number, u: number, ric: readonly boolean[]): Track => {
     const phase = phases[index];
     const x0 = SLOTS[slot] * SPACING;
     const per = 1 / unit;
-    if (phase === 'center' && (slot === 0 || slot === 3)) {
-      // Ends loop around outside the line while the middle two pass.
-      const side = slot === 0 ? -1 : 1;
+    const middle = slot === 1 || slot === 2;
+    if (phase === 'center' && (!middle || ric[index])) {
+      // Ends loop around outside the line while the middle two pass; in a
+      // ricochet the middle two loop back too, a little short of the middle.
+      const side = slot === 0 || slot === 2 ? -1 : 1;
       const a = Math.PI * u;
+      const c = x0 - (middle ? side * RICOCHET_SHORT : 0);
       return {
-        p: { x: x0 + side * GATE * Math.sin(a), z: side * GATE * sign * Math.cos(a) },
+        p: { x: c + side * GATE * Math.sin(a), z: side * GATE * sign * Math.cos(a) },
         v: {
           x: side * GATE * Math.PI * Math.cos(a) * per,
           z: -side * GATE * sign * Math.PI * Math.sin(a) * per,
@@ -119,14 +233,18 @@ export const hey: Figure<HeyParams> = (state, params, beats) => {
       };
     }
     const direction = phase === 'center' ? (slot === 1 ? 1 : -1) : slot % 2 === 0 ? 1 : -1;
-    const outward = phase === 'sides' && (slot === 1 || slot === 2);
-    const inward = phase === 'sides' && !outward;
+    const outward = phase === 'sides' && middle;
     const target = phase === 'center' ? 3 - slot : slot + (slot % 2 === 0 ? 1 : -1);
+    // A sides pass starts from a loop (an end, or a ricochet just before)
+    // and may end in one (an end, or a ricochet next).
+    const fromLoop = phase === 'sides' && (!outward || (index > 0 && ric[index - 1]));
+    const intoLoop = phase === 'sides' && (outward || (index + 1 < passes && ric[index + 1]));
+    const short = (s: number) => (s === 1 ? -RICOCHET_SHORT : s === 2 ? RICOCHET_SHORT : 0);
     const X = quintic(
-      x0,
-      SLOTS[target] * SPACING,
-      direction * (inward ? GATE * Math.PI : SPACING),
-      direction * (outward ? GATE * Math.PI : SPACING),
+      x0 + (fromLoop && outward ? short(slot) : 0),
+      SLOTS[target] * SPACING + (intoLoop && !outward ? short(target) : 0),
+      direction * (fromLoop ? GATE * Math.PI : SPACING),
+      direction * (intoLoop ? GATE * Math.PI : SPACING),
       0,
       0,
       1,
@@ -140,40 +258,54 @@ export const hey: Figure<HeyParams> = (state, params, beats) => {
         v: GATE * sign * Math.PI * Math.sin(theta),
       };
     } else {
-      const z0 = inward ? direction * GATE * sign : 0;
-      const z1 = outward ? direction * GATE * sign : 0;
       const mid = direction * GATE * sign;
+      const z0 = fromLoop ? mid : 0;
+      const z1 = intoLoop ? mid : 0;
       const curl = -direction * GATE * sign * Math.PI * Math.PI;
       Z =
         u <= 0.5
-          ? quintic(z0, mid, outward ? -curl / Math.PI : 0, 0, inward ? curl : 0, 0, 0.5, u)
-          : quintic(mid, z1, 0, inward ? curl / Math.PI : 0, 0, outward ? curl : 0, 0.5, u - 0.5);
+          ? quintic(z0, mid, fromLoop ? 0 : -curl / Math.PI, 0, fromLoop ? curl : 0, 0, 0.5, u)
+          : quintic(
+              mid,
+              z1,
+              0,
+              intoLoop ? 0 : curl / Math.PI,
+              0,
+              intoLoop ? curl : 0,
+              0.5,
+              u - 0.5,
+            );
     }
     return { p: { x: X.p, z: Z.p }, v: { x: X.v * per, z: Z.v * per } };
   };
 
   const plans = minorSets(state).flatMap((group) => {
-    const middle = groupCenter(state, group);
-    const order = entryOrder(state, group, middle, first, start);
-    // Slot order at the start of each pass.
-    const orders: number[][] = [order];
-    for (const phase of phases.slice(0, -1)) {
-      const o = [...orders.at(-1)!];
-      if (phase === 'center') [o[1], o[2]] = [o[2], o[1]];
-      else [o[0], o[1], o[2], o[3]] = [o[1], o[0], o[3], o[2]];
-      orders.push(o);
+    // A hey on a diagonal runs in a frame turned to put its line across.
+    const frame = heyFrame(state, group);
+    const local = frame.state;
+    const middle = groupCenter(local, group);
+    const order = entryOrder(local, group, middle, first, start);
+    const { orders, ric, meetings } = simulate(group, order, passes);
+    for (const r of ricochets) {
+      if ((meetings.get(r.who) ?? 0) < r.time)
+        throw new Error(`The ${r.who} do not meet in the middle ${r.time} times in this hey.`);
     }
     const at = (id: number, t: number): Track => {
       const index = Math.max(0, Math.min(passes - 1, Math.floor((t - gate(0)) / unit + 0.5)));
-      const track = trackSlot(index, orders[index].indexOf(id), (t - gate(index)) / unit + 0.5);
+      const slot = orders[index].indexOf(id);
+      const track = trackSlot(index, slot, (t - gate(index)) / unit + 0.5, ric);
       return { p: add(middle, track.p), v: track.v };
     };
-    const places = endPlaces(state, group, middle, (id) => {
+    if (until)
+      return order.map((id) =>
+        frame.back(planDancer(local, id, middle, at, beats, passedAt(id), undefined)),
+      );
+    const places = endPlaces(local, group, middle, (id) => {
       const leave = passedAt(id).at(-1)!;
       return { now: at(id, leave).p, next: at(id, leave + unit / 2).p };
     });
     return order.map((id) =>
-      planDancer(state, id, middle, at, beats, passedAt(id), places.get(id)!),
+      frame.back(planDancer(local, id, middle, at, beats, passedAt(id), places.get(id)!)),
     );
 
     /** Gate beats of the passes this dancer makes (end loops are not passes). */
@@ -200,27 +332,46 @@ export const hey: Figure<HeyParams> = (state, params, beats) => {
     at: (id: number, t: number) => Track,
     total: number,
     gates: number[],
-    place: Vec2,
+    /** Where the dancer ends, or none: a meeting hey ends on the track. */
+    place: Vec2 | undefined,
   ) {
     const s = body(s0, id);
-    const join = joinBeat(s.position, (t) => at(id, t), gates[0] - (0.5 - JOIN) * unit);
     const leave = gates.at(-1)!;
-    const out = at(id, leave);
-    const across = heading(place, { x: middle.x, z: place.z });
-    // Set off late enough that the entry curve runs straight onto the track
-    // instead of looping to match the track's speed: a dancer close to the
-    // track waits in place a moment first.
-    const target = at(id, join);
-    const span = Math.min(
-      join,
-      Math.max(1, (2 * length(sub(target.p, s.position))) / length(target.v)),
-    );
-    const setOff = join - span;
-    const curve = hermite(s.position, { x: 0, z: 0 }, target, span);
-    const entry = (t: number) => curve(t - setOff);
-    const exit = hermite(out.p, out.v, { p: place, v: { x: 0, z: 0 } }, total - leave);
-    const facingCurve = facing(s.yaw, curve, span);
-    const entryYaw = (t: number) => (t <= setOff ? s.yaw : facingCurve(t - setOff));
+    const preferred = gates[0] - (0.5 - JOIN) * unit;
+    const entryAt = (join: number) => {
+      // Set off late enough that the entry curve runs straight onto the track
+      // instead of looping to match the track's speed: a dancer close to the
+      // track waits in place a moment first.
+      const target = at(id, join);
+      const span = Math.min(
+        join,
+        Math.max(1, (2 * length(sub(target.p, s.position))) / length(target.v)),
+      );
+      const setOff = join - span;
+      const curve = hermite(s.position, { x: 0, z: 0 }, target, span);
+      const facingCurve = facing(s.yaw, curve, span);
+      return {
+        join,
+        entry: (t: number) => curve(t - setOff),
+        entryYaw: (t: number) => (t <= setOff ? s.yaw : facingCurve(t - setOff)),
+      };
+    };
+    // Join where the track leads on from the dancer's place; failing that,
+    // at the first beat where the entry turns gently enough (or, if none
+    // does, where it turns least sharply).
+    const ahead = joinBeat(s.position, (t) => at(id, t), preferred);
+    // Join a quarter pass before the last pass at the latest (before the
+    // only pass is half over, for a dancer who passes once).
+    const latest =
+      gates.length > 1 ? (place ? leave : total - unit) - 0.25 * unit : gates[0] + 0.25 * unit;
+    const candidates = Array.from({ length: 21 }, (_, k) => preferred + k * 0.05 * unit)
+      .filter((t, k) => k === 0 || t < latest)
+      .map(entryAt);
+    const { join, entry, entryYaw } =
+      ahead !== undefined
+        ? entryAt(ahead)
+        : (candidates.find((e) => peakTurn(e) <= GENTLE_TURN) ??
+          candidates.reduce((best, e) => (peakTurn(e) < peakTurn(best) ? e : best)));
     const joinYaw = entryYaw(join);
     const trackYaw = (t: number) => {
       const v = at(id, t).v;
@@ -228,7 +379,15 @@ export const hey: Figure<HeyParams> = (state, params, beats) => {
     };
     // Facing stays continuous: the track heading on the branch the entry reached.
     const onTrackYaw = (t: number) => joinYaw + unwrap(trackYaw, join, t);
+    if (!place)
+      return (t: number) =>
+        t <= join
+          ? { id, position: entry(t).p, yaw: entryYaw(t) }
+          : { id, position: at(id, warp(t)).p, yaw: onTrackYaw(warp(t)) };
     // Out of the last pass, turn straight to face across while curving into place.
+    const out = at(id, leave);
+    const across = heading(place, { x: middle.x, z: place.z });
+    const exit = hermite(out.p, out.v, { p: place, v: { x: 0, z: 0 } }, total - leave);
     const leaveYaw = onTrackYaw(leave);
     const exitYaw = (t: number) =>
       leaveYaw + turn(across, leaveYaw) * smooth(t / Math.max(total - leave, 1e-9));
@@ -244,13 +403,21 @@ export const hey: Figure<HeyParams> = (state, params, beats) => {
    * or later in that pass if the track there still runs back toward the
    * dancer's place (joining there would mean walking out and turning back).
    */
-  function joinBeat(from: Vec2, at: (t: number) => Track, preferred: number): number {
-    for (let t = preferred; t <= preferred + 0.6 * unit; t += 0.05 * unit) {
+  function joinBeat(from: Vec2, at: (t: number) => Track, preferred: number) {
+    for (let t = preferred; t <= preferred + JOIN_SEARCH * unit; t += 0.05 * unit) {
       const { p, v } = at(t);
       const way = sub(p, from);
       if ((way.x * v.x + way.z * v.z) / (length(way) * length(v) + 1e-9) >= AHEAD) return t;
     }
-    return preferred;
+    return undefined;
+  }
+
+  /** Fastest turn (radians per beat) along an entry, up to where it joins the track. */
+  function peakTurn(e: { join: number; entryYaw: (t: number) => number }) {
+    let peak = 0;
+    for (let t = 0.05; t <= e.join; t += 0.05)
+      peak = Math.max(peak, Math.abs(e.entryYaw(t) - e.entryYaw(t - 0.05)) / 0.05);
+    return peak;
   }
 };
 
@@ -268,9 +435,10 @@ function entryOrder(
 ): number[] {
   const side = (id: number) => body(state, id).position.x - middle.x;
   const ofRole = (role: Role) => group.filter((id) => roleOf(state, id) === role);
-  let role: Role;
+  let mids: number[];
   if (first === 'center') {
-    role = start === 'larks' ? 'lark' : 'robin';
+    mids = group.filter((id) => isNamed(state, id, start));
+    if (mids.length !== 2) throw new Error(`A hey needs two ${start} in the middle.`);
   } else {
     // The middle two walk out to meet the ends: the role nearer the middle
     // of the set, or (all in places) the role facing more toward the sides.
@@ -280,10 +448,10 @@ function entryOrder(
     const nearer = off('robin') - off('lark');
     const looking = out('lark') - out('robin');
     const lean = Math.abs(nearer) > 0.1 ? nearer : Math.abs(looking) > 0.1 ? looking : 0;
-    role = lean >= 0 ? 'lark' : 'robin';
+    const role: Role = lean >= 0 ? 'lark' : 'robin';
+    mids = ofRole(role);
+    if (mids.length !== 2) throw new Error(`A hey needs two ${role}s in the middle.`);
   }
-  const mids = ofRole(role);
-  if (mids.length !== 2) throw new Error(`A hey needs two ${role}s in the middle.`);
   if (Math.sign(side(mids[0])) === Math.sign(side(mids[1])))
     throw new Error('The dancers in the middle of a hey must start on opposite sides of the set.');
   const [westMid, eastMid] = side(mids[0]) < side(mids[1]) ? mids : [mids[1], mids[0]];
@@ -305,6 +473,61 @@ function entryOrder(
   )
     throw new Error('A hey needs one dancer at each end of the line, one on each side.');
   return [westEnd, westMid, eastMid, eastEnd];
+}
+
+/**
+ * The frame a group's hey runs in. The track runs across the set (along x);
+ * when the group's two couples face each other on a diagonal (their centers
+ * 25 to 65 degrees off across, as on a diagonal regrouping), the group is
+ * turned about its middle so they face across, and each dancer's motion is
+ * turned back afterward.
+ */
+function heyFrame(state: DanceState, group: readonly number[]) {
+  const identity = { state, back: (plan: (t: number) => Moved) => plan };
+  const couples = group.filter((id) => roleOf(state, id) === 'lark');
+  const partner = (id: number) => state.relations.get('partner')?.get(id);
+  if (couples.length !== 2 || couples.some((id) => !group.includes(partner(id) ?? -1)))
+    return identity;
+  const center = (id: number) => {
+    const a = body(state, id).position;
+    const b = body(state, partner(id)!).position;
+    return { x: (a.x + b.x) / 2, z: (a.z + b.z) / 2 };
+  };
+  const gap = sub(center(couples[1]), center(couples[0]));
+  if (length(gap) < 0.8) return identity;
+  // Angle off the x axis, folded to (-90, 90] degrees.
+  let angle = Math.atan2(gap.z, gap.x);
+  if (angle > Math.PI / 2) angle -= Math.PI;
+  if (angle <= -Math.PI / 2) angle += Math.PI;
+  const degrees = Math.abs((angle * 180) / Math.PI);
+  if (degrees < 25 || degrees > 65) return identity;
+  const middle = groupCenter(state, group);
+  const turnBy = (p: Vec2, a: number) => add(middle, rotate(sub(p, middle), a));
+  const bodies = new Map(state.bodies);
+  for (const id of group) {
+    const b = body(state, id);
+    bodies.set(id, { position: turnBy(b.position, -angle), yaw: b.yaw + angle });
+  }
+  return {
+    state: withChanges(state, { bodies }),
+    back: (plan: (t: number) => Moved) => (t: number) => {
+      const m = plan(t);
+      return { id: m.id, position: turnBy(m.position, angle), yaw: m.yaw - angle };
+    },
+  };
+}
+
+interface Moved {
+  readonly id: number;
+  readonly position: Vec2;
+  readonly yaw: number;
+}
+
+/** Whether `who` (a role group or a position label such as "1s") names dancer `id`. */
+function isNamed(state: DanceState, id: number, who: string): boolean {
+  if (who === 'larks' || who === 'robins')
+    return roleOf(state, id) === (who === 'larks' ? 'lark' : 'robin');
+  return state.positions.get(who)?.includes(id) ?? false;
 }
 
 /**

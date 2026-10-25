@@ -1,4 +1,4 @@
-{ "schema": "contra-studio/next-dance", "version": 2, "id": "3210", "title": "Opus 4.6.4", "author": "Every Choreographer on Callers Box", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/3210", "formation": "improper", "retrievedAt": "2026-10-20T06:07:44.220Z", "sha256": "b69382a2448b386a20de261dd975f570c81b57bbbf3546d207ad0b993a9c9b0a" }, "status": "partial", "problems": [ "Row 7 \"robins pull by right across\" isn't drawn yet." ], "unparsed": [ { "row": 7, "text": "robins pull by right across", "why": "No figure pattern matches \"ladles pull by right across\"." } ], "choices": [ "A balance with a partner or neighbor holds both hands." ],
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "3210", "title": "Opus 4.6.4", "author": "Every Choreographer on Callers Box", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/3210", "formation": "improper", "retrievedAt": "2026-10-20T06:07:44.220Z", "sha256": "b69382a2448b386a20de261dd975f570c81b57bbbf3546d207ad0b993a9c9b0a" }, "status": "check", "problems": [ "Couples don't end the round where the progression puts them." ], "unparsed": [], "choices": [ "A balance with a partner or neighbor holds both hands." ],
  "figures": [
   {"move":"allemande","beats":8,"params":{"who":"neighbor","hand":"right","amount":1.5},"text":"neighbors allemande right 1½","section":"A1","row":1},
   {"move":"hey","beats":8,"params":{"start":"larks","amount":0.5,"center":"left"},"text":"larks start a half hey - lefts in center, rights on ends","section":"A1","row":2},
@@ -7,7 +7,7 @@
   {"move":"circle","beats":8,"params":{"direction":"left","places":3},"text":"circle left 3 places","section":"B1","row":4},
   {"move":"swing","beats":8,"params":{"who":"partner"},"text":"partners swing","section":"B1","row":5},
   {"move":"promenade","beats":8,"params":{"who":"partner"},"text":"partners promenade","section":"B2","row":6},
-  {"move":"hold","beats":4,"params":{"reason":"unparsed"},"text":"robins pull by right across","section":"B2","row":7},
+  {"move":"pass-by","beats":4,"params":{"who":"robins","shoulder":"right","hands":true},"text":"robins pull by right across","section":"B2","row":7},
   {"move":"allemande","beats":4,"params":{"who":"neighbor","hand":"left","amount":0.75},"text":"neighbors allemande left ¾","progression":true,"section":"B2","row":8}
  ]
 }

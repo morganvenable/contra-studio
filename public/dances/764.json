@@ -1,4 +1,4 @@
-{ "schema": "contra-studio/next-dance", "version": 2, "id": "764", "title": "E6", "author": "Robert Cromartie", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/764", "formation": "improper", "retrievedAt": "2026-10-20T05:54:23.490Z", "sha256": "9785324e05e13fca5702bee76c73fb397b9de2a5187077836e559e2232b12fc2" }, "status": "partial", "problems": [ "Row 8 \"twos arch ones dive to next couple\" isn't drawn yet." ], "unparsed": [ { "row": 8, "text": "twos arch ones dive to next couple", "why": "No figure pattern matches \"twos arch ones dive to next couple ⁋\"." } ], "choices": [ "A balance with a partner or neighbor holds both hands." ],
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "764", "title": "E6", "author": "Robert Cromartie", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/764", "formation": "improper", "retrievedAt": "2026-10-20T05:54:23.490Z", "sha256": "9785324e05e13fca5702bee76c73fb397b9de2a5187077836e559e2232b12fc2" }, "status": "ok", "problems": [], "unparsed": [], "choices": [ "A balance with a partner or neighbor holds both hands." ],
  "figures": [
   {"move":"balance","beats":4,"params":{"formation":"pair","who":"neighbor","hand":"both"},"text":"neighbors balance & swing · balance","section":"A1","row":1},
   {"move":"swing","beats":12,"params":{"who":"neighbor"},"text":"neighbors balance & swing · swing","section":"A1","row":1},
@@ -8,6 +8,6 @@
   {"move":"swing","beats":8,"params":{"who":"partner"},"text":"partners swing","section":"B1","row":5},
   {"move":"circle","beats":8,"params":{"direction":"left","places":3},"text":"circle left 3 places","section":"B2","row":6},
   {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance the ring","section":"B2","row":7},
-  {"move":"hold","beats":4,"params":{"reason":"unparsed"},"text":"twos arch ones dive to next couple","section":"B2","row":8,"progression":true}
+  {"move":"arch-dive","beats":4,"params":{"arch":"2s","dive":"1s"},"text":"twos arch ones dive to next couple","progression":true,"section":"B2","row":8}
  ]
 }

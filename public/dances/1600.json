@@ -1,4 +1,4 @@
-{ "schema": "contra-studio/next-dance", "version": 2, "id": "1600", "title": "One in the Hand (slight variation)", "author": "John Coffman", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 24 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/1600", "formation": "improper", "retrievedAt": "2026-10-20T06:07:30.126Z", "sha256": "a5aee96163a58c9bdde9dbb623de29eb15799ecc72470ba06653a3a4f038f5c9" }, "status": "partial", "problems": [ "Row 9 \"balance & petronella - twirl a little extra to face next neighbors\" isn't drawn yet." ], "unparsed": [ { "row": 9, "text": "balance & petronella - twirl a little extra to face next neighbors", "why": "No figure pattern matches \"balance & petronella - twirl a little extra to face next neighbors ⁋\"." } ], "choices": [ "A balance with a partner or neighbor holds both hands." ],
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "1600", "title": "One in the Hand (slight variation)", "author": "John Coffman", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 24 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/1600", "formation": "improper", "retrievedAt": "2026-10-20T06:07:30.126Z", "sha256": "a5aee96163a58c9bdde9dbb623de29eb15799ecc72470ba06653a3a4f038f5c9" }, "status": "ok", "problems": [], "unparsed": [], "choices": [ "A balance with a partner or neighbor holds both hands." ],
  "figures": [
   {"move":"balance","beats":4,"params":{"formation":"pair","who":"neighbor","hand":"both"},"text":"neighbors balance & swing · balance","section":"A1","row":1},
   {"move":"swing","beats":12,"params":{"who":"neighbor"},"text":"neighbors balance & swing · swing","section":"A1","row":1},
@@ -12,6 +12,7 @@
   {"move":"swing","beats":12,"params":{"who":"neighbor"},"text":"neighbors balance & swing · swing","section":"B2","row":7},
   {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance & petronella · balance","section":"B2","row":8},
   {"move":"petronella","beats":4,"params":{},"text":"balance & petronella · petronella","section":"B2","row":8},
-  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"balance & petronella - twirl a little extra to face next neighbors","section":"B2","row":9,"progression":true}
+  {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance & petronella - twirl a little extra to face next neighbors · balance","section":"B2","row":9},
+  {"move":"petronella","beats":4,"params":{},"text":"balance & petronella - twirl a little extra to face next neighbors · petronella","progression":true,"section":"B2","row":9}
  ]
 }

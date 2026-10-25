@@ -32,24 +32,35 @@ import {
   turn,
 } from '../core/math.ts';
 import { roleOfGroup } from '../core/roles.ts';
-import { body, minorSets, partnerOf, roleOf, withChanges } from '../core/state.ts';
+import { body, minorSets, partnerOf, related, roleOf, withChanges } from '../core/state.ts';
 
 export interface StarPromenadeParams {
   hand: 'left' | 'right';
   /** Who stands in the middle; by default larks for left, robins for right. */
   center?: 'larks' | 'robins';
+  /** Who walks on the outside with each center dancer: partners unless named ("larks pick up neighbor"). */
+  pair?: 'partner' | 'neighbor';
   /** Times around: 0.5 is halfway. */
   amount: number;
 }
 
 /** Distance from the middle to each center dancer, and to their partner. */
-export const INNER = 0.35;
-export const OUTER = 0.95;
-/** Share of the figure spent stepping into the star promenade. */
-const ENTRY = 0.25;
+export const INNER = 0.45;
+export const OUTER = 1.0;
+/**
+ * Beats spent stepping into the star promenade, and the most of the figure
+ * that may take: a short star promenade steps in over most of it, a long one
+ * settles into the star sooner.
+ */
+const ENTRY_BEATS = 2.4;
+const ENTRY_SHARE = 0.6;
 
 export const starPromenade: Figure<StarPromenadeParams> = (state, params, beats) => {
-  onlyKeys('star promenade', params, ['hand', 'center', 'amount']);
+  onlyKeys('star promenade', params, ['hand', 'center', 'amount', 'pair']);
+  const pairName = oneOf('star promenade', 'pair', params.pair ?? 'partner', [
+    'partner',
+    'neighbor',
+  ] as const);
   const hand = oneOf('star promenade', 'hand', params.hand, ['left', 'right'] as const);
   const centerName = oneOf(
     'star promenade',
@@ -70,7 +81,8 @@ export const starPromenade: Figure<StarPromenadeParams> = (state, params, beats)
     const inner = g.filter((id) => roleOf(state, id) === role);
     if (inner.length !== 2) throw new Error(`A star promenade needs two ${centerName}.`);
     const couples = inner.map((c) => {
-      const partner = partnerOf(state, c);
+      const partner = pairName === 'partner' ? partnerOf(state, c) : related(state, 'neighbor', c);
+      if (partner === undefined) throw new Error('Each center dancer needs a neighbor here.');
       if (!g.includes(partner)) throw new Error('Partners must be in the same minor set.');
       const at = mean([body(state, c).position, body(state, partner).position]);
       return { c, partner, angle: polar(sub(at, middle)) };
@@ -88,10 +100,11 @@ export const starPromenade: Figure<StarPromenadeParams> = (state, params, beats)
   const walkYaw = (angle: number) =>
     heading({ x: 0, z: 0 }, rotate(ray(angle), (sign * Math.PI) / 2));
 
+  const entry = Math.min(ENTRY_SHARE, ENTRY_BEATS / beats);
   const motion = (beat: number) => {
     const t = beat / beats;
     const a = sweep * progress(t);
-    const inStep = smooth(t / ENTRY);
+    const inStep = smooth(t / entry);
     const bodies = plans.flatMap((p) =>
       p.couples.flatMap(({ c, partner, angle }) =>
         [
@@ -110,7 +123,7 @@ export const starPromenade: Figure<StarPromenadeParams> = (state, params, beats)
       ),
     );
     const map = bodyMap(bodies);
-    const strength = smooth((t - ENTRY * 0.6) / (ENTRY * 0.4)) * smooth((1 - t) / 0.08);
+    const strength = smooth((t - entry * 0.6) / (entry * 0.4)) * smooth((1 - t) / 0.08);
     const contacts: FigureContact[] = plans.flatMap((p) => [
       withinReach(
         {

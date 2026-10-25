@@ -18,6 +18,7 @@ import type { Vec2 } from '../../types.ts';
 import { SET } from './config.ts';
 import { dot, forward, mean, sub } from './math.ts';
 import { body, partnerOf, type DanceState, type WaitingCouple, withChanges } from './state.ts';
+import { acrossCouples, rebindAcross } from './progression-across.ts';
 
 export interface Progression {
   readonly kind:
@@ -83,11 +84,21 @@ export const MINOR_SET_PROGRESSION: Progression = {
     // Partners facing the same way find the couple they face. Partners who
     // do not (out of a star, or a ring balance and California twirl) find
     // the couple standing square to them one place away that they did not
-    // just dance with.
+    // just dance with; failing that, partners standing across the set from
+    // each other find the couple beside them along the set
+    // (progression-across.ts).
     const aligned = [...couples].every(
       ([, spot]) => dot(spot.facing, forward(body(state, spot.robin).yaw)) >= 0.9,
     );
-    if (!aligned) return rebindByPlace(state, couples);
+    if (!aligned) {
+      try {
+        return rebindByPlace(state, couples);
+      } catch (error) {
+        const across = acrossCouples(state);
+        if (across) return rebindAcross(state, across);
+        throw error;
+      }
+    }
     const neighbor = new Map<number, number>();
     const groups: number[][] = [];
     for (const [c, me] of couples) {

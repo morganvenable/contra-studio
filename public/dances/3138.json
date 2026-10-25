@@ -1,4 +1,4 @@
-{ "schema": "contra-studio/next-dance", "version": 2, "id": "3138", "title": "Honey variation", "author": "Don Flaherty", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/3138", "formation": "improper", "sha256": "7bf5e5dca0854fe30b20b000cf1f581946730b7fa122e559a7c688522aa82500" }, "status": "partial", "problems": [ "Row 7 \"star left 4 places to next couple\" isn't drawn yet." ], "unparsed": [ { "row": 7, "text": "star left 4 places to next couple", "why": "No figure pattern matches \"star left 4 places to next couple ⁋\"." } ], "choices": [ "A balance with a partner or neighbor holds both hands." ],
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "3138", "title": "Honey variation", "author": "Don Flaherty", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/3138", "formation": "improper", "sha256": "7bf5e5dca0854fe30b20b000cf1f581946730b7fa122e559a7c688522aa82500" }, "status": "ok", "problems": [], "unparsed": [], "choices": [ "A balance with a partner or neighbor holds both hands.", "A star with no grip named is a basket star (wrist grip)." ],
  "figures": [
   {"move":"do-si-do","beats":8,"params":{"who":"robins","amount":1,"shoulder":"right"},"text":"robins do si do once","section":"A1","row":1},
   {"move":"do-si-do","beats":8,"params":{"who":"larks","amount":1,"shoulder":"right"},"text":"larks do si do once","section":"A1","row":2},
@@ -7,6 +7,6 @@
   {"move":"circle","beats":8,"params":{"direction":"left","places":3},"text":"circle left 3 places","section":"B1","row":4},
   {"move":"swing","beats":8,"params":{"who":"partner"},"text":"partners swing","section":"B1","row":5},
   {"move":"chain","beats":8,"params":{"who":"robins"},"text":"robins chain","section":"B2","row":6},
-  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"star left 4 places to next couple","section":"B2","row":7,"progression":true}
+  {"move":"star","beats":8,"params":{"hand":"left","places":4},"text":"star left 4 places to next couple","progression":true,"section":"B2","row":7}
  ]
 }

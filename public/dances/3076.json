@@ -1,13 +1,13 @@
-{ "schema": "contra-studio/next-dance", "version": 2, "id": "3076", "title": "Wings are for Theft", "author": "Jeremy Steinberg", "formation": "becket", "progression": "minor-set", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/3076", "formation": "Becket", "retrievedAt": "2026-10-20T06:23:30.781Z", "sha256": "77e8e4e23543b976a9c0d9422eb37071ec031ae5262acce7ef67479d4b8c9ae0" }, "status": "partial", "problems": [ "Row 4 \"robins turn back over right shoulders\" isn't drawn yet.", "Row 8 \"larks turn back over right shoulders\" isn't drawn yet." ], "unparsed": [ { "row": 4, "text": "robins turn back over right shoulders", "why": "No figure pattern matches \"ladles turn back over right shoulders\"." }, { "row": 8, "text": "larks turn back over right shoulders", "why": "No figure pattern matches \"gentlespoons turn back over right shoulders\"." } ], "choices": [ "A star with no grip named is a basket star (wrist grip).", "A meltdown swing starts with 4 beats of right-shoulder round, then swings." ],
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "3076", "title": "Wings are for Theft", "author": "Jeremy Steinberg", "formation": "becket", "progression": "minor-set", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/3076", "formation": "Becket", "retrievedAt": "2026-10-20T06:23:30.781Z", "sha256": "77e8e4e23543b976a9c0d9422eb37071ec031ae5262acce7ef67479d4b8c9ae0" }, "status": "ok", "problems": [], "unparsed": [], "choices": [ "A star with no grip named is a basket star (wrist grip).", "A meltdown swing starts with 4 beats of right-shoulder round, then swings." ],
  "figures": [
   {"move":"slide","beats":2,"params":{"direction":"left"},"text":"slide left along set","progression":true,"section":"A1","row":1},
   {"move":"chain","beats":6,"params":{"who":"robins"},"text":"robins chain","section":"A1","row":2},
   {"move":"star","beats":8,"params":{"hand":"left","places":4},"text":"star left 4 places","section":"A1","row":3},
-  {"move":"hold","beats":2,"params":{"reason":"unparsed"},"text":"robins turn back over right shoulders","section":"A2","row":4},
+  {"move":"turn-back","beats":2,"params":{"who":"robins","shoulder":"right"},"text":"robins turn back over right shoulders","section":"A2","row":4},
   {"move":"swing","beats":14,"params":{"who":"neighbor","meltdown":true},"text":"neighbors meltdown swing","section":"A2","row":5},
   {"move":"right-left-through","beats":8,"params":{},"text":"right left through","section":"B1","row":6},
   {"move":"star","beats":8,"params":{"hand":"left","places":3},"text":"star left 3 places","section":"B1","row":7},
-  {"move":"hold","beats":2,"params":{"reason":"unparsed"},"text":"larks turn back over right shoulders","section":"B2","row":8},
+  {"move":"turn-back","beats":2,"params":{"who":"larks","shoulder":"right"},"text":"larks turn back over right shoulders","section":"B2","row":8},
   {"move":"swing","beats":14,"params":{"who":"partner","meltdown":true},"text":"partners meltdown swing","section":"B2","row":9}
  ]
 }

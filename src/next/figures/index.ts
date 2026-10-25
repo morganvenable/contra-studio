@@ -37,6 +37,18 @@ import { starPromenade } from './star-promenade.ts';
 import { swing } from './swing.ts';
 import { turnAlone } from './turn-alone.ts';
 import { twirl } from './twirl.ts';
+import { revolvingDoor } from './revolving-door.ts';
+import { figureEight } from './figure-eight.ts';
+import { zigZag } from './zig-zag.ts';
+import { gate } from './gate.ts';
+import { archDive, contraCorners } from './two-readings.ts';
+import { madRicochet } from './mad-ricochet.ts';
+import { starThru } from './star-thru.ts';
+import { dolphinHey } from './dolphin-hey.ts';
+import { turnBack } from './turn-back.ts';
+import { circularHey } from './circular-hey.ts';
+import { makeMeanwhile } from './meanwhile.ts';
+import { chevron } from './chevron.ts';
 
 const BASE: FigureRegistry = {
   allemande,
@@ -74,6 +86,20 @@ const BASE: FigureRegistry = {
   'ring-promenade': ringPromenade,
   still,
   ...MORE_FIGURES,
+  'revolving-door': revolvingDoor,
+  'figure-eight': figureEight,
+  'zig-zag': zigZag,
+  gate,
+  'mad-ricochet': madRicochet,
+  'star-thru': starThru,
+  'dolphin-hey': dolphinHey,
+  'turn-back': turnBack,
+  'circular-hey': circularHey,
+  meanwhile: makeMeanwhile(() => FIGURES),
+  chevron,
+  // Two readings under one name, after MORE_FIGURES so they win (two-readings.ts).
+  'arch-dive': archDive,
+  'contra-corners': contraCorners,
 };
 
 /** Every figure, each also able to run on a diagonal (core/diagonal.ts). */

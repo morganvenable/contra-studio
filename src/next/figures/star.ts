@@ -29,7 +29,7 @@ import {
   turn,
 } from '../core/math.ts';
 import { findRing } from '../core/ring.ts';
-import { body, minorSets, withChanges } from '../core/state.ts';
+import { body, minorSets, roleOf, withChanges } from '../core/state.ts';
 
 /** The grip when the source names none: the basket star (wrist grip). */
 export const DEFAULT_STAR_GRIP: 'hands-across' | 'wrist' = 'wrist';
@@ -38,6 +38,12 @@ export interface StarParams {
   hand: 'right' | 'left';
   places: number;
   grip?: 'hands-across' | 'wrist';
+  /**
+   * A facing star ("facing star clockwise 3 places with robins putting their
+   * left hands in and backing up"): these dancers face the other way and
+   * back up around the star, their other hand in the middle.
+   */
+  backing?: 'larks' | 'robins';
 }
 
 /** Distance from each dancer to the center while starring. */
@@ -47,14 +53,22 @@ const EDGE = 0.15;
 const FACE_BEATS = 1.5;
 
 export const star: Figure<StarParams> = (state, params, beats) => {
-  onlyKeys('star', params, ['hand', 'places', 'grip']);
+  onlyKeys('star', params, ['hand', 'places', 'grip', 'backing']);
+  const backing =
+    params.backing === undefined
+      ? undefined
+      : oneOf('star', 'backing', params.backing, ['larks', 'robins'] as const);
+  const backs = (id: number) =>
+    backing !== undefined && roleOf(state, id) === (backing === 'larks' ? 'lark' : 'robin');
+  const other = (h: 'right' | 'left') => (h === 'right' ? 'left' : 'right');
   const hand = oneOf('star', 'hand', params.hand, ['right', 'left'] as const);
   const grip = oneOf('star', 'grip', params.grip ?? DEFAULT_STAR_GRIP, [
     'hands-across',
     'wrist',
   ] as const);
-  if (!(Number.isInteger(params.places) && params.places >= 1 && params.places <= 8))
-    throw new Error('A star goes a whole number of places, 1 to 8.');
+  // Half places end on a diamond ("star left 7/8": 3½ places).
+  if (!(Number.isInteger(params.places * 2) && params.places >= 0.5 && params.places <= 8))
+    throw new Error('A star goes a whole or half number of places, ½ to 8.');
   // Right hands in the middle: walking clockwise, increasing polar angle.
   const sign = hand === 'right' ? 1 : -1;
 
@@ -67,23 +81,21 @@ export const star: Figure<StarParams> = (state, params, beats) => {
       grip === 'wrist'
         ? ring.order.map((id, i) => ({
             a: id,
-            handA: hand,
+            handA: backs(id) ? other(hand) : hand,
             b: ahead(i),
-            handB: hand,
+            handB: backs(ahead(i)) ? other(hand) : hand,
             kind: 'joined',
             target: 'wrist',
             strength: 1,
           }))
-        : ring.order
-            .slice(0, n / 2)
-            .map((id, i) => ({
-              a: id,
-              handA: hand,
-              b: ring.order[i + n / 2],
-              handB: hand,
-              kind: 'joined',
-              strength: 1,
-            }));
+        : ring.order.slice(0, n / 2).map((id, i) => ({
+            a: id,
+            handA: backs(id) ? other(hand) : hand,
+            b: ring.order[i + n / 2],
+            handB: backs(ring.order[i + n / 2]) ? other(hand) : hand,
+            kind: 'joined',
+            strength: 1,
+          }));
     if (grip === 'hands-across' && n % 2) throw new Error('Hands across needs an even number.');
     return { ...ring, sweep, contacts };
   });
@@ -99,7 +111,8 @@ export const star: Figure<StarParams> = (state, params, beats) => {
         const r = r0 + (STAR_RADIUS - r0) * inward;
         const angle = s.sweep * progress(t);
         const position = add(s.center, rotate(scale(rel, r / r0), angle));
-        const walk = rotate(rel, (sign * Math.PI) / 2);
+        // Dancers backing up face against the way they walk.
+        const walk = rotate(rel, ((backs(id) ? -sign : sign) * Math.PI) / 2);
         const tangent = heading(b.position, add(b.position, walk));
         const yaw = b.yaw + turn(tangent, b.yaw) * smooth(beat / FACE_BEATS) - angle;
         return { id, position, yaw };

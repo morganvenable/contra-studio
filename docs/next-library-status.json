@@ -4,42 +4,42 @@
  "catalogue": 2422,
  "stored": 2422,
  "counts": {
-  "ok": 323,
-  "check": 128,
-  "partial": 1971,
+  "ok": 422,
+  "check": 168,
+  "partial": 1832,
   "unsupported": 0
  },
  "formations": [
   {
    "formation": "improper",
    "dances": 1189,
-   "ok": 232,
-   "check": 38,
-   "partial": 919,
+   "ok": 317,
+   "check": 44,
+   "partial": 828,
    "unsupported": 0
   },
   {
    "formation": "becket",
    "dances": 655,
-   "ok": 23,
-   "check": 53,
-   "partial": 579,
+   "ok": 34,
+   "check": 74,
+   "partial": 547,
    "unsupported": 0
   },
   {
    "formation": "becket ccw",
    "dances": 169,
    "ok": 0,
-   "check": 12,
-   "partial": 157,
+   "check": 24,
+   "partial": 145,
    "unsupported": 0
   },
   {
    "formation": "proper",
    "dances": 50,
    "ok": 1,
-   "check": 0,
-   "partial": 49,
+   "check": 1,
+   "partial": 48,
    "unsupported": 0
   },
   {
@@ -85,16 +85,16 @@
   {
    "formation": "indecent",
    "dances": 19,
-   "ok": 1,
+   "ok": 2,
    "check": 1,
-   "partial": 17,
+   "partial": 16,
    "unsupported": 0
   },
   {
    "formation": "duple neutral",
    "dances": 16,
-   "ok": 3,
-   "check": 1,
+   "ok": 4,
+   "check": 0,
    "partial": 12,
    "unsupported": 0
   },
@@ -158,8 +158,8 @@
    "formation": "progressed improper",
    "dances": 4,
    "ok": 0,
-   "check": 1,
-   "partial": 3,
+   "check": 2,
+   "partial": 2,
    "unsupported": 0
   },
   {
@@ -541,9 +541,9 @@
   {
    "formation": "becket ccwkoi",
    "dances": 1,
-   "ok": 0,
+   "ok": 1,
    "check": 0,
-   "partial": 1,
+   "partial": 0,
    "unsupported": 0
   },
   {
@@ -1098,179 +1098,169 @@
  "blockers": {
   "missingFigures": [
    {
-    "name": "ocean wave / long wave",
-    "unlocks": 59,
-    "uses": 289
-   },
-   {
     "name": "allemande variant",
-    "unlocks": 55,
-    "uses": 343
+    "unlocks": 78,
+    "uses": 342
    },
    {
-    "name": "ricochet hey",
-    "unlocks": 38,
-    "uses": 164
-   },
-   {
-    "name": "star variant",
-    "unlocks": 37,
-    "uses": 201
-   },
-   {
-    "name": "petronella",
-    "unlocks": 33,
-    "uses": 130
-   },
-   {
-    "name": "do-si-do variant",
-    "unlocks": 31,
-    "uses": 144
-   },
-   {
-    "name": "hey (other)",
-    "unlocks": 27,
-    "uses": 165
-   },
-   {
-    "name": "roll away",
-    "unlocks": 26,
-    "uses": 108
-   },
-   {
-    "name": "pull by / pass by",
-    "unlocks": 24,
-    "uses": 151
+    "name": "ocean wave / long wave",
+    "unlocks": 72,
+    "uses": 286
    },
    {
     "name": "swing variant",
-    "unlocks": 23,
-    "uses": 323
+    "unlocks": 43,
+    "uses": 322
+   },
+   {
+    "name": "do-si-do variant",
+    "unlocks": 36,
+    "uses": 144
    },
    {
     "name": "circle variant",
-    "unlocks": 22,
+    "unlocks": 29,
     "uses": 178
    },
    {
-    "name": "down/up the hall",
-    "unlocks": 18,
-    "uses": 127
-   },
-   {
-    "name": "orbit allemande",
-    "unlocks": 18,
-    "uses": 62
-   },
-   {
-    "name": "zig zag",
-    "unlocks": 17,
-    "uses": 65
-   },
-   {
-    "name": "turn alone / as a couple",
-    "unlocks": 16,
-    "uses": 124
-   },
-   {
-    "name": "rory o'more",
-    "unlocks": 14,
-    "uses": 65
-   },
-   {
-    "name": "diagonal chain / right left through",
-    "unlocks": 13,
-    "uses": 112
-   },
-   {
     "name": "promenade",
-    "unlocks": 13,
+    "unlocks": 27,
     "uses": 107
    },
    {
-    "name": "balance variant",
-    "unlocks": 12,
-    "uses": 147
+    "name": "down/up the hall",
+    "unlocks": 26,
+    "uses": 127
    },
    {
-    "name": "chain variant",
-    "unlocks": 12,
-    "uses": 78
-   },
-   {
-    "name": "revolving door",
-    "unlocks": 9,
-    "uses": 41
-   },
-   {
-    "name": "arch & dive",
-    "unlocks": 9,
-    "uses": 35
-   },
-   {
-    "name": "cross trails",
-    "unlocks": 9,
-    "uses": 21
-   },
-   {
-    "name": "gyre",
-    "unlocks": 7,
-    "uses": 56
-   },
-   {
-    "name": "square through",
-    "unlocks": 7,
-    "uses": 46
+    "name": "turn alone / as a couple",
+    "unlocks": 22,
+    "uses": 124
    },
    {
     "name": "mad robin",
-    "unlocks": 6,
+    "unlocks": 22,
     "uses": 60
    },
    {
+    "name": "diagonal chain / right left through",
+    "unlocks": 21,
+    "uses": 108
+   },
+   {
+    "name": "orbit allemande",
+    "unlocks": 21,
+    "uses": 62
+   },
+   {
+    "name": "hey (other)",
+    "unlocks": 19,
+    "uses": 96
+   },
+   {
+    "name": "chain variant",
+    "unlocks": 19,
+    "uses": 78
+   },
+   {
+    "name": "balance variant",
+    "unlocks": 18,
+    "uses": 147
+   },
+   {
+    "name": "star variant",
+    "unlocks": 17,
+    "uses": 76
+   },
+   {
+    "name": "pull by / pass by",
+    "unlocks": 13,
+    "uses": 56
+   },
+   {
+    "name": "gyre",
+    "unlocks": 12,
+    "uses": 56
+   },
+   {
     "name": "slide along set",
-    "unlocks": 6,
+    "unlocks": 11,
     "uses": 53
    },
    {
-    "name": "figure 8",
-    "unlocks": 5,
-    "uses": 41
+    "name": "roll away",
+    "unlocks": 10,
+    "uses": 46
    },
    {
-    "name": "star promenade",
-    "unlocks": 5,
+    "name": "square through",
+    "unlocks": 10,
+    "uses": 46
+   },
+   {
+    "name": "ricochet hey",
+    "unlocks": 9,
+    "uses": 39
+   },
+   {
+    "name": "into the middle / forward & back",
+    "unlocks": 7,
+    "uses": 52
+   },
+   {
+    "name": "arch & dive",
+    "unlocks": 7,
+    "uses": 32
+   },
+   {
+    "name": "petronella",
+    "unlocks": 6,
     "uses": 35
    },
    {
     "name": "slice",
-    "unlocks": 5,
+    "unlocks": 6,
     "uses": 28
    },
    {
-    "name": "gate",
+    "name": "take hands (wave/line set-up)",
     "unlocks": 5,
-    "uses": 27
-   },
-   {
-    "name": "diagonal hey",
-    "unlocks": 5,
-    "uses": 19
-   },
-   {
-    "name": "into the middle / forward & back",
-    "unlocks": 4,
-    "uses": 52
+    "uses": 45
    },
    {
     "name": "california twirl",
-    "unlocks": 4,
-    "uses": 43
+    "unlocks": 5,
+    "uses": 41
    },
    {
-    "name": "take hands (wave/line set-up)",
+    "name": "box the gnat / swat the flea",
+    "unlocks": 4,
+    "uses": 25
+   },
+   {
+    "name": "butterfly whirl",
     "unlocks": 3,
-    "uses": 45
+    "uses": 20
+   },
+   {
+    "name": "box circulate",
+    "unlocks": 3,
+    "uses": 18
+   },
+   {
+    "name": "stand still / no figure",
+    "unlocks": 3,
+    "uses": 13
+   },
+   {
+    "name": "star promenade",
+    "unlocks": 3,
+    "uses": 12
+   },
+   {
+    "name": "rory o'more",
+    "unlocks": 2,
+    "uses": 26
    },
    {
     "name": "poussette",
@@ -1278,19 +1268,19 @@
     "uses": 26
    },
    {
-    "name": "butterfly whirl",
+    "name": "figure 8",
     "unlocks": 2,
-    "uses": 20
+    "uses": 9
    },
    {
-    "name": "box circulate",
+    "name": "zig zag",
     "unlocks": 2,
-    "uses": 18
+    "uses": 6
    },
    {
-    "name": "stand still / no figure",
+    "name": "other: long lines back",
     "unlocks": 2,
-    "uses": 13
+    "uses": 4
    },
    {
     "name": "other: dance forward",
@@ -1303,9 +1293,39 @@
     "uses": 2
    },
    {
+    "name": "other: weave the line:",
+    "unlocks": 2,
+    "uses": 2
+   },
+   {
+    "name": "contra corners",
+    "unlocks": 1,
+    "uses": 10
+   },
+   {
+    "name": "diagonal hey",
+    "unlocks": 1,
+    "uses": 4
+   },
+   {
+    "name": "cross trails",
+    "unlocks": 1,
+    "uses": 3
+   },
+   {
     "name": "other: right left through straight across",
     "unlocks": 1,
     "uses": 2
+   },
+   {
+    "name": "other: right left through across set",
+    "unlocks": 1,
+    "uses": 1
+   },
+   {
+    "name": "other: robins courtesy turn larks",
+    "unlocks": 1,
+    "uses": 1
    },
    {
     "name": "other: all trade on rt diag with same role person the larks trade with someone in a different foursome, while the robins trade with robins of current foursome.",
@@ -1323,11 +1343,6 @@
     "uses": 1
    },
    {
-    "name": "other: larks chevron into neighbors' place",
-    "unlocks": 1,
-    "uses": 1
-   },
-   {
     "name": "other: shift left with partner bounce off first and go the next couple",
     "unlocks": 1,
     "uses": 1
@@ -1338,7 +1353,22 @@
     "uses": 1
    },
    {
+    "name": "other: larks in the center push back, robins push back",
+    "unlocks": 1,
+    "uses": 1
+   },
+   {
     "name": "other: face neighbor; robins back up across the set, larks follow their neighbors",
+    "unlocks": 1,
+    "uses": 1
+   },
+   {
+    "name": "other: larks cross to partner",
+    "unlocks": 1,
+    "uses": 1
+   },
+   {
+    "name": "other: pass through straight ahead",
     "unlocks": 1,
     "uses": 1
    },
@@ -1358,12 +1388,22 @@
     "uses": 1
    },
    {
+    "name": "other: starburst counter-clockwise 2 arc past shadows; partners",
+    "unlocks": 1,
+    "uses": 1
+   },
+   {
     "name": "other: robins trade by the left shoulder, catch left hands",
     "unlocks": 1,
     "uses": 1
    },
    {
     "name": "other: neighbor two hand turn",
+    "unlocks": 1,
+    "uses": 1
+   },
+   {
+    "name": "other: robins cross by left",
     "unlocks": 1,
     "uses": 1
    },
@@ -1398,12 +1438,22 @@
     "uses": 1
    },
    {
+    "name": "other: with neighbor, slide along set to shadows",
+    "unlocks": 1,
+    "uses": 1
+   },
+   {
     "name": "other: top 2 couples form line of 4, dance to the bottom over everyone's heads",
     "unlocks": 1,
     "uses": 1
    },
    {
     "name": "other: pass through to new waves",
+    "unlocks": 1,
+    "uses": 1
+   },
+   {
+    "name": "other: right left through, pull past partner",
     "unlocks": 1,
     "uses": 1
    },
@@ -1428,7 +1478,22 @@
     "uses": 1
    },
    {
+    "name": "other: dolphin progression counter-clockwise – single-file right one place, robins lead partners out of the set + left around neighbors, larks cut in front of partners, all end facing",
+    "unlocks": 1,
+    "uses": 1
+   },
+   {
+    "name": "other: pass through along to shadows",
+    "unlocks": 1,
+    "uses": 1
+   },
+   {
     "name": "other: right left through, face neighbors",
+    "unlocks": 1,
+    "uses": 1
+   },
+   {
+    "name": "other: larks cross the set by right",
     "unlocks": 1,
     "uses": 1
    },
@@ -1448,22 +1513,12 @@
     "uses": 1
    },
    {
-    "name": "other: right left through across set",
-    "unlocks": 0,
-    "uses": 1
-   },
-   {
     "name": "other: move forward to new wavy line progression",
     "unlocks": 0,
     "uses": 1
    },
    {
     "name": "other: ones cast down one place – own side of the set",
-    "unlocks": 0,
-    "uses": 1
-   },
-   {
-    "name": "other: robins courtesy turn larks",
     "unlocks": 0,
     "uses": 1
    },
@@ -1563,11 +1618,6 @@
     "uses": 3
    },
    {
-    "name": "other: long lines back",
-    "unlocks": 0,
-    "uses": 4
-   },
-   {
     "name": "other: new neighbors do-si-do",
     "unlocks": 0,
     "uses": 1
@@ -1596,11 +1646,6 @@
     "name": "other: meanwhile robins pause, then follow neighbor to cross the set",
     "unlocks": 0,
     "uses": 1
-   },
-   {
-    "name": "box the gnat / swat the flea",
-    "unlocks": 0,
-    "uses": 25
    },
    {
     "name": "other: simultaneous:",
@@ -1673,11 +1718,6 @@
     "uses": 1
    },
    {
-    "name": "contra corners",
-    "unlocks": 0,
-    "uses": 14
-   },
-   {
     "name": "other: pass through across the set larks pass left in center",
     "unlocks": 0,
     "uses": 1
@@ -1729,11 +1769,6 @@
    },
    {
     "name": "other: entire set oval right",
-    "unlocks": 0,
-    "uses": 1
-   },
-   {
-    "name": "other: robins chevron into neighbors place—robins pass right shoulder to trade places, then fall back straight across the set while larks cast up or down into their neighbors' place",
     "unlocks": 0,
     "uses": 1
    },
@@ -1923,6 +1958,11 @@
     "uses": 2
    },
    {
+    "name": "gate",
+    "unlocks": 0,
+    "uses": 3
+   },
+   {
     "name": "other: \"do what the twos say\"",
     "unlocks": 0,
     "uses": 1
@@ -1936,6 +1976,11 @@
     "name": "other: pass through pass partner right",
     "unlocks": 0,
     "uses": 1
+   },
+   {
+    "name": "revolving door",
+    "unlocks": 0,
+    "uses": 2
    },
    {
     "name": "other: top couple cast off, top two couples make arches at the bottom of the set",
@@ -2108,11 +2153,6 @@
     "uses": 1
    },
    {
-    "name": "other: larks in the center push back, robins push back",
-    "unlocks": 0,
-    "uses": 1
-   },
-   {
     "name": "other: ones walk alone around the inside of the whole set, with the larks going up and the robins going down",
     "unlocks": 0,
     "uses": 1
@@ -2188,16 +2228,6 @@
     "uses": 1
    },
    {
-    "name": "other: larks cross to partner",
-    "unlocks": 0,
-    "uses": 1
-   },
-   {
-    "name": "other: pass through straight ahead",
-    "unlocks": 0,
-    "uses": 1
-   },
-   {
     "name": "other: long lines forward and on the way back, larks roll partner away with a half sashay robins roll in front of larks, while larks slide to right",
     "unlocks": 0,
     "uses": 1
@@ -2268,11 +2298,6 @@
     "uses": 2
    },
    {
-    "name": "other: robins turn back to neighbors",
-    "unlocks": 0,
-    "uses": 1
-   },
-   {
     "name": "other: robins trade by the right shoulder and back up into place while the larks prep to reverse direction",
     "unlocks": 0,
     "uses": 1
@@ -2304,11 +2329,6 @@
    },
    {
     "name": "other: \"gay gordon\"",
-    "unlocks": 0,
-    "uses": 1
-   },
-   {
-    "name": "other: starburst counter-clockwise 2 arc past shadows; partners",
     "unlocks": 0,
     "uses": 1
    },
@@ -2388,11 +2408,6 @@
     "uses": 1
    },
    {
-    "name": "other: weave the line:",
-    "unlocks": 0,
-    "uses": 2
-   },
-   {
     "name": "other: partners nevada twirl robins twirl the larks to swap & face",
     "unlocks": 0,
     "uses": 1
@@ -2434,11 +2449,6 @@
    },
    {
     "name": "other: open up to face new neighbors, hands four",
-    "unlocks": 0,
-    "uses": 1
-   },
-   {
-    "name": "other: robins cross by left",
     "unlocks": 0,
     "uses": 1
    },
@@ -2653,11 +2663,6 @@
     "uses": 1
    },
    {
-    "name": "other: with neighbor, slide along set to shadows",
-    "unlocks": 0,
-    "uses": 1
-   },
-   {
     "name": "other: ones pass second larks one last time",
     "unlocks": 0,
     "uses": 1
@@ -2691,11 +2696,6 @@
     "name": "other: march right along the set",
     "unlocks": 0,
     "uses": 1
-   },
-   {
-    "name": "other: robins turn back over right shoulders",
-    "unlocks": 0,
-    "uses": 2
    },
    {
     "name": "other: neighbors rang tang right",
@@ -2794,11 +2794,6 @@
    },
    {
     "name": "other: larks catch partners with right hands, and take left hands in the center",
-    "unlocks": 0,
-    "uses": 1
-   },
-   {
-    "name": "other: right left through, pull past partner",
     "unlocks": 0,
     "uses": 1
    },
@@ -3048,11 +3043,6 @@
     "uses": 1
    },
    {
-    "name": "other: robins turn out over right shoulder",
-    "unlocks": 0,
-    "uses": 1
-   },
-   {
     "name": "other: return to prev neighbors",
     "unlocks": 0,
     "uses": 1
@@ -3103,11 +3093,6 @@
     "uses": 1
    },
    {
-    "name": "other: dolphin progression counter-clockwise – single-file right one place, robins lead partners out of the set + left around neighbors, larks cut in front of partners, all end facing",
-    "unlocks": 0,
-    "uses": 1
-   },
-   {
     "name": "other: right left through - identify",
     "unlocks": 0,
     "uses": 1
@@ -3129,11 +3114,6 @@
    },
    {
     "name": "other: sun dance",
-    "unlocks": 0,
-    "uses": 1
-   },
-   {
-    "name": "other: pass through along to shadows",
     "unlocks": 0,
     "uses": 1
    },
@@ -3224,11 +3204,6 @@
    },
    {
     "name": "other: rights and lefts across with parner",
-    "unlocks": 0,
-    "uses": 1
-   },
-   {
-    "name": "other: larks cross the set by right",
     "unlocks": 0,
     "uses": 1
    },
@@ -3483,11 +3458,6 @@
     "uses": 1
    },
    {
-    "name": "other: larks turn back over right shoulders",
-    "unlocks": 0,
-    "uses": 1
-   },
-   {
     "name": "other: wizard's walk: ones separate around the twos; ones split the next twos. back up around the twos, split the original twos. ones finish where they started ww.",
     "unlocks": 0,
     "uses": 1
@@ -3536,42 +3506,58 @@
   "figuresThatCannotStart": [
    {
     "name": "progression or other",
-    "unlocks": 28
-   },
-   {
-    "name": "do-si-do variant",
-    "unlocks": 10
+    "unlocks": 50
    },
    {
     "name": "diagonal chain / right left through",
-    "unlocks": 9
-   },
-   {
-    "name": "slide along set",
-    "unlocks": 9
-   },
-   {
-    "name": "ocean wave / long wave",
-    "unlocks": 7
-   },
-   {
-    "name": "swing variant",
-    "unlocks": 6
-   },
-   {
-    "name": "other: pass through",
-    "unlocks": 5
+    "unlocks": 18
    },
    {
     "name": "rory o'more",
+    "unlocks": 16
+   },
+   {
+    "name": "swing variant",
+    "unlocks": 16
+   },
+   {
+    "name": "ocean wave / long wave",
+    "unlocks": 11
+   },
+   {
+    "name": "do-si-do variant",
+    "unlocks": 11
+   },
+   {
+    "name": "slide along set",
+    "unlocks": 11
+   },
+   {
+    "name": "other: pass through",
+    "unlocks": 8
+   },
+   {
+    "name": "petronella",
+    "unlocks": 7
+   },
+   {
+    "name": "allemande variant",
+    "unlocks": 6
+   },
+   {
+    "name": "hey (other)",
+    "unlocks": 6
+   },
+   {
+    "name": "circle variant",
+    "unlocks": 5
+   },
+   {
+    "name": "pull by / pass by",
     "unlocks": 4
    },
    {
-    "name": "contra corners",
-    "unlocks": 4
-   },
-   {
-    "name": "roll away",
+    "name": "promenade",
     "unlocks": 4
    },
    {
@@ -3579,11 +3565,11 @@
     "unlocks": 3
    },
    {
-    "name": "allemande variant",
+    "name": "star variant",
     "unlocks": 3
    },
    {
-    "name": "circle variant",
+    "name": "poussette",
     "unlocks": 3
    },
    {
@@ -3591,19 +3577,23 @@
     "unlocks": 2
    },
    {
-    "name": "star variant",
+    "name": "diagonal hey",
     "unlocks": 2
    },
    {
-    "name": "promenade",
+    "name": "roll away",
     "unlocks": 2
    },
    {
-    "name": "hey (other)",
+    "name": "into the middle / forward & back",
     "unlocks": 2
    },
    {
-    "name": "pull by / pass by",
+    "name": "gate",
+    "unlocks": 1
+   },
+   {
+    "name": "ricochet hey",
     "unlocks": 1
    },
    {
@@ -3615,19 +3605,11 @@
     "unlocks": 1
    },
    {
-    "name": "petronella",
-    "unlocks": 1
-   },
-   {
     "name": "gyre",
     "unlocks": 1
    },
    {
     "name": "slice",
-    "unlocks": 1
-   },
-   {
-    "name": "poussette",
     "unlocks": 1
    },
    {
@@ -3637,63 +3619,79 @@
    {
     "name": "chain variant",
     "unlocks": 1
+   },
+   {
+    "name": "mad robin",
+    "unlocks": 1
    }
   ],
   "checkFailures": [
    {
     "name": "Couples don't end the round where the progression puts them.",
-    "unlocks": 36
-   },
-   {
-    "name": "pull by / pass by",
-    "unlocks": 16
+    "unlocks": 61
    },
    {
     "name": "allemande variant",
+    "unlocks": 21
+   },
+   {
+    "name": "swing variant",
     "unlocks": 12
    },
    {
-    "name": "star promenade",
-    "unlocks": 9
-   },
-   {
     "name": "promenade",
-    "unlocks": 7
+    "unlocks": 8
    },
    {
     "name": "do-si-do variant",
     "unlocks": 7
    },
    {
-    "name": "swing variant",
-    "unlocks": 7
+    "name": "circle variant",
+    "unlocks": 6
+   },
+   {
+    "name": "chain variant",
+    "unlocks": 5
+   },
+   {
+    "name": "hey (other)",
+    "unlocks": 5
    },
    {
     "name": "gyre",
     "unlocks": 4
    },
    {
-    "name": "circle variant",
+    "name": "box the gnat / swat the flea",
     "unlocks": 4
    },
    {
-    "name": "hey (other)",
+    "name": "star variant",
     "unlocks": 4
+   },
+   {
+    "name": "The next time through can't start from where the dancers end: No couples face each other on the left diagonal.).",
+    "unlocks": 4
+   },
+   {
+    "name": "mad robin",
+    "unlocks": 3
    },
    {
     "name": "Not every couple gets to dance with every other couple.",
     "unlocks": 3
    },
    {
-    "name": "star variant",
-    "unlocks": 3
-   },
-   {
-    "name": "chain variant",
+    "name": "roll away",
     "unlocks": 2
    },
    {
-    "name": "mad robin",
+    "name": "contra corners",
+    "unlocks": 2
+   },
+   {
+    "name": "The next time through can't start from where the dancers end: A circle of 4 needs the dancers spaced around a ring.).",
     "unlocks": 2
    },
    {
@@ -3701,11 +3699,23 @@
     "unlocks": 2
    },
    {
+    "name": "other: long lines forward",
+    "unlocks": 2
+   },
+   {
     "name": "The next time through can't start from where the dancers end: A ring balance of 4 needs the dancers spaced around a ring.).",
     "unlocks": 1
    },
    {
-    "name": "roll away",
+    "name": "The next time through can't start from where the dancers end: Nobody walks forward.).",
+    "unlocks": 1
+   },
+   {
+    "name": "zig zag",
+    "unlocks": 1
+   },
+   {
+    "name": "star promenade",
     "unlocks": 1
    },
    {
@@ -3717,15 +3727,15 @@
     "unlocks": 1
    },
    {
+    "name": "The next time through can't start from where the dancers end: Dancers 0 and 4 are too far apart to turn by the hand.).",
+    "unlocks": 1
+   },
+   {
     "name": "The next time through can't start from where the dancers end: Dancers 1 and 5 are too far apart to turn by the hand.).",
     "unlocks": 1
    },
    {
-    "name": "other: long lines forward",
-    "unlocks": 1
-   },
-   {
-    "name": "box the gnat / swat the flea",
+    "name": "pull by / pass by",
     "unlocks": 1
    },
    {
@@ -3734,10 +3744,6 @@
    },
    {
     "name": "The next time through can't start from where the dancers end: The robins must start on opposite sides of the set.).",
-    "unlocks": 1
-   },
-   {
-    "name": "The next time through can't start from where the dancers end: No couples face each other on the left diagonal.).",
     "unlocks": 1
    }
   ],

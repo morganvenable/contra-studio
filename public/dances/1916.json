@@ -1,4 +1,4 @@
-{ "schema": "contra-studio/next-dance", "version": 2, "id": "1916", "title": "Clapp for Joy", "author": "Don Flaherty", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/1916", "formation": "improper", "retrievedAt": "2026-10-20T05:51:03.735Z", "sha256": "b9ca336f63d2c1e20da28ac34ef4f91a2d0dae2ad7587e4c24580184d421bbc1" }, "status": "partial", "problems": [ "Row 9 \"balance & petronella the ones are back on top, the dance starts with the same couples\" isn't drawn yet." ], "unparsed": [ { "row": 9, "text": "balance & petronella the ones are back on top, the dance starts with the same couples", "why": "No figure pattern matches \"balance & petronella the ones are back on top, the dance starts with the same couples\"." } ], "choices": [],
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "1916", "title": "Clapp for Joy", "author": "Don Flaherty", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/1916", "formation": "improper", "retrievedAt": "2026-10-20T05:51:03.735Z", "sha256": "b9ca336f63d2c1e20da28ac34ef4f91a2d0dae2ad7587e4c24580184d421bbc1" }, "status": "check", "problems": [ "Couples don't end the round where the progression puts them." ], "unparsed": [], "choices": [],
  "figures": [
   {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance & petronella · balance","section":"A1","row":1},
   {"move":"petronella","beats":4,"params":{},"text":"balance & petronella · petronella","section":"A1","row":1},
@@ -10,6 +10,7 @@
   {"move":"circle","beats":8,"params":{"direction":"left","places":3},"text":"circle left 3 places","section":"B1","row":6},
   {"move":"swing","beats":8,"params":{"who":"partner"},"text":"partners swing","section":"B1","row":7},
   {"move":"long-lines","beats":8,"params":{"back":true},"text":"long lines forward & back","progression":true,"section":"B2","row":8},
-  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"balance & petronella the ones are back on top, the dance starts with the same couples","section":"B2","row":9}
+  {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance & petronella the ones are back on top, the dance starts with the same couples · balance","section":"B2","row":9},
+  {"move":"petronella","beats":4,"params":{},"text":"balance & petronella the ones are back on top, the dance starts with the same couples · petronella","section":"B2","row":9}
  ]
 }

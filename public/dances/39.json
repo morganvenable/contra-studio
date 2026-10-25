@@ -1,4 +1,4 @@
-{ "schema": "contra-studio/next-dance", "version": 2, "id": "39", "title": "Bowl of Cherries", "author": "Sue Rosen", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/39", "formation": "improper", "retrievedAt": "2026-10-20T05:48:54.668Z", "sha256": "13f9bdd63408a2f3b473bafa47b114f87573c83e3ef55e6394c6cbe03678004c" }, "status": "partial", "problems": [ "Row 9 \"cross trails - partners across the set right shoulders, neighbors along the set left shoulders\" isn't drawn yet." ], "unparsed": [ { "row": 9, "text": "cross trails - partners across the set right shoulders, neighbors along the set left shoulders", "why": "No figure pattern matches \"cross trails - partners across the set right shoulders, neighbors along the set left shoulders ⁋\"." } ], "choices": [],
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "39", "title": "Bowl of Cherries", "author": "Sue Rosen", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/39", "formation": "improper", "retrievedAt": "2026-10-20T05:48:54.668Z", "sha256": "13f9bdd63408a2f3b473bafa47b114f87573c83e3ef55e6394c6cbe03678004c" }, "status": "ok", "problems": [], "unparsed": [], "choices": [],
  "figures": [
   {"move":"do-si-do","beats":8,"params":{"who":"neighbor","amount":1,"shoulder":"right"},"text":"neighbors do si do once","section":"A1","row":1},
   {"move":"swing","beats":8,"params":{"who":"neighbor"},"text":"neighbors swing","section":"A1","row":2},
@@ -8,6 +8,7 @@
   {"move":"swing","beats":8,"params":{"who":"partner"},"text":"partners swing","section":"B1","row":6},
   {"move":"circle","beats":8,"params":{"direction":"left","places":3},"text":"circle left 3 places","section":"B2","row":7},
   {"move":"roll-away","beats":4,"params":{"who":"larks","whom":"neighbor"},"text":"larks roll away neighbors with a half sashay","section":"B2","row":8},
-  {"move":"hold","beats":4,"params":{"reason":"unparsed"},"text":"cross trails - partners across the set right shoulders, neighbors along the set left shoulders","section":"B2","row":9,"progression":true}
+  {"move":"pass-by","beats":2,"params":{"who":"partner","shoulder":"right","hands":false},"text":"cross trails - partners across the set right shoulders, neighbors along the set left shoulders · pull by","section":"B2","row":9},
+  {"move":"pass-by","beats":2,"params":{"who":"neighbor","shoulder":"left","hands":false},"text":"cross trails - partners across the set right shoulders, neighbors along the set left shoulders · pull by","progression":true,"section":"B2","row":9}
  ]
 }

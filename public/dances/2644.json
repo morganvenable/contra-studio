@@ -1,4 +1,4 @@
-{ "schema": "contra-studio/next-dance", "version": 2, "id": "2644", "title": "Honey", "author": "Don Flaherty", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/2644", "formation": "improper", "retrievedAt": "2026-10-20T05:59:22.213Z", "sha256": "9103758eeff6c54d656e5cbc2d51d2ea539b4ece4e4e3002f8c5027e48f7e62f" }, "status": "partial", "problems": [ "Row 7 \"star ____ - wrist grip - 4 places to next couple\" isn't drawn yet." ], "unparsed": [ { "row": 7, "text": "star ____ - wrist grip - 4 places to next couple", "why": "No figure pattern matches \"star ____ - wrist grip - 4 places to next couple\"." } ], "choices": [ "A meltdown swing starts with 4 beats of right-shoulder round, then swings." ],
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "2644", "title": "Honey", "author": "Don Flaherty", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/2644", "formation": "improper", "retrievedAt": "2026-10-20T05:59:22.213Z", "sha256": "9103758eeff6c54d656e5cbc2d51d2ea539b4ece4e4e3002f8c5027e48f7e62f" }, "status": "ok", "problems": [], "unparsed": [], "choices": [ "A meltdown swing starts with 4 beats of right-shoulder round, then swings." ],
  "figures": [
   {"move":"do-si-do","beats":8,"params":{"who":"larks","amount":1,"shoulder":"right"},"text":"larks do si do once","section":"A1","row":1},
   {"move":"do-si-do","beats":8,"params":{"who":"robins","amount":1,"shoulder":"right"},"text":"robins do si do once","section":"A1","row":2},
@@ -6,6 +6,6 @@
   {"move":"allemande","beats":8,"params":{"who":"robins","hand":"right","amount":1.5},"text":"robins allemande right 1½","section":"B1","row":4},
   {"move":"swing","beats":8,"params":{"who":"partner"},"text":"partners swing","section":"B1","row":5},
   {"move":"chain","beats":8,"params":{"who":"robins"},"text":"robins chain","section":"B2","row":6},
-  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"star ____ - wrist grip - 4 places to next couple","section":"B2","row":7}
+  {"move":"star","beats":8,"params":{"hand":"left","places":4,"grip":"wrist"},"text":"star ____ - wrist grip - 4 places to next couple","section":"B2","row":7}
  ]
 }
