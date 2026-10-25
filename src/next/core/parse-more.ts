@@ -59,6 +59,15 @@ export function morePatterns(h: ParseHelpers): readonly (readonly [RegExp, Build
       },
     ],
     [
+      // "Balance (the wave) and move straight ahead to a new wave": balance, walk forward.
+      /^balance(?: the)?(?: ocean)?(?: wave)?(?: of (?:4|four))?,? (?:and )?(?:move|go|walk) (?:straight|forward)(?: ahead)?(?: to (?:a )?new (?:wave|ocean|neighbor)(?: of (?:4|four))?)?$/,
+      (_m, b) => [call('balance', 4, { formation: 'current' }), call('walk-forward', b - 4, {})],
+    ],
+    [
+      /^(?:dance|walk) forward to (?:form )?new waves? and balance$/,
+      (_m, b) => [call('walk-forward', b - 4, {}), call('balance', 4, { formation: 'current' })],
+    ],
+    [
       /^pass through,? (?:and )?walk forward(?: to (?:a )?new waves?)?$/,
       (_m, b) => [
         call('pass-through', b / 2, { shoulder: 'right' }),
@@ -66,8 +75,15 @@ export function morePatterns(h: ParseHelpers): readonly (readonly [RegExp, Build
       ],
     ],
     [
+      /^balance the ring and partners california twirl$/,
+      (_m, b) => [
+        call('balance', 4, { formation: 'ring' }),
+        call('twirl', b - 4, { style: 'california', who: 'partner' }),
+      ],
+    ],
+    [
       // A swing through spelled out: two half allemandes.
-      re(`swing through,? ${WHO} allemande (right|left) (?:½|1/2),? ${WHO} allemande (right|left) (?:½|1/2)`),
+      re(`swing through,? ${WHO} allemande (right|left) (?:by )?(?:½|1/2|half),? ${WHO} allemande (right|left) (?:by )?(?:½|1/2|half)`),
       (m, b) => [
         call('allemande', b / 2, { who: who(m[1]), hand: m[2], amount: 0.5 }),
         call('allemande', b / 2, { who: who(m[3]), hand: m[4], amount: 0.5 }),
@@ -76,7 +92,7 @@ export function morePatterns(h: ParseHelpers): readonly (readonly [RegExp, Build
     [
       // "Robins allemande left ½, hold on to form waves", "... 1½ to a short wave".
       re(
-        `(\\w+) allemande (left|right) ([^ ,]+),? (?:- )?(?:hold on )?(?:and )?to (?:form )?(?:a |an )?(?:short |ocean )?waves?(?: of (?:4|four))?(?: [^,]*)?`,
+        `(\\w+) allemande (left|right) ([^ ,]+),? (?:- )?(?:hold on )?(?:(?:and|&) )?(?:to )?(?:form )?(?:a |an )?(?:short |ocean )?waves?(?: of (?:4|four))?(?: [^,]*)?`,
       ),
       (m, b) => [
         call('allemande', b, {
@@ -293,6 +309,7 @@ const CORES: readonly RegExp[] = [
 /** Wording folded to one spelling before the notes come off. */
 const MORE_TIDY: readonly (readonly [RegExp, string])[] = [
   [/^_+\s*/, ''],
+  [/[\[\]]/g, ''],
   [/\*/g, ''],
   [/[,;.]+$/, ''],
   [/\b1\.5\b/g, '1½'],
@@ -300,6 +317,27 @@ const MORE_TIDY: readonly (readonly [RegExp, string])[] = [
   [/\bsee-saw\b/g, 'see saw'],
   [/^all (california twirl)/, 'partners $1'],
   [/\bjersey twirl\b/, 'california twirl'],
+  // Alternatives ("... or cross left for a longer swing"): the first one.
+  [/^((?:\w+ ){1,3}(?:allemande|do si do|see saw|swing|balance)\b[^,]*?) or .*$/, '$1'],
+  [/^(\w+) balance (left|right) hands?$/, '$1 $2 hand balance'],
+  [/^(\w+) balance towards and away from each other$/, '$1 balance'],
+  [/^(?:california|jersey) twirl\b/, 'partners california twirl'],
+  [/^(\w+ california twirl),? (?:then join two hands|and face back into the original ring)$/, '$1'],
+  [/^(\w+ do si do [^ ,]+),? step back into line$/, '$1'],
+  [/( - balance the wave),? (?:left|right),? then (?:left|right)$/, '$1'],
+  [/^(\w+ form a long wave in the center) fleeting$/, '$1'],
+  [
+    /(\bswing),? (?:end swing facing across to rejoin (?:the )?ring|end in a ring|form a ring|- and get ready to slide along (?:the )?set left)$/,
+    '$1',
+  ],
+  // Giving two hands to the partner across is the figure that follows (give & take).
+  [
+    /,? (?:and )?(?:to (?:end swing and )?)?give two hands to (?:partners?|neighbors?)(?: across(?: the)? set)?$/,
+    '',
+  ],
+  [/^(\w+ two[- ]hand turn \w+) and open into long lines$/, '$1'],
+  [/^(\w+ california twirl) to (?:a )?new ring(?: progression)?$/, '$1'],
+  [/^balance the ring,? (?:and )?(california twirl)\b.*$/, 'balance the ring and partners $1'],
   // Taking hands in long lines is the long lines figure that follows.
   [/,? and take hands with (?:next |new )?neighbors in long lines$/, ''],
   [/,? (?:and )?take hands(?: four)?$/, ''],
@@ -316,7 +354,7 @@ const MORE_TIDY: readonly (readonly [RegExp, string])[] = [
   ],
   // "Allemande right ¾ to long wave, robins facing in", "..., forming long waves".
   [
-    /^((?:(?:next|new) )?\w+ allemande (?:left|right) [^ ,]+)(?:,? (?:to|and|,)? ?(?:form(?:ing)? |make (?:new )?)?(?:a |new )?long (?:ocean )?wav(?:es?|y lines?)\b.*)$/,
+    /^((?:(?:next|new) )?\w+ allemande (?:left|right) [^ ,]+)(?:,? (?:to|and|ending in|to take hands in|,)? ?(?:form(?:ing)? |make (?:new )?)?(?:a |new )?long (?:ocean )?wav(?:es?|y lines?)\b.*)$/,
     '$1 to long waves',
   ],
   [

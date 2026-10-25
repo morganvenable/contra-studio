@@ -55,3 +55,6 @@ reading below. One line each; change any of them and the figure follows.
 - "... and take hands with next neighbors in long lines", "take hands": the long lines or ring that follows takes the hands.
 - "Long lines forward & back, X roll away partners/neighbors (on the way back)": half the beats forward, then the roll away back to the side lines; "roll away the robins" is partners.
 - "Pass through, walk forward (to new wave)": half the beats each.
+- "Balance (the wave) and move straight ahead to a new wave": a 4-beat balance, then walk forward; "dance forward to form new waves and balance": walk forward, then a 4-beat balance.
+- "Swing, end facing across to rejoin ring / end in a ring / form a ring": the ordinary swing ending; the ring that follows forms itself.
+- A jersey twirl with no one named is partners.
