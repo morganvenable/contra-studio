@@ -102,7 +102,7 @@ const NOTES: readonly RegExp[] = [
   /^(?:\w+ )?(?:pass|pull by) (?:\w+ )?(?:right|left|r|l)(?: to start(?: hey on the end)?)?$/,
   /^(?:\w+ )?(?:pass|pull by) \w+ (?:right|left) to start$/,
   /^(?:changing places|up (?:and|&) down|to cross(?: the)?(?: set)?|to get across the set|to meet partners?|same roles|same couple)$/,
-  /^(?:to |in )?(?:a |that |the )?diamond.*$/,
+  /^(?:to |in )?(?:a |that |the )?diamond\b.*$/,
   /^(?:\w+ )?(?:turn(?:ing)?|spinning) (?:extra|a little (?:more|extra))\b.*$/,
   /^(?:everyone is home|new ring|across|shift right)$/,
   /^on the side(?: of the set)?$/,
@@ -375,6 +375,12 @@ const PATTERNS: readonly (readonly [RegExp, Build])[] = [
     // a full hey - ...".
     /^((?:next |new )?\w+) start an? (?:(left|right) diagonal )?(full|half) hey - (?:(right|left|____)s? in (?:the )?center, (?:right|left|____)s? on (?:the )?ends|(right|left)s on (?:the )?ends, (right|left)s in (?:the )?center)(.*)$/,
     (m, b) => {
+      // A shoulder named after the shoulders restates the first pass's.
+      const said = m[7].match(/^\s*,?\s*(?:passing )?(?:by )?(?:the )?(right|left)\b/)?.[1];
+      const centerShoulder = m[4] === '____' ? undefined : (m[4] ?? m[6]);
+      const firstPass = m[4] ? centerShoulder : m[5];
+      if (said && firstPass && said !== firstPass)
+        throw new Error(`The hey's first pass is by the ${firstPass}, not the ${said}.`);
       const ricochet = heyRest(m[7].replace(/^\s*passing (?:right|left) shoulders?/, ''));
       return [
         call('hey', b, {

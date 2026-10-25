@@ -5,8 +5,8 @@
  "stored": 2422,
  "counts": {
   "ok": 327,
-  "check": 94,
-  "partial": 1719,
+  "check": 95,
+  "partial": 1718,
   "unsupported": 282
  },
  "formations": [
@@ -86,8 +86,8 @@
    "formation": "indecent",
    "dances": 19,
    "ok": 1,
-   "check": 1,
-   "partial": 17,
+   "check": 2,
+   "partial": 16,
    "unsupported": 0
   },
   {
@@ -1114,7 +1114,7 @@
    },
    {
     "name": "do-si-do variant",
-    "unlocks": 29,
+    "unlocks": 30,
     "uses": 123
    },
    {
@@ -1208,14 +1208,14 @@
     "uses": 50
    },
    {
-    "name": "petronella",
-    "unlocks": 8,
-    "uses": 36
-   },
-   {
     "name": "arch & dive",
     "unlocks": 7,
     "uses": 28
+   },
+   {
+    "name": "petronella",
+    "unlocks": 6,
+    "uses": 31
    },
    {
     "name": "zig zag",
@@ -1248,6 +1248,11 @@
     "uses": 29
    },
    {
+    "name": "butterfly whirl",
+    "unlocks": 3,
+    "uses": 20
+   },
+   {
     "name": "stand still / no figure",
     "unlocks": 3,
     "uses": 17
@@ -1266,11 +1271,6 @@
     "name": "poussette",
     "unlocks": 2,
     "uses": 25
-   },
-   {
-    "name": "butterfly whirl",
-    "unlocks": 2,
-    "uses": 20
    },
    {
     "name": "figure 8",
@@ -2870,12 +2870,12 @@
     "unlocks": 13
    },
    {
-    "name": "swing variant",
+    "name": "allemande variant",
     "unlocks": 12
    },
    {
-    "name": "allemande variant",
-    "unlocks": 11
+    "name": "swing variant",
+    "unlocks": 12
    },
    {
     "name": "ocean wave / long wave",
@@ -3020,6 +3020,10 @@
     "unlocks": 2
    },
    {
+    "name": "petronella",
+    "unlocks": 2
+   },
+   {
     "name": "box the gnat / swat the flea",
     "unlocks": 2
    },
@@ -3037,10 +3041,6 @@
    },
    {
     "name": "do-si-do variant",
-    "unlocks": 1
-   },
-   {
-    "name": "petronella",
     "unlocks": 1
    }
   ],
