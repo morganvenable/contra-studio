@@ -11,6 +11,8 @@
  *   through"): it takes the last 2 beats of the figure before it (or the
  *   first 2 of the one after), when that figure has 6 beats or more.
  * - A zero-beat row that only takes, catches, joins or drops hands: no call.
+ * - "New/next neighbor" rows before the marked progression: the neighbor,
+ *   else the next neighbor as the dancers stand (orNext, core/relations.ts).
  * - "X take Y" with no swing with them after it: a give and take
  *   (figures/give-and-take.ts).
  */
@@ -98,5 +100,22 @@ export function joinHandRows(rows: readonly SourceRow[], parsed: Parsed) {
     if ((who !== 'larks' && who !== 'robins') || (whom !== 'partner' && whom !== 'neighbor'))
       return;
     parsed[i] = [{ ...lead, move: 'give-and-take', params: { who, whom } }];
+  });
+  // "New neighbor ..." / "next neighbors ..." before the row the source
+  // marks as the progression: the neighbor relation is not rebound yet, so
+  // the row dances with the stored neighbor if it can, else with the next
+  // neighbor as the dancers stand (core/relations.ts).
+  const marked = (i: number) => {
+    const calls = parsed[i];
+    return Array.isArray(calls) && calls.some((c) => c.progression);
+  };
+  rows.forEach((row, i) => {
+    const calls = parsed[i];
+    if (!Array.isArray(calls) || !/(?:new|next) neighbors?/i.test(row.text)) return;
+    if (marked(i) || !rows.some((_r, j) => j > i && marked(j))) return;
+    if (rows.some((_r, j) => j < i && marked(j))) return;
+    parsed[i] = calls.map((c) =>
+      c.params.who === 'neighbor' ? { ...c, params: { ...c.params, orNext: true } } : c,
+    );
   });
 }

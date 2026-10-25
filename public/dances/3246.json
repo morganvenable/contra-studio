@@ -3,7 +3,7 @@
   {"move":"slide","beats":2,"params":{"direction":"left"},"text":"slide left along set","section":"A1","row":1,"progression":true},
   {"move":"circle","beats":6,"params":{"direction":"left","places":3},"text":"circle left 3 places","section":"A1","row":2},
   {"move":"pass-by","beats":2,"params":{"who":"neighbor","shoulder":"right","hands":true},"text":"neighbors pull by right","section":"A1","row":3},
-  {"move":"allemande","beats":6,"params":{"who":"neighbor","hand":"left","amount":1},"text":"next neighbors allemande left once","section":"A1","row":4},
+  {"move":"allemande","beats":6,"params":{"who":"neighbor","hand":"left","amount":1,"orNext":true},"text":"next neighbors allemande left once","section":"A1","row":4},
   {"move":"pass-by","beats":2,"params":{"who":"neighbor","shoulder":"right","hands":false},"text":"neighbors pass by right shoulders","section":"A2","row":5},
   {"move":"gyre","beats":6,"params":{"who":"previous-neighbor","amount":1,"shoulder":"left"},"text":"prev neighbors gyre left shoulders once","section":"A2","row":6},
   {"move":"allemande","beats":8,"params":{"who":"neighbor","hand":"right","amount":1.5,"longWaves":true},"text":"neighbors allemande right 1½ to form long waves with robins facing out","section":"A2","row":7},

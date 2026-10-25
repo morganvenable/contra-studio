@@ -179,6 +179,26 @@ export function regroupFor(state: DanceState, who: unknown): DanceState {
  * the minor sets and relations back.
  */
 export function withRelations<P>(figure: Figure<P>): Figure<P> {
+  const run = plainWithRelations(figure);
+  return (state, params, beats) => {
+    // "New/next neighbors" named before the progression rebinds neighbors
+    // (orNext, import-hands.ts): the neighbors as stored, else the next
+    // neighbors as the dancers stand.
+    const { orNext, ...rest } = params as P & { orNext?: boolean };
+    if (!orNext) return run(state, params, beats);
+    try {
+      return run(state, rest as P, beats);
+    } catch (error) {
+      try {
+        return run(state, { ...rest, who: 'next-neighbor' } as P, beats);
+      } catch {
+        throw error;
+      }
+    }
+  };
+}
+
+function plainWithRelations<P>(figure: Figure<P>): Figure<P> {
   return (state, params, beats) => {
     const who = (params as { who?: unknown }).who;
     let regrouped = regroupFor(state, who);

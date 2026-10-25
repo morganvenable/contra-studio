@@ -6,7 +6,7 @@
   {"move":"balance","beats":4,"params":{"formation":"wave","style":"right-left"},"text":"balance wave of four","section":"A2","row":3},
   {"move":"square-middle","beats":4,"params":{"move":"allemande","params":{"who":"neighbor","hand":"right","amount":0.75,"longWaves":true},"among":["sides"]},"text":"neighbors allemande right ¾ to long wave at the sides","section":"A2","row":4},
   {"move":"balance","beats":4,"params":{"formation":"current"},"text":"balance long wave","section":"A2","row":5},
-  {"move":"allemande","beats":4,"params":{"who":"neighbor","hand":"left","amount":0.75},"text":"next neighbors allemande left ¾","section":"A2","row":6},
+  {"move":"allemande","beats":4,"params":{"who":"neighbor","hand":"left","amount":0.75,"orNext":true},"text":"next neighbors allemande left ¾","section":"A2","row":6},
   {"move":"chain","beats":8,"params":{"who":"robins","to":"partner"},"text":"robins chain to partner","section":"B1","row":7},
   {"move":"hey","beats":8,"params":{"start":"robins","amount":0.5,"center":"right"},"text":"robins start a half hey - rights in center, lefts on ends","progression":true,"section":"B1","row":8},
   {"move":"balance","beats":4,"params":{"formation":"pair","who":"partner","hand":"both"},"text":"partners balance & swing · balance","section":"B2","row":9},

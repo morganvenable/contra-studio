@@ -4,7 +4,7 @@
   {"move":"hall","beats":8,"params":{"direction":"up","end":"ring"},"text":"up the hall and bend into a cloverleaf 1s duck under 2s hands","section":"A1","row":2},
   {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"circle left 4 places \"cloverleaf\" left","section":"A2","row":3},
   {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"star left - wrist grip - 4 places left hands are conveniently placed","section":"A2","row":4,"progression":true},
-  {"move":"allemande","beats":4,"params":{"who":"neighbor","hand":"right","amount":0.75},"text":"next neighbors allemande right ¾","section":"B1","row":5},
+  {"move":"allemande","beats":4,"params":{"who":"neighbor","hand":"right","amount":0.75,"orNext":true},"text":"next neighbors allemande right ¾","section":"B1","row":5},
   {"move":"allemande","beats":4,"params":{"who":"1s","hand":"left","amount":1},"text":"ones allemande left once","section":"B1","row":6},
   {"move":"swing","beats":8,"params":{"who":"neighbor"},"text":"neighbors swing end swing with 1s in center!","section":"B1","row":7},
   {"move":"balance","beats":4,"params":{"formation":"pair","who":"1s","hand":"both"},"text":"ones balance & swing · balance","section":"B2","row":8},

@@ -3,7 +3,7 @@
   {"move":"balance","beats":4,"params":{"formation":"pair","who":"neighbor","hand":"right"},"text":"neighbors right hand balance & box the gnat · balance","section":"A1","row":1},
   {"move":"twirl","beats":4,"params":{"style":"box-the-gnat","who":"neighbor"},"text":"neighbors right hand balance & box the gnat · twirl","section":"A1","row":1},
   {"move":"star","beats":8,"params":{"hand":"right","places":4},"text":"star right 4 places","section":"A1","row":2},
-  {"move":"allemande","beats":8,"params":{"who":"neighbor","hand":"left","amount":1},"text":"next neighbors allemande left once","section":"A2","row":3},
+  {"move":"allemande","beats":8,"params":{"who":"neighbor","hand":"left","amount":1,"orNext":true},"text":"next neighbors allemande left once","section":"A2","row":3},
   {"move":"swing","beats":8,"params":{"who":"neighbor"},"text":"neighbors swing (original neighbor)","section":"A2","row":4},
   {"move":"circle","beats":6,"params":{"direction":"left","places":3},"text":"circle left 3 places","section":"B1","row":5},
   {"move":"swing","beats":10,"params":{"who":"partner"},"text":"partners swing","section":"B1","row":6},

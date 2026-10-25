@@ -4,8 +4,8 @@
   {"move":"swing","beats":12,"params":{"who":"partner"},"text":"partners swing","section":"A1","row":2},
   {"move":"chain","beats":8,"params":{"who":"robins","diagonal":"left"},"text":"left diagonal robins chain to next neighbors","section":"A2","row":3,"progression":true},
   {"move":"hey","beats":8,"params":{"start":"robins","amount":0.5,"center":"right"},"text":"robins start a half hey - rights in center, lefts on ends","section":"A2","row":4},
-  {"move":"balance","beats":4,"params":{"formation":"pair","who":"neighbor","hand":"both"},"text":"next neighbors balance & swing · balance","section":"B1","row":5},
-  {"move":"swing","beats":12,"params":{"who":"neighbor"},"text":"next neighbors balance & swing · swing","section":"B1","row":5},
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"neighbor","hand":"both","orNext":true},"text":"next neighbors balance & swing · balance","section":"B1","row":5},
+  {"move":"swing","beats":12,"params":{"who":"neighbor","orNext":true},"text":"next neighbors balance & swing · swing","section":"B1","row":5},
   {"move":"circle","beats":8,"params":{"direction":"left","places":3},"text":"circle left 3 places with next neighbors, shadow","section":"B2","row":6},
   {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance the ring","section":"B2","row":7},
   {"move":"twirl","beats":4,"params":{"style":"california","who":"neighbor"},"text":"next neighbors California twirl","section":"B2","row":8}

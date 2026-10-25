@@ -1,6 +1,6 @@
 { "schema": "contra-studio/next-dance", "version": 2, "id": "502", "title": "CDS Reel", "author": "Ted Sannella", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/502", "formation": "improper", "retrievedAt": "2026-10-20T05:50:07.304Z", "sha256": "d77f58e39be95d3e04bc2e2e1b72ffdc2387436665a3a24a1106dd4abfaaa509" }, "status": "ok", "problems": [], "unparsed": [], "choices": [ "A star with no grip named is a basket star (wrist grip)." ],
  "figures": [
-  {"move":"swing","beats":8,"params":{"who":"neighbor"},"text":"next neighbors swing","section":"A1","row":1},
+  {"move":"swing","beats":8,"params":{"who":"neighbor","orNext":true},"text":"next neighbors swing","section":"A1","row":1},
   {"move":"long-lines","beats":8,"params":{"back":true},"text":"long lines forward & back","section":"A1","row":2},
   {"move":"set-circle","beats":8,"params":{"direction":"left"},"text":"whole set circle left","section":"A2","row":3},
   {"move":"set-circle","beats":8,"params":{"direction":"right"},"text":"whole set circle right","section":"A2","row":4},

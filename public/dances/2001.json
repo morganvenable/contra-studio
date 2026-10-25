@@ -3,7 +3,7 @@
   {"move":"slide","beats":2,"params":{"direction":"left"},"text":"slide left along set","section":"A1","row":1,"progression":true},
   {"move":"circle","beats":6,"params":{"direction":"left","places":3},"text":"circle left 3 places","section":"A1","row":2},
   {"move":"do-si-do","beats":8,"params":{"who":"neighbor","amount":1.5,"shoulder":"right"},"text":"neighbors do si do 1½","section":"A1","row":3},
-  {"move":"allemande","beats":8,"params":{"who":"neighbor","hand":"left","amount":1},"text":"next neighbors allemande left once","section":"A2","row":4},
+  {"move":"allemande","beats":8,"params":{"who":"neighbor","hand":"left","amount":1,"orNext":true},"text":"next neighbors allemande left once","section":"A2","row":4},
   {"move":"swing","beats":8,"params":{"who":"neighbor"},"text":"neighbors swing","section":"A2","row":5},
   {"move":"right-left-through","beats":8,"params":{},"text":"right left through","section":"B1","row":6},
   {"move":"right-left-through","beats":8,"params":{},"text":"right left through","section":"B1","row":7},

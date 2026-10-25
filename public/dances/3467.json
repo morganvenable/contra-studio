@@ -1,7 +1,7 @@
 { "schema": "contra-studio/next-dance", "version": 2, "id": "3467", "title": "Trip to Margaree (var)", "author": "Sue Rosen", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/3467", "formation": "improper", "retrievedAt": "2026-10-20T06:21:15.555Z", "sha256": "1fe0d6845b08a7b83a0b2a47f17e06350798dd8ec56682e4c38ddb12247040ee", "status": "sketchbook" }, "status": "ok", "problems": [], "unparsed": [], "choices": [ "Square through: each balance takes 4 beats and each pull by 2." ],
  "figures": [
   {"move":"pass-by","beats":2,"params":{"who":"neighbor","shoulder":"right","hands":true},"text":"neighbors pull by right","section":"A1","row":1},
-  {"move":"allemande","beats":6,"params":{"who":"neighbor","hand":"left","amount":1},"text":"next neighbors allemande left once, come back","section":"A1","row":2},
+  {"move":"allemande","beats":6,"params":{"who":"neighbor","hand":"left","amount":1,"orNext":true},"text":"next neighbors allemande left once, come back","section":"A1","row":2},
   {"move":"swing","beats":8,"params":{"who":"neighbor"},"text":"neighbors swing (current neighbor)","section":"A1","row":3},
   {"move":"circle","beats":8,"params":{"direction":"left","places":3},"text":"circle left 3 places","section":"A2","row":4},
   {"move":"swing","beats":8,"params":{"who":"partner"},"text":"partners swing","section":"A2","row":5},

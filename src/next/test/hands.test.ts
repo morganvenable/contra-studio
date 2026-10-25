@@ -155,3 +155,32 @@ test('a courtesy turn ends side by side on the turner\'s side line, facing in, t
   }
   assert.ok(motion(3).contacts.some((c) => c.kind === 'courtesy'));
 });
+
+test('a wave named by the pairs standing side by side forms with those pairs', async () => {
+  const { FORMATIONS } = await import('../core/formation.ts');
+  const { FIGURES } = await import('../figures/index.ts');
+  let s = FORMATIONS.improper.start(4);
+  s = FIGURES.swing(s, { who: 'neighbor' }, 8).exit;
+  const params = {
+    middle: 'robins',
+    middleHand: 'left',
+    ends: 'neighbor',
+    endHand: 'right',
+    balance: true,
+  };
+  const { exit } = FIGURES['ocean-wave'](s, params, 8);
+  const neighbor = s.relations.get('neighbor')!;
+  const held = exit.hands.filter((h) => h.handA === 'right' && h.handB === 'right');
+  assert.ok(held.length > 0);
+  for (const h of held) assert.equal(neighbor.get(h.a), h.b, 'ends hold their neighbors');
+});
+
+test('robins courtesy turn larks: the robin is the turner', () => {
+  assert.deepEqual(read('ladles courtesy turn gentlespoons', 4), [
+    ['courtesy-turn', 4, { who: 'neighbor', turner: 'robins' }],
+  ]);
+  assert.deepEqual(read('partners courtesy turn 1¼ to face the center', 8), [
+    ['courtesy-turn', 8, { who: 'partner', turns: 1.25 }],
+  ]);
+  assert.deepEqual(read('second corners swing', 8), [['swing', 8, { who: 'second-corner' }]]);
+});

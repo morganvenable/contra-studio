@@ -5,9 +5,9 @@
   {"move":"circle","beats":6,"params":{"direction":"left","places":3},"text":"circle left 3 places","section":"A2","row":2},
   {"move":"swing","beats":10,"params":{"who":"partner"},"text":"partners swing","section":"A2","row":3},
   {"move":"circle","beats":6,"params":{"direction":"left","places":3},"text":"circle left 3 places","section":"B1","row":4},
-  {"move":"do-si-do","beats":10,"params":{"who":"neighbor","amount":1.5,"shoulder":"right"},"text":"neighbors do si do 1½ look for new neighbors","section":"B1","row":5},
-  {"move":"balance","beats":4,"params":{"formation":"pair","who":"neighbor","hand":"right"},"text":"next neighbors right hand balance & box the gnat · balance","section":"B2","row":6},
-  {"move":"twirl","beats":4,"params":{"style":"box-the-gnat","who":"neighbor"},"text":"next neighbors right hand balance & box the gnat · twirl","section":"B2","row":6},
+  {"move":"do-si-do","beats":10,"params":{"who":"neighbor","amount":1.5,"shoulder":"right","orNext":true},"text":"neighbors do si do 1½ look for new neighbors","section":"B1","row":5},
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"neighbor","hand":"right","orNext":true},"text":"next neighbors right hand balance & box the gnat · balance","section":"B2","row":6},
+  {"move":"twirl","beats":4,"params":{"style":"box-the-gnat","who":"neighbor","orNext":true},"text":"next neighbors right hand balance & box the gnat · twirl","section":"B2","row":6},
   {"move":"star","beats":8,"params":{"hand":"right","places":4},"text":"star right 4 places look for new new neighbors","progression":true,"section":"B2","row":7}
  ]
 }

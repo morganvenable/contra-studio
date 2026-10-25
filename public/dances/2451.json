@@ -4,7 +4,7 @@
   {"move":"chain","beats":8,"params":{"who":"robins"},"text":"robins chain","section":"A1","row":2},
   {"move":"circle","beats":8,"params":{"direction":"right","places":4},"text":"circle right 4 places","section":"A2","row":3},
   {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"zig right zag left (as larks start the zig out, roll away partners so larks is on the left coming into the next move)","section":"A2","row":4,"progression":true},
-  {"move":"do-si-do","beats":8,"params":{"who":"neighbor","amount":1,"shoulder":"right"},"text":"next neighbors do si do once and a 1/4","section":"B1","row":5},
+  {"move":"do-si-do","beats":8,"params":{"who":"neighbor","amount":1,"shoulder":"right","orNext":true},"text":"next neighbors do si do once and a 1/4","section":"B1","row":5},
   {"move":"ocean-wave","beats":4,"params":{"middle":"robins","middleHand":"left","ends":"neighbor","endHand":"right","balance":true},"text":"form an ocean wave & balance - robins by left hands and neighbors by right hands forward and back","section":"B1","row":6},
   {"move":"pass-through","beats":1,"params":{"shoulder":"right"},"text":"pass through, walk forward to new neighbors · pass through","section":"B1","row":7},
   {"move":"walk-forward","beats":1,"params":{},"text":"pass through, walk forward to new neighbors · walk-forward","progression":true,"section":"B1","row":7},

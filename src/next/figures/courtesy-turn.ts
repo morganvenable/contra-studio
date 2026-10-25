@@ -9,8 +9,8 @@
  * side, the turner on the left. A pair standing off to one side of its
  * minor set ends facing in toward the middle of it (facing across, as after
  * a chain); otherwise the pair ends facing the other way from how it stood.
- * "1¼" wheels that many half-turn courtesy turns' worth past the ending
- * facing (an extra quarter).
+ * "1¼" wheels the whole turns more that bring it nearest that many turns
+ * round (a quarter more and once round: 1¼).
  * Source: Caller's Box glossary, "Courtesy turn"; ContraDB rows "partners
  * courtesy turn", "neighbor courtesy turn", "robins courtesy turn larks".
  * The wheel is the shared courtesy turn of chains and right and left
@@ -41,7 +41,7 @@ export interface CourtesyTurnParams {
   who: PairName;
   /** Who turns: the larks unless named. */
   turner?: 'larks' | 'robins';
-  /** Half turns of wheeling past the start: 1 (a half turn) unless named. */
+  /** Turns round, as the row names them ("1¼"): the nearest wheel to that. */
   turns?: number;
 }
 
@@ -58,8 +58,8 @@ export const courtesyTurn: Figure<CourtesyTurnParams> = (state, params, beats) =
     'larks'
       ? 'lark'
       : 'robin';
-  const turns = params.turns ?? 1;
-  if (!(turns > 0 && turns <= 3)) throw new Error('A courtesy turn wheels half a turn to 1½ turns.');
+  if (params.turns !== undefined && !(params.turns > 0 && params.turns <= 2))
+    throw new Error('A courtesy turn wheels up to twice round.');
   if (beats < 2) throw new Error('A courtesy turn needs at least two beats.');
 
   const plans = minorSets(state).flatMap((g) =>
@@ -85,7 +85,7 @@ export const courtesyTurn: Figure<CourtesyTurnParams> = (state, params, beats) =
       // A couple already side by side across the facing line keeps its two
       // places (the turner taking the left one).
       const across = dot(sub(pf.position, pt.position), forward(endYaw));
-      const beside = span > 1.2 && Math.abs(across) < 0.3;
+      const beside = span > 0.5 && Math.abs(across) < 0.3;
       const places = beside
         ? ([pt.position, pf.position] as const)
         : ([pt.position, add(pt.position, scale(rightOf(endYaw), PLACE))] as const);
@@ -93,7 +93,9 @@ export const courtesyTurn: Figure<CourtesyTurnParams> = (state, params, beats) =
       // half a turn when he faces away, a whole one when he already faces in.
       let sweep = -turn(pt.yaw, endYaw);
       if (sweep < Math.PI / 2) sweep += 2 * Math.PI;
-      sweep += (turns - 1) * Math.PI;
+      // "1¼" and the like: as many whole turns more as bring it nearest.
+      if (params.turns !== undefined)
+        sweep += 2 * Math.PI * Math.max(0, Math.round(params.turns - sweep / (2 * Math.PI)));
       const pair = courtesyPair(t, f, places, endYaw, sweep);
       const start = courtesyStart(pair);
       return { pair, from: [pt, pf] as const, start };

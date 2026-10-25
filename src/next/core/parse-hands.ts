@@ -159,6 +159,14 @@ const NOTES: readonly (readonly [RegExp, Replace])[] = [
   [/^(right (?:and |& )?left through) - identify$/, '$1'],
   // Swing through.
   [/^swing though$/, 'swing through'],
+  // Corners (core/corners.ts): "second corners swing", "1st corners ...".
+  [/\b(?:first|1st) corners?\b/g, 'first_corners'],
+  [/\b(?:second|2nd) corners?\b/g, 'second_corners'],
+  [/^corner (allemande|swing|balance|do si do|pull by)\b/, 'corners $1'],
+  [/^(.+ allemande) l\b/, '$1 left'],
+  [/^(.+ allemande) r\b/, '$1 right'],
+  [/\s*\[?i\.e\. .*$/, ''],
+  [/^(\S+) balance (right|left), pull by$/, '$1 balance & pull by $2'],
 ];
 
 /** Tries one note cut at a time, then all that apply together. */
@@ -230,6 +238,27 @@ export function handsPatterns(h: HandsHelpers): readonly (readonly [RegExp, Buil
     [
       /^robins give (partner|neighbor) left hand for a courtesy turn$/,
       (m, b) => [call('courtesy-turn', b, { who: m[1] })],
+    ],
+    // "Robins courtesy turn larks": the robins turn; with the neighbor
+    // beside them unless the row names partners.
+    [
+      /^(larks|robins) courtesy turn (?:the )?(?:(partners?|neighbors?) )?(?:larks|robins)$/,
+      (m, b) => [
+        call('courtesy-turn', b, {
+          who: m[2]?.startsWith('partner') ? 'partner' : 'neighbor',
+          turner: m[1],
+        }),
+      ],
+    ],
+    // "Partners courtesy turn 1¼ to face the center": that many turns round.
+    [
+      new RegExp(`^${WHO} courtesy turn (1¼|1½|once|¾)(?: to face (?:the )?(?:center|across|in))?$`),
+      (m, b) => [
+        call('courtesy-turn', b, {
+          who: who(m[1]),
+          turns: { '1¼': 1.25, '1½': 1.5, once: 1, '¾': 0.75 }[m[2]],
+        }),
+      ],
     ],
     // "Partners two-hand turn 3 times": that many turns.
     [

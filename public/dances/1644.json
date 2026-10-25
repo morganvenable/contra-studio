@@ -6,7 +6,7 @@
   {"move":"swing","beats":12,"params":{"who":"partner"},"text":"partners swing","section":"A2","row":4},
   {"move":"chain","beats":8,"params":{"who":"robins"},"text":"robins chain","section":"B1","row":5},
   {"move":"star","beats":8,"params":{"hand":"left","places":4,"grip":"hands-across"},"text":"star left - hands across - 4 places","section":"B1","row":6},
-  {"move":"balance","beats":4,"params":{"formation":"pair","who":"neighbor","hand":"both"},"text":"next neighbors balance","section":"B2","row":7},
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"neighbor","hand":"both","orNext":true},"text":"next neighbors balance","section":"B2","row":7},
   {"move":"swing","beats":12,"params":{"who":"neighbor"},"text":"neighbors swing","progression":true,"section":"B2","row":8}
  ]
 }

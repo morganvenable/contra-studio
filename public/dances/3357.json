@@ -1,8 +1,8 @@
 { "schema": "contra-studio/next-dance", "version": 2, "id": "3357", "title": "Trip to Atlanta", "author": "John Nance", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/3357", "formation": "improper", "retrievedAt": "2026-10-20T06:21:02.441Z", "sha256": "786020421e9eac6768aa4b594bba237175c976e61f5dd4edaf54113cb4e0fab7" }, "status": "ok", "problems": [], "unparsed": [], "choices": [],
  "figures": [
   {"move":"allemande","beats":8,"params":{"who":"neighbor","hand":"right","amount":1.5},"text":"neighbors allemande right 1½","section":"A1","row":1},
-  {"move":"swing","beats":8,"params":{"who":"neighbor"},"text":"next neighbors swing","section":"A1","row":2},
-  {"move":"promenade","beats":8,"params":{"who":"neighbor"},"text":"next neighbors promenade","section":"A2","row":3},
+  {"move":"swing","beats":8,"params":{"who":"neighbor","orNext":true},"text":"next neighbors swing","section":"A1","row":2},
+  {"move":"promenade","beats":8,"params":{"who":"neighbor","orNext":true},"text":"next neighbors promenade","section":"A2","row":3},
   {"move":"chain","beats":8,"params":{"who":"robins"},"text":"robins chain","section":"A2","row":4},
   {"move":"pass-by","beats":2,"params":{"who":"neighbor","shoulder":"right","hands":false},"text":"neighbors pass by right shoulders","section":"B1","row":5},
   {"move":"swing","beats":14,"params":{"who":"partner"},"text":"partners swing","section":"B1","row":6},

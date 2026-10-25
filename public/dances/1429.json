@@ -2,7 +2,7 @@
  "figures": [
   {"move":"balance","beats":4,"params":{"formation":"current"},"text":"balance long wave","section":"A1","row":1},
   {"move":"allemande","beats":2,"params":{"who":"neighbor","hand":"right","amount":0.5},"text":"neighbors allemande right ½","section":"A1","row":2},
-  {"move":"allemande","beats":2,"params":{"who":"neighbor","hand":"left","amount":0.5},"text":"next neighbors allemande left ½","section":"A1","row":3},
+  {"move":"allemande","beats":2,"params":{"who":"neighbor","hand":"left","amount":0.5,"orNext":true},"text":"next neighbors allemande left ½","section":"A1","row":3},
   {"move":"balance","beats":4,"params":{"formation":"long-waves","in":"robins"},"text":"balance & box circulate - robins cross while larks loop right you choose which shoulder he turns over with for a single progression loop left or double progression! = right shoulder double = left shoulder single · balance","section":"A1","row":4},
   {"move":"box-circulate","beats":4,"params":{"cross":"robins","loop":"right"},"text":"balance & box circulate - robins cross while larks loop right you choose which shoulder he turns over with for a single progression loop left or double progression! = right shoulder double = left shoulder single · box circulate","section":"A1","row":4},
   {"move":"balance","beats":4,"params":{"formation":"pair","who":"partner","hand":"both"},"text":"partners balance & swing or no balance or meltdown swing · balance","section":"A2","row":5},

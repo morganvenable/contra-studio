@@ -1,6 +1,6 @@
 { "schema": "contra-studio/next-dance", "version": 2, "id": "1483", "title": "Floating the Platte", "author": "Charlie Steiner", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/1483", "formation": "improper", "retrievedAt": "2026-10-20T05:56:03.335Z", "sha256": "09f6be686d9b1a1364756c5475bcd1052927b394190e352628f84e277d60d00c" }, "status": "ok", "problems": [], "unparsed": [], "choices": [ "A swing that ends facing down the hall is drawn ending facing across; the down the hall that follows turns the lines." ],
  "figures": [
-  {"move":"do-si-do","beats":8,"params":{"who":"neighbor","amount":1,"shoulder":"right"},"text":"next neighbors do si do once (progress here)","section":"A1","row":1},
+  {"move":"do-si-do","beats":8,"params":{"who":"neighbor","amount":1,"shoulder":"right","orNext":true},"text":"next neighbors do si do once (progress here)","section":"A1","row":1},
   {"move":"swing","beats":8,"params":{"who":"neighbor"},"text":"neighbors swing (end facing down)","section":"A1","row":2},
   {"move":"hall","beats":8,"params":{"direction":"down","turn":"couple"},"text":"down the hall and turn as a couple","section":"A2","row":3},
   {"move":"hall","beats":8,"params":{"direction":"up","end":"ring"},"text":"up the hall and bend into a ring","section":"A2","row":4},

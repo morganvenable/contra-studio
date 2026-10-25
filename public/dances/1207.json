@@ -2,7 +2,7 @@
  "figures": [
   {"move":"zig-zag","beats":6,"params":{"first":"left"},"text":"zig left zag right larks lead out robins in with partner","section":"A1","row":1},
   {"move":"zig-zag","beats":6,"params":{"first":"left"},"text":"zig left zag right","section":"A1","row":2},
-  {"move":"allemande","beats":4,"params":{"who":"neighbor","hand":"right","amount":1},"text":"next neighbors allemande right once to neighbor to come back to previous neighbor","section":"A1","row":3},
+  {"move":"allemande","beats":4,"params":{"who":"neighbor","hand":"right","amount":1,"orNext":true},"text":"next neighbors allemande right once to neighbor to come back to previous neighbor","section":"A1","row":3},
   {"move":"allemande","beats":3,"params":{"who":"previous-neighbor","hand":"left","amount":0.5},"text":"prev neighbors allemande left ½","section":"A2","row":4},
   {"move":"hey","beats":5,"params":{"start":"larks","amount":0.5,"center":"right"},"text":"larks start a half hey - rights in center, lefts on ends","section":"A2","row":5},
   {"move":"swing","beats":8,"params":{"who":"neighbor"},"text":"neighbors swing","section":"A2","row":6},

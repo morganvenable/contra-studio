@@ -2,9 +2,9 @@
  "figures": [
   {"move":"hold","beats":4,"params":{"reason":"unparsed"},"text":"ones cross down between twos","section":"A1","row":1},
   {"move":"balance","beats":4,"params":{"formation":"wave","style":"right-left","first":"right"},"text":"balance the wave right & left","section":"A1","row":3},
-  {"move":"allemande","beats":4,"params":{"who":"neighbor","hand":"right","amount":1},"text":"neighbors allemande right once (right hand neighbors could be current or next neighbors)","section":"A1","row":4},
+  {"move":"allemande","beats":4,"params":{"who":"neighbor","hand":"right","amount":1,"orNext":true},"text":"neighbors allemande right once (right hand neighbors could be current or next neighbors)","section":"A1","row":4},
   {"move":"balance","beats":4,"params":{"formation":"wave","style":"right-left","first":"left"},"text":"balance the wave left & right","section":"A1","row":6},
-  {"move":"allemande","beats":4,"params":{"who":"neighbor","hand":"left","amount":0.75},"text":"neighbors allemande left ¾ (left hand neighbors could be current or next neighbors)","section":"A2","row":7},
+  {"move":"allemande","beats":4,"params":{"who":"neighbor","hand":"left","amount":0.75,"orNext":true},"text":"neighbors allemande left ¾ (left hand neighbors could be current or next neighbors)","section":"A2","row":7},
   {"move":"balance","beats":4,"params":{"formation":"wave","style":"right-left","first":"right"},"text":"balance the wave right & left","section":"A2","row":9},
   {"move":"swing","beats":8,"params":{"who":"1s","end":"down"},"text":"ones swing, end facing down","section":"A2","row":10},
   {"move":"couple-travel","beats":8,"params":{"who":"1s","route":"center","direction":"down","turn":"couple"},"text":"ones down the center and turn as a couple","section":"B1","row":11},
