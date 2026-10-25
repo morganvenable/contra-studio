@@ -33,11 +33,13 @@ import {
 
 export const MINOR_SET_DOUBLE: Progression = {
   kind: 'minor-set-double',
+  crossAtGhostSet: true,
   rebind: MINOR_SET_PROGRESSION.rebind,
 };
 
 export const MINOR_SET_COUPLES_DOUBLE: Progression = {
   kind: 'minor-set-couples-double',
+  crossAtGhostSet: true,
   rebind: MINOR_SET_COUPLES_PROGRESSION.rebind,
 };
 

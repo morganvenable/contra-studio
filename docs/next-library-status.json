@@ -4,9 +4,9 @@
  "catalogue": 2422,
  "stored": 2422,
  "counts": {
-  "ok": 654,
-  "check": 365,
-  "partial": 1403,
+  "ok": 742,
+  "check": 285,
+  "partial": 1395,
   "unsupported": 0
  },
  "formations": [
@@ -21,17 +21,17 @@
   {
    "formation": "becket",
    "dances": 655,
-   "ok": 81,
-   "check": 165,
-   "partial": 409,
+   "ok": 137,
+   "check": 113,
+   "partial": 405,
    "unsupported": 0
   },
   {
    "formation": "becket ccw",
    "dances": 169,
-   "ok": 6,
-   "check": 46,
-   "partial": 117,
+   "ok": 34,
+   "check": 21,
+   "partial": 114,
    "unsupported": 0
   },
   {
@@ -61,8 +61,8 @@
   {
    "formation": "becket cw",
    "dances": 30,
-   "ok": 2,
-   "check": 6,
+   "ok": 5,
+   "check": 3,
    "partial": 22,
    "unsupported": 0
   },
@@ -254,8 +254,8 @@
    "formation": "becket double progression",
    "dances": 2,
    "ok": 0,
-   "check": 0,
-   "partial": 2,
+   "check": 1,
+   "partial": 1,
    "unsupported": 0
   },
   {
@@ -701,8 +701,8 @@
   {
    "formation": "becket, double progression",
    "dances": 1,
-   "ok": 0,
-   "check": 1,
+   "ok": 1,
+   "check": 0,
    "partial": 0,
    "unsupported": 0
   },
@@ -3206,7 +3206,7 @@
   "figuresThatCannotStart": [
    {
     "name": "progression or other",
-    "unlocks": 104
+    "unlocks": 101
    },
    {
     "name": "swing variant",
@@ -3241,16 +3241,16 @@
     "unlocks": 10
    },
    {
+    "name": "star variant",
+    "unlocks": 8
+   },
+   {
     "name": "poussette",
-    "unlocks": 9
+    "unlocks": 7
    },
    {
     "name": "hey (other)",
-    "unlocks": 8
-   },
-   {
-    "name": "star variant",
-    "unlocks": 8
+    "unlocks": 7
    },
    {
     "name": "square through",
@@ -3259,10 +3259,6 @@
    {
     "name": "promenade",
     "unlocks": 7
-   },
-   {
-    "name": "chain variant",
-    "unlocks": 5
    },
    {
     "name": "petronella",
@@ -3277,16 +3273,16 @@
     "unlocks": 4
    },
    {
+    "name": "chain variant",
+    "unlocks": 4
+   },
+   {
     "name": "do-si-do variant",
     "unlocks": 4
    },
    {
     "name": "mad robin",
     "unlocks": 4
-   },
-   {
-    "name": "diagonal hey",
-    "unlocks": 3
    },
    {
     "name": "turn alone / as a couple",
@@ -3299,6 +3295,10 @@
    {
     "name": "roll away",
     "unlocks": 3
+   },
+   {
+    "name": "diagonal hey",
+    "unlocks": 2
    },
    {
     "name": "ricochet hey",
@@ -3360,7 +3360,7 @@
   "checkFailures": [
    {
     "name": "Couples don't end the round where the progression puts them.",
-    "unlocks": 168
+    "unlocks": 75
    },
    {
     "name": "allemande variant",
@@ -3368,22 +3368,22 @@
    },
    {
     "name": "ocean wave / long wave",
-    "unlocks": 22
+    "unlocks": 24
    },
    {
     "name": "swing variant",
-    "unlocks": 19
+    "unlocks": 23
    },
    {
     "name": "hey (other)",
-    "unlocks": 12
+    "unlocks": 14
    },
    {
     "name": "circle variant",
     "unlocks": 10
    },
    {
-    "name": "The next time through can't start from where the dancers end: No couples face each other on the left diagonal.).",
+    "name": "diagonal chain / right left through",
     "unlocks": 9
    },
    {
@@ -3395,7 +3395,7 @@
     "unlocks": 7
    },
    {
-    "name": "The next time through can't start from where the dancers end: No couples face each other on the right diagonal.).",
+    "name": "diagonal hey",
     "unlocks": 6
    },
    {
@@ -3408,6 +3408,10 @@
    },
    {
     "name": "star variant",
+    "unlocks": 4
+   },
+   {
+    "name": "gyre",
     "unlocks": 4
    },
    {
@@ -3427,15 +3431,15 @@
     "unlocks": 3
    },
    {
-    "name": "gyre",
-    "unlocks": 3
-   },
-   {
     "name": "california twirl",
     "unlocks": 3
    },
    {
     "name": "contra corners",
+    "unlocks": 3
+   },
+   {
+    "name": "The next time through can't start from where the dancers end: No couples face each other on the right diagonal.).",
     "unlocks": 3
    },
    {
@@ -3456,10 +3460,6 @@
    },
    {
     "name": "poussette",
-    "unlocks": 2
-   },
-   {
-    "name": "petronella",
     "unlocks": 2
    },
    {
@@ -3487,11 +3487,19 @@
     "unlocks": 1
    },
    {
+    "name": "The next time through can't start from where the dancers end: A swing that ends facing across must start nearer one side.).",
+    "unlocks": 1
+   },
+   {
     "name": "The next time through can't start from where the dancers end: A roll away needs the two side by side.).",
     "unlocks": 1
    },
    {
     "name": "other: larks turn & walk out to next robins",
+    "unlocks": 1
+   },
+   {
+    "name": "The next time through can't start from where the dancers end: Playback is limited to one round: the next round cannot start (Couple 3 must stand side by side to find new neighbors.).",
     "unlocks": 1
    },
    {
@@ -3523,7 +3531,7 @@
     "unlocks": 1
    },
    {
-    "name": "diagonal chain / right left through",
+    "name": "The next time through can't start from where the dancers end: No couples face each other on the left diagonal.).",
     "unlocks": 1
    },
    {
@@ -3532,6 +3540,10 @@
    },
    {
     "name": "pull by / pass by",
+    "unlocks": 1
+   },
+   {
+    "name": "petronella",
     "unlocks": 1
    },
    {

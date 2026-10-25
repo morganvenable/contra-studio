@@ -53,6 +53,13 @@ export interface Progression {
    * time through each "progress", but names change only after the last).
    */
   readonly atRoundEnd?: boolean;
+  /**
+   * A couple out at an end crosses over by a half turn about the middle of
+   * its ghost minor set (ghosts.ts), to the place of the ghost set's other
+   * couple, rather than about its own middle. Becket: the couples out at the
+   * ends keep moving along with the set and cross to the other side line.
+   */
+  readonly crossAtGhostSet?: boolean;
 }
 
 export const NO_PROGRESSION: Progression = { kind: 'none', rebind: (s) => s };
@@ -84,6 +91,7 @@ function coupleSpots(state: DanceState, beside = false): Map<number, CoupleSpot>
 
 export const MINOR_SET_PROGRESSION: Progression = {
   kind: 'minor-set',
+  crossAtGhostSet: true,
   // Couples as partners first; failing that, as whoever stands with each
   // lark as a couple (Becket, core/couples.ts).
   rebind: (state) => rebindEither(state, false),
@@ -97,6 +105,7 @@ export const MINOR_SET_PROGRESSION: Progression = {
  */
 export const MINOR_SET_COUPLES_PROGRESSION: Progression = {
   kind: 'minor-set-couples',
+  crossAtGhostSet: true,
   rebind: (state) => rebindEither(state, true),
 };
 

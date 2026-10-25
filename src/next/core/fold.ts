@@ -26,6 +26,8 @@ import { beatsPerTime, type MusicStructure } from './music.ts';
 import type { Progression } from './progression.ts';
 import { body, type Body, type DanceState, withChanges } from './state.ts';
 import { hold } from '../figures/hold.ts';
+import { ghostCopies, ghostTurn, withGhosts } from './ghosts.ts';
+import { REGROUPING } from './relations.ts';
 
 export type FigureRegistry = Readonly<Record<string, Figure<any>>>;
 
@@ -79,7 +81,9 @@ export function foldRound(
   const crossings: Crossing[] = [];
   const held: HeldFigure[] = [];
   const total = calls.reduce((n, c) => n + c.beats, 0);
-  let state = scheduleCrossings(start, 0, total, crossings);
+  // Becket: couples out at the ends dance with ghosts (ghosts.ts).
+  const ghostPivot = progression?.crossAtGhostSet ?? false;
+  let state = scheduleCrossings(start, 0, total, crossings, ghostPivot);
   let beat = 0;
   for (const [index, call] of calls.entries()) {
     if (!(call.beats > 0 && call.beats <= 64)) throw new Error(`${call.move} needs 1-64 beats.`);
@@ -87,7 +91,7 @@ export function foldRound(
     let moved: Set<number>;
     state = settleCrossings(state, beat, crossings);
     try {
-      ({ result, moved } = runFigure(registry, state, call, index, beat, crossings));
+      ({ result, moved } = runFigure(registry, state, call, index, beat, crossings, ghostPivot));
     } catch (error) {
       if (!lenient) throw error;
       // Hold everyone still for this row so the rest keeps its place in time.
@@ -109,7 +113,7 @@ export function foldRound(
         held.push({ index, why: `The progression does not work out: ${why}`, progression: true });
       }
     }
-    state = scheduleCrossings(exit, beat, total, crossings);
+    state = scheduleCrossings(exit, beat, total, crossings, ghostPivot);
   }
   return { segments, crossings, end: state, held };
 }
@@ -122,6 +126,7 @@ function runFigure(
   index: number,
   beat: number,
   crossings: readonly Crossing[],
+  ghosts = false,
 ) {
   const figure = registry[call.move];
   if (!figure) throw new Error(`No figure named "${call.move}".`);
@@ -132,6 +137,17 @@ function runFigure(
     const why = error instanceof Error ? error.message : String(error);
     throw new Error(`Figure ${index + 1} (${call.text ?? call.move}): ${why}`);
   }
+  // Couples out at the ends dance with ghosts (ghosts.ts), unless crossing over.
+  const crossingNow = new Set(
+    crossings
+      .filter((c) => c.start + CROSS_BEATS > beat && c.start < beat + call.beats)
+      .map((c) => c.ids[0] / 2),
+  );
+  // Figures danced with someone outside the minor set (shadows, a diagonal)
+  // take the couples at the ends in directly instead (relations.ts).
+  const across = REGROUPING.has(String(call.params.who)) || call.params.diagonal !== undefined;
+  if (ghosts && !across)
+    result = withGhosts(state, result, ghostCopies(state, crossingNow), call.beats);
   const moved = new Set(result.motion(0).bodies.map((b) => b.id));
   assertSeam(state, result, call);
   for (const c of crossings) {
@@ -164,9 +180,31 @@ function scheduleCrossings(
   beat: number,
   total: number,
   crossings: Crossing[],
+  ghostPivot = false,
 ): DanceState {
-  const pending = state.waiting.filter((w) => !w.crossed);
+  let pending = state.waiting.filter((w) => !w.crossed);
   if (!pending.length) return state;
+  // Becket: a couple that repeats a couple of the nearest minor set changes
+  // ends with the ghosts while it dances the next figure (ghosts.ts).
+  const turns = new Map(
+    ghostPivot
+      ? pending.flatMap((w) => {
+          const t = ghostTurn(state, w.couple);
+          return t ? [[w.couple, t] as const] : [];
+        })
+      : [],
+  );
+  if (turns.size) {
+    state = withChanges(state, {
+      waiting: state.waiting.map((w) =>
+        turns.has(w.couple)
+          ? { couple: w.couple, crossed: true, ghostTurn: turns.get(w.couple) }
+          : w,
+      ),
+    });
+    pending = pending.filter((w) => !turns.has(w.couple));
+    if (!pending.length) return state;
+  }
   // Too late in the round: the couple crosses at the start of the next one.
   if (beat + CROSS_BEATS > total) return state;
   const bodies = new Map(state.bodies);
@@ -183,8 +221,9 @@ function scheduleCrossings(
     crossings.push(crossing);
     for (const id of ids) bodies.set(id, crossingBody(crossing, id, 1));
   }
+  const crossed = new Set(pending.map((w) => w.couple));
   const waiting = state.waiting.map((w) =>
-    w.crossed ? w : { ...w, crossed: true, crossing: true },
+    crossed.has(w.couple) ? { ...w, crossed: true, crossing: true } : w,
   );
   return withChanges(state, { bodies, waiting });
 }
