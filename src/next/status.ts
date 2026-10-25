@@ -52,19 +52,26 @@ export function plainPhysical(problem: string): string {
   return problem.replace(/^beat [\d.]+: /, '');
 }
 
+// ContraDB names some formations with a gendered gloss in parentheses.
+function formationName(raw: string | undefined): string {
+  return (raw || 'unknown')
+    .replace(/\s*\(.*\)\s*$/, '')
+    .replace(/\bccw\b/i, 'counterclockwise')
+    .replace(/\bcw\b/i, 'clockwise');
+}
+
 function plainVerdict(stored: StoredDance, v: Verdict): string {
-  const at = v.couples ? ` (with ${v.couples} couples)` : '';
   switch (v.kind) {
     case 'physical': {
       const line = (v.problem ?? '').replace(/^\d+ couples: /, '').replace(/ \(.*\)$/, '');
-      return `${rowName(stored, v.index, v.figure)}: ${plainPhysical(line)}${at}.`;
+      return `${rowName(stored, v.index, v.figure)}: ${plainPhysical(line)}.`;
     }
     case 'progression':
-      return `Couples don't end the round where the progression puts them${at}.`;
+      return `Couples don't end the round where the progression puts them.`;
     case 'meeting':
-      return `Not every couple gets to dance with every other couple${at}.`;
+      return `Not every couple gets to dance with every other couple.`;
     case 'repeat':
-      return `The next time through can't start from where the dancers end${at}: ${reason(v.problem ?? '')}.`;
+      return `The next time through can't start from where the dancers end: ${reason(v.problem ?? '')}.`;
     default:
       return `${rowName(stored, v.index, v.figure)} can't start from where the dancers are: ${reason(v.problem ?? '')}.`;
   }
@@ -74,7 +81,7 @@ export function checkDance(stored: StoredDance): DanceCheck {
   if (!formationBuilt(stored))
     return {
       status: 'unsupported',
-      problems: [`The ${quote(stored.source.formation || 'unknown')} formation isn't built yet.`],
+      problems: [`The ${quote(formationName(stored.source.formation))} formation isn't built yet.`],
     };
   const problems: string[] = stored.unparsed.map(
     (u) => `Row ${u.row} ${quote(u.text)} isn't drawn yet.`,

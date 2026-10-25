@@ -170,7 +170,6 @@ export function compileNext(
     lenient: options.lenient ?? stored.status !== 'ok',
     warnings: [
       ...(notOk ? [stored.problems[0]] : []),
-      'Figure-library engine (preview): every figure is one reusable function.',
       ...(notOk ? stored.problems.slice(1) : []),
       ...stored.choices.map((c) => `Choice: ${c}`),
     ],

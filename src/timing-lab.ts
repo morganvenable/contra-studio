@@ -10,8 +10,7 @@ const floor=(id:string,title:string,subtitle:string,badge:string)=>`<section cla
 root.innerHTML=`
   <header><a class="brand" href="./">Contra <span>Studio</span></a><a href="./">← Back to the dance floor</a></header>
   <main>
-    <div class="eyebrow">Timing study</div>
-    <h1>Connected steps. Tiny dancers.</h1>
+    <h1>Timing lab</h1>
     <p class="intro">Start connected. Step closer, step back, then move into the swing. Drag either view to look around the dancers. Green is the lark; rust is the robin.</p>
     <div class="workspace">
       <div class="comparison">${floor('fluent','Fluent','Timing and frame reference','Ready ahead')}${floor('adjustable','Your timing','Adjust the feel on the right','Try a variation')}</div>
@@ -39,8 +38,8 @@ root.innerHTML=`
         <p class="chart-caption">Moving in lowers the line; moving back raises it. Balance: hands connected with bent elbows throughout planted steps and a fourth-step inward push. Swing: right feet step every count on a small shared circle; outside left feet push between steps. The hip bar faces outward; the oblong torso turns inward. The hand connects to the back of the partner's shoulder.</p>
       </section>
     </div>
-    <p class="study-note"><strong>A focused timing study.</strong> This simple pair repeats a balance, swing and preparation. It explores timing choices; it does not yet change the dances in the main studio or simulate individual dancers missing connections. These are the studio dancer figures using experimental timing and contact motion, not a physically validated performance.</p>
-    <footer><span>One shared clock · one step per count · no change to the written counts</span><a href="./">Return to Contra Studio</a></footer>
+    <p class="study-note">This pair repeats a balance, swing and preparation. Timing changes here don’t affect the dances in the studio.</p>
+    <footer><span></span><a href="./">Return to Contra Studio</a></footer>
   </main>`;
 
 const $=<T extends Element=HTMLElement>(selector:string)=>document.querySelector<T>(selector)!;

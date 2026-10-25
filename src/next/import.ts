@@ -71,7 +71,7 @@ export function shapeOf(formation: string): Shape | undefined {
 const CHOICES: readonly (readonly [(c: StoredCall) => boolean, string])[] = [
   [
     (c) => c.move === 'rory' && c.params.spin === 'full',
-    "Rory O'More spins one full turn in the travel direction (the usual styling).",
+    "Rory O'More spins one full turn in the travel direction.",
   ],
   [
     (c) => c.move === 'balance' && c.params.formation === 'wave' && !!c.params.first,

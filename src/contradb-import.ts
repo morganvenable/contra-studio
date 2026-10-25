@@ -571,7 +571,7 @@ export function importContraDb(input:string,options:ContraDbSourceOptions&{inter
    result.rows=record.rows.map(source=>({source,recognized:true,resolved:true,figures:lowered.byRow.get(source.id)??[],diagnostics:[],interpretations:[improperWaveDescription(interpretation.improperWave!)]}));
    coverage.recognizedRows=result.rows.length;coverage.resolvedRows=result.rows.length;
    coverage.semanticallyResolved=source.structurallyValid&&!diagnostics.some(d=>d.severity!=='warning');
-   warnings.push(improperWaveDescription(interpretation.improperWave!),'ContraDB software is AGPL-3.0. Its public page does not establish a blanket choreography/data republication license.','This is a schematic interpretation; source recognition and sampled motion validation are separate checks.');
+   warnings.push(improperWaveDescription(interpretation.improperWave!));
    if(!coverage.semanticallyResolved)return finish();
    const dance:ContraDbImportedDance={id:`contradb-${record.sourceId}-${record.snapshotId.split(':').at(-1)}`,title:record.title,author:record.author,formation:'duple-improper',sourceUrl:record.sourceUrl,description:'Imported ContraDB snapshot with explicit source interpretation.',figures:lowered.figures,progressionEvents:lowered.progressionEvents,improperWavePolicy:lowered.policy,notes:[...warnings],verified:false,sourceText:JSON.stringify({schema:'contra-studio/contradb-interpretation',version:1,sourceSnapshotId:record.snapshotId,snapshot:makeContraDbSnapshot(record),interpretation} satisfies ContraDbInterpretationFile),sourceRecord:record,sourceRows:record.rows,contraDbInterpretation:JSON.parse(JSON.stringify(interpretation))};
    result.validation=validateDance(dance,options.capabilities);
@@ -587,7 +587,7 @@ export function importContraDb(input:string,options:ContraDbSourceOptions&{inter
    result.rows=record.rows.map(source=>({source,recognized:true,resolved:true,figures:lowered.byRow.get(source.id)??[],diagnostics:[],interpretations:[hallLineDescription(interpretation.hallLine!)],...(lowered.compounds.has(source.id)?{compound:lowered.compounds.get(source.id)}:{})}));
    coverage.recognizedRows=result.rows.length;coverage.resolvedRows=result.rows.length;
    coverage.semanticallyResolved=source.structurallyValid&&!diagnostics.some(d=>d.severity!=='warning');
-   warnings.push(hallLineDescription(interpretation.hallLine!),'ContraDB software is AGPL-3.0. Its public page does not establish a blanket choreography/data republication license.','This is a schematic interpretation; source recognition and sampled motion validation are separate checks.');
+   warnings.push(hallLineDescription(interpretation.hallLine!));
    if(!coverage.semanticallyResolved)return finish();
    const dance:ContraDbImportedDance={id:`contradb-${record.sourceId}-${record.snapshotId.split(':').at(-1)}`,title:record.title,author:record.author,formation:'becket',circulation:'cw',sourceUrl:record.sourceUrl,description:'Imported ContraDB snapshot with explicit source interpretation.',figures:lowered.figures,progressionEvents:lowered.progressionEvents,hallLinePolicy:lowered.policy,notes:[...warnings],verified:false,sourceText:JSON.stringify({schema:'contra-studio/contradb-interpretation',version:1,sourceSnapshotId:record.snapshotId,snapshot:makeContraDbSnapshot(record),interpretation} satisfies ContraDbInterpretationFile),sourceRecord:record,sourceRows:record.rows,contraDbInterpretation:JSON.parse(JSON.stringify(interpretation))};
    result.validation=validateDance(dance,options.capabilities);
@@ -603,7 +603,7 @@ export function importContraDb(input:string,options:ContraDbSourceOptions&{inter
    result.rows=record.rows.map(source=>({source,recognized:true,resolved:true,figures:lowered.byRow.get(source.id)??[],diagnostics:[],interpretations:[BECKET_SHORT_WAVE_DESCRIPTION]}));
    coverage.recognizedRows=result.rows.length;coverage.resolvedRows=result.rows.length;
    coverage.semanticallyResolved=source.structurallyValid&&!diagnostics.some(d=>d.severity!=='warning');
-   warnings.push(BECKET_SHORT_WAVE_DESCRIPTION,'ContraDB software is AGPL-3.0. Its public page does not establish a blanket choreography/data republication license.','This is a schematic interpretation; source recognition and sampled motion validation are separate checks.');
+   warnings.push(BECKET_SHORT_WAVE_DESCRIPTION);
    if(!coverage.semanticallyResolved)return finish();
    const dance:ContraDbImportedDance={id:`contradb-${record.sourceId}-${record.snapshotId.split(':').at(-1)}`,title:record.title,author:record.author,formation:'becket',circulation:'cw',sourceUrl:record.sourceUrl,description:'Imported ContraDB snapshot with explicit source interpretation.',figures:lowered.figures,progressionEvents:lowered.progressionEvents,becketShortWavePolicy:lowered.policy,endPolicy:lowered.endPolicy,notes:[...warnings],verified:false,sourceText:JSON.stringify({schema:'contra-studio/contradb-interpretation',version:1,sourceSnapshotId:record.snapshotId,snapshot:makeContraDbSnapshot(record),interpretation} satisfies ContraDbInterpretationFile),sourceRecord:record,sourceRows:record.rows,contraDbInterpretation:JSON.parse(JSON.stringify(interpretation))};
    result.validation=validateDance(dance,options.capabilities);
@@ -619,7 +619,7 @@ export function importContraDb(input:string,options:ContraDbSourceOptions&{inter
    result.rows=record.rows.map(source=>({source,recognized:true,resolved:true,figures:lowered.byRow.get(source.id)??[],diagnostics:[],interpretations:[becketWaveDescription(interpretation.becketWave!)]}));
    coverage.recognizedRows=result.rows.length;coverage.resolvedRows=result.rows.length;
    coverage.semanticallyResolved=source.structurallyValid&&!diagnostics.some(d=>d.severity!=='warning');
-   warnings.push(becketWaveDescription(interpretation.becketWave!),'ContraDB software is AGPL-3.0. Its public page does not establish a blanket choreography/data republication license.','This is a schematic interpretation; source recognition and sampled motion validation are separate checks.');
+   warnings.push(becketWaveDescription(interpretation.becketWave!));
    if(!coverage.semanticallyResolved)return finish();
    const dance:ContraDbImportedDance={id:`contradb-${record.sourceId}-${record.snapshotId.split(':').at(-1)}`,title:record.title,author:record.author,formation:'becket',circulation:lowered.program.circulation??'cw',sourceUrl:record.sourceUrl,description:'Imported ContraDB snapshot with explicit source interpretation.',figures:lowered.figures,progressionEvents:lowered.progressionEvents,becketWavePolicy:lowered.policy,notes:[...warnings],verified:false,sourceText:JSON.stringify({schema:'contra-studio/contradb-interpretation',version:1,sourceSnapshotId:record.snapshotId,snapshot:makeContraDbSnapshot(record),interpretation} satisfies ContraDbInterpretationFile),sourceRecord:record,sourceRows:record.rows,contraDbInterpretation:JSON.parse(JSON.stringify(interpretation))};
    result.validation=validateDance(dance,options.capabilities);
@@ -967,7 +967,7 @@ export function importContraDb(input:string,options:ContraDbSourceOptions&{inter
  if(!endpointProgression&&progresses.length!==expectedProgressionCount)issue('progression-count',`This adapter needs exactly ${expectedProgressionCount} source-declared progression event${expectedProgressionCount===1?'':'s'}; found ${progresses.length}.`);
  else if(!endpointProgression&&!eventFamily&&!diagonalComposition&&!measuredSixTwoComposition&&(formation==='becket'&&progresses[0].index!==0||formation==='duple-improper'&&progresses[0].index!==record.rows.length-1))issue('progression-location','The progression event is not at this formation adapter’s reviewed boundary.');
  coverage.semanticallyResolved=source.structurallyValid&&result.rows.every(r=>r.resolved)&&!diagnostics.some(d=>d.severity!=='warning');
- warnings.push('ContraDB software is AGPL-3.0. Its public page does not establish a blanket choreography/data republication license.','This is a schematic interpretation; source recognition and sampled motion validation are separate checks.');
+ warnings.push();
  if(!coverage.semanticallyResolved||!formation)return finish();
  const figures=result.rows.flatMap(r=>r.figures).map(f=>({...f}));
  // A paired-swing half hey followed later by a source-marked terminal chain

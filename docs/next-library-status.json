@@ -2928,7 +2928,7 @@
   ],
   "checkFailures": [
    {
-    "name": "Couples don't end the round where the progression puts them",
+    "name": "Couples don't end the round where the progression puts them.",
     "unlocks": 17
    },
    {
@@ -2946,10 +2946,6 @@
    {
     "name": "swing variant",
     "unlocks": 6
-   },
-   {
-    "name": "The next time through can't start from where the dancers end",
-    "unlocks": 4
    },
    {
     "name": "gyre",
@@ -2972,6 +2968,10 @@
     "unlocks": 2
    },
    {
+    "name": "The next time through can't start from where the dancers end: A ring balance of 4 needs the dancers spaced around a ring.).",
+    "unlocks": 1
+   },
+   {
     "name": "promenade",
     "unlocks": 1
    },
@@ -2992,11 +2992,23 @@
     "unlocks": 1
    },
    {
+    "name": "The next time through can't start from where the dancers end: Dancers 1 and 5 are too far apart to turn by the hand.).",
+    "unlocks": 1
+   },
+   {
     "name": "box the gnat / swat the flea",
     "unlocks": 1
    },
    {
     "name": "butterfly whirl",
+    "unlocks": 1
+   },
+   {
+    "name": "The next time through can't start from where the dancers end: The robins must start on opposite sides of the set.).",
+    "unlocks": 1
+   },
+   {
+    "name": "The next time through can't start from where the dancers end: No couples face each other on the left diagonal.).",
     "unlocks": 1
    }
   ],

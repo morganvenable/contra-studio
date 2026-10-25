@@ -93,8 +93,8 @@ export function mountFeedbackPanel(
       <div class="feedback-compose">
         <label class="feedback-label" for="feedback-message">What looks wrong, or what would you change?</label>
         <textarea id="feedback-message" class="feedback-message" rows="5" maxlength="${MAX_MESSAGE_CHARS}" data-dictate spellcheck="true"></textarea>
-        <label class="feedback-label feedback-name-label" for="feedback-name">Your name <span>(optional)</span></label>
-        <input id="feedback-name" class="feedback-name" type="text" maxlength="${MAX_NAME_CHARS}" autocomplete="name" data-dictate>
+        <label class="feedback-label feedback-name-label" for="feedback-name">Your name</label>
+        <input id="feedback-name" class="feedback-name" type="text" maxlength="${MAX_NAME_CHARS}" autocomplete="name" placeholder="If you like" data-dictate>
         <div class="feedback-turnstile" hidden></div>
       </div>
       <p class="feedback-status" role="status" aria-live="polite"></p>
