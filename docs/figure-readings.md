@@ -44,3 +44,4 @@ below. One line each; change any of them by telling us the other reading.
 - "Pull by right diagonal" with no diagonal side named: the diagonal on the side of the hand; whoever faces across that diagonal pulls by.
 - Contra corners notes "home file", "opposite file", "ending progressed", "(alternate with twos)" read as plain contra corners.
 - A petronella over more than one place cuts inside the ring and its extra spins are reported as styled motion (like the Rory twirl).
+- Circular hey: around the ring of places like a grand right and left without hands, straight from place to place, the named pair passing first by the named shoulder and the passes alternating; full is four changes, half two.

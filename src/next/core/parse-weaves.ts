@@ -96,6 +96,7 @@ const NOTES: readonly RegExp[] = [
   /^(?:the )?(?:trailing two|new \w+|original \w+|\w+ )?\s*catch(?:ing)?(?: (?:\w+ )?(?:hands?|partners?|shadows?|neighbors?))?(?: in (?:the )?(?:left|right) hands?)?(?: \w+)?$/,
   /^(?:just )?(?:halfway|once around)$/,
   /^to progress$/,
+  /^-?\s*(?:and )?end next(?: to .*)?$/,
   /^balance (?:left|right) first(?: to (?:neighbors?|partners?))?$/,
   /^;?\s*return to (?:partners?|neighbors?)$/,
   /^(?:\w+ )?drop off (?:partners?|neighbors?)$/,
@@ -174,6 +175,28 @@ function heyRest(rest: string) {
 }
 
 const PATTERNS: readonly (readonly [RegExp, Build])[] = [
+  [
+    // "partners start a full circular hey - rights across, lefts along".
+    /^((?:next |new )?\w+) start an? (full|half) circular hey - (right|left)s (?:across|along),? (?:right|left)s (?:across|along)(.*)$/,
+    (m, b) => {
+      notes(m[4], 'circular hey');
+      return [
+        call('circular-hey', b, {
+          start: who(m[1]),
+          shoulder: m[3],
+          changes: m[2] === 'full' ? 4 : 2,
+        }),
+      ];
+    },
+  ],
+  [
+    // "three changes of a circular hey - neighbors pass right along, partners pass left across".
+    /^(one|two|three|four|five|six) changes? of a circular hey - (\w+) pass (right|left) (?:along|across),? (?:\w+) pass (?:right|left) (?:along|across)(.*)$/,
+    (m, b) => {
+      notes(m[4], 'circular hey');
+      return [call('circular-hey', b, { start: who(m[2]), shoulder: m[3], changes: NUMBER[m[1]] })];
+    },
+  ],
   [
     /^(?:((?:\d\w* |next |new )*\w+) )?(pass|pull) by (right|left)(?: along)?(?: (?:short |slight )?(left|right))? diagonal(.*)$/,
     (m, b) => {

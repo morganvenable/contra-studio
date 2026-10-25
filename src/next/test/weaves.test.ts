@@ -562,3 +562,21 @@ test('petronella two places turns twice and ends facing in', () => {
     );
   }
 });
+
+test('circular hey: four changes around the ring bring everyone home', () => {
+  const start = BECKET.start(2);
+  const [c] = parseRow({
+    beats: 16,
+    text: 'partners start a full circular hey - rights across, lefts along - and end next to next neighbors',
+  });
+  assert.deepEqual(c.params, { start: 'partner', shoulder: 'right', changes: 4 });
+  const r = FIGURES['circular-hey'](start, c.params, 16);
+  for (const id of [0, 1, 2, 3]) near(r.exit.bodies.get(id)!.position, body(start, id).position);
+  withinLimits(r, 16, 'circular hey');
+  const three = FIGURES['circular-hey'](
+    start,
+    { start: 'neighbor', shoulder: 'right', changes: 3 },
+    6,
+  );
+  withinLimits(three, 6, 'three changes');
+});
