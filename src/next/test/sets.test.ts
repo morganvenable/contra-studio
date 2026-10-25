@@ -126,7 +126,7 @@ test('swing out: partners end on their own side facing away from the other coupl
 
 /** Four face four with the two facing lines as one group of eight (no layout frames). */
 const eight = () => {
-  const s = FORMATIONS['four-face-four'].start(6);
+  const s = FORMATIONS['four-face-four'].start(8);
   return withChanges(s, { groups: lineSets(s).slice(0, 1), layout: undefined });
 };
 
@@ -183,7 +183,7 @@ test('ring of eight: other places dance in rings of four', () => {
   const four = once(start, [call('lines-circle', 8, { direction: 'left', places: 3 })]);
   const plain = foldRound(
     [call('circle', 8, { direction: 'left', places: 3 })],
-    FORMATIONS['four-face-four'].start(6),
+    FORMATIONS['four-face-four'].start(8),
     FIGURES,
   ).end;
   // Each column's minor set circles on its own, as the ordinary circle does.
