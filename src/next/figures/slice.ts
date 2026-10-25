@@ -18,7 +18,6 @@ import { oneOf, onlyKeys, settle } from '../core/figure.ts';
 import { SET } from '../core/config.ts';
 import {
   add,
-  dot,
   forward,
   leftOf,
   progress,
@@ -61,7 +60,7 @@ export const slice: Figure<SliceParams> = (state, params, beats) => {
       const out = beat <= half ? progress(beat / half) : 1 - progress((beat - half) / half);
       const across = home ? out : progress(beat / half);
       const position = add(m.start.position, add(scale(m.lateral, across), scale(m.inward, out)));
-      return { id: m.id, position, yaw: squareUp(m.start.yaw, m.across, beat) };
+      return { id: m.id, position, yaw: squareUp(m.start.yaw, m.across, beat, beats) };
     }),
     contacts: [],
   });
@@ -75,10 +74,18 @@ export const slice: Figure<SliceParams> = (state, params, beats) => {
   return { kind: 'becket-slice', motion, exit: withChanges(moved, { hands: [] }) };
 };
 
-/** Facing: from where the dancer faced to square across, over the first beat. */
-export const squareUp = (from: number, across: number, beat: number) =>
-  from + turn(across, from) * smooth(beat / FACE_BEATS);
+/**
+ * Facing: from where the dancer faced to square across, over the first beat,
+ * or longer (up to half the figure) for a dancer with farther to turn.
+ */
+export const squareUp = (from: number, across: number, beat: number, beats: number) => {
+  const d = turn(across, from);
+  const span = Math.min(beats / 2, Math.max(FACE_BEATS, (1.5 * Math.abs(d)) / FACE_RATE));
+  return from + d * smooth(beat / span);
+};
 const FACE_BEATS = 1;
+/** Radians a beat, at most, for squaring up. */
+const FACE_RATE = 2.5;
 
 /**
  * Every dancer (waiting couples too), each moving one place to its left or
@@ -89,16 +96,13 @@ const FACE_BEATS = 1;
 export function sideMoves(state: DanceState, direction: 'left' | 'right') {
   return state.dancers.map((d) => {
     const b = body(state, d.id);
-    // Facing across: toward the other side line. Dancers facing into a ring
-    // (on the diagonal) square up to it as they go.
+    // Facing across: toward the other side line. Dancers facing any other
+    // way (into a ring, around a star, waiting out at an end) turn to face
+    // across as they set off.
     const side = Math.sign(b.position.x);
     const across = side > 0 ? -Math.PI / 2 : Math.PI / 2;
-    if (
-      side === 0 ||
-      Math.abs(Math.abs(b.position.x) - SET.halfWidth) > 0.05 ||
-      dot(forward(b.yaw), forward(across)) < 0.5
-    ) {
-      throw new Error(`Dancer ${d.id} (couple ${d.couple + 1}) must stand on a side line facing across.`);
+    if (side === 0 || Math.abs(Math.abs(b.position.x) - SET.halfWidth) > 0.05) {
+      throw new Error(`Dancer ${d.id} (couple ${d.couple + 1}) must stand on a side line.`);
     }
     const lateral = scale((direction === 'left' ? leftOf : rightOf)(across), SET.slot);
     return { id: d.id, start: b, lateral, across };

@@ -74,3 +74,5 @@ reading below. One line each; change any of them and the figure follows.
 - "Ladles chain left diagonal": the chain on the left diagonal; a row ending "to" after a reminder ("chain (to new neighbor)") is the figure alone.
 - Becket (minor-set) dances progress at their slide or slice along the set: when the source marks only the last row as the progression (or none) and the dance has exactly one slide or slice, the new neighbors are met at that slide.
 - In Becket lines a couple, for finding new neighbors and diagonals, is a lark and the robin standing on his right on his side line facing the same way (after a diagonal chain that is not his partner); otherwise his partner.
+- Box circulate "loop right/left" names the way the loopers turn (over the right or left shoulder); they always travel to the crosser's place on their own side line, even when that is the other way.
+- A slide or slice along the set starts from any facing on the side lines (out of a ring, a star, or waiting at an end): dancers turn to face across as they set off, taking longer the farther they turn.

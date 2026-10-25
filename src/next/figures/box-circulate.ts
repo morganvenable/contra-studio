@@ -20,10 +20,8 @@ import {
   dot,
   ease,
   forward,
-  leftOf,
   mix,
   progress,
-  rightOf,
   scale,
   sub,
 } from '../core/math.ts';
@@ -71,9 +69,9 @@ export const boxCirculate: Figure<BoxCirculateParams> = (state, params, beats) =
       const outward = { x: sideOf(id), z: 0 };
       if (dot(forward(s.yaw), outward) <= 0)
         throw new Error('The dancers who loop must face out of the set.');
-      const turning = dot((loop === 'right' ? rightOf : leftOf)(s.yaw), along);
-      if (turning <= 0)
-        throw new Error(`Looping ${loop} would go the wrong way along the line here.`);
+      // The looper always travels to the crosser's place on its side line;
+      // "loop right/left" names the way it turns (over the right or left
+      // shoulder), which is not always the way it travels.
       const center = mix(s.position, end, 0.5);
       // Half an ellipse outside the side line, from the place to the crosser's.
       const at = (t: number) => {

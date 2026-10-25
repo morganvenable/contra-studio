@@ -4,9 +4,9 @@
  "catalogue": 2422,
  "stored": 2422,
  "counts": {
-  "ok": 369,
-  "check": 159,
-  "partial": 1612,
+  "ok": 370,
+  "check": 164,
+  "partial": 1606,
   "unsupported": 282
  },
  "formations": [
@@ -14,24 +14,24 @@
    "formation": "improper",
    "dances": 1189,
    "ok": 312,
-   "check": 75,
-   "partial": 802,
+   "check": 77,
+   "partial": 800,
    "unsupported": 0
   },
   {
    "formation": "becket",
    "dances": 655,
-   "ok": 46,
-   "check": 72,
-   "partial": 537,
+   "ok": 47,
+   "check": 73,
+   "partial": 535,
    "unsupported": 0
   },
   {
    "formation": "becket ccw",
    "dances": 169,
    "ok": 1,
-   "check": 7,
-   "partial": 161,
+   "check": 9,
+   "partial": 159,
    "unsupported": 0
   },
   {
@@ -2616,7 +2616,7 @@
   "figuresThatCannotStart": [
    {
     "name": "progression or other",
-    "unlocks": 90
+    "unlocks": 91
    },
    {
     "name": "ocean wave / long wave",
@@ -2637,10 +2637,6 @@
    {
     "name": "rory o'more",
     "unlocks": 9
-   },
-   {
-    "name": "slide along set",
-    "unlocks": 6
    },
    {
     "name": "allemande variant",
@@ -2667,15 +2663,7 @@
     "unlocks": 4
    },
    {
-    "name": "promenade",
-    "unlocks": 4
-   },
-   {
     "name": "take hands (wave/line set-up)",
-    "unlocks": 3
-   },
-   {
-    "name": "box circulate",
     "unlocks": 3
    },
    {
@@ -2688,6 +2676,14 @@
    },
    {
     "name": "other: right left through",
+    "unlocks": 3
+   },
+   {
+    "name": "promenade",
+    "unlocks": 3
+   },
+   {
+    "name": "slide along set",
     "unlocks": 3
    },
    {
@@ -2730,7 +2726,7 @@
   "checkFailures": [
    {
     "name": "Couples don't end the round where the progression puts them",
-    "unlocks": 46
+    "unlocks": 48
    },
    {
     "name": "pull by / pass by",
@@ -2741,11 +2737,11 @@
     "unlocks": 17
    },
    {
-    "name": "star promenade",
-    "unlocks": 14
+    "name": "swing variant",
+    "unlocks": 15
    },
    {
-    "name": "swing variant",
+    "name": "star promenade",
     "unlocks": 14
    },
    {
@@ -2765,6 +2761,10 @@
     "unlocks": 4
    },
    {
+    "name": "promenade",
+    "unlocks": 3
+   },
+   {
     "name": "roll away",
     "unlocks": 3
    },
@@ -2775,10 +2775,6 @@
    {
     "name": "box the gnat / swat the flea",
     "unlocks": 2
-   },
-   {
-    "name": "promenade",
-    "unlocks": 1
    },
    {
     "name": "chain variant",

@@ -28,7 +28,7 @@ export const slide: Figure<SlideParams> = (state, params, beats) => {
     bodies: moves.map((m) => ({
       id: m.id,
       position: add(m.start.position, scale(m.lateral, progress(beat / beats))),
-      yaw: squareUp(m.start.yaw, m.across, beat),
+      yaw: squareUp(m.start.yaw, m.across, beat, beats),
     })),
     contacts: [],
   });
