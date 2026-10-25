@@ -46,3 +46,4 @@ below. One line each; change any of them by telling us the other reading.
 - A petronella over more than one place cuts inside the ring and its extra spins are reported as styled motion (like the Rory twirl).
 - Circular hey: around the ring of places like a grand right and left without hands, straight from place to place, the named pair passing first by the named shoulder and the passes alternating; full is four changes, half two.
 - Star promenade "larks pick up neighbor": the neighbor walks the outside instead of the partner.
+- A pass by too long for its beats (larks crossing the minor set diagonally in two beats) goes as far toward the other's place as a walk allows, veering most where the two cross; dancers turn to face the way they walk more slowly when the turn is big.

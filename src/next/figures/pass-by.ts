@@ -10,6 +10,8 @@
  * pull by left". Walkers face each other over the first beat.
  * With no one named ("pull by right") or named only as shadows, the
  * dancers who face each other pass; "ones pass by" names the two 1s.
+ * A pass longer than a walk covers in its beats stops short of the other's
+ * place, as far as a walk gets.
  */
 import type { Figure, FigureContact } from '../core/figure.ts';
 import { oneOf, onlyKeys, settle } from '../core/figure.ts';
@@ -29,6 +31,9 @@ export interface PassByParams {
 /** Each walker veers this far to the side so the pair passes 0.6 m apart. */
 const VEER = 0.3;
 const FACE_BEATS = 1;
+/** Average walking pace of a pass (m per beat), and the fastest comfortable facing turn (rad per beat). */
+const WALK = 0.9;
+const TURN = 3.4;
 
 export const passBy: Figure<PassByParams> = (state, params, beats) => {
   onlyKeys('pass by', params, ['who', 'shoulder', 'hands']);
@@ -54,19 +59,35 @@ export const passBy: Figure<PassByParams> = (state, params, beats) => {
       [b, a],
     ].map(([id, other]) => {
       const from = body(state, id);
-      const to = body(state, other).position;
-      const yaw = heading(from.position, to);
+      const there = body(state, other).position;
+      // A pass too long for its beats (larks crossing the minor set's
+      // diagonal in two beats) gets as far toward the other's place as a
+      // walk allows; the two still pass in the middle.
+      const span = Math.hypot(there.x - from.position.x, there.z - from.position.z);
+      const reach = Math.min(1, (WALK * beats) / Math.max(span, 1e-9));
+      const to = mix(from.position, there, reach);
+      const yaw = heading(from.position, there);
+      // Turning to face the way they walk: slower for a bigger turn.
+      const faceBeats = Math.min(
+        beats,
+        Math.max(FACE_BEATS, (1.5 * Math.abs(turn(yaw, from.yaw))) / TURN),
+      );
       // Passing right shoulders, each walker veers to the left.
       const veer = scale((shoulder === 'right' ? leftOf : rightOf)(yaw), VEER);
-      return { id, from, to, yaw, veer };
+      // They cross when each has gone half the full distance.
+      return { id, from, to, yaw, veer, faceBeats, cross: Math.min(0.5 / reach, 0.8) };
     }),
   );
   const motion = (beat: number) => {
     const q = progress(beat / beats, 0.1);
     const bodies = walkers.map((w) => ({
       id: w.id,
-      position: add(mix(w.from.position, w.to, q), scale(w.veer, Math.sin(Math.PI * q))),
-      yaw: w.from.yaw + turn(w.yaw, w.from.yaw) * smooth(beat / FACE_BEATS),
+      // Veer most where they cross, enough to clear each other there.
+      position: add(
+        mix(w.from.position, w.to, q),
+        scale(w.veer, Math.sin(Math.PI * q) / Math.sin(Math.PI * w.cross)),
+      ),
+      yaw: w.from.yaw + turn(w.yaw, w.from.yaw) * smooth(beat / w.faceBeats),
     }));
     if (!params.hands) return { bodies, contacts: [] };
     const map = bodyMap(bodies);

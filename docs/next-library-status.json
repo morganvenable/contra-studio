@@ -4,8 +4,8 @@
  "catalogue": 2422,
  "stored": 2422,
  "counts": {
-  "ok": 332,
-  "check": 95,
+  "ok": 342,
+  "check": 85,
   "partial": 1713,
   "unsupported": 282
  },
@@ -13,16 +13,16 @@
   {
    "formation": "improper",
    "dances": 1189,
-   "ok": 295,
-   "check": 57,
+   "ok": 302,
+   "check": 50,
    "partial": 837,
    "unsupported": 0
   },
   {
    "formation": "becket",
    "dances": 655,
-   "ok": 31,
-   "check": 34,
+   "ok": 33,
+   "check": 32,
    "partial": 590,
    "unsupported": 0
   },
@@ -93,8 +93,8 @@
   {
    "formation": "duple neutral",
    "dances": 16,
-   "ok": 2,
-   "check": 1,
+   "ok": 3,
+   "check": 0,
    "partial": 13,
    "unsupported": 0
   },
@@ -2862,19 +2862,19 @@
     "unlocks": 17
    },
    {
-    "name": "circle variant",
-    "unlocks": 14
-   },
-   {
     "name": "do-si-do variant",
     "unlocks": 14
    },
    {
-    "name": "allemande variant",
-    "unlocks": 12
+    "name": "circle variant",
+    "unlocks": 13
    },
    {
     "name": "swing variant",
+    "unlocks": 13
+   },
+   {
+    "name": "allemande variant",
     "unlocks": 12
    },
    {
@@ -2976,16 +2976,12 @@
     "unlocks": 24
    },
    {
-    "name": "pull by / pass by",
-    "unlocks": 17
+    "name": "allemande variant",
+    "unlocks": 13
    },
    {
     "name": "The next time through can't start from where the dancers end",
     "unlocks": 10
-   },
-   {
-    "name": "allemande variant",
-    "unlocks": 9
    },
    {
     "name": "hey (other)",
@@ -3005,6 +3001,10 @@
    },
    {
     "name": "mad robin",
+    "unlocks": 3
+   },
+   {
+    "name": "swing variant",
     "unlocks": 3
    },
    {
