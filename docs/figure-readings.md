@@ -166,6 +166,87 @@ line each, for review.
 - Flaherty's "1/2 hey, robins start right shoulders, upon facing neighbor veer to right to face new neighbor": the half hey; the veer to the next neighbor is left to the next row.
 - "Star left 3 places and take both hands with your partner", "balance & petronella to a left hand star": the hands are the next figure's to take.
 
+## Relationships, hand turns, do-si-dos, swings, balances, waves, lines
+
+- Shadow: your nearest dancer of the other role who is neither your partner nor your current neighbor, mutually and within 2.7 m; "1st"/"2nd shadow" is whichever is nearest at that moment. With one minor set there is no shadow, so nobody moves.
+- Previous neighbors ("prev neighbors"): the neighbors before the last progression when they are within reach; before the first progression, the nearest other-role dancer outside your minor set.
+- Same roles: the other dancer of your role in your minor set (both larks and both robins dance at once).
+- A note after a figure that names no further figure ("allemande right 1½ to partner", "do si do once back to neighbor", "swing, face across") is dropped: the figure's own ending stands.
+- "Allemande left once or twice" and similar alternatives take the first choice.
+- Orbit: the orbiters walk around the minor set's center at their own distance, facing the way they walk, ending as they started relative to the center.
+- Dance in to a long wave in the center: the role steps straight in from its side line, facing the way it walked; the two of each minor set stand 1.2 m apart level with the minor set's middle, so hands join within a minor set and between minor sets only where they reach.
+- "X dance out while Y dance in": X back out to the side they came from, still facing in.
+- A long-wave balance row of 4 beats spends 2 beats forming and 2 balancing (the same split as a short ocean-wave row).
+- Two-hand turn: clockwise unless named, facing each other throughout, letting go and stepping back to the starting distance after a whole or half turn.
+- Couples do-si-do ("do si do as couples/as a couple", either relationship named): each couple dances as one dancer around the couple it faces, passing right shoulders, partners closing to 0.8 m apart in the middle.
+- Stand still keeps every hand that is held.
+- "Down the hall"/"up the hall" with no ending: the lines just arrive, facing the way they walked; "up the hall backward" walks up still facing down.
+- "Long lines back" alone backs the lines out to the side lines, facing across.
+- "Ones/twos in the center" after down the hall is left to the line the dancers form.
+- Jersey twirl is drawn as a California twirl; "all California twirl" is partners.
+- "Robins turn alone over their right shoulder": only the robins turn, clockwise seen from above.
+- "Circle right 4 places and turn alone", "pass through and turn alone": the last 2 beats turn alone.
+- A swing ending "in a line of four facing down" (or up) is the usual swing ending; the down/up the hall that follows forms the line.
+- Walk forward (to the next wave/neighbors): dancers facing along the set walk one place; dancers facing across walk out to their side line; whoever arrives side by side facing the other way within 1.2 m takes hands.
+- A zero-beat "turn alone" after a figure of 6 beats or more takes that figure's last 2 beats.
+- A zero-beat "form an ocean wave" on the last row forms the wave during the first balance of the next time through; a dance that opens by balancing the wave its last row forms starts in that wave.
+- A zero-beat "form a long wave in the center" says where the dancers already are and adds no motion.
+- Do-si-do 1¼ (or ¾, 1¾) stops a quarter on, side by side facing opposite ways, 0.9 m apart, ready for a short wave; no hands until a figure takes them.
+- A swing whose pair straddles the middle, one dancer in the very center and the other on a side line, ends on that side line.
+- Couples do-si-do: partners not quite facing the same way square up to the direction between them over the first beat.
+- "Balance right and left", "balance forward and back", "balance the star", "balance in a clover", "balance long wave(s)": a plain balance of what the dancers hold now; dancers holding hands in a line that is neither a minor-set wave nor a ring balance right and left in place.
+- "Balance the ring and twirl one place to the right" is a balance and petronella; "balance the diamond" is a ring balance.
+- "X allemande right ½, Y pass left in the center (swing through)": the allemande takes the first half of the beats, the pass the second.
+- "Swing, slide left (to progress)" in Becket: the swing ends 2 beats early and the couples slide left along the set.
+- "Allemande ... to pick up partner for a star promenade": the star promenade that follows picks up the partner.
+- "Larks turn alone" (one role named): only that role turns, toward their partner. A zero-beat "turn alone" after a short figure takes the first 2 beats of the next figure of 6 beats or more.
+- "Balance the ring" with a trailing note that names no other figure ("[current neighbors]", "with partner") is a ring balance; "balance left, then right" with a pair is a pair balance.
+- "As couples do si do" with no amount is once around.
+- Ones down the center: the couple walks one place down between the other couple, 0.6 m apart with inside hands; down the outsides runs 0.6 m outside the side lines; up the center/outsides walks one place back up.
+- Partners swinging out of a wave down the middle of the set (both on the center line) end on the side the lark faces.
+- "Start in long waves, ... X face in" (the notes before the figures): when the dance opens with a wave balance, that balance forms the long waves on the side lines; "start in short waves, right hand to neighbors" forms a short wave with robins in the middle by the left unless the notes name the middles.
+- "Allemande ... to long wave(s)/forming long waves": the pair keeps hold and stays close instead of stepping back out, ending facing across on a side line; the role named facing in is not checked.
+- "Do si do 1¼ to a (short) wave": the minor set takes wave hands as the do-si-do ends.
+- Partners straddling the middle evenly when they swing ("larks take neighbors" from a ring) swing on the lark's side.
+- "(Swing through)" written beside an allemande ½ and a pass in the center only names that pair of figures; "X pass by left shoulders (swing thru)" is the pass alone.
+- "Neighbors balance right" is a right-hand balance; "long lines balance" is long lines forward and back.
+- "Ones turn alone": only the 1s turn, toward their partners.
+- "Circle left 3 places, partners swing" in one row: half the beats each.
+- "Down the hall forward then backward": half the beats down, half back up still facing down.
+- A zero-beat "form an ocean wave" right before an allemande ("swing through") adds no motion: the allemande takes hands where the dancers are.
+- "X allemande ... hold on to form waves / to a short wave / to a wave of four" (X a role): a short wave with X in the middle.
+- "... and take hands with next neighbors in long lines", "take hands": the long lines or ring that follows takes the hands.
+- "Long lines forward & back, X roll away partners/neighbors (on the way back)": half the beats forward, then the roll away back to the side lines; "roll away the robins" is partners.
+- "Pass through, walk forward (to new wave)": half the beats each.
+- "Balance (the wave) and move straight ahead to a new wave": a 4-beat balance, then walk forward; "dance forward to form new waves and balance": walk forward, then a 4-beat balance.
+- "Swing, end facing across to rejoin ring / end in a ring / form a ring": the ordinary swing ending; the ring that follows forms itself.
+- A jersey twirl with no one named is partners.
+- Allemande path: the pair closes straight in over the first part of the turn and (a whole or half turn) steps straight back out over the last part, turning at 0.38 m from the joined hands in between; it walks the whole path at one steady pace. Quarter turns still end at the wave spacing (0.45 m).
+- A couple still crossing over at an end when down the hall starts stays out of the hall; waiting couples cross passing close by each other (the half turn squashed to 0.4 of a circle along the set), so two couples waiting side by side do not meet.
+- A swing drifts to where it ends over the first 70% of the figure (not the whole of it), so pairs swinging near the middle clear each other.
+- A twirl turns the dancers to face each other over at least 0.75 beat, longer the farther they turn (half a beat per radian).
+- "X ... to a wave of four / ocean wave / short wavy line" after any figure (circle, do-si-do, twirl, pass through, swing): the figure takes all but 2 beats, then the minor set steps into the wave the row describes, robins in the middle by the left and neighbors by the right unless named; "to a wave and balance" leaves 4 beats to form and balance.
+- "X allemande ... while Y shift left/right" or "... while Y walk forward / move straight ahead": the others slide one place (1.8 m) to their left or right, or walk one place ahead, keeping their facing.
+- "Balance the ring, larks trade places / robins trade right shoulder": a ring balance, then that role passes by the right shoulder to trade.
+- "Balance yourself": everyone balances right and left alone in place.
+- "Partners balance and twirl to swap inside hands": a right-hand balance and box the gnat.
+- "Balance the ring and roll partner/neighbor ..." with no roller named: the larks roll.
+- "Neighbors two-hand turn counterclockwise 1/2/3+ times": once around.
+- "Larks give & take partners and swing": half the beats each.
+- "Ones split the twos with a handy hand allemande", "ones mirror allemande neighbors", "mirror do si do, ones splitting twos": each pair turns (or passes) the way that sends the 1s through the middle of the set first, so the two sides mirror each other.
+- "Balance (and move) straight (ahead) to a new wave": balance, then walk forward; "balance new wave of four ..." is a wave balance.
+- "Balance the ring & pass through": ring balance, then the pass through; "and walk forward" after a circle takes its last 2 beats.
+- Petronella "to long waves, larks face out": the petronella; the long waves are left to what follows.
+- Forming an ocean wave when the hands named do not fit how the dancers stand: dancers facing someone across pass through by the right shoulder into the wave (stopping level, half a wave gap apart); failing that, each middle takes the other end dancer of its minor set (the one it can reach). Seen in Mange Tak (1014): after the neighbor swing everyone faces their partner across, so the wave that forms holds partners on the ends.
+- A wave balance where the dancers hold long waves (not a wave of four in each minor set) balances side to side in place, holding on.
+- "X allemande ... to a short wave" (X a role): the other two of the minor set step into the line the turning pair ends on, each beside the middle they hold (by the right to partner or neighbor when the row says so, otherwise the nearer end), facing opposite that middle.
+- "... to a diamond (X in the center)": the figure takes all but 2 beats, then the four shift an eighth of the way around their ring so that X ends on the middle line of the set (clockwise when no one is named), facing in.
+- Cloverleaf: the four of a minor set join hands in a ring facing out; "cloverleaf left 3 places" turns it three quarters, left being clockwise seen from above as for a circle left. "Bend into a cloverleaf" bends the lines into a ring; the cloverleaf figure turns it out.
+- "Robins trade passing right in the middle", "... by the left shoulder": the robins pass by that shoulder and trade places.
+- "Balance and move straight ahead to a new wave" in a 4-beat row: too short to balance as well, so the dancers only walk forward.
+- "Balance the ring, shift one place to the left": a ring balance, then circle left one place.
+- Dancers stepping into an ocean wave whose straight paths would pass closer than 0.75 m bow apart sideways, each to its own side.
+
 ## Where two builders read the same figure (integration)
 
 - Contra corners: in a triple-minor group or triplet, the ECD reading above (back to place); in a duple minor contra, the contra reading above (corners in the next minor sets, actives end in the middle back to back).
@@ -173,3 +254,8 @@ line each, for review.
 - "Balance & pull by" and "balance & petronella" in 6 beats: 4 beats balance, 2 beats pull by or petronella; under 6 beats the two share the row evenly.
 - A pass by more than twice as long as a walk covers in its beats (across a big ring, to the next dancer) goes all the way, reported for speed, instead of stopping short.
 - A star promenade steps in over 2.4 beats, at most 60% of the figure: a 4-beat half star promenade steps in gently, a full 8-beat one settles sooner.
+- Couples do-si-do and two-hand turn: the contra figures first; where they cannot start, the ones written for other formations.
+- "Walk forward" with no one named, in a contra set: everyone walks on one place (to the next neighbors or wave); in lines, rings and squares, forward without coming back.
+- "Stand still": hands held stay held; claps and stomps let go.
+- "Shadows pass by / pull by": whoever faces each other passes.
+- A ring of more than 8 dancers (a circle mixer's whole ring) may stand up to 0.32 m per dancer from its center, so neighbors stay about 2 m apart.

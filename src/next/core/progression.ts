@@ -128,7 +128,7 @@ export const MINOR_SET_PROGRESSION: Progression = {
         throw new Error(`Couple ${w.couple + 1} has no neighbors in the middle of the set.`);
       }
     }
-    const relations = new Map(state.relations).set('neighbor', neighbor);
+    const relations = withNeighbors(state, neighbor);
     return withChanges(state, { relations, groups, waiting, epoch: state.epoch + 1 });
   },
 };
@@ -286,7 +286,7 @@ export function dupleMinorRebind(state: DanceState, cross: boolean, columns = fa
         throw new Error(`Couple ${w.couple + 1} has no neighbors in the middle of the set.`);
       }
     }
-    const relations = new Map(state.relations).set('neighbor', neighbor);
+    const relations = withNeighbors(state, neighbor);
     const positions = new Map(state.positions)
       .set(
         '1s',
@@ -298,6 +298,14 @@ export function dupleMinorRebind(state: DanceState, cross: boolean, columns = fa
       );
     return withChanges(state, { relations, groups, waiting, positions, epoch: state.epoch + 1 });
   }
+}
+
+/** New neighbors; the old ones are kept as previous neighbors ("prev neighbors"). */
+function withNeighbors(state: DanceState, neighbor: Map<number, number>) {
+  const relations = new Map(state.relations).set('neighbor', neighbor);
+  const before = state.relations.get('neighbor');
+  if (before) relations.set('previous-neighbor', before);
+  return relations;
 }
 
 /** Name couples by place from the top (lowest z) down: "1st couple", ... */

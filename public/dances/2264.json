@@ -1,4 +1,4 @@
-{ "schema": "contra-studio/next-dance", "version": 2, "id": "2264", "title": "Dance Panacea", "author": "Frank Buschelmann", "formation": "becket-ccw", "progression": "minor-set", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/2264", "formation": "Becket ccw", "retrievedAt": "2026-10-20T05:52:37.695Z", "sha256": "ce931c19e4dc1c70fc419a0f2a942c79861097918743801b87907239d3da5c7f" }, "status": "partial", "problems": [ "Row 7 \"turn alone to find next neighbors\" isn't drawn yet." ], "unparsed": [ { "row": 7, "text": "turn alone to find next neighbors", "why": "No figure pattern matches \"turn alone to find next neighbors ⁋\"." } ], "choices": [ "A meltdown swing starts with 4 beats of right-shoulder round, then swings." ],
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "2264", "title": "Dance Panacea", "author": "Frank Buschelmann", "formation": "becket-ccw", "progression": "minor-set", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/2264", "formation": "Becket ccw", "retrievedAt": "2026-10-20T05:52:37.695Z", "sha256": "ce931c19e4dc1c70fc419a0f2a942c79861097918743801b87907239d3da5c7f" }, "status": "check", "problems": [ "Row 8 \"circle left 3 places\": a dancer has to turn 0.67 turns in one beat." ], "unparsed": [], "choices": [ "A meltdown swing starts with 4 beats of right-shoulder round, then swings." ],
  "figures": [
   {"move":"circle","beats":8,"params":{"direction":"left","places":3},"text":"circle left 3 places","section":"A1","row":1},
   {"move":"swing","beats":8,"params":{"who":"neighbor"},"text":"neighbors swing","section":"A1","row":2},
@@ -6,7 +6,7 @@
   {"move":"roll-away","beats":4,"params":{"who":"larks","whom":"neighbor"},"text":"larks roll away neighbors with a half sashay","section":"A2","row":4},
   {"move":"chain","beats":8,"params":{"who":"larks"},"text":"larks right-hand chain","section":"A2","row":5},
   {"move":"circle","beats":7,"params":{"direction":"right","places":3},"text":"circle right 3 places","section":"B1","row":6},
-  {"move":"hold","beats":2,"params":{"reason":"unparsed"},"text":"turn alone to find next neighbors","section":"B1","row":7,"progression":true},
+  {"move":"turn-alone","beats":2,"params":{},"text":"turn alone to find next neighbors","progression":true,"section":"B1","row":7},
   {"move":"circle","beats":7,"params":{"direction":"left","places":3},"text":"circle left 3 places","section":"B1","row":8},
   {"move":"swing","beats":16,"params":{"who":"partner","meltdown":true},"text":"partners meltdown swing","section":"B2","row":9}
  ]

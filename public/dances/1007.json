@@ -1,4 +1,4 @@
-{ "schema": "contra-studio/next-dance", "version": 2, "id": "1007", "title": "The Lady Fiddler", "author": "Cis Hinkle", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/1007", "formation": "improper", "retrievedAt": "2026-10-20T06:18:49.672Z", "sha256": "9312e79acf081f65f1efc10ffbce9d45da3331cc61b2b6ffc9041f9e6252d5e5" }, "status": "partial", "problems": [ "Row 9 \"circle right 4 places and turn alone to face next neighbors\" isn't drawn yet." ], "unparsed": [ { "row": 9, "text": "circle right 4 places and turn alone to face next neighbors", "why": "No figure pattern matches \"circle right 4 places and turn alone to face next neighbors ⁋\"." } ], "choices": [],
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "1007", "title": "The Lady Fiddler", "author": "Cis Hinkle", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/1007", "formation": "improper", "retrievedAt": "2026-10-20T06:18:49.672Z", "sha256": "9312e79acf081f65f1efc10ffbce9d45da3331cc61b2b6ffc9041f9e6252d5e5" }, "status": "ok", "problems": [], "unparsed": [], "choices": [],
  "figures": [
   {"move":"circle","beats":8,"params":{"direction":"left","places":4},"text":"circle left 4 places","section":"A1","row":1},
   {"move":"swing","beats":8,"params":{"who":"neighbor"},"text":"neighbors swing","section":"A1","row":2},
@@ -8,6 +8,7 @@
   {"move":"hey","beats":8,"params":{"start":"larks","amount":0.5,"center":"left"},"text":"larks start a half hey - lefts in center, rights on ends","section":"B1","row":6},
   {"move":"swing","beats":8,"params":{"who":"partner"},"text":"partners swing","section":"B1","row":7},
   {"move":"chain","beats":8,"params":{"who":"robins"},"text":"robins chain","section":"B2","row":8},
-  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"circle right 4 places and turn alone to face next neighbors","section":"B2","row":9,"progression":true}
+  {"move":"circle","beats":6,"params":{"direction":"right","places":4},"text":"circle right 4 places and turn alone to face next neighbors · circle","section":"B2","row":9},
+  {"move":"turn-alone","beats":2,"params":{},"text":"circle right 4 places and turn alone to face next neighbors · turn-alone","progression":true,"section":"B2","row":9}
  ]
 }

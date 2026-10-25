@@ -1,4 +1,4 @@
-{ "schema": "contra-studio/next-dance", "version": 2, "id": "614", "title": "Contra Essentialism", "author": "Nicholas Rockstroh", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/614", "formation": "improper", "retrievedAt": "2026-10-20T05:51:42.266Z", "sha256": "d27dbc17e16fda468a5a72309e8b055fcd28f81a6bd2f747a99170a6fa0f22bf" }, "status": "partial", "problems": [ "Row 7 \"neighbors swing and take hands with next neighbors in long lines\" isn't drawn yet." ], "unparsed": [ { "row": 7, "text": "neighbors swing and take hands with next neighbors in long lines", "why": "No figure pattern matches \"neighbors swing and take hands with next neighbors in long lines ⁋\"." } ], "choices": [ "A balance with a partner or neighbor holds both hands." ],
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "614", "title": "Contra Essentialism", "author": "Nicholas Rockstroh", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/614", "formation": "improper", "retrievedAt": "2026-10-20T05:51:42.266Z", "sha256": "d27dbc17e16fda468a5a72309e8b055fcd28f81a6bd2f747a99170a6fa0f22bf" }, "status": "ok", "problems": [], "unparsed": [], "choices": [ "A balance with a partner or neighbor holds both hands." ],
  "figures": [
   {"move":"long-lines","beats":8,"params":{"back":true},"text":"long lines forward & back","section":"A1","row":1},
   {"move":"swing","beats":8,"params":{"who":"neighbor"},"text":"neighbors swing","section":"A1","row":2},
@@ -7,6 +7,6 @@
   {"move":"balance","beats":4,"params":{"formation":"pair","who":"partner","hand":"both"},"text":"partners balance & swing · balance","section":"B1","row":5},
   {"move":"swing","beats":12,"params":{"who":"partner"},"text":"partners balance & swing · swing","section":"B1","row":5},
   {"move":"allemande","beats":8,"params":{"who":"larks","hand":"left","amount":1.5},"text":"larks allemande left 1½","section":"B2","row":6},
-  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"neighbors swing and take hands with next neighbors in long lines","section":"B2","row":7,"progression":true}
+  {"move":"swing","beats":8,"params":{"who":"neighbor"},"text":"neighbors swing and take hands with next neighbors in long lines","progression":true,"section":"B2","row":7}
  ]
 }

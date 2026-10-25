@@ -21,6 +21,7 @@
 import type { Figure, FigureContact } from '../core/figure.ts';
 import { oneOf, onlyKeys, settle } from '../core/figure.ts';
 import { bodyMap, withinReach } from '../core/contacts.ts';
+import { PAIR_NAMES, type PairName } from '../core/relations.ts';
 import {
   add,
   dot,
@@ -40,7 +41,7 @@ import { body, minorSets, pairsIn, roleOf, withChanges } from '../core/state.ts'
 
 export interface TwirlParams {
   style: 'box-the-gnat' | 'swat-the-flea' | 'california';
-  who: 'partner' | 'neighbor' | '1s' | '2s';
+  who: PairName;
 }
 
 /** Half the pair's gap while trading places under the arch. */
@@ -54,7 +55,7 @@ export const twirl: Figure<TwirlParams> = (state, params, beats) => {
     'swat-the-flea',
     'california',
   ] as const);
-  const who = oneOf('twirl', 'who', params.who, ['partner', 'neighbor', '1s', '2s'] as const);
+  const who = oneOf('twirl', 'who', params.who, PAIR_NAMES);
   // Right-hand arches trade places clockwise from above (positive in rotate()).
   const sweep = style === 'swat-the-flea' ? -Math.PI : Math.PI;
   const pairs = minorSets(state).flatMap((g) => pairsIn(state, g, who));
@@ -86,7 +87,9 @@ export const twirl: Figure<TwirlParams> = (state, params, beats) => {
       const spin = (id === under ? 1 : -1) * Math.sign(sweep) * Math.PI;
       const face =
         style === 'california' ? s.yaw : heading(s.position, id === a ? pb.position : pa.position);
-      return { id, s, rel, spin, face };
+      // Turning to face the partner first takes longer the farther it turns.
+      const faceBeats = Math.min(beats / 2, Math.max(0.75, Math.abs(turn(face, s.yaw)) / 2));
+      return { id, s, rel, spin, face, faceBeats };
     });
     const contact: FigureContact = {
       a: over,
@@ -108,7 +111,7 @@ export const twirl: Figure<TwirlParams> = (state, params, beats) => {
       p.ids.map((d) => {
         const r = p.half + (Math.min(p.half, ARCH_HALF) - p.half) * close;
         const position = add(p.center, rotate(scale(d.rel, r / p.half), sweep * q));
-        const into = d.s.yaw + turn(d.face, d.s.yaw) * smooth(beat / 0.75);
+        const into = d.s.yaw + turn(d.face, d.s.yaw) * smooth(beat / d.faceBeats);
         return { id: d.id, position, yaw: into + d.spin * ease(t) };
       }),
     );

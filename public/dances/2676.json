@@ -1,4 +1,4 @@
-{ "schema": "contra-studio/next-dance", "version": 2, "id": "2676", "title": "Lucky Rainbow", "author": "Casey Caison", "formation": "becket", "progression": "minor-set", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/2676", "formation": "Becket", "retrievedAt": "2026-10-20T06:03:04.961Z", "sha256": "0d92492f4fb28bd1436fd7889565a9a26d4d9124fc5256033f65ec0c0c1c036d" }, "status": "partial", "problems": [ "Row 7 \"partners swing (Slide Left)\" isn't drawn yet." ], "unparsed": [ { "row": 7, "text": "partners swing (Slide Left)", "why": "No figure pattern matches \"partners swing (Slide Left)\"." } ], "choices": [ "Square through: each balance takes 4 beats and each pull by 2.", "Give & take: half the beats to cross, half to back home holding both hands." ],
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "2676", "title": "Lucky Rainbow", "author": "Casey Caison", "formation": "becket", "progression": "minor-set", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/2676", "formation": "Becket", "retrievedAt": "2026-10-20T06:03:04.961Z", "sha256": "0d92492f4fb28bd1436fd7889565a9a26d4d9124fc5256033f65ec0c0c1c036d" }, "status": "ok", "problems": [], "unparsed": [], "choices": [ "Square through: each balance takes 4 beats and each pull by 2.", "Give & take: half the beats to cross, half to back home holding both hands." ],
  "figures": [
   {"move":"circle","beats":8,"params":{"direction":"left","places":3},"text":"circle left 3 places","section":"A1","row":1},
   {"move":"swing","beats":8,"params":{"who":"neighbor"},"text":"neighbors swing","section":"A1","row":2},
@@ -11,6 +11,7 @@
   {"move":"right-left-through","beats":8,"params":{},"text":"right left through","section":"B1","row":4},
   {"move":"mad-robin","beats":8,"params":{"front":"robins"},"text":"mad robins, robins in front","section":"B1","row":5},
   {"move":"give-and-take","beats":4,"params":{"who":"robins","whom":"partner"},"text":"robins give & take partners","section":"B2","row":6},
-  {"move":"hold","beats":12,"params":{"reason":"unparsed"},"text":"partners swing (Slide Left)","section":"B2","row":7}
+  {"move":"swing","beats":10,"params":{"who":"partner"},"text":"partners swing (Slide Left) · swing","section":"B2","row":7},
+  {"move":"slide","beats":2,"params":{"direction":"left"},"text":"partners swing (Slide Left) · slide","section":"B2","row":7}
  ]
 }

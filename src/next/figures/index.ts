@@ -2,6 +2,7 @@
 import type { FigureRegistry } from '../core/fold.ts';
 import { onDiagonal } from '../core/diagonal.ts';
 import { inLayout } from '../core/layout.ts';
+import { withRelations } from '../core/relations.ts';
 import { allemande } from './allemande.ts';
 import { balance } from './balance.ts';
 import { boxCirculate } from './box-circulate.ts';
@@ -9,7 +10,6 @@ import { butterflyWhirl } from './butterfly-whirl.ts';
 import { chain } from './chain.ts';
 import { circle } from './circle.ts';
 import { doSiDo } from './do-si-do.ts';
-import { forwardBack } from './forward-back.ts';
 import { ringCircle } from './ring-circle.ts';
 import { ringPromenade } from './ring-promenade.ts';
 import { still } from './still.ts';
@@ -41,7 +41,13 @@ import { revolvingDoor } from './revolving-door.ts';
 import { figureEight } from './figure-eight.ts';
 import { zigZag } from './zig-zag.ts';
 import { gate } from './gate.ts';
-import { archDive, contraCorners } from './two-readings.ts';
+import {
+  archDive,
+  contraCorners,
+  couplesDoSiDo,
+  forwardBack,
+  twoHandTurn,
+} from './two-readings.ts';
 import { madRicochet } from './mad-ricochet.ts';
 import { starThru } from './star-thru.ts';
 import { dolphinHey } from './dolphin-hey.ts';
@@ -49,6 +55,12 @@ import { turnBack } from './turn-back.ts';
 import { circularHey } from './circular-hey.ts';
 import { makeMeanwhile } from './meanwhile.ts';
 import { chevron } from './chevron.ts';
+import { centerWave } from './center-wave.ts';
+import { orbit } from './orbit.ts';
+import { standStill } from './stand-still.ts';
+import { coupleTravel } from './couple-travel.ts';
+import { cloverleaf, diamond } from './diamond.ts';
+import { walkForward } from './walk-forward.ts';
 
 const BASE: FigureRegistry = {
   allemande,
@@ -81,7 +93,13 @@ const BASE: FigureRegistry = {
   swing,
   'turn-alone': turnAlone,
   twirl,
-  'forward-back': forwardBack,
+  'center-wave': centerWave,
+  orbit,
+  'stand-still': standStill,
+  'walk-forward': walkForward,
+  'couple-travel': coupleTravel,
+  diamond,
+  cloverleaf,
   'ring-circle': ringCircle,
   'ring-promenade': ringPromenade,
   still,
@@ -97,14 +115,21 @@ const BASE: FigureRegistry = {
   'circular-hey': circularHey,
   meanwhile: makeMeanwhile(() => FIGURES),
   chevron,
-  // Two readings under one name, after MORE_FIGURES so they win (two-readings.ts).
+  // Two implementations under one name, after MORE_FIGURES so they win (two-readings.ts).
   'arch-dive': archDive,
   'contra-corners': contraCorners,
+  'couples-do-si-do': couplesDoSiDo,
+  'two-hand-turn': twoHandTurn,
+  'forward-back': forwardBack,
 };
 
-/** Every figure, each also able to run on a diagonal (core/diagonal.ts). */
+/**
+ * Every figure, each also able to run on a diagonal (core/diagonal.ts),
+ * with shadows, previous neighbors or same-role pairs (core/relations.ts),
+ * and in any layout (core/layout.ts).
+ */
 export const FIGURES: FigureRegistry = Object.freeze(
   Object.fromEntries(
-    Object.entries(BASE).map(([move, f]) => [move, inLayout(move, onDiagonal(f))]),
+    Object.entries(BASE).map(([move, f]) => [move, inLayout(move, onDiagonal(withRelations(f)))]),
   ),
 );

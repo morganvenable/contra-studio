@@ -1,4 +1,4 @@
-{ "schema": "contra-studio/next-dance", "version": 2, "id": "1541", "title": "Luck be a Lady", "author": "John Coffman", "formation": "becket", "progression": "minor-set", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/1541", "formation": "Becket", "retrievedAt": "2026-10-20T06:03:03.952Z", "sha256": "9563196fe3130fe8f51d64ec9a94d2740c14fde7154dfcc44a9621217a42cfe9" }, "status": "partial", "problems": [ "Row 6 \"partners balance & swing and slid left to new couples\" isn't drawn yet." ], "unparsed": [ { "row": 6, "text": "partners balance & swing and slid left to new couples", "why": "No figure pattern matches \"partners balance & swing and slid left to new couples ⁋\"." } ], "choices": [ "A balance with a partner or neighbor holds both hands." ],
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "1541", "title": "Luck be a Lady", "author": "John Coffman", "formation": "becket", "progression": "minor-set", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/1541", "formation": "Becket", "retrievedAt": "2026-10-20T06:03:03.952Z", "sha256": "9563196fe3130fe8f51d64ec9a94d2740c14fde7154dfcc44a9621217a42cfe9" }, "status": "check", "problems": [ "Couples don't end the round where the progression puts them." ], "unparsed": [], "choices": [ "A balance with a partner or neighbor holds both hands." ],
  "figures": [
   {"move":"chain","beats":8,"params":{"who":"robins"},"text":"robins chain","section":"A1","row":1},
   {"move":"hey","beats":8,"params":{"start":"robins","amount":0.5,"center":"right"},"text":"robins start a half hey - rights in center, lefts on ends","section":"A1","row":2},
@@ -6,6 +6,7 @@
   {"move":"swing","beats":12,"params":{"who":"neighbor"},"text":"neighbors balance & swing · swing","section":"A2","row":3},
   {"move":"long-lines","beats":8,"params":{"back":true},"text":"long lines forward & back","section":"B1","row":4},
   {"move":"allemande","beats":8,"params":{"who":"larks","hand":"left","amount":1.5},"text":"larks allemande left 1½","section":"B1","row":5},
-  {"move":"hold","beats":16,"params":{"reason":"unparsed"},"text":"partners balance & swing and slid left to new couples","section":"B2","row":6,"progression":true}
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"partner","hand":"both"},"text":"partners balance & swing and slid left to new couples · balance","section":"B2","row":6},
+  {"move":"swing","beats":12,"params":{"who":"partner"},"text":"partners balance & swing and slid left to new couples · swing","progression":true,"section":"B2","row":6}
  ]
 }

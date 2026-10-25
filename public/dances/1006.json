@@ -1,4 +1,4 @@
-{ "schema": "contra-studio/next-dance", "version": 2, "id": "1006", "title": "Pucker Up", "author": "Sarah Kaiser", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/1006", "formation": "improper", "retrievedAt": "2026-10-20T06:09:25.127Z", "sha256": "d8787f98b6b71b6c544fbcec449e56f95fbbf2c0a301aa2bc1243e2568fb4f0c" }, "status": "partial", "problems": [ "Row 7 \"robins chain and take hands with next neighbors in long lines\" isn't drawn yet." ], "unparsed": [ { "row": 7, "text": "robins chain and take hands with next neighbors in long lines", "why": "No figure pattern matches \"ladles chain and take hands with next neighbors in long lines ⁋\"." } ], "choices": [ "A balance with a partner or neighbor holds both hands." ],
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "1006", "title": "Pucker Up", "author": "Sarah Kaiser", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/1006", "formation": "improper", "retrievedAt": "2026-10-20T06:09:25.127Z", "sha256": "d8787f98b6b71b6c544fbcec449e56f95fbbf2c0a301aa2bc1243e2568fb4f0c" }, "status": "ok", "problems": [], "unparsed": [], "choices": [ "A balance with a partner or neighbor holds both hands." ],
  "figures": [
   {"move":"long-lines","beats":8,"params":{"back":true},"text":"long lines forward & back","section":"A1","row":1},
   {"move":"swing","beats":8,"params":{"who":"neighbor"},"text":"neighbors swing","section":"A1","row":2},
@@ -7,6 +7,6 @@
   {"move":"balance","beats":4,"params":{"formation":"pair","who":"partner","hand":"both"},"text":"partners balance & swing · balance","section":"B1","row":5},
   {"move":"swing","beats":12,"params":{"who":"partner"},"text":"partners balance & swing · swing","section":"B1","row":5},
   {"move":"mad-robin","beats":8,"params":{"front":"robins"},"text":"mad robins, robins in front","section":"B2","row":6},
-  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"robins chain and take hands with next neighbors in long lines","section":"B2","row":7,"progression":true}
+  {"move":"chain","beats":8,"params":{"who":"robins"},"text":"robins chain and take hands with next neighbors in long lines","progression":true,"section":"B2","row":7}
  ]
 }

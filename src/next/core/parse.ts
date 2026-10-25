@@ -9,6 +9,7 @@ import type { FigureCall } from './figure.ts';
 import { canonical, canonicalText, roleOfGroup } from './roles.ts';
 import { MORE_PATTERNS, qualifiers } from './parse-more.ts';
 import { WEAVE_PATTERNS } from './parse-weaves.ts';
+import { extraPatterns, extraTidy } from './parse-extra.ts';
 
 export interface SourceRow {
   readonly section?: string;
@@ -183,7 +184,12 @@ const PATTERNS: readonly (readonly [RegExp, Build])[] = [
   [/^right left through$/, (_m, b) => [call('right-left-through', b, {})]],
   [
     /^((?:next |new )?\w+) (pass|pull) by (right|left)(?: shoulders?)?$/,
-    (m, b) => [call('pass-by', b, { who: who(m[1]), shoulder: m[3], hands: m[2] === 'pull' })],
+    (m, b) => {
+      // Shadows passing are whoever faces each other (core/facing.ts).
+      const named = who(m[1]);
+      const pair = named === 'shadow' ? 'facing' : named;
+      return [call('pass-by', b, { who: pair, shoulder: m[3], hands: m[2] === 'pull' })];
+    },
   ],
   [
     /^(\w+) roll away (\w+) with a half sashay(?: roll (?:left to right|right to left))?$/,
@@ -360,6 +366,20 @@ const PATTERNS: readonly (readonly [RegExp, Build])[] = [
 
 /** Lowercase, plain spacing, straight quotes, progression mark removed. */
 export function normalizeRow(text: string): { text: string; progression: boolean } {
+  const { plain, progression } = plainRow(text);
+  return { text: tidy(plain), progression };
+}
+
+/**
+ * The row with only the base tidying (TIDY), as the contra, formation and
+ * weaving tables first read it, before parse-extra.ts's spellings and dropped
+ * notes.
+ */
+function baseRow(text: string): string {
+  return baseTidy(plainRow(text).plain);
+}
+
+function plainRow(text: string): { plain: string; progression: boolean } {
   const progression = text.includes('⁋');
   const plain = text
     .replace(/⁋/g, '')
@@ -381,7 +401,7 @@ export function normalizeRow(text: string): { text: string; progression: boolean
     .replace(/\s+/g, ' ')
     .trim()
     .toLowerCase();
-  return { text: tidy(plain), progression };
+  return { plain, progression };
 }
 
 /**
@@ -402,7 +422,18 @@ const TIDY: readonly (readonly [RegExp, string])[] = [
   [/,? (?:and )?scoop (?:up )?(?:your )?partners?(?: on the side)?$/, ''],
   [/^(butterfly whirl) with (?:your )?partners?(?: on the side)?$/, '$1'],
 ];
-const tidy = (text: string) => TIDY.reduce((t, [re, to]) => t.replace(re, to), text).trim();
+/** Relationship spellings for parse-extra.ts (core/relations.ts). */
+const RELATION_TIDY: readonly (readonly [RegExp, string])[] = [
+  // Which shadow is whichever is nearest then (core/relations.ts).
+  [/\b(?:1st|2nd|first|second) (shadows?)\b/g, '$1'],
+  // Two-word relationship names as one word for the patterns' (\w+).
+  [/\bprev(?:ious)? (neighbors?)\b/g, 'prev_$1'],
+  [/\bsame (roles?)\b/g, 'same_$1'],
+];
+const baseTidy = (text: string) => TIDY.reduce((t, [re, to]) => t.replace(re, to), text).trim();
+/** The base tidying, then relationship spellings and parse-extra.ts's own. */
+const tidy = (text: string) =>
+  extraTidy(RELATION_TIDY.reduce((t, [re, to]) => t.replace(re, to), baseTidy(text)).trim());
 
 /** How a split row names its parts in labels. */
 const PART_NAMES: Readonly<Record<string, string>> = {
@@ -424,23 +455,47 @@ function onDiagonal(text: string): { text: string; diagonal?: 'left' | 'right' }
   return { text };
 }
 
+/** The patterns in parse-extra.ts, after this file's own. */
+const EXTRA_PATTERNS = extraPatterns({ who, amount, call, numbers: NUMBERS, match: matchCalls });
+
+/** The calls the first matching pattern builds for already tidied text (parse-extra.ts parts). */
+function matchCalls(text: string, beats: number): FigureCall[] | undefined {
+  for (const [pattern, build] of [...PATTERNS, ...EXTRA_PATTERNS]) {
+    const m = text.match(pattern);
+    if (m) return build(m, beats);
+  }
+  return undefined;
+}
+
 export function parseRow(row: SourceRow): FigureCall[] {
   const normal = normalizeRow(row.text);
   const progression = normal.progression;
-  const { text: plain, diagonal } = onDiagonal(normal.text);
-  // As written first; then with a qualifier ("heads", "middle 4") lifted into `among`.
-  const lifted = qualifiers(plain);
-  const tries = [{ text: plain, among: undefined as readonly string[] | undefined }];
-  if (lifted) tries.push({ text: lifted.text, among: lifted.among });
+  // Each text as written first; then with a qualifier ("heads", "middle 4")
+  // lifted into `among`.
+  const tries = (whole: string) => {
+    const { text: plain, diagonal } = onDiagonal(whole);
+    const lifted = qualifiers(plain);
+    const out = [{ text: plain, diagonal, among: undefined as readonly string[] | undefined }];
+    if (lifted) out.push({ text: lifted.text, diagonal, among: lifted.among });
+    return out;
+  };
+  const base = tries(baseRow(row.text));
+  const full = tries(normal.text);
   // A pattern that matches but cannot build (an unknown dancer name, say)
   // gives later patterns a chance; its reason is kept if none builds.
   let failure: unknown;
-  // The contra and formation tables read the row as written and lifted
-  // before the weaving table's looser readings (which drop trailing notes).
-  const attempts = [coreTable(), WEAVE_PATTERNS].flatMap((table) =>
-    tries.map((t) => ({ ...t, table })),
-  );
-  for (const { text, among, table } of attempts) {
+  // In order, on the row with the base tidying: the contra and formation
+  // tables, then the weaving table (which drops trailing notes of its own);
+  // then the same on the fully tidied row (relationship spellings, notes
+  // dropped), with parse-extra.ts's patterns after this file's own.
+  const core = coreTable();
+  const attempts = [
+    ...base.map((t) => ({ ...t, table: core })),
+    ...base.map((t) => ({ ...t, table: WEAVE_PATTERNS })),
+    ...full.map((t) => ({ ...t, table: coreWithExtra() })),
+    ...full.map((t) => ({ ...t, table: WEAVE_PATTERNS })),
+  ];
+  for (const { text, diagonal, among, table } of attempts) {
     const found = matchRow(table, text, row.beats, (error) => {
       failure ??= error;
     });
@@ -468,10 +523,16 @@ export function parseRow(row: SourceRow): FigureCall[] {
 }
 
 /**
- * Contra patterns first, then other formations (parse-more.ts). Read at
- * call time: parse-more.ts and parse.ts import each other.
+ * Contra patterns first, then other formations (parse-more.ts). Read at call time: parse-more.ts and parse.ts
+ * import each other.
  */
 const coreTable = (): readonly (readonly [RegExp, Build])[] => [...PATTERNS, ...MORE_PATTERNS];
+/** The same with parse-extra.ts's patterns after this file's own. */
+const coreWithExtra = (): readonly (readonly [RegExp, Build])[] => [
+  ...PATTERNS,
+  ...EXTRA_PATTERNS,
+  ...MORE_PATTERNS,
+];
 
 /**
  * The calls the first matching pattern of `table` builds. A pattern whose

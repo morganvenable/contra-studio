@@ -28,8 +28,10 @@ import type { HandContact, Vec2 } from '../../types.ts';
 import type { Figure } from '../core/figure.ts';
 import { oneOf, onlyKeys, settle } from '../core/figure.ts';
 import { SET } from '../core/config.ts';
+import { PAIR_NAMES, type PairName } from '../core/relations.ts';
 import {
   add,
+  forward,
   leftOf,
   length,
   mean,
@@ -56,7 +58,7 @@ import {
 } from '../core/state.ts';
 
 export interface SwingParams {
-  who: 'partner' | 'neighbor' | '1s' | '2s';
+  who: PairName;
   /** Start with a right-shoulder round and melt into the swing. */
   meltdown?: boolean;
   /**
@@ -74,6 +76,10 @@ export function meltdownRoundBeats(beats: number): number {
 const RADIUS = 0.31;
 /** How far off the middle a pair must start to know which side it ends on. */
 const SIDE_MARGIN = 0.5;
+/** Share of the swing over which the pair drifts to where it ends. */
+const CENTER_DRIFT = 0.7;
+/** Within this of the middle a dancer stands in the center line. */
+const CENTERED = 0.2;
 const LEAD = 0.14;
 /** Beats, at least, to turn from the entry facing into the swing frame. */
 const TURN_IN_BEATS = 1.6;
@@ -97,7 +103,7 @@ export const swing: Figure<SwingParams> = (state, params, beats) => {
   const end = oneOf('swing', 'end', params.end ?? 'across', ['across', 'down', 'up'] as const);
   if (params.meltdown !== undefined && typeof params.meltdown !== 'boolean')
     throw new Error('swing meltdown must be true or false.');
-  const who = oneOf('swing', 'who', params.who, ['partner', 'neighbor', '1s', '2s'] as const);
+  const who = oneOf('swing', 'who', params.who, PAIR_NAMES);
   if (beats < 4) throw new Error('A swing needs at least four beats.');
   const turns = Math.max(1, Math.floor(beats / 4 - 0.5));
   const pairs = minorSets(state).flatMap((g) => pairsIn(state, g, who));
@@ -164,7 +170,27 @@ function planPair(
     exitYaw = larkX < 0 ? Math.PI / 2 : -Math.PI / 2;
   } else if (end === 'across') {
     const larkAcross = start.get(lark)!.position.x - middle.x;
-    const from = Math.abs(across) >= SIDE_MARGIN ? across : larkAcross;
+    // The pair's side. One dancer in the very middle and the other out on a
+    // side line (as after an allemande in the center) swing on that side;
+    // both in a wave down the middle of the set, on the side the lark faces;
+    // straddling the middle evenly, on the lark's side.
+    const robinAcross = start.get(robin)!.position.x - middle.x;
+    const centered = (v: number) => Math.abs(v) < CENTERED;
+    const from =
+      Math.abs(across) >= SIDE_MARGIN
+        ? across
+        : centered(larkAcross) && Math.abs(robinAcross) >= SIDE_MARGIN
+          ? robinAcross
+          : centered(robinAcross) && Math.abs(larkAcross) >= SIDE_MARGIN
+            ? larkAcross
+            : centered(larkAcross) && centered(robinAcross)
+              ? // Both on the center line (a wave down the middle): the side
+                // the lark faces.
+                Math.sign(forward(start.get(lark)!.yaw).x) * SET.halfWidth
+              : centered(across) && !centered(larkAcross)
+                ? // Straddling the middle evenly: the lark's side.
+                  Math.sign(larkAcross) * SET.halfWidth
+                : larkAcross;
     if (Math.abs(from) < SIDE_MARGIN)
       throw new Error('A swing that ends facing across must start nearer one side.');
     const side = Math.sign(from);
@@ -195,7 +221,8 @@ function planPair(
   // whole number of turns so a short swing never spins much faster.
   const net = TAU * turns + offset - (offset > Math.PI ? TAU : 0);
   const spin = (t: number) => net * progress((t - lead) / (1 - lead), ramp);
-  const centerAt = (t: number) => mix(center0, exitCenter, smooth(t));
+  // The pair drifts to where it ends early on, clearing the middle for others.
+  const centerAt = (t: number) => mix(center0, exitCenter, smooth(t / CENTER_DRIFT));
 
   const radiusAt = (id: number, t: number) => {
     const r0 = length(sub(start.get(id)!.position, center0));

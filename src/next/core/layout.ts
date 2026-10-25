@@ -32,6 +32,7 @@ import { add, length, mean, polar, rotate, scale, sub } from './math.ts';
 import { SET } from './config.ts';
 import { complete } from './contacts.ts';
 import { body, type Body, type DanceState, type Hold, withChanges } from './state.ts';
+import { REGROUPING } from './relations.ts';
 
 export interface Layout {
   /** Groups stand in columns across the set, each run with its column at x = 0. */
@@ -322,7 +323,13 @@ export function inLayout<P>(move: string, figure: Figure<P>): Figure<P & { among
     const { among, ...rest } = params;
     const layout = state.layout;
     const who = (rest as { who?: unknown }).who;
-    const named = typeof who === 'string' && !STANDARD.has(who) && state.relations.has(who);
+    // Shadows, previous neighbors and same-role pairs regroup the set
+    // themselves (core/relations.ts).
+    const named =
+      typeof who === 'string' &&
+      !STANDARD.has(who) &&
+      !REGROUPING.has(who) &&
+      state.relations.has(who);
     if ((!layout && !among && !named) || move === 'hold') return figure(state, rest as P, beats);
     let groups: readonly (readonly number[])[] =
       layout?.columns && EIGHT.has(move) ? lineSets(state) : state.groups;

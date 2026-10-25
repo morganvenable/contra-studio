@@ -6,7 +6,8 @@
  * shoulders to where they started, keeping the same facing throughout. A
  * see-saw passes left shoulders first. "1½" goes on around to the other
  * dancer's place, still facing the same way (so the pair ends back to back,
- * ready to meet someone new).
+ * ready to meet someone new). "1¼" (or "¾") stops a quarter on, the pair
+ * side by side facing opposite ways, ready for a short wave.
  * Source: Caller's Box glossary, "Do-si-do" and "See-saw"; ContraDB rows
  * "neighbors do si do once", "ladles do si do 1½". Pairs that start side by
  * side turn to face each other over the first beat and a half.
@@ -15,6 +16,7 @@ import type { Figure } from '../core/figure.ts';
 import { oneOf, onlyKeys, settle } from '../core/figure.ts';
 import {
   add,
+  dot,
   heading,
   length,
   mix,
@@ -26,40 +28,57 @@ import {
   TAU,
   turn,
 } from '../core/math.ts';
-import { body, minorSets, pairsIn, withChanges } from '../core/state.ts';
+import { PAIR_NAMES, type PairName } from '../core/relations.ts';
+import { findWave, lineHolds } from '../core/lines.ts';
+import { joined } from '../core/contacts.ts';
+import { body, groupCenter, minorSets, pairsIn, withChanges, type Hold } from '../core/state.ts';
 
 export interface DoSiDoParams {
-  who: 'partner' | 'neighbor' | 'larks' | 'robins';
+  who: PairName;
   /** Times around: 1 (back home), 1.5 (to the other's place) ... */
   amount: number;
   /** Shoulder passed first: right for a do-si-do, left for a see-saw. */
   shoulder?: 'right' | 'left';
+  /**
+   * "Mirror do-si-do, ones splitting twos": each pair passes by the shoulder
+   * that sends this couple between the others (through the middle of the
+   * set first), mirror-image on the two sides.
+   */
+  split?: '1s' | '2s';
+  /** A quarter-turn do-si-do "to a wave": the minor set takes wave hands at the end. */
+  wave?: boolean;
 }
 
 /** Half the gap between the pair as they pass shoulder to shoulder. */
 const PASS_HALF = 0.33;
+/** Half the gap a quarter-turn do-si-do ends at, side by side. */
+const END_HALF = 0.45;
 /** Far-apart pairs close in to this half distance in the middle of the figure. */
 const MIDDLE_HALF = 0.75;
 const CLOSE = 0.2;
 const FACE_BEATS = 1.5;
 
 export const doSiDo: Figure<DoSiDoParams> = (state, params, beats) => {
-  onlyKeys('do-si-do', params, ['who', 'amount', 'shoulder']);
-  const who = oneOf('do-si-do', 'who', params.who, [
-    'partner',
-    'neighbor',
-    'larks',
-    'robins',
-  ] as const);
+  onlyKeys('do-si-do', params, ['who', 'amount', 'shoulder', 'wave', 'split']);
+  const split =
+    params.split === undefined
+      ? undefined
+      : oneOf('do-si-do', 'split', params.split, ['1s', '2s'] as const);
+  if (params.wave !== undefined && params.wave !== true)
+    throw new Error('do-si-do wave must be true when given.');
+  const who = oneOf('do-si-do', 'who', params.who, PAIR_NAMES);
   const shoulder = oneOf('do-si-do', 'shoulder', params.shoulder ?? 'right', [
     'right',
     'left',
   ] as const);
   const amount = params.amount;
-  if (!(amount > 0 && amount <= 3 && Number.isInteger(amount * 2)))
-    throw new Error('Do-si-do amount must be a whole or half number of times around.');
+  if (!(amount > 0 && amount <= 3 && Number.isInteger(amount * 4)))
+    throw new Error('Do-si-do amount must be a whole number of quarters around.');
+  // A quarter more or less than a whole or half ends side by side, facing
+  // opposite ways, as for a short wave: open out to a wave's hand gap.
+  const sideBySide = !Number.isInteger(amount * 2);
   // Passing right shoulders goes clockwise from above: increasing polar angle.
-  const sweep = (shoulder === 'right' ? 1 : -1) * amount * TAU;
+  const turns = (shoulder === 'right' ? 1 : -1) * amount * TAU;
 
   const pairs = minorSets(state).flatMap((g) => pairsIn(state, g, who));
   const plans = pairs.flatMap(([a, b]) => {
@@ -69,6 +88,19 @@ export const doSiDo: Figure<DoSiDoParams> = (state, params, beats) => {
     const half = length(sub(pa.position, pb.position)) / 2;
     if (half < 0.3 || half > 1.4)
       throw new Error(`Dancers ${a} and ${b} are too far apart to do-si-do.`);
+    let sweep = turns;
+    if (split) {
+      const splitters = state.positions.get(split) ?? [];
+      const s = splitters.includes(a) ? a : splitters.includes(b) ? b : undefined;
+      if (s === undefined)
+        throw new Error(`Each pair needs one of the ${split} to split the others.`);
+      const me = body(state, s).position;
+      const group = minorSets(state).find((g) => g.includes(s))!;
+      const set = groupCenter(state, group);
+      // Passing right shoulders, the splitter first steps along rotate(rel, +90 degrees).
+      const step = rotate(sub(me, center), Math.PI / 2);
+      sweep = Math.abs(turns) * (dot(step, sub(set, me)) >= 0 ? 1 : -1);
+    }
     return [
       [a, pa, pb],
       [b, pb, pa],
@@ -77,28 +109,43 @@ export const doSiDo: Figure<DoSiDoParams> = (state, params, beats) => {
       const axis = scale(sub(self.position, center), 1 / half);
       const side = rotate(axis, Math.PI / 2);
       const face = heading(self.position, (other as typeof pa).position);
-      return { id: id as number, start: self, center, axis, side, half, face };
+      return { id: id as number, start: self, center, axis, side, half, face, sweep };
     });
   });
 
-  const motion = (beat: number) => ({
+  const lateral = (t: number) =>
+    sideBySide ? PASS_HALF + (END_HALF - PASS_HALF) * smooth((t - 0.75) / 0.25) : PASS_HALF;
+  const walk = (beat: number) => ({
     bodies: plans.map((p) => {
       const t = beat / beats;
-      const phi = sweep * progress(t);
+      const phi = p.sweep * progress(t);
       const close = Math.min(smooth(t / CLOSE), smooth((1 - t) / CLOSE));
       const along = p.half + (Math.min(p.half, MIDDLE_HALF) - p.half) * close;
       const position = add(
         p.center,
-        add(scale(p.axis, along * Math.cos(phi)), scale(p.side, PASS_HALF * Math.sin(phi))),
+        add(scale(p.axis, along * Math.cos(phi)), scale(p.side, lateral(t) * Math.sin(phi))),
       );
       const yaw = p.start.yaw + turn(p.face, p.start.yaw) * smooth(beat / FACE_BEATS);
       return { id: p.id, position, yaw };
     }),
     contacts: [],
   });
+  const settled = settle(state, walk, beats);
+  // "To a wave": the dancers now side by side in each minor set take hands
+  // along their line as the do-si-do finishes.
+  let waveHolds: Hold[] = [];
+  if (params.wave) {
+    if (!sideBySide) throw new Error('Only a quarter-turn do-si-do ends side by side in a wave.');
+    waveHolds = minorSets(state).flatMap((g) => lineHolds(settled, findWave(settled, g)));
+  }
+  const motion = (beat: number) => {
+    const frame = walk(beat);
+    const strength = smooth((beat - (beats - 0.5)) / 0.5);
+    return { ...frame, contacts: waveHolds.map((h) => joined(h, strength)) };
+  };
   return {
     kind: 'do-si-do',
     motion,
-    exit: withChanges(settle(state, motion, beats), { hands: [] }),
+    exit: withChanges(settled, { hands: waveHolds }),
   };
 };

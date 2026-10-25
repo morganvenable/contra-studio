@@ -1,4 +1,4 @@
-{ "schema": "contra-studio/next-dance", "version": 2, "id": "126", "title": "Roll, Roll, Roll Your Beau", "author": "Dale Wilson", "formation": "becket", "progression": "minor-set", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/126", "formation": "Becket", "retrievedAt": "2026-10-20T06:11:12.044Z", "sha256": "0b72661cb1743f14f6f894170c1ea8467df1d11a38308a1ec6527066a9f1f252" }, "status": "partial", "problems": [ "Row 7 \"neighbors balance & swing same new neighbor\" isn't drawn yet." ], "unparsed": [ { "row": 7, "text": "neighbors balance & swing same new neighbor", "why": "No figure pattern matches \"neighbors balance & swing same new neighbor\"." } ], "choices": [],
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "126", "title": "Roll, Roll, Roll Your Beau", "author": "Dale Wilson", "formation": "becket", "progression": "minor-set", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/126", "formation": "Becket", "retrievedAt": "2026-10-20T06:11:12.044Z", "sha256": "0b72661cb1743f14f6f894170c1ea8467df1d11a38308a1ec6527066a9f1f252" }, "status": "check", "problems": [ "Couples don't end the round where the progression puts them." ], "unparsed": [], "choices": [ "A balance with a partner or neighbor holds both hands." ],
  "figures": [
   {"move":"right-left-through","beats":8,"params":{},"text":"right left through","section":"A1","row":1},
   {"move":"chain","beats":8,"params":{"who":"robins"},"text":"robins chain","section":"A1","row":2},
@@ -6,7 +6,8 @@
   {"move":"roll-away","beats":4,"params":{"who":"larks","whom":"partner","axis":"across"},"text":"larks roll away partners with a half sashay across","section":"A2","row":4},
   {"move":"roll-away","beats":4,"params":{"who":"larks","whom":"neighbor","axis":"along"},"text":"larks roll away neighbors with a half sashay up and down","section":"A2","row":5},
   {"move":"roll-away","beats":4,"params":{"who":"larks","whom":"neighbor","axis":"along"},"text":"larks roll away next neighbors with a half sashay up and down","progression":true,"section":"A2","row":6},
-  {"move":"hold","beats":16,"params":{"reason":"unparsed"},"text":"neighbors balance & swing same new neighbor","section":"B1","row":7},
+  {"move":"balance","beats":4,"params":{"formation":"pair","who":"neighbor","hand":"both"},"text":"neighbors balance & swing same new neighbor · balance","section":"B1","row":7},
+  {"move":"swing","beats":12,"params":{"who":"neighbor"},"text":"neighbors balance & swing same new neighbor · swing","section":"B1","row":7},
   {"move":"circle","beats":8,"params":{"direction":"left","places":3},"text":"circle left 3 places","section":"B2","row":8},
   {"move":"swing","beats":8,"params":{"who":"partner"},"text":"partners swing","section":"B2","row":9}
  ]

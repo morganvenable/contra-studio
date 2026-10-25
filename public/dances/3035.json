@@ -1,10 +1,10 @@
-{ "schema": "contra-studio/next-dance", "version": 2, "id": "3035", "title": "California Contra", "author": "Tony Parkes", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/3035", "formation": "improper", "retrievedAt": "2026-10-20T05:49:35.045Z", "sha256": "5e6b443fe70ee136dfc4cd0c2f87ea46b711810bff7d2f84478ee1e079b13439" }, "status": "partial", "problems": [ "Row 5 \"shadows allemande left once\" isn't drawn yet." ], "unparsed": [ { "row": 5, "text": "shadows allemande left once", "why": "Unknown dancers \"shadows\"." } ], "choices": [],
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "3035", "title": "California Contra", "author": "Tony Parkes", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/3035", "formation": "improper", "retrievedAt": "2026-10-20T05:49:35.045Z", "sha256": "5e6b443fe70ee136dfc4cd0c2f87ea46b711810bff7d2f84478ee1e079b13439" }, "status": "ok", "problems": [], "unparsed": [], "choices": [],
  "figures": [
   {"move":"do-si-do","beats":8,"params":{"who":"neighbor","amount":1,"shoulder":"right"},"text":"neighbors do si do once","section":"A1","row":1},
   {"move":"swing","beats":8,"params":{"who":"neighbor"},"text":"neighbors swing","section":"A1","row":2},
   {"move":"long-lines","beats":8,"params":{"back":true},"text":"long lines forward & back","section":"A2","row":3},
   {"move":"chain","beats":8,"params":{"who":"robins"},"text":"robins chain","section":"A2","row":4},
-  {"move":"hold","beats":6,"params":{"reason":"unparsed"},"text":"shadows allemande left once","section":"B1","row":5},
+  {"move":"allemande","beats":6,"params":{"who":"shadow","hand":"left","amount":1},"text":"shadows allemande left once","section":"B1","row":5},
   {"move":"swing","beats":10,"params":{"who":"partner"},"text":"partners swing","section":"B1","row":6},
   {"move":"circle","beats":12,"params":{"direction":"left","places":5},"text":"circle left 5 places","section":"B2","row":7},
   {"move":"twirl","beats":4,"params":{"style":"california","who":"partner"},"text":"partners California twirl","progression":true,"section":"B2","row":8}

@@ -8,7 +8,7 @@
  * Pure: no file or network access, so the app, tests and scripts share it.
  */
 import type { Progression } from './core/progression.ts';
-import { canonicalText } from './core/roles.ts';
+import { canonical, canonicalText } from './core/roles.ts';
 import { contraDbRows, decodeEntities, parseRow, type SourceRow } from './core/parse.ts';
 import type { StoredCall, StoredDance, UnparsedRow } from './dance.ts';
 import { FORMATIONS } from './core/formation.ts';
@@ -309,11 +309,15 @@ function joinLeadIns(parsed: (StoredCall[] | Error)[]) {
     const calls = parsed[i];
     return Array.isArray(calls) && calls.length === 1 ? calls[0] : undefined;
   };
+  joinLeadOuts(parsed, only);
+  startInWave(parsed);
   for (let i = 0; i < parsed.length; i++) {
     const lead = only(i);
     if (!lead || (lead.move !== 'take' && !(lead.move === 'ocean-wave' && lead.beats === 0)))
       continue;
-    const after = parsed[i + 1];
+    // A wave formed on the last row leads into the first row of the next time through.
+    const wraps = lead.move === 'ocean-wave' && i === parsed.length - 1 && i > 0;
+    const after = wraps ? parsed[0] : parsed[i + 1];
     const next = Array.isArray(after) ? after : undefined;
     const first = next?.[0];
     const text = `${lead.text}, ${first?.text}`;
@@ -323,10 +327,14 @@ function joinLeadIns(parsed: (StoredCall[] | Error)[]) {
     } else if (
       lead.move === 'ocean-wave' &&
       first?.move === 'balance' &&
-      first.params.formation === 'wave'
+      (first.params.formation === 'wave' || first.params.formation === 'current')
     ) {
       const params = { ...lead.params, balance: true };
       next![0] = { ...lead, params, beats: first.beats, text, row: lead.row };
+      parsed[i] = [];
+    } else if (lead.move === 'ocean-wave' && first?.move === 'allemande' && !wraps) {
+      // A wave an allemande turns out of at once ("form an ocean wave", then
+      // "swing through"): the allemande takes hands where the dancers are.
       parsed[i] = [];
     } else {
       parsed[i] = new Error(
@@ -417,6 +425,118 @@ function repeatSections(rows: readonly SourceRow[], parsed: (StoredCall[] | Erro
 }
 
 /**
+ * A zero-beat "turn alone" row after a figure of 6 beats or more takes that
+ * figure's last 2 beats ("circle right 4 places", then "turn alone to face
+ * next neighbors"); after a shorter one, the first 2 beats of the next
+ * figure when that has 6 or more. A zero-beat "form a long wave in the center" only says
+ * where the dancers already are, so it adds no call.
+ */
+function joinLeadOuts(
+  parsed: (StoredCall[] | Error)[],
+  only: (i: number) => StoredCall | undefined,
+) {
+  for (let i = 0; i < parsed.length; i++) {
+    const lead = only(i);
+    if (!lead || lead.beats !== 0) continue;
+    if (lead.move === 'center-wave') {
+      parsed[i] = [];
+      continue;
+    }
+    if (lead.move !== 'turn-alone') continue;
+    const before = i > 0 ? parsed[i - 1] : undefined;
+    const last = Array.isArray(before) ? before.at(-1) : undefined;
+    if (Array.isArray(before) && last && last.beats >= 6) {
+      before[before.length - 1] = { ...last, beats: last.beats - 2 };
+      parsed[i] = [{ ...lead, beats: 2 }];
+      continue;
+    }
+    const after = parsed[i + 1];
+    const next = Array.isArray(after) ? after[0] : undefined;
+    if (Array.isArray(after) && next && next.beats >= 6) {
+      after[0] = { ...next, beats: next.beats - 2 };
+      parsed[i] = [{ ...lead, beats: 2 }];
+    }
+  }
+}
+
+/**
+ * A dance that opens by balancing the wave its last row forms ("balance the
+ * wave" ... "form an ocean wave - ladles by left hands and next neighbors by
+ * right hands") starts in that wave: the first balance forms it, the first
+ * time through from the starting formation and after that in place.
+ */
+function startInWave(parsed: (StoredCall[] | Error)[]) {
+  const first = Array.isArray(parsed[0]) ? parsed[0][0] : undefined;
+  const lastRow = parsed.at(-1);
+  const last = Array.isArray(lastRow) ? lastRow.at(-1) : undefined;
+  if (!first || !last || parsed.length < 2) return;
+  if (first.move !== 'balance' || first.params.formation !== 'wave') return;
+  if (last.move !== 'ocean-wave' || !(last.beats > 0)) return;
+  const { balance: _balance, ...wave } = last.params;
+  (parsed[0] as StoredCall[])[0] = {
+    ...first,
+    move: 'ocean-wave',
+    params: { ...wave, balance: true },
+  };
+}
+
+/**
+ * The notes before the figures say how the dance starts ("start in long
+ * waves, neighbor by right, ladles face in", "starts in short waves, right
+ * hand to neighbors"). When the first figure balances that wave, it forms
+ * it as it balances: long waves on the side lines with the named role facing
+ * in, or a short wave by the hands named (robins in the middle by the left
+ * unless the notes name the middles).
+ */
+function startAsTold(parsed: (StoredCall[] | Error)[], html: string) {
+  const first = Array.isArray(parsed[0]) ? parsed[0][0] : undefined;
+  if (!first || first.move !== 'balance') return;
+  if (first.params.formation !== 'wave' && first.params.formation !== 'current') return;
+  const note = text(html, /dance-show-preamble">([\s\S]*?)<\/div>/).toLowerCase();
+  const role = (word: string | undefined) =>
+    word === undefined
+      ? undefined
+      : canonical(word) === 'larks'
+        ? 'larks'
+        : canonical(word) === 'robins'
+          ? 'robins'
+          : undefined;
+  const other = (r: string) => (r === 'larks' ? 'robins' : 'larks');
+  const long = note.match(
+    /\bstart\w* in long (?:ocean )?wav(?:es|y lines?)\b[^.]*?\b(\w+) fac(?:e|ing) (in|out)\b/,
+  );
+  if (long) {
+    const named = role(long[1]);
+    if (!named) return;
+    (parsed[0] as StoredCall[])[0] = {
+      ...first,
+      params: { formation: 'long-waves', in: long[2] === 'in' ? named : other(named) },
+    };
+    return;
+  }
+  const short = note.match(/\bstart\w* in (?:a )?short waves?\b([^.]*)/);
+  if (
+    !short ||
+    !/right hands? to neighbors?|neighbors? by right|neighbors? in right hand/.test(short[1])
+  )
+    return;
+  const mid = short[1].match(
+    /\b(\w+) (?:by left|left in (?:the )?(?:middle|center)|in the (?:middle|center))/,
+  );
+  (parsed[0] as StoredCall[])[0] = {
+    ...first,
+    move: 'ocean-wave',
+    params: {
+      middle: role(mid?.[1]) ?? 'robins',
+      middleHand: 'left',
+      ends: 'neighbor',
+      endHand: 'right',
+      balance: true,
+    },
+  };
+}
+
+/**
  * Import one snapshot. `sha256` is the hex hash of `snapshot.html` (the
  * caller hashes; this module stays free of Node APIs).
  */
@@ -442,6 +562,7 @@ export function importDance(id: string, snapshot: ContraDbSnapshot, sha256: stri
   repeatSections(rows, parsed);
   joinWhile(rows, parsed);
   joinLeadIns(parsed);
+  startAsTold(parsed, html);
   rows.forEach((row, i) => {
     const number = i + 1;
     const beats = beatsOf(row.beats);

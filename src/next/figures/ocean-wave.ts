@@ -43,23 +43,16 @@ import {
   turn,
 } from '../core/math.ts';
 import { roleOfGroup } from '../core/roles.ts';
-import {
-  body,
-  minorSets,
-  related,
-  roleOf,
-  withChanges,
-  type Body,
-  type Hold,
-} from '../core/state.ts';
+import { relationMap } from '../core/relations.ts';
+import { body, minorSets, roleOf, withChanges, type Body, type Hold } from '../core/state.ts';
 
 export interface OceanWaveParams {
   /** Who stands in the middle of the wave. */
   middle: 'larks' | 'robins';
   /** The hand the middle two join. */
   middleHand: 'right' | 'left';
-  /** Who each end holds: their partner or neighbor in the middle. */
-  ends: 'partner' | 'neighbor';
+  /** Who each end holds: their partner, neighbor or shadow in the middle. */
+  ends: 'partner' | 'neighbor' | 'shadow' | 'previous-neighbor';
   /** The hand ends and middles join. */
   endHand: 'right' | 'left';
   /** Balance the wave right and left once formed (the last 4 beats, or half a short row). */
@@ -68,10 +61,73 @@ export interface OceanWaveParams {
 
 /** Gap between hands-joined dancers in the wave. */
 export const WAVE_GAP = 0.9;
+/** Average walking pace while forming a wave in a short row (m per beat). */
+const FORM_PACE = 0.8;
+/** Dancers stepping into a wave pass no closer than this. */
+const PASS_CLEAR = 0.75;
 const STEP = 0.1;
 const STEPS = [0, 1, 0, -1, 0];
 
 const handSide = (yaw: number, hand: Hand) => (hand === 'right' ? rightOf(yaw) : leftOf(yaw));
+
+/**
+ * Pass through into an ocean wave: each dancer faces someone across from
+ * them; the two walk forward and pass by the right shoulder, stopping level,
+ * half a wave gap apart. When the hands named fit the line this makes, that
+ * is the wave; otherwise there is none (undefined).
+ */
+function passIntoWave(
+  state: Parameters<typeof oceanWave>[0],
+  set: readonly number[],
+  role: Role,
+  endFor: (mid: number) => number | undefined,
+  middleHand: Hand,
+  endHand: Hand,
+) {
+  const mids = set.filter((id) => roleOf(state, id) === role);
+  const ends = mids.map(endFor);
+  if (mids.length !== 2 || ends.some((e) => e === undefined || !set.includes(e))) return;
+  const facingOf = (id: number) => {
+    const me = body(state, id);
+    const found = set.filter((o) => {
+      if (o === id) return false;
+      const gap = sub(body(state, o).position, me.position);
+      const d = length(gap);
+      return (
+        d > 0.5 &&
+        d < 2.7 &&
+        dot(forward(me.yaw), gap) > 0.9 * d &&
+        dot(forward(body(state, o).yaw), gap) < -0.9 * d
+      );
+    });
+    return found.length === 1 ? found[0] : undefined;
+  };
+  const target = new Map<number, Body>();
+  for (const id of set) {
+    const other = facingOf(id);
+    if (other === undefined || facingOf(other) !== id) return;
+    const me = body(state, id);
+    const meet = mix(me.position, body(state, other).position, 0.5);
+    // Passing right shoulders: each ends on its own left of the meeting point.
+    target.set(id, { position: add(meet, scale(leftOf(me.yaw), WAVE_GAP / 2)), yaw: me.yaw });
+  }
+  const [a, b] = mids;
+  const holds: Hold[] = [
+    { a, handA: middleHand, b, handB: middleHand },
+    ...mids.map((m, i) => ({ a: ends[i]!, handA: endHand, b: m, handB: endHand })),
+  ];
+  const fits = holds.every((h) => {
+    const ta = target.get(h.a)!;
+    const tb = target.get(h.b)!;
+    const gap = sub(tb.position, ta.position);
+    return (
+      Math.abs(length(gap) - WAVE_GAP) < 0.1 &&
+      dot(handSide(ta.yaw, h.handA), gap) > 0 &&
+      dot(handSide(tb.yaw, h.handB), scale(gap, -1)) > 0
+    );
+  });
+  return fits ? { ids: [...set], target, holds } : undefined;
+}
 
 export const oceanWave: Figure<OceanWaveParams> = (state, params, beats) => {
   onlyKeys('ocean wave', params, ['middle', 'middleHand', 'ends', 'endHand', 'balance']);
@@ -80,20 +136,39 @@ export const oceanWave: Figure<OceanWaveParams> = (state, params, beats) => {
     'right',
     'left',
   ] as const);
-  const ends = oneOf('ocean wave', 'ends', params.ends, ['partner', 'neighbor'] as const);
+  const ends = oneOf('ocean wave', 'ends', params.ends, [
+    'partner',
+    'neighbor',
+    'shadow',
+    'previous-neighbor',
+  ] as const);
+  // Shadows and previous neighbors stand outside the minor set: each wave is
+  // the minor set's two middles and whoever each of them holds on the end.
+  const endOf = relationMap(state, ends);
   const endHand = oneOf('ocean wave', 'endHand', params.endHand, ['right', 'left'] as const);
   if (middleHand === endHand)
     throw new Error('An ocean wave joins different hands in the middle and on the ends.');
   const role: Role = roleOfGroup(middle)!;
-  const formBeats = params.balance ? (beats >= 8 ? beats - 4 : beats / 2) : beats;
+  // Forming takes the beats before a 4-beat balance; in a short row, as
+  // much of the row as the walk needs (at least half), leaving the balance
+  // at least a beat.
+  let formBeats = params.balance ? (beats >= 8 ? beats - 4 : beats / 2) : beats;
   if (formBeats < 1) throw new Error('An ocean wave needs a beat to form.');
 
-  const plans = minorSets(state).map((g) => {
-    if (g.length !== 4) throw new Error('An ocean wave needs four dancers.');
-    const mids = g.filter((id) => roleOf(state, id) === role);
+  const outside = ends === 'shadow' || ends === 'previous-neighbor';
+  const sets = minorSets(state).filter(
+    // Minor sets with nobody to hold on an end (at the ends of the set) wait.
+    (set) => !outside || set.every((id) => roleOf(state, id) !== role || endOf.has(id)),
+  );
+  if (!sets.length && minorSets(state).length)
+    throw new Error(`Nobody has a ${ends.replace('-', ' ')} to hold on an end.`);
+  const plan = (set: readonly number[], endFor: (mid: number) => number | undefined) => {
+    if (set.length !== 4) throw new Error('An ocean wave needs four dancers.');
+    const mids = set.filter((id) => roleOf(state, id) === role);
     if (mids.length !== 2) throw new Error(`An ocean wave needs two ${middle} in the middle.`);
+    const g = [...mids, ...mids.map((m) => endFor(m) ?? -1)];
     const pairs = mids.map((m) => {
-      const e = related(state, ends, m);
+      const e = endFor(m);
       if (e === undefined || !g.includes(e) || mids.includes(e))
         throw new Error(`Each of the ${middle} needs their ${ends} on an end.`);
       return { mid: m, end: e };
@@ -151,10 +226,72 @@ export const oceanWave: Figure<OceanWaveParams> = (state, params, beats) => {
       { a, handA: middleHand, b, handB: middleHand },
       ...pairs.map((p) => ({ a: p.end, handA: endHand, b: p.mid, handB: endHand })),
     ];
-    return { ids: g, target, holds, along };
+    return { ids: g, target, holds };
+  };
+  const plans = sets.map((set) => {
+    const named = (m: number) => endOf.get(m);
+    try {
+      return plan(set, named);
+    } catch (error) {
+      if (outside) throw error;
+      // The hands named do not fit how the dancers stand. Dancers facing
+      // someone across pass through into the wave (passIntoWave); failing
+      // that, each middle takes the other end dancer of the minor set (the
+      // one it can reach), stepping or passing into the wave.
+      const others = set.filter((id) => roleOf(state, id) !== role);
+      const swapped = (m: number) => others.find((o) => o !== named(m));
+      const passed = passIntoWave(state, set, role, named, middleHand, endHand);
+      if (passed) return passed;
+      try {
+        return plan(set, swapped);
+      } catch {
+        const crossed = passIntoWave(state, set, role, swapped, middleHand, endHand);
+        if (crossed) return crossed;
+      }
+      throw error;
+    }
   });
 
   const start = new Map(plans.flatMap((p) => p.ids.map((id) => [id, body(state, id)] as const)));
+  // Dancers whose straight paths into the wave come too close (trading
+  // order along the line) bow apart sideways, each to its own side.
+  const bulge = new Map<number, Vec2>();
+  for (const p of plans) {
+    for (const a of p.ids)
+      for (const b of p.ids) {
+        if (b <= a) continue;
+        const [fa, ta, fb, tb] = [start.get(a)!, p.target.get(a)!, start.get(b)!, p.target.get(b)!];
+        let closest = Infinity;
+        let at = 0;
+        for (let k = 0; k <= 20; k++) {
+          const u = k / 20;
+          const d = length(sub(mix(fa.position, ta.position, u), mix(fb.position, tb.position, u)));
+          if (d < closest) [closest, at] = [d, u];
+        }
+        if (closest >= PASS_CLEAR) continue;
+        const gap = sub(mix(fa.position, ta.position, at), mix(fb.position, tb.position, at));
+        const moving = sub(sub(ta.position, fa.position), sub(tb.position, fb.position));
+        let away = { x: -moving.z, z: moving.x };
+        if (length(away) < 1e-6) away = gap;
+        if (dot(away, gap) < 0) away = scale(away, -1);
+        const push = scale(away, (PASS_CLEAR - closest) / 2 / Math.max(length(away), 1e-6));
+        bulge.set(a, add(bulge.get(a) ?? { x: 0, z: 0 }, push));
+        bulge.set(b, sub(bulge.get(b) ?? { x: 0, z: 0 }, push));
+      }
+  }
+  if (params.balance && beats < 8) {
+    const walk = Math.max(
+      0,
+      ...plans.flatMap((p) =>
+        p.ids.map(
+          (id) =>
+            length(sub(p.target.get(id)!.position, start.get(id)!.position)) +
+            2 * length(bulge.get(id) ?? { x: 0, z: 0 }),
+        ),
+      ),
+    );
+    formBeats = Math.min(beats - 1, Math.max(formBeats, walk / FORM_PACE));
+  }
   const motion = (beat: number) => {
     const t = Math.min(1, beat / formBeats);
     const q = progress(t);
@@ -168,7 +305,10 @@ export const oceanWave: Figure<OceanWaveParams> = (state, params, beats) => {
         const to = p.target.get(id)!;
         const yaw = from.yaw + turn(to.yaw, from.yaw) * smooth(t / 0.7);
         const position = add(
-          mix(from.position, to.position, q),
+          add(
+            mix(from.position, to.position, q),
+            scale(bulge.get(id) ?? { x: 0, z: 0 }, Math.sin(Math.PI * q)),
+          ),
           scale(rightOf(to.yaw), STEP * side),
         );
         return { id, position, yaw };

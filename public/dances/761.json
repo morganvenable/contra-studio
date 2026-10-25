@@ -1,4 +1,4 @@
-{ "schema": "contra-studio/next-dance", "version": 2, "id": "761", "title": "The Future Soon", "author": "Deanna Rubin", "formation": "becket", "progression": "minor-set", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/761", "formation": "becket", "sha256": "88d09fbcf5e84c886cd536047e12a14a511e097cf8a630bf5c3a1a733ac3c15a" }, "status": "partial", "problems": [ "Row 7 \"jersey twirl to new neighbors\" isn't drawn yet.", "Row 9 \"california twirl back to old neighbors\" isn't drawn yet.", "Row 11 \"larks give & take partners and swing\" isn't drawn yet.", "Row 1 \"slide left along set\" can't start from where the dancers are: Couple 1 must stand side by side in a line facing across." ], "unparsed": [ { "row": 7, "text": "jersey twirl to new neighbors", "why": "No figure pattern matches \"jersey twirl to new neighbors\"." }, { "row": 9, "text": "california twirl back to old neighbors", "why": "No figure pattern matches \"california twirl back to old neighbors\"." }, { "row": 11, "text": "larks give & take partners and swing", "why": "No figure pattern matches \"gentlespoons give & take partners and swing\"." } ], "choices": [],
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "761", "title": "The Future Soon", "author": "Deanna Rubin", "formation": "becket", "progression": "minor-set", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/761", "formation": "becket", "sha256": "88d09fbcf5e84c886cd536047e12a14a511e097cf8a630bf5c3a1a733ac3c15a" }, "status": "check", "problems": [ "Row 4 \"neighbors do si do once\": a dancer has to move 1.25 m in one beat, faster than a walk." ], "unparsed": [], "choices": [ "Give & take: half the beats to cross, half to back home holding both hands." ],
  "figures": [
   {"move":"slide","beats":2,"params":{"direction":"left"},"text":"slide left along set","progression":true,"section":"A1","row":1},
   {"move":"circle","beats":6,"params":{"direction":"left","places":3},"text":"circle left 3 places","section":"A1","row":2},
@@ -6,10 +6,11 @@
   {"move":"do-si-do","beats":4,"params":{"who":"neighbor","amount":1,"shoulder":"right"},"text":"neighbors do si do once","section":"A2","row":4},
   {"move":"swing","beats":12,"params":{"who":"neighbor"},"text":"neighbors swing","section":"A2","row":5},
   {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance the ring","section":"B1","row":6},
-  {"move":"hold","beats":4,"params":{"reason":"unparsed"},"text":"jersey twirl to new neighbors","section":"B1","row":7},
+  {"move":"twirl","beats":4,"params":{"style":"california","who":"partner"},"text":"jersey twirl to new neighbors","section":"B1","row":7},
   {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance the ring","section":"B1","row":8},
-  {"move":"hold","beats":4,"params":{"reason":"unparsed"},"text":"california twirl back to old neighbors","section":"B1","row":9},
+  {"move":"twirl","beats":4,"params":{"style":"california","who":"partner"},"text":"california twirl back to old neighbors","section":"B1","row":9},
   {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance the ring","section":"B2","row":10},
-  {"move":"hold","beats":12,"params":{"reason":"unparsed"},"text":"larks give & take partners and swing","section":"B2","row":11}
+  {"move":"give-and-take","beats":6,"params":{"who":"larks","whom":"partner"},"text":"larks give & take partners and swing · give-and-take","section":"B2","row":11},
+  {"move":"swing","beats":6,"params":{"who":"partner"},"text":"larks give & take partners and swing · swing","section":"B2","row":11}
  ]
 }

@@ -38,6 +38,12 @@ export const ALIASES: Readonly<Record<string, string>> = {
   '1s': '1s',
   twos: '2s',
   '2s': '2s',
+  shadows: 'shadow',
+  shadow: 'shadow',
+  prev_neighbors: 'previous-neighbor',
+  prev_neighbor: 'previous-neighbor',
+  same_roles: 'same-role',
+  same_role: 'same-role',
 };
 
 /** Canonical name for a source word, or undefined. */

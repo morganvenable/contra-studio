@@ -8,10 +8,14 @@
  * - ring: the group joins hands in a ring and steps in toward the center and
  *   back out ("balance the ring").
  * - current: a plain "balance" balances what the dancers hold now: their
- *   wave if they hold one, otherwise their ring.
+ *   wave if they hold one, otherwise their ring; and when they stand in no
+ *   ring but hold hands in some other line (a long wave, a line across
+ *   minor sets), everyone holding hands balances right and left in place.
  * - pair: two dancers (partners, neighbors, ...) face each other and step in
  *   toward each other and back ("neighbors balance", "right hand balance"),
  *   ending where they started. Hands join while they are close enough.
+ * - solo ("balance yourself"): everyone balances right and left alone, in
+ *   place, holding no one.
  * - long-waves: everyone on the side lines takes hands along their line,
  *   the named role facing in across the set and the others facing out
  *   (turning to face that way over the first two beats), and balances
@@ -42,8 +46,10 @@ import {
   turn,
 } from '../core/math.ts';
 import { findRing, ringHolds } from '../core/ring.ts';
+import { PAIR_NAMES, type PairName } from '../core/relations.ts';
 import { roleOfGroup } from '../core/roles.ts';
 import {
+  activeIds,
   body,
   groupCenter,
   handToward,
@@ -56,14 +62,14 @@ import {
 
 export interface BalanceParams {
   /** 'current': a wave if the group holds one, otherwise its ring. */
-  formation: 'wave' | 'ring' | 'pair' | 'current' | 'long-waves';
+  formation: 'wave' | 'ring' | 'pair' | 'current' | 'long-waves' | 'solo';
   /** Long waves: the role that faces in across the set. */
   in?: 'larks' | 'robins';
   style?: 'right-left' | 'forward-back';
   /** Side to step toward first, for a right-left wave balance. */
   first?: 'right' | 'left';
   /** Pair balance: who faces whom. */
-  who?: 'partner' | 'neighbor' | 'larks' | 'robins' | '1s' | '2s';
+  who?: PairName;
   /** Pair balance: which hands join. */
   hand?: 'right' | 'left' | 'both' | 'none';
 }
@@ -86,6 +92,7 @@ export const balance: Figure<BalanceParams> = (state, params, beats) => {
     'pair',
     'current',
     'long-waves',
+    'solo',
   ] as const);
   if (params.in !== undefined && formation !== 'long-waves')
     throw new Error('Only long waves name who faces in.');
@@ -100,13 +107,51 @@ export const balance: Figure<BalanceParams> = (state, params, beats) => {
       }
     });
     const style = waved ? { style: 'right-left' as const } : {};
+    if (!waved && state.hands.length && !ringed(state)) return heldBalance(state, beats);
     return balance(state, { formation: waved ? 'wave' : 'ring', ...style }, beats);
   }
   if (formation === 'wave') return waveBalance(state, params, beats);
   if (formation === 'ring') return ringBalance(state, params, beats);
   if (formation === 'long-waves') return longWaveBalance(state, params, beats);
+  if (formation === 'solo') return heldBalance(state, beats, activeIds(state));
   return pairBalance(state, params, beats);
 };
+
+const ringed = (state: Parameters<typeof balance>[0]) =>
+  minorSets(state).every((g) => {
+    try {
+      findRing(state, g);
+      return true;
+    } catch {
+      return false;
+    }
+  });
+
+/** Everyone holding hands steps right and back, left and back, keeping hold. */
+function heldBalance(
+  state: Parameters<typeof balance>[0],
+  beats: number,
+  ids = [...new Set(state.hands.flatMap((h) => [h.a, h.b]))],
+  first: 'right' | 'left' = 'right',
+) {
+  const sign = first === 'left' ? -1 : 1;
+  const motion = (beat: number) => {
+    const i = Math.min(3, Math.floor(beat));
+    const q = STEPS[i] + (STEPS[i + 1] - STEPS[i]) * ease(beat - i);
+    return {
+      bodies: ids.map((id) => {
+        const b = body(state, id);
+        return {
+          id,
+          position: add(b.position, scale(rightOf(b.yaw), STEP * q * sign)),
+          yaw: b.yaw,
+        };
+      }),
+      contacts: state.hands.map((h) => joined(h, 1)),
+    };
+  };
+  return { kind: 'wave-balance' as const, motion, exit: settle(state, motion, beats) };
+}
 
 const waveBalance: Figure<BalanceParams> = (state, params, beats) => {
   if (params.who || params.hand) throw new Error('A wave balance takes no partner or hand.');
@@ -116,7 +161,15 @@ const waveBalance: Figure<BalanceParams> = (state, params, beats) => {
   ] as const);
   const first = oneOf('balance', 'first', params.first ?? 'right', ['right', 'left'] as const);
   const groups = minorSets(state);
-  for (const g of groups) assertWaveHeld(state, findWave(state, g));
+  try {
+    for (const g of groups) assertWaveHeld(state, findWave(state, g));
+  } catch (error) {
+    // Long waves along the side lines (or another held line): everyone
+    // holding hands balances side to side in place.
+    if (style === 'right-left' && state.hands.length)
+      return heldBalance(state, beats, undefined, first);
+    throw error;
+  }
 
   const ids = groups.flat();
   const motion = (beat: number) => {
@@ -245,14 +298,7 @@ const ringBalance: Figure<BalanceParams> = (state, params, beats) => {
 
 const pairBalance: Figure<BalanceParams> = (state, params, beats) => {
   if (params.style || params.first) throw new Error('A pair balance steps in and out.');
-  const who = oneOf('balance', 'who', params.who, [
-    'partner',
-    'neighbor',
-    'larks',
-    'robins',
-    '1s',
-    '2s',
-  ] as const);
+  const who = oneOf('balance', 'who', params.who, PAIR_NAMES);
   const hand = oneOf('balance', 'hand', params.hand ?? 'both', [
     'right',
     'left',

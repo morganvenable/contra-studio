@@ -20,11 +20,14 @@ export function findRing(state: DanceState, group: readonly number[], what = 'ri
     (a, b) =>
       polar(sub(body(state, a).position, center)) - polar(sub(body(state, b).position, center)),
   );
+  // A minor set's ring reaches 3 m from its center; a whole-set ring of
+  // more dancers (a circle mixer) as far as keeps neighbors about 2 m apart.
+  const most = Math.max(3, 0.32 * n);
   for (let i = 0; i < n; i++) {
     const rel = sub(body(state, order[i]).position, center);
     const next = sub(body(state, order[(i + 1) % n]).position, center);
     const gap = positiveAngle(polar(next) - polar(rel));
-    if (length(rel) < 0.6 || length(rel) > 3 || Math.abs(gap - TAU / n) > 0.5) {
+    if (length(rel) < 0.6 || length(rel) > most || Math.abs(gap - TAU / n) > 0.5) {
       throw new Error(`A ${what} of ${n} needs the dancers spaced around a ring.`);
     }
   }
