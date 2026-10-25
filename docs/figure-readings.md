@@ -50,3 +50,6 @@ reading below. One line each; change any of them and the figure follows.
 - "Ones turn alone": only the 1s turn, toward their partners.
 - "Circle left 3 places, partners swing" in one row: half the beats each.
 - "Down the hall forward then backward": half the beats down, half back up still facing down.
+- A zero-beat "form an ocean wave" right before an allemande ("swing through") adds no motion: the allemande takes hands where the dancers are.
+- "X allemande ... hold on to form waves / to a short wave / to a wave of four" (X a role): a short wave with X in the middle.
+- "... and take hands with next neighbors in long lines", "take hands": the long lines or ring that follows takes the hands.

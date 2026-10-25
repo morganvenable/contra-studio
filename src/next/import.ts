@@ -177,6 +177,10 @@ function joinLeadIns(parsed: (StoredCall[] | Error)[]) {
       const params = { ...lead.params, balance: true };
       next![0] = { ...lead, params, beats: first.beats, text, row: lead.row };
       parsed[i] = [];
+    } else if (lead.move === 'ocean-wave' && first?.move === 'allemande' && !wraps) {
+      // A wave an allemande turns out of at once ("form an ocean wave", then
+      // "swing through"): the allemande takes hands where the dancers are.
+      parsed[i] = [];
     } else {
       parsed[i] = new Error(
         lead.move === 'take'

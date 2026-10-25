@@ -48,6 +48,28 @@ export function morePatterns(h: ParseHelpers): readonly (readonly [RegExp, Build
       ],
     ],
     [
+      // A swing through spelled out: two half allemandes.
+      re(`swing through,? ${WHO} allemande (right|left) (?:½|1/2),? ${WHO} allemande (right|left) (?:½|1/2)`),
+      (m, b) => [
+        call('allemande', b / 2, { who: who(m[1]), hand: m[2], amount: 0.5 }),
+        call('allemande', b / 2, { who: who(m[3]), hand: m[4], amount: 0.5 }),
+      ],
+    ],
+    [
+      // "Robins allemande left ½, hold on to form waves", "... 1½ to a short wave".
+      re(
+        `(\\w+) allemande (left|right) ([^ ,]+),? (?:- )?(?:hold on )?(?:and )?to (?:form )?(?:a |an )?(?:short |ocean )?waves?(?: of (?:4|four))?(?: [^,]*)?`,
+      ),
+      (m, b) => [
+        call('allemande', b, {
+          who: roleOf(who(m[1])),
+          hand: m[2],
+          amount: amount(m[3], 1),
+          wave: { middle: who(m[1]) === 'larks' ? 'lark' : 'robin' },
+        }),
+      ],
+    ],
+    [
       re(`${WHO} allemande (left|right) ([^ ]+) to long waves`),
       (m, b) => [
         call('allemande', b, {
@@ -72,7 +94,7 @@ export function morePatterns(h: ParseHelpers): readonly (readonly [RegExp, Build
     ],
     [
       re(
-        `${WHO} (allemande (left|right)|do si do|see saw) ([^ ]+(?: 1/2)?) while (?:the )?(\\w+) orbit (clockwise|counter ?clockwise|cw|ccw) ([^ ]+)`,
+        `${WHO} (allemande (left|right)|do si do|see saw) ([^ ]+(?: 1/2)?) while (?:the )?(\\w+) orbit (clockwise|counter ?clockwise|cw|ccw) ([^ ]+)(?: to (?:meet |face )?(?:your )?(?:partners?|neighbors?|shadows?)(?: across(?: the)? set)?)?`,
       ),
       (m, b) => {
         const allemande = m[2].startsWith('allemande');
@@ -260,6 +282,9 @@ const MORE_TIDY: readonly (readonly [RegExp, string])[] = [
   [/\bsee-saw\b/g, 'see saw'],
   [/^all (california twirl)/, 'partners $1'],
   [/\bjersey twirl\b/, 'california twirl'],
+  // Taking hands in long lines is the long lines figure that follows.
+  [/,? and take hands with (?:next |new )?neighbors in long lines$/, ''],
+  [/,? (?:and )?take hands(?: four)?$/, ''],
   [/^long lines go back$/, 'long lines back'],
   [/^balance (?:right|left),? (?:(?:&|and|then) )?(?:right|left)$/, 'balance'],
   [/^balance (?:the )?long waves?$/, 'balance'],
