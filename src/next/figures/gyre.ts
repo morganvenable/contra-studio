@@ -25,11 +25,12 @@ import {
   TAU,
   turn,
 } from '../core/math.ts';
+import { PAIR_NAMES, type PairName } from '../core/relations.ts';
 import { body, minorSets, pairsIn, withChanges } from '../core/state.ts';
 
 export interface GyreParams {
-  who: 'partner' | 'neighbor' | 'larks' | 'robins';
-  /** Times around: 1 (back home), 1.5 (to the other's place) ... */
+  who: PairName;
+  /** Times around: 1 (back home), 1.5 (to the other's place), 1¼ ... */
   amount: number;
   /** Shoulder toward the other dancer; right unless the source says left. */
   shoulder?: 'right' | 'left';
@@ -47,10 +48,10 @@ export const gyre: Figure<GyreParams> = (state, params, beats) => {
     'right',
     'left',
   ] as const);
-  const who = oneOf('gyre', 'who', params.who, ['partner', 'neighbor', 'larks', 'robins'] as const);
+  const who = oneOf('gyre', 'who', params.who, PAIR_NAMES);
   const amount = params.amount;
-  if (!(amount > 0 && amount <= 3 && Number.isInteger(amount * 2)))
-    throw new Error('Gyre amount must be a whole or half number of times around.');
+  if (!(amount > 0 && amount <= 3 && Number.isInteger(amount * 4)))
+    throw new Error('Gyre amount must be a whole number of quarters around.');
   if (state.hands.length) throw new Error('A gyre starts with free hands.');
   // By the right shoulder: clockwise from above, increasing polar angle.
   const sweep = (shoulder === 'right' ? 1 : -1) * amount * TAU;

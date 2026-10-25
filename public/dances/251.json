@@ -1,4 +1,4 @@
-{ "schema": "contra-studio/next-dance", "version": 2, "id": "251", "title": "Bass Ackwards", "author": "Tom Calwell", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/251", "formation": "improper", "retrievedAt": "2026-10-20T05:47:52.247Z", "sha256": "992a20b3a571221995e0f58afa438b3c896ee5404e85abc1096f2569d822d772" }, "status": "partial", "problems": [ "Row 11 \"circle right 3 places, smush to\" isn't drawn yet." ], "unparsed": [ { "row": 11, "text": "circle right 3 places, smush to", "why": "No figure pattern matches \"circle right 3 places, smush to\"." } ], "choices": [],
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "251", "title": "Bass Ackwards", "author": "Tom Calwell", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/251", "formation": "improper", "retrievedAt": "2026-10-20T05:47:52.247Z", "sha256": "992a20b3a571221995e0f58afa438b3c896ee5404e85abc1096f2569d822d772" }, "status": "check", "problems": [ "Couples don't end the round where the progression puts them (with 3 couples)." ], "unparsed": [], "choices": [],
  "figures": [
   {"move":"ocean-wave","beats":4,"params":{"middle":"robins","middleHand":"left","ends":"neighbor","endHand":"right","balance":true},"text":"form an ocean wave - robins by left hands and neighbors by right hands, balance the wave","section":"B2","row":12},
   {"move":"allemande","beats":4,"params":{"who":"neighbor","hand":"right","amount":0.75},"text":"neighbors allemande right ¾ to","section":"A1","row":2},
@@ -9,6 +9,6 @@
   {"move":"circle","beats":8,"params":{"direction":"left","places":3},"text":"circle left 3 places","section":"B1","row":8},
   {"move":"swing","beats":8,"params":{"who":"neighbor"},"text":"neighbors swing","section":"B1","row":9},
   {"move":"chain","beats":8,"params":{"who":"robins"},"text":"robins chain","section":"B2","row":10},
-  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"circle right 3 places, smush to","section":"B2","row":11}
+  {"move":"circle","beats":8,"params":{"direction":"right","places":3},"text":"circle right 3 places, smush to","section":"B2","row":11}
  ]
 }

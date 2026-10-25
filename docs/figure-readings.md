@@ -61,3 +61,9 @@ reading below. One line each; change any of them and the figure follows.
 - "Pass through up and down": a pass through along the set.
 - "Pass partner (by right) along set": a pass through along the set by the right shoulder (or the shoulder named).
 - "X give & take partners, X take partners / Y bring back Z": an ordinary give & take; the second half restates the first.
+- "Entire set oval left/right", "big oval circle left/right": the whole set joins one ring (along each side line and across each end) and moves one place every two beats; hands are drawn only where they reach (dancers on a side line stand 1.8 m apart).
+- "Butterfly whirl moving right (along the line) to next neighbors", "butterfly whirl (shift left to next couple)": the whirl, then a 2-beat slide one place that way.
+- "Half poussette - ... then left clockwise / (current neighbors) / around next neighbors": an ordinary half poussette; the words after the turn are notes.
+- "Pass through with partner / past partners / passing partner; going to shadow": an ordinary pass through.
+- Gyre notes ("gypsy", "look into partner's eyes", "walk around partner") are not drawn; a gyre may go a quarter at a time (1¼).
+- "Partners promenade, shifting right along the side": the promenade, then a 2-beat slide right.

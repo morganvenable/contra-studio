@@ -193,3 +193,36 @@ test('square through three and four: pulls alternate, balances start each pair',
     ],
   );
 });
+
+test('big oval left then right: the whole set walks around and comes home', () => {
+  const s0 = BECKET.start(4);
+  const left = run([call('oval', 8, { direction: 'left', places: 4 })], s0);
+  // Everyone stands where another dancer stood, facing in across the set.
+  const places = new Set([...s0.bodies.values()].map((b) => `${b.position.x.toFixed(2)},${b.position.z.toFixed(2)}`));
+  for (const b of left.bodies.values())
+    assert.ok(places.has(`${b.position.x.toFixed(2)},${b.position.z.toFixed(2)}`), 'on a place');
+  const back = run([call('oval', 8, { direction: 'right', places: 4 })], left);
+  for (const id of s0.bodies.keys()) near(pos(back, id), pos(s0, id));
+  assert.deepEqual(
+    problems(
+      [
+        call('oval', 8, { direction: 'left', places: 4 }),
+        call('oval', 8, { direction: 'right', places: 4 }),
+      ],
+      s0,
+    ),
+    [],
+  );
+  assert.deepEqual(row('entire set oval left'), [
+    { move: 'oval', beats: 8, params: { direction: 'left', places: 4 } },
+  ]);
+});
+
+test('gyre a quarter at a time, with any pair name', () => {
+  const s0 = BECKET.start(2);
+  const quarter = run([call('gyre', 5, { who: 'partner', amount: 1.25 })], s0);
+  assert.ok(Math.abs(pos(quarter, 0).x - pos(quarter, 1).x) > 0.5, 'partners turned a quarter');
+  assert.deepEqual(row('robins gyre once gypsy and come back to partner'), [
+    { move: 'gyre', beats: 8, params: { who: 'robins', amount: 1 } },
+  ]);
+});

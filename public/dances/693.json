@@ -1,11 +1,11 @@
-{ "schema": "contra-studio/next-dance", "version": 2, "id": "693", "title": "Mandelbrot Set", "author": "Deanna Rubin", "formation": "becket", "progression": "minor-set", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/693", "formation": "Becket", "retrievedAt": "2026-10-20T06:03:35.173Z", "sha256": "44bf955edfaf12dabc385ddaac3c26c4aa61f0053222d9f26d002fa6599f630b" }, "status": "partial", "problems": [ "Row 5 \"big oval circle right\" isn't drawn yet.", "Row 6 \"big oval circle left\" isn't drawn yet." ], "unparsed": [ { "row": 5, "text": "big oval circle right", "why": "No figure pattern matches \"big oval circle right\"." }, { "row": 6, "text": "big oval circle left", "why": "No figure pattern matches \"big oval circle left\"." } ], "choices": [ "A long swing is drawn as an ordinary swing." ],
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "693", "title": "Mandelbrot Set", "author": "Deanna Rubin", "formation": "becket", "progression": "minor-set", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/693", "formation": "Becket", "retrievedAt": "2026-10-20T06:03:35.173Z", "sha256": "44bf955edfaf12dabc385ddaac3c26c4aa61f0053222d9f26d002fa6599f630b" }, "status": "ok", "problems": [], "unparsed": [], "choices": [ "A long swing is drawn as an ordinary swing." ],
  "figures": [
   {"move":"slide","beats":2,"params":{"direction":"left"},"text":"slide left along set","progression":true,"section":"A1","row":1},
   {"move":"circle","beats":6,"params":{"direction":"left","places":3},"text":"circle left 3 places","section":"A1","row":2},
   {"move":"swing","beats":8,"params":{"who":"neighbor"},"text":"neighbors swing","section":"A1","row":3},
   {"move":"long-lines","beats":8,"params":{"back":true},"text":"long lines forward & back","section":"A2","row":4},
-  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"big oval circle right","section":"A2","row":5},
-  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"big oval circle left","section":"B1","row":6},
+  {"move":"oval","beats":8,"params":{"direction":"right","places":4},"text":"big oval circle right","section":"A2","row":5},
+  {"move":"oval","beats":8,"params":{"direction":"left","places":4},"text":"big oval circle left","section":"B1","row":6},
   {"move":"circle","beats":8,"params":{"direction":"left","places":3},"text":"circle left 3 places","section":"B1","row":7},
   {"move":"swing","beats":16,"params":{"who":"partner"},"text":"partners long swing","section":"B2","row":8}
  ]

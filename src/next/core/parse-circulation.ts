@@ -183,7 +183,7 @@ export const CIRCULATION_PATTERNS: readonly (readonly [RegExp, Build])[] = [
   ],
   [
     // "shift left with neighbor", "slide left to new couple", "slide left"
-    /^(?:shift|slide|shift let) (left|right)(?: along (?:the )?set)?(?: with ?(?:your )?(?:partners?|neighbors?))?(?: to (?:a )?new couple)?(?: along (?:the )?set)?$/,
+    /^(?:shift|shifting|slide|shift let) (left|right)(?: along (?:the )?(?:set|side))?(?: with ?(?:your )?(?:partners?|neighbors?))?(?: to (?:a )?new couple)?(?: along (?:the )?set)?$/,
     (m, b) => [call('slide', b, { direction: m[1] })],
   ],
   [
@@ -196,6 +196,34 @@ export const CIRCULATION_PATTERNS: readonly (readonly [RegExp, Build])[] = [
     // "pass partner along set (to face shadow)", "pass partner by right along set"
     /^pass (?:your )?(?:partners?|neighbors?)(?: by (?:the )?(right|left)(?: shoulders?)?)? along (?:the )?set(?: to face (?:a |your )?shadows?)?$/,
     (m, b) => [call('pass-through', b, { shoulder: m[1] ?? 'right', axis: 'along' })],
+  ],
+  [
+    // "entire set oval left", "big oval circle right": the whole set in one
+    // ring, a place every two beats.
+    /^(?:entire set|big|custom) oval(?: circle)? (left|right)(?: in (?:a )?large circle)?$/,
+    (m, b) => [call('oval', b, { direction: m[1], places: Math.max(1, Math.round(b / 2)) })],
+  ],
+  [
+    // "butterfly whirl moving right (along the line)", "butterfly whirl
+    // (shift left to next couple)": the whirl, then a slide one place.
+    /^butterfly whirl,? (?:moving|shift|and shift|slide) (left|right)(?: along the line)?(?: to (?:the )?next couple)?$/,
+    (m, b) => [call('butterfly-whirl', b - 2, {}), call('slide', 2, { direction: m[1] })],
+  ],
+  [
+    // Notes after a poussette's turn ("then left clockwise", "(current neighbors)").
+    /^(half|full|whole) poussette - (\w+) pull (partners|neighbors) back,? (?:and )?then (left|right)\b.+$/,
+    (m, b) => [
+      call('poussette', b, {
+        who: who(m[2]),
+        pair: one(m[3]),
+        then: m[4],
+        amount: m[1] === 'half' ? 0.5 : 1,
+      }),
+    ],
+  ],
+  [
+    /^circle (left|right) (\w+) places? once(?: around)?$/,
+    (m, b) => [call('circle', b, { direction: m[1], places: count(m[2]) })],
   ],
   [
     /^((?:next |new )?\w+) promenade across (?:the )?set$/,
@@ -236,6 +264,9 @@ const NOTES: readonly RegExp[] = [
   // Chains to a shadow: the chain checks nothing about the turner's name.
   /\s+to (?:-?1st |2nd |your )?(?:shadows?|trail buddy)(?: (?:#?\d|quickly))?$/,
   /\s+(?:across )?to (?:-?1st )?shadows?$/,
+  // Who the pass goes by, and gyre styling.
+  /\s+(?:with|past|passing) (?:your )?(?:partners?|neighbors?)(?:;.*)?$/,
+  /,?\s+(?:gypsy|walk around|look(?:ing)? into|staring|into partner|robins turn over|larks turn over)\b.*$/,
   // Pace and styling words.
   /,?\s*(?:briskly|quickly|fast|zoomily|smush|book it|optionally|w\/o hands|without hands)$/,
   /,?\s*use a tw[a-z]*rl instead of courtesy turn$/,
