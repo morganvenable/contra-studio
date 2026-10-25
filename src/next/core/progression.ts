@@ -33,7 +33,8 @@ export interface Progression {
     | 'places'
     | 'sicilian'
     | 'lines'
-    | 'mixer';
+    | 'mixer'
+    | 'trios';
   rebind(state: DanceState): DanceState;
 }
 

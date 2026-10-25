@@ -18,6 +18,7 @@ import type { Formation } from './formation.ts';
 import { coupleZ, improperModel, type CheckSpec } from './models.ts';
 import { placeLabels } from './progression-more.ts';
 import { BIG_CIRCLE, CIRCLE_MIXER, SQUARE } from './formation-ring.ts';
+import { THREE_FACE_THREE } from './formation-trios.ts';
 import type { Body, DanceState, WaitingCouple } from './state.ts';
 
 export const partnerMap = (dancers: readonly Dancer[]) =>
@@ -83,6 +84,35 @@ function properWholeSet(name: string, min: number, max: number, counts: number[]
 }
 
 export const TRIPLET = properWholeSet('Triplet', 3, 3, [3]);
+
+/**
+ * Triple minor, drawn as one minor set of three couples: the 1s progress
+ * one place (to second place) each time through, the 2s move up to the top;
+ * couples are renamed by place, so the new top couple leads next time.
+ * The step on to the next minor set down a long set is not drawn.
+ */
+export const TRIPLE_MINOR: Formation = {
+  ...TRIPLET,
+  name: 'Triple minor',
+  check: {
+    counts: [3],
+    meeting: 'none',
+    rounds: () => 4,
+    model: (couples, rounds) => {
+      const z = (p: number) => (p - (couples - 1) / 2) * SET.slot;
+      const place = Array.from({ length: couples }, (_, c) => c);
+      const out: number[][] = [];
+      for (let r = 0; r < rounds; r++) {
+        const top = place.indexOf(0);
+        const second = place.indexOf(1);
+        place[top] = 1;
+        place[second] = 0;
+        out.push(place.map(z));
+      }
+      return coupleZ(out);
+    },
+  },
+};
 export const LONGWAYS_SET = properWholeSet('Longways set', 3, 8, [4, 5, 6]);
 
 /**
@@ -245,10 +275,12 @@ export const FOUR_FACE_FOUR: Formation = {
 
 export const MORE_FORMATIONS: Readonly<Record<string, Formation>> = {
   triplet: TRIPLET,
+  'triple-minor': TRIPLE_MINOR,
   'longways-set': LONGWAYS_SET,
   sicilian: SICILIAN,
   'four-face-four': FOUR_FACE_FOUR,
   'circle-mixer': CIRCLE_MIXER,
   circle: BIG_CIRCLE,
   square: SQUARE,
+  'three-face-three': THREE_FACE_THREE,
 };

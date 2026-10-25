@@ -32,6 +32,7 @@ import {
 } from './core/progression-more.ts';
 import { bendFrame } from './core/bend.ts';
 import { MIXER_PROGRESSION } from './core/formation-ring.ts';
+import { TRIOS_PROGRESSION } from './core/formation-trios.ts';
 
 export interface StoredCall extends FigureCall {
   readonly section?: string;
@@ -112,6 +113,7 @@ const PROGRESSIONS: Readonly<Record<Progression['kind'], Progression>> = {
   sicilian: SICILIAN_PROGRESSION,
   lines: LINES_PROGRESSION,
   mixer: MIXER_PROGRESSION,
+  trios: TRIOS_PROGRESSION,
 };
 
 export function musicOf(stored: StoredDance): MusicStructure {

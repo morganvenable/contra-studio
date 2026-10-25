@@ -150,6 +150,53 @@ export const FORMATION_TEXT: Readonly<Record<string, Shape>> = {
   'one couple': { formation: 'improper', progression: 'duple-minor' },
   singlet: { formation: 'improper', progression: 'duple-minor' },
   'solo/couple': { formation: 'improper', progression: 'duple-minor' },
+  // Triple minor and its relatives, drawn as one minor set of three couples.
+  'triple minor': { formation: 'triple-minor', progression: 'places' },
+  'triple proper': { formation: 'triple-minor', progression: 'places' },
+  'triple minor dutribecket': { formation: 'triple-minor', progression: 'places' },
+  'triad (triple minor dutribecket)': { formation: 'triple-minor', progression: 'places' },
+  'triple minor, triad formation': { formation: 'triple-minor', progression: 'places' },
+  triad: { formation: 'triple-minor', progression: 'places' },
+  // One-off qualifiers of built formations (docs/figure-readings.md).
+  'indecent becket cw gents change place with partner': {
+    formation: 'becket-indecent',
+    progression: 'minor-set',
+  },
+  'becket men in center left hands, right hand to partner in ocean of four': {
+    formation: 'becket',
+    progression: 'minor-set',
+  },
+  'quadruple minor becket': { formation: 'becket', progression: 'minor-set' },
+  'becket quadruplet': { formation: 'becket', progression: 'minor-set' },
+  'sawtooth cw': { formation: 'becket', progression: 'minor-set' },
+  'cross contra': { formation: 'improper', progression: 'duple-minor' },
+  'cross contra - improper then ladle one and gentlespoon two trade places': {
+    formation: 'improper',
+    progression: 'duple-minor',
+  },
+  'cross contra - improper then ladle one and ladle two trade places': {
+    formation: 'improper',
+    progression: 'duple-minor',
+  },
+  'long waves, larks facing out': { formation: 'improper', progression: 'duple-minor' },
+  'proper, ladles traded': { formation: 'proper', progression: 'duple-minor-proper' },
+  'improper, reverse progression': { formation: 'improper', progression: 'duple-minor' },
+  'improper reverse progression': { formation: 'improper', progression: 'duple-minor' },
+  'duple indecent (reverse progression)': { formation: 'indecent', progression: 'duple-minor' },
+  'contra mixer': { formation: 'improper', progression: 'duple-minor' },
+  'duple mixer': { formation: 'improper', progression: 'duple-minor' },
+  'proper mixer': { formation: 'proper', progression: 'duple-minor-proper' },
+  'becket mixer': { formation: 'becket', progression: 'minor-set' },
+  'quadruple minor': { formation: 'square', progression: 'mixer' },
+  'grid square': { formation: 'square', progression: 'mixer' },
+  'square with ninepin': { formation: 'square', progression: 'mixer' },
+  'five couple horseshoe': { formation: 'circle', progression: 'mixer' },
+  // Lines of three facing lines of three round a circle.
+  'three face three': { formation: 'three-face-three', progression: 'trios' },
+  'three-face-three': { formation: 'three-face-three', progression: 'trios' },
+  '3 face 3': { formation: 'three-face-three', progression: 'trios' },
+  'three facing three': { formation: 'three-face-three', progression: 'trios' },
+  'three-facing-three': { formation: 'three-face-three', progression: 'trios' },
 };
 
 export function shapeOf(formation: string): Shape | undefined {

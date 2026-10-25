@@ -24,3 +24,11 @@ line each, for review.
 - "One couple", "singlet", "solo/couple" (Zoom contras): drawn in an improper set, the imagined neighbors danced by real couples.
 - A row that names who dances ("star right 4 places (heads)", "middle 4 star right", "ones and twos circle left", "hands six"): the figure for just those dancers; everyone else stands.
 - "Stand still", claps and stomps, "heel, toe": everyone keeps their place.
+- "Triple minor", "triple proper", "triad", "dutribecket": drawn as one minor set of three couples, proper; the 1s progress to second place each time through and couples are renamed by place; the step on to the next minor set down a long set is not drawn.
+- "Sawtooth cw", "quadruple minor Becket", "Becket quadruplet", "Becket men in center ...": drawn as clockwise Becket.
+- "Cross contra", "long waves, larks facing out", "proper, ladles traded": drawn from the plain improper (or proper) start; rows that need the traded start stay labeled.
+- "Reverse progression" (improper, indecent): the same formation; where the couples travel is left to the figures, and the check expects the usual places.
+- "Contra mixer", "duple mixer", "proper mixer", "Becket mixer": drawn as the plain contra formation; the partner change is not drawn.
+- "Quadruple minor", "grid square", "square with ninepin": drawn as a square of four couples. "Five couple horseshoe": drawn as a ring of five couples.
+- "Three face three" (and spellings): lines of three facing lines of three round a circle, drawn as a set with no ends like a Sicilian circle; each trio's center dances the lark's part and the ends the robins'; neighbors (opposites) are the dancers straight across.
+- Not built, because their dancers do not come in couples or the set has a one-off shape: "5 dancers", "line of 5 people", "9-person mixer", "three-person mixer", "circle of threes", "tempest".
