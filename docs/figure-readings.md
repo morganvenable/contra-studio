@@ -21,3 +21,7 @@ below. One line each; change any of them by telling us the other reading.
 - Half figure eight ("ones half figure 8 below"): the robin goes through the middle first unless the row names a leader; each dancer loops behind and around the outside of the standing dancer on the far side and ends in the partner's place, facing across; the other couple stands still.
 - A hey "until larks meet" with no time named stops at their first meeting.
 - Roll away with shadows: the shadow is the nearest dancer of the other role who is neither partner nor neighbor.
+- Zig zag ("zig left zag right"): the two pairs of the minor set (partners unless neighbors are named) trade places as units, stepping to the named side as they pass, everyone keeping their facing (the stand-in for a half poussette).
+- A hey on a diagonal runs along the line between the two diagonal couples, as an ordinary hey turned onto that line.
+- Star promenade "larks pick up partner" / "scooping your partner" is the ordinary star promenade; an allemande "to pick up partner for a star promenade" is the allemande alone.
+- "Balance the star" is drawn as a ring balance (step in toward the middle and back).

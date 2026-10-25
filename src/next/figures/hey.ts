@@ -32,7 +32,7 @@
 import type { Role, Vec2 } from '../../types.ts';
 import type { Figure } from '../core/figure.ts';
 import { oneOf, onlyKeys, settle } from '../core/figure.ts';
-import { add, forward, heading, length, smooth, sub, turn } from '../core/math.ts';
+import { add, forward, heading, length, rotate, smooth, sub, turn } from '../core/math.ts';
 import {
   body,
   counterpart,
@@ -186,8 +186,9 @@ export const hey: Figure<HeyParams> = (state, params, beats) => {
     // As many passes as come before the meeting.
     const group = minorSets(state)[0];
     if (!group) throw new Error('A hey needs a group of four.');
-    const middle0 = groupCenter(state, group);
-    const { meet } = simulate(group, entryOrder(state, group, middle0, first, start), 24);
+    const local = heyFrame(state, group).state;
+    const middle0 = groupCenter(local, group);
+    const { meet } = simulate(group, entryOrder(local, group, middle0, first, start), 24);
     if (meet === undefined)
       throw new Error(`The ${until.who} do not meet ${until.time} times in this hey.`);
     if (meet < 2) throw new Error('A hey goes at least two passes before the meeting.');
@@ -279,8 +280,11 @@ export const hey: Figure<HeyParams> = (state, params, beats) => {
   };
 
   const plans = minorSets(state).flatMap((group) => {
-    const middle = groupCenter(state, group);
-    const order = entryOrder(state, group, middle, first, start);
+    // A hey on a diagonal runs in a frame turned to put its line across.
+    const frame = heyFrame(state, group);
+    const local = frame.state;
+    const middle = groupCenter(local, group);
+    const order = entryOrder(local, group, middle, first, start);
     const { orders, ric, meetings } = simulate(group, order, passes);
     for (const r of ricochets) {
       if ((meetings.get(r.who) ?? 0) < r.time)
@@ -293,13 +297,15 @@ export const hey: Figure<HeyParams> = (state, params, beats) => {
       return { p: add(middle, track.p), v: track.v };
     };
     if (until)
-      return order.map((id) => planDancer(state, id, middle, at, beats, passedAt(id), undefined));
-    const places = endPlaces(state, group, middle, (id) => {
+      return order.map((id) =>
+        frame.back(planDancer(local, id, middle, at, beats, passedAt(id), undefined)),
+      );
+    const places = endPlaces(local, group, middle, (id) => {
       const leave = passedAt(id).at(-1)!;
       return { now: at(id, leave).p, next: at(id, leave + unit / 2).p };
     });
     return order.map((id) =>
-      planDancer(state, id, middle, at, beats, passedAt(id), places.get(id)!),
+      frame.back(planDancer(local, id, middle, at, beats, passedAt(id), places.get(id)!)),
     );
 
     /** Gate beats of the passes this dancer makes (end loops are not passes). */
@@ -467,6 +473,54 @@ function entryOrder(
   )
     throw new Error('A hey needs one dancer at each end of the line, one on each side.');
   return [westEnd, westMid, eastMid, eastEnd];
+}
+
+/**
+ * The frame a group's hey runs in. The track runs across the set (along x);
+ * when the group's two couples face each other on a diagonal (their centers
+ * 25 to 65 degrees off across, as on a diagonal regrouping), the group is
+ * turned about its middle so they face across, and each dancer's motion is
+ * turned back afterward.
+ */
+function heyFrame(state: DanceState, group: readonly number[]) {
+  const identity = { state, back: (plan: (t: number) => Moved) => plan };
+  const couples = group.filter((id) => roleOf(state, id) === 'lark');
+  const partner = (id: number) => state.relations.get('partner')?.get(id);
+  if (couples.length !== 2 || couples.some((id) => !group.includes(partner(id) ?? -1)))
+    return identity;
+  const center = (id: number) => {
+    const a = body(state, id).position;
+    const b = body(state, partner(id)!).position;
+    return { x: (a.x + b.x) / 2, z: (a.z + b.z) / 2 };
+  };
+  const gap = sub(center(couples[1]), center(couples[0]));
+  if (length(gap) < 0.8) return identity;
+  // Angle off the x axis, folded to (-90, 90] degrees.
+  let angle = Math.atan2(gap.z, gap.x);
+  if (angle > Math.PI / 2) angle -= Math.PI;
+  if (angle <= -Math.PI / 2) angle += Math.PI;
+  const degrees = Math.abs((angle * 180) / Math.PI);
+  if (degrees < 25 || degrees > 65) return identity;
+  const middle = groupCenter(state, group);
+  const turnBy = (p: Vec2, a: number) => add(middle, rotate(sub(p, middle), a));
+  const bodies = new Map(state.bodies);
+  for (const id of group) {
+    const b = body(state, id);
+    bodies.set(id, { position: turnBy(b.position, -angle), yaw: b.yaw + angle });
+  }
+  return {
+    state: withChanges(state, { bodies }),
+    back: (plan: (t: number) => Moved) => (t: number) => {
+      const m = plan(t);
+      return { id: m.id, position: turnBy(m.position, angle), yaw: m.yaw - angle };
+    },
+  };
+}
+
+interface Moved {
+  readonly id: number;
+  readonly position: Vec2;
+  readonly yaw: number;
 }
 
 /** Whether `who` (a role group or a position label such as "1s") names dancer `id`. */

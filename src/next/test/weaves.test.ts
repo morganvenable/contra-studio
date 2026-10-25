@@ -12,6 +12,7 @@ import { LIMITS } from '../core/config.ts';
 import { turn } from '../core/math.ts';
 import { body, type DanceState } from '../core/state.ts';
 import { parseRow } from '../core/parse.ts';
+import { diagonalGroups } from '../core/diagonal.ts';
 import { FIGURES } from '../figures/index.ts';
 import { call, near } from './helpers.ts';
 
@@ -380,4 +381,49 @@ test('ones half figure 8 below: the 1s trade sides around the 2s, who stand stil
     () => FIGURES['figure-eight'](start, { who: '1s', around: 'above' }, 8),
     /not above/,
   );
+});
+
+test('zig left zag right: the pairs trade places, stepping left as they pass', () => {
+  const ring = becket([call('circle', 8, { direction: 'left', places: 3 })]);
+  const [c] = parseRow({ beats: 6, text: 'zig left zag right, trailing two catching hands' });
+  assert.deepEqual(c.params, { first: 'left' });
+  const r = FIGURES['zig-zag'](ring, c.params, 6);
+  for (const id of [0, 1, 2, 3]) {
+    const before = body(ring, id).position;
+    assert.ok(Math.abs(r.exit.bodies.get(id)!.position.z + before.z) < 1e-6, `${id} trades`);
+  }
+  withinLimits(r, 6, 'zig zag');
+});
+
+test('a hey on a diagonal runs along the diagonal', () => {
+  const s = becket([], 4);
+  const r = FIGURES.hey(
+    s,
+    { start: 'robins', amount: 0.5, center: 'right', diagonal: 'left' } as never,
+    8,
+  );
+  // Everyone crosses the diagonal line between the two couples.
+  const g = diagonalGroups(s, 'left')[0];
+  const mid = {
+    x: g.reduce((n, id) => n + body(s, id).position.x, 0) / 4,
+    z: g.reduce((n, id) => n + body(s, id).position.z, 0) / 4,
+  };
+  for (const id of g) {
+    const a = body(s, id).position;
+    const b = r.exit.bodies.get(id)!.position;
+    assert.ok((a.x - mid.x) * (b.x - mid.x) + (a.z - mid.z) * (b.z - mid.z) < 0, `${id} crosses`);
+  }
+  assert.ok(limits(r, 8).clearance >= LIMITS.minimumClearance);
+});
+
+test('star promenade rows with picking up partners, and balance the star', () => {
+  assert.deepEqual(one('star promenade left ½ larks pick up partner', 4).params, {
+    hand: 'left',
+    amount: 0.5,
+  });
+  assert.equal(
+    one('larks allemande left 1½ to pick up partner for a star promenade').move,
+    'allemande',
+  );
+  assert.deepEqual(one('balance the star', 4).params, { formation: 'ring' });
 });

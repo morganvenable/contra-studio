@@ -34,6 +34,7 @@ import { twirl } from './twirl.ts';
 import { revolvingDoor } from './revolving-door.ts';
 import { archDive } from './arch-dive.ts';
 import { figureEight } from './figure-eight.ts';
+import { zigZag } from './zig-zag.ts';
 
 const BASE: FigureRegistry = {
   allemande,
@@ -69,6 +70,7 @@ const BASE: FigureRegistry = {
   'revolving-door': revolvingDoor,
   'arch-dive': archDive,
   'figure-eight': figureEight,
+  'zig-zag': zigZag,
 };
 
 /** Every figure, each also able to run on a diagonal (core/diagonal.ts). */

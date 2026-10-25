@@ -83,6 +83,8 @@ const NOTES: readonly RegExp[] = [
   /^\d\w*,? not \d\w*$/,
   /^#\d$/,
   /^into$/,
+  // Taking hands for the next figure: that figure joins them.
+  /^(?:the )?(?:trailing two|new \w+|\w+) catch(?:ing)? (?:\w+ )?hands?(?: \w+)?$/,
   /^(?:halfway|once around)$/,
   // Clapping is styling.
   /^(?:\w+ )*clap\w*(?: \w+)*$/,
@@ -134,6 +136,60 @@ function heyRest(rest: string) {
 }
 
 export const WEAVE_PATTERNS: readonly (readonly [RegExp, Build])[] = [
+  [
+    // "zig left zag right", "neighbors zig right zag left".
+    /^(?:(\w+) )?zig (left|right),? zag (?:right|left)(.*)$/,
+    (m, b) => {
+      notes(m[3], 'zig zag');
+      const pair = m[1] ? who(m[1]) : undefined;
+      if (pair && pair !== 'partner' && pair !== 'neighbor')
+        throw new Error(`Unknown zig zag pairs "${m[1]}".`);
+      return [call('zig-zag', b, { first: m[2], ...(pair ? { pair } : {}) })];
+    },
+  ],
+  [
+    // "star promenade left ½ with partner", "... larks pick up partner",
+    // "... scooping your partner".
+    /^(?:(\w+) )?star promenade (left|right) (\S+)(.*)$/,
+    (m, b) => {
+      const rest = m[4].replace(
+        /^,? ?(?:with (?:your )?partners?|(?:\w+ )?(?:pick(?:ing)? up|scoop(?:ing)?|scoping)(?: up)? (?:your )?partners?(?: by the waist)?(?: back to place)?|\(?with partners?\)?)/,
+        '',
+      );
+      notes(rest, 'star promenade');
+      const amounts: Readonly<Record<string, number>> = { '¼': 0.25, '½': 0.5, '¾': 0.75, once: 1 };
+      const amount = amounts[m[3]];
+      if (amount === undefined) throw new Error(`Unknown star promenade amount "${m[3]}".`);
+      const center = m[1] ? who(m[1]) : undefined;
+      return [
+        call('star-promenade', b, {
+          hand: m[2],
+          amount,
+          ...(center === 'larks' || center === 'robins' ? { center } : {}),
+        }),
+      ];
+    },
+  ],
+  [
+    // "larks allemande left 1½ to pick up partner for a star promenade":
+    // the allemande; the star promenade row follows.
+    /^(\w+) allemande (left|right) (1½|1 1\/2|once|½|¾) (?:in (?:the )?center )?(?:and |to )?(?:pick up|scoop up|form)\b.*star promenade$/,
+    (m, b) => {
+      const amounts: Readonly<Record<string, number>> = {
+        '1½': 1.5,
+        '1 1/2': 1.5,
+        once: 1,
+        '½': 0.5,
+        '¾': 0.75,
+      };
+      return [call('allemande', b, { who: who(m[1]), hand: m[2], amount: amounts[m[3]] })];
+    },
+  ],
+  [
+    // "balance the star", "balance in a left-hand star": a ring balance.
+    /^balance (?:the |in a (?:left|right)[- ]hand )?star$/,
+    (_m, b) => [call('balance', b, { formation: 'ring' })],
+  ],
   [
     // "larks start a half hey - lefts in center, rights on ends - robins
     // ricochet", "robins start a left diagonal half hey - ...", "ones start

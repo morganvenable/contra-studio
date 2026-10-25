@@ -4,26 +4,26 @@
  "catalogue": 2422,
  "stored": 2422,
  "counts": {
-  "ok": 299,
-  "check": 99,
-  "partial": 1742,
+  "ok": 300,
+  "check": 104,
+  "partial": 1736,
   "unsupported": 282
  },
  "formations": [
   {
    "formation": "improper",
    "dances": 1189,
-   "ok": 269,
-   "check": 49,
-   "partial": 871,
+   "ok": 270,
+   "check": 52,
+   "partial": 867,
    "unsupported": 0
   },
   {
    "formation": "becket",
    "dances": 655,
    "ok": 25,
-   "check": 46,
-   "partial": 584,
+   "check": 48,
+   "partial": 582,
    "unsupported": 0
   },
   {
@@ -1099,12 +1099,12 @@
   "missingFigures": [
    {
     "name": "allemande variant",
-    "unlocks": 65,
+    "unlocks": 70,
     "uses": 317
    },
    {
     "name": "ocean wave / long wave",
-    "unlocks": 61,
+    "unlocks": 63,
     "uses": 269
    },
    {
@@ -1115,32 +1115,32 @@
    {
     "name": "star variant",
     "unlocks": 32,
-    "uses": 122
+    "uses": 119
    },
    {
     "name": "do-si-do variant",
-    "unlocks": 27,
+    "unlocks": 28,
     "uses": 123
+   },
+   {
+    "name": "circle variant",
+    "unlocks": 24,
+    "uses": 156
    },
    {
     "name": "hey (other)",
     "unlocks": 24,
-    "uses": 115
-   },
-   {
-    "name": "circle variant",
-    "unlocks": 22,
-    "uses": 156
-   },
-   {
-    "name": "zig zag",
-    "unlocks": 21,
-    "uses": 61
+    "uses": 114
    },
    {
     "name": "ricochet hey",
     "unlocks": 20,
     "uses": 91
+   },
+   {
+    "name": "promenade",
+    "unlocks": 19,
+    "uses": 88
    },
    {
     "name": "turn alone / as a couple",
@@ -1153,9 +1153,9 @@
     "uses": 97
    },
    {
-    "name": "promenade",
+    "name": "down/up the hall",
     "unlocks": 17,
-    "uses": 88
+    "uses": 111
    },
    {
     "name": "orbit allemande",
@@ -1163,9 +1163,9 @@
     "uses": 59
    },
    {
-    "name": "down/up the hall",
-    "unlocks": 16,
-    "uses": 111
+    "name": "balance variant",
+    "unlocks": 14,
+    "uses": 127
    },
    {
     "name": "chain variant",
@@ -1186,11 +1186,6 @@
     "name": "roll away",
     "unlocks": 13,
     "uses": 49
-   },
-   {
-    "name": "balance variant",
-    "unlocks": 12,
-    "uses": 127
    },
    {
     "name": "mad robin",
@@ -1233,14 +1228,14 @@
     "uses": 50
    },
    {
-    "name": "slice",
+    "name": "zig zag",
     "unlocks": 6,
     "uses": 27
    },
    {
-    "name": "star promenade",
-    "unlocks": 5,
-    "uses": 34
+    "name": "slice",
+    "unlocks": 6,
+    "uses": 27
    },
    {
     "name": "california twirl",
@@ -1255,7 +1250,7 @@
    {
     "name": "rory o'more",
     "unlocks": 3,
-    "uses": 30
+    "uses": 29
    },
    {
     "name": "box the gnat / swat the flea",
@@ -1266,6 +1261,11 @@
     "name": "stand still / no figure",
     "unlocks": 3,
     "uses": 17
+   },
+   {
+    "name": "star promenade",
+    "unlocks": 3,
+    "uses": 16
    },
    {
     "name": "box circulate",
@@ -1288,6 +1288,11 @@
     "uses": 12
    },
    {
+    "name": "other: long lines back",
+    "unlocks": 2,
+    "uses": 4
+   },
+   {
     "name": "other: dance forward",
     "unlocks": 2,
     "uses": 3
@@ -1298,14 +1303,14 @@
     "uses": 6
    },
    {
-    "name": "other: long lines back",
-    "unlocks": 1,
-    "uses": 4
-   },
-   {
     "name": "other: right left through straight across",
     "unlocks": 1,
     "uses": 2
+   },
+   {
+    "name": "other: robins courtesy turn larks",
+    "unlocks": 1,
+    "uses": 1
    },
    {
     "name": "other: partners two-hand turn",
@@ -1489,11 +1494,6 @@
    },
    {
     "name": "other: partner two-hand turn once",
-    "unlocks": 0,
-    "uses": 1
-   },
-   {
-    "name": "other: robins courtesy turn larks",
     "unlocks": 0,
     "uses": 1
    },
@@ -2851,7 +2851,7 @@
   "figuresThatCannotStart": [
    {
     "name": "progression or other",
-    "unlocks": 80
+    "unlocks": 88
    },
    {
     "name": "rory o'more",
@@ -2878,12 +2878,12 @@
     "unlocks": 7
    },
    {
-    "name": "swing variant",
-    "unlocks": 7
-   },
-   {
     "name": "hey (other)",
     "unlocks": 6
+   },
+   {
+    "name": "swing variant",
+    "unlocks": 5
    },
    {
     "name": "circle variant",
@@ -2891,6 +2891,10 @@
    },
    {
     "name": "petronella",
+    "unlocks": 3
+   },
+   {
+    "name": "allemande variant",
     "unlocks": 3
    },
    {
@@ -2902,15 +2906,15 @@
     "unlocks": 2
    },
    {
+    "name": "diagonal hey",
+    "unlocks": 2
+   },
+   {
     "name": "star variant",
     "unlocks": 1
    },
    {
     "name": "ricochet hey",
-    "unlocks": 1
-   },
-   {
-    "name": "allemande variant",
     "unlocks": 1
    },
    {
@@ -2942,6 +2946,10 @@
     "unlocks": 1
    },
    {
+    "name": "into the middle / forward & back",
+    "unlocks": 1
+   },
+   {
     "name": "roll away",
     "unlocks": 1
    }
@@ -2960,16 +2968,16 @@
     "unlocks": 10
    },
    {
+    "name": "The next time through can't start from where the dancers end",
+    "unlocks": 8
+   },
+   {
     "name": "swing variant",
     "unlocks": 8
    },
    {
     "name": "star promenade",
     "unlocks": 7
-   },
-   {
-    "name": "The next time through can't start from where the dancers end",
-    "unlocks": 5
    },
    {
     "name": "gyre",
@@ -2984,6 +2992,10 @@
     "unlocks": 4
    },
    {
+    "name": "hey (other)",
+    "unlocks": 4
+   },
+   {
     "name": "chain variant",
     "unlocks": 3
    },
@@ -2992,11 +3004,11 @@
     "unlocks": 3
    },
    {
-    "name": "hey (other)",
-    "unlocks": 3
+    "name": "roll away",
+    "unlocks": 2
    },
    {
-    "name": "roll away",
+    "name": "promenade",
     "unlocks": 2
    },
    {
@@ -3006,10 +3018,6 @@
    {
     "name": "do-si-do variant",
     "unlocks": 2
-   },
-   {
-    "name": "promenade",
-    "unlocks": 1
    },
    {
     "name": "ocean wave / long wave",
