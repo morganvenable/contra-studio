@@ -209,7 +209,7 @@ export const FOUR_FACE_FOUR: Formation = {
   // Three lines at least, so lines keep meeting new lines.
   couples: { min: 6, max: 16 },
   fit: (couples) => Math.max(6, couples - (couples % 2)),
-  moves: { 'long-lines': 'forward-back' },
+  moves: { 'long-lines': 'forward-back', circle: 'lines-circle' },
   check: {
     counts: [6, 8],
     meeting: 'all-lines',
@@ -262,6 +262,8 @@ export const FOUR_FACE_FOUR: Formation = {
       relations: new Map([
         ['partner', partnerMap(dancers)],
         ['neighbor', neighbor],
+        // Your opposite is the dancer you face across the lines: your neighbor.
+        ['opposite', neighbor],
       ]),
       groups,
       positions: new Map([

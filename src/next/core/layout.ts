@@ -129,9 +129,18 @@ export function lineSets(state: DanceState): number[][] {
   return sets.map((s) => s.ids);
 }
 
+/**
+ * Couples that face couples along the hall (four face four, a Sicilian
+ * circle) stand as a Becket minor set turned a quarter: each group is shown
+ * to a figure turned so the couples face across, centered on the group.
+ * A swing then ends facing the other couple, and a pass through goes on
+ * to the next couple, as they do on the floor.
+ */
+const QUARTER = -Math.PI / 2;
+
 function columnFrame(state: DanceState, group: readonly number[]): Frame {
   const c = mean(group.map((id) => body(state, id).position));
-  return { origin: { x: c.x, z: 0 }, angle: 0 };
+  return { origin: c, angle: QUARTER };
 }
 
 function periodicFrame(state: DanceState, group: readonly number[], period: number): Frame {
@@ -142,7 +151,13 @@ function periodicFrame(state: DanceState, group: readonly number[], period: numb
     const k = Math.round((ref - z) / period);
     if (k) shift.set(id, k * period);
   }
-  return { origin: { x: 0, z: 0 }, angle: 0, shift };
+  const c = mean(
+    group.map((id) => {
+      const p = body(state, id).position;
+      return { x: p.x, z: p.z + (shift.get(id) ?? 0) };
+    }),
+  );
+  return { origin: c, angle: QUARTER, shift };
 }
 
 /** A pair (or any small group) facing in toward `center`, seen as a contra pair on the +x line. */
@@ -244,6 +259,17 @@ function runAll<P>(
   };
 }
 
+/**
+ * Figures that, in four face four (layout.columns), dance in the groups of
+ * eight (two lines facing, lineSets) instead of the minor sets of four.
+ */
+const EIGHT = new Set<string>();
+
+/** Mark a move as dancing in the groups of eight of a four face four. */
+export function lineSetMove(move: string) {
+  EIGHT.add(move);
+}
+
 /** Figures that, in a ring or square, dance the whole set at true positions. */
 const WHOLE = new Set<string>(['ring-circle', 'ring-promenade', 'forward-back', 'still']);
 
@@ -268,7 +294,8 @@ export function inLayout<P>(move: string, figure: Figure<P>): Figure<P & { among
     const who = (rest as { who?: unknown }).who;
     const named = typeof who === 'string' && !STANDARD.has(who) && state.relations.has(who);
     if ((!layout && !among && !named) || move === 'hold') return figure(state, rest as P, beats);
-    let groups: readonly (readonly number[])[] = state.groups;
+    let groups: readonly (readonly number[])[] =
+      layout?.columns && EIGHT.has(move) ? lineSets(state) : state.groups;
     if (among) {
       if (!Array.isArray(among) || !among.every((a) => typeof a === 'string'))
         throw new Error('among must list who dances.');

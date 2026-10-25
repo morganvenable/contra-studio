@@ -4,7 +4,7 @@
   {"move":"hold","beats":2,"params":{"reason":"unparsed"},"text":"robins allemande left ½ - face your partner","section":"A1","row":2},
   {"move":"hold","beats":16,"params":{"reason":"unparsed"},"text":"partners start a hey for eight - first pass by right, 7 passes - until partners meet","section":"A1","row":3},
   {"move":"hold","beats":10,"params":{"reason":"unparsed"},"text":"partners swing - end with center couples facing sides and outside couples facing center, join hands four in two rings","section":"A1","row":4},
-  {"move":"circle","beats":6,"params":{"direction":"left","places":3},"text":"circle left 3 places","section":"B1","row":5},
+  {"move":"lines-circle","beats":6,"params":{"direction":"left","places":3},"text":"circle left 3 places","section":"B1","row":5},
   {"move":"hold","beats":10,"params":{"reason":"unparsed"},"text":"neighbors swing - join hands four with same neighbors","section":"B1","row":6},
   {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance the ring","section":"B2","row":7},
   {"move":"hold","beats":4,"params":{"reason":"unparsed"},"text":"larks roll away partners with a half sashay - join hands four with same neighbors","section":"B2","row":8},

@@ -1,18 +1,18 @@
-{ "schema": "contra-studio/next-dance", "version": 2, "id": "2628", "title": "Simple Break 0", "author": "Colin Hume", "formation": "square", "progression": "mixer", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 32 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/2628", "formation": "square dance", "retrievedAt": "2026-10-20T06:12:43.840Z", "sha256": "a53aec644de32ed44974018a9fa3dbdc8befe0fe54af3a753a9237a615c3eee1" }, "status": "partial", "problems": [ "Row 4 \"first corners do si do once\" isn't drawn yet.", "Row 5 \"first corners allemande left once\" isn't drawn yet.", "Row 6 \"right & left grand halfway around\" isn't drawn yet.", "Row 11 \"first corners allemande left once\" isn't drawn yet.", "Row 13 \"first corners allemande left once\" isn't drawn yet." ], "unparsed": [ { "row": 4, "text": "first corners do si do once", "why": "No figure pattern matches \"first corners do si do once\"." }, { "row": 5, "text": "first corners allemande left once", "why": "No figure pattern matches \"first corners allemande left once\"." }, { "row": 6, "text": "right & left grand halfway around", "why": "No figure pattern matches \"right & left grand halfway around\"." }, { "row": 11, "text": "first corners allemande left once", "why": "No figure pattern matches \"first corners allemande left once\"." }, { "row": 13, "text": "first corners allemande left once", "why": "No figure pattern matches \"first corners allemande left once\"." } ], "choices": [],
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "2628", "title": "Simple Break 0", "author": "Colin Hume", "formation": "square", "progression": "mixer", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 32 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/2628", "formation": "square dance", "retrievedAt": "2026-10-20T06:12:43.840Z", "sha256": "a53aec644de32ed44974018a9fa3dbdc8befe0fe54af3a753a9237a615c3eee1" }, "status": "check", "problems": [ "Row 6 \"right & left grand halfway around\": a dancer has to move 1.24 m in one beat, faster than a walk (with 4 couples)." ], "unparsed": [], "choices": [],
  "figures": [
   {"move":"ring-circle","beats":8,"params":{"direction":"left","places":4},"text":"circle left 4 places","section":"A1","row":1},
   {"move":"ring-circle","beats":8,"params":{"direction":"right","places":4},"text":"circle right 4 places","section":"A1","row":2},
   {"move":"do-si-do","beats":8,"params":{"who":"partner","amount":1,"shoulder":"right"},"text":"partners do si do once","section":"A2","row":3},
-  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"first corners do si do once","section":"A2","row":4},
-  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"first corners allemande left once","section":"B1","row":5},
-  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"right & left grand halfway around","section":"B1","row":6},
+  {"move":"do-si-do","beats":8,"params":{"who":"neighbor","amount":1,"shoulder":"right"},"text":"first corners do si do once","section":"A2","row":4},
+  {"move":"allemande","beats":8,"params":{"who":"neighbor","hand":"left","amount":1},"text":"first corners allemande left once","section":"B1","row":5},
+  {"move":"grand-meet","beats":8,"params":{"hand":"right"},"text":"right & left grand halfway around","section":"B1","row":6},
   {"move":"ring-promenade","beats":8,"params":{"who":"partner"},"text":"partners promenade","section":"B2","row":7},
   {"move":"swing","beats":8,"params":{"who":"partner"},"text":"partners swing","progression":true,"section":"B2","row":8},
   {"move":"ring-circle","beats":8,"params":{"direction":"right","places":4},"text":"circle right 4 places","section":"B2","row":9},
   {"move":"ring-circle","beats":8,"params":{"direction":"left","places":4},"text":"circle left 4 places","section":"B2","row":10},
-  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"first corners allemande left once","section":"B2","row":11},
+  {"move":"allemande","beats":8,"params":{"who":"neighbor","hand":"left","amount":1},"text":"first corners allemande left once","section":"B2","row":11},
   {"move":"allemande","beats":8,"params":{"who":"partner","hand":"right","amount":1},"text":"partners allemande right once","section":"B2","row":12},
-  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"first corners allemande left once","section":"B2","row":13},
+  {"move":"allemande","beats":8,"params":{"who":"neighbor","hand":"left","amount":1},"text":"first corners allemande left once","section":"B2","row":13},
   {"move":"swing","beats":8,"params":{"who":"partner"},"text":"partners swing","progression":true,"section":"B2","row":14}
  ]
 }

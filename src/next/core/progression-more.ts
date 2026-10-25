@@ -78,7 +78,12 @@ export const PLACES_PROGRESSION: Progression = {
 
 export const LINES_PROGRESSION: Progression = {
   kind: 'lines',
-  rebind: (state) => dupleMinorRebind(state, true, true),
+  rebind(state) {
+    const next = dupleMinorRebind(state, true, true);
+    // In lines of four your opposite is the dancer you face: your neighbor.
+    const relations = new Map(next.relations).set('opposite', next.relations.get('neighbor')!);
+    return withChanges(next, { relations });
+  },
 };
 
 /** Distance from a to b along +z, round a circle of `period`, in [0, period). */

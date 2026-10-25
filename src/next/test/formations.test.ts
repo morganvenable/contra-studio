@@ -84,18 +84,11 @@ const SOLSTICE: FigureCall[] = [
   call('pass-through', 2, { shoulder: 'right' }),
 ];
 
-test('Sicilian circle: an improper dance progresses round the circle', () => {
-  const dance = stored('sicilian', 'sicilian', SOLSTICE);
-  assert.deepEqual(verifyDance(dance, strict), { ok: true });
-  // The display bends the set into a circle.
-  const folded = compileNext(dance, 6);
+test('Sicilian circle: the display bends the set into a circle', () => {
+  // Whole Sicilian and four face four dances are checked in sets.test.ts.
+  const folded = compileNext(stored('sicilian', 'sicilian', SOLSTICE), 6, undefined, { lenient: true });
   const r = folded.sample(0).poses.map((p) => Math.hypot(p.position.x, p.position.z));
   assert.ok(Math.max(...r) - Math.min(...r) < 1.9, 'everyone on two rings');
-});
-
-test('four face four: lines meet lines, turn at the ends', () => {
-  const dance = stored('four-face-four', 'lines', SOLSTICE);
-  assert.deepEqual(verifyDance(dance, strict), { ok: true });
 });
 
 test('triplet: the 1s go to the bottom, renamed by place', () => {

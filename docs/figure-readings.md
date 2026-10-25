@@ -63,3 +63,10 @@ line each, for review.
 - Contra corners (16 beats, split 3+4+2+4+3): partner by the right, first corner by the left, partner right, second corner left, partner right back to place; the first corner is the one on the active's left after crossing (Chorus Jig).
 - Peel the banana / cast and arch: the others follow their leader; "top couple cast off, make an arch at the bottom" means the others follow and come up through the arch, as in the Virginia Reel.
 - Strip the willow: both actives strip at once; partners turn right 1½ at the top, once between, ½ at the bottom; each turned couple moves up one place.
+- In four face four and Sicilian circles, each group of four is a Becket minor set turned a quarter: couples face across within the group, so a swing ends facing the other couple and a pass through goes on to the next.
+- In four face four, "circle left/right 4 places" (or 8) with no ring named is the ring of eight from the two lines (4 places is halfway, the lines trade places); other places are danced in rings of four. A ring of eight all facing out stays facing out.
+- Arch and dive: the arching couple raises joined inside hands and the other couple ducks under; "(back up)" backs through to the places just left, the named couple arching.
+- "As couples do si do": two couples holding inside hands do-si-do as units, passing right sides.
+- "Neighbor/partner right/left elbow": an allemande by that hand, once round unless an amount is given.
+- "Swing, end facing the next / new lines / direction of travel" in these formations ends on the pair's own side facing out of the minor set.
+- In four face four, "opposite" is the dancer you face (the neighbor); "balance the ring of 8" is a ring balance in rings of four.

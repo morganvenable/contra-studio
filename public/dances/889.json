@@ -7,6 +7,6 @@
   {"move":"hold","beats":4,"params":{"reason":"unparsed"},"text":"balance the ring of six","section":"B1","row":7},
   {"move":"hold","beats":4,"params":{"reason":"unparsed"},"text":"larks roll away next neighbors (bottom two with neighbor along the set, top with partner across the set)","section":"B1","row":8},
   {"move":"hold","beats":4,"params":{"reason":"unparsed"},"text":"balance in a ring of six","section":"B2","row":9},
-  {"move":"circle","beats":12,"params":{"direction":"left","places":6},"text":"circle left 6 places","progression":true,"section":"B2","row":10}
+  {"move":"whole-circle","beats":12,"params":{"direction":"left","places":6},"text":"circle left 6 places","progression":true,"section":"B2","row":10}
  ]
 }

@@ -1,4 +1,4 @@
-{ "schema": "contra-studio/next-dance", "version": 2, "id": "2299", "title": "Everybody Dance", "author": "Jim Hemphill", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/2299", "formation": "improper", "retrievedAt": "2026-10-20T03:38:04.000Z", "sha256": "47f6517ced021189bbe01ca54a760c95452a51a53d1461e5d361b67a709ce7b6" }, "status": "partial", "problems": [ "Row 7 \"twos arch ones dive\" isn't drawn yet." ], "unparsed": [ { "row": 7, "text": "twos arch ones dive", "why": "No figure pattern matches \"twos arch ones dive ⁋\"." } ], "choices": [ "A balance with a partner or neighbor holds both hands.", "A star with no grip named is a basket star (wrist grip).", "A meltdown swing starts with 4 beats of right-shoulder round, then swings." ],
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "2299", "title": "Everybody Dance", "author": "Jim Hemphill", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/2299", "formation": "improper", "retrievedAt": "2026-10-20T03:38:04.000Z", "sha256": "47f6517ced021189bbe01ca54a760c95452a51a53d1461e5d361b67a709ce7b6" }, "status": "ok", "problems": [], "unparsed": [], "choices": [ "A balance with a partner or neighbor holds both hands.", "A star with no grip named is a basket star (wrist grip).", "A meltdown swing starts with 4 beats of right-shoulder round, then swings." ],
  "figures": [
   {"move":"balance","beats":4,"params":{"formation":"pair","who":"neighbor","hand":"both"},"text":"neighbors balance & swing · balance","section":"A1","row":1},
   {"move":"swing","beats":12,"params":{"who":"neighbor"},"text":"neighbors balance & swing · swing","section":"A1","row":1},
@@ -7,6 +7,6 @@
   {"move":"swing","beats":16,"params":{"who":"partner","meltdown":true},"text":"partners meltdown swing","section":"B1","row":4},
   {"move":"circle","beats":8,"params":{"direction":"left","places":3},"text":"circle left 3 places","section":"B2","row":5},
   {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance the ring","section":"B2","row":6},
-  {"move":"hold","beats":4,"params":{"reason":"unparsed"},"text":"twos arch ones dive","section":"B2","row":7,"progression":true}
+  {"move":"arch-dive","beats":4,"params":{"arch":"2s","backing":false},"text":"twos arch ones dive","progression":true,"section":"B2","row":7}
  ]
 }

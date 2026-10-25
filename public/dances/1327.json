@@ -7,7 +7,7 @@
   {"move":"hold","beats":4,"params":{"reason":"unparsed"},"text":"pass through to partners","section":"A2","row":5,"progression":true},
   {"move":"balance","beats":4,"params":{"formation":"pair","who":"partner","hand":"both"},"text":"partners balance & swing · balance","section":"B1","row":6},
   {"move":"swing","beats":12,"params":{"who":"partner"},"text":"partners balance & swing · swing","section":"B1","row":6},
-  {"move":"circle","beats":8,"params":{"direction":"left","amount":0.75,"among":["1s","3s"]},"text":"Ones and threes circle left ¾","section":"B2","row":7},
+  {"move":"whole-circle","beats":8,"params":{"direction":"left","amount":0.75,"among":["1s","3s"]},"text":"Ones and threes circle left ¾","section":"B2","row":7},
   {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"neighbors do si do once and threes face up","section":"B2","row":8}
  ]
 }
