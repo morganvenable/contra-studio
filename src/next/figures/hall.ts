@@ -30,6 +30,7 @@ import {
   clamp,
   dot,
   ease,
+  forward,
   heading,
   leftOf,
   mix,
@@ -51,8 +52,12 @@ import {
 
 export interface HallParams {
   direction: 'down' | 'up';
-  /** Down the hall ends by turning around. */
-  turn?: 'couple' | 'alone';
+  /**
+   * Down the hall ends by turning around; "doors" (slide doors): the two
+   * couples of each line trade places, the right-hand couple passing in
+   * front, then everyone turns alone.
+   */
+  turn?: 'couple' | 'alone' | 'doors';
   /** The lines bend into a ring at the end. */
   end?: 'ring';
   /** Walk backward: face the other way from the way the lines travel. */
@@ -66,6 +71,10 @@ const LINE_GAP = 0.9;
 /** Beats spent forming the line, and turning or bending at the end. */
 const FORM = 2;
 const ENDING = 2.5;
+/** Slide doors: beats at the end, the share of them sliding, and how far the couples pass apart. */
+const DOORS = 4;
+const DOORS_SLIDE = 0.55;
+const DOORS_PASS = 0.4;
 
 interface Mover {
   readonly id: number;
@@ -82,18 +91,31 @@ interface Mover {
 export const hall: Figure<HallParams> = (state, params, beats) => {
   onlyKeys('hall', params, ['direction', 'turn', 'end', 'backward']);
   const direction = oneOf('hall', 'direction', params.direction, ['down', 'up'] as const);
-  if (params.turn !== undefined) oneOf('hall', 'turn', params.turn, ['couple', 'alone'] as const);
+  if (params.turn !== undefined)
+    oneOf('hall', 'turn', params.turn, ['couple', 'alone', 'doors'] as const);
   if (params.end !== undefined) oneOf('hall', 'end', params.end, ['ring'] as const);
   if (params.turn && params.end) throw new Error('The lines either turn or bend, not both.');
   if (params.backward !== undefined && typeof params.backward !== 'boolean')
     throw new Error('hall backward must be true or false.');
-  if (beats < (params.turn || params.end ? 6 : 4))
-    throw new Error('Down or up the hall needs at least six beats (four with no ending).');
+  if (beats < (params.turn === 'doors' ? 6 : 4))
+    throw new Error('Down or up the hall needs at least four beats (six to slide doors).');
   // The top of the set is -z: down the hall faces +z (yaw 0).
   const facing = (direction === 'down') !== !!params.backward ? 0 : Math.PI;
-  const travel = { x: 0, z: direction === 'down' ? DISTANCE : -DISTANCE };
-  const walkEnd = params.turn || params.end ? beats - ENDING : beats;
+  const ending = params.turn === 'doors' ? Math.min(DOORS, beats - 3) : ENDING;
+  // The ending starts `ending` beats from the end; a short figure (under
+  // six beats) keeps walking into it, so nobody has to hurry.
+  // Sliding doors begins as the lines arrive.
+  const endStart = params.turn || params.end ? beats - ending : beats;
+  const walkEnd =
+    params.turn === 'doors'
+      ? beats - ending * 0.75
+      : beats < 6 && endStart < beats
+        ? beats - 1
+        : endStart;
   const left = leftOf(facing);
+  // A short walk (four steps) goes less far: a whole place in six beats or more.
+  const distance = DISTANCE * Math.min(1, (beats - 0.5) / 5);
+  const travel = { x: 0, z: direction === 'down' ? distance : -distance };
 
   const movers: Mover[] = [];
   for (const g of minorSets(state)) {
@@ -107,6 +129,19 @@ export const hall: Figure<HallParams> = (state, params, beats) => {
       const outer = i === 0 || i === line.length - 1;
       const ringCenter = add(c, travel);
       const end = (u: number, at: Vec2) => {
+        if (params.turn === 'doors') {
+          // The left couple slides right behind, the right couple left in front.
+          // The couples step apart (front and back) first, slide past, and
+          // step back into line, turning alone as they do.
+          const s = progress(clamp((u - 0.2) / DOORS_SLIDE));
+          const apart = Math.min(smooth(u / 0.25), smooth((1 - u) / 0.25));
+          const side = i < 2 ? -1 : 1;
+          const across = scale(left, side * 2 * LINE_GAP * s);
+          const ahead = scale(forward(facing), side * DOORS_PASS * apart);
+          const sign = i % 2 === 0 ? -1 : 1;
+          const spin = ease((u - 0.55) / 0.45);
+          return { position: add(add(at, across), ahead), yaw: facing + sign * Math.PI * spin };
+        }
         if (params.turn === 'alone') {
           // Turn toward the neighbor in line: the left one of a pair turns right.
           const sign = i % 2 === 0 ? -1 : 1;
@@ -161,11 +196,11 @@ export const hall: Figure<HallParams> = (state, params, beats) => {
       const formed = mix(m.from, m.slot, smooth(beat / FORM));
       const walk = m.walks === false ? 0 : progress(clamp((beat - 0.5) / (walkEnd - 0.5)));
       const walked = add(formed, scale(travel, walk));
-      if (beat <= walkEnd) {
+      if (beat <= endStart) {
         const yaw = m.yaw + turn(facing, m.yaw) * smooth(beat / FORM);
         return { id: m.id, position: walked, yaw };
       }
-      return { id: m.id, ...m.end((beat - walkEnd) / ENDING, walked) };
+      return { id: m.id, ...m.end((beat - endStart) / ending, walked) };
     }),
     contacts: [],
   });

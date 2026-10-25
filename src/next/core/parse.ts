@@ -11,6 +11,7 @@ import { MORE_PATTERNS, qualifiers } from './parse-more.ts';
 import { WEAVE_PATTERNS } from './parse-weaves.ts';
 import { extraPatterns, extraTidy } from './parse-extra.ts';
 import { CIRCULATION_PATTERNS, looseCalls } from './parse-circulation.ts';
+import { travelCalls } from './parse-travel.ts';
 
 export interface SourceRow {
   readonly section?: string;
@@ -549,6 +550,10 @@ export function parseRow(row: SourceRow): FigureCall[] {
     }
   }
   if (loose) return labeled(loose);
+  // Last: travel figures, formation notes and one-off rows (parse-travel.ts).
+  const last =
+    travelCalls(normal.text, row.beats, row.text) ?? travelCalls(baseRow(row.text), row.beats);
+  if (last) return labeled(last);
   if (failure) throw failure;
   throw new Error(`No figure pattern matches "${row.text}".`);
 }

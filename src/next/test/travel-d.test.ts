@@ -98,3 +98,100 @@ test('long lines from line-mates already close keep them apart', () => {
   const start = withChanges(s0, { bodies });
   assert.deepEqual(problems([call('long-lines', 4, { back: false })], start), []);
 });
+
+test('promenade three quarters round the minor set: couples end facing each other along the set', () => {
+  const s0 = BECKET.start(2);
+  const calls = [call('promenade-around', 8, { who: 'partner', amount: 0.75 })];
+  assert.deepEqual(problems(calls, s0), []);
+  const end = run(calls, s0);
+  for (const [lark, robin] of [
+    [0, 1],
+    [2, 3],
+  ]) {
+    const a = body(end, lark);
+    const b = body(end, robin);
+    assert.ok(Math.abs(a.position.z - b.position.z) < 1e-6, 'side by side across the set');
+    assert.ok(Math.abs(Math.abs(a.position.x - b.position.x) - 1.8) < 1e-6, 'a place apart');
+    assert.ok(Math.abs(Math.sin(a.yaw)) < 1e-6, 'facing along the set');
+  }
+  // The couples face each other: one at the top facing down, one at the bottom facing up.
+  const z0 = body(end, 0).position.z;
+  const z2 = body(end, 2).position.z;
+  assert.ok(Math.abs(Math.abs(z0 - z2) - 1.8) < 1e-6);
+  assert.ok(Math.cos(body(end, 0).yaw) * Math.sign(z2 - z0) > 0.99, 'couple 1 faces couple 2');
+});
+
+test('slide along the set: two places, and single file facing the way they go', () => {
+  const s0 = BECKET.start(3);
+  const two = run([call('slide', 4, { direction: 'left', places: 2 })], s0);
+  const one = run([call('slide', 2, { direction: 'left' })], s0);
+  for (const id of [0, 1]) {
+    const from = body(s0, id).position;
+    const dz1 = body(one, id).position.z - from.z;
+    near(body(two, id).position, { x: from.x, z: from.z + 2 * dz1 }, `dancer ${id}`);
+  }
+  const single = [call('slide', 4, { direction: 'left', facing: 'travel' })];
+  assert.deepEqual(problems(single, s0), []);
+  const mid = compileFold({
+    dance: DANCE,
+    calls: single,
+    start: s0,
+    registry: FIGURES,
+    progression: NO_PROGRESSION,
+    music: { meter: METERS['2/4'], parts: [{ name: 'A1', bars: 2 }], times: 1 },
+  }).rawSample(2);
+  // Halfway, dancer 0 faces along the set, the way it walks.
+  const yaw = mid.poses[0].yaw;
+  const dz = body(one, 0).position.z - body(s0, 0).position.z;
+  assert.ok(Math.cos(yaw) * Math.sign(dz) > 0.99, 'faces the way it walks');
+  const end = run(single, s0);
+  near(body(end, 0).position, body(one, 0).position, 'same place as a slide');
+});
+
+test('down the hall and slide doors: the couples of each line trade places and face up', () => {
+  const s0 = IMPROPER.start(2);
+  const calls = [call('hall', 8, { direction: 'down', turn: 'doors' })];
+  assert.deepEqual(problems(calls, s0), []);
+  const plain = run([call('hall', 8, { direction: 'down', turn: 'alone' })], s0);
+  const doors = run(calls, s0);
+  // Each dancer ends where a dancer of the other pair in the line would after turning alone.
+  const xs = (s: DanceState) => [0, 1, 2, 3].map((id) => body(s, id).position.x);
+  for (const [i, x] of xs(doors).entries()) {
+    const was = xs(plain)[i];
+    assert.ok(Math.abs(Math.abs(x - was) - 1.8) < 1e-6, `dancer ${i} moved one couple over`);
+    assert.ok(Math.abs(Math.cos(body(doors, i).yaw) + 1) < 1e-6, 'faces up');
+  }
+});
+
+test('simultaneous: two parts on different dancers at once', () => {
+  const s0 = IMPROPER.start(2);
+  const calls = [
+    call('simultaneous', 8, {
+      parts: [
+        { calls: [{ move: 'swing', beats: 8, params: { who: 'partner', among: ['1s'] } }] },
+        { calls: [{ move: 'swing', beats: 8, params: { who: 'partner', among: ['2s'] } }] },
+      ],
+    }),
+  ];
+  const both = run(calls, s0);
+  // Each part ends where it would on its own.
+  const ones = run([call('swing', 8, { who: 'partner', among: ['1s'] })], s0);
+  const twos = run([call('swing', 8, { who: 'partner', among: ['2s'] })], s0);
+  for (const id of [0, 1]) near(body(both, id).position, body(ones, id).position);
+  for (const id of [2, 3]) near(body(both, id).position, body(twos, id).position);
+  assert.throws(
+    () =>
+      run(
+        [
+          call('simultaneous', 8, {
+            parts: [
+              { calls: [{ move: 'swing', beats: 8, params: { who: 'partner' } }] },
+              { calls: [{ move: 'circle', beats: 8, params: { direction: 'left', places: 2 } }] },
+            ],
+          }),
+        ],
+        s0,
+      ),
+    /Two parts move dancer/,
+  );
+});

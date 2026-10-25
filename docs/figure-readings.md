@@ -334,3 +334,29 @@ line each, for review.
 - Coming up the hall, a waiting couple that never went down (it was crossing over while the lines went down) stays where it is; the lines walk away from it or back up to it.
 - Ovals and long lines that start facing another way (back round after an oval, out after a roll) turn to face their way at a walking turn rate, taking longer the farther they turn.
 - Long lines whose line-mates already stand close (after a roll away) close in less, never nearer than 0.75 m.
+- A short down or up the hall (under six beats, "4 steps forward") walks less far: a whole place in six beats or more, in proportion below; with an ending, the line keeps walking into it.
+- "Down the hall and slide doors": the line walks down; the couples of the line step apart (the right-hand couple 0.4 m ahead, the left-hand couple behind), slide past each other to trade places, step back into line and turn alone to face up.
+- "Down the hall and form a cozy line": down the hall and turn alone. "Up the hall and hand cast (off)", "up the hall, ones cast", "bend *out* to long lines", "shoot the 2s into the middle": up the hall and bend into a ring.
+- "Up the hall forward then backward (and bend into a ring)": half the beats up, half back down still facing up (bending at the end).
+- "Down/up the hall backward (4 steps)": the line walks that way facing the other.
+- "Promenade and a little more (3/4)", "promenade 3/4 to face partner up & down", "promenade across and continue to face along the set", "promenade ¾ to next": each pair promenades three quarters round its minor set (counterclockwise), lark inside, and wheels to face in, so the pairs end at the top and bottom of the minor set facing each other along it.
+- "Promenade 3 places CW around group of 4": the same, three quarters, clockwise.
+- "X promenade on the left/right": the oval promenade along the set on that side; "promenade the oval" counterclockwise, "back along the oval" clockwise.
+- A promenade with a "wide loop", "a little wide to progress", "loop wide left", "during the courtesy turn shift ... to face next neighbors", "counterclockwise around set one place": the J-hook (promenade, then the couples go on one place along the set).
+- Notes on a promenade about who passes whom ("larks pass left in center", "pass right as couples"), or "reverse courtesy turn and promenade across": the ordinary promenade.
+- A single-file promenade (or walk) along the set "to next neighbors": each dancer turns to face along the set, walks one place, and turns back in, the way of the formation's progression; after "turn right" (in the row or the row before, from facing out) toward the dancers' left as they face in; "clockwise" is left, "counterclockwise" right.
+- "Single file promenade clockwise 1/2" in a ring of four: a single-file circle left 2 places; "single file promenade three places": a single-file circle right (counterclockwise) 3 places.
+- "Slide left along set" with "2 places", "pass two couples", "bounce off first couple and go to next couple": two places; "one person (so the larks face larks)": half a place; "come back (one couple)": one place the other way. Other words after a slide (who leads, whom it passes, "to meet partners", "(j-hook)") are notes.
+- A swing that "gets ready to slide left" is the swing; "swing... then slide left": the swing, then a 2-beat slide left.
+- A zero-beat "slide left/right along set" right after a J-hook names which way the hook goes.
+- Words after a circle about who is in it or how it is held ("with couple 2", "hands free zombie walk", "hold the ring", "robins lead", "until across from partners", "(1/2)", "end becket indecent with shadow"): the circle of the minor set. A ring named with shadows ("with neighbor and shadow") is not this reading and stays undrawn.
+- "Circle ... and ca twirl": the circle, then partners California twirl; "collapse/reform to a wave": the circle to a wave of four; "and shift (left)": the circle, then a 2-beat slide left; "circle ... while facing outward": a cloverleaf; "circle ... as in oval", "in large oval", "come back in oval": the whole-set oval.
+- "Balance the circle, slide/spin right one place" (an Allen Ortep shift), "balance in a circle ... shift left one place": a ring balance and a petronella that way.
+- "Balance forward & back(ward)", "balance the new wave forward and back": a balance; "balance forward & back; step forward" (4 beats): walk on to the new wave.
+- "A swing (or gyre) ... to join in circle / form circle": the swing; the ring forms itself (a note that turns to face new neighbors keeps the row undrawn).
+- "X allemande ... with next X; Y slide left 1 place": the allemande while Y shift left.
+- "Larks drop out", "reach across and behind to form clover": notes; a label ending in a colon ("A1:", "Weave the line:", "grand right and left :") or a comment in parentheses ("(it's a slip jig)") is no figure: nothing at zero beats, everyone stands still for any beats it has.
+- A "SIMULTANEOUS:" ("FOUR larks:", "INSIDE FOURSOME:") block: the rows up to "WHILE:" dance at the same time as the rows after it, the last row's beats shared evenly by each part's rows; a role in the header ("FOUR larks:", "WHILE robins:") names who dances that part.
+- A zero-beat "meanwhile X" row: X happens during the row before it, on other dancers.
+- "Pass through across the set and turn right 90 degrees": the pass through; the single-file walk that follows turns them.
+- "Stand still, let go hands and turn": turn alone.
