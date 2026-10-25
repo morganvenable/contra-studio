@@ -85,7 +85,7 @@ reading below. One line each; change any of them and the figure follows.
 - A circle shorter than four beats closes up less and keeps a steadier pace; closing up always takes at least 0.8 beat.
 - A gyre between dancers far apart (opposite corners) walks in, around and out along one path at a steady pace, going around close enough (never under 0.27 m from the middle) to stay at a walk.
 - A right and left through straight from a line of four (after up or down the hall): the line bends as the couples set off, ends forward and middles back. A long crossing (to a diagonal couple) takes up to 65% of the beats before the courtesy turn.
-- Figures on a diagonal (circle, chain, right and left through): the two couples close up along their lines to stand straight across from each other over the first beats (up to 4, half the figure), and step back out to the places on their sides over the last ones.
+- Figures on a diagonal (circle, chain, right and left through): the two couples close up along their lines (at a steady pace) to stand straight across from each other over the first beats (up to 4, half the figure), and step back out to the places on their sides over the last ones.
 - In Becket lines, couples on a side line face across whichever way each dancer is turned (finding new neighbors after a ring); a lark's couple is the robin on his right, else the robin on his left.
 - Left right through: the mirror image of a right and left through (pull by left hands, courtesy turn the other way round).
 - "Ladles slide right to partner", "meanwhile ladles slide left to meet partner": only that role slides one place to its own right or left, letting go of hands.

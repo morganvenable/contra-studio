@@ -226,3 +226,62 @@ test('gyre a quarter at a time, with any pair name', () => {
     { move: 'gyre', beats: 8, params: { who: 'robins', amount: 1 } },
   ]);
 });
+
+test('left right through is the mirror of a right and left through', () => {
+  const s0 = BECKET.start(2);
+  const right = run([call('right-left-through', 8, {})], s0);
+  const left = run([call('right-left-through', 8, { hand: 'left' })], s0);
+  for (const id of [0, 1, 2, 3]) assert.ok(Math.sign(pos(left, id).x) === -Math.sign(pos(s0, id).x));
+  // Same places; the pull by is by left hands.
+  for (const id of [0, 1, 2, 3]) near(pos(left, id), pos(right, id));
+  const pull = FIGURES['right-left-through'](s0, { hand: 'left' }, 8)
+    .motion(2)
+    .contacts.find((c) => c.kind === 'joined');
+  assert.equal(pull?.handA, 'left');
+  assert.deepEqual(problems([call('right-left-through', 8, { hand: 'left' })], s0), []);
+});
+
+test('one role slides a place; a whole-set promenade along the set goes half way, then home', () => {
+  const s0 = BECKET.start(2);
+  const slid = run([call('slide', 2, { direction: 'right', who: 'robins' })], s0);
+  near(pos(slid, 0), pos(s0, 0), 'larks stand');
+  assert.ok(Math.abs(pos(slid, 1).z - pos(s0, 1).z - 0) > 1.7, 'robins move a place');
+  const s4 = BECKET.start(4);
+  const oval = { direction: 'right', half: true, facing: 'travel' };
+  const half = run([call('oval', 8, oval)], s4);
+  const home = run([call('oval', 8, oval)], half);
+  for (const id of s4.bodies.keys()) near(pos(home, id), pos(s4, id));
+  assert.deepEqual(problems([call('oval', 8, oval), call('oval', 8, oval)], s4), []);
+});
+
+test('a circle on the left diagonal closes up, circles and spreads back to places', () => {
+  const s0 = BECKET.start(4);
+  const after = run([call('circle', 8, { direction: 'left', places: 4, diagonal: 'left' })], s0);
+  for (const id of s0.bodies.keys()) near(pos(after, id), pos(s0, id), `dancer ${id} home`, 1e-6);
+  // Three places: each ends on a place on the side line it stands on.
+  const three = run([call('circle', 8, { direction: 'left', places: 3, diagonal: 'left' })], s0);
+  const places = new Set([...s0.bodies.values()].map((b) => `${b.position.x.toFixed(2)},${b.position.z.toFixed(2)}`));
+  for (const b of three.bodies.values())
+    assert.ok(places.has(`${b.position.x.toFixed(2)},${b.position.z.toFixed(2)}`), 'on a place');
+});
+
+test('J-hooks, loops and circles to a wave read as two calls', () => {
+  assert.deepEqual(
+    row('partners promenade & loop wide to new neighbors (J-hook promenade)').map((c) => [
+      c.move,
+      c.beats,
+      c.params.direction,
+    ]),
+    [
+      ['promenade', 6, undefined],
+      ['slide', 2, 'progression'],
+    ],
+  );
+  assert.deepEqual(
+    row('circle left 3 places to wave of four').map((c) => [c.move, c.beats]),
+    [
+      ['circle', 6],
+      ['ocean-wave', 2],
+    ],
+  );
+});

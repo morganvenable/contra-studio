@@ -18,7 +18,7 @@ import { bodyMap, withinReach } from './contacts.ts';
 import { coupleRobin } from './couples.ts';
 import type { Figure } from './figure.ts';
 import { settle } from './figure.ts';
-import { add, dot, forward, leftOf, mean, rightOf, scale, smooth, sub, turn } from './math.ts';
+import { add, dot, forward, leftOf, mean, progress, rightOf, scale, sub, turn } from './math.ts';
 import { body, partnerOf, withChanges, type DanceState } from './state.ts';
 
 /** How far along the set a diagonal couple may stand: up to two rows. */
@@ -113,8 +113,8 @@ export function onDiagonal<P>(figure: Figure<P>): Figure<P & { diagonal?: 'left'
     }
     const motion = (beat: number) => {
       const frame = result.motion(beat);
-      const open = smooth(beat / span);
-      const close = smooth((beat - (beats - span)) / span);
+      const open = progress(Math.min(1, beat / span));
+      const close = progress(Math.max(0, Math.min(1, (beat - (beats - span)) / span)));
       const moved = frame.bodies.map((b) => {
         const d = shifts.get(b.id);
         if (!d) return b;
