@@ -5,8 +5,8 @@
  "stored": 2422,
  "counts": {
   "ok": 369,
-  "check": 150,
-  "partial": 1621,
+  "check": 159,
+  "partial": 1612,
   "unsupported": 282
  },
  "formations": [
@@ -22,16 +22,16 @@
    "formation": "becket",
    "dances": 655,
    "ok": 46,
-   "check": 65,
-   "partial": 544,
+   "check": 72,
+   "partial": 537,
    "unsupported": 0
   },
   {
    "formation": "becket ccw",
    "dances": 169,
    "ok": 1,
-   "check": 5,
-   "partial": 163,
+   "check": 7,
+   "partial": 161,
    "unsupported": 0
   },
   {
@@ -2616,7 +2616,7 @@
   "figuresThatCannotStart": [
    {
     "name": "progression or other",
-    "unlocks": 108
+    "unlocks": 90
    },
    {
     "name": "ocean wave / long wave",
@@ -2624,19 +2624,19 @@
    },
    {
     "name": "swing variant",
-    "unlocks": 14
+    "unlocks": 17
    },
    {
     "name": "diagonal chain / right left through",
     "unlocks": 13
    },
    {
-    "name": "rory o'more",
+    "name": "circle variant",
     "unlocks": 9
    },
    {
-    "name": "circle variant",
-    "unlocks": 8
+    "name": "rory o'more",
+    "unlocks": 9
    },
    {
     "name": "slide along set",
@@ -2651,16 +2651,16 @@
     "unlocks": 6
    },
    {
+    "name": "poussette",
+    "unlocks": 5
+   },
+   {
     "name": "roll away",
     "unlocks": 5
    },
    {
     "name": "gyre",
     "unlocks": 5
-   },
-   {
-    "name": "poussette",
-    "unlocks": 4
    },
    {
     "name": "turn alone / as a couple",
@@ -2675,6 +2675,14 @@
     "unlocks": 3
    },
    {
+    "name": "box circulate",
+    "unlocks": 3
+   },
+   {
+    "name": "pull by / pass by",
+    "unlocks": 3
+   },
+   {
     "name": "balance variant",
     "unlocks": 3
    },
@@ -2683,28 +2691,20 @@
     "unlocks": 3
    },
    {
+    "name": "chain variant",
+    "unlocks": 3
+   },
+   {
     "name": "hey (other)",
     "unlocks": 3
    },
    {
-    "name": "box circulate",
-    "unlocks": 2
-   },
-   {
-    "name": "pull by / pass by",
+    "name": "square through",
     "unlocks": 2
    },
    {
     "name": "butterfly whirl",
     "unlocks": 2
-   },
-   {
-    "name": "chain variant",
-    "unlocks": 2
-   },
-   {
-    "name": "square through",
-    "unlocks": 1
    },
    {
     "name": "other: pass through across the set",
@@ -2730,7 +2730,7 @@
   "checkFailures": [
    {
     "name": "Couples don't end the round where the progression puts them",
-    "unlocks": 39
+    "unlocks": 46
    },
    {
     "name": "pull by / pass by",
@@ -2741,15 +2741,15 @@
     "unlocks": 17
    },
    {
+    "name": "star promenade",
+    "unlocks": 14
+   },
+   {
     "name": "swing variant",
     "unlocks": 14
    },
    {
     "name": "The next time through can't start from where the dancers end",
-    "unlocks": 13
-   },
-   {
-    "name": "star promenade",
     "unlocks": 13
    },
    {
@@ -2761,11 +2761,11 @@
     "unlocks": 5
    },
    {
-    "name": "roll away",
-    "unlocks": 3
+    "name": "do-si-do variant",
+    "unlocks": 4
    },
    {
-    "name": "do-si-do variant",
+    "name": "roll away",
     "unlocks": 3
    },
    {

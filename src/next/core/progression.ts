@@ -17,6 +17,7 @@
 import type { Vec2 } from '../../types.ts';
 import { SET } from './config.ts';
 import { dot, forward, mean, sub } from './math.ts';
+import { coupleRobin } from './couples.ts';
 import { body, partnerOf, type DanceState, type WaitingCouple, withChanges } from './state.ts';
 
 export interface Progression {
@@ -33,11 +34,12 @@ interface CoupleSpot {
   readonly facing: Vec2;
 }
 
-function coupleSpots(state: DanceState): Map<number, CoupleSpot> {
+function coupleSpots(state: DanceState, beside = false): Map<number, CoupleSpot> {
   const couples = new Map<number, CoupleSpot>();
   for (const d of state.dancers) {
     if (d.role !== 'lark') continue;
-    const robin = partnerOf(state, d.id);
+    // Becket: whoever stands with the lark as a couple (core/couples.ts).
+    const robin = beside ? coupleRobin(state, d.id) : partnerOf(state, d.id);
     const a = body(state, d.id);
     const b = body(state, robin);
     couples.set(d.couple, {
@@ -53,7 +55,7 @@ function coupleSpots(state: DanceState): Map<number, CoupleSpot> {
 export const MINOR_SET_PROGRESSION: Progression = {
   kind: 'minor-set',
   rebind(state) {
-    const couples = coupleSpots(state);
+    const couples = coupleSpots(state, true);
     for (const [c, spot] of couples) {
       if (dot(spot.facing, forward(body(state, spot.robin).yaw)) < 0.9) {
         throw new Error(`Couple ${c + 1} must face the same way to find new neighbors.`);
