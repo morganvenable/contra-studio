@@ -15,6 +15,7 @@
 import type { Vec2 } from '../../types.ts';
 import { SET } from './config.ts';
 import { bodyMap, withinReach } from './contacts.ts';
+import { coupleRobin } from './couples.ts';
 import type { Figure } from './figure.ts';
 import { settle } from './figure.ts';
 import { add, dot, forward, leftOf, mean, rightOf, scale, smooth, sub, turn } from './math.ts';
@@ -94,7 +95,8 @@ export function onDiagonal<P>(figure: Figure<P>): Figure<P & { diagonal?: 'left'
     }
     const regrouped = withChanges(state, { groups, bodies });
     const result = figure(regrouped, rest as P, beats);
-    if (!shifts.size) return { ...result, exit: withChanges(result.exit, { groups: state.groups }) };
+    if (!shifts.size)
+      return { ...result, exit: withChanges(result.exit, { groups: afterGroups(state, result.exit) }) };
     // Close up over the first beats, and spread back to the side lines'
     // places over the last ones: each dancer takes back the shift of the
     // couple whose side of the minor set they end on.
@@ -129,9 +131,47 @@ export function onDiagonal<P>(figure: Figure<P>): Figure<P & { diagonal?: 'left'
     return {
       ...result,
       motion,
-      exit: withChanges(settle(result.exit, motion, beats), { groups: state.groups }),
+      exit: (() => {
+        const exit = settle(result.exit, motion, beats);
+        return withChanges(exit, { groups: afterGroups(state, exit) });
+      })(),
     };
   };
+}
+
+/**
+ * The minor sets after a figure on a diagonal: where it left couples
+ * standing straight across from new couples (a diagonal chain or right and
+ * left through), those foursomes dance on, the way the source goes on; where
+ * it brought everyone back (a diagonal circle), the old minor sets stand.
+ * Relationships do not change here, only through the progression.
+ */
+function afterGroups(before: DanceState, exit: DanceState): number[][] | readonly (readonly number[])[] {
+  const couples = exit.dancers
+    .filter((d) => d.role === 'lark' && before.groups.some((g) => g.includes(d.id)))
+    .map((d) => {
+      const robin = coupleRobin(exit, d.id);
+      return { lark: d.id, robin, center: mean([body(exit, d.id).position, body(exit, robin).position]) };
+    });
+  const groups: number[][] = [];
+  const used = new Set<number>();
+  for (const a of couples) {
+    if (used.has(a.lark)) continue;
+    const b = couples.find(
+      (o) =>
+        o !== a &&
+        !used.has(o.lark) &&
+        Math.abs(o.center.z - a.center.z) < 0.3 &&
+        Math.sign(o.center.x) !== Math.sign(a.center.x),
+    );
+    if (!b) continue;
+    used.add(a.lark).add(b.lark);
+    groups.push([a.lark, a.robin, b.lark, b.robin]);
+  }
+  const covered = new Set(groups.flat());
+  const all = before.groups.flat();
+  if (all.length !== covered.size || all.some((id) => !covered.has(id))) return before.groups;
+  return groups;
 }
 
 /** Beats, at most, to close up to a diagonal couple, and to spread back. */

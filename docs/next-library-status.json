@@ -2591,11 +2591,11 @@
   "figuresThatCannotStart": [
    {
     "name": "progression or other",
-    "unlocks": 60
+    "unlocks": 61
    },
    {
     "name": "swing variant",
-    "unlocks": 25
+    "unlocks": 29
    },
    {
     "name": "ocean wave / long wave",
@@ -2614,12 +2614,12 @@
     "unlocks": 8
    },
    {
-    "name": "chain variant",
+    "name": "allemande variant",
     "unlocks": 8
    },
    {
-    "name": "allemande variant",
-    "unlocks": 8
+    "name": "chain variant",
+    "unlocks": 7
    },
    {
     "name": "circle variant",
@@ -2634,12 +2634,12 @@
     "unlocks": 6
    },
    {
-    "name": "butterfly whirl",
+    "name": "square through",
     "unlocks": 5
    },
    {
-    "name": "star variant",
-    "unlocks": 4
+    "name": "butterfly whirl",
+    "unlocks": 5
    },
    {
     "name": "turn alone / as a couple",
@@ -2647,10 +2647,6 @@
    },
    {
     "name": "take hands (wave/line set-up)",
-    "unlocks": 3
-   },
-   {
-    "name": "square through",
     "unlocks": 3
    },
    {
@@ -2670,11 +2666,15 @@
     "unlocks": 3
    },
    {
-    "name": "hey (other)",
-    "unlocks": 3
+    "name": "star variant",
+    "unlocks": 2
    },
    {
     "name": "do-si-do variant",
+    "unlocks": 2
+   },
+   {
+    "name": "hey (other)",
     "unlocks": 2
    },
    {
@@ -2682,19 +2682,7 @@
     "unlocks": 1
    },
    {
-    "name": "other: right left through",
-    "unlocks": 1
-   },
-   {
     "name": "slice",
-    "unlocks": 1
-   },
-   {
-    "name": "into the middle / forward & back",
-    "unlocks": 1
-   },
-   {
-    "name": "mad robin",
     "unlocks": 1
    }
   ],

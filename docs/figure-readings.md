@@ -95,3 +95,4 @@ reading below. One line each; change any of them and the figure follows.
 - "Circle left 3 places to (a) wave of four": the circle, then the last 2 beats open into the wave; unnamed, robins take left hands in the middle and neighbors right hands on the ends.
 - Promenades shorter than 8 beats spend 68% of the beats crossing and leave more of the wheel for opening out; partners close in on the pair's middle steadily as it walks.
 - A butterfly whirl takes hands only once partners are within reach, and each turns to the couple's facing over a beat or more.
+- After a figure on a diagonal that leaves couples straight across from new couples (a diagonal chain or right and left through), those foursomes are the minor sets for the figures that follow; relationships change only at the progression.
