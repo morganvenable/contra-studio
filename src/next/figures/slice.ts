@@ -32,7 +32,11 @@ import { body, withChanges, type DanceState } from '../core/state.ts';
 
 export interface SliceParams {
   direction: 'left' | 'right';
-  back?: 'straight';
+  /**
+   * Straight back (the usual): every couple ends one place along. Diagonal
+   * back ("slice left and diagonal back"): back the way they came, home.
+   */
+  back?: 'straight' | 'diagonal';
 }
 
 /** How far each couple steps in toward the other line. */
@@ -41,7 +45,9 @@ const DEPTH = 0.52;
 export const slice: Figure<SliceParams> = (state, params, beats) => {
   onlyKeys('slice', params, ['direction', 'back']);
   const direction = oneOf('slice', 'direction', params.direction, ['left', 'right'] as const);
-  if (params.back !== undefined) oneOf('slice', 'back', params.back, ['straight'] as const);
+  if (params.back !== undefined)
+    oneOf('slice', 'back', params.back, ['straight', 'diagonal'] as const);
+  const home = params.back === 'diagonal';
   if (state.hands.length) throw new Error('Slice needs free hands.');
 
   const moves = sideMoves(state, direction).map((m) => ({
@@ -53,7 +59,7 @@ export const slice: Figure<SliceParams> = (state, params, beats) => {
   const motion = (beat: number) => ({
     bodies: moves.map((m) => {
       const out = beat <= half ? progress(beat / half) : 1 - progress((beat - half) / half);
-      const across = progress(beat / half);
+      const across = home ? out : progress(beat / half);
       const position = add(m.start.position, add(scale(m.lateral, across), scale(m.inward, out)));
       return { id: m.id, position, yaw: squareUp(m.start.yaw, m.across, beat) };
     }),
@@ -63,7 +69,7 @@ export const slice: Figure<SliceParams> = (state, params, beats) => {
   const moved = settle(state, motion, beats);
   for (const m of moves) {
     const end = moved.bodies.get(m.id)!.position;
-    if (distance(end, add(m.start.position, m.lateral)) > 1e-6)
+    if (distance(end, home ? m.start.position : add(m.start.position, m.lateral)) > 1e-6)
       throw new Error('Slice missed its place.');
   }
   return { kind: 'becket-slice', motion, exit: withChanges(moved, { hands: [] }) };

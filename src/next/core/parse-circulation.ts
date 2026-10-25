@@ -96,7 +96,7 @@ export const CIRCULATION_PATTERNS: readonly (readonly [RegExp, Build])[] = [
   ],
   [
     // "along the set right left through", "right and left through with partners"
-    /^(?:along the set )?right (?:and |& )?left through(?: with (?:your )?(?:partners?|neighbors?))?$/,
+    /^(?:along the set )?right (?:and |& )?left through(?: with (?:your )?(?:partners?|neighbors?))?(?: across(?: the)?(?: set)?)?$/,
     (_m, b) => [call('right-left-through', b, {})],
   ],
   [
@@ -198,6 +198,15 @@ export const CIRCULATION_PATTERNS: readonly (readonly [RegExp, Build])[] = [
     (m, b) => [call('pass-through', b, { shoulder: m[1] ?? 'right', axis: 'along' })],
   ],
   [
+    // "ladles chain left diagonal": the chain on that diagonal.
+    /^(\w+) chain,? (?:on )?(?:the )?(left|right) diagonal$/,
+    (m, b) => [call('chain', b, { who: who(m[1]), diagonal: m[2] })],
+  ],
+  [
+    /^(?:long lines )?slice (left|right) (?:and|&) diagonal back$/,
+    (m, b) => [call('slice', b, { direction: m[1], back: 'diagonal' })],
+  ],
+  [
     // "entire set oval left", "big oval circle right": the whole set in one
     // ring, a place every two beats.
     /^(?:entire set|big|custom) oval(?: circle)? (left|right)(?: in (?:a )?large circle)?$/,
@@ -236,6 +245,8 @@ export const CIRCULATION_PATTERNS: readonly (readonly [RegExp, Build])[] = [
  * of a row (or anywhere, for footnote marks) until the rest matches.
  */
 const NOTES: readonly RegExp[] = [
+  // A row ending "to" whose rest was a reminder ("chain (to new neighbor)").
+  /\s+to$/,
   // Footnote marks and emphasis.
   /\s*(?:\[\^?\d+\]|[*‡†²¹+#]+|!+)\s*$/,
   /\s*\[(?:right hand|straight across)\]\s*$/,

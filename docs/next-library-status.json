@@ -4,18 +4,18 @@
  "catalogue": 2422,
  "stored": 2422,
  "counts": {
-  "ok": 360,
-  "check": 147,
-  "partial": 1633,
+  "ok": 362,
+  "check": 148,
+  "partial": 1630,
   "unsupported": 282
  },
  "formations": [
   {
    "formation": "improper",
    "dances": 1189,
-   "ok": 310,
-   "check": 74,
-   "partial": 805,
+   "ok": 312,
+   "check": 75,
+   "partial": 802,
    "unsupported": 0
   },
   {
@@ -1099,12 +1099,12 @@
   "missingFigures": [
    {
     "name": "ocean wave / long wave",
-    "unlocks": 51,
+    "unlocks": 53,
     "uses": 185
    },
    {
     "name": "star variant",
-    "unlocks": 51,
+    "unlocks": 53,
     "uses": 162
    },
    {
@@ -1120,17 +1120,17 @@
    {
     "name": "petronella",
     "unlocks": 46,
-    "uses": 114
-   },
-   {
-    "name": "pull by / pass by",
-    "unlocks": 38,
-    "uses": 122
+    "uses": 113
    },
    {
     "name": "roll away",
-    "unlocks": 35,
+    "unlocks": 37,
     "uses": 95
+   },
+   {
+    "name": "pull by / pass by",
+    "unlocks": 36,
+    "uses": 116
    },
    {
     "name": "zig zag",
@@ -1138,9 +1138,9 @@
     "uses": 61
    },
    {
-    "name": "diagonal chain / right left through",
-    "unlocks": 25,
-    "uses": 87
+    "name": "promenade",
+    "unlocks": 24,
+    "uses": 83
    },
    {
     "name": "allemande variant",
@@ -1148,9 +1148,9 @@
     "uses": 99
    },
    {
-    "name": "promenade",
-    "unlocks": 22,
-    "uses": 83
+    "name": "diagonal chain / right left through",
+    "unlocks": 23,
+    "uses": 81
    },
    {
     "name": "arch & dive",
@@ -1179,13 +1179,13 @@
    },
    {
     "name": "circle variant",
-    "unlocks": 15,
-    "uses": 85
+    "unlocks": 14,
+    "uses": 83
    },
    {
     "name": "chain variant",
-    "unlocks": 14,
-    "uses": 33
+    "unlocks": 13,
+    "uses": 31
    },
    {
     "name": "swing variant",
@@ -1259,7 +1259,7 @@
    },
    {
     "name": "orbit allemande",
-    "unlocks": 3,
+    "unlocks": 4,
     "uses": 20
    },
    {
@@ -1306,11 +1306,6 @@
     "name": "give & take",
     "unlocks": 1,
     "uses": 3
-   },
-   {
-    "name": "other: pass through to",
-    "unlocks": 1,
-    "uses": 2
    },
    {
     "name": "other: grand right & left along the set and around the ends:",
@@ -1501,11 +1496,6 @@
     "name": "other: left shoulders around the 3rd",
     "unlocks": 0,
     "uses": 1
-   },
-   {
-    "name": "other: right and left through across",
-    "unlocks": 0,
-    "uses": 3
    },
    {
     "name": "other: long lines forward and on the way back robins roll in front of larks with a half sashe. larks now to right of their partners",
@@ -2626,7 +2616,7 @@
   "figuresThatCannotStart": [
    {
     "name": "progression or other",
-    "unlocks": 104
+    "unlocks": 107
    },
    {
     "name": "ocean wave / long wave",
@@ -2642,7 +2632,7 @@
    },
    {
     "name": "circle variant",
-    "unlocks": 12
+    "unlocks": 13
    },
    {
     "name": "rory o'more",
@@ -2681,6 +2671,10 @@
     "unlocks": 4
    },
    {
+    "name": "promenade",
+    "unlocks": 4
+   },
+   {
     "name": "take hands (wave/line set-up)",
     "unlocks": 3
    },
@@ -2690,10 +2684,6 @@
    },
    {
     "name": "other: right left through",
-    "unlocks": 3
-   },
-   {
-    "name": "promenade",
     "unlocks": 3
    },
    {
@@ -2744,7 +2734,7 @@
    },
    {
     "name": "pull by / pass by",
-    "unlocks": 21
+    "unlocks": 22
    },
    {
     "name": "allemande variant",

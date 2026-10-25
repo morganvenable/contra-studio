@@ -69,3 +69,6 @@ reading below. One line each; change any of them and the figure follows.
 - "Partners promenade, shifting right along the side": the promenade, then a 2-beat slide right.
 - Turning in to face (circles, gyres) takes longer the farther a dancer has to turn: at least one beat, at most half the figure, at a walking turn rate.
 - Circle hands join only where they reach, so a dancer still arriving from the far side of the set takes hands as they close in.
+- "Slice left and diagonal back": the couples slice out on the diagonal and back the same way, ending home.
+- "Right and left through across": an ordinary right and left through.
+- "Ladles chain left diagonal": the chain on the left diagonal; a row ending "to" after a reminder ("chain (to new neighbor)") is the figure alone.
