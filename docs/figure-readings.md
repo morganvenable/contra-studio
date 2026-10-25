@@ -53,7 +53,7 @@ reading below. One line each; change any of them and the figure follows.
 - "Right left through" with "straight across", "with neighbors/partners", "w/o hands", "use a twirl instead of courtesy turn", "you pull past your partner": an ordinary right and left through (hands and courtesy turn drawn).
 - "Along the set right left through": an ordinary right and left through with the couples facing along the set.
 - Square through two, three or four: the pulls alternate between the named pairs ("four" repeats the first two), a balance starts each pair of pulls when the row says "balance & pull by", each balance takes 4 beats and the pulls share the rest evenly. Words after the last pull ("and go to new neighbors", "face in") are notes.
-- "Mad robin ½": half way around, the two on each side line trade places; "mad robin twice": two times around. Notes after "in front" ("mad ricochet", "around neighbors", "eyes on partner") are not drawn; a direction (cw/ccw) is checked.
+- "Mad robin ½": half way around, the two on each side line trade places; "mad robin twice": two times around. Notes after "in front" ("around neighbors", "eyes on partner") are not drawn (a "mad ricochet" is a figure of its own, not read as a mad robin); a direction (cw/ccw) is checked.
 - Mad robins travel at a steady walk with short ramps at each end (not a C2-eased orbit), so a 6-beat mad robin stays at walking speed.
 - "Slide right along set past neighbor / with neighbor", "shift left with neighbor", "slide left to new couple": an ordinary slide along the set, one place.
 - "Slice left and straight back in long lines / to (face) new couple": an ordinary slice.
@@ -82,3 +82,8 @@ reading below. One line each; change any of them and the figure follows.
 - "Pass through with/past shadows", "chain (to) shadow": an ordinary pass through or chain. A star "with shadows" is not read this way (it names other dancers) and stays undrawn.
 - Square through with no balances may go as fast as a pull by a beat (three pull bys in 4 beats); the physical check judges it.
 - A row a pattern half-reads ("ladles chain to partner (the dance starts with same couple)") gets the same note dropping as any other row.
+- A circle shorter than four beats closes up less and keeps a steadier pace; closing up always takes at least 0.8 beat.
+- A gyre between dancers far apart (opposite corners) walks in, around and out along one path at a steady pace, going around close enough (never under 0.27 m from the middle) to stay at a walk.
+- A right and left through straight from a line of four (after up or down the hall): the line bends as the couples set off, ends forward and middles back. A long crossing (to a diagonal couple) takes up to 65% of the beats before the courtesy turn.
+- Figures on a diagonal (circle, chain, right and left through): the two couples close up along their lines to stand straight across from each other over the first beats (up to 3, a third of the figure), and step back out to the places on their sides over the last ones.
+- In Becket lines, couples on a side line face across whichever way each dancer is turned (finding new neighbors after a ring); a lark's couple is the robin on his right, else the robin on his left.

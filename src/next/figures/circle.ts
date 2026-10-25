@@ -32,6 +32,7 @@ export interface CircleParams {
 
 const TIGHTEN = 0.32;
 const EDGE = 0.16;
+const EDGE_BEATS = 0.8;
 /** Beats, at least, to turn in to face the center. */
 const TURN_IN_BEATS = 1;
 /** Radians a beat, at most, for the turn in. */
@@ -65,13 +66,17 @@ export const circle: Figure<CircleParams> = (state, params, beats) => {
 
   const motion = (beat: number) => {
     const t = beat / beats;
-    const radius = 1 - TIGHTEN * Math.min(smooth(t / EDGE), smooth((1 - t) / EDGE));
+    // Closing up takes at least EDGE_BEATS, so a short circle does not jerk in.
+    const edge = Math.min(0.45, Math.max(EDGE, EDGE_BEATS / beats));
+    // A quick circle (under four beats) closes up less and keeps a steadier pace.
+    const quick = Math.min(1, beats / 4);
+    const radius = 1 - TIGHTEN * quick * Math.min(smooth(t / edge), smooth((1 - t) / edge));
     // Hands join once the ring has closed enough to reach, and let go as it opens.
-    const reachable = (u: number) => smooth((u / EDGE - 0.5) / 0.5);
+    const reachable = (u: number) => smooth((u / edge - 0.5) / 0.5);
     const strength = Math.min(reachable(t), reachable(1 - t));
     const bodies = rings.flatMap((ring) =>
       ring.ids.map((id) => {
-        const angle = ring.sweep * progress(t);
+        const angle = ring.sweep * progress(t, quick < 1 ? 0.1 : undefined);
         const s = body(state, id);
         const position = add(
           ring.center,

@@ -57,6 +57,16 @@ export const MINOR_SET_PROGRESSION: Progression = {
   rebind(state) {
     const couples = coupleSpots(state, true);
     for (const [c, spot] of couples) {
+      // A couple on a side line faces across the set, whichever way each one
+      // is turned (into a ring, say); elsewhere both must face the same way.
+      const lark = body(state, spot.lark).position;
+      const robin = body(state, spot.robin).position;
+      const onLine =
+        Math.abs(Math.abs(lark.x) - SET.halfWidth) < 0.05 && Math.abs(robin.x - lark.x) < 0.05;
+      if (onLine) {
+        couples.set(c, { ...spot, facing: { x: -Math.sign(lark.x), z: 0 } });
+        continue;
+      }
       if (dot(spot.facing, forward(body(state, spot.robin).yaw)) < 0.9) {
         throw new Error(`Couple ${c + 1} must face the same way to find new neighbors.`);
       }

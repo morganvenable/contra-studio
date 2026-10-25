@@ -130,8 +130,9 @@ export const CIRCULATION_PATTERNS: readonly (readonly [RegExp, Build])[] = [
   [
     // "mad robin ½ around, gentlespoons in front", "mad robin twice, ...",
     // "mad robin, gentlespoons in front (clockwise)". Words after the
-    // direction ("mad ricochet ...", "around new neighbors") are notes.
-    /^mad robins?(?: (½|1\/2|once|twice))?(?: around)?,? (\w+) in front,?(?: (?:and )?(?:(?:left|right) )?(?:around (?:new |next )?neighbors?,? )?\b(cw|ccw|clockwise|counterclockwise|counter clockwise)\b)?(?:[ ,;-].*)?$/,
+    // direction ("around new neighbors", "eyes on partner") are notes. A
+    // mad ricochet is its own figure, not read here.
+    /^mad robins?(?: (½|1\/2|once|twice))?(?: around)?,? (\w+) in front,?(?: (?:and )?(?:(?:left|right) )?(?:around (?:new |next )?neighbors?,? )?\b(cw|ccw|clockwise|counterclockwise|counter clockwise)\b)?(?:[ ,;-](?!.*ricochet).*)?$/,
     (m, b) => {
       const amount = { '½': 0.5, '1/2': 0.5, once: 1, twice: 2 }[m[1] ?? 'once'];
       const d = m[3]?.replace(/ /g, '');
@@ -371,6 +372,8 @@ function firstBeats(first: FigureCall, second: FigureCall, beats: number): numbe
  * split. Returns undefined when that does not give a match either.
  */
 export function looseCalls(text: string, beats: number, match: Match): FigureCall[] | undefined {
+  // A mad robin with ricochets is a mad ricochet, a figure of its own.
+  if (/mad robin/.test(text) && /ricochet/.test(text)) return undefined;
   const dropped = dropNotes(text, beats, match);
   if (dropped) return dropped;
   // Two figures: every split point, left to right; both parts must match
