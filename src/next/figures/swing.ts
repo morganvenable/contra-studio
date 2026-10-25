@@ -78,6 +78,8 @@ const LEAD = 0.14;
 /** Beats, at least, to turn from the entry facing into the swing frame. */
 const TURN_IN_BEATS = 1.6;
 const RELEASE = 0.18;
+/** Speed ramp share for a swing shorter than 8 beats. */
+const SHORT_RAMP = 0.1;
 /** Swing frame: each faces 60 degrees left of the partner. */
 const FRAME = Math.PI / 3;
 /** Final share of the swing spent turning out to face across. */
@@ -123,7 +125,9 @@ function planPair(
 ) {
   // A meltdown closes to round distance in a beat and starts orbiting at once.
   const lead = roundBeats > 0 ? ROUND_GATHER_BEATS / beats : LEAD;
-  const ramp = roundBeats > 0 ? ROUND_RAMP_BEATS / beats : undefined;
+  // A short swing (under 8 beats) keeps its turning rate steadier: shorter
+  // speed ramps, so the middle of the turn is not faster than a dancer turns.
+  const ramp = roundBeats > 0 ? ROUND_RAMP_BEATS / beats : beats < 8 ? SHORT_RAMP : undefined;
   const turnIn = Math.max(lead, TURN_IN_BEATS / beats);
   // 0 while walking the round, 1 once melted into the swing (always 1 without a round).
   const melted = (t: number) =>
