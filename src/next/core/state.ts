@@ -20,6 +20,8 @@ export interface WaitingCouple {
   readonly couple: number;
   /** True once the couple has made its end-of-set crossing. */
   readonly crossed: boolean;
+  /** True while the couple is crossing over (figures leave it be). */
+  readonly crossing?: boolean;
 }
 
 /** A relationship between dancers, e.g. partner, neighbor, corner. */

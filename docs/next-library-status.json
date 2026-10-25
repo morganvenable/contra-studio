@@ -5,8 +5,8 @@
  "stored": 2422,
  "counts": {
   "ok": 340,
-  "check": 137,
-  "partial": 1663,
+  "check": 140,
+  "partial": 1660,
   "unsupported": 282
  },
  "formations": [
@@ -14,8 +14,8 @@
    "formation": "improper",
    "dances": 1189,
    "ok": 298,
-   "check": 74,
-   "partial": 817,
+   "check": 77,
+   "partial": 814,
    "unsupported": 0
   },
   {
@@ -2788,10 +2788,6 @@
     "unlocks": 3
    },
    {
-    "name": "turn alone / as a couple",
-    "unlocks": 3
-   },
-   {
     "name": "roll away",
     "unlocks": 3
    },
@@ -2847,19 +2843,15 @@
   "checkFailures": [
    {
     "name": "Couples don't end the round where the progression puts them",
-    "unlocks": 36
+    "unlocks": 41
    },
    {
     "name": "pull by / pass by",
     "unlocks": 16
    },
    {
-    "name": "swing variant",
-    "unlocks": 13
-   },
-   {
     "name": "star promenade",
-    "unlocks": 11
+    "unlocks": 13
    },
    {
     "name": "The next time through can't start from where the dancers end",
@@ -2870,8 +2862,8 @@
     "unlocks": 9
    },
    {
-    "name": "ocean wave / long wave",
-    "unlocks": 6
+    "name": "swing variant",
+    "unlocks": 7
    },
    {
     "name": "hey (other)",
@@ -2882,32 +2874,44 @@
     "unlocks": 5
    },
    {
+    "name": "ocean wave / long wave",
+    "unlocks": 5
+   },
+   {
     "name": "circle variant",
     "unlocks": 4
-   },
-   {
-    "name": "do-si-do variant",
-    "unlocks": 4
-   },
-   {
-    "name": "chain variant",
-    "unlocks": 3
    },
    {
     "name": "mad robin",
     "unlocks": 3
    },
    {
+    "name": "box the gnat / swat the flea",
+    "unlocks": 3
+   },
+   {
+    "name": "take hands (wave/line set-up)",
+    "unlocks": 2
+   },
+   {
     "name": "roll away",
     "unlocks": 2
    },
    {
-    "name": "box the gnat / swat the flea",
+    "name": "box circulate",
     "unlocks": 2
    },
    {
-    "name": "take hands (wave/line set-up)",
-    "unlocks": 1
+    "name": "do-si-do variant",
+    "unlocks": 2
+   },
+   {
+    "name": "chain variant",
+    "unlocks": 2
+   },
+   {
+    "name": "down/up the hall",
+    "unlocks": 2
    },
    {
     "name": "promenade",
@@ -2918,7 +2922,7 @@
     "unlocks": 1
    },
    {
-    "name": "star variant",
+    "name": "turn alone / as a couple",
     "unlocks": 1
    },
    {

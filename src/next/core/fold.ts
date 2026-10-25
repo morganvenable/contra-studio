@@ -85,6 +85,7 @@ export function foldRound(
     if (!(call.beats > 0 && call.beats <= 64)) throw new Error(`${call.move} needs 1-64 beats.`);
     let result: FigureResult;
     let moved: Set<number>;
+    state = settleCrossings(state, beat, crossings);
     try {
       ({ result, moved } = runFigure(registry, state, call, index, beat, crossings));
     } catch (error) {
@@ -179,15 +180,40 @@ function scheduleCrossings(
     crossings.push(crossing);
     for (const id of ids) bodies.set(id, crossingBody(crossing, id, 1));
   }
-  const waiting = state.waiting.map((w) => ({ ...w, crossed: true }));
+  const waiting = state.waiting.map((w) =>
+    w.crossed ? w : { ...w, crossed: true, crossing: true },
+  );
   return withChanges(state, { bodies, waiting });
+}
+
+/** Clear the crossing mark of couples whose crossing has finished by `beat`. */
+function settleCrossings(state: DanceState, beat: number, crossings: readonly Crossing[]) {
+  if (!state.waiting.some((w) => w.crossing)) return state;
+  const waiting = state.waiting.map((w) => {
+    if (!w.crossing) return w;
+    const c = crossings.find((x) => x.ids[0] === w.couple * 2);
+    return c && c.start + CROSS_BEATS > beat ? w : { ...w, crossing: false };
+  });
+  return withChanges(state, { waiting });
 }
 
 function crossingBody(c: Crossing, id: number, t: number): Body {
   const from = c.from.get(id)!;
   const a = Math.PI * progress(t);
-  return { position: add(c.pivot, rotate(sub(from.position, c.pivot), a)), yaw: from.yaw - a };
+  // Partners trade sides passing close by each other, not around a wide
+  // circle: the half turn is squashed along the set, so a couple waiting
+  // next to another crosses without meeting it.
+  const swung = rotate(sub(from.position, c.pivot), a);
+  const along = from.position.z - c.pivot.z;
+  const position = add(c.pivot, {
+    x: swung.x,
+    z: along * Math.cos(a) + (swung.z - along * Math.cos(a)) * CROSS_SQUASH,
+  });
+  return { position, yaw: from.yaw - a };
 }
+
+/** How wide the crossing swings along the set, as a share of a circle. */
+const CROSS_SQUASH = 0.4;
 
 export interface FoldOptions {
   readonly dance: Dance;

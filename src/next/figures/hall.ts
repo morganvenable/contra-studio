@@ -132,9 +132,11 @@ export const hall: Figure<HallParams> = (state, params, beats) => {
     });
   }
   // Waiting couples walk along, turning alone, and face across again at the top.
+  // A couple still crossing over stays out of it.
   const grouped = new Set(activeIds(state));
+  const crossing = new Set(state.waiting.filter((w) => w.crossing).map((w) => w.couple));
   for (const d of state.dancers) {
-    if (grouped.has(d.id)) continue;
+    if (grouped.has(d.id) || crossing.has(d.couple)) continue;
     const b = body(state, d.id);
     const across = heading(b.position, { x: 0, z: b.position.z });
     const end = (u: number, at: Vec2) => {
