@@ -4,8 +4,8 @@
  "catalogue": 2422,
  "stored": 2422,
  "counts": {
-  "ok": 330,
-  "check": 96,
+  "ok": 332,
+  "check": 94,
   "partial": 1714,
   "unsupported": 282
  },
@@ -13,8 +13,8 @@
   {
    "formation": "improper",
    "dances": 1189,
-   "ok": 294,
-   "check": 57,
+   "ok": 295,
+   "check": 56,
    "partial": 838,
    "unsupported": 0
   },
@@ -85,8 +85,8 @@
   {
    "formation": "indecent",
    "dances": 19,
-   "ok": 1,
-   "check": 2,
+   "ok": 2,
+   "check": 1,
    "partial": 16,
    "unsupported": 0
   },
@@ -3017,10 +3017,6 @@
    },
    {
     "name": "star promenade",
-    "unlocks": 2
-   },
-   {
-    "name": "petronella",
     "unlocks": 2
    },
    {

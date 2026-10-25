@@ -40,6 +40,8 @@ export interface PetronellaParams {
 
 /** Dancers swing a little wide of the ring as they spin past each other. */
 const BULGE = 0.15;
+/** How far inside the ring dancers cut when travelling more than a place. */
+const INSIDE = 0.3;
 
 export const petronella: Figure<PetronellaParams> = (state, params, beats) => {
   onlyKeys('petronella', params, ['direction', 'places']);
@@ -62,7 +64,9 @@ export const petronella: Figure<PetronellaParams> = (state, params, beats) => {
         const s = body(state, id);
         const rel = sub(s.position, r.center);
         const angle = r.sweep * q;
-        const wide = (length(rel) + BULGE * Math.sin(Math.PI * q)) / length(rel);
+        // Travelling more than a place, they cut inside the ring.
+        const bulge = places > 1 ? -INSIDE : BULGE;
+        const wide = (length(rel) + bulge * Math.sin(Math.PI * q)) / length(rel);
         const position = add(r.center, rotate(scale(rel, wide), angle));
         // Face in at the start, then turn right: facing in at the next place
         // is a quarter turn left of facing in here, so the right turn is 3/4.
@@ -78,5 +82,8 @@ export const petronella: Figure<PetronellaParams> = (state, params, beats) => {
     kind: 'petronella',
     motion,
     exit: withChanges(settle(state, motion, beats), { hands: [] }),
+    // More than one place spins more than once: the spins are the figure
+    // itself, reported as styled motion (like the Rory twirl).
+    ...(places > 1 ? { styled: { name: 'Petronella spins' } } : {}),
   };
 };
