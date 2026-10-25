@@ -18,6 +18,7 @@ import type { Role } from '../../types.ts';
 import type { Figure, FigureContact } from '../core/figure.ts';
 import { oneOf, onlyKeys, settle } from '../core/figure.ts';
 import { joined, sameHold } from '../core/contacts.ts';
+import { inHeldLine } from '../core/held-line.ts';
 import { findWave, lineHolds, middleRole } from '../core/lines.ts';
 import { PAIR_NAMES, type PairName } from '../core/relations.ts';
 import {
@@ -126,7 +127,8 @@ export const allemande: Figure<AllemandeParams> = (state, params, beats) => {
       const uses = (id: number) =>
         (h.a === id && h.handA === hand) || (h.b === id && h.handB === hand);
       const isPair = holdsBetween(state, a, b).includes(h);
-      if ((uses(a) || uses(b)) && !isPair)
+      // A hand holding a wave or line lets go of it to turn (core/held-line.ts).
+      if ((uses(a) || uses(b)) && !isPair && !inHeldLine(state, h))
         throw new Error(`Dancer ${uses(a) ? a : b}'s ${hand} hand is not free.`);
     }
     const pa = body(state, a);

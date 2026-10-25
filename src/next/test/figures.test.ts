@@ -124,10 +124,15 @@ test('larks allemande left 1/2 swaps the larks and turns them around', () => {
   assert.deepEqual(holds(exit), [], 'a half turn lets go at the end');
 });
 
-test('allemande refuses a hand that is busy with someone else', () => {
+test('allemande lets go of a wave to turn, but not of a lone hold', () => {
   const waved = after([PASS, TO_WAVE]);
+  const { exit } = allemande(waved, { who: 'neighbor', hand: 'right', amount: 0.5 }, 2);
+  assert.deepEqual(holds(exit), [], 'the wave is let go and the half turn lets go too');
+  // Partners alone holding right hands (no line): the hand is busy.
+  const lone = { ...waved, hands: waved.hands.filter((h) => h.handA === 'right') };
+  assert.ok(lone.hands.length > 0 && lone.hands.length < waved.hands.length);
   assert.throws(
-    () => allemande(waved, { who: 'neighbor', hand: 'right', amount: 0.5 }, 2),
+    () => allemande(lone, { who: 'neighbor', hand: 'right', amount: 0.5 }, 2),
     /hand is not free/,
   );
 });
