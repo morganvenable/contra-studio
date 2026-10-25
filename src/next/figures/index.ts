@@ -66,6 +66,7 @@ import { walkForward } from './walk-forward.ts';
 import { promenadeAround } from './promenade-around.ts';
 import { makeSimultaneous } from './simultaneous.ts';
 import { grandSquare } from './grand-square.ts';
+import { sashayAlong } from './sashay-along.ts';
 
 const BASE: FigureRegistry = {
   allemande,
@@ -131,6 +132,7 @@ const BASE: FigureRegistry = {
   'promenade-around': promenadeAround,
   simultaneous: makeSimultaneous(() => FIGURES),
   'grand-square': grandSquare,
+  'sashay-along': sashayAlong,
 };
 
 /**

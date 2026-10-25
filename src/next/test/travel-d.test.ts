@@ -217,3 +217,14 @@ test('a circle from a squeezed ring (after a roll away from long lines forward) 
   for (const id of [0, 1, 2, 3])
     assert.ok(Math.abs(Math.abs(body(end, id).position.x) - 0.9) < 1e-6, `dancer ${id} on a side line`);
 });
+
+test('every couple sashays down and back: partners close in, slide a place and return', () => {
+  const s0 = IMPROPER.start(2);
+  const calls = [call('sashay-along', 8, { direction: 'down-and-back' })];
+  assert.deepEqual(problems(calls, s0), []);
+  const end = run(calls, s0);
+  for (const id of [0, 1, 2, 3]) near(body(end, id).position, body(s0, id).position, `dancer ${id}`);
+  const down = run([call('sashay-along', 8, { direction: 'down' })], s0);
+  for (const id of [0, 1, 2, 3])
+    near(body(down, id).position, { x: body(s0, id).position.x, z: body(s0, id).position.z + 1.8 });
+});

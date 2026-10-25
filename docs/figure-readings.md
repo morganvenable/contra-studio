@@ -382,3 +382,5 @@ line each, for review.
 - "Do si do / see saw / gyre once and form a ring", "partners swing, form ring": the figure; the ring forms itself. "Ones (balance &) swing, end swing facing down (to new neighbors)": the swing ending facing down.
 - "Partners promenade single file ccw 1x, robins turn around": a single-file circle right once round, then the robins turn back.
 - "With neighbor, slide along set to shadows": a slide along the set the formation's progression way. "Star promenade left ½ and move right along set to new couple": the star promenade, then a 2-beat slide that way.
+- "Sashay down", "sashay up", "sashay down and back" with no couple named (one-couple Zoom contras): every couple steps in to hold both hands with the partner across, slides one place along the set (and back), and steps back out.
+- "Clapping: ...", "hand clapping with partner: ...", "pointing at partner: ...": everyone stands and claps.

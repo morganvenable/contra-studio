@@ -4,9 +4,9 @@
  "catalogue": 2422,
  "stored": 2422,
  "counts": {
-  "ok": 699,
-  "check": 383,
-  "partial": 1340,
+  "ok": 700,
+  "check": 385,
+  "partial": 1337,
   "unsupported": 0
  },
  "formations": [
@@ -118,8 +118,8 @@
    "formation": "one couple",
    "dances": 9,
    "ok": 0,
-   "check": 4,
-   "partial": 5,
+   "check": 6,
+   "partial": 3,
    "unsupported": 0
   },
   {
@@ -133,9 +133,9 @@
   {
    "formation": "scatter mixer",
    "dances": 7,
-   "ok": 2,
+   "ok": 3,
    "check": 1,
-   "partial": 4,
+   "partial": 3,
    "unsupported": 0
   },
   {
@@ -1668,11 +1668,6 @@
     "uses": 1
    },
    {
-    "name": "other: sashay down and back",
-    "unlocks": 1,
-    "uses": 1
-   },
-   {
     "name": "other: ones cast down one place – own side of the set",
     "unlocks": 0,
     "uses": 1
@@ -2418,16 +2413,6 @@
     "uses": 1
    },
    {
-    "name": "other: pointing at partner: sasha! sasha! ras, dva, tri!",
-    "unlocks": 0,
-    "uses": 1
-   },
-   {
-    "name": "other: hand clapping with partner: right right right, left left left, both both both, knees knees knees",
-    "unlocks": 0,
-    "uses": 1
-   },
-   {
     "name": "other: robins two-hand turn, once",
     "unlocks": 0,
     "uses": 1
@@ -2766,26 +2751,6 @@
     "name": "other: push off from each other and loop back into place",
     "unlocks": 0,
     "uses": 1
-   },
-   {
-    "name": "other: sashay down",
-    "unlocks": 0,
-    "uses": 1
-   },
-   {
-    "name": "other: clapping: self-r-s-l-s-r-s-l",
-    "unlocks": 0,
-    "uses": 1
-   },
-   {
-    "name": "other: sashay up",
-    "unlocks": 0,
-    "uses": 1
-   },
-   {
-    "name": "other: clapping: s-l-s-r-s-l-s-r",
-    "unlocks": 0,
-    "uses": 1
    }
   ],
   "figuresThatCannotStart": [
@@ -2961,7 +2926,7 @@
   "checkFailures": [
    {
     "name": "Couples don't end the round where the progression puts them.",
-    "unlocks": 188
+    "unlocks": 190
    },
    {
     "name": "allemande variant",

@@ -357,6 +357,11 @@ const PATTERNS: readonly (readonly [RegExp, Build])[] = [
   [/^top couple sashay to (?:the )?bottom of (?:the )?set(?:,? -? ?(?:others|everyone else) move up)?$/, as('top couple sashay down to the bottom, others move up')],
   [/^(ones|twos) balance towards and away from the top$/, as('$1 balance')],
   [
+    // No couple named: every couple sashays along the set.
+    /^sashay (down|up)(?: (and back))?$/,
+    (m, b) => [call('sashay-along', b, { direction: m[2] ? 'down-and-back' : m[1] })],
+  ],
+  [
     // The others' arches are not drawn: the top couple goes to the bottom.
     /^(?:top couple face down,? others form arch(?:es)?\.? top couple promenade down|top couple dip and dive down)$/,
     as('top couple promenade to the bottom of the set, everyone else move up'),
@@ -423,6 +428,9 @@ const PATTERNS: readonly (readonly [RegExp, Build])[] = [
   [/^partners promenade,? wheel around to face in to the center$/, as('partners promenade clockwise')],
   [/^promenade clockwise back to place with your new partner(?:,.*)?$/, as('partners promenade clockwise')],
   [/^partners allemande right twice to form a circle wave$/, as('partners allemande right twice')],
+
+  // ---- Clapping in place ----
+  [/^(?:hand )?clapping(?: with partners?)?:? .*$|^pointing at partners?:? .*$/, (_m, b) => (b > 0 ? [call('still', b, { action: 'clap' })] : [])],
 
   // ---- Notes that are no figure ----
   [/^(?:larks|robins) drop out(?: at home)?$/, nothing],

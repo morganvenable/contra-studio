@@ -1759,7 +1759,7 @@
 {"id":"3449","title":"Saoirse's Swirler","author":"Carolyn Rucks","formation":"Improper","status":"ok"},
 {"id":"327","title":"Sarah Said Yes!","author":"Grant Goodyear","formation":"Becket","status":"partial","note":"Row 4 \"right left through, end in a ring\" isn't drawn yet."},
 {"id":"115","title":"Sarah's Journey","author":"Gene Hubert","formation":"improper","status":"ok"},
-{"id":"2520","title":"Sasha","author":"Traditional","formation":"scatter mixer","status":"partial","note":"Row 1 \"pointing at partner: Sasha! Sasha! Ras, dva, tri!\" isn't drawn yet."},
+{"id":"2520","title":"Sasha","author":"Traditional","formation":"scatter mixer","status":"ok"},
 {"id":"896","title":"Saturday Night Fever","author":"Erik Hoffman","formation":"improper","status":"ok"},
 {"id":"2567","title":"Saturday Night in Indianapolis","author":"Dugan Murphy","formation":"Becket","status":"check","note":"Row 8 \"robins allemande left once\": a dancer has to turn 0.65 turns in one beat."},
 {"id":"655","title":"Saturday Night Line","author":"Joseph Pimentel","formation":"improper","status":"ok"},
@@ -2414,11 +2414,11 @@
 {"id":"1433","title":"Zombies of Sugar Hill, The","author":"Gene Hubert","formation":"improper","status":"partial","note":"Row 4 \"circle left 3 places\" can't start from where the dancers are: A circle of 4 needs the dancers spaced around a ring."},
 {"id":"1680","title":"Zoom Contra #1","author":"Nicholas Rockstroh","formation":"One Couple","status":"partial","note":"Row 3 \"loop left to reorient as if at the top and bottom of a diamond\" isn't drawn yet."},
 {"id":"1681","title":"Zoom Contra #2","author":"Nicholas Rockstroh","formation":"One Couple","status":"partial","note":"Row 5 \"balance & Rory O'More left · slide\" can't start from where the dancers are: Dancers in a wave must face across the line."},
-{"id":"1682","title":"Zoom Contra #3","author":"Nicholas Rockstroh","formation":"One Couple","status":"partial","note":"Row 1 \"sashay down and back\" isn't drawn yet."},
+{"id":"1682","title":"Zoom Contra #3","author":"Nicholas Rockstroh","formation":"One Couple","status":"check","note":"Couples don't end the round where the progression puts them."},
 {"id":"1683","title":"Zoom Contra #4","author":"Nicholas Rockstroh","formation":"One Couple","status":"check","note":"Couples don't end the round where the progression puts them."},
 {"id":"1685","title":"Zoom Contra #5","author":"Nicholas Rockstroh","formation":"one couple","status":"check","note":"Couples don't end the round where the progression puts them."},
 {"id":"1686","title":"Zoom Contra #6","author":"Nicholas Rockstroh","formation":"one couple","status":"partial","note":"Row 7 \"balance & Rory O'More left · slide\" can't start from where the dancers are: Dancers are not in a straight line."},
 {"id":"1687","title":"Zoom Contra #7","author":"Nicholas Rockstroh","formation":"One Couple","status":"check","note":"Couples don't end the round where the progression puts them."},
 {"id":"1688","title":"Zoom Contra #8","author":"Nicholas Rockstroh","formation":"one couple","status":"check","note":"Row 5 \"ones contra corners\": a dancer has to turn 0.64 turns in one beat."},
-{"id":"1689","title":"Zoom Contra #9","author":"Nicholas Rockstroh","formation":"One Couple","status":"partial","note":"Row 1 \"sashay down\" isn't drawn yet."}
+{"id":"1689","title":"Zoom Contra #9","author":"Nicholas Rockstroh","formation":"One Couple","status":"check","note":"Couples don't end the round where the progression puts them."}
 ]}
