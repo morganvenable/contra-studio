@@ -511,3 +511,15 @@ test('neighbors balance and star thru: they trade places, both turning a quarter
   assert.ok(Math.abs(turn(r.exit.bodies.get(0)!.yaw, -Math.PI / 2)) < 1e-6);
   withinLimits(r, 4, 'star thru');
 });
+
+test('dolphin hey: the 1s weave as one with the 2s and everyone ends home', () => {
+  const start = IMPROPER.start(2);
+  const [c] = parseRow({
+    beats: 16,
+    text: 'dolphin hey - start with ones passing second robins by left shoulders',
+  });
+  assert.deepEqual(c.params, { pair: '1s', first: 'robins', shoulder: 'left' });
+  const r = FIGURES['dolphin-hey'](start, c.params, 16);
+  for (const id of [0, 1, 2, 3]) near(r.exit.bodies.get(id)!.position, body(start, id).position);
+  withinLimits(r, 16, 'dolphin hey');
+});

@@ -1099,7 +1099,7 @@
   "missingFigures": [
    {
     "name": "allemande variant",
-    "unlocks": 71,
+    "unlocks": 72,
     "uses": 317
    },
    {
@@ -1118,9 +1118,9 @@
     "uses": 123
    },
    {
-    "name": "hey (other)",
-    "unlocks": 27,
-    "uses": 113
+    "name": "star variant",
+    "unlocks": 26,
+    "uses": 98
    },
    {
     "name": "circle variant",
@@ -1128,9 +1128,9 @@
     "uses": 156
    },
    {
-    "name": "star variant",
+    "name": "hey (other)",
     "unlocks": 25,
-    "uses": 98
+    "uses": 102
    },
    {
     "name": "down/up the hall",
@@ -1138,14 +1138,14 @@
     "uses": 111
    },
    {
+    "name": "promenade",
+    "unlocks": 20,
+    "uses": 88
+   },
+   {
     "name": "turn alone / as a couple",
     "unlocks": 19,
     "uses": 115
-   },
-   {
-    "name": "promenade",
-    "unlocks": 19,
-    "uses": 88
    },
    {
     "name": "diagonal chain / right left through",
@@ -2882,12 +2882,12 @@
     "unlocks": 10
    },
    {
-    "name": "slide along set",
+    "name": "swing variant",
     "unlocks": 10
    },
    {
-    "name": "swing variant",
-    "unlocks": 8
+    "name": "slide along set",
+    "unlocks": 10
    },
    {
     "name": "other: pass through",

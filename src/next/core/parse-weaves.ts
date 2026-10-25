@@ -144,6 +144,31 @@ function heyRest(rest: string) {
 
 export const WEAVE_PATTERNS: readonly (readonly [RegExp, Build])[] = [
   [
+    // "dolphin hey - start with ones passing second robins by right shoulders".
+    /^dolphin hey(?: (1\/2|½))?(?: -)? start with (\w+) passing (?:first |second )?(\w+) by (right|left) shoulders?(.*)$/,
+    (m, b) => {
+      notes(m[5], 'dolphin hey');
+      return [
+        call('dolphin-hey', b, {
+          pair: who(m[2]),
+          first: who(m[3]),
+          shoulder: m[4],
+          ...(m[1] ? { amount: 0.5 } : {}),
+        }),
+      ];
+    },
+  ],
+  [
+    // "dolphin hey - larks one followed by robins one starts by passing robins two by the left".
+    /^dolphin hey - (\w+) one followed by (\w+) one starts? by passing (\w+) two by the (right|left)(.*)$/,
+    (m, b) => {
+      notes(m[5], 'dolphin hey');
+      return [
+        call('dolphin-hey', b, { pair: '1s', first: who(m[3]), shoulder: m[4], lead: who(m[1]) }),
+      ];
+    },
+  ],
+  [
     // "neighbors California twirl (star through)": from facing, a star thru.
     /^(\w+) california twirl,? \(?star th(?:ru|rough)\)?$/,
     (m, b) => [call('star-thru', b, { who: who(m[1]) })],
