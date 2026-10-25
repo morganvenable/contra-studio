@@ -7,10 +7,12 @@ import { ECD_FIGURES } from './ecd/index.ts';
 import { RING_FIGURES } from './ring/index.ts';
 import { SETS_FIGURES } from './sets/index.ts';
 import { SQUARE_FIGURES } from './square/index.ts';
+import { GROUPS_FIGURES } from './groups/index.ts';
 
 export const MORE_FIGURES: FigureRegistry = {
   ...SETS_FIGURES,
   ...RING_FIGURES,
   ...SQUARE_FIGURES,
   ...ECD_FIGURES,
+  ...GROUPS_FIGURES,
 };

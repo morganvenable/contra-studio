@@ -18,6 +18,7 @@ import { ECD_PATTERNS } from './parse-ecd.ts';
 import { RING_PATTERNS } from './parse-ring.ts';
 import { SETS_PATTERNS } from './parse-sets.ts';
 import { SQUARE_PATTERNS } from './parse-square.ts';
+import { GROUPS_PATTERNS } from './parse-groups.ts';
 
 export type Build = (m: RegExpMatchArray, beats: number) => FigureCall[];
 export type Pattern = readonly [RegExp, Build];
@@ -137,4 +138,5 @@ export const MORE_PATTERNS: readonly Pattern[] = [
   ...RING_PATTERNS,
   ...SQUARE_PATTERNS,
   ...ECD_PATTERNS,
+  ...GROUPS_PATTERNS,
 ];
