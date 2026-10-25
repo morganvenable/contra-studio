@@ -409,3 +409,12 @@ line each, for review.
   - "Pass through left shoulders across the set": a pass through by the left.
   - "Larks walk across the set while robins step left": the larks pass through while the robins shift left.
   - "(Balance &) trade the wave - partners passing right ...": partners pass by right shoulders.
+- Round 2d readings:
+  - Rows that name the long or short wave a swing, do-si-do, star or pass ends in ("partners swing to long ocean wave ...", "robins do si do once to a long wave ...", "star right 4 places, larks push off to end in short waves ...", "robins pass by left shoulders to form long wave ..."): the figure; the wave balance that follows forms the waves.
+  - "Same roles balance long wave, larks back out robins come in": a balance, then the larks dance out while the robins dance in to a long wave in the center.
+  - "Balance larks turn left half to face partner": a balance, then the larks turn alone.
+  - "Larks allemande right once a round to form a new wave of four ...": the allemande to a wave of four. "Neighbors allemande right once and however long to form short ocean waves": 1¼ to a wave of four.
+  - "Robins keep left hands to allemande left 1½ meanwhile the larks ... loop over their own right shoulder", "... while larks turn over left shoulder and cast off": the allemande while the larks turn alone.
+  - "Robins roll away partners on the diagonal / diagonally so larks trade places": a roll away with a half sashay.
+  - Star notes ("larks dorp out at home", "7/8 til larks face next larks", "and walk along the set to find the next couple", "larks face up & down, robins on sides"): the plain star. "Right hands across 3 places, finish in long waves": a hands-across star right, 3 places.
+  - "Walk forward to new short/ocean waves and 1/4 more", "all walk forward, on very slight right diagonal": walk forward.
