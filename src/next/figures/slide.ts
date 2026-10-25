@@ -55,7 +55,7 @@ export const slide: Figure<SlideParams> = (state, params, beats) => {
       position: add(m.start.position, scale(m.lateral, progress(beat / beats))),
       yaw:
         params.facing === 'travel'
-          ? singleFile(m.start.yaw, heading({ x: 0, z: 0 }, m.lateral), m.across, beat / beats)
+          ? singleFile(m.start.yaw, heading({ x: 0, z: 0 }, m.lateral), m.across, beat / beats, beats)
           : squareUp(m.start.yaw, m.across, beat, beats),
     })),
     contacts: [],
@@ -68,12 +68,13 @@ export const slide: Figure<SlideParams> = (state, params, beats) => {
 };
 
 /** Single file: turn to the travel, walk, and turn in to face across at the end. */
-function singleFile(from: number, travel: number, across: number, t: number) {
-  if (t < TURN_SHARE) return from + turn(travel, from) * smooth(t / TURN_SHARE);
-  if (t > 1 - TURN_SHARE) return travel + turn(across, travel) * smooth((t - 1 + TURN_SHARE) / TURN_SHARE);
+function singleFile(from: number, travel: number, across: number, t: number, beats: number) {
+  // A short walk (2 beats) spends more of it turning, so nobody spins.
+  const share = Math.min(0.45, Math.max(0.3, 1.2 / beats));
+  if (t < share) return from + turn(travel, from) * smooth(t / share);
+  if (t > 1 - share) return travel + turn(across, travel) * smooth((t - 1 + share) / share);
   return travel;
 }
-const TURN_SHARE = 0.3;
 
 /** One role slides a place sideways, keeping its facing. */
 function roleSlide(

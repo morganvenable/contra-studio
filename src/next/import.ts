@@ -13,7 +13,7 @@ import { contraDbRows, decodeEntities, parseRow, type SourceRow } from './core/p
 import type { StoredCall, StoredDance, UnparsedRow } from './dance.ts';
 import { FORMATIONS } from './core/formation.ts';
 import { GROUPS_FORMATION_TEXT } from './core/formation-groups.ts';
-import { joinTravelRows } from './import-travel.ts';
+import { joinTravelRows, wholeSetShape } from './import-travel.ts';
 
 export interface ContraDbSnapshot {
   readonly sourceUrl: string;
@@ -599,8 +599,8 @@ function slideProgression(figures: StoredCall[], shape: Shape | undefined) {
 export function importDance(id: string, snapshot: ContraDbSnapshot, sha256: string): StoredDance {
   const html = snapshot.html;
   const meta = contraDbMeta(html);
-  const shape = shapeOf(meta.formation);
   const rows = contraDbRows(html);
+  const shape = wholeSetShape(rows, shapeOf(meta.formation)) as Shape | undefined;
   const figures: StoredCall[] = [];
   const unparsed: UnparsedRow[] = [];
   const parts: { name: string; bars: number }[] = [];

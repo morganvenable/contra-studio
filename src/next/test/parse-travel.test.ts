@@ -98,3 +98,55 @@ test('a single-file walk after turning right goes to the left as the dancers fac
   const walk = d.figures.find((c) => c.move === 'slide');
   assert.deepEqual(walk?.params, { direction: 'left', facing: 'travel' });
 });
+
+test('a duple-minor dance that sends the top couple to the bottom is one longways set', () => {
+  const d = importDance(
+    '0',
+    page('improper or proper', [
+      ['A1', 8, 'long lines forward &amp; back'],
+      ['', 8, 'partners swing'],
+      ['B1', 16, 'partners balance &amp; swing'],
+      ['B2', 16, 'top couple sashay to bottom of set - others move up ⁋'],
+    ]),
+    'x',
+  );
+  assert.equal(d.formation, 'longways-set');
+  assert.equal(d.progression, 'places');
+  assert.deepEqual(d.figures.at(-1)?.params, { who: 'top', style: 'sashay', legs: ['bottom'] });
+});
+
+test('top couple sashay down, later the same two sashay up: down, then the 1s back to the top', () => {
+  const d = importDance(
+    '0',
+    page('proper', [
+      ['A1', 8, 'long lines forward &amp; back'],
+      ['', 8, 'top couple, sashay down'],
+      ['A2', 8, 'long lines forward &amp; back'],
+      ['', 8, 'same two, sashay up to top'],
+      ['B1', 32, 'partners swing'],
+    ]),
+    'x',
+  );
+  const travel = d.figures.filter((c) => c.move === 'center-travel').map((c) => c.params);
+  assert.deepEqual(travel, [
+    { who: 'top', style: 'sashay', legs: ['down'] },
+    { who: '1s', style: 'sashay', legs: ['top'] },
+  ]);
+});
+
+test('bend the line, march along the set, ovals and long lines with notes', () => {
+  assert.deepEqual(row('bend the line', 2), [['hall', 2, { direction: 'up', end: 'ring', stay: true }]]);
+  assert.deepEqual(row('march right along the set', 2), [
+    ['slide', 2, { direction: 'right', facing: 'travel' }],
+  ]);
+  assert.deepEqual(row('oval right, returning to original set'), [
+    ['oval', 8, { direction: 'right', places: 4 }],
+  ]);
+  assert.deepEqual(row('long lines forward and on the way back....', 4), [
+    ['long-lines', 4, { back: false }],
+  ]);
+  assert.deepEqual(row('ones up the center and cast a place +'), [
+    ['couple-travel', 4, { who: '1s', route: 'center', direction: 'up' }],
+    ['cast', 4, { who: '1s', places: 1 }],
+  ]);
+});

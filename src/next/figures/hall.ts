@@ -62,6 +62,12 @@ export interface HallParams {
   end?: 'ring';
   /** Walk backward: face the other way from the way the lines travel. */
   backward?: boolean;
+  /**
+   * The lines are already in the hall and only do the ending ("bend the
+   * line" as a row of its own): no walking, and the way they face (down or
+   * up) is read from the dancers.
+   */
+  stay?: boolean;
 }
 
 /** How far the lines walk. */
@@ -89,19 +95,25 @@ interface Mover {
 }
 
 export const hall: Figure<HallParams> = (state, params, beats) => {
-  onlyKeys('hall', params, ['direction', 'turn', 'end', 'backward']);
-  const direction = oneOf('hall', 'direction', params.direction, ['down', 'up'] as const);
+  onlyKeys('hall', params, ['direction', 'turn', 'end', 'backward', 'stay']);
+  const stay = params.stay === true;
+  const direction = stay
+    ? facingDown(state)
+      ? 'down'
+      : 'up'
+    : oneOf('hall', 'direction', params.direction, ['down', 'up'] as const);
+  if (stay && !(params.turn || params.end)) throw new Error('Staying in the hall needs an ending.');
   if (params.turn !== undefined)
     oneOf('hall', 'turn', params.turn, ['couple', 'alone', 'doors'] as const);
   if (params.end !== undefined) oneOf('hall', 'end', params.end, ['ring'] as const);
   if (params.turn && params.end) throw new Error('The lines either turn or bend, not both.');
   if (params.backward !== undefined && typeof params.backward !== 'boolean')
     throw new Error('hall backward must be true or false.');
-  if (beats < (params.turn === 'doors' ? 6 : 4))
+  if (beats < (stay ? 2 : params.turn === 'doors' ? 6 : 4))
     throw new Error('Down or up the hall needs at least four beats (six to slide doors).');
   // The top of the set is -z: down the hall faces +z (yaw 0).
   const facing = (direction === 'down') !== !!params.backward ? 0 : Math.PI;
-  const ending = params.turn === 'doors' ? Math.min(DOORS, beats - 3) : ENDING;
+  const ending = stay ? beats : params.turn === 'doors' ? Math.min(DOORS, beats - 3) : ENDING;
   // The ending starts `ending` beats from the end; a short figure (under
   // six beats) keeps walking into it, so nobody has to hurry.
   // Sliding doors begins as the lines arrive.
@@ -114,7 +126,7 @@ export const hall: Figure<HallParams> = (state, params, beats) => {
         : endStart;
   const left = leftOf(facing);
   // A short walk (four steps) goes less far: a whole place in six beats or more.
-  const distance = DISTANCE * Math.min(1, (beats - 0.5) / 5);
+  const distance = stay ? 0 : DISTANCE * Math.min(1, (beats - 0.5) / 5);
   const travel = { x: 0, z: direction === 'down' ? distance : -distance };
 
   const movers: Mover[] = [];
@@ -228,6 +240,12 @@ function inStep(state: DanceState, at: Vec2, travel: Vec2): boolean {
   // Behind the line and close (it would back into them), or far ahead (it
   // would walk away from its place).
   return gap < 0 ? -gap > 1.25 * SET.slot : gap < 2.25 * SET.slot;
+}
+
+/** The minor sets' dancers face down the hall (more than up). */
+function facingDown(state: DanceState): boolean {
+  const ids = activeIds(state);
+  return ids.reduce((n, id) => n + Math.cos(body(state, id).yaw), 0) > 0;
 }
 
 /**

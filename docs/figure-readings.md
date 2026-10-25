@@ -360,3 +360,14 @@ line each, for review.
 - A zero-beat "meanwhile X" row: X happens during the row before it, on other dancers.
 - "Pass through across the set and turn right 90 degrees": the pass through; the single-file walk that follows turns them.
 - "Stand still, let go hands and turn": turn alone.
+- A duple-minor dance whose rows send the top couple down the set ("top couple sashay to bottom of set - others move up", Galopede, Rural Felicity) is drawn as one longways set with the whole set's progression.
+- "Top couple sashay down", then (rows between) "same two, sashay up to top": down as far as a walk goes, and later the same couple (the 1s) back to the top; with no rows between, one sashay down and back. "Top couple face down, others form arch, top couple promenade down", "top couple dip and dive down", "two hand arch with partner while top couple sashay under all to bottom": the top couple goes to the bottom (the arches are not drawn).
+- "Ones up the center and cast (off, a place, around same-role neighbors, hand cast off with twos)": half the beats up the center, half casting one place. "Ones down the outsides past two couples / one place": down the outsides. "Ones down the center rights in rights": down the center.
+- "Long lines forward and on the way back...." (the roll is the next row): long lines forward; with the roll named in the row, long lines forward & back with that roll. "... 'and ATTACK' (and back)": long lines forward & back. "Wheelbarrow in & out": into the middle & back.
+- "Oval left/right" in a contra set: the whole set's oval; "oval right, returning to original set" the same number of places back; "oval right, end across from new neighbors": one place short of home.
+- "Grand right & left six (N1R, N2L ...)": six pull bys with whoever faces, hands alternating; "half grand right and left to home": the square's grand right and left.
+- "Bend the line" as a row of its own: the line bends into a ring where it stands. "March right along the set": a single-file walk one place to the right. "Walk to next neighbor (1s up, 2s down)": walk forward.
+- "Look away from partner to form minor set with shadow ...", "dance begins in group of four with shadows": notes; the figures say who dances together.
+- "Keep circling 3 more places 'sunny side out'": a cloverleaf left that many places.
+- "Two-hand turn once" with no one named: partners.
+- A single-file walk of 2 beats turns over a larger share of its beats, so nobody spins.

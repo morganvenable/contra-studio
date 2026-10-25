@@ -299,6 +299,81 @@ const PATTERNS: readonly (readonly [RegExp, Build])[] = [
   [/^(?:long lines )?forward (?:&|and) back,? (?:and )?(?:half-)?roll(?: away)?,? (?:larks shifting right|robins right to left)$/, as('long lines forward & back, larks roll away partners')],
   [/^long lines forward (?:&|and) back half-roll robins right to left$/, as('long lines forward & back, larks roll away partners')],
   [/^unwind to an outward facing circle(?:[ ,].*)?$/, (_m, b) => [call('turn-back', b, {})]],
+  [
+    // The roll on the way back is the next row's (or named here).
+    /^long lines forward,? (?:and )?(?:on the way back|while backing up)(?:\.*|,? (?:larks|robins) roll (?:partners? away|in front of (?:larks|robins))\b.*)$/,
+    (m, b) =>
+      /roll/.test(m[0]) ? again('long lines forward & back, larks roll away partners', b) : again('long lines forward', b),
+  ],
+  [/^long lines forward "?and attack"? and back$/, as('long lines forward & back')],
+  [/^long lines forward,? join both hands with .*$/, as('long lines forward')],
+  [/^wheelbarrow in (?:&|and) out$/, as('into the middle & back')],
+
+  // ---- Ovals and grand right and left ----
+  [/^oval (left|right)$/, as('entire set oval $1')],
+  [/^oval (left|right),? returning to original set$/, as('entire set oval $1')],
+  [
+    // "Oval right, end across from new neighbors": a place short of home.
+    /^oval (left|right),? end across(?: from(?: new neighbors)?)?$/,
+    (m, b) => [call('oval', b, { direction: m[1], places: Math.max(1, Math.round(b / 2) - 1) })],
+  ],
+  [
+    // "Grand right & left six (N1R, N2L ...)": along the set, pulling by
+    // whoever comes next, hands alternating.
+    /^grand right (?:&|and) left (six|four|eight|\d)(?: n\d[rl](?:, n\d[rl])*)?$/,
+    (m, b) => {
+      const n = count(m[1]);
+      return Array.from({ length: n }, (_v, i) =>
+        call('pass-by', b / n, { who: 'facing', shoulder: i % 2 ? 'left' : 'right', hands: true }),
+      );
+    },
+  ],
+  [/^half grand right and left to home$/, as('grand right and left')],
+
+  // ---- One couple travelling (duple minor) ----
+  [/^(ones|twos) down the center (?:rights? (?:hand )?in rights?|right hand in right)$/, as('$1 down the center')],
+  [
+    // "Ones up the center and cast (off / one place / around same-role
+    // neighbors / hand cast off with twos)": up the middle, then cast one place.
+    /^(ones|twos) up the center(?: to original neighbors)?,? (?:and )?(?:hand )?cast(?: off| a place| one place| around same-role neighbors?)?(?:[ ,].*)?$/,
+    both('$1 up the center', '$1 cast', (b) => b / 2),
+  ],
+  [/^(ones|twos) down the outsides? (?:past \w+(?: \w+)?(?: couples?)?|one place)$/, as('$1 down the outsides')],
+  [/^(ones|twos) down the outsides cast to \w+' place$/, as('$1 cast')],
+  [/^(ones|twos) up the outsides,? (?:and )?(?:go between the twos|into the center for a line facing down|end in long lines\b.*)$/, as('$1 up the outsides')],
+
+  // ---- Whole sets: a couple sashays along the middle ----
+  [
+    /^((?:the )?(?:top|bottom|head|foot) couple|ones|twos|same two),? sashay (?:back )?(down|up)( to (?:the )?(?:end|bottom|top)(?: of (?:the )?set)?)?(?:,? -? ?(?:others|everyone else) move up)?$/,
+    (m, b) => {
+      const who = /same two/.test(m[1]) ? 'top' : /ones/.test(m[1]) ? '1s' : /twos/.test(m[1]) ? '2s' : /bottom|foot/.test(m[1]) ? 'bottom' : 'top';
+      const leg = m[3] ? (m[2] === 'down' ? 'bottom' : 'top') : m[2];
+      return [call('center-travel', b, { who, style: 'sashay', legs: [leg] })];
+    },
+  ],
+  [/^top couple sashay to (?:the )?bottom of (?:the )?set(?:,? -? ?(?:others|everyone else) move up)?$/, as('top couple sashay down to the bottom, others move up')],
+  [/^(ones|twos) balance towards and away from the top$/, as('$1 balance')],
+  [
+    // The others' arches are not drawn: the top couple goes to the bottom.
+    /^(?:top couple face down,? others form arch(?:es)?\.? top couple promenade down|top couple dip and dive down)$/,
+    as('top couple promenade to the bottom of the set, everyone else move up'),
+  ],
+  [
+    /^two hand arch with partners? while top couple sashay under (?:all )?to (?:the )?bottom of (?:the )?set$/,
+    as('top couple sashay down to the bottom, others move up'),
+  ],
+  [/^two-hand turn once$/, as('partners two-hand turn once')],
+
+  // ---- Lines and walks ----
+  [/^keep circling (\w+) (?:more )?places "?sunny side out"?(?: .*)?$/, as('clover left $1 places')],
+  [/^bend the line$/, (_m, b) => [call('hall', b, { direction: 'up', end: 'ring', stay: true })]],
+  [/^march (left|right) along (?:the )?set$/, (m, b) => [call('slide', b, { direction: m[1], facing: 'travel' })]],
+  [/^walk to (?:the )?next neighbors?(?:,? 1s up,? 2s down)?$/, (_m, b) => [call('walk-forward', b, {})]],
+  [
+    // Who the dancers dance with next: the progression and the figures say it.
+    /^(?:look away from partners? to form (?:a )?minor set with .*|dance begins in (?:a )?group of four with shadows)$/,
+    nothing,
+  ],
 
   // ---- Passing through and walking on single file ----
   [/^pass through across(?: the set)?,? (?:and )?turn right 90 degrees$/, as('pass through across the set')],

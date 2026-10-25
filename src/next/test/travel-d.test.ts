@@ -195,3 +195,13 @@ test('simultaneous: two parts on different dancers at once', () => {
     /Two parts move dancer/,
   );
 });
+
+test('bend the line on its own: a line facing up bends into a ring without walking', () => {
+  const s0 = IMPROPER.start(2);
+  const line = run([call('hall', 8, { direction: 'up' })], s0);
+  const calls = [call('hall', 2, { direction: 'up', end: 'ring', stay: true })];
+  assert.deepEqual(problems(calls, line), []);
+  const ring = run(calls, line);
+  const usual = run([call('hall', 8, { direction: 'up', end: 'ring' })], s0);
+  for (const id of [0, 1, 2, 3]) near(body(ring, id).position, body(usual, id).position, `dancer ${id}`);
+});

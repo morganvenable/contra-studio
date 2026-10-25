@@ -2,6 +2,9 @@
  * Rows that only make sense with their neighbors (import.ts calls this after
  * parsing every row):
  *
+ * - "Top couple sashay down" and a later "same two, sashay (back) up": down
+ *   and back as one call when the rows are together, otherwise down, and
+ *   later the same couple back up to the top.
  * - A "SIMULTANEOUS:" block ("FOUR larks:", "INSIDE FOURSOME:" ...): the rows
  *   up to "WHILE:" are one part, the rows after it the other, the last row
  *   carrying the block's beats; drawn as one simultaneous call (each part's
@@ -141,7 +144,66 @@ function singleFileAfterTurn(rows: readonly SourceRow[], parsed: Parsed) {
   });
 }
 
+/**
+ * "Top couple sashay down" then "(same two / top couple) sashay (back) up":
+ * one couple goes down and comes back, one call over both rows.
+ */
+function downAndBack(rows: readonly SourceRow[], parsed: Parsed) {
+  const one = (i: number) => {
+    const p = parsed[i];
+    return Array.isArray(p) && p.length === 1 && p[0].move === 'center-travel' ? p[0] : undefined;
+  };
+  const legs = (c: StoredCall) => ((c.params as { legs?: string[] }).legs ?? []).join();
+  for (let i = 0; i < rows.length; i++) {
+    const down = one(i);
+    if (!down || legs(down) !== 'down') continue;
+    const j = rows.findIndex((_r, k) => k > i && !!one(k) && ['top', 'up'].includes(legs(one(k)!)));
+    if (j < 0) continue;
+    const up = one(j)!;
+    if (up.params.who !== 'top' && up.params.who !== down.params.who) continue;
+    if (j === i + 1) {
+      parsed[i] = [
+        {
+          ...down,
+          beats: down.beats + up.beats,
+          params: { ...down.params, legs: ['down', 'top'] },
+          text: `${down.text}, ${up.text}`,
+          ...(down.progression || up.progression ? { progression: true } : {}),
+        },
+      ];
+      parsed[j] = [];
+    } else {
+      // Figures in between: down as far as a walk goes, and later the same
+      // couple (the top couple at the start of the time through: the 1s)
+      // back up to the top.
+      const same = down.params.who === 'top' ? '1s' : down.params.who;
+      parsed[j] = [{ ...up, params: { ...up.params, who: same, legs: ['top'] } }];
+    }
+    i = j;
+  }
+}
+
+/**
+ * A dance written for a duple minor set whose figures send the top couple to
+ * the bottom of the set ("top couple sashay to bottom of set - others move
+ * up", Galopede) is danced in one longways set: its progression is the
+ * whole set's.
+ */
+export function wholeSetShape<S extends { formation: string; progression: string }>(
+  rows: readonly SourceRow[],
+  shape: S | undefined,
+): S | { formation: string; progression: 'places' } | undefined {
+  if (!shape || !/^duple-minor/.test(shape.progression)) return shape;
+  const wholeSet = rows.some((r) =>
+    /^top couple\b.*\b(?:sashay|promenade|lead|cast)\b.*\b(?:down|bottom|end of (?:the )?set)\b/.test(
+      plain(r),
+    ),
+  );
+  return wholeSet ? { formation: 'longways-set', progression: 'places' } : shape;
+}
+
 export function joinTravelRows(rows: readonly SourceRow[], parsed: Parsed) {
+  downAndBack(rows, parsed);
   simultaneous(rows, parsed);
   meanwhileRows(rows, parsed);
   hookDirection(rows, parsed);
