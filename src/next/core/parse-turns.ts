@@ -122,6 +122,19 @@ const HALL_WHO = String.raw`(?:centers |ends )?\(?(ones|twos|1s|2s|larks|robins)
 
 export const TURN_PATTERNS: readonly (readonly [RegExp, Build])[] = [
   [
+    // "long lines forward, robins roll away neighbor on the way back".
+    /^long lines forward,? (?:and )?(larks|robins) roll away (partners?|neighbors?) on the way back$/,
+    (m, b) => [
+      call('long-lines', b / 2, { back: false }),
+      call('roll-away', b / 2, { who: m[1], whom: who(m[2]) }),
+    ],
+  ],
+  [
+    // "ones roll away partners with a half sashay - larks rolling".
+    /^(ones|twos|1s|2s) roll away (partners?|neighbors?) with (?:a )?half sashay,? -? ?(larks|robins) rolling$/,
+    (m, b) => [call('roll-away', b, { who: m[3], whom: who(m[2]), among: [who(m[1])] })],
+  ],
+  [
     // "partners Nevada twirl (robins twirl the larks to swap & face next
     // neighbors)": a California twirl, the lark going under.
     /^(partners|neighbors) nevada twirl(?:,? \(?(?:\w+ )?twirls? (?:the )?\w+ to swap\b.*)?$/,

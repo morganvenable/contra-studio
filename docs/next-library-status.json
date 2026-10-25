@@ -4,18 +4,18 @@
  "catalogue": 2422,
  "stored": 2422,
  "counts": {
-  "ok": 678,
+  "ok": 679,
   "check": 413,
-  "partial": 1331,
+  "partial": 1330,
   "unsupported": 0
  },
  "formations": [
   {
    "formation": "improper",
    "dances": 1189,
-   "ok": 502,
+   "ok": 503,
    "check": 124,
-   "partial": 563,
+   "partial": 562,
    "unsupported": 0
   },
   {
@@ -1173,14 +1173,14 @@
     "uses": 28
    },
    {
-    "name": "roll away",
-    "unlocks": 11,
-    "uses": 31
-   },
-   {
     "name": "turn alone / as a couple",
     "unlocks": 10,
     "uses": 33
+   },
+   {
+    "name": "roll away",
+    "unlocks": 10,
+    "uses": 29
    },
    {
     "name": "gyre",
@@ -1253,6 +1253,11 @@
     "uses": 8
    },
    {
+    "name": "box the gnat / swat the flea",
+    "unlocks": 3,
+    "uses": 7
+   },
+   {
     "name": "california twirl",
     "unlocks": 3,
     "uses": 6
@@ -1261,11 +1266,6 @@
     "name": "other: reach across and behind to form clover",
     "unlocks": 3,
     "uses": 3
-   },
-   {
-    "name": "box the gnat / swat the flea",
-    "unlocks": 2,
-    "uses": 7
    },
    {
     "name": "poussette",
