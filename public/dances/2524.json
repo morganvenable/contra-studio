@@ -5,7 +5,7 @@
   {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"ones down the outsides and turn alone","section":"A2","row":2},
   {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"ones up the outsides, and go between the twos","section":"A2","row":3},
   {"move":"hall","beats":8,"params":{"direction":"down"},"text":"down the hall","section":"B1","row":4},
-  {"move":"hall","beats":4,"params":{"direction":"up"},"text":"up the hall backward","section":"B1","row":5},
+  {"move":"hall","beats":4,"params":{"direction":"up","backward":true},"text":"up the hall backward","section":"B1","row":5},
   {"move":"hold","beats":4,"params":{"reason":"unparsed"},"text":"ones arch twos dive","section":"B1","row":6,"progression":true},
   {"move":"circle","beats":8,"params":{"direction":"left","places":4},"text":"circle left 4 places","section":"B2","row":7},
   {"move":"circle","beats":8,"params":{"direction":"right","places":4},"text":"circle right 4 places","section":"B2","row":8}

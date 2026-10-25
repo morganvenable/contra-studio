@@ -24,3 +24,15 @@ reading below. One line each; change any of them and the figure follows.
 - "Robins turn alone over their right shoulder": only the robins turn, clockwise seen from above.
 - "Circle right 4 places and turn alone", "pass through and turn alone": the last 2 beats turn alone.
 - A swing ending "in a line of four facing down" (or up) is the usual swing ending; the down/up the hall that follows forms the line.
+- Walk forward (to the next wave/neighbors): dancers facing along the set walk one place; dancers facing across walk out to their side line; whoever arrives side by side facing the other way within 1.2 m takes hands.
+- A zero-beat "turn alone" after a figure of 6 beats or more takes that figure's last 2 beats.
+- A zero-beat "form an ocean wave" on the last row forms the wave during the first balance of the next time through; a dance that opens by balancing the wave its last row forms starts in that wave.
+- A zero-beat "form a long wave in the center" says where the dancers already are and adds no motion.
+- Do-si-do 1¼ (or ¾, 1¾) stops a quarter on, side by side facing opposite ways, 0.9 m apart, ready for a short wave; no hands until a figure takes them.
+- A swing whose pair straddles the middle, one dancer in the very center and the other on a side line, ends on that side line.
+- Couples do-si-do: partners not quite facing the same way square up to the direction between them over the first beat.
+- "Balance right and left", "balance forward and back", "balance the star", "balance in a clover", "balance long wave(s)": a plain balance of what the dancers hold now; dancers holding hands in a line that is neither a minor-set wave nor a ring balance right and left in place.
+- "Balance the ring and twirl one place to the right" is a balance and petronella; "balance the diamond" is a ring balance.
+- "X allemande right ½, Y pass left in the center (swing through)": the allemande takes the first half of the beats, the pass the second.
+- "Swing, slide left (to progress)" in Becket: the swing ends 2 beats early and the couples slide left along the set.
+- "Allemande ... to pick up partner for a star promenade": the star promenade that follows picks up the partner.

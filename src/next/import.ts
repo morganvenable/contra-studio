@@ -154,11 +154,15 @@ function joinLeadIns(parsed: (StoredCall[] | Error)[]) {
     const calls = parsed[i];
     return Array.isArray(calls) && calls.length === 1 ? calls[0] : undefined;
   };
+  joinLeadOuts(parsed, only);
+  startInWave(parsed);
   for (let i = 0; i < parsed.length; i++) {
     const lead = only(i);
     if (!lead || (lead.move !== 'take' && !(lead.move === 'ocean-wave' && lead.beats === 0)))
       continue;
-    const after = parsed[i + 1];
+    // A wave formed on the last row leads into the first row of the next time through.
+    const wraps = lead.move === 'ocean-wave' && i === parsed.length - 1 && i > 0;
+    const after = wraps ? parsed[0] : parsed[i + 1];
     const next = Array.isArray(after) ? after : undefined;
     const first = next?.[0];
     const text = `${lead.text}, ${first?.text}`;
@@ -168,7 +172,7 @@ function joinLeadIns(parsed: (StoredCall[] | Error)[]) {
     } else if (
       lead.move === 'ocean-wave' &&
       first?.move === 'balance' &&
-      first.params.formation === 'wave'
+      (first.params.formation === 'wave' || first.params.formation === 'current')
     ) {
       const params = { ...lead.params, balance: true };
       next![0] = { ...lead, params, beats: first.beats, text, row: lead.row };
@@ -181,6 +185,54 @@ function joinLeadIns(parsed: (StoredCall[] | Error)[]) {
       );
     }
   }
+}
+
+/**
+ * A zero-beat "turn alone" row after a figure of 6 beats or more takes that
+ * figure's last 2 beats ("circle right 4 places", then "turn alone to face
+ * next neighbors"). A zero-beat "form a long wave in the center" only says
+ * where the dancers already are, so it adds no call.
+ */
+function joinLeadOuts(
+  parsed: (StoredCall[] | Error)[],
+  only: (i: number) => StoredCall | undefined,
+) {
+  for (let i = 0; i < parsed.length; i++) {
+    const lead = only(i);
+    if (!lead || lead.beats !== 0) continue;
+    if (lead.move === 'center-wave') {
+      parsed[i] = [];
+      continue;
+    }
+    if (lead.move !== 'turn-alone') continue;
+    const before = i > 0 ? parsed[i - 1] : undefined;
+    if (!Array.isArray(before)) continue;
+    const last = before.at(-1);
+    if (!last || last.beats < 6) continue;
+    before[before.length - 1] = { ...last, beats: last.beats - 2 };
+    parsed[i] = [{ ...lead, beats: 2 }];
+  }
+}
+
+/**
+ * A dance that opens by balancing the wave its last row forms ("balance the
+ * wave" ... "form an ocean wave - ladles by left hands and next neighbors by
+ * right hands") starts in that wave: the first balance forms it, the first
+ * time through from the starting formation and after that in place.
+ */
+function startInWave(parsed: (StoredCall[] | Error)[]) {
+  const first = Array.isArray(parsed[0]) ? parsed[0][0] : undefined;
+  const lastRow = parsed.at(-1);
+  const last = Array.isArray(lastRow) ? lastRow.at(-1) : undefined;
+  if (!first || !last || parsed.length < 2) return;
+  if (first.move !== 'balance' || first.params.formation !== 'wave') return;
+  if (last.move !== 'ocean-wave' || !(last.beats > 0)) return;
+  const { balance: _balance, ...wave } = last.params;
+  (parsed[0] as StoredCall[])[0] = {
+    ...first,
+    move: 'ocean-wave',
+    params: { ...wave, balance: true },
+  };
 }
 
 /**

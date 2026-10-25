@@ -19,6 +19,10 @@
  * "ladles dance in to a long wave in the center - balance the wave",
  * "ladles dance out while gentlespoons dance in to a long wave in the
  * center - balance the wave" (Trip to Brown University, 1381).
+ *
+ * Dancers of the role already in the center line stay in it and re-form
+ * the wave. Dancers of the other role still in the center when one role
+ * dances in dance out, as if the row said so.
  */
 import type { Figure, FigureContact } from '../core/figure.ts';
 import { oneOf, onlyKeys, settle } from '../core/figure.ts';
@@ -77,21 +81,29 @@ export const centerWave: Figure<CenterWaveParams> = (state, params, beats) => {
       .sort((a, b) => body(state, a).position.z - body(state, b).position.z);
     if (comers.length !== 2) throw new Error(`A long wave needs two ${params.in} in each minor set.`);
     comers.forEach((id, i) => {
-      const off = body(state, id).position.x - middle.x;
-      if (Math.abs(off) < SIDE) throw new Error(`Dancer ${id} is not on a side line to dance in.`);
-      // Walk in from your side, facing the far side.
-      const yaw = off > 0 ? -Math.PI / 2 : Math.PI / 2;
+      const b = body(state, id);
+      const off = b.position.x - middle.x;
+      // Walk in from your side, facing the far side; in the center already,
+      // face across the way nearer your facing.
+      const yaw =
+        Math.abs(off) >= SIDE
+          ? off > 0
+            ? -Math.PI / 2
+            : Math.PI / 2
+          : forward(b.yaw).x >= 0
+            ? Math.PI / 2
+            : -Math.PI / 2;
       targets.set(id, {
         position: { x: middle.x, z: middle.z + (i ? 1 : -1) * (PAIR_GAP / 2) },
         yaw,
       });
       center.push(id);
     });
-    if (outRole) {
-      for (const id of g.filter((d) => roleOf(state, d) === outRole)) {
-        const b = body(state, id);
-        if (Math.abs(b.position.x - middle.x) > SIDE)
-          throw new Error(`Dancer ${id} is not in the center to dance out.`);
+    for (const id of g.filter((d) => roleOf(state, d) !== inRole)) {
+      const b = body(state, id);
+      const inCenter = Math.abs(b.position.x - middle.x) <= SIDE;
+      if (outRole && !inCenter) throw new Error(`Dancer ${id} is not in the center to dance out.`);
+      if (inCenter) {
         // Back out to the side behind you, still facing in.
         const back = -Math.sign(forward(b.yaw).x) || 1;
         targets.set(id, {

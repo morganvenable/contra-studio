@@ -7,7 +7,7 @@
   {"move":"long-lines","beats":8,"params":{"back":true},"text":"long lines forward & back","section":"B1","row":5},
   {"move":"swing","beats":8,"params":{"who":"1s","end":"down"},"text":"ones swing","section":"B1","row":6},
   {"move":"hall","beats":8,"params":{"direction":"down"},"text":"down the hall ones in the middle","progression":true,"section":"B2","row":7},
-  {"move":"hall","beats":4,"params":{"direction":"up"},"text":"up the hall backward","section":"B2","row":8},
+  {"move":"hall","beats":4,"params":{"direction":"up","backward":true},"text":"up the hall backward","section":"B2","row":8},
   {"move":"hold","beats":4,"params":{"reason":"unparsed"},"text":"ones arch twos dive","section":"B2","row":9}
  ]
 }
