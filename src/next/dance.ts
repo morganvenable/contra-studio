@@ -26,8 +26,12 @@ import {
   DUPLE_MINOR_DOUBLE,
   DUPLE_MINOR_PROPER_DOUBLE,
   MINOR_SET_DOUBLE,
+  LINES_PROGRESSION,
   PLACES_PROGRESSION,
+  SICILIAN_PROGRESSION,
 } from './core/progression-more.ts';
+import { bendFrame } from './core/bend.ts';
+import { MIXER_PROGRESSION } from './core/formation-ring.ts';
 
 export interface StoredCall extends FigureCall {
   readonly section?: string;
@@ -105,6 +109,9 @@ const PROGRESSIONS: Readonly<Record<Progression['kind'], Progression>> = {
   'duple-minor-double': DUPLE_MINOR_DOUBLE,
   'duple-minor-proper-double': DUPLE_MINOR_PROPER_DOUBLE,
   places: PLACES_PROGRESSION,
+  sicilian: SICILIAN_PROGRESSION,
+  lines: LINES_PROGRESSION,
+  mixer: MIXER_PROGRESSION,
 };
 
 export function musicOf(stored: StoredDance): MusicStructure {
@@ -151,6 +158,7 @@ export function compileNext(
   const formation = FORMATIONS[built ? stored.formation! : 'improper'];
   // A fixed-size set (a triplet, a square) dances with its own couple count.
   couples = Math.min(formation.couples.max, Math.max(formation.couples.min, couples));
+  if (formation.fit) couples = formation.fit(couples);
   const calls: readonly FigureCall[] = built
     ? stored.figures
     : stored.figures.map((c) => ({
@@ -172,10 +180,11 @@ export function compileNext(
   const progression =
     built && stored.progression ? PROGRESSIONS[stored.progression] : NO_PROGRESSION;
   const notOk = stored.status !== 'ok' && stored.problems.length;
-  return compileFold({
+  const start = formation.start(couples);
+  const folded = compileFold({
     dance,
     calls,
-    start: formation.start(couples),
+    start,
     registry: FIGURES,
     progression,
     music: musicOf(stored),
@@ -187,4 +196,12 @@ export function compileNext(
       ...stored.choices.map((c) => `Choice: ${c}`),
     ],
   });
+  // A set with no ends is drawn bent round a circle; the check uses rawSample.
+  const layout = start.layout;
+  if (!layout?.period) return folded;
+  return {
+    ...folded,
+    period: layout.period,
+    sample: (beat: number) => bendFrame(folded.sample(beat), layout),
+  };
 }

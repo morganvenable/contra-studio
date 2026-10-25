@@ -30,7 +30,10 @@ export interface Progression {
     | 'minor-set-double'
     | 'duple-minor-double'
     | 'duple-minor-proper-double'
-    | 'places';
+    | 'places'
+    | 'sicilian'
+    | 'lines'
+    | 'mixer';
   rebind(state: DanceState): DanceState;
 }
 
@@ -120,7 +123,11 @@ export const DUPLE_MINOR_PROGRESSION: Progression = {
   rebind: (state) => dupleMinorRebind(state, true),
 };
 
-function dupleMinorRebind(state: DanceState, cross: boolean): DanceState {
+/**
+ * `columns`: couples meet only the couple in their own column (four face
+ * four stands as two duple minor sets side by side across the hall).
+ */
+export function dupleMinorRebind(state: DanceState, cross: boolean, columns = false): DanceState {
   {
     const couples = coupleSpots(state);
     const ones = new Set(state.positions.get('1s') ?? []);
@@ -144,6 +151,8 @@ function dupleMinorRebind(state: DanceState, cross: boolean): DanceState {
         if (isOnes(k)) return false;
         // Down the set is +z.
         const gap = couples.get(k)!.center.z - couples.get(c)!.center.z;
+        const across = couples.get(k)!.center.x - couples.get(c)!.center.x;
+        if (columns && Math.abs(across) > SET.halfWidth) return false;
         return Math.abs(gap - SET.slot) < MEET_TOLERANCE;
       });
     const neighbor = new Map<number, number>();

@@ -43,6 +43,8 @@ export function physicalCheck(
     totalBeats: number;
     rawSample(beat: number): Frame;
     figureStyling?(repeat: number, figureIndex: number): Styling | undefined;
+    /** Raw z repeats every `period` meters (a set with no ends). */
+    period?: number;
   },
   options: CheckOptions = {},
 ): PhysicalReport {
@@ -60,13 +62,20 @@ export function physicalCheck(
   let maximumReach = 0;
   const styled = new Map<string, StyledReport>();
   let previous: Frame | undefined;
+  const period = dance.period;
+  const apart = (a: Frame['poses'][number], b: Frame['poses'][number]) => {
+    if (!period) return distance(a.position, b.position);
+    let dz = a.position.z - b.position.z;
+    dz -= Math.round(dz / period) * period;
+    return Math.hypot(a.position.x - b.position.x, dz);
+  };
   for (let i = 0; i * step <= end - 1e-9; i++) {
     const beat = i * step;
     const frame = dance.rawSample(beat);
     const poses = frame.poses;
     for (let a = 0; a < poses.length; a++) {
       for (let b = a + 1; b < poses.length; b++) {
-        const d = distance(poses[a].position, poses[b].position);
+        const d = apart(poses[a], poses[b]);
         minimumClearance = Math.min(minimumClearance, d);
         if (d < limits.minimumClearance)
           note(beat, `dancers ${a} and ${b} are ${d.toFixed(2)} m apart`);
@@ -76,7 +85,7 @@ export function physicalCheck(
     let frameClearance = Infinity;
     for (let a = 0; a < poses.length; a++) {
       for (let b = a + 1; b < poses.length; b++) {
-        frameClearance = Math.min(frameClearance, distance(poses[a].position, poses[b].position));
+        frameClearance = Math.min(frameClearance, apart(poses[a], poses[b]));
       }
     }
     if (previous && frame.figureIndex === previous.figureIndex) {
@@ -107,7 +116,17 @@ export function physicalCheck(
     const bodies = new Map(poses.map((p) => [p.id, p]));
     for (const c of frame.contacts) {
       if (c.strength < 0.5) continue;
-      const r = contactReach(c, bodies);
+      let near = bodies;
+      if (period) {
+        // Across the seam of a set with no ends, take each body nearest the hands.
+        near = new Map(bodies);
+        for (const id of [c.a, c.b]) {
+          const p = bodies.get(id)!;
+          const k = Math.round((c.point.z - p.position.z) / period);
+          if (k) near.set(id, { ...p, position: { x: p.position.x, z: p.position.z + k * period } });
+        }
+      }
+      const r = contactReach(c, near);
       maximumReach = Math.max(maximumReach, r);
       if (r > limits.armReach + limits.reachFade) {
         note(beat, `${c.a}-${c.b} ${c.handA}/${c.handB} hand reach ${r.toFixed(2)} m`);

@@ -30,6 +30,7 @@ import type { Vec2 } from '../../types.ts';
 import type { Figure, FigureContact, FigureFrame, FigureResult, MovedBody } from './figure.ts';
 import { add, length, mean, polar, rotate, scale, sub } from './math.ts';
 import { SET } from './config.ts';
+import { complete } from './contacts.ts';
 import { body, type Body, type DanceState, type Hold, withChanges } from './state.ts';
 
 export interface Layout {
@@ -191,7 +192,7 @@ function runAll<P>(
       relations,
       layout: undefined,
     });
-    return { run, result: figure(local, params, beats) };
+    return { run: { ...run, local }, result: figure(local, params, beats) };
   });
   const motion = (beat: number): FigureFrame => {
     const bodies: MovedBody[] = [];
@@ -202,13 +203,13 @@ function runAll<P>(
         const w = toWorld(run.frame, b.id, b.position, b.yaw);
         bodies.push({ ...b, position: w.position, yaw: w.yaw });
       }
+      // Hand points are found where the dancers stand in this frame, then mapped back.
+      const near = new Map(run.local.bodies);
+      for (const b of frame.bodies) near.set(b.id, { position: b.position, yaw: b.yaw });
       for (const c of frame.contacts) {
-        if (!c.point) {
-          contacts.push(c);
-          continue;
-        }
-        const w = toWorld(run.frame, c.a, { x: c.point.x, z: c.point.z }, 0).position;
-        contacts.push({ ...c, point: { x: w.x, y: c.point.y, z: w.z } });
+        const point = complete(c, near).point;
+        const w = toWorld(run.frame, c.a, { x: point.x, z: point.z }, 0).position;
+        contacts.push({ ...c, point: { x: w.x, y: point.y, z: w.z } });
       }
     }
     return { bodies, contacts };
@@ -235,7 +236,7 @@ function runAll<P>(
 }
 
 /** Figures that, in a ring or square, dance the whole set at true positions. */
-const WHOLE = new Set<string>();
+const WHOLE = new Set<string>(['ring-circle', 'ring-promenade', 'forward-back', 'still']);
 
 /**
  * Let any figure run in any layout, and take `among`. In a plain contra set

@@ -9,6 +9,9 @@ import { butterflyWhirl } from './butterfly-whirl.ts';
 import { chain } from './chain.ts';
 import { circle } from './circle.ts';
 import { doSiDo } from './do-si-do.ts';
+import { forwardBack } from './forward-back.ts';
+import { ringCircle } from './ring-circle.ts';
+import { ringPromenade } from './ring-promenade.ts';
 import { giveAndTake } from './give-and-take.ts';
 import { gyre } from './gyre.ts';
 import { hall } from './hall.ts';
@@ -64,6 +67,9 @@ const BASE: FigureRegistry = {
   swing,
   'turn-alone': turnAlone,
   twirl,
+  'forward-back': forwardBack,
+  'ring-circle': ringCircle,
+  'ring-promenade': ringPromenade,
 };
 
 /** Every figure, each also able to run on a diagonal (core/diagonal.ts). */

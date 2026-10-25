@@ -24,9 +24,22 @@ export interface DancerModel {
   readonly rounds: readonly (readonly Vec2[])[];
   /** Expected partner of every dancer after each round, when partners change. */
   readonly partners?: readonly (readonly number[])[];
+  /** Positions along z repeat every `period` meters (a set with no ends). */
+  readonly period?: number;
 }
 
-export type RoundModel = CoupleZModel | DancerModel;
+/**
+ * Everyone ends each round on a place of their own role in the starting
+ * set (a mixer: who stands where changes, the places do not).
+ */
+export interface SlotsModel {
+  readonly kind: 'slots';
+  readonly rounds: number;
+  readonly larks: readonly Vec2[];
+  readonly robins: readonly Vec2[];
+}
+
+export type RoundModel = CoupleZModel | DancerModel | SlotsModel;
 
 /**
  * Who must meet over the rounds checked:
@@ -34,9 +47,10 @@ export type RoundModel = CoupleZModel | DancerModel;
  * - ones-twos: every 1s couple meets every 2s couple (a Sicilian circle,
  *   where couples keep their direction forever).
  * - all-partners: every lark dances with every robin as a partner (mixers).
+ * - all-lines: every line of four (couples 2k and 2k+1) meets every other.
  * - none: one fixed set (triplets, squares), nothing to meet.
  */
-export type MeetingRule = 'all-couples' | 'ones-twos' | 'all-partners' | 'none';
+export type MeetingRule = 'all-couples' | 'all-lines' | 'ones-twos' | 'all-partners' | 'none';
 
 export interface CheckSpec {
   /** Couple counts to compile and check at. */

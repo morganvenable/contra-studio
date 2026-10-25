@@ -10,12 +10,20 @@
  *   "2s", "3s" ... and "1st couple", "2nd couple" ... The figures carry the
  *   bodies (the 1s cast to the bottom, the others move up); relationships
  *   do not change.
+ * - sicilian: a set with no ends (layout.period). Each 1s couple meets the
+ *   2s couple one place further along +z, counted round the circle; the 1s
+ *   and 2s keep their numbers (and directions) forever.
+ * - lines: four face four. Lines of four meet the next line in their own
+ *   column; a line with no one to meet waits at its end, turns and changes
+ *   number (the duple minor rule, column by column).
  */
 import type { Vec2 } from '../../types.ts';
 import { mean } from './math.ts';
 import { ordinal } from './progression.ts';
 import { body, type DanceState, withChanges } from './state.ts';
+import { SET } from './config.ts';
 import {
+  dupleMinorRebind,
   DUPLE_MINOR_PROGRESSION,
   DUPLE_MINOR_PROPER_PROGRESSION,
   MINOR_SET_PROGRESSION,
@@ -66,4 +74,43 @@ export const PLACES_PROGRESSION: Progression = {
   kind: 'places',
   rebind: (state) =>
     withChanges(state, { positions: placeLabels(state), epoch: state.epoch + 1 }),
+};
+
+export const LINES_PROGRESSION: Progression = {
+  kind: 'lines',
+  rebind: (state) => dupleMinorRebind(state, true, true),
+};
+
+/** Distance from a to b along +z, round a circle of `period`, in [0, period). */
+export const ahead = (a: number, b: number, period: number) =>
+  (((b - a) % period) + period) % period;
+
+export const SICILIAN_PROGRESSION: Progression = {
+  kind: 'sicilian',
+  rebind(state) {
+    const period = state.layout?.period;
+    if (!period) throw new Error('A Sicilian circle needs a set with no ends.');
+    const ones = new Set(state.positions.get('1s') ?? []);
+    const couples = couplesByPlace(state);
+    const neighbor = new Map<number, number>();
+    const groups: number[][] = [];
+    const met = new Set<number>();
+    for (const c of couples.filter((k) => ones.has(k.lark))) {
+      const found = couples.filter(
+        (k) =>
+          !ones.has(k.lark) &&
+          Math.abs(ahead(c.center.z, k.center.z, period) - SET.slot) < 0.3 &&
+          Math.abs(k.center.x - c.center.x) < SET.halfWidth,
+      );
+      if (found.length !== 1)
+        throw new Error(`Couple ${c.lark / 2 + 1} does not face one couple of 2s ahead.`);
+      const k = found[0];
+      if (met.has(k.lark)) throw new Error(`Couple ${k.lark / 2 + 1} is met by two couples.`);
+      met.add(k.lark);
+      neighbor.set(c.lark, k.robin).set(k.robin, c.lark).set(c.robin, k.lark).set(k.lark, c.robin);
+      groups.push([c.lark, c.robin, k.lark, k.robin]);
+    }
+    const relations = new Map(state.relations).set('neighbor', neighbor);
+    return withChanges(state, { relations, groups, epoch: state.epoch + 1 });
+  },
 };

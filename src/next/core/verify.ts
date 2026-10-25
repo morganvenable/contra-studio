@@ -98,6 +98,20 @@ function modelProblem(
   couples: number,
 ): string | undefined {
   if (!model) return undefined;
+  if (model.kind === 'slots') {
+    for (let r = 1; r <= model.rounds; r++) {
+      const frame = dance.rawSample(r * dance.totalBeats);
+      for (const pose of frame.poses) {
+        const slots = dance.dancers[pose.id].role === 'lark' ? model.larks : model.robins;
+        const near = slots.some(
+          (s) => Math.hypot(pose.position.x - s.x, pose.position.z - s.z) < 0.05,
+        );
+        if (!near)
+          return `${couples} couples: dancer ${pose.id} after round ${r} is not on a place of the starting ring`;
+      }
+    }
+    return undefined;
+  }
   for (let r = 1; r <= model.rounds.length; r++) {
     const expected = model.rounds[r - 1];
     if (model.kind === 'couple-z') {
@@ -112,7 +126,9 @@ function modelProblem(
     const frame = dance.rawSample(r * dance.totalBeats);
     for (const pose of frame.poses) {
       const want = expected[pose.id] as Vec2;
-      const off = Math.hypot(pose.position.x - want.x, pose.position.z - want.z);
+      let dz = pose.position.z - want.z;
+      if (model.period) dz -= Math.round(dz / model.period) * model.period;
+      const off = Math.hypot(pose.position.x - want.x, dz);
       if (off > 0.05)
         return `${couples} couples: dancer ${pose.id} after round ${r} is ${off.toFixed(2)} m from where the progression puts them`;
     }
@@ -150,12 +166,14 @@ function meetingProblem(dance: FoldedDance, rule: MeetingRule, couples: number) 
     const end = dance.round(r).end;
     for (const id of end.positions.get('1s') ?? []) if (r === 0) ones.add(Math.floor(id / 2));
     for (const g of end.groups) {
-      const cs = [...new Set(g.map((id) => Math.floor(id / 2)))].sort((a, b) => a - b);
+      const unit = rule === 'all-lines' ? 4 : 2;
+      const cs = [...new Set(g.map((id) => Math.floor(id / unit)))].sort((a, b) => a - b);
       met.add(cs.join('-'));
     }
   }
+  const units = rule === 'all-lines' ? couples / 2 : couples;
   const pairs =
-    rule === 'ones-twos' ? ones.size * (couples - ones.size) : (couples * (couples - 1)) / 2;
+    rule === 'ones-twos' ? ones.size * (couples - ones.size) : (units * (units - 1)) / 2;
   return met.size === pairs
     ? undefined
     : `${couples} couples: only ${met.size} of ${pairs} pairs of couples meet`;

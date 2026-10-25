@@ -11,6 +11,7 @@ import type { Progression } from './core/progression.ts';
 import { canonicalText } from './core/roles.ts';
 import { contraDbRows, decodeEntities, parseRow } from './core/parse.ts';
 import type { StoredCall, StoredDance, UnparsedRow } from './dance.ts';
+import { FORMATIONS } from './core/formation.ts';
 
 export interface ContraDbSnapshot {
   readonly sourceUrl: string;
@@ -126,6 +127,14 @@ export const FORMATION_TEXT: Readonly<Record<string, Shape>> = {
   'longways sets, 4-6 couples': { formation: 'longways-set', progression: 'places' },
   'longways set, no h4': { formation: 'longways-set', progression: 'places' },
   'four couple longways set': { formation: 'longways-set', progression: 'places' },
+  // Sets with no ends and lines of four.
+  'sicilian circle': { formation: 'sicilian', progression: 'sicilian' },
+  'four face four': { formation: 'four-face-four', progression: 'lines' },
+  'four facing four': { formation: 'four-face-four', progression: 'lines' },
+  // One big ring.
+  'circle mixer': { formation: 'circle-mixer', progression: 'mixer' },
+  mixer: { formation: 'circle-mixer', progression: 'mixer' },
+  circle: { formation: 'circle', progression: 'mixer' },
 };
 
 export function shapeOf(formation: string): Shape | undefined {
@@ -300,6 +309,12 @@ export function importDance(id: string, snapshot: ContraDbSnapshot, sha256: stri
         });
     }
   });
+  // Calls that mean another move in this formation ("long lines" facing along the hall).
+  const moves = shape ? FORMATIONS[shape.formation]?.moves : undefined;
+  if (moves)
+    figures.forEach((c, i) => {
+      if (moves[c.move]) figures[i] = { ...c, move: moves[c.move] };
+    });
   const choices = CHOICES.filter(([test]) => figures.some(test)).map(([, t]) => t);
   return {
     schema: 'contra-studio/next-dance',
