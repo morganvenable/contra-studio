@@ -79,7 +79,8 @@ export const centerWave: Figure<CenterWaveParams> = (state, params, beats) => {
     const comers = g
       .filter((id) => roleOf(state, id) === inRole)
       .sort((a, b) => body(state, a).position.z - body(state, b).position.z);
-    if (comers.length !== 2) throw new Error(`A long wave needs two ${params.in} in each minor set.`);
+    if (comers.length !== 2)
+      throw new Error(`A long wave needs two ${params.in} in each minor set.`);
     comers.forEach((id, i) => {
       const b = body(state, id);
       const off = b.position.x - middle.x;

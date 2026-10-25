@@ -37,6 +37,7 @@ import { couplesDoSiDo } from './couples-do-si-do.ts';
 import { orbit } from './orbit.ts';
 import { standStill } from './stand-still.ts';
 import { twoHandTurn } from './two-hand-turn.ts';
+import { coupleTravel } from './couple-travel.ts';
 import { walkForward } from './walk-forward.ts';
 
 const BASE: FigureRegistry = {
@@ -76,6 +77,7 @@ const BASE: FigureRegistry = {
   'stand-still': standStill,
   'two-hand-turn': twoHandTurn,
   'walk-forward': walkForward,
+  'couple-travel': coupleTravel,
 };
 
 /**

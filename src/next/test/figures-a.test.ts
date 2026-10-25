@@ -68,7 +68,10 @@ test('shadows allemande: the 2s of one minor set turn the 1s below them', () => 
 
 test('orbit: larks allemande left once while the robins orbit clockwise ½', () => {
   const start = IMPROPER.start(2);
-  const [c] = row('gentlespoons allemande left once around while the ladles orbit clockwise ½ around', 8);
+  const [c] = row(
+    'gentlespoons allemande left once around while the ladles orbit clockwise ½ around',
+    8,
+  );
   assert.equal(c.move, 'orbit');
   const end = run(start, c);
   near(body(end, 0).position, body(start, 0).position, 'lark 1 home');
@@ -96,7 +99,8 @@ test('long wave in the center: robins dance in, then trade with the larks', () =
   );
   const s2 = run(s1, swap);
   for (const id of [0, 2, 4, 6]) assert.ok(Math.abs(body(s2, id).position.x) < 1e-6);
-  for (const id of [1, 3, 5, 7]) assert.ok(Math.abs(Math.abs(body(s2, id).position.x) - 0.9) < 1e-6);
+  for (const id of [1, 3, 5, 7])
+    assert.ok(Math.abs(Math.abs(body(s2, id).position.x) - 0.9) < 1e-6);
   assert.ok(
     s2.hands.some((h) => [h.a, h.b].sort().join() === '0,2' && h.handA === 'left'),
     'the larks hold left hands, ready to allemande left',
@@ -130,7 +134,9 @@ test('couples do-si-do: home after once, in the other couple’s place after 1½
 });
 
 test('stand still keeps everyone and every hand where it is', () => {
-  const start = fold(IMPROPER.start(2), [row('ladles dance in to a long wave in the center', 4)[0]]);
+  const start = fold(IMPROPER.start(2), [
+    row('ladles dance in to a long wave in the center', 4)[0],
+  ]);
   const end = run(start, row('stand still', 8)[0]);
   assert.deepEqual([...end.bodies], [...start.bodies]);
   assert.deepEqual(end.hands, start.hands);
@@ -179,14 +185,19 @@ test('trailing notes come off; notes naming a figure stay', () => {
 
 test('walk forward out of an ocean wave arrives in the next wave', () => {
   const start = IMPROPER.start(4);
-  const [wave] = row('form an ocean wave & balance - ladles by left hands and neighbors by right hands', 4);
+  const [wave] = row(
+    'form an ocean wave & balance - ladles by left hands and neighbors by right hands',
+    4,
+  );
   const inWave = run(start, wave);
   const end = run(inWave, row('walk forward to next neighbors', 4)[0]);
   // The 1s walk down a place, the 2s up a place.
   near(body(end, 4).position, { ...body(inWave, 4).position, z: body(inWave, 4).position.z + 1.8 });
   near(body(end, 2).position, { ...body(inWave, 2).position, z: body(inWave, 2).position.z - 1.8 });
   // The 1s of the top minor set meet the 2s of the next one, side by side, hands joined.
-  assert.ok(end.hands.some((h) => [h.a, h.b].includes(0) && [h.a, h.b].some((id) => id === 6 || id === 7)));
+  assert.ok(
+    end.hands.some((h) => [h.a, h.b].includes(0) && [h.a, h.b].some((id) => id === 6 || id === 7)),
+  );
 });
 
 test('do si do 1¼ ends side by side, facing as they started, a wave gap apart', () => {
@@ -195,4 +206,24 @@ test('do si do 1¼ ends side by side, facing as they started, a wave gap apart',
   const end = run(start, c);
   for (const id of [0, 3]) facing(body(end, id).yaw, body(start, id).yaw);
   assert.ok(Math.abs(distance(body(end, 0).position, body(end, 3).position) - 0.9) < 1e-6);
+});
+
+test('ones down the center and turn alone, then up the center', () => {
+  const start = IMPROPER.start(4);
+  const down = run(start, row('ones down the center and turn alone', 8)[0]);
+  for (const id of [0, 1, 4, 5]) {
+    assert.ok(Math.abs(Math.abs(body(down, id).position.x) - 0.3) < 1e-6, `${id} in the center`);
+    near(body(down, id).position, { x: body(down, id).position.x, z: body(start, id).position.z + 1.8 });
+    facing(body(down, id).yaw, Math.PI, `${id} faces up after turning alone`);
+  }
+  for (const id of [2, 3, 6, 7]) near(body(down, id).position, body(start, id).position);
+  const up = run(down, row('ones up the center', 8)[0]);
+  for (const id of [0, 1, 4, 5])
+    assert.ok(Math.abs(body(up, id).position.z - body(start, id).position.z) < 1e-6, `${id} back level`);
+});
+
+test('ones down the outsides and turn alone stay outside the side lines', () => {
+  const start = IMPROPER.start(4);
+  const down = run(start, row('ones down the outsides and turn alone', 8)[0]);
+  for (const id of [0, 1, 4, 5]) assert.ok(Math.abs(body(down, id).position.x) > 1.4);
 });

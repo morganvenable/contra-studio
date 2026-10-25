@@ -31,6 +31,7 @@ import { SET } from '../core/config.ts';
 import { PAIR_NAMES, type PairName } from '../core/relations.ts';
 import {
   add,
+  forward,
   leftOf,
   length,
   mean,
@@ -146,7 +147,8 @@ function planPair(
   if (end === 'across') {
     const larkAcross = start.get(lark)!.position.x - middle.x;
     // The pair's side. One dancer in the very middle and the other out on a
-    // side line (as after an allemande in the center) swing on that side.
+    // side line (as after an allemande in the center) swing on that side;
+    // both in a wave down the middle of the set, on the side the lark faces.
     const robinAcross = start.get(robin)!.position.x - middle.x;
     const centered = (v: number) => Math.abs(v) < CENTERED;
     const from =
@@ -156,7 +158,11 @@ function planPair(
           ? robinAcross
           : centered(robinAcross) && Math.abs(larkAcross) >= SIDE_MARGIN
             ? larkAcross
-            : larkAcross;
+            : centered(larkAcross) && centered(robinAcross)
+              ? // Both on the center line (a wave down the middle): the side
+                // the lark faces.
+                Math.sign(forward(start.get(lark)!.yaw).x) * SET.halfWidth
+              : larkAcross;
     if (Math.abs(from) < SIDE_MARGIN)
       throw new Error('A swing that ends facing across must start nearer one side.');
     const side = Math.sign(from);

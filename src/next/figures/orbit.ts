@@ -56,15 +56,7 @@ const FACE = 0.2;
 const MIN_RADIUS = 1;
 
 export const orbit: Figure<OrbitParams> = (state, params, beats) => {
-  onlyKeys('orbit', params, [
-    'center',
-    'who',
-    'hand',
-    'amount',
-    'shoulder',
-    'direction',
-    'around',
-  ]);
+  onlyKeys('orbit', params, ['center', 'who', 'hand', 'amount', 'shoulder', 'direction', 'around']);
   const center = oneOf('orbit', 'center', params.center, ['allemande', 'do-si-do'] as const);
   const who = oneOf('orbit', 'who', params.who, PAIR_NAMES);
   const direction = oneOf('orbit', 'direction', params.direction, [
@@ -75,11 +67,7 @@ export const orbit: Figure<OrbitParams> = (state, params, beats) => {
   if (!(around > 0 && around <= 2)) throw new Error('An orbit goes between 0 and 2 times around.');
   const inner =
     center === 'allemande'
-      ? allemande(
-          state,
-          { who, hand: params.hand ?? 'right', amount: params.amount },
-          beats,
-        )
+      ? allemande(state, { who, hand: params.hand ?? 'right', amount: params.amount }, beats)
       : doSiDo(state, { who, amount: params.amount, shoulder: params.shoulder ?? 'right' }, beats);
   // Clockwise from above is a positive rotation (core/math.ts).
   const sweep = (direction === 'clockwise' ? 1 : -1) * around * TAU;

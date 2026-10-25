@@ -121,10 +121,7 @@ export function morePatterns(h: ParseHelpers): readonly (readonly [RegExp, Build
       /^balance (?:the )?(?:ocean )?wave(?: of (?:4|four))? (?:fwd|forward)(?: (?:&|and) back)?$/,
       (_m, b) => [call('balance', b, { formation: 'wave', style: 'forward-back' })],
     ],
-    [
-      /^long lines back$/,
-      (_m, b) => [call('long-lines', b, { back: true, only: 'back' })],
-    ],
+    [/^long lines back$/, (_m, b) => [call('long-lines', b, { back: true, only: 'back' })]],
     [
       /^forward (?:&|and) back with current neighbors$/,
       (_m, b) => [call('long-lines', b, { back: true })],
@@ -135,6 +132,17 @@ export function morePatterns(h: ParseHelpers): readonly (readonly [RegExp, Build
       (m, b) => [
         call('allemande', b / 2, { who: who(m[1]), hand: m[2], amount: 0.5 }),
         call('pass-by', b / 2, { who: roleOf(who(m[3])), shoulder: m[4], hands: false }),
+      ],
+    ],
+    [
+      /^(ones|twos|1s|2s) (down|up) the (center|outsides?)(?: and turn (alone|as a couple))?$/,
+      (m, b) => [
+        call('couple-travel', b, {
+          who: who(m[1]),
+          route: m[3] === 'center' ? 'center' : 'outside',
+          direction: m[2],
+          ...(m[4] ? { turn: m[4] === 'alone' ? 'alone' : 'couple' } : {}),
+        }),
       ],
     ],
     [/^(down|up) the hall$/, (m, b) => [call('hall', b, { direction: m[1] })]],
@@ -151,18 +159,12 @@ export function morePatterns(h: ParseHelpers): readonly (readonly [RegExp, Build
         call('slide', 2, { direction: 'left' }),
       ],
     ],
-    [
-      /^up the hall backward$/,
-      (_m, b) => [call('hall', b, { direction: 'up', backward: true })],
-    ],
+    [/^up the hall backward$/, (_m, b) => [call('hall', b, { direction: 'up', backward: true })]],
     [
       /^down the hall and bend into a ring$/,
       (_m, b) => [call('hall', b, { direction: 'down', end: 'ring' })],
     ],
-    [
-      /^(\w+) turn alone$/,
-      (m, b) => [call('turn-alone', b, { who: roleOf(who(m[1])) })],
-    ],
+    [/^(\w+) turn alone$/, (m, b) => [call('turn-alone', b, { who: roleOf(who(m[1])) })]],
     [
       /^(\w+) turn alone over their (right|left) shoulders?$/,
       (m, b) => [call('turn-alone', b, { who: roleOf(who(m[1])), over: m[2] })],
@@ -217,23 +219,41 @@ const MORE_TIDY: readonly (readonly [RegExp, string])[] = [
   [/^long lines go back$/, 'long lines back'],
   [/^balance (?:right|left),? (?:(?:&|and|then) )?(?:right|left)$/, 'balance'],
   [/^balance (?:the )?long waves?$/, 'balance'],
-  [/^balance (?:the )?wave,? -? ?(right|left),? (?:&|and|then) (?:left|right)$/, 'balance the wave $1'],
+  [
+    /^balance (?:the )?wave,? -? ?(right|left),? (?:&|and|then) (?:left|right)$/,
+    'balance the wave $1',
+  ],
   [/^(\w+) balance (?:right|left),? (?:then|and|&) (?:right|left)$/, '$1 balance'],
   [/^(\w+) balance by (?:the )?(right|left) hands?$/, '$1 $2 hand balance'],
-  [/^as (?:a )?couples?,? (?:\w+ )?do si do(?: with \w+ couples?)?$/, 'neighbors do si do once as couples'],
+  [
+    /^as (?:a )?couples?,? (?:\w+ )?do si do(?: with \w+ couples?)?$/,
+    'neighbors do si do once as couples',
+  ],
   [/(\bswing),? end in a line$/, '$1'],
   [/(\bmeltdown swing) rsr then swing$/, '$1'],
   // Picking up a partner for the star promenade that follows is part of it.
-  [/\s+to pick ?up (?:your )?partners?(?: (?:for|to form) (?:a )?(?:left hand )?star promenade)?$/, ''],
+  [
+    /\s+to pick ?up (?:your )?partners?(?: (?:for|to form) (?:a )?(?:left hand )?star promenade)?$/,
+    '',
+  ],
   // A ring balance and a one-place twirl to the right is a petronella.
-  [/^balance the ring,? (?:and )?twirl (?:right )?one pla?l?ace (?:to the right|in circle)$/, 'balance & petronella'],
+  [
+    /^balance the ring,? (?:and )?twirl (?:right )?one pla?l?ace (?:to the right|in circle)$/,
+    'balance & petronella',
+  ],
   [/^balance (?:the )?(?:ring )?diamond$/, 'balance the ring'],
-  [/^balance (?:the )?star$|^balance (?:in a |the )?clover(?:leaf)?$|^balance forward and back$/, 'balance'],
+  [
+    /^balance (?:the )?star$|^balance (?:in a |the )?clover(?:leaf)?$|^balance forward and back$/,
+    'balance',
+  ],
   [/^balance short waves$/, 'balance the wave'],
   [/^balance short waves forward\/back$/, 'balance the wave forward'],
   [/^(\w+ (?:right |left )?hand balance (?:&|and) (?:box the gnat|swat the flea)) across$/, '$1'],
   [/^(form long waves - \w+ face in, \w+ face out)[,.].*$/, '$1'],
-  [/^(\w+ (?:balance (?:&|and) )?swing) \(?slide left( to (?:progress|new neighbors))?\)?$/, '$1, slide left$2'],
+  [
+    /^(\w+ (?:balance (?:&|and) )?swing) \(?slide left( to (?:progress|new neighbors))?\)?$/,
+    '$1, slide left$2',
+  ],
   [/^balance (?:the )?wave - (right|left) then (?:left|right)$/, 'balance the wave $1'],
   [/^balance (?:the )?wave (left|right) (?:&|and) (?:left|right)$/, 'balance the wave $1'],
   // "Ones in the center" says who ends in the middle of the line; geometry decides it.

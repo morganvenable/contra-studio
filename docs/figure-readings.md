@@ -39,3 +39,5 @@ reading below. One line each; change any of them and the figure follows.
 - "Larks turn alone" (one role named): only that role turns, toward their partner. A zero-beat "turn alone" after a short figure takes the first 2 beats of the next figure of 6 beats or more.
 - "Balance the ring" with a trailing note that names no other figure ("[current neighbors]", "with partner") is a ring balance; "balance left, then right" with a pair is a pair balance.
 - "As couples do si do" with no amount is once around.
+- Ones down the center: the couple walks one place down between the other couple, 0.6 m apart with inside hands; down the outsides runs 0.6 m outside the side lines; up the center/outsides walks one place back up.
+- Partners swinging out of a wave down the middle of the set (both on the center line) end on the side the lark faces.

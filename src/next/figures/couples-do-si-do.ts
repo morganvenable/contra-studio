@@ -72,7 +72,10 @@ export const couplesDoSiDo: Figure<CouplesDoSiDoParams> = (state, params, beats)
     const gap = sub(b.center, a.center);
     const half = length(gap) / 2;
     if (half < 0.5 || half > 1.6) throw new Error('The couples are too far apart to do-si-do.');
-    if (dot(forward(a.yaw), gap) < 0.5 * length(gap) || dot(forward(b.yaw), gap) > -0.5 * length(gap))
+    if (
+      dot(forward(a.yaw), gap) < 0.5 * length(gap) ||
+      dot(forward(b.yaw), gap) > -0.5 * length(gap)
+    )
       throw new Error('The couples must face each other to do-si-do.');
     const middle = mean([a.center, b.center]);
     return units.flatMap((u) => {

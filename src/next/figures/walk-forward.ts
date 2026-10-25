@@ -40,7 +40,9 @@ export const walkForward: Figure<Record<string, never>> = (state, params, beats)
     }
     return { id, from, to };
   });
-  const ends = new Map<number, Body>(movers.map((m) => [m.id, { position: m.to, yaw: m.from.yaw }]));
+  const ends = new Map<number, Body>(
+    movers.map((m) => [m.id, { position: m.to, yaw: m.from.yaw }]),
+  );
   const holds: Hold[] = [];
   for (const a of movers)
     for (const b of movers) {
