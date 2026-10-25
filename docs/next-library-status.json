@@ -4,18 +4,18 @@
  "catalogue": 2422,
  "stored": 2422,
  "counts": {
-  "ok": 308,
-  "check": 91,
-  "partial": 1741,
+  "ok": 309,
+  "check": 93,
+  "partial": 1738,
   "unsupported": 282
  },
  "formations": [
   {
    "formation": "improper",
    "dances": 1189,
-   "ok": 275,
-   "check": 55,
-   "partial": 859,
+   "ok": 276,
+   "check": 57,
+   "partial": 856,
    "unsupported": 0
   },
   {
@@ -1099,7 +1099,7 @@
   "missingFigures": [
    {
     "name": "allemande variant",
-    "unlocks": 70,
+    "unlocks": 71,
     "uses": 317
    },
    {
@@ -1124,7 +1124,7 @@
    },
    {
     "name": "hey (other)",
-    "unlocks": 26,
+    "unlocks": 27,
     "uses": 113
    },
    {
@@ -1138,6 +1138,11 @@
     "uses": 91
    },
    {
+    "name": "turn alone / as a couple",
+    "unlocks": 19,
+    "uses": 115
+   },
+   {
     "name": "down/up the hall",
     "unlocks": 19,
     "uses": 111
@@ -1146,11 +1151,6 @@
     "name": "promenade",
     "unlocks": 19,
     "uses": 88
-   },
-   {
-    "name": "turn alone / as a couple",
-    "unlocks": 18,
-    "uses": 115
    },
    {
     "name": "diagonal chain / right left through",
@@ -1173,14 +1173,14 @@
     "uses": 57
    },
    {
+    "name": "petronella",
+    "unlocks": 15,
+    "uses": 52
+   },
+   {
     "name": "balance variant",
     "unlocks": 14,
     "uses": 127
-   },
-   {
-    "name": "petronella",
-    "unlocks": 14,
-    "uses": 52
    },
    {
     "name": "pull by / pass by",
@@ -1216,11 +1216,6 @@
     "name": "into the middle / forward & back",
     "unlocks": 6,
     "uses": 50
-   },
-   {
-    "name": "contra corners",
-    "unlocks": 6,
-    "uses": 33
    },
    {
     "name": "zig zag",
@@ -1596,6 +1591,11 @@
     "name": "other: starburst ccw 1 swap with n3",
     "unlocks": 0,
     "uses": 1
+   },
+   {
+    "name": "contra corners",
+    "unlocks": 0,
+    "uses": 11
    },
    {
     "name": "other: pass through across the set larks pass left in center",
@@ -2863,7 +2863,7 @@
    },
    {
     "name": "do-si-do variant",
-    "unlocks": 13
+    "unlocks": 14
    },
    {
     "name": "circle variant",
@@ -2886,11 +2886,11 @@
     "unlocks": 9
    },
    {
-    "name": "other: pass through",
-    "unlocks": 7
+    "name": "swing variant",
+    "unlocks": 8
    },
    {
-    "name": "swing variant",
+    "name": "other: pass through",
     "unlocks": 7
    },
    {
@@ -2934,6 +2934,10 @@
     "unlocks": 2
    },
    {
+    "name": "gyre",
+    "unlocks": 2
+   },
+   {
     "name": "gate",
     "unlocks": 1
    },
@@ -2954,10 +2958,6 @@
     "unlocks": 1
    },
    {
-    "name": "gyre",
-    "unlocks": 1
-   },
-   {
     "name": "slice",
     "unlocks": 1
    },
@@ -2973,7 +2973,7 @@
   "checkFailures": [
    {
     "name": "Couples don't end the round where the progression puts them",
-    "unlocks": 22
+    "unlocks": 24
    },
    {
     "name": "pull by / pass by",

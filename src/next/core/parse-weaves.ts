@@ -144,6 +144,18 @@ function heyRest(rest: string) {
 
 export const WEAVE_PATTERNS: readonly (readonly [RegExp, Build])[] = [
   [
+    // "ones contra corners", "twos contra corners (opposite role - first
+    // corners then second corners)".
+    /^(\w+) contra corners(.*)$/,
+    (m, b) => {
+      notes(
+        m[2].replace(/^\s*-?\s*opposite role - first corners then second corners/, ''),
+        'contra corners',
+      );
+      return [call('contra-corners', b, { who: who(m[1]) })];
+    },
+  ],
+  [
     // "larks gate neighbors to face into the set", "twos gate ones to face down the set".
     /^(\w+) gate ((?:next |new )?\w+) to face (into the set|in|down|up)(?: the set| the hall)?(.*)$/,
     (m, b) => {

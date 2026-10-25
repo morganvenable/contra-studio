@@ -36,6 +36,7 @@ import { archDive } from './arch-dive.ts';
 import { figureEight } from './figure-eight.ts';
 import { zigZag } from './zig-zag.ts';
 import { gate } from './gate.ts';
+import { contraCorners } from './contra-corners.ts';
 
 const BASE: FigureRegistry = {
   allemande,
@@ -73,6 +74,7 @@ const BASE: FigureRegistry = {
   'figure-eight': figureEight,
   'zig-zag': zigZag,
   gate,
+  'contra-corners': contraCorners,
 };
 
 /** Every figure, each also able to run on a diagonal (core/diagonal.ts). */

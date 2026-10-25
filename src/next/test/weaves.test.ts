@@ -455,3 +455,23 @@ test('Becket progression with partners across the set, after a zig zag', () => {
   const g = next.groups[0];
   assert.ok(!s.groups.some((old) => g.every((id) => old.includes(id))));
 });
+
+test('ones contra corners: the 1s turn each other and two corners each, reaching the next minor set', () => {
+  const s = improper([call('figure-eight', 8, { who: '1s', around: 'below' })], 6);
+  const [c] = parseRow({ beats: 16, text: 'ones contra corners' });
+  assert.deepEqual(c.params, { who: '1s' });
+  const r = FIGURES['contra-corners'](s, c.params, 16);
+  withinLimits(r, 16, 'contra corners');
+  const ones = s.positions.get('1s')!;
+  // Corners come back to their places; someone outside each 1s' minor set moves.
+  const moved = s.dancers.filter((d) => {
+    const a = body(s, d.id).position;
+    return [4, 8, 12].some((t) => {
+      const b = r.motion(t).bodies.find((x) => x.id === d.id)?.position;
+      return b && Math.hypot(a.x - b.x, a.z - b.z) > 0.3;
+    });
+  });
+  assert.ok(moved.some((d) => !ones.includes(d.id)), 'corners turn too');
+  for (const d of s.dancers)
+    if (!ones.includes(d.id)) near(r.exit.bodies.get(d.id)!.position, body(s, d.id).position);
+});
