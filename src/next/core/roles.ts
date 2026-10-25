@@ -44,6 +44,10 @@ export const ALIASES: Readonly<Record<string, string>> = {
   prev_neighbor: 'previous-neighbor',
   same_roles: 'same-role',
   same_role: 'same-role',
+  first_corners: 'first-corner',
+  first_corner: 'first-corner',
+  second_corners: 'second-corner',
+  second_corner: 'second-corner',
 };
 
 /** Canonical name for a source word, or undefined. */

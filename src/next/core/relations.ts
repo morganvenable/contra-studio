@@ -24,6 +24,7 @@
 import type { Figure } from './figure.ts';
 import { distance } from './math.ts';
 import { regroupAcross } from './cross-group.ts';
+import { cornerPairs } from './corners.ts';
 import {
   activeIds,
   body,
@@ -38,7 +39,15 @@ import {
 export const SHADOW_REACH = 2.7;
 
 /** Relationship names this module computes from where dancers stand. */
-export const COMPUTED_RELATIONS = ['shadow', 'same-role', 'next-neighbor'] as const;
+export const COMPUTED_RELATIONS = [
+  'shadow',
+  'same-role',
+  'first-corner',
+  'second-corner',
+  'next-neighbor',
+  'first-corner',
+  'second-corner',
+] as const;
 /** Relationship names that regroup the set for the figure's duration. */
 export const REGROUPING = new Set<string>([...COMPUTED_RELATIONS, 'previous-neighbor']);
 
@@ -132,6 +141,9 @@ export function relationPairs(state: DanceState, who: string): [number, number][
   switch (who) {
     case 'shadow':
       return shadowPairs(state);
+    case 'first-corner':
+    case 'second-corner':
+      return cornerPairs(state, who);
     case 'same-role':
       return sameRolePairs(state);
     case 'next-neighbor':
