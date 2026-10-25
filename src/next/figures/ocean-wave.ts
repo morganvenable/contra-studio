@@ -44,14 +44,7 @@ import {
 } from '../core/math.ts';
 import { roleOfGroup } from '../core/roles.ts';
 import { relationMap } from '../core/relations.ts';
-import {
-  body,
-  minorSets,
-  roleOf,
-  withChanges,
-  type Body,
-  type Hold,
-} from '../core/state.ts';
+import { body, minorSets, roleOf, withChanges, type Body, type Hold } from '../core/state.ts';
 
 export interface OceanWaveParams {
   /** Who stands in the middle of the wave. */
@@ -68,6 +61,8 @@ export interface OceanWaveParams {
 
 /** Gap between hands-joined dancers in the wave. */
 export const WAVE_GAP = 0.9;
+/** Average walking pace while forming a wave in a short row (m per beat). */
+const FORM_PACE = 0.8;
 const STEP = 0.1;
 const STEPS = [0, 1, 0, -1, 0];
 
@@ -93,7 +88,10 @@ export const oceanWave: Figure<OceanWaveParams> = (state, params, beats) => {
   if (middleHand === endHand)
     throw new Error('An ocean wave joins different hands in the middle and on the ends.');
   const role: Role = roleOfGroup(middle)!;
-  const formBeats = params.balance ? (beats >= 8 ? beats - 4 : beats / 2) : beats;
+  // Forming takes the beats before a 4-beat balance; in a short row, as
+  // much of the row as the walk needs (at least half), leaving the balance
+  // at least a beat.
+  let formBeats = params.balance ? (beats >= 8 ? beats - 4 : beats / 2) : beats;
   if (formBeats < 1) throw new Error('An ocean wave needs a beat to form.');
 
   const outside = ends === 'shadow' || ends === 'previous-neighbor';
@@ -171,6 +169,15 @@ export const oceanWave: Figure<OceanWaveParams> = (state, params, beats) => {
   });
 
   const start = new Map(plans.flatMap((p) => p.ids.map((id) => [id, body(state, id)] as const)));
+  if (params.balance && beats < 8) {
+    const walk = Math.max(
+      0,
+      ...plans.flatMap((p) =>
+        p.ids.map((id) => length(sub(p.target.get(id)!.position, start.get(id)!.position))),
+      ),
+    );
+    formBeats = Math.min(beats - 1, Math.max(formBeats, walk / FORM_PACE));
+  }
   const motion = (beat: number) => {
     const t = Math.min(1, beat / formBeats);
     const q = progress(t);
