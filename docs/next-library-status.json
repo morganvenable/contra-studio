@@ -4,8 +4,8 @@
  "catalogue": 2422,
  "stored": 2422,
  "counts": {
-  "ok": 707,
-  "check": 446,
+  "ok": 708,
+  "check": 445,
   "partial": 1269,
   "unsupported": 0
  },
@@ -13,8 +13,8 @@
   {
    "formation": "improper",
    "dances": 1189,
-   "ok": 524,
-   "check": 141,
+   "ok": 525,
+   "check": 140,
    "partial": 524,
    "unsupported": 0
   },
@@ -3055,15 +3055,15 @@
   "checkFailures": [
    {
     "name": "Couples don't end the round where the progression puts them.",
-    "unlocks": 200
-   },
-   {
-    "name": "allemande variant",
-    "unlocks": 32
+    "unlocks": 204
    },
    {
     "name": "ocean wave / long wave",
     "unlocks": 28
+   },
+   {
+    "name": "allemande variant",
+    "unlocks": 27
    },
    {
     "name": "swing variant",

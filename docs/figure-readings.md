@@ -418,3 +418,4 @@ line each, for review.
   - "Robins roll away partners on the diagonal / diagonally so larks trade places": a roll away with a half sashay.
   - Star notes ("larks dorp out at home", "7/8 til larks face next larks", "and walk along the set to find the next couple", "larks face up & down, robins on sides"): the plain star. "Right hands across 3 places, finish in long waves": a hands-across star right, 3 places.
   - "Walk forward to new short/ocean waves and 1/4 more", "all walk forward, on very slight right diagonal": walk forward.
+- A half allemande in two beats or less between dancers standing well apart takes the shorter path: it turns closer in (0.27 m from the hands, the pair 0.54 m apart) at an even pace with short ramps, so no one walks faster than a walk.

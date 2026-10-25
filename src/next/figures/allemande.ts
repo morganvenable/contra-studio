@@ -78,6 +78,9 @@ const WAVE_GAP = 2 * HOLD_RADIUS;
 const TIGHT_RADIUS = 0.38;
 /** Closing in takes this much of a turn (or the first share of a short one). */
 const GATHER_TURNS = 0.3;
+/** A quick half turn's radius (dancers 0.54 m apart) and speed ramps. */
+const QUICK_RADIUS = 0.27;
+const QUICK_RAMP = 0.1;
 /** Fastest rate (radians per beat) for turning to face the way round. */
 const TURN_RATE = 2;
 /** Samples along the path for walking it at a steady pace. */
@@ -162,7 +165,15 @@ export const allemande: Figure<AllemandeParams> = (state, params, beats) => {
   // with no wave to form, let go and step back out over the last part. A
   // pair that steps back out turns at a tighter radius, since it need not
   // end at a wave's spacing.
-  const inner = stepsOut ? TIGHT_RADIUS : HOLD_RADIUS;
+  // A quick half turn between dancers standing well apart (2 beats or
+  // less) takes the shorter path: it turns closer in, and walks at an even
+  // pace with short ramps, so it is no faster than a walk.
+  const quick =
+    stepsOut &&
+    amount <= 0.5 &&
+    beats <= 2 &&
+    orbits.some((o) => o.radius > 0.7);
+  const inner = quick ? QUICK_RADIUS : stepsOut ? TIGHT_RADIUS : HOLD_RADIUS;
   const share = Math.min(stepsOut ? 0.45 : 0.4, GATHER_TURNS / amount);
   // Share of the sweep turned by u: none at first while closing in (and,
   // stepping back out, none at the end), so the pair moves straight in and
@@ -197,7 +208,7 @@ export const allemande: Figure<AllemandeParams> = (state, params, beats) => {
   );
   const along = (id: number, t: number) => {
     const lengths = pace.get(id)!;
-    const goal = lengths[PATH_STEPS] * progress(t);
+    const goal = lengths[PATH_STEPS] * progress(t, quick ? QUICK_RAMP : undefined);
     let lo = 0;
     let hi = PATH_STEPS;
     while (hi - lo > 1) {
