@@ -98,7 +98,8 @@ export function foldRound(
     beat += call.beats;
     const last = index === calls.length - 1;
     let exit = result.exit;
-    if (progression && (call.progression || (!marked && last))) {
+    const due = progression?.atRoundEnd ? last : call.progression || (!marked && last);
+    if (progression && due) {
       try {
         exit = progression.rebind(exit);
       } catch (error) {

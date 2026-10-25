@@ -71,3 +71,5 @@ line each, for review.
 - "Swing, end facing the next / new lines / direction of travel" in these formations ends on the pair's own side facing out of the minor set.
 - In four face four, "opposite" is the dancer you face (the neighbor); "balance the ring of 8" is a ring balance in rings of four.
 - In a whole set (triplet, longways set), a partner swing from across the set ends back in the partners' own places, facing each other across.
+- A whole set renamed by place (triplet, longways set) renames once, at the end of each time through, even where several rows carry the progression mark.
+- "Top four" and "bottom four" are the four standing nearest the top or the bottom now, by place.

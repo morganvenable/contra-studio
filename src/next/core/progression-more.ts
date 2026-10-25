@@ -72,6 +72,7 @@ export function placeLabels(state: DanceState): Map<string, readonly number[]> {
 
 export const PLACES_PROGRESSION: Progression = {
   kind: 'places',
+  atRoundEnd: true,
   rebind: (state) =>
     withChanges(state, { positions: placeLabels(state), epoch: state.epoch + 1 }),
 };

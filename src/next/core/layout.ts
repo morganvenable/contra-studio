@@ -95,6 +95,12 @@ function pick(state: DanceState, group: readonly number[], among: readonly strin
       for (const id of group) if (state.dancers[id].role === role) chosen.add(id);
       continue;
     }
+    if (name === 'top four' || name === 'bottom four') {
+      // The four standing nearest the top (lowest z) or the bottom, by place now.
+      const order = [...group].sort((a, b) => body(state, a).position.z - body(state, b).position.z);
+      for (const id of name === 'top four' ? order.slice(0, 4) : order.slice(-4)) chosen.add(id);
+      continue;
+    }
     if (name === 'middle' || name === 'ends') {
       // The four nearest the middle of the group (or the rest).
       const c = mean(group.map((id) => body(state, id).position));

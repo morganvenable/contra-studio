@@ -36,6 +36,12 @@ export interface Progression {
     | 'mixer'
     | 'trios';
   rebind(state: DanceState): DanceState;
+  /**
+   * Rebind once, at the end of each time through, even where rows carry the
+   * progression mark (a whole set renamed by place: several casts in one
+   * time through each "progress", but names change only after the last).
+   */
+  readonly atRoundEnd?: boolean;
 }
 
 export const NO_PROGRESSION: Progression = { kind: 'none', rebind: (s) => s };
