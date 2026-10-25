@@ -32,6 +32,13 @@ const AMOUNTS: Readonly<Record<string, number>> = {
   '1 1/2': 1.5,
   'once and a half': 1.5,
   twice: 2,
+  // Decimal spellings.
+  '0.25': 0.25,
+  '0.5': 0.5,
+  '0.75': 0.75,
+  '1.25': 1.25,
+  '1.5': 1.5,
+  '1.75': 1.75,
 };
 const NUMBERS: Readonly<Record<string, number>> = { one: 1, two: 2, three: 3, four: 4 };
 
