@@ -11,7 +11,7 @@
       "database_name": "contra-feedback",
       // Paste the id printed by `wrangler d1 create contra-feedback`.
       // Local dev (wrangler dev --local) works with this placeholder.
-      "database_id": "00000000-0000-0000-0000-000000000000",
+      "database_id": "e82ee536-fd14-4552-b0cc-003aa85703e7",
       "migrations_dir": "migrations"
     }
   ],
