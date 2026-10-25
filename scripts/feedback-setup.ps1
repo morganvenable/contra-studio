@@ -47,9 +47,13 @@ if (-not $url) { throw 'Could not find the Worker URL in the deploy output.' }
 if (-not (Test-Path $tokenFile)) {
   New-Item -ItemType Directory -Force (Split-Path $tokenFile) | Out-Null
   $owner = [guid]::NewGuid().ToString('N') + [guid]::NewGuid().ToString('N')
-  $owner | npx wrangler secret put OWNER_TOKEN; Check 'OWNER_TOKEN'
-  ([guid]::NewGuid().ToString('N')) | npx wrangler secret put RATE_LIMIT_SALT
-  Check 'RATE_LIMIT_SALT'
+  $salt = [guid]::NewGuid().ToString('N') + [guid]::NewGuid().ToString('N')
+  # Piping into "secret put" can hang on Windows; upload both from a file.
+  $tmp = Join-Path (Split-Path $tokenFile) 'contra-secrets.tmp.json'
+  $json = @{ OWNER_TOKEN = $owner; RATE_LIMIT_SALT = $salt } | ConvertTo-Json
+  [IO.File]::WriteAllText($tmp, $json)
+  try { npx wrangler secret bulk $tmp; Check 'secrets' }
+  finally { Remove-Item $tmp -Force }
   Set-Content $tokenFile $owner -Encoding ascii -NoNewline
 }
 
