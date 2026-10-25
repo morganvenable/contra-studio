@@ -4,18 +4,18 @@
  "catalogue": 2422,
  "stored": 2422,
  "counts": {
-  "ok": 345,
+  "ok": 347,
   "check": 86,
-  "partial": 1709,
+  "partial": 1707,
   "unsupported": 282
  },
  "formations": [
   {
    "formation": "improper",
    "dances": 1189,
-   "ok": 304,
+   "ok": 306,
    "check": 50,
-   "partial": 835,
+   "partial": 833,
    "unsupported": 0
   },
   {
@@ -1099,12 +1099,12 @@
   "missingFigures": [
    {
     "name": "allemande variant",
-    "unlocks": 75,
+    "unlocks": 76,
     "uses": 316
    },
    {
     "name": "ocean wave / long wave",
-    "unlocks": 68,
+    "unlocks": 69,
     "uses": 269
    },
    {
@@ -1163,19 +1163,24 @@
     "uses": 80
    },
    {
-    "name": "star variant",
-    "unlocks": 17,
-    "uses": 57
-   },
-   {
     "name": "chain variant",
     "unlocks": 16,
     "uses": 63
    },
    {
+    "name": "star variant",
+    "unlocks": 15,
+    "uses": 54
+   },
+   {
     "name": "gyre",
     "unlocks": 12,
     "uses": 53
+   },
+   {
+    "name": "slide along set",
+    "unlocks": 11,
+    "uses": 52
    },
    {
     "name": "pull by / pass by",
@@ -1186,11 +1191,6 @@
     "name": "square through",
     "unlocks": 10,
     "uses": 44
-   },
-   {
-    "name": "slide along set",
-    "unlocks": 9,
-    "uses": 52
    },
    {
     "name": "roll away",
@@ -1210,7 +1210,7 @@
    {
     "name": "petronella",
     "unlocks": 6,
-    "uses": 31
+    "uses": 28
    },
    {
     "name": "arch & dive",

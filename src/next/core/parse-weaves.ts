@@ -96,6 +96,10 @@ const NOTES: readonly RegExp[] = [
   /^(?:the )?(?:trailing two|new \w+|original \w+|\w+ )?\s*catch(?:ing)?(?: (?:\w+ )?(?:hands?|partners?|shadows?|neighbors?))?(?: in (?:the )?(?:left|right) hands?)?(?: \w+)?$/,
   /^(?:just )?(?:halfway|once around)$/,
   /^to progress$/,
+  // Hands the next figure takes: "and take both hands with your partner",
+  // "to a left hand star".
+  /^(?:and )?take (?:both|right|left) hands with (?:your |their )?(?:partners?|neighbors?)$/,
+  /^to an? (?:left|right)[- ]hand star$/,
   // Flaherty's heys: who veers off at the end to face the next people.
   /^but .*\bveer (?:right|left) to face .*$/,
   /^-?\s*(?:and )?end next(?: to .*)?$/,

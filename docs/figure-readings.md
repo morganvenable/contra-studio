@@ -52,3 +52,4 @@ below. One line each; change any of them by telling us the other reading.
 - "Star ____ - wrist grip - 4 places": a star of whole turns ends where it began whichever hand is in; drawn as a left-hand star.
 - Chevron ("larks chevron into neighbors' place"): neighbors trade places; the named role walks a V in toward the middle (passing the other of their role by the right), the others walk straight across a little to the outside.
 - Flaherty's "1/2 hey, robins start right shoulders, upon facing neighbor veer to right to face new neighbor": the half hey; the veer to the next neighbor is left to the next row.
+- "Star left 3 places and take both hands with your partner", "balance & petronella to a left hand star": the hands are the next figure's to take.
