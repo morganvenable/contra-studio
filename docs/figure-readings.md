@@ -25,3 +25,5 @@ below. One line each; change any of them by telling us the other reading.
 - A hey on a diagonal runs along the line between the two diagonal couples, as an ordinary hey turned onto that line.
 - Star promenade "larks pick up partner" / "scooping your partner" is the ordinary star promenade; an allemande "to pick up partner for a star promenade" is the allemande alone.
 - "Balance the star" is drawn as a ring balance (step in toward the middle and back).
+- Gate ("larks gate neighbors to face into the set"): each gater pivots in place holding the near hand while the other walks around them, the shorter way round (forward when equal), until both face the named way, arm's length apart; "(cw)"/"(ccw)" notes are not drawn separately.
+- "Balance & petronella turning to face partners", "(standard 4 person petronella)", "roll away ... half sashay alone set" (along) and "star ... & look for new neighbor" are read as the plain figure.

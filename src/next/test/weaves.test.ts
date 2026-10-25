@@ -427,3 +427,14 @@ test('star promenade rows with picking up partners, and balance the star', () =>
   );
   assert.deepEqual(one('balance the star', 4).params, { formation: 'ring' });
 });
+
+test('larks gate neighbors to face down: the larks pivot, the neighbors walk around', () => {
+  const lines = improper([LINES]);
+  const [c] = parseRow({ beats: 8, text: 'larks gate neighbors to face down the set' });
+  assert.deepEqual(c.params, { who: 'larks', whom: 'neighbor', face: 'down' });
+  const r = FIGURES.gate(lines, c.params, 8);
+  for (const id of [0, 2]) near(r.exit.bodies.get(id)!.position, body(lines, id).position);
+  for (const id of [0, 1, 2, 3])
+    assert.ok(Math.abs(turn(r.exit.bodies.get(id)!.yaw, 0)) < 1e-6, `${id} faces down`);
+  withinLimits(r, 8, 'gate');
+});

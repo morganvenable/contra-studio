@@ -83,6 +83,13 @@ const NOTES: readonly RegExp[] = [
   /^\d\w*,? not \d\w*$/,
   /^#\d$/,
   /^into$/,
+  // What is left once parse.ts drops a trailing "new neighbor".
+  /^(?:& |and |, )?(?:turn )?to(?: a| your| the)?$/,
+  /^(?:& |and )?look\b.*$/,
+  /^until you're next to .*$/,
+  /^(?:\(?standard|traditional) .*$/,
+  /^(?:the )?(?:dance starts|ones are back)\b.*$/,
+  /^\(?roll (?:left to right|right to left)\)?$/,
   // Taking hands for the next figure: that figure joins them.
   /^(?:the )?(?:trailing two|new \w+|\w+) catch(?:ing)? (?:\w+ )?hands?(?: \w+)?$/,
   /^(?:halfway|once around)$/,
@@ -97,8 +104,8 @@ export function onlyNotes(rest: string): boolean {
   const r = rest
     .replace(/\[[^\]]*\]/g, ' ')
     .replace(/[*+]+/g, ' ')
-    .replace(/^[\s,;:–-]+/, '')
-    .replace(/[\s,;:.!–-]+$/, '')
+    .replace(/^[\s,;:&–-]+/, '')
+    .replace(/[\s,;:.!&–-]+$/, '')
     .replace(/\s+/g, ' ')
     .trim();
   if (!r) return true;
@@ -136,6 +143,15 @@ function heyRest(rest: string) {
 }
 
 export const WEAVE_PATTERNS: readonly (readonly [RegExp, Build])[] = [
+  [
+    // "larks gate neighbors to face into the set", "twos gate ones to face down the set".
+    /^(\w+) gate ((?:next |new )?\w+) to face (into the set|in|down|up)(?: the set| the hall)?(.*)$/,
+    (m, b) => {
+      notes(m[4].replace(/^\s*(?:cw|ccw)\b/, ''), 'gate');
+      const face = m[3] === 'into the set' || m[3] === 'in' ? 'in' : m[3];
+      return [call('gate', b, { who: who(m[1]), whom: who(m[2]), face })];
+    },
+  ],
   [
     // "zig left zag right", "neighbors zig right zag left".
     /^(?:(\w+) )?zig (left|right),? zag (?:right|left)(.*)$/,
@@ -314,7 +330,7 @@ export const WEAVE_PATTERNS: readonly (readonly [RegExp, Build])[] = [
   [
     // "balance & petronella (no clap)", "balance & petronella left",
     // "balance & petronella one place to the right", and a petronella alone.
-    /^(balance (?:&|and) )?petronella(?: (left|right))?(?: turn)?(?: (?:–|-)? ?(?:move |spin (?:left|right) |twirl )?(?:one|1) place(?: (?:to (?:the )?)?(right|left))?)?(.*)$/,
+    /^(balance (?:&|and) )?petronella(?: (left|right))?(?: turn)?(?: (?:–|-)? ?(?:move |spin (?:left|right) |twirl )?(?:one|1) place(?: (?:to (?:the )?)?(right|left))?)?(.*)$/,
     (m, b) => {
       notes(m[4].replace(/^,? ?(?:spin (?:left|right)|overspin)\b/, ''), 'petronella');
       const direction = m[2] ?? m[3];
@@ -330,10 +346,10 @@ export const WEAVE_PATTERNS: readonly (readonly [RegExp, Build])[] = [
   [
     // "larks roll away neighbors", "... with a half sashay across the set",
     // "... on the way back".
-    /^(\w+) roll away ((?:next |new )?\w+)(?: with a half[- ]sashay)?(?: (?:roll )?(?:left to right|right to left))?(?: (across|along|up and down)(?: the)?(?: set)?)?(?: (?:on|as) (?:the )?(?:way|lines?) back(?: up)?| backing up)?(.*)$/,
+    /^(\w+) roll away ((?:next |new )?\w+)(?: (?:with )?a? ?half[- ]sashay)?(?: (?:roll )?(?:left to right|right to left))?(?: (across|along|alone|up and down)(?: the)?(?: set)?)?(?: (?:on|as) (?:the )?(?:way|lines?) back(?: up)?| backing up)?(.*)$/,
     (m, b) => {
       notes(m[4], 'roll away');
-      const axis = m[3] === 'up and down' ? 'along' : m[3];
+      const axis = m[3] === 'up and down' || m[3] === 'alone' ? 'along' : m[3];
       return [
         call('roll-away', b, {
           who: who(m[1]),
