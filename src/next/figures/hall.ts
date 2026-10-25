@@ -75,6 +75,8 @@ interface Mover {
   readonly slot: Vec2;
   /** Where and how the dancer ends, given u in [0, 1] of the ending. */
   readonly end: (u: number, at: Vec2) => { position: Vec2; yaw: number };
+  /** False for a waiting couple out of step with the lines: it stays where it is. */
+  readonly walks?: boolean;
 }
 
 export const hall: Figure<HallParams> = (state, params, beats) => {
@@ -138,18 +140,27 @@ export const hall: Figure<HallParams> = (state, params, beats) => {
   for (const d of state.dancers) {
     if (grouped.has(d.id) || crossing.has(d.couple)) continue;
     const b = body(state, d.id);
+    const mate = body(state, d.couple * 2 + (d.id === d.couple * 2 ? 1 : 0)).position;
     const across = heading(b.position, { x: 0, z: b.position.z });
     const end = (u: number, at: Vec2) => {
       if (direction === 'down') return { position: at, yaw: facing + Math.PI * ease(u) };
       return { position: at, yaw: facing + turn(across, facing) * ease(u) };
     };
-    movers.push({ id: d.id, from: b.position, yaw: b.yaw, slot: b.position, end });
+    movers.push({
+      id: d.id,
+      from: b.position,
+      yaw: b.yaw,
+      slot: b.position,
+      end,
+      walks: direction === 'down' || inStep(state, mix(b.position, mate, 0.5), travel),
+    });
   }
 
   const motion = (beat: number) => ({
     bodies: movers.map((m) => {
       const formed = mix(m.from, m.slot, smooth(beat / FORM));
-      const walked = add(formed, scale(travel, progress(clamp((beat - 0.5) / (walkEnd - 0.5)))));
+      const walk = m.walks === false ? 0 : progress(clamp((beat - 0.5) / (walkEnd - 0.5)));
+      const walked = add(formed, scale(travel, walk));
       if (beat <= walkEnd) {
         const yaw = m.yaw + turn(facing, m.yaw) * smooth(beat / FORM);
         return { id: m.id, position: walked, yaw };
@@ -164,6 +175,25 @@ export const hall: Figure<HallParams> = (state, params, beats) => {
     exit: withChanges(settle(state, motion, beats), { hands: [] }),
   };
 };
+
+/**
+ * Coming up the hall, a waiting couple walks along with the lines unless it
+ * never went down (it was crossing over while the lines went down the
+ * hall): then it stands a place out of step, close behind a line or far
+ * ahead of one, and stays where it is while the lines come back. In step
+ * the couple's middle stands 2.7 m (contra) or 3.6 m (Becket, the couple
+ * along a side line) from the nearest line's middle.
+ */
+function inStep(state: DanceState, at: Vec2, travel: Vec2): boolean {
+  const groups = minorSets(state);
+  if (!groups.length) return true;
+  const unit = scale(travel, 1 / Math.hypot(travel.x, travel.z));
+  const gaps = groups.map((g) => dot(sub(at, groupCenter(state, g)), unit));
+  const gap = gaps.reduce((a, b) => (Math.abs(b) < Math.abs(a) ? b : a));
+  // Behind the line and close (it would back into them), or far ahead (it
+  // would walk away from its place).
+  return gap < 0 ? -gap > 1.25 * SET.slot : gap < 2.25 * SET.slot;
+}
 
 /**
  * Order a minor set left to right in a line facing `facing`. Down the hall:

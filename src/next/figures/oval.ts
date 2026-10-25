@@ -35,6 +35,8 @@ export interface OvalParams {
 }
 
 const FACE_BEATS = 1;
+/** Radians a beat, at most, turning to face the way the oval goes. */
+const TURN_RATE = 2.5;
 /** How far behind and ahead a walker looks to face along the oval (smooths the corners). */
 const LOOK = 0.7;
 
@@ -82,7 +84,14 @@ export const oval: Figure<OvalParams> = (state, params, beats) => {
     const from = along(s.position);
     if (Math.abs(from / SET.slot - Math.round(from / SET.slot)) > 0.05)
       throw new Error('An oval needs everyone a slot apart around the set.');
-    return { id, s, from };
+    // A dancer with farther to turn (round from the way the last oval went)
+    // takes longer, at a walking turn rate.
+    const face0 = travelFacing
+      ? heading(at(from - sign * LOOK), at(from + sign * LOOK))
+      : inward(s.position);
+    const turnBeats = (1.5 * Math.abs(turn(face0, s.yaw))) / TURN_RATE;
+    const faceBeats = Math.min(beats / 3, Math.max(FACE_BEATS, turnBeats));
+    return { id, s, from, faceBeats };
   });
   // Ring order: by distance along the oval; each one's left hand to the next.
   const order = [...movers].sort((a, b) => a.from - b.from).map((m) => m.id);
@@ -101,8 +110,8 @@ export const oval: Figure<OvalParams> = (state, params, beats) => {
       const face = travelFacing
         ? heading(at(m.from + travel * q - sign * LOOK), at(m.from + travel * q + sign * LOOK))
         : inward(position);
-      const yaw = m.s.yaw + turn(face, m.s.yaw) * smooth(beat / FACE_BEATS);
-      return { id: m.id, position, yaw: beat >= FACE_BEATS ? face : yaw };
+      const yaw = m.s.yaw + turn(face, m.s.yaw) * smooth(beat / m.faceBeats);
+      return { id: m.id, position, yaw: beat >= m.faceBeats ? face : yaw };
     });
     const t = beat / beats;
     const strength = Math.min(smooth(t / 0.1), smooth((1 - t) / 0.1));

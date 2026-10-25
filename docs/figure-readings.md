@@ -326,3 +326,11 @@ line each, for review.
 - A pass by that carries the progression walks all the way to the other's place.
 - "Ones balance", "twos do si do" in a contra set: the figure dances those dancers itself first; failing that, those dancers with their partners.
 - A row whose trailing note adds motion ("robins shift left to meet partners", "to form cloverleaf", "and square the set") stays undrawn rather than drawn without it.
+
+## Travel, formations and one-off rows (round 2)
+
+- A circle too fast for the usual ring ("circle left 3 places" in 4 beats) closes in tighter, down to neighbors 0.72 m apart, and walks one steady pace along its path, closing in and opening out while it turns.
+- A single-file circle under four beats turns less than a quarter toward the travel (in proportion to its beats).
+- Coming up the hall, a waiting couple that never went down (it was crossing over while the lines went down) stays where it is; the lines walk away from it or back up to it.
+- Ovals and long lines that start facing another way (back round after an oval, out after a roll) turn to face their way at a walking turn rate, taking longer the farther they turn.
+- Long lines whose line-mates already stand close (after a roll away) close in less, never nearer than 0.75 m.

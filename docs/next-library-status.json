@@ -4,8 +4,8 @@
  "catalogue": 2422,
  "stored": 2422,
  "counts": {
-  "ok": 654,
-  "check": 365,
+  "ok": 663,
+  "check": 356,
   "partial": 1403,
   "unsupported": 0
  },
@@ -13,8 +13,8 @@
   {
    "formation": "improper",
    "dances": 1189,
-   "ok": 483,
-   "check": 117,
+   "ok": 492,
+   "check": 108,
    "partial": 589,
    "unsupported": 0
   },
@@ -3360,11 +3360,11 @@
   "checkFailures": [
    {
     "name": "Couples don't end the round where the progression puts them.",
-    "unlocks": 168
+    "unlocks": 171
    },
    {
     "name": "allemande variant",
-    "unlocks": 26
+    "unlocks": 28
    },
    {
     "name": "ocean wave / long wave",
@@ -3372,15 +3372,11 @@
    },
    {
     "name": "swing variant",
-    "unlocks": 19
+    "unlocks": 21
    },
    {
     "name": "hey (other)",
-    "unlocks": 12
-   },
-   {
-    "name": "circle variant",
-    "unlocks": 10
+    "unlocks": 13
    },
    {
     "name": "The next time through can't start from where the dancers end: No couples face each other on the left diagonal.).",
@@ -3388,11 +3384,7 @@
    },
    {
     "name": "promenade",
-    "unlocks": 7
-   },
-   {
-    "name": "down/up the hall",
-    "unlocks": 7
+    "unlocks": 6
    },
    {
     "name": "The next time through can't start from where the dancers end: No couples face each other on the right diagonal.).",
@@ -3400,6 +3392,10 @@
    },
    {
     "name": "box circulate",
+    "unlocks": 5
+   },
+   {
+    "name": "circle variant",
     "unlocks": 5
    },
    {
@@ -3416,10 +3412,6 @@
    },
    {
     "name": "chain variant",
-    "unlocks": 4
-   },
-   {
-    "name": "into the middle / forward & back",
     "unlocks": 4
    },
    {
@@ -3451,7 +3443,7 @@
     "unlocks": 2
    },
    {
-    "name": "The next time through can't start from where the dancers end: Playback is limited to one round: the next round cannot start (The 1s of couple 3 meet more than one couple.).",
+    "name": "turn alone / as a couple",
     "unlocks": 2
    },
    {
@@ -3471,7 +3463,7 @@
     "unlocks": 2
    },
    {
-    "name": "other: long lines forward",
+    "name": "into the middle / forward & back",
     "unlocks": 2
    },
    {
@@ -3499,11 +3491,11 @@
     "unlocks": 1
    },
    {
-    "name": "turn alone / as a couple",
+    "name": "The next time through can't start from where the dancers end: Dancers 1 and 3 are too far apart to do-si-do.).",
     "unlocks": 1
    },
    {
-    "name": "The next time through can't start from where the dancers end: Dancers 1 and 3 are too far apart to do-si-do.).",
+    "name": "down/up the hall",
     "unlocks": 1
    },
    {

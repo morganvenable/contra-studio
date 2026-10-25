@@ -36,8 +36,12 @@ export interface LongLinesParams {
 /** How far each line walks in toward the other. */
 const DEPTH = 0.5;
 const FACE_BEATS = 1;
+/** Radians a beat, at most, turning to face across. */
+const TURN_RATE = 2.5;
 /** How far each dancer closes toward the middle of the minor set's line. */
 const GATHER = 0.35;
+/** Closest two line-mates come as they gather. */
+const LINE_GAP = 0.75;
 
 export const longLines: Figure<LongLinesParams> = (state, params, beats) => {
   onlyKeys('long lines', params, ['back', 'only']);
@@ -56,8 +60,16 @@ export const longLines: Figure<LongLinesParams> = (state, params, beats) => {
         throw new Error(`Dancer ${id} is not standing in a side line.`);
       const yaw = off > 0 ? -Math.PI / 2 : Math.PI / 2;
       const along = middle.z - b.position.z;
-      const gather = { x: 0, z: Math.sign(along) * Math.min(GATHER, Math.abs(along)) };
-      return { id, start: b, yaw, side: Math.sign(off), gather, group: g };
+      // Line-mates already close (after a roll away) close in less, never
+      // nearer than LINE_GAP.
+      const gather = {
+        x: 0,
+        z: Math.sign(along) * Math.min(GATHER, Math.max(0, Math.abs(along) - LINE_GAP / 2)),
+      };
+      // Farther to turn (from facing out or along) takes longer, at a walking turn rate.
+      const turnBeats = (1.5 * Math.abs(turn(yaw, b.yaw))) / TURN_RATE;
+      const face = Math.min(beats / 3, Math.max(FACE_BEATS, turnBeats));
+      return { id, start: b, yaw, side: Math.sign(off), gather, group: g, face };
     });
   });
 
@@ -92,7 +104,7 @@ export const longLines: Figure<LongLinesParams> = (state, params, beats) => {
         m.start.position,
         add(scale(forward(m.yaw), DEPTH * out), scale(m.gather, out)),
       ),
-      yaw: m.start.yaw + turn(m.yaw, m.start.yaw) * smooth(beat / FACE_BEATS),
+      yaw: m.start.yaw + turn(m.yaw, m.start.yaw) * smooth(beat / m.face),
       lean: 0.05 * out,
     }));
     const map = bodyMap(bodies);
