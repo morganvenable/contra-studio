@@ -4,18 +4,18 @@
  "catalogue": 2422,
  "stored": 2422,
  "counts": {
-  "ok": 749,
+  "ok": 761,
   "check": 279,
-  "partial": 1394,
+  "partial": 1382,
   "unsupported": 0
  },
  "formations": [
   {
    "formation": "improper",
    "dances": 1189,
-   "ok": 483,
+   "ok": 494,
    "check": 117,
-   "partial": 589,
+   "partial": 578,
    "unsupported": 0
   },
   {
@@ -157,9 +157,9 @@
   {
    "formation": "progressed improper",
    "dances": 4,
-   "ok": 0,
+   "ok": 1,
    "check": 2,
-   "partial": 2,
+   "partial": 1,
    "unsupported": 0
   },
   {
@@ -3206,7 +3206,7 @@
   "figuresThatCannotStart": [
    {
     "name": "progression or other",
-    "unlocks": 102
+    "unlocks": 83
    },
    {
     "name": "swing variant",
@@ -3218,7 +3218,7 @@
    },
    {
     "name": "diagonal chain / right left through",
-    "unlocks": 30
+    "unlocks": 31
    },
    {
     "name": "allemande variant",
@@ -3230,7 +3230,7 @@
    },
    {
     "name": "circle variant",
-    "unlocks": 14
+    "unlocks": 15
    },
    {
     "name": "pull by / pass by",
@@ -3242,7 +3242,7 @@
    },
    {
     "name": "star variant",
-    "unlocks": 8
+    "unlocks": 10
    },
    {
     "name": "poussette",
@@ -3269,6 +3269,10 @@
     "unlocks": 5
    },
    {
+    "name": "other: pass through",
+    "unlocks": 5
+   },
+   {
     "name": "balance variant",
     "unlocks": 4
    },
@@ -3289,15 +3293,15 @@
     "unlocks": 3
    },
    {
-    "name": "other: pass through",
-    "unlocks": 3
-   },
-   {
     "name": "roll away",
     "unlocks": 3
    },
    {
     "name": "diagonal hey",
+    "unlocks": 2
+   },
+   {
+    "name": "other: pass through across the set",
     "unlocks": 2
    },
    {
@@ -3322,10 +3326,6 @@
    },
    {
     "name": "gate",
-    "unlocks": 1
-   },
-   {
-    "name": "other: pass through across the set",
     "unlocks": 1
    },
    {

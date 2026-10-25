@@ -115,6 +115,7 @@ line each, for review.
 - "9-person mixer": a Becket set of four couples plus a lonesome fifth lark at the top facing down; "swing at random": each robin swings the lark on her other side round the loop, the leftover lark becomes the lonesome dancer.
 - "Tempest": a line of four 1s facing down, then the 2s, one couple per side line facing in; down the hall the line walks 2 m and each couple wheels to face up while the 2s slide up one level.
 - Couples out at the ends of a Becket set dance with ghosts: they repeat the matching couple of the nearest minor set (crossing the set when the active couples do), and a couple that comes out at an end changes ends by walking half way round its ghost minor set over the next eight beats or more. Figures with shadows or on a diagonal leave them be.
+- A row marked as the progression that comes before the couples have passed (the mark on the figure that starts it): the new neighbors are found at the end of the first later figure where they have passed, up to the next mark. A mark on the first row that does not work there means the round starts progressed: the couples meet new neighbors at the end of the round.
 - A Becket dance whose source marks no progression progresses where its rows meet the new neighbors: at the end of a row that goes "to new neighbors", or just before the first row danced "with next neighbors". Improper dances keep the end of the round.
 
 ## Heys, stars, petronella, roll away, Rory O'More, passes

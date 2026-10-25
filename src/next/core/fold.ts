@@ -5,7 +5,9 @@
  *
  * Round N+1 starts from round N's end state. Relationships change only
  * through the dance's Progression, at the reached end of the figure the source
- * marks as the progression (or at the end of the round when none is marked).
+ * marks as the progression (or at the end of the round when none is marked;
+ * when the couples have not passed yet at the marked figure, at the end of
+ * the first later figure where they have, up to the next mark).
  * Couples waiting out at an end cross to the other side (a half turn about the
  * set's center line) right after they start waiting, or at the start of the
  * next round when the progression comes too late in this one. Round length and how
@@ -23,7 +25,7 @@ import type {
 } from './figure.ts';
 import { clamp, distance, progress, rotate, smooth, sub, add, turn } from './math.ts';
 import { beatsPerTime, type MusicStructure } from './music.ts';
-import type { Progression } from './progression.ts';
+import { NoOneMeets, rebindMeeting, type Progression } from './progression.ts';
 import { body, type Body, type DanceState, withChanges } from './state.ts';
 import { hold } from '../figures/hold.ts';
 import { ghostCopies, ghostTurn, withGhosts } from './ghosts.ts';
@@ -85,6 +87,8 @@ export function foldRound(
   const ghostPivot = progression?.crossAtGhostSet ?? false;
   let state = scheduleCrossings(start, 0, total, crossings, ghostPivot);
   let beat = 0;
+  // A marked progression that could not rebind yet (see below).
+  let late: { index: number; error: unknown } | undefined;
   for (const [index, call] of calls.entries()) {
     if (!(call.beats > 0 && call.beats <= 64)) throw new Error(`${call.move} needs 1-64 beats.`);
     let result: FigureResult;
@@ -104,13 +108,37 @@ export function foldRound(
     const last = index === calls.length - 1;
     let exit = result.exit;
     const due = progression?.atRoundEnd ? last : call.progression || (!marked && last);
-    if (progression && due) {
+    // A failed mark on the first row means the round starts progressed: the
+    // couples meet new neighbors at the end of the round.
+    const retry = late && (late.index > 0 || last);
+    if (progression && (due || retry)) {
       try {
-        exit = progression.rebind(exit);
+        exit = rebindMeeting(progression, exit);
+        late = undefined;
       } catch (error) {
-        if (!lenient) throw error;
-        const why = error instanceof Error ? error.message : String(error);
-        held.push({ index, why: `The progression does not work out: ${why}`, progression: true });
+        // A row marked as the progression sometimes comes before the couples
+        // have passed (the mark on the figure that starts it): new neighbors
+        // are found at the end of a later figure, up to the next mark or the
+        // end of the round.
+        const more = !last && !calls[index + 1]?.progression;
+        if (error instanceof NoOneMeets && !late) {
+          // Nobody meets anyone: everyone waits out (as the rebind says).
+          exit = error.state;
+        } else if (due && !late && more) late = { index, error };
+        else if (late && !due && more) {
+          // Still not passed: try again after the next figure.
+        } else {
+          const failed = late ?? { index, error };
+          late = undefined;
+          if (!lenient) throw failed.error;
+          const e = failed.error;
+          const why = e instanceof Error ? e.message : String(e);
+          held.push({
+            index: failed.index,
+            why: `The progression does not work out: ${why}`,
+            progression: true,
+          });
+        }
       }
     }
     state = scheduleCrossings(exit, beat, total, crossings, ghostPivot);

@@ -358,6 +358,28 @@ export function dupleMinorRebind(state: DanceState, cross: boolean, columns = fa
   }
 }
 
+/**
+ * A rebind in a set of three or more couples that finds nobody to meet at
+ * all: everyone waits out at once. The fold keeps it (the corpus check
+ * reports where couples end the round), but a mark that comes too early
+ * does not wait for it (fold.ts).
+ */
+export class NoOneMeets extends Error {
+  readonly state: DanceState;
+  constructor(state: DanceState) {
+    super('No couples meet new neighbors here.');
+    this.state = state;
+  }
+}
+
+/** The rebind, throwing NoOneMeets when nobody meets anyone. */
+export function rebindMeeting(progression: Progression, state: DanceState): DanceState {
+  const next = progression.rebind(state);
+  const couples = state.dancers.length / 2;
+  if (!next.groups.length && state.groups.length && couples > 2) throw new NoOneMeets(next);
+  return next;
+}
+
 /** New neighbors; the old ones are kept as previous neighbors ("prev neighbors"). */
 function withNeighbors(state: DanceState, neighbor: Map<number, number>) {
   const relations = new Map(state.relations).set('neighbor', neighbor);
