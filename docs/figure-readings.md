@@ -355,3 +355,4 @@ line each, for review.
 - A zero-beat row in parentheses ("(neighbors pull by left)"): a note on the row before; no motion of its own.
 - A zero-beat pass through or pull by: takes the last 2 beats of the figure before it (or the first 2 of the one after) when that figure has 6 beats or more.
 - "X take Y" of 4 beats or more with no swing with Y after it: a give and take.
+- A pair figure named by partners or neighbors when some pairs stand in different foursomes (after a figure on a diagonal regrouped the set): every pair dances together for that figure, when all are within reach (2.7 m); the foursomes come back afterward.

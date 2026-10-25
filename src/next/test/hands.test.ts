@@ -118,3 +118,20 @@ test('a take with no swing after it is a give and take', () => {
   joinHandRows(rows, parsed);
   assert.equal((parsed[0] as StoredCall[])[0].move, 'give-and-take');
 });
+
+test('partners standing across a group boundary regroup to dance together', async () => {
+  const { regroupAcross } = await import('../core/cross-group.ts');
+  const { FORMATIONS } = await import('../core/formation.ts');
+  const s = FORMATIONS.improper.start(4);
+  // Same groups: nothing changes.
+  assert.equal(regroupAcross(s, 'partner'), s);
+  // Swap two dancers' groups so a partner pair straddles groups.
+  const [g0, g1] = s.groups;
+  const moved = {
+    ...s,
+    groups: [[g0[0], g1[1], g0[2], g0[3]], [g1[0], g0[1], g1[2], g1[3]], ...s.groups.slice(2)],
+  };
+  const regrouped = regroupAcross(moved, 'partner');
+  assert.notEqual(regrouped, moved);
+  assert.ok(regrouped.groups.every((g) => g.length === 2));
+});

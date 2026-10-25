@@ -23,6 +23,7 @@
  */
 import type { Figure } from './figure.ts';
 import { distance } from './math.ts';
+import { regroupAcross } from './cross-group.ts';
 import {
   activeIds,
   body,
@@ -168,7 +169,9 @@ export function regroupFor(state: DanceState, who: unknown): DanceState {
 export function withRelations<P>(figure: Figure<P>): Figure<P> {
   return (state, params, beats) => {
     const who = (params as { who?: unknown }).who;
-    const regrouped = regroupFor(state, who);
+    let regrouped = regroupFor(state, who);
+    // Partners (or neighbors) standing across a group boundary (core/cross-group.ts).
+    if (regrouped === state) regrouped = regroupAcross(state, who);
     if (regrouped === state) return figure(state, params, beats);
     const result = figure(regrouped, params, beats);
     return {
