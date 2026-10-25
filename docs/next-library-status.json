@@ -4,18 +4,18 @@
  "catalogue": 2422,
  "stored": 2422,
  "counts": {
-  "ok": 355,
-  "check": 155,
-  "partial": 1630,
+  "ok": 356,
+  "check": 156,
+  "partial": 1628,
   "unsupported": 282
  },
  "formations": [
   {
    "formation": "improper",
    "dances": 1189,
-   "ok": 312,
-   "check": 83,
-   "partial": 794,
+   "ok": 313,
+   "check": 84,
+   "partial": 792,
    "unsupported": 0
   },
   {
@@ -2747,27 +2747,27 @@
     "unlocks": 16
    },
    {
-    "name": "ocean wave / long wave",
-    "unlocks": 16
-   },
-   {
     "name": "other: pass through",
     "unlocks": 16
    },
    {
-    "name": "rory o'more",
+    "name": "ocean wave / long wave",
     "unlocks": 14
+   },
+   {
+    "name": "rory o'more",
+    "unlocks": 13
    },
    {
     "name": "slide along set",
     "unlocks": 12
    },
    {
-    "name": "circle variant",
-    "unlocks": 9
+    "name": "swing variant",
+    "unlocks": 10
    },
    {
-    "name": "swing variant",
+    "name": "circle variant",
     "unlocks": 9
    },
    {
@@ -2854,7 +2854,7 @@
    },
    {
     "name": "ocean wave / long wave",
-    "unlocks": 11
+    "unlocks": 12
    },
    {
     "name": "The next time through can't start from where the dancers end",

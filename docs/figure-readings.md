@@ -75,3 +75,4 @@ reading below. One line each; change any of them and the figure follows.
 - "Balance the ring & pass through": ring balance, then the pass through; "and walk forward" after a circle takes its last 2 beats.
 - Petronella "to long waves, larks face out": the petronella; the long waves are left to what follows.
 - Forming an ocean wave when the hands named do not fit how the dancers stand: dancers facing someone across pass through by the right shoulder into the wave (stopping level, half a wave gap apart); failing that, each middle takes the other end dancer of its minor set (the one it can reach). Seen in Mange Tak (1014): after the neighbor swing everyone faces their partner across, so the wave that forms holds partners on the ends.
+- A wave balance where the dancers hold long waves (not a wave of four in each minor set) balances side to side in place, holding on.

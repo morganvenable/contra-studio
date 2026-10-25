@@ -132,14 +132,20 @@ function heldBalance(
   state: Parameters<typeof balance>[0],
   beats: number,
   ids = [...new Set(state.hands.flatMap((h) => [h.a, h.b]))],
+  first: 'right' | 'left' = 'right',
 ) {
+  const sign = first === 'left' ? -1 : 1;
   const motion = (beat: number) => {
     const i = Math.min(3, Math.floor(beat));
     const q = STEPS[i] + (STEPS[i + 1] - STEPS[i]) * ease(beat - i);
     return {
       bodies: ids.map((id) => {
         const b = body(state, id);
-        return { id, position: add(b.position, scale(rightOf(b.yaw), STEP * q)), yaw: b.yaw };
+        return {
+          id,
+          position: add(b.position, scale(rightOf(b.yaw), STEP * q * sign)),
+          yaw: b.yaw,
+        };
       }),
       contacts: state.hands.map((h) => joined(h, 1)),
     };
@@ -155,7 +161,15 @@ const waveBalance: Figure<BalanceParams> = (state, params, beats) => {
   ] as const);
   const first = oneOf('balance', 'first', params.first ?? 'right', ['right', 'left'] as const);
   const groups = minorSets(state);
-  for (const g of groups) assertWaveHeld(state, findWave(state, g));
+  try {
+    for (const g of groups) assertWaveHeld(state, findWave(state, g));
+  } catch (error) {
+    // Long waves along the side lines (or another held line): everyone
+    // holding hands balances side to side in place.
+    if (style === 'right-left' && state.hands.length)
+      return heldBalance(state, beats, undefined, first);
+    throw error;
+  }
 
   const ids = groups.flat();
   const motion = (beat: number) => {
