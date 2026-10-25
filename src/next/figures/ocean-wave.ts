@@ -68,6 +68,65 @@ const STEPS = [0, 1, 0, -1, 0];
 
 const handSide = (yaw: number, hand: Hand) => (hand === 'right' ? rightOf(yaw) : leftOf(yaw));
 
+/**
+ * Pass through into an ocean wave: each dancer faces someone across from
+ * them; the two walk forward and pass by the right shoulder, stopping level,
+ * half a wave gap apart. When the hands named fit the line this makes, that
+ * is the wave; otherwise there is none (undefined).
+ */
+function passIntoWave(
+  state: Parameters<typeof oceanWave>[0],
+  set: readonly number[],
+  role: Role,
+  endFor: (mid: number) => number | undefined,
+  middleHand: Hand,
+  endHand: Hand,
+) {
+  const mids = set.filter((id) => roleOf(state, id) === role);
+  const ends = mids.map(endFor);
+  if (mids.length !== 2 || ends.some((e) => e === undefined || !set.includes(e))) return;
+  const facingOf = (id: number) => {
+    const me = body(state, id);
+    const found = set.filter((o) => {
+      if (o === id) return false;
+      const gap = sub(body(state, o).position, me.position);
+      const d = length(gap);
+      return (
+        d > 0.5 &&
+        d < 2.7 &&
+        dot(forward(me.yaw), gap) > 0.9 * d &&
+        dot(forward(body(state, o).yaw), gap) < -0.9 * d
+      );
+    });
+    return found.length === 1 ? found[0] : undefined;
+  };
+  const target = new Map<number, Body>();
+  for (const id of set) {
+    const other = facingOf(id);
+    if (other === undefined || facingOf(other) !== id) return;
+    const me = body(state, id);
+    const meet = mix(me.position, body(state, other).position, 0.5);
+    // Passing right shoulders: each ends on its own left of the meeting point.
+    target.set(id, { position: add(meet, scale(leftOf(me.yaw), WAVE_GAP / 2)), yaw: me.yaw });
+  }
+  const [a, b] = mids;
+  const holds: Hold[] = [
+    { a, handA: middleHand, b, handB: middleHand },
+    ...mids.map((m, i) => ({ a: ends[i]!, handA: endHand, b: m, handB: endHand })),
+  ];
+  const fits = holds.every((h) => {
+    const ta = target.get(h.a)!;
+    const tb = target.get(h.b)!;
+    const gap = sub(tb.position, ta.position);
+    return (
+      Math.abs(length(gap) - WAVE_GAP) < 0.1 &&
+      dot(handSide(ta.yaw, h.handA), gap) > 0 &&
+      dot(handSide(tb.yaw, h.handB), scale(gap, -1)) > 0
+    );
+  });
+  return fits ? { ids: [...set], target, holds } : undefined;
+}
+
 export const oceanWave: Figure<OceanWaveParams> = (state, params, beats) => {
   onlyKeys('ocean wave', params, ['middle', 'middleHand', 'ends', 'endHand', 'balance']);
   const middle = oneOf('ocean wave', 'middle', params.middle, ['larks', 'robins'] as const);
@@ -101,13 +160,13 @@ export const oceanWave: Figure<OceanWaveParams> = (state, params, beats) => {
   );
   if (!sets.length && minorSets(state).length)
     throw new Error(`Nobody has a ${ends.replace('-', ' ')} to hold on an end.`);
-  const plans = sets.map((set) => {
+  const plan = (set: readonly number[], endFor: (mid: number) => number | undefined) => {
     if (set.length !== 4) throw new Error('An ocean wave needs four dancers.');
     const mids = set.filter((id) => roleOf(state, id) === role);
     if (mids.length !== 2) throw new Error(`An ocean wave needs two ${middle} in the middle.`);
-    const g = [...mids, ...mids.map((m) => endOf.get(m) ?? -1)];
+    const g = [...mids, ...mids.map((m) => endFor(m) ?? -1)];
     const pairs = mids.map((m) => {
-      const e = endOf.get(m);
+      const e = endFor(m);
       if (e === undefined || !g.includes(e) || mids.includes(e))
         throw new Error(`Each of the ${middle} needs their ${ends} on an end.`);
       return { mid: m, end: e };
@@ -165,7 +224,30 @@ export const oceanWave: Figure<OceanWaveParams> = (state, params, beats) => {
       { a, handA: middleHand, b, handB: middleHand },
       ...pairs.map((p) => ({ a: p.end, handA: endHand, b: p.mid, handB: endHand })),
     ];
-    return { ids: g, target, holds, along };
+    return { ids: g, target, holds };
+  };
+  const plans = sets.map((set) => {
+    const named = (m: number) => endOf.get(m);
+    try {
+      return plan(set, named);
+    } catch (error) {
+      if (outside) throw error;
+      // The hands named do not fit how the dancers stand. Dancers facing
+      // someone across pass through into the wave (passIntoWave); failing
+      // that, each middle takes the other end dancer of the minor set (the
+      // one it can reach), stepping or passing into the wave.
+      const others = set.filter((id) => roleOf(state, id) !== role);
+      const swapped = (m: number) => others.find((o) => o !== named(m));
+      const passed = passIntoWave(state, set, role, named, middleHand, endHand);
+      if (passed) return passed;
+      try {
+        return plan(set, swapped);
+      } catch {
+        const crossed = passIntoWave(state, set, role, swapped, middleHand, endHand);
+        if (crossed) return crossed;
+      }
+      throw error;
+    }
   });
 
   const start = new Map(plans.flatMap((p) => p.ids.map((id) => [id, body(state, id)] as const)));

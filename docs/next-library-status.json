@@ -5,8 +5,8 @@
  "stored": 2422,
  "counts": {
   "ok": 355,
-  "check": 151,
-  "partial": 1634,
+  "check": 155,
+  "partial": 1630,
   "unsupported": 282
  },
  "formations": [
@@ -14,16 +14,16 @@
    "formation": "improper",
    "dances": 1189,
    "ok": 312,
-   "check": 82,
-   "partial": 795,
+   "check": 83,
+   "partial": 794,
    "unsupported": 0
   },
   {
    "formation": "becket",
    "dances": 655,
    "ok": 32,
-   "check": 59,
-   "partial": 564,
+   "check": 62,
+   "partial": 561,
    "unsupported": 0
   },
   {
@@ -2736,27 +2736,27 @@
   "figuresThatCannotStart": [
    {
     "name": "progression or other",
-    "unlocks": 99
+    "unlocks": 100
    },
    {
-    "name": "ocean wave / long wave",
-    "unlocks": 33
+    "name": "allemande variant",
+    "unlocks": 18
    },
    {
     "name": "diagonal chain / right left through",
     "unlocks": 16
    },
    {
-    "name": "rory o'more",
-    "unlocks": 14
+    "name": "ocean wave / long wave",
+    "unlocks": 16
    },
    {
     "name": "other: pass through",
-    "unlocks": 13
+    "unlocks": 16
    },
    {
-    "name": "allemande variant",
-    "unlocks": 12
+    "name": "rory o'more",
+    "unlocks": 14
    },
    {
     "name": "slide along set",
@@ -2779,19 +2779,19 @@
     "unlocks": 7
    },
    {
+    "name": "hey (other)",
+    "unlocks": 5
+   },
+   {
     "name": "box circulate",
     "unlocks": 4
    },
    {
-    "name": "pull by / pass by",
-    "unlocks": 3
-   },
-   {
     "name": "roll away",
-    "unlocks": 3
+    "unlocks": 4
    },
    {
-    "name": "hey (other)",
+    "name": "pull by / pass by",
     "unlocks": 3
    },
    {
@@ -2853,12 +2853,12 @@
     "unlocks": 14
    },
    {
-    "name": "The next time through can't start from where the dancers end",
-    "unlocks": 10
+    "name": "ocean wave / long wave",
+    "unlocks": 11
    },
    {
-    "name": "ocean wave / long wave",
-    "unlocks": 9
+    "name": "The next time through can't start from where the dancers end",
+    "unlocks": 10
    },
    {
     "name": "allemande variant",
@@ -2869,12 +2869,12 @@
     "unlocks": 6
    },
    {
-    "name": "gyre",
-    "unlocks": 5
+    "name": "swing variant",
+    "unlocks": 6
    },
    {
-    "name": "swing variant",
-    "unlocks": 4
+    "name": "gyre",
+    "unlocks": 5
    },
    {
     "name": "circle variant",
