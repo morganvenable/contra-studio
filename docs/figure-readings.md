@@ -53,3 +53,13 @@ line each, for review.
 - A grand chain crosses to the opposite couple (half a star) and ends with a courtesy turn beside the one who receives them.
 - "Heads separate, go around two": pass behind the side couple and end in lark-lark-robin-robin lines facing across; in a line roll away the lark rolls the robin.
 - "Same four": the dancers the row before named.
+- A cast with no place named goes one place; the couples it passes move one place toward where the casting couple started.
+- "Up the center and cast to the bottom": up the middle between the couples above, round the top of the set, down the outside.
+- "Sashay/lead down and back" with no place named goes as far as a steady walk (0.75 m a beat) carries it, then back; "down & up & down" goes bottom, top, bottom.
+- "Promenade to the bottom" in a proper whole set is led side by side on own sides with inside hands.
+- A whole-set circle or oval with no amount goes as far as 0.75 m a beat carries it, a whole number of places; a circle of a whole set goes round a true ring of places.
+- A star with no places named is the whole group, once round (six places in a triplet).
+- A two-hand turn goes clockwise, once round; "swing two hand" is drawn as a two-hand turn.
+- Contra corners (16 beats, split 3+4+2+4+3): partner by the right, first corner by the left, partner right, second corner left, partner right back to place; the first corner is the one on the active's left after crossing (Chorus Jig).
+- Peel the banana / cast and arch: the others follow their leader; "top couple cast off, make an arch at the bottom" means the others follow and come up through the arch, as in the Virginia Reel.
+- Strip the willow: both actives strip at once; partners turn right 1½ at the top, once between, ½ at the bottom; each turned couple moves up one place.

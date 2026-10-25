@@ -199,7 +199,7 @@ function runAll<P>(
       bodies,
       groups: [run.group],
       relations,
-      layout: undefined,
+      layout: run.frame === IDENTITY ? state.layout : undefined,
     });
     return { run: { ...run, local }, result: figure(local, params, beats) };
   });

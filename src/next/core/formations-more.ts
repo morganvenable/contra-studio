@@ -58,6 +58,8 @@ function properWholeSet(name: string, min: number, max: number, counts: number[]
     shape: min === max ? 'small-set' : 'longways',
     grouping: 'whole-set',
     couples: { min, max },
+    // A circle of the whole set goes round a true ring of places.
+    moves: { circle: 'whole-circle' },
     check: placesSpec(counts),
     start(couples) {
       count(this, couples);
