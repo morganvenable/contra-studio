@@ -51,6 +51,8 @@ jobs:
       - run: npm run test:server
       - run: node --experimental-strip-types --test scripts/*.test.mjs
       - run: npm run build:pages
+        env:
+          VITE_FEEDBACK_URL: ${{ vars.VITE_FEEDBACK_URL }}
       - name: Include distribution notices
         run: |
           cp LICENSE dist/LICENSE

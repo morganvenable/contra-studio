@@ -18,9 +18,9 @@
   "vars": {
     // Exact origins, comma-separated. `:*` allows any port on that host.
     "ALLOWED_ORIGINS": "https://morganvenable.github.io,http://localhost:*,http://127.0.0.1:*,http://sval.localhost,http://sval.localhost:*",
-    // Turnstile is on for the deployed Worker. Local dev turns it off with
-    // `--var TURNSTILE_ENABLED:false` (see docs/feedback.md).
-    "TURNSTILE_ENABLED": "true",
+    // Turnstile is off at launch; the hourly per-visitor limit still applies.
+    // Turn it on once a widget exists and TURNSTILE_SECRET_KEY is set.
+    "TURNSTILE_ENABLED": "false",
     // Submissions allowed per visitor per hour.
     "RATE_LIMIT_PER_HOUR": "10"
   }

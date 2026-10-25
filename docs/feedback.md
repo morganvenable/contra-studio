@@ -57,7 +57,14 @@ node scripts/feedback-pull.mjs mark <id> fixed "what changed"
 
 ## Deploying the Worker (one time)
 
-From the repository root. Each line is a separate command.
+`powershell -File scripts/feedback-setup.ps1` does all of the steps below: it
+signs in, creates the database, applies the schema, deploys, stores the
+secrets (the owner token goes to `Svalboard\private\contra-feedback-token.txt`)
+and sets the `VITE_FEEDBACK_URL` repository variable that the Pages build
+reads. Turnstile starts off (`TURNSTILE_ENABLED` in `wrangler.jsonc`); the
+hourly per-visitor limit still applies.
+
+By hand, from the repository root. Each line is a separate command.
 
 ```bash
 cd worker/feedback
