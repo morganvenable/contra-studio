@@ -76,3 +76,8 @@ reading below. One line each; change any of them and the figure follows.
 - In Becket lines a couple, for finding new neighbors and diagonals, is a lark and the robin standing on his right on his side line facing the same way (after a diagonal chain that is not his partner); otherwise his partner.
 - Box circulate "loop right/left" names the way the loopers turn (over the right or left shoulder); they always travel to the crosser's place on their own side line, even when that is the other way.
 - A slide or slice along the set starts from any facing on the side lines (out of a ring, a star, or waiting at an end): dancers turn to face across as they set off, taking longer the farther they turn.
+- "Balance & box circulate - ..." with words after the loop ("ladles cross set, men rotate right", "with shadows"): an ordinary balance and box circulate.
+- "Butterfly whirl to face in / across": an ordinary butterfly whirl (it ends facing in).
+- "Promenade neighbor (to new couple)": neighbors promenade across.
+- "Pass through with/past shadows", "chain (to) shadow": an ordinary pass through or chain. A star "with shadows" is not read this way (it names other dancers) and stays undrawn.
+- Square through with no balances may go as fast as a pull by a beat (three pull bys in 4 beats); the physical check judges it.

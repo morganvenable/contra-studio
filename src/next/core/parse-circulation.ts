@@ -118,7 +118,7 @@ export const CIRCULATION_PATTERNS: readonly (readonly [RegExp, Build])[] = [
       if (pulls.length > n) throw new Error(`Square through ${m[1]} names too many pulls.`);
       const balances = balance ? Math.ceil(n / 2) : 0;
       const each = (b - 4 * balances) / n;
-      if (!(each >= 1.5)) throw new Error(`${b} beats is too short for square through ${m[1]}.`);
+      if (!(each >= 1)) throw new Error(`${b} beats is too short for square through ${m[1]}.`);
       return pulls.flatMap(([w, hand], i) => [
         ...(balance && i % 2 === 0
           ? [call('balance', 4, { formation: 'pair', who: who(w), hand })]
@@ -207,6 +207,28 @@ export const CIRCULATION_PATTERNS: readonly (readonly [RegExp, Build])[] = [
     (m, b) => [call('slice', b, { direction: m[1], back: 'diagonal' })],
   ],
   [
+    // "balance & box circulate - ... loop right robins cross set larks rotate
+    // right": the words after the loop restate it.
+    /^balance (?:&|and) box circulate - (\w+) cross while (\w+) loop (right|left)\b.+$/,
+    (m, b) => [
+      call('balance', 4, { formation: 'long-waves', in: who(m[1]) }),
+      call('box-circulate', b - 4, { cross: who(m[1]), loop: m[3] }),
+    ],
+  ],
+  [
+    // Who a pass through or chain meets: the figure is the same.
+    /^pass through with (?:your )?shadows?$/,
+    (_m, b) => [call('pass-through', b, { shoulder: 'right' })],
+  ],
+  [
+    /^(\w+) chain,? (?:to )?(?:your )?shadows?$/,
+    (m, b) => [call('chain', b, { who: who(m[1]) })],
+  ],
+  [
+    /^promenade (?:your )?(partners?|neighbors?)$/,
+    (m, b) => [call('promenade', b, { who: one(m[1]) })],
+  ],
+  [
     // "entire set oval left", "big oval circle right": the whole set in one
     // ring, a place every two beats.
     /^(?:entire set|big|custom) oval(?: circle)? (left|right)(?: in (?:a )?large circle)?$/,
@@ -277,6 +299,8 @@ const NOTES: readonly RegExp[] = [
   /\s+(?:across )?to (?:-?1st )?shadows?$/,
   // Who the pass goes by, and gyre styling.
   /\s+(?:with|past|passing) (?:your )?(?:partners?|neighbors?)(?:;.*)?$/,
+  /\s+(?:past|passing) (?:your )?shadows?$/,
+  /,?\s*(?:and )?to face (?:in|across)$/,
   /,?\s+(?:gypsy|walk around|look(?:ing)? into|staring|into partner|robins turn over|larks turn over)\b.*$/,
   // Pace and styling words.
   /,?\s*(?:briskly|quickly|fast|zoomily|smush|book it|optionally|w\/o hands|without hands)$/,
@@ -375,15 +399,26 @@ function exact(text: string, beats: number, match: Match) {
   }
 }
 
-/** Drop notes from the end, one at a time, until the rest matches. */
+/**
+ * Drop notes, one at a time, until the rest matches: every note is tried
+ * on every shorter text (at most a few levels deep), shortest cuts last.
+ */
 function dropNotes(text: string, beats: number, match: Match): FigureCall[] | undefined {
-  let t = text;
-  for (let pass = 0; pass < 6; pass++) {
-    const cut = NOTES.map((note) => t.replace(note, '').trim()).find((c) => c && c !== t);
-    if (cut === undefined) return undefined;
-    t = cut;
-    const calls = exact(t, beats, match);
-    if (calls) return calls;
+  let level = [text];
+  const seen = new Set(level);
+  for (let depth = 0; depth < 4 && level.length; depth++) {
+    const next: string[] = [];
+    for (const t of level) {
+      for (const note of NOTES) {
+        const cut = t.replace(note, '').trim();
+        if (!cut || seen.has(cut)) continue;
+        seen.add(cut);
+        const calls = exact(cut, beats, match);
+        if (calls) return calls;
+        next.push(cut);
+      }
+    }
+    level = next;
   }
   return undefined;
 }
