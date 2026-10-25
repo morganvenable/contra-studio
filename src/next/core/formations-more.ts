@@ -209,12 +209,12 @@ export const FOUR_FACE_FOUR: Formation = {
   name: 'Four face four',
   shape: 'longways',
   grouping: 'duple-minor',
-  // Three lines at least, so lines keep meeting new lines.
-  couples: { min: 6, max: 16 },
-  fit: (couples) => Math.max(6, couples - (couples % 2)),
+  // Four lines (16 dancers) at least, so two pairs of lines face each other.
+  couples: { min: 8, max: 16 },
+  fit: (couples) => Math.max(8, couples - (couples % 2)),
   moves: { 'long-lines': 'forward-back', circle: 'lines-circle', swing: 'lines-swing' },
   check: {
-    counts: [6, 8],
+    counts: [8, 12],
     meeting: 'all-lines',
     model: (couples, rounds) => {
       const lines = improperModel(couples / 2, rounds);
