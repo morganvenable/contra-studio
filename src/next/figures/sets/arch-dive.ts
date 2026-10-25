@@ -48,6 +48,17 @@ const DIVE_HALF = 0.33;
 const ARCH_HEIGHT = 1.55;
 /** Share of the figure spent closing in (and again opening out). */
 const CLOSE = 0.45;
+/**
+ * A quick arch (under three beats, sharing a phrase with a pass through):
+ * the couples change width less (the arch stays a little open, the divers
+ * a little wider, still 0.52 m clear, closing over the whole approach) and get up to speed sooner, so no one
+ * has to run.
+ */
+const QUICK_BEATS = 3;
+const QUICK_ARCH_HALF = 1.1;
+const QUICK_DIVE_HALF = 0.58;
+const QUICK_CLOSE = 0.5;
+const QUICK_RAMP = 0.12;
 /** Beats, at least, to turn to face the way the couple travels (or away). */
 const FACE_BEATS = 1;
 
@@ -106,6 +117,7 @@ export const archDive: Figure<ArchDiveParams> = (state, params, beats) => {
     return plansOf;
   });
   const all = plans.flat();
+  const quick = beats < QUICK_BEATS;
 
   const holdOf = (pair: readonly [number, number]): Hold => {
     const [a, b] = pair.map((id) => body(state, id));
@@ -119,12 +131,20 @@ export const archDive: Figure<ArchDiveParams> = (state, params, beats) => {
 
   const motion = (beat: number) => {
     const t = beat / beats;
-    const q = progress(t);
-    const close = Math.min(smooth(t / CLOSE), smooth((1 - t) / CLOSE));
+    const q = quick ? progress(t, QUICK_RAMP) : progress(t);
+    const span = quick ? QUICK_CLOSE : CLOSE;
+    const close = Math.min(smooth(t / span), smooth((1 - t) / span));
     const bodies = all.flatMap((p) => {
       const center = add(p.from, scale(sub(p.to, p.from), q));
       return p.movers.map((m) => {
-        const target = Math.sign(m.side) * (p.arch ? ARCH_HALF : DIVE_HALF);
+        const half = quick
+          ? p.arch
+            ? QUICK_ARCH_HALF
+            : QUICK_DIVE_HALF
+          : p.arch
+            ? ARCH_HALF
+            : DIVE_HALF;
+        const target = Math.sign(m.side) * half;
         const side = m.side + (target - m.side) * close;
         // A half turn takes about two beats; never more than half the figure.
         const turnBeats = Math.min(Math.max(FACE_BEATS, 0.65 * Math.abs(m.face)), beats / 2);

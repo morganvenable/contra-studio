@@ -89,7 +89,7 @@ interface Run {
 /** Who `among` names inside a group. */
 function pick(state: DanceState, group: readonly number[], among: readonly string[]): number[] {
   const chosen = new Set<number>();
-  for (const name of among) {
+  for (let name of among) {
     if (name === 'larks' || name === 'robins') {
       const role = name === 'larks' ? 'lark' : 'robin';
       for (const id of group) if (state.dancers[id].role === role) chosen.add(id);
@@ -101,6 +101,10 @@ function pick(state: DanceState, group: readonly number[], among: readonly strin
       for (const id of name === 'top four' ? order.slice(0, 4) : order.slice(-4)) chosen.add(id);
       continue;
     }
+    // Four face four squared (corners swing): the middle couples of the
+    // lines are the heads, the end couples the sides.
+    if ((name === 'heads' || name === 'sides') && state.layout?.columns && !state.positions.has(name))
+      name = name === 'heads' ? 'middle' : 'ends';
     if (name === 'middle' || name === 'ends') {
       // The four nearest the middle of the group (or the rest).
       const c = mean(group.map((id) => body(state, id).position));
@@ -122,9 +126,29 @@ function pick(state: DanceState, group: readonly number[], among: readonly strin
 
 /**
  * Groups of eight in a column layout: the column groups whose dancers
- * stand level along the set (two lines facing each other).
+ * stand level along the set (two lines facing each other). With a
+ * 'line-mate' relation (four face four: the dancer of the same role in the
+ * other couple of one's line of four) the groups that share lines join,
+ * wherever the dancers stand (a squared set, a ring of eight).
  */
 export function lineSets(state: DanceState): number[][] {
+  const mates = state.relations.get('line-mate');
+  if (mates) {
+    const out: number[][] = [];
+    const used = new Set<readonly number[]>();
+    for (const g of state.groups) {
+      if (used.has(g)) continue;
+      used.add(g);
+      const ids = [...g];
+      for (const h of state.groups) {
+        if (used.has(h) || !g.some((id) => h.includes(mates.get(id) ?? -1))) continue;
+        used.add(h);
+        ids.push(...h);
+      }
+      out.push(ids);
+    }
+    return out;
+  }
   const sets: { z: number; ids: number[] }[] = [];
   for (const g of state.groups) {
     const z = mean(g.map((id) => body(state, id).position)).z;
@@ -305,7 +329,7 @@ export function inLayout<P>(move: string, figure: Figure<P>): Figure<P & { among
     if (among) {
       if (!Array.isArray(among) || !among.every((a) => typeof a === 'string'))
         throw new Error('among must list who dances.');
-      const base = layout?.columns && among.some((a) => a === 'middle' || a === 'ends')
+      const base = layout?.columns && among.some((a) => ['middle', 'ends', 'heads', 'sides'].includes(a))
         ? lineSets(state)
         : groups;
       groups = base.map((g) => pick(state, g, among)).filter((g) => g.length);

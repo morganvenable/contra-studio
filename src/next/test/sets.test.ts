@@ -19,6 +19,7 @@ import { verifyDance } from '../core/verify.ts';
 import { compileNext, type StoredDance } from '../dance.ts';
 import { FIGURES } from '../figures/index.ts';
 import { call, facing, FACE_EAST, FACE_WEST, near } from './helpers.ts';
+import { inLines, SQUARE_RADIUS } from '../figures/sets/square.ts';
 
 /** Fold the calls once from `start` and run the physical check over them. */
 function once(start: DanceState, calls: readonly FigureCall[]) {
@@ -189,6 +190,76 @@ test('ring of eight: other places dance in rings of four', () => {
   for (const id of start.groups[0]) {
     near(body(four, id).position, body(plain, id).position, `dancer ${id}`, 1e-6);
   }
+});
+
+/**
+ * Two lines of four facing, seen the way layout.ts shows a four face four
+ * group of eight to a figure: turned a quarter, lines along z.
+ */
+const localEight = () => {
+  const s = eight();
+  const ids = s.groups[0];
+  const c = {
+    x: ids.reduce((n, id) => n + body(s, id).position.x, 0) / ids.length,
+    z: ids.reduce((n, id) => n + body(s, id).position.z, 0) / ids.length,
+  };
+  const bodies = new Map(s.bodies);
+  for (const id of s.bodies.keys()) {
+    const b = body(s, id);
+    const p = { x: b.position.x - c.x, z: b.position.z - c.z };
+    // rotate(p, -pi/2) = (z, -x); yaw' = yaw + pi/2.
+    bodies.set(id, { position: { x: p.z, z: -p.x }, yaw: b.yaw + Math.PI / 2 });
+  }
+  // Line mates mark the eight as four face four (formations-more.ts).
+  const relations = new Map(s.relations).set(
+    'line-mate',
+    new Map(s.dancers.map((d) => [d.id, d.id ^ 2])),
+  );
+  return withChanges(s, { bodies, relations });
+};
+const dist = (a: { x: number; z: number }, b: { x: number; z: number }) =>
+  Math.hypot(a.x - b.x, a.z - b.z);
+
+test('corners swing squares the set; partners swing back into lines', () => {
+  const start = localEight();
+  const ids = start.groups[0];
+  assert.ok(inLines(start, ids));
+  const square = once(start, [call('corner-swing', 8, { who: 'corner' })]);
+  for (const id of ids) {
+    const b = body(square, id);
+    assert.ok(Math.abs(dist(b.position, { x: 0, z: 0 }) - SQUARE_RADIUS) < 1e-6, `dancer ${id} on the square`);
+    facing(b.yaw, Math.atan2(-b.position.x, -b.position.z), `dancer ${id} faces in`);
+    const p = square.relations.get('partner')!.get(id)!;
+    assert.ok(dist(b.position, body(square, p).position) < 1.3, `dancer ${id} beside the partner`);
+  }
+  const lines = once(square, [call('lines-swing', 12, { who: 'partner' })]);
+  assert.ok(inLines(lines, ids), 'back in two lines of four');
+  for (const id of ids) {
+    // Each dancer is back on a place of the lines it started from.
+    assert.ok(
+      ids.some((o) => dist(body(lines, id).position, body(start, o).position) < 1e-6),
+      `dancer ${id} on a line place`,
+    );
+  }
+});
+
+test('lines cast off: each line is led round to the other line, facing on', () => {
+  const start = localEight();
+  const ids = start.groups[0];
+  const end = once(start, [call('lines-cast', 16, {})]);
+  for (const id of ids) {
+    const b = body(end, id);
+    assert.ok(Math.abs(b.position.x + body(start, id).position.x) < 1e-6, `dancer ${id} crosses`);
+    facing(b.yaw, body(start, id).yaw, `dancer ${id} faces as the line faced`);
+  }
+});
+
+test('a quick arch and dive (two beats) keeps to a walk', () => {
+  const across = once(becket(), [call('arch-dive', 4, { arch: '1s', backing: false })]);
+  once(across, [
+    call('arch-dive', 2, { arch: '2s', backing: true }),
+    call('pass-through', 2, { shoulder: 'right' }),
+  ]);
 });
 
 // Whole dances need the four face four and Sicilian frames in layout.ts

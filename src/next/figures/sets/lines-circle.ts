@@ -24,7 +24,7 @@
  * Runs on a group of eight (the two lines; layout.ts lineSets). A group of
  * four dances the ordinary circle (circle.ts).
  */
-import type { Figure, FigureContact } from '../../core/figure.ts';
+import type { Figure, FigureContact, FigureResult } from '../../core/figure.ts';
 import { oneOf, onlyKeys, settle } from '../../core/figure.ts';
 import { bodyMap, joined, withinReach } from '../../core/contacts.ts';
 import {
@@ -100,6 +100,23 @@ export const linesCircle: Figure<LinesCircleParams> = (state, params, beats) => 
   if (!(Number.isInteger(places) && places >= 1 && places <= 16))
     throw new Error('A ring of eight circles 1 to 16 places.');
   if (state.hands.length) throw new Error('A circle starts with free hands.');
+  return ringOfEight(state, places, direction, beats, false);
+};
+
+/**
+ * The eight of each group round one ring, `places` places to the left or
+ * right, from two lines (or a square) back onto places of the same shape:
+ * hands joined facing in (a circle), or `single` file facing the way round
+ * and ending facing as each started (a cast-off leading the line).
+ */
+export function ringOfEight(
+  state: DanceState,
+  places: number,
+  direction: 'left' | 'right',
+  beats: number,
+  single: boolean,
+): FigureResult {
+  const groups = minorSets(state);
   const rings = groups.map((group) => {
     const { center, along } = lineAxis(state, group);
     // Facing toward the other line or away from it (a ring balance or a
@@ -112,7 +129,7 @@ export const linesCircle: Figure<LinesCircleParams> = (state, params, beats) => 
       return dot(forward(b.yaw), across) * toOther;
     });
     // Anyone not facing the other line (after a do-si-do, say) turns in to join.
-    const out = inward.every((d) => d < -0.15);
+    const out = !single && inward.every((d) => d < -0.15);
     const sign = (direction === 'left' ? 1 : -1) * (out ? -1 : 1);
     const order = [...group].sort(
       (a, b) =>
@@ -142,12 +159,20 @@ export const linesCircle: Figure<LinesCircleParams> = (state, params, beats) => 
       const turns = Math.round((sweep - raw) / TAU);
       const travel = raw + turns * TAU;
       const even = offset + (i * TAU) / n;
-      const faceIn = turn(heading(s.position, center) + (out ? Math.PI : 0), s.yaw);
-      return { id, s, rs, re, a0, travel, even: a0 + turn(even, a0), endYaw: d.yaw, faceIn };
+      // Single file: face the way round the ring (heading -a, or -a + pi going
+      // right), and end facing the way you started.
+      const face = single
+        ? -a0 + (sign < 0 ? Math.PI : 0)
+        : heading(s.position, center) + (out ? Math.PI : 0);
+      const faceIn = turn(face, s.yaw);
+      const endYaw = single ? s.yaw : d.yaw;
+      return { id, s, rs, re, a0, travel, even: a0 + turn(even, a0), endYaw, faceIn };
     });
     return { center, plans, sweep, hands: ringHolds({ center, order }) };
   });
 
+  // Single file turns further (to and from the way round), so takes longer.
+  const turnBeats = single ? Math.min(3, beats / 5) : TURN_BEATS;
   const motion = (beat: number) => {
     const t = beat / beats;
     const q = progress(t);
@@ -164,22 +189,22 @@ export const linesCircle: Figure<LinesCircleParams> = (state, params, beats) => 
         const position = add(ring.center, { x: radius * Math.cos(a), z: radius * Math.sin(a) });
         // Face the center (or straight out) while circling: that heading
         // turns with the ring, -a - pi/2. Then turn to the way the new place faces.
-        const toIn = smooth(beat / TURN_BEATS);
-        const toOut = smooth((beat - (beats - TURN_BEATS)) / TURN_BEATS);
+        const toIn = smooth(beat / turnBeats);
+        const toOut = smooth((beat - (beats - turnBeats)) / turnBeats);
         const yawIn = p.s.yaw + p.faceIn * toIn - (a - p.a0);
         const yaw = yawIn + turn(p.endYaw, yawIn) * toOut;
         return { id: p.id, position, yaw };
       }),
     );
     const map = bodyMap(bodies);
-    const contacts: FigureContact[] = rings.flatMap((r) =>
-      r.hands.map((h) => withinReach(joined(h, bump), map)),
-    );
+    const contacts: FigureContact[] = single
+      ? []
+      : rings.flatMap((r) => r.hands.map((h) => withinReach(joined(h, bump), map)));
     return { bodies, contacts };
   };
   return {
-    kind: 'circle',
+    kind: single ? 'promenade' : 'circle',
     motion,
     exit: withChanges(settle(state, motion, beats), { hands: [] }),
   };
-};
+}

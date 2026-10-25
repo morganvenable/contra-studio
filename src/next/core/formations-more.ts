@@ -59,7 +59,7 @@ function properWholeSet(name: string, min: number, max: number, counts: number[]
     grouping: 'whole-set',
     couples: { min, max },
     // A circle of the whole set goes round a true ring of places.
-    moves: { circle: 'whole-circle' },
+    moves: { circle: 'whole-circle', 'star-wheel': 'star-around' },
     check: placesSpec(counts),
     start(couples) {
       count(this, couples);
@@ -116,6 +116,8 @@ export const TRIPLE_MINOR: Formation = {
   },
 };
 export const LONGWAYS_SET = properWholeSet('Longways set', 3, 8, [4, 5, 6]);
+/** A set of exactly four couples (the Virginia Reel's "four couple longways set"). */
+export const LONGWAYS_FOUR = properWholeSet('Four couple longways set', 4, 4, [4]);
 
 /**
  * Sicilian circle: couples face couples all round a big circle, partners
@@ -209,7 +211,7 @@ export const FOUR_FACE_FOUR: Formation = {
   // Three lines at least, so lines keep meeting new lines.
   couples: { min: 6, max: 16 },
   fit: (couples) => Math.max(6, couples - (couples % 2)),
-  moves: { 'long-lines': 'forward-back', circle: 'lines-circle' },
+  moves: { 'long-lines': 'forward-back', circle: 'lines-circle', swing: 'lines-swing' },
   check: {
     counts: [6, 8],
     meeting: 'all-lines',
@@ -264,6 +266,9 @@ export const FOUR_FACE_FOUR: Formation = {
         ['neighbor', neighbor],
         // Your opposite is the dancer you face across the lines: your neighbor.
         ['opposite', neighbor],
+        // The other couple of your line of four (couples 2k and 2k+1 share a
+        // line for good): the dancer of your role in it.
+        ['line-mate', new Map(dancers.map((d) => [d.id, d.id ^ 2]))],
       ]),
       groups,
       positions: new Map([
@@ -281,6 +286,7 @@ export const MORE_FORMATIONS: Readonly<Record<string, Formation>> = {
   triplet: TRIPLET,
   'triple-minor': TRIPLE_MINOR,
   'longways-set': LONGWAYS_SET,
+  'longways-four': LONGWAYS_FOUR,
   sicilian: SICILIAN,
   'four-face-four': FOUR_FACE_FOUR,
   'circle-mixer': CIRCLE_MIXER,

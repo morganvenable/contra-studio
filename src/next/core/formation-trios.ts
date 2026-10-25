@@ -117,7 +117,7 @@ export const THREE_FACE_THREE: Formation = {
   grouping: 'duple-minor',
   couples: { min: 4, max: 12 },
   fit: (trios) => Math.max(4, trios - (trios % 2)),
-  moves: { 'long-lines': 'forward-back' },
+  moves: { 'long-lines': 'forward-back', circle: 'whole-circle', swing: 'place-swing' },
   check: trioCheck,
   start(trios) {
     if (!Number.isInteger(trios) || trios < 4 || trios > 12 || trios % 2)

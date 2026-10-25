@@ -78,3 +78,22 @@ line each, for review.
 - Going "to a new partner" through the center ends facing the new partner, after one and a half turns over the named shoulder.
 - A roll away in a ring: the rolled dancer passes in front, spinning once, to the roller's place; both end facing in.
 - Footnote markers "[n]" and glosses "(corners)", "(former partner)" are notes, not figures.
+- In a triplet, a neighbor is the dancer of the other role in the other couple the row names (lark 1 with robin 2, robin 1 with lark 2).
+- In three face three, a trio's "partners" are the rest of its own trio; the basket swing turns about once every 4 beats, a whole number of times, and ends in the same line.
+- An elbow turn is a hand turn by that hand; a whole turn ends back in the line facing the line's way.
+- A swing with no side line to end on (same roles, facing lines of three) ends where it began.
+- "Neighbors do si do 1½ as throuples": every neighbor pair at once, the lines keeping hands; the 1½ is the progression.
+- "X WHILE / Y as well": both rows dance at once.
+- "Same as B1" repeats B1's calls, without B1's progression mark unless the row has its own.
+- Hey for three: a figure eight whose loops end on the end places, 0.5 m either side of the line, dancers a third of the loop apart; in a half hey the ends trade places.
+- Dip and dive: when two couples meet and neither has arched, the couple facing up arches; couples then alternate; a couple at an end facing out turns as a couple; "until everyone is back home" is twice the number of couples.
+- In a whole set, "right left through at the top" is the 1s and 2s across.
+- A cloverleaf turn single turns toward the named dancer and ends facing along the set, away from the middle of the minor set.
+- "Ones cross": partners pass right shoulders and face in on the other side, in the same place.
+- Set to corners: a step toward the corner and back, ending facing each other; corners as in contra corners.
+- "Four couple longways set": a proper whole set of exactly four couples.
+- In four face four, "corners swing" squares the set: corners swing and open out without trading places onto a square of eight; the middle couples become the heads, the end couples the sides; "partners swing" from the square swings back into lines.
+- In four face four, corners are the neighbors round the ring of eight on the far side from your partner: the middle two of a line, and an end dancer with the dancer facing them.
+- Line cast-off: the left-hand lark of each line leads it single file round the end, halfway, to the other line's place, everyone facing the way their line faced.
+- "Lines of four, pass through and back" (Dead Simple): the lines pass through to the next line (the progression mark is on that row).
+- A quick (two-beat) arch and dive keeps the arch a little open and the divers a little wider so nobody has to run.

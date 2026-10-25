@@ -79,6 +79,8 @@ export const cast: Figure<CastParams> = (state, params, beats) => {
   const zq = all[q].z;
 
   const paths = new Map<number, Path>();
+  // The long way round (up the middle first) keeps a steadier pace.
+  const ramp = via === 'center' ? 0.1 : 0.18;
   for (const id of [all[p].lark, all[p].robin]) {
     const s0 = body(state, id);
     const side = sideSign(state, id);
@@ -86,15 +88,16 @@ export const cast: Figure<CastParams> = (state, params, beats) => {
     const z0 = s0.position.z;
     const out = x0 + side * CAST_OUT;
     // Up the middle first: between the couples above, round the end of the set.
-    const turnAt = all[dir > 0 ? 0 : all.length - 1].z - dir * 0.9;
+    const turnAt = all[dir > 0 ? 0 : all.length - 1].z - dir * 0.7;
     const start: Vec2[] =
       via === 'center'
         ? [
             { x: x0, z: z0 },
             { x: side * CENTER_HALF, z: z0 - dir * 0.6 },
-            { x: side * CENTER_HALF, z: turnAt + dir * 0.4 },
-            { x: side * 0.7, z: turnAt },
-            { x: out, z: turnAt + dir * 0.5 },
+            { x: side * CENTER_HALF, z: turnAt + dir * 0.35 },
+            { x: side * 0.6, z: turnAt },
+            { x: side * 1.25, z: turnAt },
+            { x: out, z: turnAt + dir * 0.45 },
           ]
         : [
             { x: x0, z: z0 },
@@ -107,8 +110,8 @@ export const cast: Figure<CastParams> = (state, params, beats) => {
     );
     const end = facingIn(side);
     paths.set(id, {
-      pos: (u) => track.at(track.length * progress(u)),
-      yaw: (u) => (u >= 1 ? end : track.heading(track.length * progress(u))),
+      pos: (u) => track.at(track.length * progress(u, ramp)),
+      yaw: (u) => (u >= 1 ? end : track.heading(track.length * progress(u, ramp))),
       unwrap: true,
     });
   }

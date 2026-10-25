@@ -32,6 +32,7 @@ import {
   type DanceState,
 } from '../../core/state.ts';
 import { swing, type SwingParams } from '../swing.ts';
+import { assignRound, fourFaceFour, inLines, linePlaces, swingTo } from './square.ts';
 
 export interface SwingOutParams {
   who: 'partner' | 'neighbor';
@@ -55,7 +56,10 @@ export const swingOut: Figure<SwingOutParams> = (state, params, beats) => {
   onlyKeys('swing', params, ['who', 'meltdown']);
   if (params.who !== 'partner' && params.who !== 'neighbor')
     throw new Error('A swing that ends facing out pairs partners or neighbors.');
-  const runs = minorSets(state).flatMap((group) => {
+  const groups = minorSets(state);
+  if (groups.some((g) => fourFaceFour(state, g) && !inLines(state, g)))
+    return outOfSquare(state, params, beats);
+  const runs = groups.flatMap((group) => {
     const middle = groupCenter(state, group);
     return pairsIn(state, group, params.who).map((pair) => {
       const c = mean(pair.map((id) => body(state, id).position));
@@ -109,3 +113,37 @@ export const swingOut: Figure<SwingOutParams> = (state, params, beats) => {
     exit: withChanges(settle(state, motion, beats), { hands: [] }),
   };
 };
+
+/**
+ * Four face four, squared (after corners swing, a grand right and left):
+ * partners swing into lines of four again, each couple on the couple's
+ * place the way round to the right brings it to, facing out of the lines,
+ * toward the next line.
+ */
+function outOfSquare(state: DanceState, params: SwingOutParams, beats: number) {
+  if (params.who !== 'partner') throw new Error('From a square, only partners swing into lines.');
+  if (beats < 4) throw new Error('A swing needs at least four beats.');
+  const plans = minorSets(state).flatMap((group) => {
+    if (group.length !== 8) throw new Error('A swing into lines needs the eight of a square.');
+    const center = mean(group.map((id) => body(state, id).position));
+    const out = linePlaces(center).map((p) => ({ ...p, yaw: p.yaw + Math.PI }));
+    const to = assignRound(state, group, out, -1);
+    return pairsIn(state, group, 'partner').map((pair) => swingTo(state, pair, to, beats));
+  });
+  const motion = (beat: number): FigureFrame => {
+    const t = beat / beats;
+    const bodies: MovedBody[] = [];
+    const contacts: FigureContact[] = [];
+    for (const p of plans) {
+      const b = p.at(t);
+      bodies.push(...b);
+      contacts.push(...p.contacts(t, b));
+    }
+    return { bodies, contacts };
+  };
+  return {
+    kind: 'swing' as const,
+    motion,
+    exit: withChanges(settle(state, motion, beats), { hands: [] }),
+  };
+}

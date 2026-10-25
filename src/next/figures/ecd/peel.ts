@@ -30,11 +30,10 @@ import type { Vec2 } from '../../../types.ts';
 import type { Figure, FigureContact } from '../../core/figure.ts';
 import { oneOf, onlyKeys, settle } from '../../core/figure.ts';
 import { SET } from '../../core/config.ts';
-import { progress, smooth, turn } from '../../core/math.ts';
+import { clamp, progress, smooth, turn } from '../../core/math.ts';
 import { activeIds, body, partnerOf, withChanges, type Hold } from '../../core/state.ts';
 import { shoulder } from '../../core/contacts.ts';
 import { choreograph, facingIn, type Path, placeOf, places, sideSign, SLOT, Track } from './common.ts';
-import { CAST_OUT } from './cast.ts';
 
 export interface PeelParams {
   who: string;
@@ -46,7 +45,11 @@ export const ARCH_HALF = 0.8;
 /** Each follower's distance from the middle coming up through the arch. */
 export const THROUGH_HALF = 0.26;
 /** How far below the bottom place the followers turn in. */
-const TURN_BELOW = 1.1;
+const TURN_BELOW = 0.7;
+/** Short speed ramps: the whole set travels a long way in few beats. */
+const RAMP = 0.1;
+/** How far outside the lines everyone walks down. */
+const PEEL_OUT = 0.55;
 /** Height of the joined hands of the arch. */
 const ARCH_HEIGHT = 1.6;
 
@@ -58,7 +61,7 @@ interface Tracks {
 /** The followers' track and the leaders' branch for one side line. */
 function tracks(side: number, line: number, top: number, bottom: number): Tracks {
   const x = (d: number) => side * d;
-  const out = line + CAST_OUT;
+  const out = line + PEEL_OUT;
   const start: Vec2[] = [
     { x: x(line), z: bottom },
     { x: x(line), z: top },
@@ -89,8 +92,13 @@ export const peel: Figure<PeelParams> = (state, params, beats) => {
   const n = ids.length / 2;
   if (n < 3) throw new Error('peel needs at least three couples.');
   // Part way through, the leaders are the couple standing in the arch.
+  // (standing ARCH_HALF from the middle, facing down the set toward the others).
   const inArch = () =>
-    ids.filter((id) => Math.abs(Math.abs(body(state, id).position.x) - ARCH_HALF) < 0.05);
+    ids.filter(
+      (id) =>
+        Math.abs(Math.abs(body(state, id).position.x) - ARCH_HALF) < 0.05 &&
+        Math.cos(body(state, id).yaw) > 0.95,
+    );
   const leaderIds =
     part === 'through'
       ? state.positions.has(params.who)
@@ -139,34 +147,38 @@ export const peel: Figure<PeelParams> = (state, params, beats) => {
   }
   const leadDistance = tracksOf(lark).lead.length - tracksOf(lark).lead.nearest(body(state, lark).position);
   const paths = new Map<number, Path>();
-  // How far the followers go, and when the leaders arrive.
-  let followDistance = 0;
+  // How far the followers go: to their new place, or (the cast part) half
+  // way there, the rest coming up through the arch.
+  const goal = new Map<number, number>();
   for (const id of followers) {
     const t = tracksOf(id).follow;
-    const end = part === 'cast' ? along.get(id)! + leadDistance : t.nearest({ x: sideSign(state, id) * THROUGH_HALF, z: placeZ(rank.get(id)!) });
-    followDistance = Math.max(followDistance, end - along.get(id)!);
+    const end = t.nearest({ x: sideSign(state, id) * THROUGH_HALF, z: placeZ(rank.get(id)!) });
+    const from = along.get(id)!;
+    goal.set(id, part === 'cast' ? from + (end - from) / 2 : end);
   }
-  // In the cast part the leaders arrive with a beat or two in hand to face
-  // down and join hands.
-  const arrive =
-    part === 'through'
-      ? 0
-      : part === 'cast'
-        ? 1 - Math.min(0.25, 2 / beats)
-        : Math.min(0.9, leadDistance / followDistance);
+  const followDistance = Math.max(...followers.map((id) => goal.get(id)! - along.get(id)!));
+  // The leaders keep the followers' pace and arrive early to make the arch.
+  const arrive = part === 'through' ? 0 : Math.min(0.9, leadDistance / followDistance);
   const edge = Math.min(0.2, 1.5 / beats);
+  // Followers drift back out to their lines over the last few beats.
+  const outEdge = Math.min(0.35, 3 / beats);
 
   for (const id of followers) {
     const side = sideSign(state, id);
     const t = tracksOf(id).follow;
     const from = along.get(id)!;
-    const to = part === 'cast' ? from + leadDistance : t.nearest({ x: side * THROUGH_HALF, z: placeZ(rank.get(id)!) });
-    const arc = (u: number) => from + (to - from) * progress(u);
-    const stepOut = (u: number) => (part === 'cast' ? 0 : smooth((u - (1 - edge)) / edge));
+    const to = goal.get(id)!;
+    const targetZ = placeZ(rank.get(id)!);
+    const upFrom = t.nearest({ x: side * THROUGH_HALF, z: bottom + TURN_BELOW });
+    const arc = (u: number) => from + (to - from) * progress(u, RAMP);
+    const stepOut = (u: number) => (part === 'cast' ? 0 : smooth((u - (1 - outEdge)) / outEdge));
     paths.set(id, {
       pos: (u) => {
         const p = t.at(arc(u));
-        return { x: p.x + (side * line - side * THROUGH_HALF) * stepOut(u), z: p.z };
+        // Once through the arch, drift straight out toward the new place.
+        const clear = part === 'cast' ? 0 : clamp((bottom - 0.2 - p.z) / (bottom - 0.2 - targetZ));
+        const upCenter = arc(u) > upFrom && p.z < bottom - 0.2;
+        return { x: p.x + (side * line - side * THROUGH_HALF) * (upCenter ? clear : 0), z: p.z };
       },
       yaw: (u) => {
         const h = t.heading(arc(u));
@@ -186,12 +198,12 @@ export const peel: Figure<PeelParams> = (state, params, beats) => {
     const out = (u: number) => (part === 'cast' ? 0 : smooth((u - (1 - edge)) / edge));
     paths.set(id, {
       pos: (u) => {
-        const p = part === 'through' ? arch : t.at(from + (t.length - from) * progress(travel(u)));
+        const p = part === 'through' ? arch : t.at(from + (t.length - from) * progress(travel(u), RAMP));
         const o = out(u);
         return { x: p.x + (home.x - arch.x) * o, z: p.z };
       },
       yaw: (u) => {
-        if (part !== 'through' && u < arrive) return t.heading(from + (t.length - from) * progress(travel(u)));
+        if (part !== 'through' && u < arrive) return t.heading(from + (t.length - from) * progress(travel(u), RAMP));
         // Face down the set toward the couples coming, then in at the end.
         if (part === 'cast') return 0;
         return out(u) > 0.5 || u >= 1 ? facingIn(side) : 0;
@@ -206,7 +218,7 @@ export const peel: Figure<PeelParams> = (state, params, beats) => {
     const u = beat / beats;
     const on =
       part === 'cast'
-        ? smooth((u - arrive) / (1 - arrive))
+        ? smooth((u - arrive) / 0.06)
         : part === 'through'
           ? 1 - smooth((u - (1 - 2 * edge)) / edge)
           : Math.min(smooth((u - arrive) / 0.06), 1 - smooth((u - (1 - 2 * edge)) / edge));

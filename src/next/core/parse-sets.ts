@@ -12,6 +12,9 @@ import { parseRow } from './parse.ts';
 /** Read a row again in its ordinary wording. */
 const again = (text: string, beats: number): FigureCall[] => parseRow({ text, beats });
 
+/** Two-dancer figures danced with corners (figures/sets/corners.ts). */
+const CORNER_MOVES = { allemande: 1, balance: 1, 'do-si-do': 1, 'pass-by': 1 } as const;
+
 const COUPLE: Readonly<Record<string, string>> = { ones: '1s', twos: '2s', '1s': '1s', '2s': '2s' };
 const TURNS: Readonly<Record<string, number>> = {
   once: 1,
@@ -39,11 +42,14 @@ export const SETS_PATTERNS: readonly Pattern[] = [
     ARCH,
     (m, b) => {
       if (COUPLE[m[1]] === COUPLE[m[2]]) throw new Error('One couple arches, the other dives.');
-      const arch = call('arch-dive', m[4] ? b / 2 : b, {
+      // With a pass through in the same phrase each takes half; the arch is
+      // then a quick one (arch-dive.ts).
+      const pass = b / 2;
+      const arch = call('arch-dive', m[4] ? b - pass : b, {
         arch: COUPLE[m[1]],
         backing: m[3] !== undefined,
       });
-      return m[4] ? [arch, call('pass-through', b / 2, { shoulder: 'right' })] : [arch];
+      return m[4] ? [arch, call('pass-through', pass, { shoulder: 'right' })] : [arch];
     },
   ],
   [
@@ -152,6 +158,47 @@ export const SETS_PATTERNS: readonly Pattern[] = [
     // "star left 4 places the same two couples": the minor set again.
     /^(star (?:left|right) \d+ places?),? (?:with )?the same (?:two couples|four)$/,
     (m, b) => again(m[1], b),
+  ],
+  [
+    // Corners swing; in four face four this squares the set (corner-swing.ts).
+    /^(first |1st )?corners? swing(?:,? (?:and )?(?:do not trade places,? )?(?:square the set|square (?:the )?sets?|form (?:a )?square))?$/,
+    (m, b) => [call('corner-swing', b, { who: m[1] ? 'neighbor' : 'corner' })],
+  ],
+  [
+    // "[square the sets] head couples forward & back": the square is already formed.
+    /^\[?square the sets?\]? (.+)$/,
+    (m, b) => again(m[1], b),
+  ],
+  [
+    // The left-hand lark of each line leads it round to the other line's place.
+    /^(?:left hand|leftmost) (?:larks?|gentlespoons?|gents?) (?:of each line )?cast (?:over )?(?:the )?left(?: shoulder)?,? (?:leading (?:their|the) line|bring (?:their|the) line of (?:4|four) around (?:the )?neighbors)$/,
+    (_m, b) => [call('lines-cast', b, { shoulder: 'left' })],
+  ],
+  [
+    // "lines of four, pass through and back": the lines pass through to the
+    // next line; the progression mark sits here (Dead Simple).
+    /^lines of (?:four|4),? pass through and back$/,
+    (_m, b) => [call('pass-through', b, { shoulder: 'right' })],
+  ],
+  [
+    // "first corners allemande left 1¼", "corners pull by right": with the
+    // corner (corners.ts), the neighbor where a square names corners so.
+    /^(?:first |1st )?corners? ((?:allemande|pull by|pass by|do si do|balance)(?: .+)?)$/,
+    (m, b) =>
+      again(`neighbors ${m[1].replace(/1\.25/, '1¼')}`, b).map((c) => {
+        if (!(c.move in CORNER_MOVES)) throw new Error(`Corners do not ${c.move}.`);
+        return call('corners', c.beats, { move: c.move, params: c.params });
+      }),
+  ],
+  [
+    // "partner pull by right, grand right left halfway": until partners meet.
+    /^partners? pull by (?:the )?right,? (?:for |to start )?(?:a )?(?:grand right (?:and |& )?left|right left grand|grand right left)(?:,? (?:halfway(?: around)?|until (?:they|you) meet (?:their|your) partners?))$/,
+    (_m, b) => again('grand right and left halfway', b),
+  ],
+  [
+    // "robins star right once": the four robins, once round.
+    /^(robins|larks|ladles|gentlespoons) star (left|right) (?:once|1x|1)(?: around)?$/,
+    (m, b) => again(`star ${m[2]} 4 places ${m[1]}`, b),
   ],
   [
     // A trailing "++" or "+++" marks a note; the row is the call before it.

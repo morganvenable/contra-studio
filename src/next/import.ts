@@ -9,7 +9,7 @@
  */
 import type { Progression } from './core/progression.ts';
 import { canonicalText } from './core/roles.ts';
-import { contraDbRows, decodeEntities, parseRow } from './core/parse.ts';
+import { contraDbRows, decodeEntities, parseRow, type SourceRow } from './core/parse.ts';
 import type { StoredCall, StoredDance, UnparsedRow } from './dance.ts';
 import { FORMATIONS } from './core/formation.ts';
 
@@ -126,7 +126,7 @@ export const FORMATION_TEXT: Readonly<Record<string, Shape>> = {
   'longways set, 4-6 couples': { formation: 'longways-set', progression: 'places' },
   'longways sets, 4-6 couples': { formation: 'longways-set', progression: 'places' },
   'longways set, no h4': { formation: 'longways-set', progression: 'places' },
-  'four couple longways set': { formation: 'longways-set', progression: 'places' },
+  'four couple longways set': { formation: 'longways-four', progression: 'places' },
   // Sets with no ends and lines of four.
   'sicilian circle': { formation: 'sicilian', progression: 'sicilian' },
   'four face four': { formation: 'four-face-four', progression: 'lines' },
@@ -336,6 +336,84 @@ function joinLeadIns(parsed: (StoredCall[] | Error)[]) {
 }
 
 /**
+ * "Ones allemande right 1½ WHILE" followed by a zero-beat "twos allemande
+ * right 1½ as well": both rows dance at once, as one call (figures/ecd
+ * together.ts) taking the first row's beats.
+ */
+function joinWhile(rows: readonly SourceRow[], parsed: (StoredCall[] | Error)[]) {
+  rows.forEach((row, i) => {
+    const next = rows[i + 1];
+    if (!/\bwhile\s*⁋?\s*$/i.test(row.text) || !next || next.beats !== 0) return;
+    try {
+      const first = parseRow({ ...row, text: row.text.replace(/\s*\bwhile\b\s*/i, ' ').trim() });
+      const second = parseRow({
+        ...next,
+        beats: row.beats,
+        text: next.text.replace(/,?\s*(?:as well|too|at the same time)\s*$/i, '').trim(),
+      });
+      if (first.length !== 1 || second.length !== 1) throw new Error('Each part must be one figure.');
+      const parts = [first[0], second[0]].map((c) => ({ move: c.move, params: c.params }));
+      parsed[i] = [
+        {
+          move: 'together',
+          beats: row.beats,
+          params: { parts },
+          text: `${first[0].text} while ${second[0].text}`,
+          section: row.section,
+          row: i + 1,
+          ...(first[0].progression || second[0].progression ? { progression: true } : {}),
+        },
+      ];
+      parsed[i + 1] = [];
+    } catch (error) {
+      parsed[i] = error instanceof Error ? error : new Error(String(error));
+    }
+  });
+}
+
+/**
+ * "Same as B1": the row dances the named section's calls again, labeled
+ * with its own row and section. Its beats must match the section's; the
+ * repeat carries a progression mark only when this row has one.
+ */
+function repeatSections(rows: readonly SourceRow[], parsed: (StoredCall[] | Error)[]) {
+  rows.forEach((row, i) => {
+    const m = row.text.replace(/⁋/g, '').trim().match(/^same as ([AB][1-4])\.?$/i);
+    if (!m) return;
+    const name = m[1].toUpperCase();
+    const source = rows.flatMap((r, j) => (r.section === name && j < i ? [j] : []));
+    if (!source.length) {
+      parsed[i] = new Error(`There is no ${name} before this row to repeat.`);
+      return;
+    }
+    const calls: StoredCall[] = [];
+    for (const j of source) {
+      const p = parsed[j];
+      if (p instanceof Error) {
+        parsed[i] = new Error(`${name} has a row the engine cannot draw.`);
+        return;
+      }
+      calls.push(...p);
+    }
+    const beats = calls.reduce((n, c) => n + c.beats, 0);
+    if (beats !== row.beats) {
+      parsed[i] = new Error(`${name} takes ${beats} beats, this row ${row.beats}.`);
+      return;
+    }
+    const mark = row.text.includes('⁋');
+    parsed[i] = calls.map((c, k) => {
+      const { progression: _drop, ...rest } = c;
+      return {
+        ...rest,
+        section: row.section,
+        row: i + 1,
+        ...(mark && k === calls.length - 1 ? { progression: true } : {}),
+      };
+    });
+  });
+}
+
+/**
  * Import one snapshot. `sha256` is the hex hash of `snapshot.html` (the
  * caller hashes; this module stays free of Node APIs).
  */
@@ -358,6 +436,8 @@ export function importDance(id: string, snapshot: ContraDbSnapshot, sha256: stri
       return error instanceof Error ? error : new Error(String(error));
     }
   });
+  repeatSections(rows, parsed);
+  joinWhile(rows, parsed);
   joinLeadIns(parsed);
   rows.forEach((row, i) => {
     const number = i + 1;

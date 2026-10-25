@@ -17,7 +17,7 @@ import { compileNext, type StoredDance } from '../dance.ts';
 import { FIGURES } from '../figures/index.ts';
 import { call } from './helpers.ts';
 
-function stored(formation: string, figures: FigureCall[]): StoredDance {
+function stored(formation: string, figures: FigureCall[], progression = 'places'): StoredDance {
   const beats = figures.reduce((n, c) => n + c.beats, 0);
   return {
     schema: 'contra-studio/next-dance',
@@ -26,7 +26,7 @@ function stored(formation: string, figures: FigureCall[]): StoredDance {
     title: 'test',
     author: 'test',
     formation,
-    progression: 'places',
+    progression: progression as StoredDance['progression'],
     music: { meter: '2/4', parts: [{ name: 'A1', bars: beats / 2 }], times: 'repeat' },
     source: { url: 'test', formation, sha256: '' },
     status: 'ok',
@@ -40,8 +40,8 @@ function stored(formation: string, figures: FigureCall[]): StoredDance {
 const strict = (s: StoredDance, couples: number) =>
   compileNext(s, couples, undefined, { lenient: false });
 
-const ok = (formation: string, figures: FigureCall[]) =>
-  assert.deepEqual(verifyDance(stored(formation, figures), strict), { ok: true });
+const ok = (formation: string, figures: FigureCall[], progression = 'places') =>
+  assert.deepEqual(verifyDance(stored(formation, figures, progression), strict), { ok: true });
 
 const run = (calls: FigureCall[], formation = 'triplet', couples = 3): DanceState =>
   foldRound(calls, FORMATIONS[formation].start(couples), FIGURES).end;
@@ -82,7 +82,6 @@ test('ECD rows parse to the whole-set figures', () => {
     ],
     ['whole set circle left', 'set-circle', { direction: 'left' }],
     ['Oval right', 'set-circle', { direction: 'right' }],
-    ['star right', 'star-around', { hand: 'right' }],
     ['partners two hand turn', 'two-hand-turn', { who: 'partner', amount: 1 }],
     ['twos contra corners (actives)', 'contra-corners', { who: '2s' }],
     [
@@ -214,4 +213,79 @@ test('whole-circle: six circle round a true ring and end on places', () => {
     call('cast', 8, { who: '1s' }),
     call('cast', 8, { who: '1s' }),
   ]);
+});
+
+test('three face three: trio basket, center turns, swings in place, do-si-do as throuples', () => {
+  ok(
+    'three-face-three',
+    [
+      call('trio-turn', 8, { side: 'right', hand: 'right', amount: 1 }),
+      call('trio-turn', 8, { side: 'left', hand: 'left', amount: 1 }),
+      call('place-swing', 16, { who: 'neighbor' }),
+      call('do-si-do', 16, { who: 'neighbor', amount: 1.5, shoulder: 'right' }),
+      call('trio-basket', 16, {}),
+    ],
+    'trios',
+  );
+  assert.equal(parse('partners long swing (three-person basket)', 16)[0].move, 'trio-basket');
+  assert.equal(parse('centers on the right, right elbow turn (right hand partner)')[0].move, 'trio-turn');
+  assert.equal(parse('same roles long swing (your opposite)', 16)[0].move, 'place-swing');
+});
+
+test('together: ones & twos turn neighbors while the threes turn partners', () => {
+  const [c] = parse('ones & twos allemande left neighbor once, threes allemande left partner once');
+  assert.equal(c.move, 'together');
+  const s = run([c]);
+  const start = FORMATIONS.triplet.start(3);
+  for (const d of s.dancers) near(at(s, d.id).z, at(start, d.id).z, `dancer ${d.id} home`);
+  ok('triplet', [c, call('cast', 8, { who: '1s' }), call('cast', 8, { who: '1s' })]);
+});
+
+test('hey for three: parallel heys on both lines come home; half heys trade the ends', () => {
+  const [c] = parse(
+    'parallel heys for three - robins 2 pass robins 1, larks 2 pass larks 3 by right shoulders to start',
+    16,
+  );
+  assert.equal(c.move, 'hey-for-three');
+  ok('triplet', [c, call('cast', 8, { who: '1s' }), call('cast', 8, { who: '1s' })]);
+  const half = run([
+    call('hey-for-three', 8, { lines: [{ who: 'robins', active: '2s', first: '1s' }], shoulder: 'left', amount: 0.5 }),
+  ]);
+  near(at(half, 1).z, 1.8, 'top robin now at the bottom');
+  near(at(half, 5).z, -1.8, 'bottom robin now at the top');
+});
+
+test('dip and dive for six: six changes bring every couple home', () => {
+  const start = FORMATIONS.triplet.start(3);
+  const column: DanceState = {
+    ...start,
+    bodies: new Map(
+      [...start.bodies].map(([id, b]) => {
+        const down = id < 2;
+        const lark = id % 2 === 0;
+        return [id, { position: { x: (lark === down ? 1 : -1) * 0.26, z: b.position.z }, yaw: down ? 0 : Math.PI }];
+      }),
+    ),
+  };
+  const s = foldRound([call('dip-and-dive', 16, { changes: 6, arch: 'middle' })], column, FIGURES).end;
+  // Every couple back in its place (the 3s, turned at the bottom, now face down).
+  for (const d of s.dancers) near(at(s, d.id).z, at(column, d.id).z, `dancer ${d.id} z`);
+  for (const id of [0, 1, 2, 3]) near(at(s, id).x, at(column, id).x, `dancer ${id} x`);
+  assert.equal(parse('dip and dive, 6 changes - inside couple arch, turn as a couple on the ends', 16)[0].move, 'dip-and-dive');
+});
+
+test('cross, set to corners, turn single', () => {
+  ok('triplet', [
+    call('cross', 4, { who: '1s' }),
+    call('cross', 4, { who: '1s' }),
+    call('cast', 8, { who: '1s' }),
+    call('set-to-corner', 4, { who: '1s', corner: 'first' }),
+    call('set-to-corner', 4, { who: '1s', corner: 'second' }),
+    call('cast', 8, { who: '1s' }),
+  ]);
+  const s = run([call('turn-single', 4, { toward: 'partner' })]);
+  near(Math.cos(body(s, 0).yaw), -1, 'top lark faces up, away from the middle');
+  near(Math.cos(body(s, 4).yaw), 1, 'bottom lark faces down');
+  assert.equal(parse('ones set to first corners', 4)[0].move, 'set-to-corner');
+  assert.equal(parse('cloverleaf turn single (face to face with partners) to face next neighbors')[0].move, 'turn-single');
 });

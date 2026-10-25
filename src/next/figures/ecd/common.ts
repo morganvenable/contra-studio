@@ -9,11 +9,11 @@
  * places from the bodies, never from a dance's title or a couple's number.
  */
 import type { Vec2 } from '../../../types.ts';
-import type { MovedBody } from '../../core/figure.ts';
+import type { Figure, FigureResult, MovedBody } from '../../core/figure.ts';
 import { SET } from '../../core/config.ts';
 import { add, clamp, distance, ease, heading, mix, scale, smooth, sub, TAU, turn } from '../../core/math.ts';
 import { couplesByPlace } from '../../core/progression-more.ts';
-import { body, type DanceState } from '../../core/state.ts';
+import { body, type DanceState, withChanges } from '../../core/state.ts';
 
 export interface Place {
   readonly lark: number;
@@ -84,7 +84,8 @@ export class Track {
     }
     pts.push(points[points.length - 1]);
     pts = pts.filter((p, i) => i === 0 || distance(p, pts[i - 1]) > 1e-9);
-    for (let k = 0; k < 5; k++) {
+    // Radius 0: a path already sampled finely, kept exactly as given.
+    for (let k = 0; k < (radius > 0 ? 5 : 0); k++) {
       const next: Vec2[] = [pts[0]];
       for (let i = 0; i < pts.length - 1; i++) {
         next.push(mix(pts[i], pts[i + 1], 0.25), mix(pts[i], pts[i + 1], 0.75));
@@ -234,3 +235,26 @@ export function slidePath(state: DanceState, id: number, to: Vec2, a = 0.2, b = 
 
 /** Spacing of places along the set. */
 export const SLOT = SET.slot;
+
+/**
+ * Run a pair figure (allemande, do-si-do, swing ...) on pairs this figure
+ * chooses: they stand in for partners, each pair its own group. The exit
+ * keeps the state's own relations and groups.
+ */
+export function onPairs<P>(
+  figure: Figure<P>,
+  state: DanceState,
+  pairs: readonly (readonly [number, number])[],
+  params: P,
+  beats: number,
+): FigureResult {
+  if (!pairs.length) throw new Error('Nobody here dances this figure.');
+  const partner = new Map<number, number>();
+  for (const [a, b] of pairs) partner.set(a, b).set(b, a);
+  const local = withChanges(state, {
+    relations: new Map(state.relations).set('partner', partner),
+    groups: pairs.map((p) => [...p]),
+  });
+  const r = figure(local, params, beats);
+  return { ...r, exit: withChanges(r.exit, { relations: state.relations, groups: state.groups }) };
+}
