@@ -203,6 +203,22 @@ export function shapeOf(formation: string): Shape | undefined {
   return FORMATION_TEXT[formation.toLowerCase().replace(/\s+/g, ' ').trim()];
 }
 
+/**
+ * The progression kind: the formation's, made double when the source marks
+ * two progressions in one time through (the figures carry each couple two
+ * places).
+ */
+function progressionOf(shape: Shape | undefined, figures: readonly StoredCall[]) {
+  if (!shape) return null;
+  const marks = figures.filter((c) => c.progression).length;
+  const double: Partial<Record<Progression['kind'], Progression['kind']>> = {
+    'duple-minor': 'duple-minor-double',
+    'minor-set': 'minor-set-double',
+    'duple-minor-proper': 'duple-minor-proper-double',
+  };
+  return marks === 2 ? (double[shape.progression] ?? shape.progression) : shape.progression;
+}
+
 /** Usual answers the parser filled in, listed so a reviewer can change them. */
 const CHOICES: readonly (readonly [(c: StoredCall) => boolean, string])[] = [
   [
@@ -385,7 +401,7 @@ export function importDance(id: string, snapshot: ContraDbSnapshot, sha256: stri
     title: meta.title,
     author: meta.author,
     formation: shape?.formation ?? null,
-    progression: shape?.progression ?? null,
+    progression: progressionOf(shape, figures),
     music: { meter: '2/4', parts, times: 'repeat' },
     source: {
       url: snapshot.sourceUrl,

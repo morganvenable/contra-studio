@@ -34,3 +34,4 @@ line each, for review.
 - Not built, because their dancers do not come in couples or the set has a one-off shape: "5 dancers", "line of 5 people", "9-person mixer", "three-person mixer", "circle of threes", "tempest".
 - "Proper" (duple minor): every lark on the larks' side, partners facing each other across the set at the start (lines facing).
 - A pair figure that names a place ("ones allemande right 1½", "heads do si do"): those dancers dance it with their partners.
+- A dance whose rows carry two progression marks progresses twice a time through (a double progression), whatever its formation line says.

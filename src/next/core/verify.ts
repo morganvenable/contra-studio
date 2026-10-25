@@ -163,9 +163,12 @@ function meetingProblem(dance: FoldedDance, rule: MeetingRule, couples: number) 
   const ones = new Set<number>();
   const met = new Set<string>();
   for (let r = 0; r < rounds; r++) {
-    const end = dance.round(r).end;
+    const round = dance.round(r);
+    const end = round.end;
     for (const id of end.positions.get('1s') ?? []) if (r === 0) ones.add(Math.floor(id / 2));
-    for (const g of end.groups) {
+    // Every grouping danced this round: a double progression regroups mid-round.
+    const groupings = [...round.segments.map((s) => s.entry.groups), end.groups];
+    for (const g of groupings.flat()) {
       const unit = rule === 'all-lines' ? 4 : 2;
       const cs = [...new Set(g.map((id) => Math.floor(id / unit)))].sort((a, b) => a - b);
       met.add(cs.join('-'));
