@@ -439,8 +439,50 @@ export function parseRow(row: SourceRow): FigureCall[] {
       ...(progression && i === calls.length - 1 ? { progression: true } : {}),
     }));
   }
+  // "A while B": B happens during A's last part, on other dancers.
+  const both = splitMeanwhile(row, normal.text);
+  if (both) return both;
   if (failure) throw failure;
   throw new Error(`No figure pattern matches "${row.text}".`);
+}
+
+/**
+ * A row of two figures at once ("balance & centers Rory O'More right while
+ * ends turn over right shoulder"): the first figure as usual, its last part
+ * run together with the second (figures/meanwhile.ts). Undefined when the
+ * row is not of that shape or either part does not read.
+ */
+function splitMeanwhile(row: SourceRow, text: string): FigureCall[] | undefined {
+  const m = text.match(/^(.+?)(?:,? while |,? meanwhile |; meanwhile )(?:the )?(.+)$/);
+  if (!m) return undefined;
+  let first: FigureCall[];
+  try {
+    first = parseRow({ ...row, text: m[1] });
+  } catch {
+    return undefined;
+  }
+  const last = first.at(-1)!;
+  let second: FigureCall[];
+  try {
+    second = parseRow({ ...row, text: m[2], beats: last.beats });
+  } catch {
+    return undefined;
+  }
+  if (second.length !== 1) return undefined;
+  const label = canonicalText(row.text.replace(/⁋/g, '').replace(/\s+/g, ' ').trim());
+  return [
+    ...first.slice(0, -1),
+    {
+      move: 'meanwhile',
+      beats: last.beats,
+      params: {
+        first: { move: last.move, params: last.params },
+        second: { move: second[0].move, params: second[0].params },
+      },
+      text: first.length > 1 ? last.text : label,
+      ...(last.progression ? { progression: true } : {}),
+    },
+  ];
 }
 
 const ENTITIES: Readonly<Record<string, string>> = {

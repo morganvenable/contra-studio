@@ -4,9 +4,9 @@
  "catalogue": 2422,
  "stored": 2422,
  "counts": {
-  "ok": 342,
-  "check": 85,
-  "partial": 1713,
+  "ok": 343,
+  "check": 86,
+  "partial": 1711,
   "unsupported": 282
  },
  "formations": [
@@ -21,9 +21,9 @@
   {
    "formation": "becket",
    "dances": 655,
-   "ok": 33,
+   "ok": 34,
    "check": 32,
-   "partial": 590,
+   "partial": 589,
    "unsupported": 0
   },
   {
@@ -38,8 +38,8 @@
    "formation": "proper",
    "dances": 50,
    "ok": 0,
-   "check": 0,
-   "partial": 50,
+   "check": 1,
+   "partial": 49,
    "unsupported": 0
   },
   {
@@ -1099,8 +1099,8 @@
   "missingFigures": [
    {
     "name": "allemande variant",
-    "unlocks": 76,
-    "uses": 317
+    "unlocks": 75,
+    "uses": 316
    },
    {
     "name": "ocean wave / long wave",
@@ -1124,7 +1124,7 @@
    },
    {
     "name": "promenade",
-    "unlocks": 23,
+    "unlocks": 24,
     "uses": 88
    },
    {
@@ -1258,14 +1258,14 @@
     "uses": 12
    },
    {
-    "name": "rory o'more",
+    "name": "poussette",
     "unlocks": 2,
     "uses": 25
    },
    {
-    "name": "poussette",
+    "name": "rory o'more",
     "unlocks": 2,
-    "uses": 25
+    "uses": 24
    },
    {
     "name": "figure 8",
@@ -1988,11 +1988,6 @@
     "uses": 2
    },
    {
-    "name": "other: robins turn back to neighbors",
-    "unlocks": 0,
-    "uses": 1
-   },
-   {
     "name": "other: robins trade by the right shoulder and back up into place while the larks prep to reverse direction",
     "unlocks": 0,
     "uses": 1
@@ -2278,11 +2273,6 @@
     "uses": 1
    },
    {
-    "name": "other: robins turn back over right shoulders",
-    "unlocks": 0,
-    "uses": 2
-   },
-   {
     "name": "other: neighbors rang tang right",
     "unlocks": 0,
     "uses": 1
@@ -2504,11 +2494,6 @@
    },
    {
     "name": "other: larks turn out over left shoulder while",
-    "unlocks": 0,
-    "uses": 1
-   },
-   {
-    "name": "other: robins turn out over right shoulder",
     "unlocks": 0,
     "uses": 1
    },
@@ -2828,11 +2813,6 @@
     "uses": 1
    },
    {
-    "name": "other: larks turn back over right shoulders",
-    "unlocks": 0,
-    "uses": 1
-   },
-   {
     "name": "other: wizard's walk: ones separate around the twos; ones split the next twos. back up around the twos, split the original twos. ones finish where they started ww.",
     "unlocks": 0,
     "uses": 1
@@ -2851,7 +2831,7 @@
   "figuresThatCannotStart": [
    {
     "name": "progression or other",
-    "unlocks": 60
+    "unlocks": 61
    },
    {
     "name": "diagonal chain / right left through",
@@ -2859,7 +2839,11 @@
    },
    {
     "name": "rory o'more",
-    "unlocks": 17
+    "unlocks": 14
+   },
+   {
+    "name": "swing variant",
+    "unlocks": 14
    },
    {
     "name": "do-si-do variant",
@@ -2870,16 +2854,12 @@
     "unlocks": 13
    },
    {
-    "name": "swing variant",
-    "unlocks": 13
-   },
-   {
     "name": "allemande variant",
     "unlocks": 12
    },
    {
     "name": "ocean wave / long wave",
-    "unlocks": 11
+    "unlocks": 12
    },
    {
     "name": "hey (other)",
@@ -3030,6 +3010,10 @@
    {
     "name": "other: long lines forward",
     "unlocks": 2
+   },
+   {
+    "name": "contra corners",
+    "unlocks": 1
    },
    {
     "name": "butterfly whirl",

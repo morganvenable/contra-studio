@@ -15,7 +15,8 @@ import { parseRow } from '../core/parse.ts';
 import { diagonalGroups } from '../core/diagonal.ts';
 import { FIGURES } from '../figures/index.ts';
 import { MINOR_SET_PROGRESSION } from '../core/progression.ts';
-import { call, near } from './helpers.ts';
+import { after, call, near, PASS, TO_WAVE } from './helpers.ts';
+import { findWave } from '../core/lines.ts';
 
 const improper = (calls: readonly FigureCall[], couples = 2): DanceState =>
   foldRound(calls, IMPROPER.start(couples), FIGURES).end;
@@ -579,4 +580,39 @@ test('circular hey: four changes around the ring bring everyone home', () => {
     6,
   );
   withinLimits(three, 6, 'three changes');
+});
+
+test('meanwhile: the centers slide while the ends turn, on different dancers', () => {
+  const wave = after([PASS, TO_WAVE]);
+
+  const calls = parseRow({
+    beats: 8,
+    text: "balance & centers Rory O'More left while ends turn over right shoulder",
+  });
+  assert.deepEqual(
+    calls.map((c) => c.move),
+    ['balance', 'meanwhile'],
+  );
+  const line = findWave(wave, wave.groups[0]);
+  const [e1, c1, c2, e2] = line.order;
+  const end = foldRound(calls, wave, FIGURES).end;
+  // The ends stay in place, facing the other way; the centers trade places.
+  for (const id of [e1, e2]) {
+    near(body(end, id).position, body(wave, id).position, `end ${id} stays`, 1e-3);
+    assert.ok(Math.abs(Math.abs(turn(body(end, id).yaw, body(wave, id).yaw)) - Math.PI) < 1e-2);
+  }
+  near(body(end, c1).position, body(wave, c2).position, 'centers trade', 1e-3);
+  // Two figures moving the same dancer cannot happen at once.
+  assert.throws(
+    () =>
+      FIGURES.meanwhile(
+        wave,
+        {
+          first: { move: 'turn-back', params: {} },
+          second: { move: 'turn-back', params: { who: 'larks' } },
+        },
+        4,
+      ),
+    /can't happen at once/,
+  );
 });

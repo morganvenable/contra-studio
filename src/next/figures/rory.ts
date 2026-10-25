@@ -103,7 +103,9 @@ export const rory: Figure<RoryParams> = (state, params, beats) => {
 
   let newHolds: Hold[] = [];
   const slid = settle(state, motion, beats);
-  newHolds = groups.flatMap((g) => lineHolds(slid, findWave(slid, g)));
+  // Named dancers sliding may leave no wave behind them (the others turn
+  // or step meanwhile): then no new hands join.
+  newHolds = named === undefined ? groups.flatMap((g) => lineHolds(slid, findWave(slid, g))) : [];
   if (named === undefined && newHolds.some((h) => state.hands.some((old) => sameHold(old, h)))) {
     throw new Error('Rory must end holding hands with new people.');
   }

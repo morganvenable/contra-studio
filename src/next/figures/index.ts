@@ -42,6 +42,7 @@ import { starThru } from './star-thru.ts';
 import { dolphinHey } from './dolphin-hey.ts';
 import { turnBack } from './turn-back.ts';
 import { circularHey } from './circular-hey.ts';
+import { makeMeanwhile } from './meanwhile.ts';
 
 const BASE: FigureRegistry = {
   allemande,
@@ -85,6 +86,7 @@ const BASE: FigureRegistry = {
   'dolphin-hey': dolphinHey,
   'turn-back': turnBack,
   'circular-hey': circularHey,
+  meanwhile: makeMeanwhile(() => FIGURES),
 };
 
 /** Every figure, each also able to run on a diagonal (core/diagonal.ts). */

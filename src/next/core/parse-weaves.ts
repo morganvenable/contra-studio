@@ -176,6 +176,16 @@ function heyRest(rest: string) {
 
 const PATTERNS: readonly (readonly [RegExp, Build])[] = [
   [
+    // "ends turn over right shoulder", "larks turn back": on its own (the
+    // second half of a "while" row, figures/meanwhile.ts).
+    /^(?:the )?(larks|robins|ones|twos|centers|ends|gentlespoons|ladles) turns? (?:back |around |out )?(?:over (?:their |your )?(right|left) shoulders?)?(.*)$/,
+    (m, b) => {
+      notes(m[3], 'turn');
+      const w = m[1] === 'centers' || m[1] === 'ends' ? m[1] : who(m[1]);
+      return [call('turn-back', b, { who: w, ...(m[2] ? { shoulder: m[2] } : {}) })];
+    },
+  ],
+  [
     // "partners start a full circular hey - rights across, lefts along".
     /^((?:next |new )?\w+) start an? (full|half) circular hey - (right|left)s (?:across|along),? (?:right|left)s (?:across|along)(.*)$/,
     (m, b) => {

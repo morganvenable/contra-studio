@@ -47,3 +47,4 @@ below. One line each; change any of them by telling us the other reading.
 - Circular hey: around the ring of places like a grand right and left without hands, straight from place to place, the named pair passing first by the named shoulder and the passes alternating; full is four changes, half two.
 - Star promenade "larks pick up neighbor": the neighbor walks the outside instead of the partner.
 - A pass by too long for its beats (larks crossing the minor set diagonally in two beats) goes as far toward the other's place as a walk allows, veering most where the two cross; dancers turn to face the way they walk more slowly when the turn is big.
+- "A while B" rows run B during the last part of A, on other dancers (a meanwhile figure); a row whose two parts move the same dancer stays undrawn. Named Rory slides join no new hands, since the wave may be re-formed by the others meanwhile.
