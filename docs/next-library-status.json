@@ -4,8 +4,8 @@
  "catalogue": 2422,
  "stored": 2422,
  "counts": {
-  "ok": 335,
-  "check": 142,
+  "ok": 340,
+  "check": 137,
   "partial": 1663,
   "unsupported": 282
  },
@@ -13,16 +13,16 @@
   {
    "formation": "improper",
    "dances": 1189,
-   "ok": 294,
-   "check": 78,
+   "ok": 298,
+   "check": 74,
    "partial": 817,
    "unsupported": 0
   },
   {
    "formation": "becket",
    "dances": 655,
-   "ok": 30,
-   "check": 56,
+   "ok": 31,
+   "check": 55,
    "partial": 569,
    "unsupported": 0
   },
@@ -2847,11 +2847,7 @@
   "checkFailures": [
    {
     "name": "Couples don't end the round where the progression puts them",
-    "unlocks": 34
-   },
-   {
-    "name": "allemande variant",
-    "unlocks": 18
+    "unlocks": 36
    },
    {
     "name": "pull by / pass by",
@@ -2863,10 +2859,14 @@
    },
    {
     "name": "star promenade",
-    "unlocks": 10
+    "unlocks": 11
    },
    {
     "name": "The next time through can't start from where the dancers end",
+    "unlocks": 9
+   },
+   {
+    "name": "allemande variant",
     "unlocks": 9
    },
    {
@@ -2902,6 +2902,10 @@
     "unlocks": 2
    },
    {
+    "name": "box the gnat / swat the flea",
+    "unlocks": 2
+   },
+   {
     "name": "take hands (wave/line set-up)",
     "unlocks": 1
    },
@@ -2923,10 +2927,6 @@
    },
    {
     "name": "slide along set",
-    "unlocks": 1
-   },
-   {
-    "name": "box the gnat / swat the flea",
     "unlocks": 1
    },
    {

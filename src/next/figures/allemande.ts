@@ -54,6 +54,12 @@ export interface AllemandeParams {
 
 /** Distance from each dancer to the joined hands while turning. */
 export const HOLD_RADIUS = 0.45;
+/** Turning radius of a pair that lets go and steps back out at the end. */
+const TIGHT_RADIUS = 0.38;
+/** Closing in takes this much of a turn (or the first share of a short one). */
+const GATHER_TURNS = 0.3;
+/** Samples along the path for walking it at a steady pace. */
+const PATH_STEPS = 240;
 
 export const allemande: Figure<AllemandeParams> = (state, params, beats) => {
   onlyKeys('allemande', params, ['who', 'hand', 'amount', 'wave', 'longWaves']);
@@ -69,7 +75,6 @@ export const allemande: Figure<AllemandeParams> = (state, params, beats) => {
   }
   const sign = hand === 'right' ? 1 : -1;
   const sweep = sign * amount * TAU;
-  const gather = Math.min(0.4, 1.5 / beats);
   const stepsOut = !params.wave && !params.longWaves && Number.isInteger(amount * 2);
   const groups = minorSets(state);
 
@@ -107,20 +112,68 @@ export const allemande: Figure<AllemandeParams> = (state, params, beats) => {
     });
   });
 
+  // The path by u in [0, 1] (the share of the turn): close in to the held
+  // radius over the first part of the turn and, for a whole or half turn
+  // with no wave to form, let go and step back out over the last part. A
+  // pair that steps back out turns at a tighter radius, since it need not
+  // end at a wave's spacing.
+  const inner = stepsOut ? TIGHT_RADIUS : HOLD_RADIUS;
+  const share = Math.min(stepsOut ? 0.45 : 0.4, GATHER_TURNS / amount);
+  // Share of the sweep turned by u: none at first while closing in (and,
+  // stepping back out, none at the end), so the pair moves straight in and
+  // out instead of sweeping wide around at its starting distance.
+  const lead = share / 2;
+  const tail = stepsOut ? share / 2 : 0;
+  const swept = (u: number) => {
+    const span = 1 - lead - tail;
+    if (u < share) return (u * u) / (2 * share) / span;
+    if (stepsOut && u > 1 - share) return 1 - ((1 - u) * (1 - u)) / (2 * share) / span;
+    return (u - lead) / span;
+  };
+  const shape = (radius: number, u: number) => {
+    const g = smooth(u / share);
+    const out = stepsOut ? smooth((u - (1 - share)) / share) : 0;
+    return { g, out, r: radius + (inner - radius) * g * (1 - out), angle: sweep * swept(u) };
+  };
+  // Walk the path at one steady pace (with the usual ramps at the ends), so
+  // closing in from far apart does not rush the first beat.
+  const pace = new Map(
+    orbits.map((o) => {
+      const lengths = [0];
+      let last = o.rel;
+      for (let k = 1; k <= PATH_STEPS; k++) {
+        const { r, angle } = shape(o.radius, k / PATH_STEPS);
+        const here = rotate(scale(o.rel, r / o.radius), angle);
+        lengths.push(lengths[k - 1] + length(sub(here, last)));
+        last = here;
+      }
+      return [o.id, lengths] as const;
+    }),
+  );
+  const along = (id: number, t: number) => {
+    const lengths = pace.get(id)!;
+    const goal = lengths[PATH_STEPS] * progress(t);
+    let lo = 0;
+    let hi = PATH_STEPS;
+    while (hi - lo > 1) {
+      const mid = (lo + hi) >> 1;
+      if (lengths[mid] < goal) lo = mid;
+      else hi = mid;
+    }
+    const span = lengths[hi] - lengths[lo];
+    return (lo + (span > 1e-12 ? (goal - lengths[lo]) / span : 0)) / PATH_STEPS;
+  };
+
   const motion = (beat: number) => {
     const t = beat / beats;
-    const g = smooth(t / gather);
-    // Ending back on its own line (a whole or half turn) with no wave to
-    // form, the pair lets go and steps back out to its span.
-    const out = stepsOut ? smooth((t - (1 - gather)) / gather) : 0;
-    const angle = sweep * progress(t);
-    const bodies = orbits.map((o) => {
-      const r = o.radius + (HOLD_RADIUS - o.radius) * g * (1 - out);
+    const at = new Map(orbits.map((o) => [o.id, { o, ...shape(o.radius, along(o.id, t)) }]));
+    const bodies = [...at.values()].map(({ o, g, r, angle }) => {
       const position = add(o.center, rotate(scale(o.rel, r / o.radius), angle));
       return { id: o.id, position, yaw: o.start.yaw + o.needed * g - angle };
     });
     const contacts: FigureContact[] = holds.map((h) => {
       const held = state.hands.some((s) => sameHold(s, h));
+      const { g, out } = at.get(h.a)!;
       // Hands join once the pair has closed in enough to reach.
       return joined(h, (held ? 1 : smooth((g - 0.5) / 0.5)) * (1 - smooth(out / 0.5)));
     });

@@ -58,3 +58,4 @@ reading below. One line each; change any of them and the figure follows.
 - "Balance (the wave) and move straight ahead to a new wave": a 4-beat balance, then walk forward; "dance forward to form new waves and balance": walk forward, then a 4-beat balance.
 - "Swing, end facing across to rejoin ring / end in a ring / form a ring": the ordinary swing ending; the ring that follows forms itself.
 - A jersey twirl with no one named is partners.
+- Allemande path: the pair closes straight in over the first part of the turn and (a whole or half turn) steps straight back out over the last part, turning at 0.38 m from the joined hands in between; it walks the whole path at one steady pace. Quarter turns still end at the wave spacing (0.45 m).
