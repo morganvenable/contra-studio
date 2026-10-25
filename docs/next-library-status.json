@@ -4,9 +4,9 @@
  "catalogue": 2422,
  "stored": 2422,
  "counts": {
-  "ok": 378,
-  "check": 187,
-  "partial": 1575,
+  "ok": 380,
+  "check": 192,
+  "partial": 1568,
   "unsupported": 282
  },
  "formations": [
@@ -21,9 +21,9 @@
   {
    "formation": "becket",
    "dances": 655,
-   "ok": 53,
-   "check": 87,
-   "partial": 515,
+   "ok": 55,
+   "check": 92,
+   "partial": 508,
    "unsupported": 0
   },
   {
@@ -2603,7 +2603,7 @@
    },
    {
     "name": "diagonal chain / right left through",
-    "unlocks": 15
+    "unlocks": 10
    },
    {
     "name": "rory o'more",
@@ -2614,15 +2614,15 @@
     "unlocks": 8
    },
    {
-    "name": "allemande variant",
-    "unlocks": 8
-   },
-   {
     "name": "chain variant",
     "unlocks": 7
    },
    {
     "name": "circle variant",
+    "unlocks": 7
+   },
+   {
+    "name": "allemande variant",
     "unlocks": 7
    },
    {
@@ -2670,10 +2670,6 @@
     "unlocks": 2
    },
    {
-    "name": "do-si-do variant",
-    "unlocks": 2
-   },
-   {
     "name": "hey (other)",
     "unlocks": 2
    },
@@ -2684,16 +2680,24 @@
    {
     "name": "slice",
     "unlocks": 1
+   },
+   {
+    "name": "do-si-do variant",
+    "unlocks": 1
    }
   ],
   "checkFailures": [
    {
     "name": "Couples don't end the round where the progression puts them",
-    "unlocks": 78
+    "unlocks": 77
    },
    {
     "name": "pull by / pass by",
     "unlocks": 22
+   },
+   {
+    "name": "The next time through can't start from where the dancers end",
+    "unlocks": 20
    },
    {
     "name": "allemande variant",
@@ -2702,10 +2706,6 @@
    {
     "name": "star promenade",
     "unlocks": 16
-   },
-   {
-    "name": "The next time through can't start from where the dancers end",
-    "unlocks": 14
    },
    {
     "name": "hey (other)",

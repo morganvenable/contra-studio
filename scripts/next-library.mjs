@@ -148,7 +148,7 @@ const checked = imported.map((d) => {
     status: 'partial',
     problems: ['The corpus check did not finish.'],
   };
-  return { ...d, status: r.status, problems: r.problems };
+  return { ...d, ...(r.formation ? { formation: r.formation } : {}), status: r.status, problems: r.problems };
 });
 for (const d of checked) writeFileSync(`${OUT}/${d.id}.json`, storedJson(d));
 
