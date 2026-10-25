@@ -7,6 +7,13 @@
  *   finds couples where they stand: each lark's new partner is the robin now
  *   beside them on their right (usually the one they just swung).
  * - Circle: the same ring for dances that keep partners.
+ * - Square: four couples, couple 1 with its back to the band, numbered
+ *   counterclockwise; heads are couples 1 and 3, sides 2 and 4. It is the
+ *   ring of eight turned so each couple is centered on a side. Corners are
+ *   the dancers beside each other of neighboring couples; opposites stand
+ *   across. Partners are found where they stand after each time through
+ *   (a break keeps them; a singing call that promenades the corner changes
+ *   them).
  *
  * Places are SET.slot apart along the ring (a chord), so a pair that swings
  * or turns ends exactly on its two places, as a contra pair would.
@@ -25,11 +32,14 @@ export const RING_CENTER: Vec2 = { x: 0, z: 0 };
 /** Radius of a ring of `n` places SET.slot apart. */
 export const ringRadius = (n: number) => SET.slot / 2 / Math.sin(Math.PI / n);
 
-/** The places of a ring of n dancers, the first nearest the band (lowest z). */
-export function ringPlaces(n: number, center: Vec2 = RING_CENTER): Body[] {
+/**
+ * The places of a ring of n dancers, the first nearest the band (lowest z),
+ * or with `paired` the first two centered there (a square's couple 1).
+ */
+export function ringPlaces(n: number, center: Vec2 = RING_CENTER, paired = false): Body[] {
   const r = ringRadius(n);
   const place = (j: number, dir: number): Body => {
-    const a = -Math.PI / 2 + (dir * j * 2 * Math.PI) / n;
+    const a = -Math.PI / 2 + (dir * (j - (paired ? 0.5 : 0)) * 2 * Math.PI) / n;
     const position = { x: center.x + r * Math.cos(a), z: center.z + r * Math.sin(a) };
     return { position, yaw: heading(position, center) };
   };
@@ -91,12 +101,12 @@ export const MIXER_PROGRESSION: Progression = {
 };
 
 /** Everyone back on a place of the starting ring. */
-const slotsSpec = (counts: number[], meeting: MeetingRule): CheckSpec => ({
+const slotsSpec = (counts: number[], meeting: MeetingRule, square = false): CheckSpec => ({
   counts,
   meeting,
   rounds: (couples) => couples + 1,
   model: (couples, rounds): SlotsModel => {
-    const places = ringPlaces(couples * 2);
+    const places = ringPlaces(couples * 2, RING_CENTER, square);
     return {
       kind: 'slots',
       rounds,
@@ -107,19 +117,25 @@ const slotsSpec = (counts: number[], meeting: MeetingRule): CheckSpec => ({
   },
 });
 
-function ring(name: string, meeting: MeetingRule): Formation {
+function ring(
+  name: string,
+  meeting: MeetingRule,
+  square = false,
+): Formation {
+  const min = square ? 4 : 3;
+  const max = square ? 4 : 16;
   return {
     name,
-    shape: 'circle',
+    shape: square ? 'square' : 'circle',
     grouping: 'whole-set',
-    couples: { min: 3, max: 16 },
+    couples: { min, max },
     moves: { circle: 'ring-circle', 'long-lines': 'forward-back', promenade: 'ring-promenade' },
-    check: slotsSpec([4, 5, 6], meeting),
+    check: slotsSpec(square ? [4] : [4, 5, 6], meeting, square),
     start(couples) {
-      if (!Number.isInteger(couples) || couples < 3 || couples > 16)
-        throw new Error(`${name} needs 3-16 couples.`);
+      if (!Number.isInteger(couples) || couples < min || couples > max)
+        throw new Error(`${name} needs ${min === max ? min : `${min}-${max}`} couples.`);
       const dancers = createDancers(couples);
-      const places = ringPlaces(couples * 2);
+      const places = ringPlaces(couples * 2, RING_CENTER, square);
       const bodies = new Map<number, Body>();
       // Lark k on place 2k, robin k on its right (place 2k + 1).
       for (const d of dancers) bodies.set(d.id, places[d.couple * 2 + (d.role === 'robin' ? 1 : 0)]);
@@ -132,20 +148,35 @@ function ring(name: string, meeting: MeetingRule): Formation {
         positions: new Map(),
         epoch: 0,
         waiting: [],
-        layout: { center: RING_CENTER },
+        layout: {
+          center: RING_CENTER,
+          homes: new Map([...bodies].map(([id, b]) => [id, b.position])),
+        },
       };
       const { partner, neighbor } = ringRelations(state);
-      return Object.freeze({
-        ...state,
-        relations: new Map([
-          ['partner', partner],
-          ['neighbor', neighbor],
-          ['corner', neighbor],
-        ]),
-      });
+      const relations = new Map([
+        ['partner', partner],
+        ['neighbor', neighbor],
+        ['corner', neighbor],
+      ]);
+      const positions = new Map<string, readonly number[]>();
+      if (square) {
+        const ids = (cs: number[]) => cs.flatMap((c) => [c * 2, c * 2 + 1]);
+        positions.set('heads', ids([0, 2])).set('sides', ids([1, 3]));
+        for (let c = 0; c < 4; c++) positions.set(`${c + 1}s`, ids([c]));
+        // Opposites: the dancer of the other role in the couple across.
+        const opposite = new Map<number, number>();
+        for (let c = 0; c < 4; c++) {
+          const o = (c + 2) % 4;
+          opposite.set(c * 2, o * 2 + 1).set(o * 2 + 1, c * 2);
+        }
+        relations.set('opposite', opposite);
+      }
+      return Object.freeze({ ...state, relations, positions });
     },
   };
 }
 
 export const CIRCLE_MIXER = ring('Circle mixer', 'all-partners');
 export const BIG_CIRCLE = ring('Circle', 'none');
+export const SQUARE = ring('Square', 'none', true);

@@ -45,6 +45,8 @@ export interface Layout {
    * the set walk toward each other (four face four, Sicilian circles).
    */
   readonly lines?: 'facing';
+  /** Each dancer's home place (a square, a ring), for "promenade home". */
+  readonly homes?: ReadonlyMap<number, Vec2>;
 }
 
 /** World <-> local: local = rotate(world + shift - origin, angle); yaw' = yaw - angle. */

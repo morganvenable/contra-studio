@@ -1,5 +1,5 @@
-{ "schema": "contra-studio/next-dance", "version": 2, "id": "2185", "title": "Beginner's Lesson", "author": "Chestnut", "formation": "circle", "progression": "mixer", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 32 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/2185", "formation": "circle", "retrievedAt": "2026-10-20T05:48:11.371Z", "sha256": "fa4fd5c9d3b1f187802d542d1703bd11bfcb21fa204e64daa15253c932ab6e11" }, "status": "partial", "problems": [ "Row 1 \"stand still\" isn't drawn yet." ], "unparsed": [ { "row": 1, "text": "stand still", "why": "No figure pattern matches \"stand still ⁋\"." } ], "choices": [],
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "2185", "title": "Beginner's Lesson", "author": "Chestnut", "formation": "circle", "progression": "mixer", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 32 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/2185", "formation": "circle", "retrievedAt": "2026-10-20T05:48:11.371Z", "sha256": "fa4fd5c9d3b1f187802d542d1703bd11bfcb21fa204e64daa15253c932ab6e11" }, "status": "ok", "problems": [], "unparsed": [], "choices": [],
  "figures": [
-  {"move":"hold","beats":64,"params":{"reason":"unparsed"},"text":"stand still","section":"A1","row":1,"progression":true}
+  {"move":"still","beats":64,"params":{"action":"stand"},"text":"stand still","progression":true,"section":"A1","row":1}
  ]
 }

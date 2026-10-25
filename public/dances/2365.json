@@ -1,12 +1,12 @@
-{ "schema": "contra-studio/next-dance", "version": 2, "id": "2365", "title": "The Dance Angel", "author": "JoLaine Jones-Pokorney", "formation": "triplet", "progression": "places", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/2365", "formation": "triplet", "retrievedAt": "2026-10-20T06:16:36.694Z", "sha256": "8be6d6ac5488f5e7687843c0b30c3f7e5ec5ab60e0357dce879acbba787a6805" }, "status": "partial", "problems": [ "Row 1 \"stand still\" isn't drawn yet.", "Row 2 \"stand still\" isn't drawn yet.", "Row 3 \"stand still\" isn't drawn yet.", "Row 4 \"stand still\" isn't drawn yet.", "Row 5 \"stand still\" isn't drawn yet.", "Row 6 \"stand still\" isn't drawn yet.", "Row 7 \"stand still\" isn't drawn yet.", "Row 8 \"stand still\" isn't drawn yet." ], "unparsed": [ { "row": 1, "text": "stand still", "why": "No figure pattern matches \"stand still\"." }, { "row": 2, "text": "stand still", "why": "No figure pattern matches \"stand still\"." }, { "row": 3, "text": "stand still", "why": "No figure pattern matches \"stand still\"." }, { "row": 4, "text": "stand still", "why": "No figure pattern matches \"stand still\"." }, { "row": 5, "text": "stand still", "why": "No figure pattern matches \"stand still\"." }, { "row": 6, "text": "stand still", "why": "No figure pattern matches \"stand still\"." }, { "row": 7, "text": "stand still", "why": "No figure pattern matches \"stand still\"." }, { "row": 8, "text": "stand still", "why": "No figure pattern matches \"stand still ⁋\"." } ], "choices": [],
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "2365", "title": "The Dance Angel", "author": "JoLaine Jones-Pokorney", "formation": "triplet", "progression": "places", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/2365", "formation": "triplet", "retrievedAt": "2026-10-20T06:16:36.694Z", "sha256": "8be6d6ac5488f5e7687843c0b30c3f7e5ec5ab60e0357dce879acbba787a6805" }, "status": "check", "problems": [ "Couples don't end the round where the progression puts them (with 3 couples)." ], "unparsed": [], "choices": [],
  "figures": [
-  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"stand still","section":"A1","row":1},
-  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"stand still","section":"A1","row":2},
-  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"stand still","section":"A2","row":3},
-  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"stand still","section":"A2","row":4},
-  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"stand still","section":"B1","row":5},
-  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"stand still","section":"B1","row":6},
-  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"stand still","section":"B2","row":7},
-  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"stand still","section":"B2","row":8,"progression":true}
+  {"move":"still","beats":8,"params":{"action":"stand"},"text":"stand still","section":"A1","row":1},
+  {"move":"still","beats":8,"params":{"action":"stand"},"text":"stand still","section":"A1","row":2},
+  {"move":"still","beats":8,"params":{"action":"stand"},"text":"stand still","section":"A2","row":3},
+  {"move":"still","beats":8,"params":{"action":"stand"},"text":"stand still","section":"A2","row":4},
+  {"move":"still","beats":8,"params":{"action":"stand"},"text":"stand still","section":"B1","row":5},
+  {"move":"still","beats":8,"params":{"action":"stand"},"text":"stand still","section":"B1","row":6},
+  {"move":"still","beats":8,"params":{"action":"stand"},"text":"stand still","section":"B2","row":7},
+  {"move":"still","beats":8,"params":{"action":"stand"},"text":"stand still","progression":true,"section":"B2","row":8}
  ]
 }

@@ -17,7 +17,7 @@ import { createDancers } from './dancers.ts';
 import type { Formation } from './formation.ts';
 import { coupleZ, improperModel, type CheckSpec } from './models.ts';
 import { placeLabels } from './progression-more.ts';
-import { BIG_CIRCLE, CIRCLE_MIXER } from './formation-ring.ts';
+import { BIG_CIRCLE, CIRCLE_MIXER, SQUARE } from './formation-ring.ts';
 import type { Body, DanceState, WaitingCouple } from './state.ts';
 
 export const partnerMap = (dancers: readonly Dancer[]) =>
@@ -250,4 +250,5 @@ export const MORE_FORMATIONS: Readonly<Record<string, Formation>> = {
   'four-face-four': FOUR_FACE_FOUR,
   'circle-mixer': CIRCLE_MIXER,
   circle: BIG_CIRCLE,
+  square: SQUARE,
 };

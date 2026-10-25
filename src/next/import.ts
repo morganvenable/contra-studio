@@ -135,6 +135,21 @@ export const FORMATION_TEXT: Readonly<Record<string, Shape>> = {
   'circle mixer': { formation: 'circle-mixer', progression: 'mixer' },
   mixer: { formation: 'circle-mixer', progression: 'mixer' },
   circle: { formation: 'circle', progression: 'mixer' },
+  // Scatter mixers are drawn as one ring (docs/figure-readings.md).
+  'scatter mixer': { formation: 'circle-mixer', progression: 'mixer' },
+  'scatter mixer (single)': { formation: 'circle-mixer', progression: 'mixer' },
+  'duple scatter mixer': { formation: 'circle-mixer', progression: 'mixer' },
+  'three-couple scatter mixer': { formation: 'circle-mixer', progression: 'mixer' },
+  // Squares: four couples; partners are found where they stand.
+  'square dance': { formation: 'square', progression: 'mixer' },
+  'square break': { formation: 'square', progression: 'mixer' },
+  'square dance break': { formation: 'square', progression: 'mixer' },
+  'four couple square': { formation: 'square', progression: 'mixer' },
+  square: { formation: 'square', progression: 'mixer' },
+  // Zoom contras for one couple are drawn in an improper set.
+  'one couple': { formation: 'improper', progression: 'duple-minor' },
+  singlet: { formation: 'improper', progression: 'duple-minor' },
+  'solo/couple': { formation: 'improper', progression: 'duple-minor' },
 };
 
 export function shapeOf(formation: string): Shape | undefined {

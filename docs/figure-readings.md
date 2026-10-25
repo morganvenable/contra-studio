@@ -19,3 +19,8 @@ line each, for review.
 - "Circle": the same ring, for dances that keep partners.
 - "Long lines forward & back" in four face four and Sicilian circles: the lines (or couples) facing each other walk forward and back.
 - "Promenade" in a ring: counterclockwise (lark inside) unless the caller says otherwise; with no distance named, as many couples' places as an easy walk covers.
+- "Square dance", "square break", "four couple square": four couples in a square, couple 1 with its back to the band, numbered counterclockwise; heads are couples 1 and 3; corners stand beside each other in neighboring couples; partners are found where they stand at the end of each time through.
+- "Scatter mixer": drawn as one ring (a circle mixer); scattering and finding a new partner happen round the ring.
+- "One couple", "singlet", "solo/couple" (Zoom contras): drawn in an improper set, the imagined neighbors danced by real couples.
+- A row that names who dances ("star right 4 places (heads)", "middle 4 star right", "ones and twos circle left", "hands six"): the figure for just those dancers; everyone else stands.
+- "Stand still", claps and stomps, "heel, toe": everyone keeps their place.
