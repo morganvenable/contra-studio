@@ -15,6 +15,7 @@ import { FORMATIONS } from './core/formation.ts';
 import { METERS, type MusicStructure } from './core/music.ts';
 import {
   DUPLE_MINOR_PROGRESSION,
+  DUPLE_MINOR_PROPER_PROGRESSION,
   MINOR_SET_PROGRESSION,
   NO_PROGRESSION,
   WHOLE_SET_PROGRESSION,
@@ -91,6 +92,7 @@ export interface LibraryEntry {
 const PROGRESSIONS: Readonly<Record<Progression['kind'], Progression>> = {
   'minor-set': MINOR_SET_PROGRESSION,
   'duple-minor': DUPLE_MINOR_PROGRESSION,
+  'duple-minor-proper': DUPLE_MINOR_PROPER_PROGRESSION,
   'whole-set': WHOLE_SET_PROGRESSION,
   none: NO_PROGRESSION,
 };

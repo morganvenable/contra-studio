@@ -20,7 +20,7 @@ import { dot, forward, mean, sub } from './math.ts';
 import { body, partnerOf, type DanceState, type WaitingCouple, withChanges } from './state.ts';
 
 export interface Progression {
-  readonly kind: 'minor-set' | 'duple-minor' | 'whole-set' | 'none';
+  readonly kind: 'minor-set' | 'duple-minor' | 'duple-minor-proper' | 'whole-set' | 'none';
   rebind(state: DanceState): DanceState;
 }
 
@@ -96,9 +96,22 @@ export const MINOR_SET_PROGRESSION: Progression = {
 /** Distance along the set (z) between the 1s and the 2s they meet. */
 const MEET_TOLERANCE = 0.3;
 
+/**
+ * Duple minor where 1s and 2s stand on the same sides (proper): a couple
+ * waiting out at an end changes number without crossing the set.
+ */
+export const DUPLE_MINOR_PROPER_PROGRESSION: Progression = {
+  kind: 'duple-minor-proper',
+  rebind: (state) => dupleMinorRebind(state, false),
+};
+
 export const DUPLE_MINOR_PROGRESSION: Progression = {
   kind: 'duple-minor',
-  rebind(state) {
+  rebind: (state) => dupleMinorRebind(state, true),
+};
+
+function dupleMinorRebind(state: DanceState, cross: boolean): DanceState {
+  {
     const couples = coupleSpots(state);
     const ones = new Set(state.positions.get('1s') ?? []);
     const twos = new Set(state.positions.get('2s') ?? []);
@@ -128,8 +141,7 @@ export const DUPLE_MINOR_PROGRESSION: Progression = {
     const paired = new Set<number>();
     for (const c of [...couples.keys()].filter(isOnes)) {
       const found = below(c);
-      if (found.length > 1)
-        throw new Error(`The 1s of couple ${c + 1} meet more than one couple.`);
+      if (found.length > 1) throw new Error(`The 1s of couple ${c + 1} meet more than one couple.`);
       if (!found.length) continue;
       const k = found[0];
       if (paired.has(k)) throw new Error(`Couple ${k + 1} is met by two couples.`);
@@ -152,7 +164,7 @@ export const DUPLE_MINOR_PROGRESSION: Progression = {
       if (paired.has(c)) continue;
       const before = previous.get(c);
       waiting.push(
-        before && !before.crossed ? before : { couple: c, crossed: before !== undefined },
+        before && !before.crossed ? before : { couple: c, crossed: !cross || before !== undefined },
       );
       if (before) continue;
       for (const id of [spot.lark, spot.robin]) {
@@ -183,8 +195,8 @@ export const DUPLE_MINOR_PROGRESSION: Progression = {
         [...nextTwos].sort((a, b) => a - b),
       );
     return withChanges(state, { relations, groups, waiting, positions, epoch: state.epoch + 1 });
-  },
-};
+  }
+}
 
 /** Name couples by place from the top (lowest z) down: "1st couple", ... */
 export const WHOLE_SET_PROGRESSION: Progression = {

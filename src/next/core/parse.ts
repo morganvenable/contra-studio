@@ -149,9 +149,11 @@ const PATTERNS: readonly (readonly [RegExp, Build])[] = [
     ],
   ],
   [
-    /^(\w+) chain(?: (?:to|with) (?:their |your )?(\w+))?$/,
+    /^(\w+) chain(?: (?:to|with) (?:their |your )?((?:1st |2nd )?[\w ]+?))?$/,
     (m, b) => {
-      const to = m[2] ? who(m[2]) : undefined;
+      // Shadows (on a diagonal) are not a relationship the chain checks.
+      const named = m[2] && !/shadows?$|trail buddy$/.test(m[2]) ? m[2] : undefined;
+      const to = named ? who(named) : undefined;
       return [call('chain', b, { who: who(m[1]), ...(to ? { to } : {}) })];
     },
   ],
@@ -286,6 +288,28 @@ const PATTERNS: readonly (readonly [RegExp, Build])[] = [
   ],
   [/^turn alone$/, (_m, b) => [call('turn-alone', b, {})]],
   [
+    /^(?:(\w+) )?star promenade (left|right) ([^ ]+)$/,
+    (m, b) => [
+      call('star-promenade', b, {
+        hand: m[2],
+        amount: amount(m[3], 0.5),
+        ...(m[1] ? { center: who(m[1]) } : {}),
+      }),
+    ],
+  ],
+  [/^butterfly whirl$/, (_m, b) => [call('butterfly-whirl', b, {})]],
+  [
+    /^(half|full|whole) poussette - (\w+) pull (partners|neighbors) back,? (?:and )?then (left|right)$/,
+    (m, b) => [
+      call('poussette', b, {
+        who: who(m[2]),
+        pair: who(m[3]),
+        then: m[4],
+        amount: m[1] === 'half' ? 0.5 : 1,
+      }),
+    ],
+  ],
+  [
     // A lead-in: joins the swing in the next row (see joinLeadIns in import.ts).
     /^(\w+) take (partners|neighbors)$/,
     (m, b) => [call('take', b, { who: who(m[1]), whom: who(m[2]) })],
@@ -355,6 +379,9 @@ const TIDY: readonly (readonly [RegExp, string])[] = [
   [/(\bswing),? (?:and )?(?:end )?fac(?:e|ing) (down|up)(?: the hall)?$/, '$1, end facing $2'],
   [/\bright-hand chain\b/, 'chain'],
   [/(\bswing) (?:new|original)(?: neighbors?)?$/, '$1'],
+  // Picking up a partner for a star promenade is part of the star promenade.
+  [/,? (?:and )?scoop (?:up )?(?:your )?partners?(?: on the side)?$/, ''],
+  [/^(butterfly whirl) with (?:your )?partners?(?: on the side)?$/, '$1'],
 ];
 const tidy = (text: string) => TIDY.reduce((t, [re, to]) => t.replace(re, to), text).trim();
 
@@ -366,12 +393,28 @@ const PART_NAMES: Readonly<Record<string, string>> = {
   'pass-through': 'pass through',
 };
 
+/**
+ * "Left diagonal robins chain", "robins allemande right 1½ on the left
+ * diagonal": the figure, run on that diagonal (core/diagonal.ts).
+ */
+function onDiagonal(text: string): { text: string; diagonal?: 'left' | 'right' } {
+  const before = text.match(/^(left|right) diagonal (.+)$/);
+  if (before) return { text: before[2], diagonal: before[1] as 'left' | 'right' };
+  const after = text.match(/^(.+?),? on (?:the )?(?:1\/2 |half[- ])?(left|right) diagonal$/);
+  if (after) return { text: after[1], diagonal: after[2] as 'left' | 'right' };
+  return { text };
+}
+
 export function parseRow(row: SourceRow): FigureCall[] {
-  const { text, progression } = normalizeRow(row.text);
+  const normal = normalizeRow(row.text);
+  const progression = normal.progression;
+  const { text, diagonal } = onDiagonal(normal.text);
   for (const [pattern, build] of PATTERNS) {
     const m = text.match(pattern);
     if (!m) continue;
-    const calls = build(m, row.beats);
+    const calls = build(m, row.beats).map((c) =>
+      diagonal ? { ...c, params: { ...c.params, diagonal } } : c,
+    );
     const label = canonicalText(row.text.replace(/⁋/g, '').replace(/\s+/g, ' ').trim());
     return calls.map((c, i) => ({
       ...c,

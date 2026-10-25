@@ -147,58 +147,79 @@ export const BECKET: Formation = becket('Becket', 'cw');
 export const BECKET_CCW: Formation = becket('Becket counterclockwise', 'ccw');
 
 /**
- * Improper duple minor: couples stand one place apart along the set, partners
+ * Duple minor (improper and its relatives): couples stand one place apart along the set, partners
  * side by side across it (lark on the left), the 1s facing down and the 2s
  * facing up, so each 1s couple faces its 2s couple (its neighbors). The 1s
  * are crossed over: 1s larks on the +x line, 2s larks on the -x line. With an
  * odd count the bottom couple waits out as 2s, already on its proper side.
  * Position labels "1s" and "2s" name who travels down and up.
  */
-export const IMPROPER: Formation = {
-  name: 'Improper',
-  shape: 'longways',
-  grouping: 'duple-minor',
-  couples: { min: 2, max: 12 },
-  start(couples) {
-    checkCount(this, couples);
-    const dancers = createDancers(couples);
-    const bodies = new Map<number, Body>();
-    const groups: number[][] = [];
-    const neighbor = new Map<number, number>();
-    const ones: number[] = [];
-    const twos: number[] = [];
-    const waiting: WaitingCouple[] = [];
-    for (let c = 0; c < couples; c++) {
-      const z = (c - (couples - 1) / 2) * SET.slot;
-      const isOnes = c % 2 === 0 && c + 1 < couples;
-      // Down the set is +z: the 1s face +z (yaw 0), the 2s face -z.
-      placeCouple(bodies, c, { x: 0, z }, isOnes ? 0 : Math.PI, SET.slot);
-      (isOnes ? ones : twos).push(c * 2, c * 2 + 1);
-      if (!isOnes && c % 2 === 0) waiting.push({ couple: c, crossed: true });
-    }
-    for (let c = 0; c + 1 < couples; c += 2) {
-      const [lark1, robin1, lark2, robin2] = [c * 2, c * 2 + 1, c * 2 + 2, c * 2 + 3];
-      groups.push([lark1, robin1, lark2, robin2]);
-      neighbor.set(lark1, robin2).set(robin2, lark1).set(robin1, lark2).set(lark2, robin1);
-    }
-    return Object.freeze({
-      dancers,
-      bodies,
-      hands: [],
-      relations: new Map([
-        ['partner', partners(dancers)],
-        ['neighbor', neighbor],
-      ]),
-      groups,
-      positions: new Map([
-        ['1s', ones],
-        ['2s', twos],
-      ]),
-      epoch: 0,
-      waiting,
-    });
-  },
-};
+function dupleMinor(name: string, onesLark: 1 | -1, twosLark: 1 | -1): Formation {
+  return {
+    name,
+    shape: 'longways',
+    grouping: 'duple-minor',
+    couples: { min: 2, max: 12 },
+    start(couples) {
+      checkCount(this, couples);
+      const dancers = createDancers(couples);
+      const bodies = new Map<number, Body>();
+      const groups: number[][] = [];
+      const neighbor = new Map<number, number>();
+      const ones: number[] = [];
+      const twos: number[] = [];
+      const waiting: WaitingCouple[] = [];
+      for (let c = 0; c < couples; c++) {
+        const z = (c - (couples - 1) / 2) * SET.slot;
+        const isOnes = c % 2 === 0 && c + 1 < couples;
+        // Down the set is +z: the 1s face +z (yaw 0), the 2s face -z.
+        const yaw = isOnes ? 0 : Math.PI;
+        const lark = isOnes ? onesLark : twosLark;
+        bodies.set(c * 2, { position: { x: lark * SET.halfWidth, z }, yaw });
+        bodies.set(c * 2 + 1, { position: { x: -lark * SET.halfWidth, z }, yaw });
+        (isOnes ? ones : twos).push(c * 2, c * 2 + 1);
+        if (!isOnes && c % 2 === 0) waiting.push({ couple: c, crossed: true });
+      }
+      for (let c = 0; c + 1 < couples; c += 2) {
+        const [lark1, robin1, lark2, robin2] = [c * 2, c * 2 + 1, c * 2 + 2, c * 2 + 3];
+        groups.push([lark1, robin1, lark2, robin2]);
+        neighbor.set(lark1, robin2).set(robin2, lark1).set(robin1, lark2).set(lark2, robin1);
+      }
+      return Object.freeze({
+        dancers,
+        bodies,
+        hands: [],
+        relations: new Map([
+          ['partner', partners(dancers)],
+          ['neighbor', neighbor],
+        ]),
+        groups,
+        positions: new Map([
+          ['1s', ones],
+          ['2s', twos],
+        ]),
+        epoch: 0,
+        waiting,
+      });
+    },
+  };
+}
+
+/**
+ * Duple minor formations, as data: which side of the set (+x or -x) each
+ * number's larks start on. Everyone starts facing their neighbors along the
+ * set, 1s facing down and 2s up, partners side by side one place apart.
+ * - Improper: the 1s are crossed over (1s larks +x, 2s larks -x), so each
+ *   couple has its lark on the left.
+ * - Proper: every lark on the -x line.
+ * - Indecent: the 2s are crossed over instead of the 1s.
+ * - Duple neutral: partners side by side facing their neighbors, lark on the
+ *   left, which is the improper start.
+ */
+export const IMPROPER: Formation = dupleMinor('Improper', 1, -1);
+export const PROPER: Formation = dupleMinor('Proper', -1, -1);
+export const INDECENT: Formation = dupleMinor('Indecent', -1, 1);
+export const DUPLE_NEUTRAL: Formation = dupleMinor('Duple neutral', 1, -1);
 
 /**
  * Proper longways, the whole set dancing together: partners face across,
@@ -241,6 +262,9 @@ export const FORMATIONS: Readonly<Record<string, Formation>> = {
   becket: BECKET,
   'becket-ccw': BECKET_CCW,
   improper: IMPROPER,
+  proper: PROPER,
+  indecent: INDECENT,
+  'duple-neutral': DUPLE_NEUTRAL,
   'three-couple-set': THREE_COUPLE_SET,
   'whole-set-longways': WHOLE_SET_LONGWAYS,
 };
