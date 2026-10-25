@@ -73,10 +73,16 @@ test('ring shift through the center: larks go in, turn and come out to the corne
     [call('ring-shift', 8, { who: 'larks', direction: 'left', path: 'center' })],
     s0,
   );
-  onPlacesFacingIn(end, s0);
-  // Lark 0 now has his old corner (robin 3, on his left before) on his right.
+  // Lark 0 ends on a place of the ring, facing his old corner (robin 3),
+  // who stands on his right as the ring faces in.
   assert.equal(s0.relations.get('neighbor')!.get(0), 7);
-  assert.equal(partnerOnRight(end, 0), 7);
+  const places = [...s0.bodies.values()].map((b) => b.position);
+  for (const d of end.dancers)
+    assert.ok(places.some((p) => distance(p, body(end, d.id).position) < 1e-6));
+  const lark = body(end, 0);
+  assert.ok(Math.abs(turn(lark.yaw, heading(lark.position, body(end, 7).position))) < 0.5);
+  const inward = heading(lark.position, { x: 0, z: 0 });
+  assert.equal(besideOf(end, 0, 'right', 'robin', inward), 7);
 });
 
 test('ring slide: the ring slides a place left and back', () => {
@@ -189,4 +195,21 @@ test('circle mixer: Lucky Seven (dance 3288) as calls compiles and progresses', 
     call('ring-promenade', 16, { who: 'partner' }),
   ]);
   assert.deepEqual(verifyDance(dance, strict), { ok: true });
+});
+
+test('ring roll away: larks roll partners across to their places, facing in', () => {
+  const s0 = start();
+  const end = run([call('ring-roll-away', 4, { who: 'larks', whom: 'partner' })], s0);
+  onPlacesFacingIn(end, s0);
+  // Each robin now stands on her lark's left.
+  assert.ok(distance(body(end, 1).position, body(s0, 0).position) < 1e-6);
+  assert.ok(distance(body(end, 0).position, body(s0, 1).position) < 1e-6);
+});
+
+test('row patterns: footnote markers and glosses are notes', () => {
+  const parse = (text: string, beats = 16) => parseRow({ beats, text }).map((c) => c.move);
+  assert.deepEqual(parse('partners promenade along the set on the right (ccw) [3]'), ['ring-promenade']);
+  assert.deepEqual(parse('neighbors see saw once (Corners) [1]', 8), ['do-si-do']);
+  assert.deepEqual(parse('partners balance & swing (#5, new partners)'), ['balance', 'swing']);
+  assert.deepEqual(parse('larks roll away 2nd neighbors', 4), ['roll-away']);
 });

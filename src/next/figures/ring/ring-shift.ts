@@ -8,13 +8,14 @@
  * Definition: the dancers of one role (larks or robins) leave their places
  * and walk round the ring to the place `places` dancer places to their left
  * or right (two places = one couple along), everyone else standing. They end
- * on that place of the ring facing in, so each now stands beside a new
- * partner. Path:
+ * on that place of the ring, beside a new partner. Path:
  * - inside (default): a shallow curve just inside the ring, passing in
  *   front of the dancers they pass, turned to face the way they walk.
  * - center: into the middle facing in, turn over the named shoulder (the
- *   way they travel) and walk out to the new place facing out, then turn
- *   on to face in.
+ *   way they travel) and walk out to the new place, turning on until they
+ *   face the new partner beside them (one and a half turns over that
+ *   shoulder in all). A dancer already in the middle
+ *   turns as they start.
  * Source: Caller's Box glossary, "Turn alone", "Circassian Circle" (men go
  * in, turn, and come out to the next lady); ContraDB rows in circle mixers
  * (dances 554, 916, 168, 2072, 1741, 1966, 915).
@@ -81,8 +82,9 @@ export const ringShift: Figure<RingShiftParams> = (state, params, beats) => {
     if (sense < 0) sweep -= TAU;
     if (Math.abs(sweep) < 1e-9) sweep = sense * TAU;
     const startTwist = turn(s.yaw, faceIn(ring, s.position));
+    const inside = r0 < ring.radius - 0.3;
     const depth = path === 'inside' ? DIP : Math.max(DIP, Math.min(r0, ring.radius) - NEAREST);
-    return { id, s, r0, rel, sweep, target, startTwist, depth };
+    return { id, s, r0, rel, sweep, target, startTwist, depth, inside };
   });
   const at = (p: (typeof plans)[number], t: number) => {
     const angle = p.sweep * progress(t);
@@ -95,10 +97,10 @@ export const ringShift: Figure<RingShiftParams> = (state, params, beats) => {
       const bump = Math.min(smooth(t / TURN_SHARE), smooth((1 - t) / TURN_SHARE));
       twist = p.startTwist * (1 - smooth(t / TURN_SHARE)) + sense * (Math.PI / 2) * bump;
     } else {
-      // In facing in, turn round at the middle, out facing out, turn in again.
-      const first = smooth((t - 0.35) / 0.25);
-      const second = smooth((t - 0.8) / 0.2);
-      twist = p.startTwist * (1 - smooth(t / 0.3)) + sense * Math.PI * (first + second);
+      // In facing in, turn over the shoulder in the middle and on, walking
+      // out, to face the new partner: one and a half turns in all.
+      const turning = p.inside ? smooth(t) : smooth((t - 0.3) / 0.7);
+      twist = p.startTwist * (1 - smooth(t / 0.3)) + sense * 1.5 * Math.PI * turning;
     }
     return { id: p.id, position, yaw: inward + twist };
   };

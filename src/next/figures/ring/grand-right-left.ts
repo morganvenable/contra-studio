@@ -37,8 +37,13 @@ export interface GrandRightLeftParams {
 }
 
 /** How far each dancer weaves off the ring to pass. */
-const WEAVE = 0.3;
+/** Each dancer weaves this far off the ring, so passing dancers clear 0.5 m. */
+const WEAVE = 0.27;
 const TURN_BEATS = 1;
+/** Speed ramps at the ends of the whole walk (the changes flow into each other). */
+const RAMP = 0.06;
+/** Turning to face in overlaps the last steps of the walk. */
+const FACE_IN_BEATS = 1.2;
 
 export const grandRightLeft: Figure<GrandRightLeftParams> = (state, params, beats) => {
   onlyKeys('grand right and left', params, ['changes', 'hand', 'end']);
@@ -63,8 +68,6 @@ export const grandRightLeft: Figure<GrandRightLeftParams> = (state, params, beat
     if (ahead === undefined || state.dancers[ahead].role === state.dancers[id].role)
       throw new Error('A grand right and left needs larks and robins alternating round the ring.');
   }
-  const changeBeats = (beats - (end === 'in' ? TURN_BEATS : 0)) / changes;
-  const travelShare = (changes * changeBeats) / beats;
   // Right hand first: the lark passes inside the ring (nearer the center).
   const firstSide = hand === 'right' ? -1 : 1;
   const plans = ids.map((id) => {
@@ -82,14 +85,14 @@ export const grandRightLeft: Figure<GrandRightLeftParams> = (state, params, beat
     return { id, s, rel, r0, sweep, lark, travelTwist, startTwist, target };
   });
   const at = (p: (typeof plans)[number], beat: number) => {
-    const t = Math.min(1, beat / (beats * travelShare));
-    const u = changes * progress(t, 0.1);
+    const t = Math.min(1, beat / beats);
+    const u = changes * progress(t, RAMP);
     const side = (p.lark ? firstSide : -firstSide) * Math.sin(Math.PI * u);
     const r = p.r0 + (ring.radius - p.r0) * smooth(t) + WEAVE * side;
     const dir = rotate(scale(p.rel, 1 / p.r0), p.sweep * (u / changes));
     const position = add(ring.center, scale(dir, r));
     const into = smooth(beat / TURN_BEATS);
-    const out = end === 'in' ? smooth((beat - (beats - TURN_BEATS)) / TURN_BEATS) : 0;
+    const out = end === 'in' ? smooth((beat - (beats - FACE_IN_BEATS)) / FACE_IN_BEATS) : 0;
     const twist =
       p.startTwist + turn(p.travelTwist, p.startTwist) * into - p.travelTwist * out * into;
     return { id: p.id, position, yaw: faceIn(ring, position) + twist };
@@ -103,8 +106,8 @@ export const grandRightLeft: Figure<GrandRightLeftParams> = (state, params, beat
     const map = bodyMap(bodies);
     const contacts: FigureContact[] = [];
     // The hands of change i peak as the pair passes, half way through it.
-    const t = Math.min(1, beat / (beats * travelShare));
-    const u = changes * progress(t, 0.1);
+    const t = Math.min(1, beat / beats);
+    const u = changes * progress(t, RAMP);
     const i = Math.min(changes - 1, Math.floor(u));
     const strength = Math.max(0, Math.sin(Math.PI * (u - i))) ** 0.5;
     if (strength > 0.01) {

@@ -44,6 +44,8 @@ export interface RingPromenadeParams {
 
 /** Share of the figure spent wheeling into promenade, and back out. */
 const WHEEL = 0.2;
+/** A wheel takes at least this many beats, so a short promenade wheels at a walk. */
+const WHEEL_BEATS = 2.6;
 /** Half the distance between partners in promenade hold. */
 const HOLD_HALF = 0.3;
 const SETTLE_BEATS = 1;
@@ -95,10 +97,12 @@ export const ringPromenade: Figure<RingPromenadeParams> = (state, params, beats)
   const motion = (beat: number) => {
     const t = beat / beats;
     const settleIn = 1 - smooth(beat / SETTLE_BEATS);
+    const wheelShare = Math.min(0.4, Math.max(WHEEL, WHEEL_BEATS / beats));
     const bodies = plans.flatMap((p) => {
-      const angle = p.sweep * progress(t);
+      // Travel eases in and out over the wheels, so a wheel adds little to the walk.
+      const angle = p.sweep * progress(t, wheelShare);
       const unit = add(p.center, rotate(sub(p.unit, p.center), angle));
-      const wheel = Math.min(smooth(t / WHEEL), smooth((1 - t) / WHEEL));
+      const wheel = Math.min(smooth(t / wheelShare), smooth((1 - t) / wheelShare));
       // Counterclockwise: a quarter turn right to face round the ring.
       const yaw = p.yaw0 - angle + (p.sweep < 0 ? -1 : 1) * (Math.PI / 2) * wheel;
       const h = p.half + (HOLD_HALF - p.half) * wheel;
@@ -116,9 +120,10 @@ export const ringPromenade: Figure<RingPromenadeParams> = (state, params, beats)
       ];
     });
     const map = bodyMap(bodies);
+    const share = Math.min(0.4, Math.max(WHEEL, WHEEL_BEATS / beats));
     const strength = Math.min(
-      smooth((t - WHEEL * 0.4) / (WHEEL * 0.4)),
-      smooth((1 - t - WHEEL * 0.4) / (WHEEL * 0.4)),
+      smooth((t - share * 0.4) / (share * 0.4)),
+      smooth((1 - t - share * 0.4) / (share * 0.4)),
     );
     const contacts: FigureContact[] = plans.flatMap((p) =>
       (['left', 'right'] as const).map((hand) =>

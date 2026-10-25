@@ -141,7 +141,12 @@ function ring(
     shape: square ? 'square' : 'circle',
     grouping: 'whole-set',
     couples: { min, max },
-    moves: { circle: 'ring-circle', 'long-lines': 'forward-back', promenade: 'ring-promenade' },
+    moves: {
+      circle: 'ring-circle',
+      'long-lines': 'forward-back',
+      promenade: 'ring-promenade',
+      'roll-away': 'ring-roll-away',
+    },
     check: slotsSpec(square ? [4] : [4, 5, 6], meeting, square),
     start(couples) {
       if (!Number.isInteger(couples) || couples < min || couples > max)

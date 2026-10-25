@@ -6,17 +6,21 @@
  * walks to their left (clockwise seen from above) or right a number of
  * places (one place is one dancer's spacing round the ring) or an amount
  * of the way round, ending facing the center on a place of the ring.
- * Hands release at the end.
+ * Hands release at the end. A circle named in times round ("circle left",
+ * "circle left once") goes no farther than a steady walk (0.85 m a beat)
+ * covers in its beats, in whole places: in a big ring, eight beats of
+ * "circle left" go about half way.
  * Source: Caller's Box glossary, "Circle"; ContraDB rows "circle left 8
  * places", "circle left" in circle mixers. The small-ring circle
  * (circle.ts) tightens the ring as it walks; a big ring keeps its size.
  */
 import type { Figure, FigureContact } from '../core/figure.ts';
 import { oneOf, onlyKeys, settle } from '../core/figure.ts';
-import { joined } from '../core/contacts.ts';
+import { bodyMap, joined, withinReach } from '../core/contacts.ts';
 import {
   add,
   heading,
+  length,
   mean,
   polar,
   progress,
@@ -40,6 +44,8 @@ const TURN_IN_BEATS = 1;
 const EDGE = 0.12;
 /** The ring draws in this much while hands are joined (places are a slot apart). */
 const TIGHTEN = 0.12;
+/** The fastest steady walk a big circle keeps, meters per beat. */
+const WALK = 0.85;
 
 export const ringCircle: Figure<RingCircleParams> = (state, params, beats) => {
   onlyKeys('circle', params, ['direction', 'places', 'amount']);
@@ -55,7 +61,15 @@ export const ringCircle: Figure<RingCircleParams> = (state, params, beats) => {
         polar(sub(body(state, a).position, center)) - polar(sub(body(state, b).position, center)),
     );
     const n = order.length;
-    const turns = params.amount ?? params.places! / n;
+    let turns = params.amount ?? params.places! / n;
+    if (params.amount !== undefined) {
+      // Times round in a big ring: no farther than a walk covers, in whole places.
+      const r =
+        (g.reduce((k, id) => k + length(sub(body(state, id).position, center)), 0) / n) *
+        (1 - TIGHTEN);
+      const reach = Math.floor((WALK * beats * n) / (TAU * r));
+      if (reach < turns * n) turns = Math.max(1, reach) / n;
+    }
     if (!(turns > 0 && turns <= 3)) throw new Error('A circle goes up to three times round.');
     return { center, order, sweep: sign * turns * TAU, hands: ringHolds({ center, order }) };
   });
@@ -72,11 +86,17 @@ export const ringCircle: Figure<RingCircleParams> = (state, params, beats) => {
         const angle = ring.sweep * progress(t);
         const position = add(ring.center, rotate(scale(sub(s.position, ring.center), radius), angle));
         const into = turn(heading(s.position, ring.center), s.yaw);
-        const yaw = s.yaw + into * smooth(beat / TURN_IN_BEATS) - angle;
+        // A dancer facing well away from the center takes longer to turn in.
+        const turnIn = Math.max(TURN_IN_BEATS, Math.abs(into) / 2);
+        const yaw = s.yaw + into * smooth(beat / turnIn) - angle;
         return { id, position, yaw };
       }),
     );
-    const contacts: FigureContact[] = rings.flatMap((r) => r.hands.map((h) => joined(h, strength)));
+    // Hands join only where they reach (a dancer still turning in reaches later).
+    const map = bodyMap(bodies);
+    const contacts: FigureContact[] = rings.flatMap((r) =>
+      r.hands.map((h) => withinReach(joined(h, strength), map)),
+    );
     return { bodies, contacts };
   };
   return { kind: 'circle', motion, exit: withChanges(settle(state, motion, beats), { hands: [] }) };

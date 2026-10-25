@@ -10,6 +10,7 @@
  */
 import type { FigureCall } from './figure.ts';
 import { call, type Pattern } from './parse-more.ts';
+import { parseRow } from './parse.ts';
 import { ALIASES, canonical } from './roles.ts';
 
 const ROLE_WORDS = Object.entries(ALIASES)
@@ -69,6 +70,17 @@ const NEW_PARTNER =
   "(?:this neighbor is your new partner|this is your new partner|now your neighbor is your partner|new partners?|that's your new partner|now your partner|becomes new partner|new-partners)";
 
 export const RING_PATTERNS: readonly Pattern[] = [
+  // Footnote markers ("[1]") and a "corners" gloss on neighbors are notes:
+  // the row is read without them.
+  [/^(.+?)(?: \[\d+\])+$/, (m, b) => parseRow({ beats: b, text: m[1] })],
+  [/^(neighbors .+) (?:corners|former partners?)$/, (m, b) => parseRow({ beats: b, text: m[1] })],
+  // A label leading into the rows that follow.
+  [/^(?:grand right and left|right left grand):$/, () => []],
+  // A role rolls away the named dancer.
+  [
+    re(`${ROLE} roll away (partners|neighbors)(?: with a half sashay)?`),
+    (m, b) => [call('roll-away', b, { who: role(m[1]), whom: m[2] === 'partners' ? 'partner' : 'neighbor' })],
+  ],
   // Into the middle and back, or forward only, by one role.
   [
     re(`long lines forward (?:&|and) back,?(?: -)? ${ROLE} only`),
@@ -121,7 +133,11 @@ export const RING_PATTERNS: readonly Pattern[] = [
     (_m, b) => [marked(call('meet', b, { figure: 'promenade', pair: 'beside' }))],
   ],
   [
-    re(`partners balance (?:&|and) swing,? ${NEW_PARTNER}`),
+    // "End facing ccw/center": the swing ends side by side facing in, as in
+    // any ring; a promenade after it wheels them round.
+    re(
+      `partners balance (?:&|and) swing(?:,? (?:#[0-9]+,? )?${NEW_PARTNER})?(?:,? (?:- )?end facing (?:ccw|cw|center|the center|in))?`,
+    ),
     (_m, b) => [
       call('balance', 4, { formation: 'pair', who: 'partner', hand: 'both' }),
       call('swing', b - 4, { who: 'partner' }),

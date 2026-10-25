@@ -74,3 +74,7 @@ line each, for review.
 - A whole set renamed by place (triplet, longways set) renames once, at the end of each time through, even where several rows carry the progression mark.
 - "Top four" and "bottom four" are the four standing nearest the top or the bottom now, by place.
 - Becket progression where partners do not face the same way (out of a star, or a ring balance and California twirl): the new neighbors are the couple standing square to them one place away that they did not just dance with; couples pair only when they choose each other.
+- In a big ring, a circle given in times round goes as far as a steady walk covers in its beats, in whole places (8 beats is about halfway).
+- Going "to a new partner" through the center ends facing the new partner, after one and a half turns over the named shoulder.
+- A roll away in a ring: the rolled dancer passes in front, spinning once, to the roller's place; both end facing in.
+- Footnote markers "[n]" and glosses "(corners)", "(former partner)" are notes, not figures.
