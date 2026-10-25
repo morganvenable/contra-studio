@@ -28,6 +28,7 @@ import {
   leftOf,
   length,
   mean,
+  mix,
   progress,
   rotate,
   scale,
@@ -43,6 +44,7 @@ import {
   minorSets,
   pairsIn,
   withChanges,
+  type Body,
   type Hold,
 } from '../core/state.ts';
 
@@ -59,7 +61,7 @@ export interface AllemandeParams {
   /** Turns: 0.5, 0.75, 1, 1.5 ... */
   amount: number;
   /** End in a short wave with this role in the middle. */
-  wave?: { middle: Role };
+  wave?: { middle: Role; ends?: 'partner' | 'neighbor' };
   /**
    * "To long waves": end facing across the set, still holding on and close
    * (a pair turning ¾ out of a short wave, or 1½ along a side line).
@@ -69,6 +71,8 @@ export interface AllemandeParams {
 
 /** Distance from each dancer to the joined hands while turning. */
 export const HOLD_RADIUS = 0.45;
+/** Gap between hands-joined dancers in a short wave. */
+const WAVE_GAP = 2 * HOLD_RADIUS;
 /** Turning radius of a pair that lets go and steps back out at the end. */
 const TIGHT_RADIUS = 0.38;
 /** Closing in takes this much of a turn (or the first share of a short one). */
@@ -208,6 +212,14 @@ export const allemande: Figure<AllemandeParams> = (state, params, beats) => {
       const position = add(o.center, rotate(scale(o.rel, r / o.radius), angle));
       return { id: o.id, position, yaw: o.start.yaw + o.needed * g - angle };
     });
+    for (const st of steppers) {
+      const q = progress(t);
+      bodies.push({
+        id: st.id,
+        position: mix(st.from.position, st.to.position, q),
+        yaw: st.from.yaw + turn(st.to.yaw, st.from.yaw) * smooth(t / 0.6),
+      });
+    }
     const contacts: FigureContact[] = holds.map((h) => {
       const held = state.hands.some((s) => sameHold(s, h));
       const { g, out } = at.get(h.a)!;
@@ -222,6 +234,41 @@ export const allemande: Figure<AllemandeParams> = (state, params, beats) => {
   };
 
   let waveHolds: Hold[] = [];
+  // "Robins allemande 1½ to a short wave": the others in the minor set step
+  // into the line the turning pair ends on, each to the nearer end, facing
+  // opposite the dancer they will hold.
+  const steppers: { id: number; from: Body; to: Body }[] = [];
+  if (params.wave) {
+    const ends = new Map(motion(beats).bodies.map((b) => [b.id, b]));
+    for (const g of groups) {
+      const pair = pairs.find(([a]) => g.includes(a));
+      const rest = g.filter((id) => !ends.has(id));
+      if (!pair || rest.length !== 2) continue;
+      const [ma, mb] = pair.map((id) => ends.get(id)!);
+      const axis = scale(sub(mb.position, ma.position), 1 / length(sub(mb.position, ma.position)));
+      const middleOf = mean([ma.position, mb.position]);
+      const spots = [
+        { at: sub(middleOf, scale(axis, 1.5 * WAVE_GAP)), next: ma },
+        { at: add(middleOf, scale(axis, 1.5 * WAVE_GAP)), next: mb },
+      ];
+      const [p, q] = rest.map((id) => body(state, id));
+      // Each steps next to the middle they hold when the row names who
+      // (" right hand to partner"); otherwise to the nearer end.
+      const named = params.wave.ends;
+      const straight = named
+        ? state.relations.get(named)?.get(rest[0]) === spots[0].next.id
+        : length(sub(p.position, spots[0].at)) + length(sub(q.position, spots[1].at)) <=
+          length(sub(p.position, spots[1].at)) + length(sub(q.position, spots[0].at));
+      rest.forEach((id, i) => {
+        const spot = spots[straight ? i : 1 - i];
+        steppers.push({
+          id,
+          from: body(state, id),
+          to: { position: spot.at, yaw: spot.next.yaw + Math.PI },
+        });
+      });
+    }
+  }
   const turned = settle(state, motion, beats);
   if (params.wave) {
     const middle = oneOf('allemande', 'wave middle', params.wave.middle, [

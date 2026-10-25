@@ -9,6 +9,6 @@
   {"move":"swing","beats":12,"params":{"who":"partner"},"text":"partners swing","section":"A2","row":7},
   {"move":"swing","beats":16,"params":{"who":"neighbor"},"text":"larks take neighbors, neighbors swing","section":"B1","row":8},
   {"move":"long-lines","beats":8,"params":{"back":true},"text":"long lines forward & back","section":"B2","row":10},
-  {"move":"allemande","beats":8,"params":{"who":"robins","hand":"left","amount":1.5,"wave":{"middle":"robin"}},"text":"robins allemande left 1½ to wave of 4 left hand in center right hand to partner","section":"B2","row":11}
+  {"move":"allemande","beats":8,"params":{"who":"robins","hand":"left","amount":1.5,"wave":{"middle":"robin","ends":"partner"}},"text":"robins allemande left 1½ to wave of 4 left hand in center right hand to partner","section":"B2","row":11}
  ]
 }

@@ -168,14 +168,21 @@ export function morePatterns(h: ParseHelpers): readonly (readonly [RegExp, Build
     [
       // "Robins allemande left ½, hold on to form waves", "... 1½ to a short wave".
       re(
-        `(larks|robins|gentlespoons?|ladles?) allemande (left|right) ([^ ,]+),? (?:- )?(?:hold on )?(?:(?:and|&) )?(?:to )?(?:form )?(?:a |an )?(?:short |ocean )?(?:waves?|wavy lines?)(?: of (?:4|four))?(?:[ ,.].*)?`,
+        `(larks|robins|gentlespoons?|ladles?) allemande (left|right) ([^ ,]+),? (?:- )?(?:hold on )?(?:(?:and|&) )?(?:to )?(?:form )?(?:a |an )?(?:short |ocean )?(?:waves?|wavy lines?)(?: of (?:4|four))?((?:[ ,.].*)?)`,
       ),
       (m, b) => [
         call('allemande', b, {
           who: roleOf(who(m[1])),
           hand: m[2],
           amount: amount(m[3], 1),
-          wave: { middle: who(m[1]) === 'larks' ? 'lark' : 'robin' },
+          wave: {
+            middle: who(m[1]) === 'larks' ? 'lark' : 'robin',
+            ...(/\b(?:r|right)(?: hands?)? to (?:your )?partners?\b/.test(m[4] ?? '')
+              ? { ends: 'partner' }
+              : /\b(?:r|right)(?: hands?)? to (?:your )?neighbors?\b/.test(m[4] ?? '')
+                ? { ends: 'neighbor' }
+                : {}),
+          },
         }),
       ],
     ],

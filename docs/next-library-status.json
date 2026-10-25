@@ -5,8 +5,8 @@
  "stored": 2422,
  "counts": {
   "ok": 356,
-  "check": 156,
-  "partial": 1628,
+  "check": 159,
+  "partial": 1625,
   "unsupported": 282
  },
  "formations": [
@@ -14,8 +14,8 @@
    "formation": "improper",
    "dances": 1189,
    "ok": 313,
-   "check": 84,
-   "partial": 792,
+   "check": 87,
+   "partial": 789,
    "unsupported": 0
   },
   {
@@ -2739,10 +2739,6 @@
     "unlocks": 100
    },
    {
-    "name": "allemande variant",
-    "unlocks": 18
-   },
-   {
     "name": "diagonal chain / right left through",
     "unlocks": 16
    },
@@ -2755,6 +2751,10 @@
     "unlocks": 14
    },
    {
+    "name": "allemande variant",
+    "unlocks": 14
+   },
+   {
     "name": "rory o'more",
     "unlocks": 13
    },
@@ -2764,7 +2764,7 @@
    },
    {
     "name": "swing variant",
-    "unlocks": 10
+    "unlocks": 11
    },
    {
     "name": "circle variant",
@@ -2854,15 +2854,15 @@
    },
    {
     "name": "ocean wave / long wave",
-    "unlocks": 12
+    "unlocks": 13
    },
    {
     "name": "The next time through can't start from where the dancers end",
-    "unlocks": 10
+    "unlocks": 11
    },
    {
     "name": "allemande variant",
-    "unlocks": 9
+    "unlocks": 10
    },
    {
     "name": "hey (other)",
