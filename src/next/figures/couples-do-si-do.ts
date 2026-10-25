@@ -19,7 +19,6 @@ import {
   add,
   dot,
   forward,
-  heading,
   length,
   mean,
   progress,
@@ -44,6 +43,8 @@ const UNIT_GAP = 0.8;
 /** Couples farther apart close in to this half distance mid-figure. */
 const MIDDLE_HALF = 0.85;
 const CLOSE = 0.3;
+/** Beats for partners to square up to the couple's facing. */
+const FACE_BEATS = 1;
 
 export const couplesDoSiDo: Figure<CouplesDoSiDoParams> = (state, params, beats) => {
   onlyKeys('couples do-si-do', params, ['amount']);
@@ -61,9 +62,11 @@ export const couplesDoSiDo: Figure<CouplesDoSiDoParams> = (state, params, beats)
       if (!g.includes(robin)) throw new Error(`Dancer ${lark}'s partner is not here.`);
       const pl = body(state, lark);
       const pr = body(state, robin);
-      if (Math.abs(turn(pl.yaw, pr.yaw)) > 0.6)
-        throw new Error('Partners must face the same way to dance as a couple.');
-      return { lark, robin, center: mean([pl.position, pr.position]), yaw: pl.yaw };
+      if (Math.abs(turn(pl.yaw, pr.yaw)) > 1.75)
+        throw new Error('Partners must face about the same way to dance as a couple.');
+      // The couple faces between the two; each partner squares up to it.
+      const yaw = pl.yaw + turn(pr.yaw, pl.yaw) / 2;
+      return { lark, robin, center: mean([pl.position, pr.position]), yaw };
     });
     const [a, b] = units;
     const gap = sub(b.center, a.center);
@@ -79,7 +82,7 @@ export const couplesDoSiDo: Figure<CouplesDoSiDoParams> = (state, params, beats)
         const start = body(state, id);
         const offset = sub(start.position, u.center);
         const across = length(offset);
-        return { id, start, axis, side, half, middle, offset, across, face: heading(u.center, middle) };
+        return { id, start, axis, side, half, middle, offset, across, yaw: u.yaw };
       });
     });
   });
@@ -97,7 +100,8 @@ export const couplesDoSiDo: Figure<CouplesDoSiDoParams> = (state, params, beats)
       );
       const width = p.across + (UNIT_GAP / 2 - p.across) * close;
       const offset = p.across > 1e-6 ? scale(p.offset, width / p.across) : p.offset;
-      return { id: p.id, position: add(unit, offset), yaw: p.start.yaw };
+      const yaw = p.start.yaw + turn(p.yaw, p.start.yaw) * smooth(beat / FACE_BEATS);
+      return { id: p.id, position: add(unit, offset), yaw };
     }),
     contacts: [],
   });

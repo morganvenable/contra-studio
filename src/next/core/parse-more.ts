@@ -37,6 +37,10 @@ export function morePatterns(h: ParseHelpers): readonly (readonly [RegExp, Build
   return [
     [/^stand still$/, (_m, b) => [h.call('stand-still', b, {})]],
     [
+      /^(?:all )?(?:walk|dance|move) forward(?: (?:\d+ steps|along the set))?(?: to (?:a |the )?(?:new|next)?(?: (?:wave|wavy line|couple|neighbors?|minor set))?(?: of (?:4|four))?(?: with (?:next|new) neighbors)?)?(?: progression)?$/,
+      (_m, b) => [call('walk-forward', b, {})],
+    ],
+    [
       // A zero-beat "while:" or "alternate: ..." row only annotates its neighbors.
       /^(?:while:?|alternate: .*)$/,
       (_m, b) => {
@@ -63,6 +67,7 @@ export function morePatterns(h: ParseHelpers): readonly (readonly [RegExp, Build
       },
     ],
     [
+      // With zero beats it only says where the dancers are (import.ts drops it).
       /^(\w+) (?:dance in to|form) a long wave in the center( - balance the wave)?$/,
       (m, b) => [
         call('center-wave', b, { in: roleOf(who(m[1])), ...(m[2] ? { balance: true } : {}) }),
@@ -124,7 +129,28 @@ export function morePatterns(h: ParseHelpers): readonly (readonly [RegExp, Build
       /^forward (?:&|and) back with current neighbors$/,
       (_m, b) => [call('long-lines', b, { back: true })],
     ],
+    [
+      // A swing through: the allemande ½, then the middles pass in the center.
+      /^(\w+) allemande (right|left) ½,? (?:and )?(\w+) pass (left|right)(?: shoulders?)?(?: in(?: the)? center)?(?: to (?:face|reach) (?:partners?|neighbors?))?(?: swing through)?(?: to reach partners?)?$/,
+      (m, b) => [
+        call('allemande', b / 2, { who: who(m[1]), hand: m[2], amount: 0.5 }),
+        call('pass-by', b / 2, { who: roleOf(who(m[3])), shoulder: m[4], hands: false }),
+      ],
+    ],
     [/^(down|up) the hall$/, (m, b) => [call('hall', b, { direction: m[1] })]],
+    [
+      /^up the hall and turn (as a couple|alone)$/,
+      (m, b) => [call('hall', b, { direction: 'up', turn: m[1] === 'alone' ? 'alone' : 'couple' })],
+    ],
+    [
+      // Becket: swing, then slide left along the set to the next neighbors.
+      re(`${WHO} (?:(balance) (?:&|and) )?swing,? slide left(?: to (?:progress|new neighbors))?`),
+      (m, b) => [
+        ...(m[2] ? [call('balance', 4, { formation: 'pair', who: who(m[1]), hand: 'both' })] : []),
+        call('swing', b - (m[2] ? 6 : 2), { who: who(m[1]) }),
+        call('slide', 2, { direction: 'left' }),
+      ],
+    ],
     [
       /^up the hall backward$/,
       (_m, b) => [call('hall', b, { direction: 'up', backward: true })],
@@ -157,7 +183,7 @@ export function morePatterns(h: ParseHelpers): readonly (readonly [RegExp, Build
 
 /** Notes after a figure that name another figure, and so must be kept. */
 const KEEP =
-  /wave|line|ring|circle|star|hey|promenade|orbit|while|meanwhile|slide|swing|pass|pull|chain|allemande|do si do|see saw|as (?:a )?couples?|backward|balance|twirl|roll|turn alone|cast|trade|cross|arch|dive|gate|hands|petronella|diagonal|zig|zag|mad robin|figure|gyre|through|split|mirror|basket|ricochet|facing (?:down|up)|face (?:down|up)|\bend\b|or /;
+  /\b(?:waves?|wavy|lines?|ring|circle|star|hey|promenade|orbit|while|meanwhile|slide|swing|pass|pull|chain|allemande|do si do|see saw|as (?:a )?couples?|backward|balance|twirl|roll|turn alone|cast|trade|cross|arch|dive|gate|hands|petronella|diagonal|zig|zag|mad robin|figure|gyre|through|split|mirror|basket|ricochet|facing (?:down|up)|face (?:down|up))\b/;
 
 /** A figure, then a note: [figure, note]. */
 const CORES: readonly RegExp[] = [
@@ -181,6 +207,20 @@ const MORE_TIDY: readonly (readonly [RegExp, string])[] = [
   [/^all (california twirl)/, 'partners $1'],
   [/\bjersey twirl\b/, 'california twirl'],
   [/^long lines go back$/, 'long lines back'],
+  [/^balance (?:right|left),? (?:(?:&|and|then) )?(?:right|left)$/, 'balance'],
+  [/^balance (?:the )?long waves?$/, 'balance'],
+  // Picking up a partner for the star promenade that follows is part of it.
+  [/\s+to pick ?up (?:your )?partners?(?: (?:for|to form) (?:a )?(?:left hand )?star promenade)?$/, ''],
+  // A ring balance and a one-place twirl to the right is a petronella.
+  [/^balance the ring,? (?:and )?twirl (?:right )?one pla?l?ace (?:to the right|in circle)$/, 'balance & petronella'],
+  [/^balance (?:the )?(?:ring )?diamond$/, 'balance the ring'],
+  [/^balance (?:the )?star$|^balance (?:in a |the )?clover(?:leaf)?$|^balance forward and back$/, 'balance'],
+  [/^balance short waves$/, 'balance the wave'],
+  [/^balance short waves forward\/back$/, 'balance the wave forward'],
+  [/^(\w+) balance by the (right|left) hand$/, '$1 $2 hand balance'],
+  [/^(\w+ (?:right |left )?hand balance (?:&|and) (?:box the gnat|swat the flea)) across$/, '$1'],
+  [/^(form long waves - \w+ face in, \w+ face out)[,.].*$/, '$1'],
+  [/^(\w+ (?:balance (?:&|and) )?swing) \(?slide left( to (?:progress|new neighbors))?\)?$/, '$1, slide left$2'],
   [/^balance (?:the )?wave - (right|left) then (?:left|right)$/, 'balance the wave $1'],
   [/^balance (?:the )?wave (left|right) (?:&|and) (?:left|right)$/, 'balance the wave $1'],
   // "Ones in the center" says who ends in the middle of the line; geometry decides it.
@@ -194,6 +234,10 @@ const MORE_TIDY: readonly (readonly [RegExp, string])[] = [
   // A trailing ocean-wave balance style ("- right then left", "forward and back").
   [/^(form an? .*ocean wave .*?)\s*-?\s*(?:right then left|forward and back)$/, '$1'],
   [/^(form an? .*ocean wave .*?),? (?:and form |in )short waves$/, '$1'],
+  [
+    /^(form an? .*ocean wave .*? by (?:left|right)(?: hands?)?)\s*-?\s*(?:the original wave|next (?:larks|robins)|with shadows in the wave|id this wave for later|new neighbors)$/,
+    '$1',
+  ],
 ];
 
 /** Drop a trailing note that names no further figure. */

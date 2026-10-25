@@ -6,7 +6,8 @@
  * shoulders to where they started, keeping the same facing throughout. A
  * see-saw passes left shoulders first. "1½" goes on around to the other
  * dancer's place, still facing the same way (so the pair ends back to back,
- * ready to meet someone new).
+ * ready to meet someone new). "1¼" (or "¾") stops a quarter on, the pair
+ * side by side facing opposite ways, ready for a short wave.
  * Source: Caller's Box glossary, "Do-si-do" and "See-saw"; ContraDB rows
  * "neighbors do si do once", "ladles do si do 1½". Pairs that start side by
  * side turn to face each other over the first beat and a half.
@@ -39,6 +40,8 @@ export interface DoSiDoParams {
 
 /** Half the gap between the pair as they pass shoulder to shoulder. */
 const PASS_HALF = 0.33;
+/** Half the gap a quarter-turn do-si-do ends at, side by side. */
+const END_HALF = 0.45;
 /** Far-apart pairs close in to this half distance in the middle of the figure. */
 const MIDDLE_HALF = 0.75;
 const CLOSE = 0.2;
@@ -52,8 +55,11 @@ export const doSiDo: Figure<DoSiDoParams> = (state, params, beats) => {
     'left',
   ] as const);
   const amount = params.amount;
-  if (!(amount > 0 && amount <= 3 && Number.isInteger(amount * 2)))
-    throw new Error('Do-si-do amount must be a whole or half number of times around.');
+  if (!(amount > 0 && amount <= 3 && Number.isInteger(amount * 4)))
+    throw new Error('Do-si-do amount must be a whole number of quarters around.');
+  // A quarter more or less than a whole or half ends side by side, facing
+  // opposite ways, as for a short wave: open out to a wave's hand gap.
+  const sideBySide = !Number.isInteger(amount * 2);
   // Passing right shoulders goes clockwise from above: increasing polar angle.
   const sweep = (shoulder === 'right' ? 1 : -1) * amount * TAU;
 
@@ -77,6 +83,8 @@ export const doSiDo: Figure<DoSiDoParams> = (state, params, beats) => {
     });
   });
 
+  const lateral = (t: number) =>
+    sideBySide ? PASS_HALF + (END_HALF - PASS_HALF) * smooth((t - 0.75) / 0.25) : PASS_HALF;
   const motion = (beat: number) => ({
     bodies: plans.map((p) => {
       const t = beat / beats;
@@ -85,7 +93,7 @@ export const doSiDo: Figure<DoSiDoParams> = (state, params, beats) => {
       const along = p.half + (Math.min(p.half, MIDDLE_HALF) - p.half) * close;
       const position = add(
         p.center,
-        add(scale(p.axis, along * Math.cos(phi)), scale(p.side, PASS_HALF * Math.sin(phi))),
+        add(scale(p.axis, along * Math.cos(phi)), scale(p.side, lateral(t) * Math.sin(phi))),
       );
       const yaw = p.start.yaw + turn(p.face, p.start.yaw) * smooth(beat / FACE_BEATS);
       return { id: p.id, position, yaw };

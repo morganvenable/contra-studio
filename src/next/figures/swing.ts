@@ -75,6 +75,8 @@ export function meltdownRoundBeats(beats: number): number {
 const RADIUS = 0.31;
 /** How far off the middle a pair must start to know which side it ends on. */
 const SIDE_MARGIN = 0.5;
+/** Within this of the middle a dancer stands in the center line. */
+const CENTERED = 0.2;
 const LEAD = 0.14;
 /** Beats, at least, to turn from the entry facing into the swing frame. */
 const TURN_IN_BEATS = 1.6;
@@ -143,7 +145,18 @@ function planPair(
   let exitCenter: Vec2;
   if (end === 'across') {
     const larkAcross = start.get(lark)!.position.x - middle.x;
-    const from = Math.abs(across) >= SIDE_MARGIN ? across : larkAcross;
+    // The pair's side. One dancer in the very middle and the other out on a
+    // side line (as after an allemande in the center) swing on that side.
+    const robinAcross = start.get(robin)!.position.x - middle.x;
+    const centered = (v: number) => Math.abs(v) < CENTERED;
+    const from =
+      Math.abs(across) >= SIDE_MARGIN
+        ? across
+        : centered(larkAcross) && Math.abs(robinAcross) >= SIDE_MARGIN
+          ? robinAcross
+          : centered(robinAcross) && Math.abs(larkAcross) >= SIDE_MARGIN
+            ? larkAcross
+            : larkAcross;
     if (Math.abs(from) < SIDE_MARGIN)
       throw new Error('A swing that ends facing across must start nearer one side.');
     const side = Math.sign(from);
