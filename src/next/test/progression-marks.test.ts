@@ -12,6 +12,7 @@ import { call, loadSnapshot } from './helpers.ts';
 import { compileNext, type StoredDance } from '../dance.ts';
 import type { FigureCall } from '../core/figure.ts';
 import { verifyDance } from '../core/verify.ts';
+import { FORMATIONS } from '../core/formation.ts';
 
 function stored(
   formation: string,
@@ -83,4 +84,17 @@ test('a mark on the figure before the couples pass rebinds once they have passed
   assert.equal(round.segments[8].entry.epoch, 0);
   assert.equal(round.end.epoch, 1);
   assert.ok(verifyDance(s, (d, n) => compileNext(d, n, undefined, { lenient: false })).ok);
+});
+
+test('"circle left 3 places, pass through" is the Becket progression when none is marked', (t) => {
+  const got = marked('1534');
+  if (!got) return t.skip('snapshot not available');
+  assert.equal(got.rows.length, 1);
+  assert.match(got.rows[0] ?? '', /pass through/);
+});
+
+test('a circle mixer is checked for everyone partnering everyone in a ring of 5 couples', () => {
+  const spec = FORMATIONS['circle-mixer'].check!;
+  assert.deepEqual(spec.meetingCounts, [5]);
+  assert.deepEqual(spec.counts, [4, 5, 6]);
 });

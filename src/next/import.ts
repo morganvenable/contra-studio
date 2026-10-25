@@ -597,6 +597,7 @@ function slideProgression(figures: StoredCall[], shape: Shape | undefined) {
  * at the end of a row that takes them "to new neighbors" ("pass through to
  * next neighbors", "end facing new neighbors"), or just before the first row
  * danced with them ("next neighbors swing", "circle with new neighbors").
+ * Failing that, "circle left 3 places, pass through" is the progression.
  */
 function namedProgression(figures: StoredCall[], shape: Shape | undefined) {
   // (Improper dances read "new neighbors" mid-round as a visit, or the
@@ -610,7 +611,19 @@ function namedProgression(figures: StoredCall[], shape: Shape | undefined) {
   const TO =
     /\b(?:to|towards?|face|facing|meet|look for|looking for|find|past|progress to)\b[^,.;·]*\b(?:new|next) neighbou?rs?\b/i;
   const i = figures.findIndex((c) => NEW.test(c.text ?? ''));
-  if (i < 0) return;
+  if (i < 0) {
+    // "Circle left 3 places, pass through": the Becket progression.
+    const pass = figures.findIndex(
+      (c, k) =>
+        c.move === 'pass-through' &&
+        k > 0 &&
+        figures[k - 1].move === 'circle' &&
+        figures[k - 1].params.places === 3,
+    );
+    if (pass > 0 && pass < figures.length - 1)
+      figures[pass] = { ...figures[pass], progression: true };
+    return;
+  }
   const text = figures[i].text ?? '';
   let at: number | undefined;
   if (WITH.test(text)) {

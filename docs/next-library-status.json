@@ -4,8 +4,8 @@
  "catalogue": 2422,
  "stored": 2422,
  "counts": {
-  "ok": 761,
-  "check": 279,
+  "ok": 764,
+  "check": 276,
   "partial": 1382,
   "unsupported": 0
  },
@@ -29,8 +29,8 @@
   {
    "formation": "becket ccw",
    "dances": 169,
-   "ok": 34,
-   "check": 21,
+   "ok": 35,
+   "check": 20,
    "partial": 114,
    "unsupported": 0
   },
@@ -53,8 +53,8 @@
   {
    "formation": "circle mixer",
    "dances": 31,
-   "ok": 7,
-   "check": 5,
+   "ok": 9,
+   "check": 3,
    "partial": 19,
    "unsupported": 0
   },
@@ -3360,7 +3360,7 @@
   "checkFailures": [
    {
     "name": "Couples don't end the round where the progression puts them.",
-    "unlocks": 68
+    "unlocks": 67
    },
    {
     "name": "allemande variant",
@@ -3447,10 +3447,6 @@
     "unlocks": 3
    },
    {
-    "name": "Not every couple gets to dance with every other couple.",
-    "unlocks": 3
-   },
-   {
     "name": "roll away",
     "unlocks": 2
    },
@@ -3516,6 +3512,10 @@
    },
    {
     "name": "The next time through can't start from where the dancers end: Dancers 0 and 4 are too far apart to turn by the hand.).",
+    "unlocks": 1
+   },
+   {
+    "name": "Not every couple gets to dance with every other couple.",
     "unlocks": 1
    },
    {

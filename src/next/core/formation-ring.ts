@@ -112,10 +112,18 @@ export const MIXER_PROGRESSION: Progression = {
   },
 };
 
+const isPrime = (n: number) => n > 1 && [2, 3, 5, 7, 11, 13].every((p) => p === n || n % p);
+
 /** Everyone back on a place of the starting ring. */
 const slotsSpec = (counts: number[], meeting: MeetingRule, square = false): CheckSpec => ({
   counts,
   meeting,
+  // A mixer passes each lark on the same number of robins every time
+  // through, so whether everyone partners everyone depends on the ring size
+  // sharing no factor with that number ("Lucky Seven" brings six couples
+  // back to their own partners). It is checked in a ring of a prime number
+  // of couples.
+  ...(meeting === 'all-partners' ? { meetingCounts: counts.filter(isPrime) } : {}),
   rounds: (couples) => couples + 1,
   model: (couples, rounds): SlotsModel => {
     const places = ringPlaces(couples * 2, RING_CENTER, square);
