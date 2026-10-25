@@ -194,7 +194,6 @@ const NOTES: readonly (readonly [RegExp, Replace])[] = [
   [/^(larks allemande left 1½) larks allemande$/, '$1'],
   [/^(\w+ allemande (?:left|right) [^ ,]+),? (?:keep(?:ing)? (?:left )?hands\b.*|scooping up your partner.*|to face partner across the set, take hands in a ring|while (?:robins|larks) drop out|to partner, while larks drop out|to trade back to the proper side.*)$/, '$1'],
   [/^(\w+ allemande (?:left|right) [^ ,]+) while (?:robins|larks) face (?:counter)?clockwise$/, '$1'],
-  [/^(\w+ allemande right ¾) to a fleeting long line$/, '$1 to a long wave'],
   [/^(\w+ allemande (?:left|right) [^ ]+) while (larks|robins) loop back over their right shoulders$/, '$1 while $2 turn alone'],
   [/^(robins allemande left ¾) with next, (larks shift left)$/, '$1, $2'],
   [/^(robins allemande left 1½) - hold on, catch neighbors by right hands$/, '$1 to a wave of four'],
