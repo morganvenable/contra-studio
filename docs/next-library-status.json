@@ -4,26 +4,26 @@
  "catalogue": 2422,
  "stored": 2422,
  "counts": {
-  "ok": 693,
-  "check": 380,
-  "partial": 1349,
+  "ok": 698,
+  "check": 383,
+  "partial": 1341,
   "unsupported": 0
  },
  "formations": [
   {
    "formation": "improper",
    "dances": 1189,
-   "ok": 506,
-   "check": 115,
-   "partial": 568,
+   "ok": 509,
+   "check": 116,
+   "partial": 564,
    "unsupported": 0
   },
   {
    "formation": "becket",
    "dances": 655,
-   "ok": 87,
-   "check": 176,
-   "partial": 392,
+   "ok": 89,
+   "check": 178,
+   "partial": 388,
    "unsupported": 0
   },
   {
@@ -1098,14 +1098,14 @@
  "blockers": {
   "missingFigures": [
    {
-    "name": "diagonal chain / right left through",
-    "unlocks": 44,
-    "uses": 85
-   },
-   {
     "name": "hey (other)",
     "unlocks": 41,
     "uses": 92
+   },
+   {
+    "name": "diagonal chain / right left through",
+    "unlocks": 41,
+    "uses": 82
    },
    {
     "name": "ocean wave / long wave",
@@ -1133,14 +1133,14 @@
     "uses": 65
    },
    {
-    "name": "swing variant",
-    "unlocks": 20,
-    "uses": 70
-   },
-   {
     "name": "chain variant",
     "unlocks": 19,
     "uses": 38
+   },
+   {
+    "name": "swing variant",
+    "unlocks": 17,
+    "uses": 67
    },
    {
     "name": "roll away",
@@ -1149,13 +1149,8 @@
    },
    {
     "name": "gyre",
-    "unlocks": 15,
-    "uses": 39
-   },
-   {
-    "name": "do-si-do variant",
     "unlocks": 14,
-    "uses": 42
+    "uses": 38
    },
    {
     "name": "pull by / pass by",
@@ -1168,9 +1163,9 @@
     "uses": 28
    },
    {
-    "name": "turn alone / as a couple",
+    "name": "do-si-do variant",
     "unlocks": 12,
-    "uses": 34
+    "uses": 40
    },
    {
     "name": "petronella",
@@ -1178,9 +1173,9 @@
     "uses": 34
    },
    {
-    "name": "promenade",
+    "name": "turn alone / as a couple",
     "unlocks": 11,
-    "uses": 20
+    "uses": 33
    },
    {
     "name": "rory o'more",
@@ -1191,6 +1186,11 @@
     "name": "down/up the hall",
     "unlocks": 10,
     "uses": 24
+   },
+   {
+    "name": "promenade",
+    "unlocks": 10,
+    "uses": 19
    },
    {
     "name": "take hands (wave/line set-up)",
@@ -2796,7 +2796,7 @@
   "figuresThatCannotStart": [
    {
     "name": "progression or other",
-    "unlocks": 120
+    "unlocks": 121
    },
    {
     "name": "swing variant",
@@ -2812,7 +2812,7 @@
    },
    {
     "name": "allemande variant",
-    "unlocks": 30
+    "unlocks": 31
    },
    {
     "name": "ocean wave / long wave",
@@ -2931,6 +2931,10 @@
     "unlocks": 1
    },
    {
+    "name": "take hands (wave/line set-up)",
+    "unlocks": 1
+   },
+   {
     "name": "other: right left through",
     "unlocks": 1
    },
@@ -2962,7 +2966,7 @@
   "checkFailures": [
    {
     "name": "Couples don't end the round where the progression puts them.",
-    "unlocks": 185
+    "unlocks": 188
    },
    {
     "name": "allemande variant",

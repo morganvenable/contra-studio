@@ -378,3 +378,6 @@ line each, for review.
 - In a ring, a dancer turned away from the middle (after a turn alone) unwinds over a longer share of a move to the next partner, at a walking turn rate.
 - Zero-beat notes about the group that dances next ("all form a ring of six", "top two couples form a ring of four", "open up to face new neighbors, hands four", "moon dance") are no figure.
 - Grand square ("Heads walk forward, sides back up" ...): each row is one leg; each dancer walks a square from home in to the line the side couples stand on, the heads in first and the sides away from their partners first, for four legs, then the other way round for four; "walk forward" faces the way the leg goes, "back up" the other way.
+- "As a couple go forward on the left diagonal and come back straight": a slice left and straight back. "All walk forward, on very slight right diagonal, to meet new neighbor": walk forward.
+- "Do si do / see saw / gyre once and form a ring", "partners swing, form ring": the figure; the ring forms itself. "Ones (balance &) swing, end swing facing down (to new neighbors)": the swing ending facing down.
+- "Partners promenade single file ccw 1x, robins turn around": a single-file circle right once round, then the robins turn back.

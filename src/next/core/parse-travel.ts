@@ -371,6 +371,20 @@ const PATTERNS: readonly (readonly [RegExp, Build])[] = [
   [/^march (left|right) along (?:the )?set$/, (m, b) => [call('slide', b, { direction: m[1], facing: 'travel' })]],
   [/^walk to (?:the )?next neighbors?(?:,? 1s up,? 2s down)?$/, (_m, b) => [call('walk-forward', b, {})]],
   [/^dance (?:forward|fwd) to (?:a )?new (?:diamond|wave)$/, (_m, b) => [call('walk-forward', b, {})]],
+  [/^all walk forward,? on (?:a )?(?:very )?slight (?:right|left) diagonal,? to meet(?: new neighbors?)?\)?$/, (_m, b) => [call('walk-forward', b, {})]],
+  [
+    // A couple going forward on a diagonal and straight back: a slice.
+    /^(?:as a couple go forward|go forward as a couple) on the (left|right) diagonal and come back straight(?: .*)?$/,
+    as('slice $1 and straight back'),
+  ],
+  [/^(circle (?:left|right) \w+ places?),? turn alone(?: .*)?$/, as('$1 and turn alone')],
+  [
+    /^partners promenade single file (?:ccw|counterclockwise) (?:1x|once),? (robins|larks) turn around$/,
+    as('circle right 4 places single-file, $1 turn back to face partners'),
+  ],
+  [/^((?:next |new )?\w+ (?:do si do|see saw|gyre) once),? (?:and )?(?:form a ring|into a ring)(?: .*)?$/, as('$1')],
+  [/^(partners swing),? form ring$/, as('$1')],
+  [/^((?:ones|twos) (?:balance (?:&|and) )?swing),? end swing facing (down|up)(?: .*)?$/, as('$1, end facing $2')],
   [/^all into (?:the )?cent(?:er|re) and back(?: .*)?$/, as('into the middle & back')],
   [
     /^everyone take one step forward,? turn to face right,? and single-file one place (clockwise|counterclockwise)$/,
