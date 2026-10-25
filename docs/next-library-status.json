@@ -4,34 +4,34 @@
  "catalogue": 2422,
  "stored": 2422,
  "counts": {
-  "ok": 677,
-  "check": 405,
-  "partial": 1340,
+  "ok": 678,
+  "check": 413,
+  "partial": 1331,
   "unsupported": 0
  },
  "formations": [
   {
    "formation": "improper",
    "dances": 1189,
-   "ok": 501,
-   "check": 122,
-   "partial": 566,
+   "ok": 502,
+   "check": 124,
+   "partial": 563,
    "unsupported": 0
   },
   {
    "formation": "becket",
    "dances": 655,
    "ok": 86,
-   "check": 190,
-   "partial": 379,
+   "check": 193,
+   "partial": 376,
    "unsupported": 0
   },
   {
    "formation": "becket ccw",
    "dances": 169,
    "ok": 6,
-   "check": 55,
-   "partial": 108,
+   "check": 56,
+   "partial": 107,
    "unsupported": 0
   },
   {
@@ -118,8 +118,8 @@
    "formation": "one couple",
    "dances": 9,
    "ok": 0,
-   "check": 5,
-   "partial": 4,
+   "check": 6,
+   "partial": 3,
    "unsupported": 0
   },
   {
@@ -158,8 +158,8 @@
    "formation": "progressed improper",
    "dances": 4,
    "ok": 0,
-   "check": 2,
-   "partial": 2,
+   "check": 3,
+   "partial": 1,
    "unsupported": 0
   },
   {
@@ -1503,11 +1503,6 @@
     "uses": 1
    },
    {
-    "name": "other: partners nevada twirl robins twirl the larks to swap & face",
-    "unlocks": 1,
-    "uses": 1
-   },
-   {
     "name": "other: grand right & left six n1r, n2l, n3r, n4l, n5r, n6l",
     "unlocks": 1,
     "uses": 1
@@ -1609,11 +1604,6 @@
    },
    {
     "name": "other: bend the line",
-    "unlocks": 1,
-    "uses": 1
-   },
-   {
-    "name": "other: robins turn out",
     "unlocks": 1,
     "uses": 1
    },
@@ -2488,11 +2478,6 @@
     "uses": 1
    },
    {
-    "name": "other: larks turn out over right shoulder on home side",
-    "unlocks": 0,
-    "uses": 1
-   },
-   {
     "name": "other: partners courtesy turn to face across hold courtesy turn position",
     "unlocks": 0,
     "uses": 1
@@ -3186,7 +3171,7 @@
   "figuresThatCannotStart": [
    {
     "name": "progression or other",
-    "unlocks": 116
+    "unlocks": 120
    },
    {
     "name": "swing variant",
@@ -3217,10 +3202,6 @@
     "unlocks": 11
    },
    {
-    "name": "poussette",
-    "unlocks": 9
-   },
-   {
     "name": "hey (other)",
     "unlocks": 8
    },
@@ -3246,10 +3227,6 @@
    },
    {
     "name": "do-si-do variant",
-    "unlocks": 5
-   },
-   {
-    "name": "mad robin",
     "unlocks": 5
    },
    {
@@ -3293,6 +3270,10 @@
     "unlocks": 2
    },
    {
+    "name": "mad robin",
+    "unlocks": 2
+   },
+   {
     "name": "slice",
     "unlocks": 2
    },
@@ -3306,6 +3287,10 @@
    },
    {
     "name": "other: pass through across the set",
+    "unlocks": 1
+   },
+   {
+    "name": "poussette",
     "unlocks": 1
    },
    {
@@ -3336,7 +3321,7 @@
   "checkFailures": [
    {
     "name": "Couples don't end the round where the progression puts them.",
-    "unlocks": 192
+    "unlocks": 196
    },
    {
     "name": "allemande variant",
@@ -3348,7 +3333,7 @@
    },
    {
     "name": "swing variant",
-    "unlocks": 22
+    "unlocks": 23
    },
    {
     "name": "circle variant",
@@ -3411,6 +3396,10 @@
     "unlocks": 3
    },
    {
+    "name": "poussette",
+    "unlocks": 3
+   },
+   {
     "name": "box the gnat / swat the flea",
     "unlocks": 3
    },
@@ -3427,7 +3416,7 @@
     "unlocks": 2
    },
    {
-    "name": "poussette",
+    "name": "mad robin",
     "unlocks": 2
    },
    {
@@ -3467,10 +3456,6 @@
     "unlocks": 1
    },
    {
-    "name": "mad robin",
-    "unlocks": 1
-   },
-   {
     "name": "turn alone / as a couple",
     "unlocks": 1
    },
@@ -3480,6 +3465,10 @@
    },
    {
     "name": "The next time through can't start from where the dancers end: Dancers 0 and 4 are too far apart to turn by the hand.).",
+    "unlocks": 1
+   },
+   {
+    "name": "other: partners nevada twirl robins twirl the larks to swap & face",
     "unlocks": 1
    },
    {

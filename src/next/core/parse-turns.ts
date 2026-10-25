@@ -122,6 +122,17 @@ const HALL_WHO = String.raw`(?:centers |ends )?\(?(ones|twos|1s|2s|larks|robins)
 
 export const TURN_PATTERNS: readonly (readonly [RegExp, Build])[] = [
   [
+    // "partners Nevada twirl (robins twirl the larks to swap & face next
+    // neighbors)": a California twirl, the lark going under.
+    /^(partners|neighbors) nevada twirl(?:,? \(?(?:\w+ )?twirls? (?:the )?\w+ to swap\b.*)?$/,
+    (m, b) => [call('twirl', b, { style: 'california', who: who(m[1]) })],
+  ],
+  [
+    // "robins turn out" (after a star): they turn alone, away from the middle.
+    /^(larks|robins) turn out(?: over (?:their |your )?(right|left) shoulders?)?(?: on (?:the |their )?home side)?$/,
+    (m, b) => [call('turn-alone', b, { who: m[1], ...(m[2] ? { over: m[2] } : {}) })],
+  ],
+  [
     // "down the hall, 1s turn as a couple, 2s turn alone", "down the hall and
     // centers (ones) turn as a couple while ends (twos) turn alone", "down
     // the hall, larks wheel, robins turn alone".

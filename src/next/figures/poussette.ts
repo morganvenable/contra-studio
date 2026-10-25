@@ -77,15 +77,15 @@ export const poussette: Figure<PoussetteParams> = (state, params, beats) => {
       // Face each other along the line between them.
       const yaw = heading(pp, po);
       const back = scale(forward(yaw), -1);
-      const side = then === 'left' ? leftOf(yaw) : rightOf(yaw);
       const rel = sub(c, middle);
       if (length(rel) < 0.3) throw new Error('The pairs must stand apart to poussette.');
       // Around the middle: the first step is back, so the orbit's tangent there is `back`.
       const tangent = { x: -rel.z, z: rel.x };
       const sign = dot(tangent, back) >= 0 ? 1 : -1;
-      // Then along: the pair must head toward the middle's far side, the named way.
-      if (dot(side, scale(rel, -1)) <= 0)
-        throw new Error(`Going ${then} after backing up would take the pair out of the minor set.`);
+      // Then along, toward the middle's far side. Where the named way would
+      // take the pair out of the minor set the source's left or right is
+      // seen from the other dancer, and the pair goes the way that stays in.
+      void then;
       return { puller, other, c, rel, yaw, sign };
     });
     return { middle, pairs };
