@@ -16,23 +16,28 @@ import { progress } from '../core/math.ts';
 import { activeIds, body, handToward, partnerOf, withChanges } from '../core/state.ts';
 
 export interface TurnAloneParams {
-  /** Only this role turns. */
-  who?: 'larks' | 'robins';
+  /** Only this role (or this numbered couple) turns. */
+  who?: 'larks' | 'robins' | '1s' | '2s';
   /** Turn over this shoulder instead of toward the partner. */
   over?: 'right' | 'left';
 }
 
 export const turnAlone: Figure<TurnAloneParams> = (state, params, beats) => {
   onlyKeys('turn alone', params, ['who', 'over']);
-  const role =
+  const who =
     params.who === undefined
       ? undefined
-      : oneOf('turn alone', 'who', params.who, ['larks', 'robins'] as const).slice(0, -1);
+      : oneOf('turn alone', 'who', params.who, ['larks', 'robins', '1s', '2s'] as const);
+  const named = (id: number) =>
+    who === undefined ||
+    (who === '1s' || who === '2s'
+      ? (state.positions.get(who) ?? []).includes(id)
+      : state.dancers[id].role === who.slice(0, -1));
   const over =
     params.over === undefined
       ? undefined
       : oneOf('turn alone', 'over', params.over, ['right', 'left'] as const);
-  const turners = activeIds(state).filter((id) => !role || state.dancers[id].role === role);
+  const turners = activeIds(state).filter(named);
   const plans = turners.map((id) => {
     const self = body(state, id);
     const toward = over ?? handToward(self, body(state, partnerOf(state, id)).position);

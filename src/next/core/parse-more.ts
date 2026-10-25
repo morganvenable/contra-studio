@@ -64,7 +64,7 @@ export function morePatterns(h: ParseHelpers): readonly (readonly [RegExp, Build
     ],
     [
       // A zero-beat "while:" or "alternate: ..." row only annotates its neighbors.
-      /^(?:while:?|alternate: .*)$/,
+      /^(?:while:?|alternate: .*|"?swing through"?:)$/,
       (_m, b) => {
         if (b) throw new Error('This row names no figure.');
         return [];
@@ -150,7 +150,7 @@ export function morePatterns(h: ParseHelpers): readonly (readonly [RegExp, Build
     ],
     [
       // A swing through: the allemande ½, then the middles pass in the center.
-      /^(\w+) allemande (right|left) ½,? (?:and )?(\w+) pass (left|right)(?: shoulders?)?(?: in(?: the)? center)?(?: to (?:face|reach) (?:partners?|neighbors?))?(?: swing through)?(?: to reach partners?)?$/,
+      /^(\w+) allemande (right|left) ½,? (?:and )?(\w+) pass (left|right)(?: shoulders?)?(?: in(?: the)? center)?(?: to (?:face|reach) (?:partners?|neighbors?))?(?: .*)?$/,
       (m, b) => [
         call('allemande', b / 2, { who: who(m[1]), hand: m[2], amount: 0.5 }),
         call('pass-by', b / 2, { who: roleOf(who(m[3])), shoulder: m[4], hands: false }),
@@ -165,6 +165,21 @@ export function morePatterns(h: ParseHelpers): readonly (readonly [RegExp, Build
           direction: m[2],
           ...(m[4] ? { turn: m[4] === 'alone' ? 'alone' : 'couple' } : {}),
         }),
+      ],
+    ],
+    [
+      /^down the hall forward,? (?:and )?then backward$/,
+      (_m, b) => [
+        call('hall', b / 2, { direction: 'down' }),
+        call('hall', b / 2, { direction: 'up', backward: true }),
+      ],
+    ],
+    [
+      // "Circle left 3 places, partners swing" in one 16-beat row.
+      re(`circle (left|right) (\\w+) places?,? (?:then )?${WHO} swing`),
+      (m, b) => [
+        call('circle', b / 2, { direction: m[1], places: h.numbers[m[2]] ?? Number(m[2]) }),
+        call('swing', b / 2, { who: who(m[3]) }),
       ],
     ],
     [/^(down|up) the hall$/, (m, b) => [call('hall', b, { direction: m[1] })]],
@@ -186,7 +201,13 @@ export function morePatterns(h: ParseHelpers): readonly (readonly [RegExp, Build
       /^down the hall and bend into a ring$/,
       (_m, b) => [call('hall', b, { direction: 'down', end: 'ring' })],
     ],
-    [/^(\w+) turn alone$/, (m, b) => [call('turn-alone', b, { who: roleOf(who(m[1])) })]],
+    [
+      /^(\w+) turn alone$/,
+      (m, b) => {
+        const w = who(m[1]);
+        return [call('turn-alone', b, { who: w === '1s' || w === '2s' ? w : roleOf(w) })];
+      },
+    ],
     [
       /^(\w+) turn alone over their (right|left) shoulders?$/,
       (m, b) => [call('turn-alone', b, { who: roleOf(who(m[1])), over: m[2] })],
@@ -224,6 +245,7 @@ const CORES: readonly RegExp[] = [
   /^((?:(?:next|new) )?\w+ (?:california twirl|box the gnat|swat the flea))([ ,;-].+)$/,
   /^((?:\w+ )?turn alone(?: over their (?:right|left) shoulders?)?)([ ,;-].+)$/,
   /^(balance the ring)([ ,;-].+)$/,
+  /^((?:\w+ )?\w+ (?:pass|pull) by (?:right|left)(?: shoulders?)?)([ ,;-].+)$/,
   /^(long lines forward (?:&|and) back)([ ,;-].+)$/,
   /^((?:down|up) the hall(?: and (?:turn as a couple|turn alone|bend into a ring))?)([ ,;-].+)$/,
 ];
@@ -241,6 +263,10 @@ const MORE_TIDY: readonly (readonly [RegExp, string])[] = [
   [/^long lines go back$/, 'long lines back'],
   [/^balance (?:right|left),? (?:(?:&|and|then) )?(?:right|left)$/, 'balance'],
   [/^balance (?:the )?long waves?$/, 'balance'],
+  // "(swing through)" labels an allemande ½ and a pass in the center.
+  [/^(.*\b(?:allemande|pass)\b.*?)\s*\bswing through\b\s*(.*)$/, '$1 $2'],
+  [/^(\w+) balance (right|left)$/, '$1 $2 hand balance'],
+  [/^long lines balance$/, 'long lines forward & back'],
   [
     /^((?:(?:next|new) )?\w+ do si do [^ ,]+),? (?:in)?to (?:a |short )?(?:ocean )?waves?(?: of (?:4|four))?$/,
     '$1 to a wave',
@@ -269,7 +295,8 @@ const MORE_TIDY: readonly (readonly [RegExp, string])[] = [
   ],
   // A ring balance and a one-place twirl to the right is a petronella.
   [
-    /^balance the ring,? (?:and )?twirl (?:right )?one pla?l?ace (?:to the right|in circle)$/,
+
+    /^balance the ring,? (?:and )?twirl (?:right )?one (?:place|palace|palce) (?:to the right|in circle)$/,
     'balance & petronella',
   ],
   [/^balance (?:the )?(?:ring )?diamond$/, 'balance the ring'],

@@ -45,3 +45,8 @@ reading below. One line each; change any of them and the figure follows.
 - "Allemande ... to long wave(s)/forming long waves": the pair keeps hold and stays close instead of stepping back out, ending facing across on a side line; the role named facing in is not checked.
 - "Do si do 1¼ to a (short) wave": the minor set takes wave hands as the do-si-do ends.
 - Partners straddling the middle evenly when they swing ("larks take neighbors" from a ring) swing on the lark's side.
+- "(Swing through)" written beside an allemande ½ and a pass in the center only names that pair of figures; "X pass by left shoulders (swing thru)" is the pass alone.
+- "Neighbors balance right" is a right-hand balance; "long lines balance" is long lines forward and back.
+- "Ones turn alone": only the 1s turn, toward their partners.
+- "Circle left 3 places, partners swing" in one row: half the beats each.
+- "Down the hall forward then backward": half the beats down, half back up still facing down.
