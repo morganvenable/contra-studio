@@ -4,9 +4,9 @@
  "catalogue": 2422,
  "stored": 2422,
  "counts": {
-  "ok": 688,
-  "check": 430,
-  "partial": 1304,
+  "ok": 690,
+  "check": 429,
+  "partial": 1303,
   "unsupported": 0
  },
  "formations": [
@@ -21,9 +21,9 @@
   {
    "formation": "becket",
    "dances": 655,
-   "ok": 86,
-   "check": 197,
-   "partial": 372,
+   "ok": 88,
+   "check": 196,
+   "partial": 371,
    "unsupported": 0
   },
   {
@@ -1104,8 +1104,8 @@
    },
    {
     "name": "ocean wave / long wave",
-    "unlocks": 34,
-    "uses": 80
+    "unlocks": 31,
+    "uses": 77
    },
    {
     "name": "down/up the hall",
@@ -1200,7 +1200,7 @@
    {
     "name": "pull by / pass by",
     "unlocks": 6,
-    "uses": 22
+    "uses": 21
    },
    {
     "name": "slice",
@@ -2972,7 +2972,7 @@
    },
    {
     "name": "diagonal chain / right left through",
-    "unlocks": 20
+    "unlocks": 21
    },
    {
     "name": "allemande variant",
@@ -3027,6 +3027,10 @@
     "unlocks": 5
    },
    {
+    "name": "roll away",
+    "unlocks": 5
+   },
+   {
     "name": "petronella",
     "unlocks": 5
    },
@@ -3036,10 +3040,6 @@
    },
    {
     "name": "mad robin",
-    "unlocks": 4
-   },
-   {
-    "name": "roll away",
     "unlocks": 4
    },
    {
@@ -3122,7 +3122,7 @@
   "checkFailures": [
    {
     "name": "Couples don't end the round where the progression puts them.",
-    "unlocks": 189
+    "unlocks": 191
    },
    {
     "name": "allemande variant",
@@ -3130,11 +3130,11 @@
    },
    {
     "name": "ocean wave / long wave",
-    "unlocks": 27
+    "unlocks": 28
    },
    {
     "name": "swing variant",
-    "unlocks": 24
+    "unlocks": 19
    },
    {
     "name": "diagonal chain / right left through",
@@ -3225,6 +3225,10 @@
     "unlocks": 2
    },
    {
+    "name": "slide along set",
+    "unlocks": 2
+   },
+   {
     "name": "poussette",
     "unlocks": 2
    },
@@ -3290,10 +3294,6 @@
    },
    {
     "name": "The next time through can't start from where the dancers end: Dancers 0 and 5 are too far apart to balance.).",
-    "unlocks": 1
-   },
-   {
-    "name": "slide along set",
     "unlocks": 1
    },
    {

@@ -97,6 +97,8 @@ const MELT_BEATS = 1.5;
 /** Beats to close to round distance, and to get the orbit up to speed. */
 const ROUND_GATHER_BEATS = 1;
 const ROUND_RAMP_BEATS = 1.5;
+/** Average walking pace (m per beat) closing in from far apart. */
+const GATHER_PACE = 0.65;
 
 export const swing: Figure<SwingParams> = (state, params, beats) => {
   onlyKeys('swing', params, ['who', 'meltdown', 'end']);
@@ -130,7 +132,14 @@ function planPair(
   end: 'across' | 'down' | 'up',
 ) {
   // A meltdown closes to round distance in a beat and starts orbiting at once.
-  const lead = roundBeats > 0 ? ROUND_GATHER_BEATS / beats : LEAD;
+  // A pair starting far apart (the two ends of a line of four) takes longer
+  // to close in, walking at about GATHER_PACE.
+  const gap = length(sub(body(state, a).position, body(state, b).position)) / 2;
+  const closing = Math.max(0, gap - (roundBeats > 0 ? ROUND_RADIUS : RADIUS)) / GATHER_PACE;
+  const lead = Math.min(
+    0.4,
+    Math.max(roundBeats > 0 ? ROUND_GATHER_BEATS / beats : LEAD, closing / beats),
+  );
   // A short swing (under 8 beats) keeps its turning rate steadier: shorter
   // speed ramps, so the middle of the turn is not faster than a dancer turns.
   const ramp = roundBeats > 0 ? ROUND_RAMP_BEATS / beats : beats < 8 ? SHORT_RAMP : undefined;
@@ -257,6 +266,8 @@ function planPair(
     // Take the frame once gathered; let go just as the pair opens out.
     const strength =
       smooth((t - turnIn * 0.75) / (turnIn * 0.25)) *
+      // ... and closed in (a pair gathering from far apart closes late).
+      smooth((t - lead * 0.8) / (lead * 0.2)) *
       smooth((1 - RELEASE + 0.04 - t) / 0.08) *
       smooth((melted(t) - 0.8) / 0.2);
     if (strength <= 0) return [];

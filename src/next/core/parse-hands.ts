@@ -112,6 +112,11 @@ const NOTES: readonly (readonly [RegExp, Replace])[] = [
   [/^(partners balance) dancers must turn enough to face their partners in the other minor set$/, '$1'],
   [/^facing star (clockwise|counterclockwise) 3\/4$/, 'facing star $1 3 places'],
   [/^(larks|robins) star (l|r) halfway$/, '$1 star $2 ½'],
+  // Waves named after the figure that forms them.
+  [/^((?:next |new )?\w+ do si do [^ ]+) to right hand ocean wave, (larks|robins) in center$/, '$1 to a wave of four, $2 in center'],
+  [/^(\w+ allemande (?:left|right) [^ ]+) to give right hand to neighbor to make wave of 4$/, '$1 to a wave of four'],
+  [/^(form an ocean wave & balance - .* by (?:left|right) hands) the wave$/, '$1'],
+  [/^balance the ring and twirl to (wave of four .*)$/, 'balance & petronella to a $1'],
   [/^(star (?:left|right)(?: - (?:hands across|wrist grip) -)? \d places?),? (?:then with next neighbors|then|turn away from the star toward your shadow|- turn away to meet .*|to find new neighbors)$/, '$1'],
   [/^(star (?:left|right) - (?:hands across|wrist grip) - \d places?) (?:larks are behind partners - progress to next neighbors|with robins stepping in behind their partner|- robins begin, larks join behind partner|robins begin, larks join behind partner|once and come back to original couple|robins drop out at the end, and wait briefly for partner|- larks drop out at home, robins switch to an allemande grip)$/, '$1'],
   [/^(star (?:left|right) \d places?) -+ larks join behind your partner$/, '$1'],
@@ -343,6 +348,19 @@ export function handsPatterns(h: HandsHelpers): readonly (readonly [RegExp, Buil
         call('balance', 4, { formation: 'current' }),
         call('pass-by', b - 4, { who: m[1], shoulder: m[2] ?? 'right', hands: true }),
       ],
+    ],
+    // "Balance the ring, neighbors swing to a wave of four ...", "balance
+    // wave of 4, robins allemande left once": the balance, then the rest of
+    // the row as its own figure.
+    [
+      /^balance (the ring|ring|the wave|wave(?: of (?:4|four))?)[,;]? (?:& |and )?(?!and\b)(.+)$/,
+      (m, b) => {
+        if (b < 6) throw new Error('No figure pattern matches this balance row.');
+        const rest = again(m[2], b - 4);
+        if (!rest) throw new Error(`No figure pattern matches "${m[2]}".`);
+        const ring = m[1].endsWith('ring');
+        return [call('balance', 4, { formation: ring ? 'ring' : 'current' }), ...rest];
+      },
     ],
     // Notes: cut them and read the rest with every table.
     [
