@@ -62,3 +62,11 @@ reading below. One line each; change any of them and the figure follows.
 - A couple still crossing over at an end when down the hall starts stays out of the hall; waiting couples cross passing close by each other (the half turn squashed to 0.4 of a circle along the set), so two couples waiting side by side do not meet.
 - A swing drifts to where it ends over the first 70% of the figure (not the whole of it), so pairs swinging near the middle clear each other.
 - A twirl turns the dancers to face each other over at least 0.75 beat, longer the farther they turn (half a beat per radian).
+- "X ... to a wave of four / ocean wave / short wavy line" after any figure (circle, do-si-do, twirl, pass through, swing): the figure takes all but 2 beats, then the minor set steps into the wave the row describes, robins in the middle by the left and neighbors by the right unless named; "to a wave and balance" leaves 4 beats to form and balance.
+- "X allemande ... while Y shift left/right" or "... while Y walk forward / move straight ahead": the others slide one place (1.8 m) to their left or right, or walk one place ahead, keeping their facing.
+- "Balance the ring, larks trade places / robins trade right shoulder": a ring balance, then that role passes by the right shoulder to trade.
+- "Balance yourself": everyone balances right and left alone in place.
+- "Partners balance and twirl to swap inside hands": a right-hand balance and box the gnat.
+- "Balance the ring and roll partner/neighbor ..." with no roller named: the larks roll.
+- "Neighbors two-hand turn counterclockwise 1/2/3+ times": once around.
+- "Larks give & take partners and swing": half the beats each.

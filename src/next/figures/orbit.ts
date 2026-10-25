@@ -16,8 +16,13 @@
  */
 import type { Figure, FigureFrame } from '../core/figure.ts';
 import { oneOf, onlyKeys, settle } from '../core/figure.ts';
+import { SET } from '../core/config.ts';
 import {
   add,
+  forward,
+  leftOf,
+  rightOf,
+  scale,
   heading,
   length,
   progress,
@@ -45,9 +50,14 @@ export interface OrbitParams {
   /** Do-si-do: shoulder passed first (left for a see-saw). */
   shoulder?: 'right' | 'left';
   /** Which way the others walk around, seen from above. */
-  direction: 'clockwise' | 'counterclockwise';
+  direction?: 'clockwise' | 'counterclockwise';
   /** How far around they walk: 0.5 is half way. */
-  around: number;
+  around?: number;
+  /**
+   * What the others do instead of orbiting: shift one place to their left
+   * or right, or walk one place straight ahead, keeping their facing.
+   */
+  others?: 'shift-left' | 'shift-right' | 'forward';
 }
 
 /** Share of the figure spent turning to walk forward, and back at the end. */
@@ -56,14 +66,26 @@ const FACE = 0.2;
 const MIN_RADIUS = 1;
 
 export const orbit: Figure<OrbitParams> = (state, params, beats) => {
-  onlyKeys('orbit', params, ['center', 'who', 'hand', 'amount', 'shoulder', 'direction', 'around']);
+  onlyKeys('orbit', params, [
+    'center',
+    'who',
+    'hand',
+    'amount',
+    'shoulder',
+    'direction',
+    'around',
+    'others',
+  ]);
+  const others =
+    params.others === undefined
+      ? undefined
+      : oneOf('orbit', 'others', params.others, ['shift-left', 'shift-right', 'forward'] as const);
   const center = oneOf('orbit', 'center', params.center, ['allemande', 'do-si-do'] as const);
   const who = oneOf('orbit', 'who', params.who, PAIR_NAMES);
-  const direction = oneOf('orbit', 'direction', params.direction, [
-    'clockwise',
-    'counterclockwise',
-  ] as const);
-  const around = params.around;
+  const direction = others
+    ? 'clockwise'
+    : oneOf('orbit', 'direction', params.direction, ['clockwise', 'counterclockwise'] as const);
+  const around = others ? 1 : (params.around ?? 0);
   if (!(around > 0 && around <= 2)) throw new Error('An orbit goes between 0 and 2 times around.');
   const inner =
     center === 'allemande'
@@ -79,7 +101,7 @@ export const orbit: Figure<OrbitParams> = (state, params, beats) => {
       .map((id) => {
         const s = body(state, id);
         const rel = sub(s.position, middle);
-        if (length(rel) < MIN_RADIUS)
+        if (!others && length(rel) < MIN_RADIUS)
           throw new Error(`Dancer ${id} stands too near the middle to orbit around it.`);
         return { id, s, rel, middle };
       });
@@ -91,6 +113,19 @@ export const orbit: Figure<OrbitParams> = (state, params, beats) => {
     const a = sweep * progress(t);
     const facing = smooth(t / FACE) * smooth((1 - t) / FACE);
     const walked = orbiters.map((o) => {
+      if (others) {
+        const way =
+          others === 'forward'
+            ? forward(o.s.yaw)
+            : others === 'shift-left'
+              ? leftOf(o.s.yaw)
+              : rightOf(o.s.yaw);
+        return {
+          id: o.id,
+          position: add(o.s.position, scale(way, SET.slot * progress(t))),
+          yaw: o.s.yaw,
+        };
+      }
       const position = add(o.middle, rotate(o.rel, a));
       const rigid = yawAfterRotation(o.s.yaw, a);
       // Walking forward along the circle: the heading a little further on.

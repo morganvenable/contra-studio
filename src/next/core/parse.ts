@@ -413,7 +413,16 @@ function onDiagonal(text: string): { text: string; diagonal?: 'left' | 'right' }
 }
 
 /** The patterns in parse-more.ts, after this file's own. */
-const MORE_PATTERNS = morePatterns({ who, amount, call, numbers: NUMBERS });
+const MORE_PATTERNS = morePatterns({ who, amount, call, numbers: NUMBERS, match: matchCalls });
+
+/** The calls the first matching pattern builds for already tidied text. */
+function matchCalls(text: string, beats: number): FigureCall[] | undefined {
+  for (const [pattern, build] of [...PATTERNS, ...MORE_PATTERNS]) {
+    const m = text.match(pattern);
+    if (m) return build(m, beats);
+  }
+  return undefined;
+}
 
 export function parseRow(row: SourceRow): FigureCall[] {
   const normal = normalizeRow(row.text);

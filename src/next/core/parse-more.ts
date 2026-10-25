@@ -21,6 +21,8 @@ export interface ParseHelpers {
   amount(word: string | undefined, fallback: number): number;
   call(move: string, beats: number, params: Record<string, unknown>): FigureCall;
   numbers: Readonly<Record<string, number>>;
+  /** Calls for a part of a row (tidied text), from all patterns. */
+  match(text: string, beats: number): FigureCall[] | undefined;
 }
 
 const WHO = '((?:next |new )?\\w+)';
@@ -85,6 +87,37 @@ export function morePatterns(h: ParseHelpers): readonly (readonly [RegExp, Build
         }),
       ],
     ],
+    [/^balance alone$/, (_m, b) => [call('balance', b, { formation: 'solo' })]],
+    [
+      // "Balance the ring, larks trade places": the ring balance, then they trade.
+      /^balance the ring,? (?:and )?(\w+) trade(?: places)?(?: (?:passing )?(right|left)(?: shoulders?)?)?(?: to face partners?)?$/,
+      (m, b) => [
+        call('balance', 4, { formation: 'ring' }),
+        call('pass-by', b - 4, { who: roleOf(who(m[1])), shoulder: m[2] ?? 'right', hands: false }),
+      ],
+    ],
+    [
+      // "Larks give & take partners and swing": half the beats each.
+      /^(\w+) give (?:&|and) take (partners|neighbors) and swing$/,
+      (m, b) => [
+        call('give-and-take', b / 2, { who: who(m[1]), whom: who(m[2]) }),
+        call('swing', b / 2, { who: who(m[2]) }),
+      ],
+    ],
+    [
+      // "Partners allemande right ½ and reform short wave with larks in the middle".
+      re(
+        `${WHO} allemande (right|left) (?:½|1/2),? (?:and )?reform (?:the |a )?(?:short )?wave with (\\w+) in the (?:middle|center)`,
+      ),
+      (m, b) => [
+        call('allemande', b, {
+          who: who(m[1]),
+          hand: m[2],
+          amount: 0.5,
+          wave: { middle: roleOf(who(m[3])) === 'larks' ? 'lark' : 'robin' },
+        }),
+      ],
+    ],
     [
       /^balance the ring and partners california twirl$/,
       (_m, b) => [
@@ -94,7 +127,9 @@ export function morePatterns(h: ParseHelpers): readonly (readonly [RegExp, Build
     ],
     [
       // A swing through spelled out: two half allemandes.
-      re(`swing through,? ${WHO} allemande (right|left) (?:by )?(?:½|1/2|half),? ${WHO} allemande (right|left) (?:by )?(?:½|1/2|half)`),
+      re(
+        `swing through,? ${WHO} allemande (right|left) (?:by )?(?:½|1/2|half),? ${WHO} allemande (right|left) (?:by )?(?:½|1/2|half)`,
+      ),
       (m, b) => [
         call('allemande', b / 2, { who: who(m[1]), hand: m[2], amount: 0.5 }),
         call('allemande', b / 2, { who: who(m[3]), hand: m[4], amount: 0.5 }),
@@ -103,7 +138,7 @@ export function morePatterns(h: ParseHelpers): readonly (readonly [RegExp, Build
     [
       // "Robins allemande left ½, hold on to form waves", "... 1½ to a short wave".
       re(
-        `(\\w+) allemande (left|right) ([^ ,]+),? (?:- )?(?:hold on )?(?:(?:and|&) )?(?:to )?(?:form )?(?:a |an )?(?:short |ocean )?waves?(?: of (?:4|four))?(?: [^,]*)?`,
+        `(larks|robins|gentlespoons?|ladles?) allemande (left|right) ([^ ,]+),? (?:- )?(?:hold on )?(?:(?:and|&) )?(?:to )?(?:form )?(?:a |an )?(?:short |ocean )?(?:waves?|wavy lines?)(?: of (?:4|four))?(?: [^,]*)?`,
       ),
       (m, b) => [
         call('allemande', b, {
@@ -130,6 +165,21 @@ export function morePatterns(h: ParseHelpers): readonly (readonly [RegExp, Build
       (_m, b) => [call('walk-forward', b, {})],
     ],
     [
+      // "Robins allemande left once, larks shift left", "... while larks walk forward".
+      re(
+        `${WHO} allemande (left|right) ([^ ,]+)(?: next \\w+)?(?: in (?:the )?center)?,? (?:while )?(?:the )?(\\w+) (shift (left|right)(?: one place)?|walk forward(?: .*)?|move straight ahead(?: .*)?)`,
+      ),
+      (m, b) => [
+        call('orbit', b, {
+          center: 'allemande',
+          who: who(m[1]),
+          hand: m[2],
+          amount: amount(m[3], 1),
+          others: m[6] ? `shift-${m[6]}` : 'forward',
+        }),
+      ],
+    ],
+    [
       // A zero-beat "while:" or "alternate: ..." row only annotates its neighbors.
       /^(?:while:?|alternate: .*|"?swing through"?:)$/,
       (_m, b) => {
@@ -139,7 +189,7 @@ export function morePatterns(h: ParseHelpers): readonly (readonly [RegExp, Build
     ],
     [
       re(
-        `${WHO} (allemande (left|right)|do si do|see saw) ([^ ]+(?: 1/2)?) while (?:the )?(\\w+) orbit (clockwise|counter ?clockwise|cw|ccw) ([^ ]+)(?: to (?:meet |face )?(?:your )?(?:partners?|neighbors?|shadows?)(?: across(?: the)? set)?)?`,
+        `${WHO} (allemande (left|right)|do si do|see saw) ([^ ]+(?: 1/2)?) while (?:the )?(\\w+) orbit (clockwise|counter ?clockwise|cw|ccw) ([^ ]+)(?: around)?(?: to (?:meet |face )?(?:your )?(?:partners?|neighbors?|shadows?)(?: across(?: the)? set)?)?`,
       ),
       (m, b) => {
         const allemande = m[2].startsWith('allemande');
@@ -294,7 +344,56 @@ export function morePatterns(h: ParseHelpers): readonly (readonly [RegExp, Build
         call('turn-alone', 2, {}),
       ],
     ],
+    [
+      // A figure that ends in a wave of four ("circle left 3 places to wave of
+      // four, robins in center left hands, right hand to neighbor"): the
+      // figure, then 2 beats to step into the wave the row describes.
+      // "... to a wave and balance" balances it too (4 beats for both).
+      /^(.+?),? (?:and )?(?:end (?:the )?swing in|(?:step )?(?:in)?to(?: form)?) (?:a |an |new )?(?:short |ocean )?wav(?:e|y line)s?(?: of (?:4|four))?(?: across)?(?: with (?:next |new )?neighbors)?(?:,? -? ?(.*))?$/,
+      (m, b) => {
+        if (/\blong\b|\bwave\b/.test(m[1])) throw new Error('A long wave is not a wave of four.');
+        const note = m[2] ?? '';
+        const balance = /^(?:and )?balance\b/.test(note);
+        const waveBeats = balance ? 4 : 2;
+        if (b - waveBeats < 2) throw new Error('Too short to dance a figure and then form a wave.');
+        const base = h.match(moreTidy(m[1]), b - waveBeats);
+        if (!base) throw new Error(`No figure pattern matches "${m[1]}".`);
+        return [
+          ...base,
+          call('ocean-wave', waveBeats, { ...waveFrom(note), ...(balance ? { balance: true } : {}) }),
+        ];
+      },
+    ],
   ];
+}
+
+/**
+ * The ocean wave a note describes: "robins in center left hands, right hand
+ * to neighbor". Unnamed, robins in the middle by the left and neighbors by
+ * the right.
+ */
+function waveFrom(note: string) {
+  const roleIn = note.match(
+    /\b(larks|robins|ladles|gentlespoons) (?:in (?:the )?(?:center|middle)|(?:take )?(?:left|right) hands? in (?:the )?(?:center|middle)|by (?:left|right))/,
+  );
+  const middle = roleIn
+    ? /^(?:larks|gentlespoons)$/.test(roleIn[1])
+      ? 'larks'
+      : 'robins'
+    : 'robins';
+  const middleHand =
+    /\bright(?: hands?)? in (?:the )?(?:center|middle)|in (?:the )?(?:center|middle),? right/.test(
+      note,
+    )
+      ? 'right'
+      : 'left';
+  const endsMatch = note.match(/\b(right|left)(?: hands?)? to (partners?|neighbors?)/);
+  return {
+    middle,
+    middleHand,
+    ends: endsMatch?.[2].startsWith('partner') ? 'partner' : 'neighbor',
+    endHand: middleHand === 'left' ? 'right' : 'left',
+  };
 }
 
 /** Notes after a figure that name another figure, and so must be kept. */
@@ -337,6 +436,43 @@ const MORE_TIDY: readonly (readonly [RegExp, string])[] = [
   [/^(\w+ do si do [^ ,]+),? step back into line$/, '$1'],
   [/( - balance the wave),? (?:left|right),? then (?:left|right)$/, '$1'],
   [/^(\w+ form a long wave in the center) fleeting$/, '$1'],
+  [/\s*\+{1,3}$/, ''],
+  [/\bcounter-clockwise\b/g, 'counterclockwise'],
+  // Ordinals that only count which neighbors these are ("4th 1st neighbors").
+  [/\b(?:\d+(?:st|nd|rd|th) )+(neighbors?)\b/g, '$1'],
+  [/,? 9th, not 1st$/, ''],
+  [/^do si do (once|twice|[^ ]+)(?: new neighbors?)?$/, 'neighbors do si do $1'],
+  [/^partners balance 1s only$/, '1s balance'],
+  [/^(pass through(?: across the set)?,? (?:and )?turn alone) to face back in$/, '$1'],
+  [/^pass through (?:straight ahead|in line of direction) to /, 'pass through to '],
+  [/^(down the hall forward,? (?:and )?then backward) gay gord[eo]n$/, '$1'],
+  [/( - balance the wave),? robins fall back .*$/, '$1'],
+  [/^(\w+ do si do [^ ]+ as (?:a )?couples?),? larks lead .*$/, '$1'],
+  [/^neighbors do si do once do si do as a couple .*$/, 'neighbors do si do once as couples'],
+  [/^(\w+ two[- ]hand turn counterclockwise) 1\/2\/3\+ times\b.*$/, '$1 once'],
+  // Where an allemande ends, told as a note.
+  [
+    /^((?:(?:next|new) )?\w+ allemande (?:left|right) [^ ,]+),? (?:with the next \w+ )?(?:to trade places(?: and step into a ring)?|form a ring with partners? and neighbors?|end back to back facing partners in a line of four|end facing partners? in (?:a )?line of four.*|in hands four with shadows|and go to new neighbors to do si do|this is .*)$/,
+    '$1',
+  ],
+  [/^(\w+ allemande (?:left|right) [^ ,]+) in the center (to (?:a )?wavy line)/, '$1 $2'],
+  [
+    /^balance the ring,? (?:and )?roll (partners?|neighbors?) across(?: set)? half sashay$/,
+    'balance the ring larks roll $1 across',
+  ],
+  [
+    /^balance the ring,? (?:and )?roll (?:across with )?(partners?|neighbors?)( .*)?$/,
+    'balance the ring larks roll $1$2',
+  ],
+  [
+    /^balance the ring (?:1\/2 sashay|and) roll (neighbors?|partners?) (?:with half sashay )?alone set$/,
+    'balance the ring larks roll $1 along set',
+  ],
+  [
+    /^(\w+) balance and twirl to swap(?: with)? inside hands$/,
+    '$1 right hand balance & box the gnat',
+  ],
+  [/^balance yourself$/, 'balance alone'],
   [
     /(\bswing),? (?:end swing facing across to rejoin (?:the )?ring|end in a ring|form a ring|- and get ready to slide along (?:the )?set left)$/,
     '$1',
@@ -387,7 +523,6 @@ const MORE_TIDY: readonly (readonly [RegExp, string])[] = [
   ],
   // A ring balance and a one-place twirl to the right is a petronella.
   [
-
     /^balance the ring,? (?:and )?twirl (?:right )?one (?:place|palace|palce) (?:to the right|in circle)$/,
     'balance & petronella',
   ],

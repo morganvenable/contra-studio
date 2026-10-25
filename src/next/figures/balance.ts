@@ -14,6 +14,8 @@
  * - pair: two dancers (partners, neighbors, ...) face each other and step in
  *   toward each other and back ("neighbors balance", "right hand balance"),
  *   ending where they started. Hands join while they are close enough.
+ * - solo ("balance yourself"): everyone balances right and left alone, in
+ *   place, holding no one.
  * - long-waves: everyone on the side lines takes hands along their line,
  *   the named role facing in across the set and the others facing out
  *   (turning to face that way over the first two beats), and balances
@@ -47,6 +49,7 @@ import { findRing, ringHolds } from '../core/ring.ts';
 import { PAIR_NAMES, type PairName } from '../core/relations.ts';
 import { roleOfGroup } from '../core/roles.ts';
 import {
+  activeIds,
   body,
   groupCenter,
   handToward,
@@ -59,7 +62,7 @@ import {
 
 export interface BalanceParams {
   /** 'current': a wave if the group holds one, otherwise its ring. */
-  formation: 'wave' | 'ring' | 'pair' | 'current' | 'long-waves';
+  formation: 'wave' | 'ring' | 'pair' | 'current' | 'long-waves' | 'solo';
   /** Long waves: the role that faces in across the set. */
   in?: 'larks' | 'robins';
   style?: 'right-left' | 'forward-back';
@@ -89,6 +92,7 @@ export const balance: Figure<BalanceParams> = (state, params, beats) => {
     'pair',
     'current',
     'long-waves',
+    'solo',
   ] as const);
   if (params.in !== undefined && formation !== 'long-waves')
     throw new Error('Only long waves name who faces in.');
@@ -109,6 +113,7 @@ export const balance: Figure<BalanceParams> = (state, params, beats) => {
   if (formation === 'wave') return waveBalance(state, params, beats);
   if (formation === 'ring') return ringBalance(state, params, beats);
   if (formation === 'long-waves') return longWaveBalance(state, params, beats);
+  if (formation === 'solo') return heldBalance(state, beats, activeIds(state));
   return pairBalance(state, params, beats);
 };
 
@@ -123,8 +128,11 @@ const ringed = (state: Parameters<typeof balance>[0]) =>
   });
 
 /** Everyone holding hands steps right and back, left and back, keeping hold. */
-function heldBalance(state: Parameters<typeof balance>[0], beats: number) {
-  const ids = [...new Set(state.hands.flatMap((h) => [h.a, h.b]))];
+function heldBalance(
+  state: Parameters<typeof balance>[0],
+  beats: number,
+  ids = [...new Set(state.hands.flatMap((h) => [h.a, h.b]))],
+) {
   const motion = (beat: number) => {
     const i = Math.min(3, Math.floor(beat));
     const q = STEPS[i] + (STEPS[i + 1] - STEPS[i]) * ease(beat - i);
