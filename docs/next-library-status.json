@@ -4,8 +4,8 @@
  "catalogue": 2422,
  "stored": 2422,
  "counts": {
-  "ok": 344,
-  "check": 136,
+  "ok": 345,
+  "check": 135,
   "partial": 1660,
   "unsupported": 282
  },
@@ -13,8 +13,8 @@
   {
    "formation": "improper",
    "dances": 1189,
-   "ok": 302,
-   "check": 73,
+   "ok": 303,
+   "check": 72,
    "partial": 814,
    "unsupported": 0
   },
@@ -2863,7 +2863,7 @@
    },
    {
     "name": "hey (other)",
-    "unlocks": 5
+    "unlocks": 6
    },
    {
     "name": "gyre",
@@ -2883,10 +2883,6 @@
    },
    {
     "name": "swing variant",
-    "unlocks": 3
-   },
-   {
-    "name": "box the gnat / swat the flea",
     "unlocks": 3
    },
    {
@@ -2923,6 +2919,10 @@
    },
    {
     "name": "turn alone / as a couple",
+    "unlocks": 1
+   },
+   {
+    "name": "box the gnat / swat the flea",
     "unlocks": 1
    },
    {
