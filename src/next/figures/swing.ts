@@ -153,6 +153,8 @@ function planPair(
     end === 'across' &&
     !!group &&
     group.length > 4 &&
+    // A whole longways set: everyone on the two side lines.
+    group.every((id) => Math.abs(Math.abs(body(state, id).position.x - middle.x) - SET.halfWidth) < 0.2) &&
     Math.abs(across) < SIDE_MARGIN &&
     Math.sign(larkX) === -Math.sign(robinX) &&
     Math.abs(Math.abs(larkX) - SET.halfWidth) < 0.2 &&
