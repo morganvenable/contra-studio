@@ -85,7 +85,24 @@ function simultaneous(rows: readonly SourceRow[], parsed: Parsed) {
       ];
       i = e;
     } catch {
-      // A part that does not read leaves the rows as they were.
+      // Parts of one row each that only read together ("larks see saw once"
+      // WHILE "robins orbit clockwise ½ around"): the row "A while the B".
+      if (k !== i + 2 || e !== k + 1) continue;
+      const said = (j: number, role: string | undefined) => {
+        const t = rows[j].text.replace(/⁋/g, '').trim();
+        return role && !new RegExp(`^${role}\\b`, 'i').test(plain(rows[j])) ? `${role} ${t}` : t;
+      };
+      try {
+        const text = `${said(i + 1, roles[0])} while the ${said(e, roles[1])}`;
+        const calls = parseRow({ ...rows[e], text });
+        parsed[i] = [];
+        parsed[i + 1] = [];
+        parsed[k] = [];
+        parsed[e] = calls.map((c) => ({ ...c, section: rows[e].section, row: e + 1 }));
+        i = e;
+      } catch {
+        // Left as they were.
+      }
     }
   }
 }
