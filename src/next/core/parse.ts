@@ -431,7 +431,18 @@ function matchText(plain: string, beats: number): FigureCall[] | undefined {
 export function parseRow(row: SourceRow): FigureCall[] {
   const normal = normalizeRow(row.text);
   const progression = normal.progression;
-  const calls = matchText(normal.text, row.beats) ?? looseCalls(normal.text, row.beats, matchText);
+  // A pattern that matches but cannot read the row ("chain to partner the
+  // dance starts ...") leaves the loose reading to try; its error stands
+  // when that fails too.
+  let failure: unknown;
+  let calls: FigureCall[] | undefined;
+  try {
+    calls = matchText(normal.text, row.beats);
+  } catch (error) {
+    failure = error;
+  }
+  calls ??= looseCalls(normal.text, row.beats, matchText);
+  if (!calls && failure) throw failure;
   if (calls) {
     const label = canonicalText(row.text.replace(/⁋/g, '').replace(/\s+/g, ' ').trim());
     return calls.map((c, i) => ({

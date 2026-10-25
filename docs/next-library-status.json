@@ -4,9 +4,9 @@
  "catalogue": 2422,
  "stored": 2422,
  "counts": {
-  "ok": 370,
+  "ok": 371,
   "check": 166,
-  "partial": 1604,
+  "partial": 1603,
   "unsupported": 282
  },
  "formations": [
@@ -21,9 +21,9 @@
   {
    "formation": "becket",
    "dances": 655,
-   "ok": 47,
+   "ok": 48,
    "check": 75,
-   "partial": 533,
+   "partial": 532,
    "unsupported": 0
   },
   {
@@ -1104,7 +1104,7 @@
    },
    {
     "name": "star variant",
-    "unlocks": 53,
+    "unlocks": 54,
     "uses": 162
    },
    {
@@ -1113,14 +1113,14 @@
     "uses": 114
    },
    {
-    "name": "hey (other)",
-    "unlocks": 47,
-    "uses": 138
-   },
-   {
     "name": "petronella",
     "unlocks": 47,
     "uses": 113
+   },
+   {
+    "name": "hey (other)",
+    "unlocks": 46,
+    "uses": 137
    },
    {
     "name": "roll away",
@@ -1150,7 +1150,7 @@
    {
     "name": "diagonal chain / right left through",
     "unlocks": 21,
-    "uses": 78
+    "uses": 77
    },
    {
     "name": "arch & dive",
@@ -1189,8 +1189,8 @@
    },
    {
     "name": "chain variant",
-    "unlocks": 13,
-    "uses": 31
+    "unlocks": 12,
+    "uses": 28
    },
    {
     "name": "cross trails",
@@ -2652,6 +2652,10 @@
     "unlocks": 3
    },
    {
+    "name": "chain variant",
+    "unlocks": 3
+   },
+   {
     "name": "square through",
     "unlocks": 3
    },
@@ -2673,10 +2677,6 @@
    },
    {
     "name": "butterfly whirl",
-    "unlocks": 2
-   },
-   {
-    "name": "chain variant",
     "unlocks": 2
    },
    {

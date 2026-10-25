@@ -81,3 +81,4 @@ reading below. One line each; change any of them and the figure follows.
 - "Promenade neighbor (to new couple)": neighbors promenade across.
 - "Pass through with/past shadows", "chain (to) shadow": an ordinary pass through or chain. A star "with shadows" is not read this way (it names other dancers) and stays undrawn.
 - Square through with no balances may go as fast as a pull by a beat (three pull bys in 4 beats); the physical check judges it.
+- A row a pattern half-reads ("ladles chain to partner (the dance starts with same couple)") gets the same note dropping as any other row.
