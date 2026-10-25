@@ -68,7 +68,7 @@ const NOTES: readonly (readonly [RegExp, Replace])[] = [
   [/^(.+ allemande (?:left|right) [^ ]+) to trade$/, '$1'],
   [/^(.+ allemande (?:left|right) [^ ]+ on the (?:left|right) diagonal),? they will be closer than you think$/, '$1'],
   [/ on a (left|right) diagonal$/, ' on the $1 diagonal'],
-  [/^(\w+ allemande (?:left|right) [^ ]+),? (\w+ shift (?:left|right)) to meet partners?$/, '$1, $2'],
+  [/^(\w+ allemande (?:left|right) [^ ,]+),? (\w+ shift (?:left|right)) to meet partners?$/, '$1, $2'],
   // Pull by and pass by notes.
   [/^(.*pull by (?:right|left))(?: across the set)? - same dancer$/, '$1'],
   [/^(\w+ pull by (?:right|left)) swing through$/, '$1'],
@@ -95,7 +95,23 @@ const NOTES: readonly (readonly [RegExp, Replace])[] = [
   [/^do si do current neighbor$/, 'neighbors do si do once'],
   [/^(\w+ do si do [^ ]+) (?:option: .*|do si do neighbor in front of you)$/, '$1'],
   // Stars.
-  [/^(star (?:left|right)(?: - (?:hands across|wrist grip) -)? \d places?) (?:next couple|with shadow 1 & new neighbors|with shadows and next neighbors|- reach right hand.*|couples 1 and 2|about [\d.]+ places for larks one)$/, '$1'],
+  [/^(star (?:left|right)(?: - (?:hands across|wrist grip) -)? \d places?) (?:next couple|with shadow 1 &.*|with shadows and.*|- reach right hand.*|couples 1 and 2|about [\d.]+ places for larks one|larks are behind partners - progress.*|then robins join free right hands over star before letting go of star)$/, '$1'],
+  // "Star ... to long waves": the long-wave balance that follows forms them.
+  [/^(star (?:left|right)(?: - (?:hands across|wrist grip) -)? \d places?),? (?:star )?(?:in)?to (?:a )?long (?:ocean )?waves?\b.*$/, '$1'],
+  // "Robins dance in to a long wave in the center - balance the wave (and
+  // remain)", "robins to the center to a long wavy line, balance, and stay there".
+  [/^(\w+ dance in to a long wave in the center - balance the wave),? (?:and remain|and stay|there are interlinked wavy lines|current neighbor in your right hand)$/, '$1'],
+  [/^(larks|robins) to the center to a long wavy line, balance, and stay there\b.*$/, '$1 dance in to a long wave in the center - balance the wave'],
+  // Spellings.
+  [/\bfoward\b/, 'forward'],
+  [/^(\w+) chain by left hand, to partner$/, '$1 left-hand chain'],
+  [/^(\w+) chain new \w+ on slight (left|right) diagonal - \w+ pull by l, right courtesy turn with partner$/, '$2 diagonal $1 left-hand chain'],
+  [/^(\w+ do si do 1¼) and form an ocean wave$/, '$1 to a wave'],
+  [/^(next neighbors see saw once) and form a ring with original neighbors$/, '$1'],
+  [/^(partners balance & swing) wave$/, '$1'],
+  [/^(partners balance) dancers must turn enough to face their partners in the other minor set$/, '$1'],
+  [/^facing star (clockwise|counterclockwise) 3\/4$/, 'facing star $1 3 places'],
+  [/^(larks|robins) star (l|r) halfway$/, '$1 star $2 ½'],
   [/^(star (?:left|right)(?: - (?:hands across|wrist grip) -)? \d places?),? (?:then with next neighbors|then|turn away from the star toward your shadow|- turn away to meet .*|to find new neighbors)$/, '$1'],
   [/^(star (?:left|right) - (?:hands across|wrist grip) - \d places?) (?:larks are behind partners - progress to next neighbors|with robins stepping in behind their partner|- robins begin, larks join behind partner|robins begin, larks join behind partner|once and come back to original couple|robins drop out at the end, and wait briefly for partner|- larks drop out at home, robins switch to an allemande grip)$/, '$1'],
   [/^(star (?:left|right) \d places?) -+ larks join behind your partner$/, '$1'],
@@ -106,7 +122,7 @@ const NOTES: readonly (readonly [RegExp, Replace])[] = [
   // Orbits: "X do si do while Y turn back over their left shoulders and
   // orbit counterclockwise half way around": the do-si-do with the orbit.
   [
-    /^(\w+) (do si do|see saw|allemande (?:left|right))(?: ([^ ,]+))?(?: around)?(?: in the middle)?,? while (?:the )?(\w+) (?:exchange places by )?(?:turn(?:ing)? (?:back )?over (?:their )?(?:left|right) shoulders? and )?orbit(?:ing)? (clockwise|counter ?clockwise|cw|ccw) (½|1\/2|half|once)(?: way)?(?: around)?\b.*$/,
+    /^(\w+) (do si do|see saw|allemande (?:left|right))(?: ([^ ,]+))?(?: around)?(?: in the middle)?,? while (?:the )?(\w+) (?:exchange places by )?(?:turn(?:ing)? (?:back )?over (?:their )?(?:left|right) shoulders? and )?orbit(?:ing)? (clockwise|counter ?clockwise|cw|ccw) (½|1\/2|half|once)(?: way)?(?: around)?(?:[\s.,].*)?$/,
     (_m, a, f, amt, b, d, around) =>
       `${a} ${f} ${amt ?? 'once'} while ${b} orbit ${d} ${around === 'once' ? 'once' : '½'}`,
   ],
@@ -124,6 +140,18 @@ const NOTES: readonly (readonly [RegExp, Replace])[] = [
   [/^partners balance star through larks right robins left twirl to swap inside hands$/, 'partners balance & star thru'],
   [/^balance (?:and )?(larks|robins) shift (left|right)(?: in center| to \w+)?$/, 'balance & $1 slide $2'],
   [/^hands across (left|right) (\d) places$/, 'star $1 - hands across - $2 places'],
+  // Two-hand turns: "larks two-hand turn, once around", "partners two-hand
+  // turn and open to face across", "... any amount, end facing down ...".
+  [/^((?:\w+ )?two-hand turn),? once(?: around)?$/, '$1 once'],
+  [/^(\w+ two-hand turn) (?:and open to face across|any amount, end facing down in line of four)$/, '$1 once'],
+  [/^two-hand turn once$/, 'partners two-hand turn once'],
+  // "Larks cross by the right": they pass by that shoulder.
+  [/^(larks|robins) cross by (?:the )?(right|left)$/, '$1 pass by $2 shoulders'],
+  // Pass through notes.
+  [/^pass through across the set(?:,? (?:to )?face out| to meet on the other side)$/, 'pass through'],
+  [/^pass through(?: across the set)? to partners$/, 'pass through'],
+  [/^pass through, ones split the twos$/, 'pass through'],
+  [/^(right (?:and |& )?left through) - identify$/, '$1'],
   // Swing through.
   [/^swing though$/, 'swing through'],
 ];
@@ -172,7 +200,7 @@ let depth = 0;
 export function handsPatterns(h: HandsHelpers): readonly (readonly [RegExp, Build])[] {
   const { who, call } = h;
   const again = (text: string, beats: number) => {
-    if (depth > 3) return undefined;
+    if (depth > 0) return undefined;
     depth++;
     try {
       return h.match(text, beats);
@@ -187,6 +215,32 @@ export function handsPatterns(h: HandsHelpers): readonly (readonly [RegExp, Buil
     [
       new RegExp(`^${WHO} allemande ${HAND} (\\d)/(\\d)$`),
       (m, b) => [call('allemande', b, { who: who(m[1]), hand: handOf(m[2]), amount: fraction(m[3], m[4]) })],
+    ],
+    // "Partners courtesy turn", "new neighbor courtesy turn, face across",
+    // "robins give partner left hand for a courtesy turn".
+    [
+      new RegExp(`^${WHO} courtesy turn(?:,? (?:to )?face across\\b.*)?$`),
+      (m, b) => [call('courtesy-turn', b, { who: who(m[1]) })],
+    ],
+    [
+      /^robins give (partner|neighbor) left hand for a courtesy turn$/,
+      (m, b) => [call('courtesy-turn', b, { who: m[1] })],
+    ],
+    // "Partners two-hand turn 3 times": that many turns.
+    [
+      new RegExp(
+        `^${WHO} two[- ]hand turn(?: (clockwise|counterclockwise))? (\\d|two|three|four) times$`,
+      ),
+      (m, b) => {
+        const n = Number(m[3]) || { two: 2, three: 3, four: 4 }[m[3] as 'two'];
+        return [
+          call('two-hand-turn', b, {
+            who: who(m[1]),
+            amount: n,
+            ...(m[2] ? { direction: m[2] } : {}),
+          }),
+        ];
+      },
     ],
     // "neighbors balance inside hands", "partners balance together & apart",
     // "partners balance right hands along": a pair balance.
@@ -267,6 +321,19 @@ export function handsPatterns(h: HandsHelpers): readonly (readonly [RegExp, Buil
           call('pass-by', b - turnBeats, { who: 'partner', shoulder: m[4], hands: false }),
         ];
       },
+    ],
+    // "Balance (wave of 4), robins allemande left halfway (to face partner)":
+    // a balance of what the dancers hold, then the allemande.
+    [
+      /^balance(?: the wave| wave(?: of 4)?)?,? (?:& |and )?(larks|robins) allemande (left|right) (½|halfway|once|1½)(?: to face partner| back to neighbor)?$/,
+      (m, b) => [
+        call('balance', 4, { formation: 'current' }),
+        call('allemande', b - 4, {
+          who: m[1],
+          hand: m[2],
+          amount: m[3] === 'halfway' ? 0.5 : handsAmount(m[3]),
+        }),
+      ],
     ],
     // "Balance (the wave) & larks pull by (right)": a balance of what the
     // dancers hold, then that role pulls by.

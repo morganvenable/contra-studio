@@ -10,6 +10,7 @@
  * - A zero-beat pass through or pull by ("circle left 3 places", then "pass
  *   through"): it takes the last 2 beats of the figure before it (or the
  *   first 2 of the one after), when that figure has 6 beats or more.
+ * - A zero-beat row that only takes, catches, joins or drops hands: no call.
  * - "X take Y" with no swing with them after it: a give and take
  *   (figures/give-and-take.ts).
  */
@@ -17,6 +18,9 @@ import { parseRow, type SourceRow } from './core/parse.ts';
 import type { StoredCall } from './dance.ts';
 
 type Parsed = (StoredCall[] | Error)[];
+
+const HANDS_ONLY =
+  /^(?:(?:next |new )?[\w']+ (?:catch|take|join|drop)\b.*\bhands?\b.*|(?:next |new )?\w+ catch (?:left|right)|join hands\b.*|open up to face new neighbors, hands four)\s*⁋?$/;
 
 export function joinHandRows(rows: readonly SourceRow[], parsed: Parsed) {
   const only = (i: number) => {
@@ -26,6 +30,13 @@ export function joinHandRows(rows: readonly SourceRow[], parsed: Parsed) {
   rows.forEach((row, i) => {
     const next = rows[i + 1];
     const lead = only(i);
+    // A zero-beat row that only takes, catches, joins or drops hands ("larks
+    // catch left hands", "open up to face new neighbors, hands four"): the
+    // figures around it take the hands they need.
+    if (row.beats === 0 && parsed[i] instanceof Error && HANDS_ONLY.test(row.text.toLowerCase())) {
+      parsed[i] = [];
+      return;
+    }
     if (row.beats !== 0 || !lead) return;
     // Zero-beat row, then "meanwhile ...".
     if (next && next.beats > 0 && /^\s*meanwhile\b/i.test(next.text)) {

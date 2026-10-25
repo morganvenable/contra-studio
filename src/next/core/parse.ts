@@ -452,9 +452,10 @@ const PART_NAMES: Readonly<Record<string, string>> = {
 function onDiagonal(text: string): { text: string; diagonal?: 'left' | 'right' } {
   const before = text.match(/^(left|right) diagonal (.+)$/);
   if (before) return { text: before[2], diagonal: before[1] as 'left' | 'right' };
-  // "... end facing on the left diagonal" says where to face, not where to dance.
+  // "... end facing on the left diagonal" and "(ID next neighbors on left
+  // diagonal)" say where to face or look, not where to dance.
   const after = text.match(
-    /^(.+?)(?<!\bfac(?:e|ing)),? on (?:the )?(?:1\/2 |half[- ])?(left|right) diagonal$/,
+    /^(.+?)(?<!\bfac(?:e|ing)|\bid (?:next|new) neighbors?),? on (?:the )?(?:1\/2 |half[- ])?(left|right) diagonal$/,
   );
   if (after) return { text: after[1], diagonal: after[2] as 'left' | 'right' };
   return { text };

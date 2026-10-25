@@ -360,3 +360,12 @@ line each, for review.
 - An allemande turns each dancer to face the way round at about 2 radians a beat at most (sooner when there is time), and the hands join once both have turned most of the way.
 - A figure on a diagonal when only one minor set dances (three couples, or couples out at both ends): nobody has a couple on the diagonal, so everyone stands still for it.
 - A balance given other than four beats: two or three beats balance quickly; five or six balance in four and stand the rest; seven or eight balance twice.
+- "X two-hand turn, once (around)", "two-hand turn once" (partners), "partners two-hand turn and open to face across", "... any amount, end facing down in line of four": a two-hand turn once; "two-hand turn 3 times": that many turns.
+- "Larks cross by the right": the larks pass by right shoulders.
+- "Pass through across the set, face out / to meet on the other side", "pass through to partners", "pass through, ones split the twos": the plain pass through.
+- "Star ... to (a) long wave(s)": the star; the long-wave balance that follows forms the waves. "Robins dance in to a long wave in the center - balance the wave, and remain", "robins to the center to a long wavy line, balance, and stay there": the long wave in the center and its balance.
+- "Larks chain by left hand", "larks chain (larks pull by L, right courtesy turn)": a left-hand chain.
+- "Balance (wave of 4), robins allemande left halfway (to face partner / back to neighbor)": a balance of what the dancers hold, then the allemande in the rest of the row.
+- "Facing star clockwise 3/4": a facing star of 3 places; "larks star L halfway": a star of the larks, 2 places.
+- A zero-beat row that only takes, catches, joins or drops hands ("larks catch left hands", "neighbors join inside hands", "open up to face new neighbors, hands four"): no motion; the figures around it take the hands they need.
+- A courtesy turn on its own ("partners courtesy turn", "neighbor courtesy turn", "new neighbor courtesy turn, face across", "robins give partner left hand for a courtesy turn"): the lark turns; he receives the robin where he stands and the pair wheels counterclockwise to face in across the set, the robin on his right a place along (a couple already side by side on a side line keeps its two places). The wheel runs from the way he faces round to facing in: half a turn when he faces out, a whole turn when he already faces in.

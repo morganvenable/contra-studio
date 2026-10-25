@@ -135,3 +135,23 @@ test('partners standing across a group boundary regroup to dance together', asyn
   assert.notEqual(regrouped, moved);
   assert.ok(regrouped.groups.every((g) => g.length === 2));
 });
+
+test('a courtesy turn ends side by side on the turner\'s side line, facing in, turner on the left', async () => {
+  const { courtesyTurn } = await import('../figures/courtesy-turn.ts');
+  const { FORMATIONS } = await import('../core/formation.ts');
+  const { rightOf, sub, dot } = await import('../core/math.ts');
+  const s = FORMATIONS.becket.start(2);
+  const { exit, motion } = courtesyTurn(s, { who: 'partner' }, 4);
+  for (const [a, b] of [...s.relations.get('partner')!].filter(([x, y]) => x < y)) {
+    const [t, f] = s.dancers[a].role === 'lark' ? [a, b] : [b, a];
+    const pt = exit.bodies.get(t)!;
+    const pf = exit.bodies.get(f)!;
+    // Both on one side line, facing across toward the middle of the set.
+    assert.ok(Math.abs(pt.position.x - pf.position.x) < 1e-6);
+    assert.ok(Math.abs(Math.sin(pt.yaw)) > 0.99);
+    assert.ok(Math.sign(Math.sin(pt.yaw)) === -Math.sign(pt.position.x));
+    // The follower stands on the turner's right.
+    assert.ok(dot(rightOf(pt.yaw), sub(pf.position, pt.position)) > 1.5);
+  }
+  assert.ok(motion(3).contacts.some((c) => c.kind === 'courtesy'));
+});

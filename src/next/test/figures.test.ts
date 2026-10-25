@@ -152,7 +152,23 @@ test('wave balance returns to place and keeps hands', () => {
 
 test('balance needs a held wave', () => {
   assert.throws(() => balance(becketStart(2), { formation: 'wave' }, 4), /line|wave/);
-  assert.throws(() => balance(after([PASS, TO_WAVE]), { formation: 'wave' }, 8), /four beats/);
+  assert.throws(() => balance(after([PASS, TO_WAVE]), { formation: 'wave' }, 10), /four beats/);
+});
+
+test('an 8-beat wave balance balances twice; a 2-beat one balances quickly', () => {
+  const s = after([PASS, TO_WAVE]);
+  const twice = balance(s, { formation: 'wave', style: 'right-left', first: 'right' }, 8);
+  const once = balance(s, { formation: 'wave', style: 'right-left', first: 'right' }, 4);
+  for (const id of [0, 1, 2, 3]) {
+    near(pos(twice.exit, id), pos(s, id));
+    const mid = twice.motion(5).bodies.find((b) => b.id === id)!.position;
+    near(mid, once.motion(1).bodies.find((b) => b.id === id)!.position);
+  }
+  const quick = balance(s, { formation: 'wave', style: 'right-left', first: 'right' }, 2);
+  near(
+    quick.motion(1).bodies.find((b) => b.id === 0)!.position,
+    once.motion(2).bodies.find((b) => b.id === 0)!.position,
+  );
 });
 
 test('Rory right: each dancer passes the one held by the right hand, spinning clockwise once', () => {

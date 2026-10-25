@@ -63,6 +63,7 @@ import { cloverleaf, diamond } from './diamond.ts';
 import { roll } from './roll.ts';
 import { oval } from './oval.ts';
 import { walkForward } from './walk-forward.ts';
+import { courtesyTurn } from './courtesy-turn.ts';
 
 const BASE: FigureRegistry = {
   allemande,
@@ -101,6 +102,7 @@ const BASE: FigureRegistry = {
   roll,
   oval,
   'walk-forward': walkForward,
+  'courtesy-turn': courtesyTurn,
   'couple-travel': coupleTravel,
   diamond,
   cloverleaf,
