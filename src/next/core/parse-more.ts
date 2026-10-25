@@ -160,6 +160,10 @@ export function morePatterns(h: ParseHelpers): readonly (readonly [RegExp, Build
       (_m, b) => [call('hall', b, { direction: 'down', end: 'ring' })],
     ],
     [
+      /^(\w+) turn alone$/,
+      (m, b) => [call('turn-alone', b, { who: roleOf(who(m[1])) })],
+    ],
+    [
       /^(\w+) turn alone over their (right|left) shoulders?$/,
       (m, b) => [call('turn-alone', b, { who: roleOf(who(m[1])), over: m[2] })],
     ],
@@ -183,15 +187,19 @@ export function morePatterns(h: ParseHelpers): readonly (readonly [RegExp, Build
 
 /** Notes after a figure that name another figure, and so must be kept. */
 const KEEP =
-  /\b(?:waves?|wavy|lines?|ring|circle|star|hey|promenade|orbit|while|meanwhile|slide|swing|pass|pull|chain|allemande|do si do|see saw|as (?:a )?couples?|backward|balance|twirl|roll|turn alone|cast|trade|cross|arch|dive|gate|hands|petronella|diagonal|zig|zag|mad robin|figure|gyre|through|split|mirror|basket|ricochet|facing (?:down|up)|face (?:down|up))\b/;
+  /\b(?:waves?|wavy|lines?|ring|circle|star|hey|promenade|orbit|while|meanwhile|slide|swing|pass|pull|chain|allemande|do si do|see saw|as (?:a )?couples?|backward|balance|twirl|roll|turn alone|cast|trade|cross|arch|dive|gate|hands|petronella|diagonal|zig|zag|mad robin|figure|gyre|through|split|mirror|basket|ricochet|shift|places?|facing (?:down|up)|face (?:down|up))\b/;
+
+const SWING_CORE =
+  /^((?:(?:next|new) )?\w+ (?:balance (?:&|and) )?(?:long |meltdown )?swing)([ ,;-].+)$/;
 
 /** A figure, then a note: [figure, note]. */
 const CORES: readonly RegExp[] = [
   /^((?:(?:next|new) )?\w+ allemande (?:left|right) (?:once|twice|[^ ,]+(?: 1\/2| and a half)?))([ ,;-].+)$/,
   /^((?:(?:next|new) )?\w+ (?:do si do|see saw) (?:once|twice|[^ ,]+))([ ,;-].+)$/,
-  /^((?:(?:next|new) )?\w+ (?:balance (?:&|and) )?(?:long |meltdown )?swing)([ ,;-].+)$/,
+  SWING_CORE,
   /^((?:(?:next|new) )?\w+ (?:california twirl|box the gnat|swat the flea))([ ,;-].+)$/,
-  /^(turn alone)([ ,;-].+)$/,
+  /^((?:\w+ )?turn alone(?: over their (?:right|left) shoulders?)?)([ ,;-].+)$/,
+  /^(balance the ring)([ ,;-].+)$/,
   /^(long lines forward (?:&|and) back)([ ,;-].+)$/,
   /^((?:down|up) the hall(?: and (?:turn as a couple|turn alone|bend into a ring))?)([ ,;-].+)$/,
 ];
@@ -209,6 +217,12 @@ const MORE_TIDY: readonly (readonly [RegExp, string])[] = [
   [/^long lines go back$/, 'long lines back'],
   [/^balance (?:right|left),? (?:(?:&|and|then) )?(?:right|left)$/, 'balance'],
   [/^balance (?:the )?long waves?$/, 'balance'],
+  [/^balance (?:the )?wave,? -? ?(right|left),? (?:&|and|then) (?:left|right)$/, 'balance the wave $1'],
+  [/^(\w+) balance (?:right|left),? (?:then|and|&) (?:right|left)$/, '$1 balance'],
+  [/^(\w+) balance by (?:the )?(right|left) hands?$/, '$1 $2 hand balance'],
+  [/^as (?:a )?couples?,? (?:\w+ )?do si do(?: with \w+ couples?)?$/, 'neighbors do si do once as couples'],
+  [/(\bswing),? end in a line$/, '$1'],
+  [/(\bmeltdown swing) rsr then swing$/, '$1'],
   // Picking up a partner for the star promenade that follows is part of it.
   [/\s+to pick ?up (?:your )?partners?(?: (?:for|to form) (?:a )?(?:left hand )?star promenade)?$/, ''],
   // A ring balance and a one-place twirl to the right is a petronella.
@@ -217,7 +231,6 @@ const MORE_TIDY: readonly (readonly [RegExp, string])[] = [
   [/^balance (?:the )?star$|^balance (?:in a |the )?clover(?:leaf)?$|^balance forward and back$/, 'balance'],
   [/^balance short waves$/, 'balance the wave'],
   [/^balance short waves forward\/back$/, 'balance the wave forward'],
-  [/^(\w+) balance by the (right|left) hand$/, '$1 $2 hand balance'],
   [/^(\w+ (?:right |left )?hand balance (?:&|and) (?:box the gnat|swat the flea)) across$/, '$1'],
   [/^(form long waves - \w+ face in, \w+ face out)[,.].*$/, '$1'],
   [/^(\w+ (?:balance (?:&|and) )?swing) \(?slide left( to (?:progress|new neighbors))?\)?$/, '$1, slide left$2'],
@@ -245,7 +258,8 @@ export function dropNotes(text: string): string {
   for (const core of CORES) {
     const m = text.match(core);
     if (!m) continue;
-    const note = m[2];
+    // A swing's note often says "swing" again ("end swing facing across").
+    const note = core === SWING_CORE ? m[2].replace(/\bswing\b/g, '') : m[2];
     if (/^,? end facing (?:down|up)$/.test(note)) return text;
     return KEEP.test(note) ? text : m[1];
   }

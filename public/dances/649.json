@@ -1,4 +1,4 @@
-{ "schema": "contra-studio/next-dance", "version": 2, "id": "649", "title": "With Thanks to the Gene", "author": "Tom Hinds", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/649", "formation": "improper", "retrievedAt": "2026-10-20T06:23:42.909Z", "sha256": "9f9e590b2bdb594cb731f1241a0b84d837671f0fe57c49089d829e369f6d6579" }, "status": "partial", "problems": [ "Row 8 \"larks turn alone to face new neighbor\" isn't drawn yet." ], "unparsed": [ { "row": 8, "text": "larks turn alone to face new neighbor", "why": "No figure pattern matches \"gentlespoons turn alone to face new neighbor ⁋\"." } ], "choices": [ "A balance with a partner or neighbor holds both hands.", "A gyre goes by the right shoulder, facing each other, with no hands." ],
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "649", "title": "With Thanks to the Gene", "author": "Tom Hinds", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/649", "formation": "improper", "retrievedAt": "2026-10-20T06:23:42.909Z", "sha256": "9f9e590b2bdb594cb731f1241a0b84d837671f0fe57c49089d829e369f6d6579" }, "status": "check", "problems": [ "Row 4 \"robins gyre once\": a dancer has to move 1.22 m in one beat, faster than a walk (with 3 couples)." ], "unparsed": [], "choices": [ "A balance with a partner or neighbor holds both hands.", "A gyre goes by the right shoulder, facing each other, with no hands." ],
  "figures": [
   {"move":"balance","beats":4,"params":{"formation":"pair","who":"neighbor","hand":"both"},"text":"neighbors balance & swing · balance","section":"A1","row":1},
   {"move":"swing","beats":12,"params":{"who":"neighbor"},"text":"neighbors balance & swing · swing","section":"A1","row":1},
@@ -7,6 +7,7 @@
   {"move":"gyre","beats":6,"params":{"who":"robins","amount":1},"text":"robins gyre once","section":"B1","row":4},
   {"move":"swing","beats":10,"params":{"who":"partner"},"text":"partners swing","section":"B1","row":5},
   {"move":"long-lines","beats":8,"params":{"back":true},"text":"long lines forward & back","section":"B2","row":6},
-  {"move":"allemande","beats":8,"params":{"who":"larks","hand":"left","amount":1.5},"text":"larks allemande left 1½","section":"B2","row":7}
+  {"move":"allemande","beats":6,"params":{"who":"larks","hand":"left","amount":1.5},"text":"larks allemande left 1½","section":"B2","row":7},
+  {"move":"turn-alone","beats":2,"params":{"who":"larks"},"text":"larks turn alone to face new neighbor","progression":true,"section":"B2","row":8}
  ]
 }

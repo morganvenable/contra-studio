@@ -190,7 +190,8 @@ function joinLeadIns(parsed: (StoredCall[] | Error)[]) {
 /**
  * A zero-beat "turn alone" row after a figure of 6 beats or more takes that
  * figure's last 2 beats ("circle right 4 places", then "turn alone to face
- * next neighbors"). A zero-beat "form a long wave in the center" only says
+ * next neighbors"); after a shorter one, the first 2 beats of the next
+ * figure when that has 6 or more. A zero-beat "form a long wave in the center" only says
  * where the dancers already are, so it adds no call.
  */
 function joinLeadOuts(
@@ -206,11 +207,18 @@ function joinLeadOuts(
     }
     if (lead.move !== 'turn-alone') continue;
     const before = i > 0 ? parsed[i - 1] : undefined;
-    if (!Array.isArray(before)) continue;
-    const last = before.at(-1);
-    if (!last || last.beats < 6) continue;
-    before[before.length - 1] = { ...last, beats: last.beats - 2 };
-    parsed[i] = [{ ...lead, beats: 2 }];
+    const last = Array.isArray(before) ? before.at(-1) : undefined;
+    if (Array.isArray(before) && last && last.beats >= 6) {
+      before[before.length - 1] = { ...last, beats: last.beats - 2 };
+      parsed[i] = [{ ...lead, beats: 2 }];
+      continue;
+    }
+    const after = parsed[i + 1];
+    const next = Array.isArray(after) ? after[0] : undefined;
+    if (Array.isArray(after) && next && next.beats >= 6) {
+      after[0] = { ...next, beats: next.beats - 2 };
+      parsed[i] = [{ ...lead, beats: 2 }];
+    }
   }
 }
 

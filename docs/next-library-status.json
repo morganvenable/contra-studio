@@ -4,18 +4,18 @@
  "catalogue": 2422,
  "stored": 2422,
  "counts": {
-  "ok": 318,
-  "check": 117,
-  "partial": 1705,
+  "ok": 322,
+  "check": 120,
+  "partial": 1698,
   "unsupported": 282
  },
  "formations": [
   {
    "formation": "improper",
    "dances": 1189,
-   "ok": 279,
-   "check": 62,
-   "partial": 848,
+   "ok": 283,
+   "check": 65,
+   "partial": 841,
    "unsupported": 0
   },
   {
@@ -1098,14 +1098,19 @@
  "blockers": {
   "missingFigures": [
    {
+    "name": "star variant",
+    "unlocks": 45,
+    "uses": 172
+   },
+   {
     "name": "ricochet hey",
     "unlocks": 43,
     "uses": 157
    },
    {
-    "name": "star variant",
-    "unlocks": 42,
-    "uses": 172
+    "name": "petronella",
+    "unlocks": 43,
+    "uses": 116
    },
    {
     "name": "hey (other)",
@@ -1113,23 +1118,18 @@
     "uses": 145
    },
    {
-    "name": "petronella",
-    "unlocks": 42,
-    "uses": 116
-   },
-   {
     "name": "ocean wave / long wave",
     "unlocks": 41,
-    "uses": 187
+    "uses": 186
    },
    {
     "name": "roll away",
-    "unlocks": 35,
+    "unlocks": 34,
     "uses": 106
    },
    {
     "name": "circle variant",
-    "unlocks": 30,
+    "unlocks": 31,
     "uses": 156
    },
    {
@@ -1139,7 +1139,7 @@
    },
    {
     "name": "zig zag",
-    "unlocks": 22,
+    "unlocks": 23,
     "uses": 61
    },
    {
@@ -1163,9 +1163,9 @@
     "uses": 51
    },
    {
-    "name": "balance variant",
+    "name": "allemande variant",
     "unlocks": 19,
-    "uses": 94
+    "uses": 102
    },
    {
     "name": "rory o'more",
@@ -1173,14 +1173,14 @@
     "uses": 62
    },
    {
-    "name": "allemande variant",
+    "name": "balance variant",
     "unlocks": 17,
-    "uses": 99
+    "uses": 83
    },
    {
     "name": "do-si-do variant",
-    "unlocks": 14,
-    "uses": 52
+    "unlocks": 13,
+    "uses": 50
    },
    {
     "name": "revolving door",
@@ -1193,14 +1193,14 @@
     "uses": 39
    },
    {
-    "name": "swing variant",
-    "unlocks": 10,
-    "uses": 87
-   },
-   {
     "name": "cross trails",
     "unlocks": 9,
     "uses": 17
+   },
+   {
+    "name": "swing variant",
+    "unlocks": 7,
+    "uses": 74
    },
    {
     "name": "slide along set",
@@ -1218,6 +1218,16 @@
     "uses": 60
    },
    {
+    "name": "mad robin",
+    "unlocks": 6,
+    "uses": 56
+   },
+   {
+    "name": "gyre",
+    "unlocks": 6,
+    "uses": 46
+   },
+   {
     "name": "star promenade",
     "unlocks": 6,
     "uses": 29
@@ -1225,27 +1235,12 @@
    {
     "name": "slice",
     "unlocks": 6,
-    "uses": 27
+    "uses": 26
    },
    {
     "name": "butterfly whirl",
     "unlocks": 6,
     "uses": 20
-   },
-   {
-    "name": "turn alone / as a couple",
-    "unlocks": 5,
-    "uses": 74
-   },
-   {
-    "name": "mad robin",
-    "unlocks": 5,
-    "uses": 56
-   },
-   {
-    "name": "gyre",
-    "unlocks": 5,
-    "uses": 46
    },
    {
     "name": "gate",
@@ -1258,12 +1253,17 @@
     "uses": 18
    },
    {
-    "name": "take hands (wave/line set-up)",
+    "name": "turn alone / as a couple",
     "unlocks": 4,
-    "uses": 41
+    "uses": 65
    },
    {
     "name": "figure 8",
+    "unlocks": 4,
+    "uses": 40
+   },
+   {
+    "name": "take hands (wave/line set-up)",
     "unlocks": 4,
     "uses": 40
    },
@@ -1311,6 +1311,11 @@
     "name": "give & take",
     "unlocks": 1,
     "uses": 3
+   },
+   {
+    "name": "other: pass through to",
+    "unlocks": 1,
+    "uses": 2
    },
    {
     "name": "other: pass through up and down",
@@ -1921,11 +1926,6 @@
     "name": "other: robins dance in",
     "unlocks": 0,
     "uses": 1
-   },
-   {
-    "name": "other: pass through to",
-    "unlocks": 0,
-    "uses": 2
    },
    {
     "name": "other: twos seperate, cast home",
@@ -2751,7 +2751,7 @@
   "figuresThatCannotStart": [
    {
     "name": "progression or other",
-    "unlocks": 87
+    "unlocks": 86
    },
    {
     "name": "ocean wave / long wave",
@@ -2759,7 +2759,7 @@
    },
    {
     "name": "swing variant",
-    "unlocks": 13
+    "unlocks": 12
    },
    {
     "name": "slide along set",
@@ -2798,6 +2798,10 @@
     "unlocks": 3
    },
    {
+    "name": "roll away",
+    "unlocks": 3
+   },
+   {
     "name": "hey (other)",
     "unlocks": 3
    },
@@ -2811,10 +2815,6 @@
    },
    {
     "name": "star variant",
-    "unlocks": 2
-   },
-   {
-    "name": "roll away",
     "unlocks": 2
    },
    {
@@ -2849,7 +2849,7 @@
   "checkFailures": [
    {
     "name": "Couples don't end the round where the progression puts them",
-    "unlocks": 25
+    "unlocks": 26
    },
    {
     "name": "allemande variant",
@@ -2864,11 +2864,11 @@
     "unlocks": 12
    },
    {
-    "name": "The next time through can't start from where the dancers end",
-    "unlocks": 9
+    "name": "star promenade",
+    "unlocks": 10
    },
    {
-    "name": "star promenade",
+    "name": "The next time through can't start from where the dancers end",
     "unlocks": 9
    },
    {
@@ -2877,7 +2877,7 @@
    },
    {
     "name": "gyre",
-    "unlocks": 4
+    "unlocks": 5
    },
    {
     "name": "circle variant",

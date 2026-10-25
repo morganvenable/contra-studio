@@ -36,3 +36,6 @@ reading below. One line each; change any of them and the figure follows.
 - "X allemande right ½, Y pass left in the center (swing through)": the allemande takes the first half of the beats, the pass the second.
 - "Swing, slide left (to progress)" in Becket: the swing ends 2 beats early and the couples slide left along the set.
 - "Allemande ... to pick up partner for a star promenade": the star promenade that follows picks up the partner.
+- "Larks turn alone" (one role named): only that role turns, toward their partner. A zero-beat "turn alone" after a short figure takes the first 2 beats of the next figure of 6 beats or more.
+- "Balance the ring" with a trailing note that names no other figure ("[current neighbors]", "with partner") is a ring balance; "balance left, then right" with a pair is a pair balance.
+- "As couples do si do" with no amount is once around.
