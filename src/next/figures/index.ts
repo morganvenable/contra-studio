@@ -1,6 +1,7 @@
 /** Every figure the next engine knows, by move name. */
 import type { FigureRegistry } from '../core/fold.ts';
 import { onDiagonal } from '../core/diagonal.ts';
+import { inLayout } from '../core/layout.ts';
 import { allemande } from './allemande.ts';
 import { balance } from './balance.ts';
 import { boxCirculate } from './box-circulate.ts';
@@ -67,5 +68,7 @@ const BASE: FigureRegistry = {
 
 /** Every figure, each also able to run on a diagonal (core/diagonal.ts). */
 export const FIGURES: FigureRegistry = Object.freeze(
-  Object.fromEntries(Object.entries(BASE).map(([move, f]) => [move, onDiagonal(f)])),
+  Object.fromEntries(
+    Object.entries(BASE).map(([move, f]) => [move, inLayout(move, onDiagonal(f))]),
+  ),
 );

@@ -20,7 +20,17 @@ import { dot, forward, mean, sub } from './math.ts';
 import { body, partnerOf, type DanceState, type WaitingCouple, withChanges } from './state.ts';
 
 export interface Progression {
-  readonly kind: 'minor-set' | 'duple-minor' | 'duple-minor-proper' | 'whole-set' | 'none';
+  readonly kind:
+    | 'minor-set'
+    | 'duple-minor'
+    | 'duple-minor-proper'
+    | 'whole-set'
+    | 'none'
+    // progression-more.ts
+    | 'minor-set-double'
+    | 'duple-minor-double'
+    | 'duple-minor-proper-double'
+    | 'places';
   rebind(state: DanceState): DanceState;
 }
 

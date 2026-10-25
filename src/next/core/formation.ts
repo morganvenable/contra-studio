@@ -17,6 +17,9 @@ import type { Dancer } from '../../types.ts';
 import { SET } from './config.ts';
 import { leftOf } from './math.ts';
 import { WHOLE_SET_PROGRESSION } from './progression.ts';
+import type { CheckSpec } from './models.ts';
+import { createDancers } from './dancers.ts';
+import { MORE_FORMATIONS } from './formations-more.ts';
 import type { Body, DanceState, WaitingCouple } from './state.ts';
 
 export interface Formation {
@@ -26,23 +29,11 @@ export interface Formation {
   readonly grouping: 'duple-minor' | 'triple-minor' | 'whole-set';
   readonly couples: { readonly min: number; readonly max: number };
   start(couples: number): DanceState;
+  /** What the corpus check expects (models.ts); duple minor relatives omit it. */
+  readonly check?: CheckSpec;
 }
 
-/** Same identities and colors as src/engine.ts createDancers. */
-export function createDancers(couples: number): Dancer[] {
-  return Array.from({ length: couples * 2 }, (_, id) => {
-    const couple = Math.floor(id / 2);
-    const robin = id % 2 === 1;
-    return {
-      id,
-      name: `${robin ? 'Robin' : 'Lark'} ${couple + 1}`,
-      role: robin ? 'robin' : 'lark',
-      couple,
-      direction: couple % 2 ? -1 : 1,
-      color: robin ? '#cb815a' : '#438b86',
-    } satisfies Dancer;
-  });
-}
+export { createDancers } from './dancers.ts';
 
 function checkCount(f: Pick<Formation, 'name' | 'couples'>, couples: number) {
   if (!Number.isInteger(couples) || couples < f.couples.min || couples > f.couples.max) {
@@ -87,7 +78,7 @@ function placeCouple(
  * The starting places are otherwise the same; the figures carry the
  * direction.
  */
-function becket(name: string, circulation: 'cw' | 'ccw'): Formation {
+function becket(name: string, circulation: 'cw' | 'ccw', lark: 'left' | 'right' = 'left'): Formation {
   return {
     name,
     shape: 'longways',
@@ -99,13 +90,15 @@ function becket(name: string, circulation: 'cw' | 'ccw'): Formation {
       const rows = Math.floor(couples / 2);
       const bodies = new Map<number, Body>();
       const waiting: WaitingCouple[] = [];
+      // Indecent Becket: each lark stands on the partner's right instead.
+      const gap = lark === 'left' ? SET.slot : -SET.slot;
       const place = (couple: number, side: 1 | -1, z: number) =>
         placeCouple(
           bodies,
           couple,
           { x: side * SET.halfWidth, z },
           side > 0 ? -Math.PI / 2 : Math.PI / 2,
-          SET.slot,
+          gap,
         );
       const rowZ = (row: number) => ((rows - 1) / 2 - row) * 2 * SET.slot;
       const groups: number[][] = [];
@@ -145,6 +138,8 @@ function becket(name: string, circulation: 'cw' | 'ccw'): Formation {
 
 export const BECKET: Formation = becket('Becket', 'cw');
 export const BECKET_CCW: Formation = becket('Becket counterclockwise', 'ccw');
+export const BECKET_INDECENT: Formation = becket('Indecent Becket', 'cw', 'right');
+export const BECKET_CCW_INDECENT: Formation = becket('Indecent Becket counterclockwise', 'ccw', 'right');
 
 /**
  * Duple minor (improper and its relatives): couples stand one place apart along the set, partners
@@ -267,4 +262,7 @@ export const FORMATIONS: Readonly<Record<string, Formation>> = {
   'duple-neutral': DUPLE_NEUTRAL,
   'three-couple-set': THREE_COUPLE_SET,
   'whole-set-longways': WHOLE_SET_LONGWAYS,
+  'becket-indecent': BECKET_INDECENT,
+  'becket-ccw-indecent': BECKET_CCW_INDECENT,
+  ...MORE_FORMATIONS,
 };

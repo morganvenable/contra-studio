@@ -22,6 +22,12 @@ import {
   type Progression,
 } from './core/progression.ts';
 import { FIGURES } from './figures/index.ts';
+import {
+  DUPLE_MINOR_DOUBLE,
+  DUPLE_MINOR_PROPER_DOUBLE,
+  MINOR_SET_DOUBLE,
+  PLACES_PROGRESSION,
+} from './core/progression-more.ts';
 
 export interface StoredCall extends FigureCall {
   readonly section?: string;
@@ -95,6 +101,10 @@ const PROGRESSIONS: Readonly<Record<Progression['kind'], Progression>> = {
   'duple-minor-proper': DUPLE_MINOR_PROPER_PROGRESSION,
   'whole-set': WHOLE_SET_PROGRESSION,
   none: NO_PROGRESSION,
+  'minor-set-double': MINOR_SET_DOUBLE,
+  'duple-minor-double': DUPLE_MINOR_DOUBLE,
+  'duple-minor-proper-double': DUPLE_MINOR_PROPER_DOUBLE,
+  places: PLACES_PROGRESSION,
 };
 
 export function musicOf(stored: StoredDance): MusicStructure {
@@ -139,6 +149,8 @@ export function compileNext(
 ): FoldedDance {
   const built = formationBuilt(stored);
   const formation = FORMATIONS[built ? stored.formation! : 'improper'];
+  // A fixed-size set (a triplet, a square) dances with its own couple count.
+  couples = Math.min(formation.couples.max, Math.max(formation.couples.min, couples));
   const calls: readonly FigureCall[] = built
     ? stored.figures
     : stored.figures.map((c) => ({
