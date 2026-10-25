@@ -326,3 +326,32 @@ line each, for review.
 - A pass by that carries the progression walks all the way to the other's place.
 - "Ones balance", "twos do si do" in a contra set: the figure dances those dancers itself first; failing that, those dancers with their partners.
 - A row whose trailing note adds motion ("robins shift left to meet partners", "to form cloverleaf", "and square the set") stays undrawn rather than drawn without it.
+
+## Hands, lines, chains and partner figures (round 2)
+
+- An allemande whose hand still holds a wave or line (three or more dancers holding hands in a line) lets go of it and turns; a hand held in a lone pair (a courtesy turn, a couple's hand) is still busy.
+- "End (the swing) facing (on) the left/right diagonal", "face next neighbors on the slight left diagonal", "look on the left diagonal for ...": the figure ends as usual; the diagonal figure that follows gathers the couples.
+- "Swing ..., end swing facing down/up the hall": the usual swing ending; the hall figure that follows turns the lines.
+- "X swing (new)", "(the one you met in the chain)", "(diagonal neighbor)", "(the larks who cross over swing their partners)": the plain swing.
+- A swing or do-si-do that ends "in a ring", "in a line of four" or "and form a ring": the plain figure; the ring or line forms itself.
+- Chain notes ("this is shadow", "after larks drop", "to N", "to the same neighbor they just swung", "- join hands four", "to reclaim partner", "to form a circle with a new couple", "can make it an open chain ...", "there are no roles in a solo dance"): the plain chain.
+- Right and left through notes ("with a courtesy turn", "end facing across", "end in a ring", "pull past partner", "identify next neighbors", "conga line ...", "partner swing if no one is there", "power courtesy turn to face down", "both cross and pull their left shoulder back to wheel around", "find new neighbors across ..."): the plain right and left through; "on the 1/2 right diagonal" and "with neighbor on the half-left diagonal" put it on that diagonal.
+- "Allemande ... to trade", "(they will be closer than you think)": the plain allemande; "..., X shift left to meet partners" is the allemande while X shift left.
+- Pull by notes ("- same dancer", "(swing through)", "2 along the set"); "pass by right shoulders and take right hands as they pass" is a pull by; "trade the wave - neighbors pass by right shoulders across" is neighbors passing by.
+- Pass through notes ("improper here", "partner right", "neighbor right", "along to shadows", "straight ahead to new neighbors", "to face sides", "to face a new neighbor", "past partners to face shadows", "and form a ring", "pass your partner by the right to find your shadow"): the plain pass through.
+- "Balance wave 4", "balance ocean wave o 4", "balance the wave right & back", "balance left & right wave of four", "balance short waves to the right and left": a wave balance, right then left.
+- "Balance the ring, balance in and out", "balance ring", "balance in and out", "balance the star with N1": a ring balance.
+- "Balance & Rory O'More right (in long waves)": the balance and Rory O'More.
+- "Do si do once as a couple ...", "do si do ¾, as couples" (with "ready to zig", "around neighbors", "to face neighbors"): couples do-si-do; "new neighbors do-si-do", "do-si-do current neighbor": once around.
+- Star notes ("next couple", "with shadow 1 & new neighbors", "- reach right hand to next neighbors", "about 3.5 places for larks one", "then with next neighbors", "turn away from the star toward your shadow", "larks are behind partners", "robins stepping in behind their partner", "robins begin, larks join behind partner", "once around and come back to original couple", "robins drop out at the end", "larks drop out at home, robins switch to an allemande grip", "robins joining behind and ending across from neighbors", "(do not rush this)"): the plain star.
+- Star promenade notes ("scoop your partner (plunder)", "robins pick up your partner with arm above ...", "partners are scooped up and brought across set"): the plain star promenade.
+- "Neighbors balance inside hands / with inside hand(s) / outside hands / with joined hand / with handy hand", "partners balance together & apart / towards each other and away", "balance to and from X": a pair balance toward each other and back, no hands drawn.
+- "Partners balance right hands along": a pair balance by that hand.
+- "Balance (everyone)" and "same roles balance, robins balance (in the center of the long wave)": a balance of what the dancers hold now.
+- Open chain ("robins chain (open chain: robins pull by R, N allemande L 3/4)"): the pull by (40% of the beats, 2 to 4), then neighbors allemande left ¾ instead of the courtesy turn.
+- "Do si do ½ to trade places": a pass by right shoulders into each other's place.
+- An allemande by a fraction of a turn ("3/8", "5/8", "5/4"): that share of a whole turn.
+- A zero-beat row followed by a "MEANWHILE ..." row: both dance at once, taking the second row's beats.
+- A zero-beat row in parentheses ("(neighbors pull by left)"): a note on the row before; no motion of its own.
+- A zero-beat pass through or pull by: takes the last 2 beats of the figure before it (or the first 2 of the one after) when that figure has 6 beats or more.
+- "X take Y" of 4 beats or more with no swing with Y after it: a give and take.

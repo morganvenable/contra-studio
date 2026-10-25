@@ -1,4 +1,4 @@
-{ "schema": "contra-studio/next-dance", "version": 2, "id": "242", "title": "Spring Break", "author": "Nils Fredland", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/242", "formation": "improper", "retrievedAt": "2026-10-20T06:13:52.293Z", "sha256": "1a583d856161d2dc3fb835478675244d3b48abdbd69a785f2ea09b0b60333b61" }, "status": "partial", "problems": [ "Row 10 \"pass through and form a ring\" isn't drawn yet." ], "unparsed": [ { "row": 10, "text": "pass through and form a ring", "why": "No figure pattern matches \"pass through and form a ring ⁋\"." } ], "choices": [ "A balance with a partner or neighbor holds both hands." ],
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "242", "title": "Spring Break", "author": "Nils Fredland", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/242", "formation": "improper", "retrievedAt": "2026-10-20T06:13:52.293Z", "sha256": "1a583d856161d2dc3fb835478675244d3b48abdbd69a785f2ea09b0b60333b61" }, "status": "check", "problems": [ "Row 6 \"robins allemande left once\": a dancer has to turn 0.65 turns in one beat." ], "unparsed": [], "choices": [ "Pass through goes by right shoulders.", "A pass through from a ring goes along the set, to the dancer on your own side.", "A balance with a partner or neighbor holds both hands." ],
  "figures": [
   {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance & petronella · balance","section":"A1","row":1},
   {"move":"petronella","beats":4,"params":{},"text":"balance & petronella · petronella","section":"A1","row":1},
@@ -12,6 +12,6 @@
   {"move":"swing","beats":8,"params":{"who":"partner"},"text":"partners swing","section":"B1","row":7},
   {"move":"circle","beats":8,"params":{"direction":"left","places":3},"text":"circle left 3 places","section":"B2","row":8},
   {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance the ring","section":"B2","row":9},
-  {"move":"hold","beats":4,"params":{"reason":"unparsed"},"text":"pass through and form a ring","section":"B2","row":10,"progression":true}
+  {"move":"pass-through","beats":4,"params":{"shoulder":"right"},"text":"pass through and form a ring","progression":true,"section":"B2","row":10}
  ]
 }

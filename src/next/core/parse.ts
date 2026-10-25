@@ -11,6 +11,7 @@ import { MORE_PATTERNS, qualifiers } from './parse-more.ts';
 import { WEAVE_PATTERNS } from './parse-weaves.ts';
 import { extraPatterns, extraTidy } from './parse-extra.ts';
 import { CIRCULATION_PATTERNS, looseCalls } from './parse-circulation.ts';
+import { handsPatterns } from './parse-hands.ts';
 
 export interface SourceRow {
   readonly section?: string;
@@ -451,13 +452,18 @@ const PART_NAMES: Readonly<Record<string, string>> = {
 function onDiagonal(text: string): { text: string; diagonal?: 'left' | 'right' } {
   const before = text.match(/^(left|right) diagonal (.+)$/);
   if (before) return { text: before[2], diagonal: before[1] as 'left' | 'right' };
-  const after = text.match(/^(.+?),? on (?:the )?(?:1\/2 |half[- ])?(left|right) diagonal$/);
+  // "... end facing on the left diagonal" says where to face, not where to dance.
+  const after = text.match(
+    /^(.+?)(?<!\bfac(?:e|ing)),? on (?:the )?(?:1\/2 |half[- ])?(left|right) diagonal$/,
+  );
   if (after) return { text: after[1], diagonal: after[2] as 'left' | 'right' };
   return { text };
 }
 
 /** The patterns in parse-extra.ts, after this file's own. */
 const EXTRA_PATTERNS = extraPatterns({ who, amount, call, numbers: NUMBERS, match: matchCalls });
+/** The patterns in parse-hands.ts, read after every other table. */
+const HANDS_PATTERNS = handsPatterns({ who, call, match: (t, b) => parseRow({ beats: b, text: t }) });
 
 /** The calls the first matching pattern builds for already tidied text (parse-extra.ts parts). */
 function matchCalls(text: string, beats: number): FigureCall[] | undefined {
@@ -569,6 +575,7 @@ const coreWithExtra = (): readonly (readonly [RegExp, Build])[] => [
   ...EXTRA_PATTERNS,
   ...MORE_PATTERNS,
   ...CIRCULATION_PATTERNS,
+  ...HANDS_PATTERNS,
 ];
 
 /**
