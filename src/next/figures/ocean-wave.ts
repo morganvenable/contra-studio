@@ -63,6 +63,8 @@ export interface OceanWaveParams {
 export const WAVE_GAP = 0.9;
 /** Average walking pace while forming a wave in a short row (m per beat). */
 const FORM_PACE = 0.8;
+/** Dancers stepping into a wave pass no closer than this. */
+const PASS_CLEAR = 0.75;
 const STEP = 0.1;
 const STEPS = [0, 1, 0, -1, 0];
 
@@ -251,11 +253,41 @@ export const oceanWave: Figure<OceanWaveParams> = (state, params, beats) => {
   });
 
   const start = new Map(plans.flatMap((p) => p.ids.map((id) => [id, body(state, id)] as const)));
+  // Dancers whose straight paths into the wave come too close (trading
+  // order along the line) bow apart sideways, each to its own side.
+  const bulge = new Map<number, Vec2>();
+  for (const p of plans) {
+    for (const a of p.ids)
+      for (const b of p.ids) {
+        if (b <= a) continue;
+        const [fa, ta, fb, tb] = [start.get(a)!, p.target.get(a)!, start.get(b)!, p.target.get(b)!];
+        let closest = Infinity;
+        let at = 0;
+        for (let k = 0; k <= 20; k++) {
+          const u = k / 20;
+          const d = length(sub(mix(fa.position, ta.position, u), mix(fb.position, tb.position, u)));
+          if (d < closest) [closest, at] = [d, u];
+        }
+        if (closest >= PASS_CLEAR) continue;
+        const gap = sub(mix(fa.position, ta.position, at), mix(fb.position, tb.position, at));
+        const moving = sub(sub(ta.position, fa.position), sub(tb.position, fb.position));
+        let away = { x: -moving.z, z: moving.x };
+        if (length(away) < 1e-6) away = gap;
+        if (dot(away, gap) < 0) away = scale(away, -1);
+        const push = scale(away, (PASS_CLEAR - closest) / 2 / Math.max(length(away), 1e-6));
+        bulge.set(a, add(bulge.get(a) ?? { x: 0, z: 0 }, push));
+        bulge.set(b, sub(bulge.get(b) ?? { x: 0, z: 0 }, push));
+      }
+  }
   if (params.balance && beats < 8) {
     const walk = Math.max(
       0,
       ...plans.flatMap((p) =>
-        p.ids.map((id) => length(sub(p.target.get(id)!.position, start.get(id)!.position))),
+        p.ids.map(
+          (id) =>
+            length(sub(p.target.get(id)!.position, start.get(id)!.position)) +
+            2 * length(bulge.get(id) ?? { x: 0, z: 0 }),
+        ),
       ),
     );
     formBeats = Math.min(beats - 1, Math.max(formBeats, walk / FORM_PACE));
@@ -273,7 +305,10 @@ export const oceanWave: Figure<OceanWaveParams> = (state, params, beats) => {
         const to = p.target.get(id)!;
         const yaw = from.yaw + turn(to.yaw, from.yaw) * smooth(t / 0.7);
         const position = add(
-          mix(from.position, to.position, q),
+          add(
+            mix(from.position, to.position, q),
+            scale(bulge.get(id) ?? { x: 0, z: 0 }, Math.sin(Math.PI * q)),
+          ),
           scale(rightOf(to.yaw), STEP * side),
         );
         return { id, position, yaw };

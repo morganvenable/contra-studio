@@ -82,3 +82,4 @@ reading below. One line each; change any of them and the figure follows.
 - "Robins trade passing right in the middle", "... by the left shoulder": the robins pass by that shoulder and trade places.
 - "Balance and move straight ahead to a new wave" in a 4-beat row: too short to balance as well, so the dancers only walk forward.
 - "Balance the ring, shift one place to the left": a ring balance, then circle left one place.
+- Dancers stepping into an ocean wave whose straight paths would pass closer than 0.75 m bow apart sideways, each to its own side.
