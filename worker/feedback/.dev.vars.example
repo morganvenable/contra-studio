@@ -1,0 +1,4 @@
+# Copy to .dev.vars for `npm run dev`. Never commit .dev.vars.
+TURNSTILE_ENABLED=false
+RATE_LIMIT_SALT=local-dev-salt
+OWNER_TOKEN=local-dev-owner-token-0123456789

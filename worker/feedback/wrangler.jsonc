@@ -1,0 +1,29 @@
+// Contra Studio feedback Worker. See docs/feedback.md for the one-time deploy.
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "contra-feedback",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-10-01",
+  "workers_dev": true,
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "contra-feedback",
+      // Paste the id printed by `wrangler d1 create contra-feedback`.
+      // Local dev (wrangler dev --local) works with this placeholder.
+      "database_id": "00000000-0000-0000-0000-000000000000",
+      "migrations_dir": "migrations"
+    }
+  ],
+  "vars": {
+    // Exact origins, comma-separated. `:*` allows any port on that host.
+    "ALLOWED_ORIGINS": "https://morganvenable.github.io,http://localhost:*,http://127.0.0.1:*,http://sval.localhost,http://sval.localhost:*",
+    // Turnstile is on for the deployed Worker. Local dev turns it off with
+    // `--var TURNSTILE_ENABLED:false` (see docs/feedback.md).
+    "TURNSTILE_ENABLED": "true",
+    // Submissions allowed per visitor per hour.
+    "RATE_LIMIT_PER_HOUR": "10"
+  }
+  // Secrets (wrangler secret put): OWNER_TOKEN, RATE_LIMIT_SALT,
+  // TURNSTILE_SECRET_KEY.
+}

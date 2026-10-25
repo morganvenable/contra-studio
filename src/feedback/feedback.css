@@ -1,0 +1,146 @@
+/*
+ * Feedback panel. Colors come from the app's tokens in src/style.css, so the
+ * panel follows any theme that redefines them; the fallbacks are the light
+ * values used today.
+ */
+.feedback-panel {
+  --fb-surface: var(--panel, #fffefa);
+  --fb-ink: var(--ink, #263d35);
+  --fb-muted: var(--muted, #788278);
+  --fb-line: var(--line, #e1e5dc);
+  --fb-accent: var(--green, #285e4d);
+  --fb-tint: var(--green-light, #eaf0e6);
+  --fb-field: var(--paper, #f5f3ee);
+  --fb-error: var(--rust, #d4845e);
+  width: min(460px, calc(100vw - 32px));
+  max-height: calc(100dvh - 32px);
+  border: 1px solid var(--fb-line);
+  border-radius: 16px;
+  background: var(--fb-surface);
+  color: var(--fb-ink);
+  padding: 24px;
+  box-shadow: 0 26px 100px #20312733;
+  overflow: auto;
+}
+
+.feedback-panel::backdrop {
+  background: #233c3255;
+  backdrop-filter: blur(3px);
+}
+
+.feedback-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.feedback-heading h2 {
+  margin: 0;
+  font-family: "Manrope", sans-serif;
+  font-size: 21px;
+  font-weight: 650;
+  letter-spacing: -0.6px;
+}
+
+.feedback-close {
+  color: var(--fb-muted);
+}
+
+.feedback-context {
+  margin: 10px 0 18px;
+  padding: 9px 11px;
+  border-radius: 8px;
+  background: var(--fb-tint);
+  color: var(--fb-accent);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.feedback-label {
+  display: block;
+  margin-bottom: 7px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.feedback-label span {
+  font-weight: 450;
+  color: var(--fb-muted);
+}
+
+.feedback-message,
+.feedback-name {
+  display: block;
+  width: 100%;
+  border: 1px solid var(--fb-line);
+  border-radius: 9px;
+  background: var(--fb-field);
+  color: var(--fb-ink);
+  padding: 10px 12px;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.feedback-message {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.feedback-name-label {
+  margin-top: 16px;
+}
+
+.feedback-turnstile {
+  margin-top: 14px;
+}
+
+.feedback-status {
+  min-height: 1.5em;
+  margin: 14px 0 0;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--fb-muted);
+}
+
+.feedback-status:empty {
+  min-height: 0;
+  margin: 0;
+}
+
+.feedback-status[data-tone="error"] {
+  color: var(--fb-error);
+}
+
+.feedback-status[data-tone="done"] {
+  color: var(--fb-accent);
+  font-size: 14px;
+}
+
+.feedback-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 9px;
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid var(--fb-line);
+}
+
+.feedback-actions .button {
+  font-size: 12px;
+  height: 38px;
+  width: auto;
+  padding: 0 16px;
+  gap: 8px;
+}
+
+.feedback-trigger span {
+  margin-left: 1px;
+}
+
+@media (max-width: 520px) {
+  .feedback-panel {
+    padding: 18px 16px;
+    border-radius: 12px;
+  }
+}

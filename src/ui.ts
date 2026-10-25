@@ -36,6 +36,7 @@ import { parseDanceText, callersBoxExportUrl } from './parser';
 import type { ImportResult } from './parser';
 import { editorUnavailableReason, isEdited, parseStudioInput, studioArchive } from './interpretation';
 import { mountEditor, type EditorHandle } from './editor';
+import { mountFeedback } from './feedback/index.ts';
 
 const icons: Record<string, string> = {
   play: '<path d="m8 5 11 7-11 7Z" fill="currentColor" stroke="none"/>',
@@ -233,6 +234,7 @@ export function createUI(root: HTMLElement, actions: StudioActions, initial: Stu
 
   const $ = <T extends HTMLElement = HTMLElement>(selector: string) => root.querySelector<T>(selector)!;
   const dialog = $<HTMLDialogElement>('#studio-dialog');
+  mountFeedback(root.querySelector<HTMLElement>('.dance-meta'), () => state);
   const content = $('#dialog-content');
   const viewport = $('#dance-viewport');
   const text = (selector: string, value: string) => { const el = $(selector); if (el.textContent !== value) el.textContent = value; };

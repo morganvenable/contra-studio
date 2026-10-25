@@ -5,3 +5,6 @@ dist/
 *.log
 research/contradb/
 e2e/*.png
+.wrangler/
+.dev.vars
+feedback-inbox/
