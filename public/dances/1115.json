@@ -6,8 +6,8 @@
   {"move":"turn-back","params":{"who":"robins"},"beats":2,"text":"star right - hands across - 3 places; robins turn back · turn-back","section":"A2","row":3},
   {"move":"swing","beats":8,"params":{"who":"neighbor"},"text":"neighbors swing","section":"A2","row":4},
   {"move":"pass-through","beats":4,"params":{"shoulder":"right"},"text":"pass through","section":"B1","row":5},
-  {"move":"star","beats":8,"params":{"hand":"left","places":3},"text":"star left 3 places and a bit more to place robins in the middle of the set","section":"B1","row":6},
+  {"move":"star","beats":8,"params":{"hand":"left","places":3},"text":"star left 3 places and a bit more to place robins in the middle of the set","section":"B1","row":6,"progression":true},
   {"move":"hold","beats":4,"params":{"reason":"unparsed"},"text":"robins allemande right ¾ with new neighbor robins; meanwhile, larks walk forward along side to meet partner for...","section":"B1","row":7},
-  {"move":"swing","beats":16,"params":{"who":"partner"},"text":"partners long swing","progression":true,"section":"B2","row":8}
+  {"move":"swing","beats":16,"params":{"who":"partner"},"text":"partners long swing","section":"B2","row":8}
  ]
 }

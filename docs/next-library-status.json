@@ -4,9 +4,9 @@
  "catalogue": 2422,
  "stored": 2422,
  "counts": {
-  "ok": 764,
-  "check": 276,
-  "partial": 1382,
+  "ok": 768,
+  "check": 273,
+  "partial": 1381,
   "unsupported": 0
  },
  "formations": [
@@ -21,8 +21,8 @@
   {
    "formation": "becket",
    "dances": 655,
-   "ok": 144,
-   "check": 107,
+   "ok": 148,
+   "check": 103,
    "partial": 404,
    "unsupported": 0
   },
@@ -862,8 +862,8 @@
    "formation": "beckett",
    "dances": 1,
    "ok": 0,
-   "check": 0,
-   "partial": 1,
+   "check": 1,
+   "partial": 0,
    "unsupported": 0
   },
   {
@@ -3254,7 +3254,7 @@
    },
    {
     "name": "promenade",
-    "unlocks": 7
+    "unlocks": 6
    },
    {
     "name": "hey (other)",
@@ -3360,7 +3360,7 @@
   "checkFailures": [
    {
     "name": "Couples don't end the round where the progression puts them.",
-    "unlocks": 67
+    "unlocks": 64
    },
    {
     "name": "allemande variant",
@@ -3403,6 +3403,10 @@
     "unlocks": 5
    },
    {
+    "name": "The next time through can't start from where the dancers end: A circle of 4 needs the dancers spaced around a ring.).",
+    "unlocks": 5
+   },
+   {
     "name": "star promenade",
     "unlocks": 4
    },
@@ -3439,10 +3443,6 @@
     "unlocks": 3
    },
    {
-    "name": "The next time through can't start from where the dancers end: No couples face each other on the right diagonal.).",
-    "unlocks": 3
-   },
-   {
     "name": "box the gnat / swat the flea",
     "unlocks": 3
    },
@@ -3460,10 +3460,6 @@
    },
    {
     "name": "The next time through can't start from where the dancers end: Dancer 0 is not standing in a side line.).",
-    "unlocks": 2
-   },
-   {
-    "name": "The next time through can't start from where the dancers end: A circle of 4 needs the dancers spaced around a ring.).",
     "unlocks": 2
    },
    {
@@ -3495,7 +3491,7 @@
     "unlocks": 1
    },
    {
-    "name": "The next time through can't start from where the dancers end: Playback is limited to one round: the next round cannot start (Couple 3 must stand side by side to find new neighbors.).",
+    "name": "The next time through can't start from where the dancers end: Playback is limited to one round: the next round cannot start (Couple 1 must stand side by side to find new neighbors.).",
     "unlocks": 1
    },
    {

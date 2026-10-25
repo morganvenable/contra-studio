@@ -592,8 +592,9 @@ function slideProgression(figures: StoredCall[], shape: Shape | undefined) {
 }
 
 /**
- * A Becket dance whose source marks no progression, but whose rows name
- * the new neighbors, progresses where the dancers meet them:
+ * A Becket dance whose source marks no progression (or only its last row,
+ * the end of the time through), but whose rows name the new neighbors,
+ * progresses where the dancers meet them:
  * at the end of a row that takes them "to new neighbors" ("pass through to
  * next neighbors", "end facing new neighbors"), or just before the first row
  * danced with them ("next neighbors swing", "circle with new neighbors").
@@ -603,7 +604,18 @@ function namedProgression(figures: StoredCall[], shape: Shape | undefined) {
   // (Improper dances read "new neighbors" mid-round as a visit, or the
   // corpus model already places their progression; they are left alone.)
   if (shape?.progression !== 'minor-set') return;
-  if (figures.some((c) => c.progression)) return;
+  // No mark, or only the last row marked (the end of the time through).
+  const marked = figures.flatMap((c, k) => (c.progression ? [k] : []));
+  const last = figures.length - 1;
+  if (marked.length > 1 || (marked.length === 1 && marked[0] !== last)) return;
+  const mark = (at: number) => {
+    if (at === last) return;
+    if (marked.length) {
+      const { progression: _, ...rest } = figures[last];
+      figures[last] = rest;
+    }
+    figures[at] = { ...figures[at], progression: true };
+  };
   // Next neighbors visited and left again ("prev neighbors ...") are not a progression.
   if (figures.some((c) => /\bprev(?:ious)? neighbou?rs?\b/i.test(c.text ?? ''))) return;
   const NEW = /\b(?:new|next) neighbou?rs?\b/i;
@@ -620,8 +632,7 @@ function namedProgression(figures: StoredCall[], shape: Shape | undefined) {
         figures[k - 1].move === 'circle' &&
         figures[k - 1].params.places === 3,
     );
-    if (pass > 0 && pass < figures.length - 1)
-      figures[pass] = { ...figures[pass], progression: true };
+    if (pass > 0) mark(pass);
     return;
   }
   const text = figures[i].text ?? '';
@@ -635,8 +646,7 @@ function namedProgression(figures: StoredCall[], shape: Shape | undefined) {
     at = i;
     while (at + 1 < figures.length && figures[at + 1].row === figures[i].row) at++;
   }
-  if (at === undefined || at === figures.length - 1) return;
-  figures[at] = { ...figures[at], progression: true };
+  if (at !== undefined) mark(at);
 }
 
 /**

@@ -1,13 +1,13 @@
-{ "schema": "contra-studio/next-dance", "version": 2, "id": "3034", "title": "Heart of Glass", "author": "Cary Ravitz", "formation": "becket", "progression": "minor-set", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/3034", "formation": "Becket", "retrievedAt": "2026-10-20T05:58:35.737Z", "sha256": "7eacf1debd32161f71ed1fa6f5cf3fdc154446492cd6bc8b8952da01dfc9ac12" }, "status": "check", "problems": [ "Couples don't end the round where the progression puts them." ], "unparsed": [], "choices": [ "Pass through goes by right shoulders.", "A pass through from a ring goes along the set, to the dancer on your own side.", "A balance with a partner or neighbor holds both hands." ],
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "3034", "title": "Heart of Glass", "author": "Cary Ravitz", "formation": "becket", "progression": "minor-set", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/3034", "formation": "Becket", "retrievedAt": "2026-10-20T05:58:35.737Z", "sha256": "7eacf1debd32161f71ed1fa6f5cf3fdc154446492cd6bc8b8952da01dfc9ac12" }, "status": "ok", "problems": [], "unparsed": [], "choices": [ "Pass through goes by right shoulders.", "A pass through from a ring goes along the set, to the dancer on your own side.", "A balance with a partner or neighbor holds both hands." ],
  "figures": [
   {"move":"circle","beats":6,"params":{"direction":"left","places":3},"text":"circle left 3 places","section":"A1","row":1},
-  {"move":"pass-through","beats":2,"params":{"shoulder":"right"},"text":"pass through","section":"A1","row":2},
+  {"move":"pass-through","beats":2,"params":{"shoulder":"right"},"text":"pass through","section":"A1","row":2,"progression":true},
   {"move":"swing","beats":8,"params":{"who":"neighbor"},"text":"neighbors swing","section":"A1","row":3},
   {"move":"allemande","beats":8,"params":{"who":"larks","hand":"left","amount":1.5},"text":"larks allemande left 1½","section":"A2","row":4},
   {"move":"star-promenade","beats":4,"params":{"hand":"left","amount":0.5},"text":"star promenade left ½","section":"A2","row":5},
   {"move":"butterfly-whirl","beats":4,"params":{},"text":"butterfly whirl","section":"A2","row":6},
   {"move":"hey","beats":16,"params":{"start":"robins","amount":1,"center":"right"},"text":"robins start a full hey - rights in center, lefts on ends","section":"B1","row":7},
   {"move":"balance","beats":4,"params":{"formation":"pair","who":"partner","hand":"both"},"text":"partners balance & swing · balance","section":"B2","row":8},
-  {"move":"swing","beats":12,"params":{"who":"partner"},"text":"partners balance & swing · swing","progression":true,"section":"B2","row":8}
+  {"move":"swing","beats":12,"params":{"who":"partner"},"text":"partners balance & swing · swing","section":"B2","row":8}
  ]
 }

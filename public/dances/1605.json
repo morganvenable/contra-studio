@@ -1,6 +1,6 @@
-{ "schema": "contra-studio/next-dance", "version": 2, "id": "1605", "title": "Contra Pride", "author": "Don Flaherty", "formation": "becket-ccw", "progression": "minor-set", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/1605", "formation": "Becket ccw", "retrievedAt": "2026-10-20T05:51:34.204Z", "sha256": "20b280f32f9f52b450e856e18a7b34b9c78e874677028b38d12cc810277831c1" }, "status": "check", "problems": [ "The next time through can't start from where the dancers end: Playback is limited to one round: the next round cannot start (Couple 3 must stand side by side to find new neighbors.)." ], "unparsed": [], "choices": [],
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "1605", "title": "Contra Pride", "author": "Don Flaherty", "formation": "becket-ccw", "progression": "minor-set", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/1605", "formation": "Becket ccw", "retrievedAt": "2026-10-20T05:51:34.204Z", "sha256": "20b280f32f9f52b450e856e18a7b34b9c78e874677028b38d12cc810277831c1" }, "status": "check", "problems": [ "The next time through can't start from where the dancers end: Playback is limited to one round: the next round cannot start (Couple 1 must stand side by side to find new neighbors.)." ], "unparsed": [], "choices": [],
  "figures": [
-  {"move":"meanwhile","beats":8,"params":{"first":{"move":"do-si-do","params":{"who":"larks","amount":1.5,"shoulder":"right"}},"second":{"move":"slide","params":{"direction":"right","who":"robins"}}},"text":"larks do si do 1½ while robins slide right one place to meet new neighbor!","section":"A1","row":1},
+  {"move":"meanwhile","beats":8,"params":{"first":{"move":"do-si-do","params":{"who":"larks","amount":1.5,"shoulder":"right"}},"second":{"move":"slide","params":{"direction":"right","who":"robins"}}},"text":"larks do si do 1½ while robins slide right one place to meet new neighbor!","section":"A1","row":1,"progression":true},
   {"move":"swing","beats":8,"params":{"who":"neighbor"},"text":"neighbors swing","section":"A1","row":2},
   {"move":"long-lines","beats":8,"params":{"back":true},"text":"long lines forward & back","section":"A2","row":3},
   {"move":"chain","beats":8,"params":{"who":"robins","to":"partner"},"text":"robins chain to Partner","section":"A2","row":4},
@@ -9,6 +9,6 @@
   {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance & petronella · balance","section":"B1","row":6},
   {"move":"petronella","beats":4,"params":{},"text":"balance & petronella · petronella","section":"B1","row":6},
   {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance the ring","section":"B2","row":7},
-  {"move":"swing","beats":12,"params":{"who":"partner"},"text":"partners swing dance starts with same couple","progression":true,"section":"B2","row":8}
+  {"move":"swing","beats":12,"params":{"who":"partner"},"text":"partners swing dance starts with same couple","section":"B2","row":8}
  ]
 }

@@ -1,4 +1,4 @@
-{ "schema": "contra-studio/next-dance", "version": 2, "id": "1353", "title": "New Dance Sugar High", "author": "Don Flaherty", "formation": "becket", "progression": "minor-set", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 10 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/1353", "formation": "Becket", "retrievedAt": "2026-10-20T06:05:58.378Z", "sha256": "9ca942be51605c8d0b8759c14e7f5966ee7cbc21a56376dd6871f7bd59b0c012" }, "status": "check", "problems": [ "Couples don't end the round where the progression puts them." ], "unparsed": [], "choices": [ "Pass through goes by right shoulders.", "A pass through from a ring goes along the set, to the dancer on your own side.", "Square through: each balance takes 4 beats and each pull by 2." ],
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "1353", "title": "New Dance Sugar High", "author": "Don Flaherty", "formation": "becket", "progression": "minor-set", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 10 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/1353", "formation": "Becket", "retrievedAt": "2026-10-20T06:05:58.378Z", "sha256": "9ca942be51605c8d0b8759c14e7f5966ee7cbc21a56376dd6871f7bd59b0c012" }, "status": "ok", "problems": [], "unparsed": [], "choices": [ "Pass through goes by right shoulders.", "A pass through from a ring goes along the set, to the dancer on your own side.", "Square through: each balance takes 4 beats and each pull by 2." ],
  "figures": [
   {"move":"balance","beats":4,"params":{"formation":"pair","who":"partner","hand":"right"},"text":"square through four - partners balance & pull by right, then neighbors pull by left, then repeat · balance","section":"A1","row":1},
   {"move":"pass-by","beats":2,"params":{"who":"partner","shoulder":"right","hands":true},"text":"square through four - partners balance & pull by right, then neighbors pull by left, then repeat · pull by","section":"A1","row":1},
@@ -9,11 +9,11 @@
   {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance the ring","section":"A2","row":2},
   {"move":"swing","beats":12,"params":{"who":"partner"},"text":"partners swing","section":"A2","row":3},
   {"move":"circle","beats":6,"params":{"direction":"left","places":3},"text":"circle left 3 places and pass thru · circle","section":"B1","row":4},
-  {"move":"pass-through","beats":2,"params":{"shoulder":"right"},"text":"circle left 3 places and pass thru · pass through","section":"B1","row":4},
+  {"move":"pass-through","beats":2,"params":{"shoulder":"right"},"text":"circle left 3 places and pass thru · pass through","section":"B1","row":4,"progression":true},
   {"move":"swing","beats":8,"params":{"who":"neighbor"},"text":"neighbors swing new","section":"B1","row":5},
   {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance the ring larks trade places · balance","section":"B2","row":6},
   {"move":"pass-by","beats":4,"params":{"who":"larks","shoulder":"right","hands":false},"text":"balance the ring larks trade places · pull by","section":"B2","row":6},
   {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance the ring","section":"B2","row":7},
-  {"move":"circle","beats":8,"params":{"direction":"left","places":2},"text":"circle left 2 places","progression":true,"section":"B2","row":8}
+  {"move":"circle","beats":8,"params":{"direction":"left","places":2},"text":"circle left 2 places","section":"B2","row":8}
  ]
 }

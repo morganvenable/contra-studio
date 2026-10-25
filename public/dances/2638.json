@@ -5,10 +5,10 @@
   {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance & petronella · balance","section":"A1","row":2},
   {"move":"petronella","beats":4,"params":{},"text":"balance & petronella · petronella","section":"A1","row":2},
   {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance & petronella · balance","section":"A2","row":3},
-  {"move":"petronella","beats":4,"params":{},"text":"balance & petronella · petronella","section":"A2","row":3},
+  {"move":"petronella","beats":4,"params":{},"text":"balance & petronella · petronella","section":"A2","row":3,"progression":true},
   {"move":"swing","beats":8,"params":{"who":"neighbor"},"text":"next neighbors swing","section":"A2","row":4},
   {"move":"circle","beats":6,"params":{"direction":"left","places":3},"text":"circle left 3 places","section":"B1","row":5},
   {"move":"swing","beats":10,"params":{"who":"partner"},"text":"partners swing","section":"B1","row":6},
-  {"move":"hold","beats":16,"params":{"reason":"unparsed"},"text":"robins start a full hey - rights in center, lefts on ends - robins ricochet first time, larks ricochet second time to form a ring","section":"B2","row":7,"progression":true}
+  {"move":"hold","beats":16,"params":{"reason":"unparsed"},"text":"robins start a full hey - rights in center, lefts on ends - robins ricochet first time, larks ricochet second time to form a ring","section":"B2","row":7}
  ]
 }

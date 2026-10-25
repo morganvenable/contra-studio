@@ -5,10 +5,10 @@
   {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance the ring","section":"A1","row":2},
   {"move":"ocean-wave","beats":4,"params":{"middle":"robins","middleHand":"left","ends":"neighbor","endHand":"right"},"text":"pass through to an ocean wave - robins by left in the center, neighbors by right on the sides","section":"A1","row":3},
   {"move":"balance","beats":4,"params":{"formation":"current"},"text":"balance","section":"A2","row":4},
-  {"move":"hold","beats":2,"params":{"reason":"unparsed"},"text":"pass through straight ahead to new neighbors","section":"A2","row":5},
+  {"move":"hold","beats":2,"params":{"reason":"unparsed"},"text":"pass through straight ahead to new neighbors","section":"A2","row":5,"progression":true},
   {"move":"swing","beats":10,"params":{"who":"neighbor"},"text":"neighbors swing","section":"A2","row":6},
   {"move":"hey","beats":16,"params":{"start":"robins","amount":1,"center":"right","ricochet":[{"who":"larks","time":2}]},"text":"robins start a full hey - rights in center, lefts on ends when larks meet the second time they ricochet back to partner","section":"B1","row":7},
   {"move":"balance","beats":4,"params":{"formation":"pair","who":"partner","hand":"both"},"text":"partners balance & swing · balance","section":"B2","row":8},
-  {"move":"swing","beats":12,"params":{"who":"partner"},"text":"partners balance & swing · swing","progression":true,"section":"B2","row":8}
+  {"move":"swing","beats":12,"params":{"who":"partner"},"text":"partners balance & swing · swing","section":"B2","row":8}
  ]
 }
