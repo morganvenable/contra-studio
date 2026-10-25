@@ -616,3 +616,16 @@ test('meanwhile: the centers slide while the ends turn, on different dancers', (
     /can't happen at once/,
   );
 });
+
+test('a star by eighths: 7/8 ends on a diamond', () => {
+  const start = BECKET.start(2);
+  const c = one('star l 7/8');
+  assert.deepEqual(c.params, { hand: 'left', places: 3.5 });
+  const r = FIGURES.star(start, c.params, 8);
+  withinLimits(r, 8, 'star 7/8');
+  // Half places: everyone ends on the set's center lines, a diamond.
+  for (const id of [0, 1, 2, 3]) {
+    const p = r.exit.bodies.get(id)!.position;
+    assert.ok(Math.abs(p.x) < 1e-6 || Math.abs(p.z) < 1e-6, `${id} on a diamond point`);
+  }
+});

@@ -176,6 +176,45 @@ function heyRest(rest: string) {
 
 const PATTERNS: readonly (readonly [RegExp, Build])[] = [
   [
+    // Stars by eighths of a turn: "star l 7/8", "hands across star l 9/8",
+    // "star left - hands across - 3 places (7/8ths places)". Four dancers
+    // go n/8 of the way round: n/2 places, half places ending on a diamond.
+    /^(?:(hands across),? )?(?:double-balance )?star (l|r|left|right)(?: - (hands across|wrist grip) -)?(?: \w+ places?)? (\d+)\/8(?:ths?)?(?: places?)?(?: around)?(.*)$/,
+    (m, b) => {
+      notes(
+        m[5]
+          .replace(/^\s*-?\s*(?:\w+ face up & down, \w+ on sides|diamond with .*|until .*)$/, '')
+          .replace(/^\s*\+$/, ''),
+        'star',
+      );
+      const grip = m[1] ?? m[3];
+      return [
+        call('star', b, {
+          hand: m[2].startsWith('l') ? 'left' : 'right',
+          places: Number(m[4]) / 2,
+          ...(grip ? { grip: grip === 'wrist grip' ? 'wrist' : 'hands-across' } : {}),
+        }),
+      ];
+    },
+  ],
+  [
+    // "star ____ - wrist grip - 4 places": the hand left blank. A star of
+    // whole turns ends where it began whichever way it goes: read as left.
+    /^star ____(?: - (hands across|wrist grip) -)? (\w+) places?(.*)$/,
+    (m, b) => {
+      notes(m[3], 'star');
+      const places = NUMBER[m[2]] ?? Number(m[2]);
+      if (places % 4 !== 0) throw new Error('A star with no hand named must go whole turns.');
+      return [
+        call('star', b, {
+          hand: 'left',
+          places,
+          ...(m[1] ? { grip: m[1] === 'wrist grip' ? 'wrist' : 'hands-across' } : {}),
+        }),
+      ];
+    },
+  ],
+  [
     // "ends turn over right shoulder", "larks turn back": on its own (the
     // second half of a "while" row, figures/meanwhile.ts).
     /^(?:the )?(larks|robins|ones|twos|centers|ends|gentlespoons|ladles) turns? (?:back |around |out )?(?:over (?:their |your )?(right|left) shoulders?)?(.*)$/,

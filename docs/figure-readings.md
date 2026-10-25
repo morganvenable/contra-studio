@@ -48,3 +48,5 @@ below. One line each; change any of them by telling us the other reading.
 - Star promenade "larks pick up neighbor": the neighbor walks the outside instead of the partner.
 - A pass by too long for its beats (larks crossing the minor set diagonally in two beats) goes as far toward the other's place as a walk allows, veering most where the two cross; dancers turn to face the way they walk more slowly when the turn is big.
 - "A while B" rows run B during the last part of A, on other dancers (a meanwhile figure); a row whose two parts move the same dancer stays undrawn. Named Rory slides join no new hands, since the wave may be re-formed by the others meanwhile.
+- Stars by eighths ("star l 7/8", "hands across star l 9/8"): four dancers go n/8 of the way round, n/2 places; half places end on a diamond.
+- "Star ____ - wrist grip - 4 places": a star of whole turns ends where it began whichever hand is in; drawn as a left-hand star.

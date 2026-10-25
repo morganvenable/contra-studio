@@ -4,18 +4,18 @@
  "catalogue": 2422,
  "stored": 2422,
  "counts": {
-  "ok": 343,
+  "ok": 345,
   "check": 86,
-  "partial": 1711,
+  "partial": 1709,
   "unsupported": 282
  },
  "formations": [
   {
    "formation": "improper",
    "dances": 1189,
-   "ok": 302,
+   "ok": 304,
    "check": 50,
-   "partial": 837,
+   "partial": 835,
    "unsupported": 0
   },
   {
@@ -1104,7 +1104,7 @@
    },
    {
     "name": "ocean wave / long wave",
-    "unlocks": 67,
+    "unlocks": 68,
     "uses": 269
    },
    {
@@ -1148,11 +1148,6 @@
     "uses": 93
    },
    {
-    "name": "star variant",
-    "unlocks": 19,
-    "uses": 62
-   },
-   {
     "name": "orbit allemande",
     "unlocks": 19,
     "uses": 59
@@ -1166,6 +1161,11 @@
     "name": "hey (other)",
     "unlocks": 18,
     "uses": 82
+   },
+   {
+    "name": "star variant",
+    "unlocks": 17,
+    "uses": 57
    },
    {
     "name": "chain variant",

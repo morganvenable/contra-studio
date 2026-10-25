@@ -66,8 +66,9 @@ export const star: Figure<StarParams> = (state, params, beats) => {
     'hands-across',
     'wrist',
   ] as const);
-  if (!(Number.isInteger(params.places) && params.places >= 1 && params.places <= 8))
-    throw new Error('A star goes a whole number of places, 1 to 8.');
+  // Half places end on a diamond ("star left 7/8": 3½ places).
+  if (!(Number.isInteger(params.places * 2) && params.places >= 0.5 && params.places <= 8))
+    throw new Error('A star goes a whole or half number of places, ½ to 8.');
   // Right hands in the middle: walking clockwise, increasing polar angle.
   const sign = hand === 'right' ? 1 : -1;
 
