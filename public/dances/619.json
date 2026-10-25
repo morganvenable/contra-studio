@@ -8,7 +8,7 @@
   {"move":"hold","beats":4,"params":{"reason":"unparsed"},"text":"walk forward to NEW next neighbor","section":"A2","row":6,"progression":true},
   {"move":"hold","beats":4,"params":{"reason":"unparsed"},"text":"form an ocean wave & balance - second corners by left hands and same roles by right hands","section":"A2","row":7},
   {"move":"hold","beats":2,"params":{"reason":"unparsed"},"text":"same roles allemande right ½","section":"A2","row":8},
-  {"move":"allemande","beats":2,"params":{"who":"neighbor","hand":"left","amount":0.5},"text":"first corners allemande left ½","section":"A2","row":9},
+  {"move":"corners","beats":2,"params":{"move":"allemande","params":{"who":"neighbor","hand":"left","amount":0.5}},"text":"first corners allemande left ½","section":"A2","row":9},
   {"move":"balance","beats":4,"params":{"formation":"pair","who":"partner","hand":"both"},"text":"partners balance & swing · balance","section":"B1","row":10},
   {"move":"swing","beats":12,"params":{"who":"partner"},"text":"partners balance & swing · swing","section":"B1","row":10},
   {"move":"chain","beats":8,"params":{"who":"robins"},"text":"robins chain","section":"B2","row":11},

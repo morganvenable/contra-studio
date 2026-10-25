@@ -7,6 +7,6 @@
   {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"neighbors do si do once corner do si do, face partner with right hand","section":"B1","row":5},
   {"move":"grand-meet","beats":8,"params":{"hand":"right"},"text":"right left grand","section":"B1","row":6},
   {"move":"balance","beats":4,"params":{"formation":"pair","who":"partner","hand":"both"},"text":"partners balance & swing · balance","section":"B2","row":7},
-  {"move":"swing","beats":12,"params":{"who":"partner"},"text":"partners balance & swing · swing","progression":true,"section":"B2","row":7}
+  {"move":"lines-swing","beats":12,"params":{"who":"partner"},"text":"partners balance & swing · swing","progression":true,"section":"B2","row":7}
  ]
 }

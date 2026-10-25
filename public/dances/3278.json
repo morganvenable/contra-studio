@@ -3,9 +3,9 @@
   {"move":"forward-back","beats":8,"params":{"back":true},"text":"long lines forward & back (lines of three)","section":"A1","row":1},
   {"move":"forward-back","beats":8,"params":{"back":true},"text":"long lines forward & back (lines of three)","section":"A1","row":2},
   {"move":"center-travel","beats":16,"params":{"who":"top","style":"sashay","legs":["bottom","top","bottom"]},"text":"top couple sashay down & up & down, everyone else move up","progression":true,"section":"A2","row":3},
-  {"move":"star","beats":8,"params":{"hand":"right","places":4,"among":["1s","2s"]},"text":"star right 4 places (top four)","section":"B1","row":4},
-  {"move":"star","beats":8,"params":{"hand":"left","places":4,"among":["1s","2s"]},"text":"star left 4 places (top four)","section":"B1","row":5},
-  {"move":"star","beats":8,"params":{"hand":"right","places":4,"among":["2s","3s"]},"text":"star right 4 places (bottom four)","section":"B2","row":6},
-  {"move":"star","beats":8,"params":{"hand":"left","places":4,"among":["2s","3s"]},"text":"star left 4 places (bottom four)","section":"B2","row":7}
+  {"move":"star","beats":8,"params":{"hand":"right","places":4,"among":["top four"]},"text":"star right 4 places (top four)","section":"B1","row":4},
+  {"move":"star","beats":8,"params":{"hand":"left","places":4,"among":["top four"]},"text":"star left 4 places (top four)","section":"B1","row":5},
+  {"move":"star","beats":8,"params":{"hand":"right","places":4,"among":["bottom four"]},"text":"star right 4 places (bottom four)","section":"B2","row":6},
+  {"move":"star","beats":8,"params":{"hand":"left","places":4,"among":["bottom four"]},"text":"star left 4 places (bottom four)","section":"B2","row":7}
  ]
 }

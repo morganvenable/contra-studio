@@ -1,12 +1,12 @@
-{ "schema": "contra-studio/next-dance", "version": 2, "id": "177", "title": "First Night Quadrille", "author": "Bob Dalsemer", "formation": "square", "progression": "mixer", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/177", "formation": "square dance", "retrievedAt": "2026-10-20T05:55:45.218Z", "sha256": "ab4274b7308254424665c3ed7c4a4f603dc253d276d926986d03e055236e0c4b" }, "status": "partial", "problems": [ "Row 4 \"star right 4 places same four\" can't start from where the dancers are: A star of 4 needs the dancers spaced around a ring." ], "unparsed": [], "choices": [ "A star with no grip named is a basket star (wrist grip)." ],
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "177", "title": "First Night Quadrille", "author": "Bob Dalsemer", "formation": "square", "progression": "mixer", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/177", "formation": "square dance", "retrievedAt": "2026-10-20T05:55:45.218Z", "sha256": "ab4274b7308254424665c3ed7c4a4f603dc253d276d926986d03e055236e0c4b" }, "status": "ok", "problems": [], "unparsed": [], "choices": [],
  "figures": [
   {"move":"forward-back","beats":8,"params":{"back":true,"among":["heads"]},"text":"forward and back head couples","section":"A1","row":1},
-  {"move":"ring-circle","beats":8,"params":{"direction":"left","places":4,"among":["heads"]},"text":"circle left 4 places same four","section":"A1","row":2},
-  {"move":"ring-circle","beats":8,"params":{"direction":"right","places":4,"among":["heads"]},"text":"circle right 4 places same four","section":"A2","row":3},
-  {"move":"star","beats":8,"params":{"hand":"right","places":4,"among":["heads"]},"text":"star right 4 places same four","section":"A2","row":4},
-  {"move":"allemande","beats":8,"params":{"who":"neighbor","hand":"left","amount":1},"text":"first corners allemande left once","section":"B1","row":5},
+  {"move":"square-middle","beats":8,"params":{"move":"circle","params":{"direction":"left","places":4},"among":["heads"]},"text":"circle left 4 places same four","section":"A1","row":2},
+  {"move":"square-middle","beats":8,"params":{"move":"circle","params":{"direction":"right","places":4},"among":["heads"]},"text":"circle right 4 places same four","section":"A2","row":3},
+  {"move":"square-middle","beats":8,"params":{"move":"star","params":{"hand":"right","places":4},"among":["heads"]},"text":"star right 4 places same four","section":"A2","row":4},
+  {"move":"square-corners","beats":8,"params":{"move":"allemande","params":{"who":"neighbor","hand":"left","amount":1}},"text":"first corners allemande left once","section":"B1","row":5},
   {"move":"grand-meet","beats":8,"params":{"hand":"right"},"text":"grand right left","section":"B1","row":6},
-  {"move":"do-si-do","beats":8,"params":{"who":"partner","amount":1,"shoulder":"right"},"text":"partners do si do once","section":"B2","row":7},
+  {"move":"square-do-si-do","beats":8,"params":{"who":"partner","amount":1,"shoulder":"right"},"text":"partners do si do once","section":"B2","row":7},
   {"move":"promenade-home","beats":8,"params":{"who":"partner"},"text":"partners promenade along the set on the right home","section":"B2","row":8}
  ]
 }

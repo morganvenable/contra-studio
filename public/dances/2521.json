@@ -1,10 +1,10 @@
-{ "schema": "contra-studio/next-dance", "version": 2, "id": "2521", "title": "Haste to the Divorce", "author": "Tom Hinds", "formation": "three-face-three", "progression": "trios", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/2521", "formation": "three face three", "retrievedAt": "2026-10-20T05:58:25.618Z", "sha256": "7b7db41d3808096057c0c7a67ea327085c0532402c1795406f3ae3a8c1dbe8cb" }, "status": "partial", "problems": [ "Row 5 \"neighbors do si do 1½ (as throuples)\" isn't drawn yet.", "Row 6 \"partners long swing (three-person basket)\" isn't drawn yet." ], "unparsed": [ { "row": 5, "text": "neighbors do si do 1½ (as throuples)", "why": "No figure pattern matches \"neighbors do si do 1½ (as throuples) ⁋\"." }, { "row": 6, "text": "partners long swing (three-person basket)", "why": "No figure pattern matches \"partners long swing (three-person basket)\"." } ], "choices": [],
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "2521", "title": "Haste to the Divorce", "author": "Tom Hinds", "formation": "three-face-three", "progression": "trios", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/2521", "formation": "three face three", "retrievedAt": "2026-10-20T05:58:25.618Z", "sha256": "7b7db41d3808096057c0c7a67ea327085c0532402c1795406f3ae3a8c1dbe8cb" }, "status": "ok", "problems": [], "unparsed": [], "choices": [],
  "figures": [
   {"move":"forward-back","beats":8,"params":{"back":true},"text":"lines of three forward & back","section":"A1","row":1},
   {"move":"do-si-do","beats":8,"params":{"who":"opposite","amount":1,"shoulder":"right"},"text":"opposites dosido","section":"A1","row":2},
-  {"move":"circle","beats":8,"params":{"direction":"left","amount":1},"text":"circle left","section":"A2","row":3},
-  {"move":"circle","beats":8,"params":{"direction":"right","amount":1},"text":"circle right","section":"A2","row":4},
-  {"move":"hold","beats":16,"params":{"reason":"unparsed"},"text":"neighbors do si do 1½ (as throuples)","section":"B1","row":5,"progression":true},
-  {"move":"hold","beats":16,"params":{"reason":"unparsed"},"text":"partners long swing (three-person basket)","section":"B2","row":6}
+  {"move":"whole-circle","beats":8,"params":{"direction":"left","amount":1},"text":"circle left","section":"A2","row":3},
+  {"move":"whole-circle","beats":8,"params":{"direction":"right","amount":1},"text":"circle right","section":"A2","row":4},
+  {"move":"do-si-do","beats":16,"params":{"who":"neighbor","amount":1.5,"shoulder":"right"},"text":"neighbors do si do 1½ (as throuples)","progression":true,"section":"B1","row":5},
+  {"move":"trio-basket","beats":16,"params":{},"text":"partners long swing (three-person basket)","section":"B2","row":6}
  ]
 }

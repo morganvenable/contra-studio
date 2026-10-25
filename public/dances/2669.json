@@ -7,6 +7,6 @@
   {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"Weave the ring RR;NL;SRNR;N2L;N2 LR while N3 robins allemande right 1) (around the entire major set)","section":"B1","row":5},
   {"move":"gyre","beats":8,"params":{"who":"partner","amount":1},"text":"partners gyre once","section":"B1","row":6},
   {"move":"balance","beats":4,"params":{"formation":"pair","who":"partner","hand":"both"},"text":"partners balance","section":"B2","row":7},
-  {"move":"swing","beats":12,"params":{"who":"partner"},"text":"partners swing","progression":true,"section":"B2","row":8}
+  {"move":"lines-swing","beats":12,"params":{"who":"partner"},"text":"partners swing","progression":true,"section":"B2","row":8}
  ]
 }

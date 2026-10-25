@@ -1,16 +1,16 @@
 { "schema": "contra-studio/next-dance", "version": 2, "id": "442", "title": "Petronella Swing Break", "author": "Chris Page", "formation": "square", "progression": "mixer", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/442", "formation": "square dance", "retrievedAt": "2026-10-20T06:08:39.699Z", "sha256": "2a7a81cda60cfdf2de1a9d4adf6f8107e6ea054256db0dc2571ab1f53b88ee62" }, "status": "ok", "problems": [], "unparsed": [], "choices": [],
  "figures": [
-  {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance & petronella · balance","section":"A1","row":1},
+  {"move":"square-balance","beats":4,"params":{"formation":"ring"},"text":"balance & petronella · balance","section":"A1","row":1},
   {"move":"petronella","beats":4,"params":{},"text":"balance & petronella · petronella","section":"A1","row":1},
-  {"move":"swing","beats":8,"params":{"who":"neighbor"},"text":"neighbors swing (CORNER)","section":"A1","row":2},
-  {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance & petronella · balance","section":"A2","row":3},
+  {"move":"square-swing","beats":8,"params":{"who":"neighbor"},"text":"neighbors swing (CORNER)","section":"A1","row":2},
+  {"move":"square-balance","beats":4,"params":{"formation":"ring"},"text":"balance & petronella · balance","section":"A2","row":3},
   {"move":"petronella","beats":4,"params":{},"text":"balance & petronella · petronella","section":"A2","row":3},
   {"move":"beside","beats":8,"params":{"move":"swing","side":"left","params":{}},"text":"next neighbors swing (NEXT CORNER)","section":"A2","row":4},
-  {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance & petronella · balance","section":"B1","row":5},
+  {"move":"square-balance","beats":4,"params":{"formation":"ring"},"text":"balance & petronella · balance","section":"B1","row":5},
   {"move":"petronella","beats":4,"params":{},"text":"balance & petronella · petronella","section":"B1","row":5},
   {"move":"beside","beats":8,"params":{"move":"swing","side":"left","params":{}},"text":"next neighbors swing (NEXT NEXT CORNER)","section":"B1","row":6},
-  {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance & petronella · balance","section":"B2","row":7},
+  {"move":"square-balance","beats":4,"params":{"formation":"ring"},"text":"balance & petronella · balance","section":"B2","row":7},
   {"move":"petronella","beats":4,"params":{},"text":"balance & petronella · petronella","section":"B2","row":7},
-  {"move":"swing","beats":8,"params":{"who":"partner"},"text":"partners swing","section":"B2","row":8}
+  {"move":"square-swing","beats":8,"params":{"who":"partner"},"text":"partners swing","section":"B2","row":8}
  ]
 }

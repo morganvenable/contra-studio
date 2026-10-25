@@ -5,7 +5,7 @@
   {"move":"star","beats":8,"params":{"hand":"left","places":4},"text":"star left 4 places the same two couples","section":"A2","row":3},
   {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"lead robins unroll the star - passing right, cross the set, gather a circle","section":"A2","row":4},
   {"move":"lines-circle","beats":8,"params":{"direction":"left","places":4},"text":"circle left 4 places","section":"B1","row":5},
-  {"move":"swing","beats":8,"params":{"who":"neighbor"},"text":"neighbors swing","section":"B1","row":6},
+  {"move":"lines-swing","beats":8,"params":{"who":"neighbor"},"text":"neighbors swing","section":"B1","row":6},
   {"move":"allemande","beats":8,"params":{"who":"larks","hand":"left","amount":1.5},"text":"larks allemande left 1½","section":"B2","row":7},
   {"move":"swing-out","beats":8,"params":{"who":"partner"},"text":"partners swing and face your direction of travel","progression":true,"section":"B2","row":8}
  ]

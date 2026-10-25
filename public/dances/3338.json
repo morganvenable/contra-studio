@@ -4,9 +4,9 @@
   {"move":"square-middle","beats":8,"params":{"move":"chain","params":{"who":"robins"},"among":["heads"]},"text":"robins chain (heads)","section":"A1","row":2},
   {"move":"square-middle","beats":8,"params":{"move":"star","params":{"hand":"left","places":4},"among":["heads"]},"text":"star left 4 places (heads)","section":"A2","row":3},
   {"move":"square-middle","beats":8,"params":{"move":"star","params":{"hand":"right","places":4},"among":["heads"]},"text":"star right 4 places (heads)","section":"A2","row":4},
-  {"move":"allemande","beats":4,"params":{"who":"neighbor","hand":"left","amount":0.5},"text":"first corners allemande left ½","section":"B1","row":5},
-  {"move":"allemande","beats":4,"params":{"who":"neighbor","hand":"right","amount":0.5},"text":"first corners allemande right ½","section":"B1","row":6},
-  {"move":"swing","beats":8,"params":{"who":"partner"},"text":"partners swing","section":"B1","row":7},
+  {"move":"square-corners","beats":4,"params":{"move":"allemande","params":{"who":"neighbor","hand":"left","amount":0.5}},"text":"first corners allemande left ½","section":"B1","row":5},
+  {"move":"square-corners","beats":4,"params":{"move":"allemande","params":{"who":"neighbor","hand":"right","amount":0.5}},"text":"first corners allemande right ½","section":"B1","row":6},
+  {"move":"square-swing","beats":8,"params":{"who":"partner"},"text":"partners swing","section":"B1","row":7},
   {"move":"ring-promenade","beats":16,"params":{"who":"partner"},"text":"partners promenade around the set","section":"B2","row":8}
  ]
 }

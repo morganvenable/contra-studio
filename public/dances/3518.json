@@ -3,8 +3,8 @@
   {"move":"ring-promenade","beats":16,"params":{"who":"partner"},"text":"partners promenade, join up with one or more couples","progression":true,"section":"A1","row":1},
   {"move":"ring-circle","beats":8,"params":{"direction":"left","places":4},"text":"circle left 4 places","section":"A2","row":2},
   {"move":"ring-circle","beats":8,"params":{"direction":"right","places":4},"text":"circle right 4 places","section":"A2","row":3},
-  {"move":"do-si-do","beats":8,"params":{"who":"neighbor","amount":1,"shoulder":"right"},"text":"first corners do si do once","section":"B1","row":4},
-  {"move":"swing","beats":8,"params":{"who":"neighbor"},"text":"first corners swing","section":"B1","row":5},
+  {"move":"corners","beats":8,"params":{"move":"do-si-do","params":{"who":"neighbor","amount":1,"shoulder":"right"}},"text":"first corners do si do once","section":"B1","row":4},
+  {"move":"corner-swing","beats":8,"params":{"who":"neighbor"},"text":"first corners swing","section":"B1","row":5},
   {"move":"do-si-do","beats":8,"params":{"who":"partner","amount":1,"shoulder":"right"},"text":"partners do si do once","section":"B2","row":6},
   {"move":"swing","beats":8,"params":{"who":"partner"},"text":"partners swing","section":"B2","row":7}
  ]

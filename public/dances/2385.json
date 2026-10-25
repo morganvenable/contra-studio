@@ -2,11 +2,11 @@
  "figures": [
   {"move":"allemande","beats":6,"params":{"who":"neighbor","hand":"left","amount":1},"text":"neighbors allemande left once","section":"A1","row":1},
   {"move":"grand-meet","beats":10,"params":{"hand":"right"},"text":"grand right and left","section":"A1","row":2},
-  {"move":"do-si-do","beats":8,"params":{"who":"partner","amount":1,"shoulder":"right"},"text":"partners do si do once","section":"A2","row":3},
-  {"move":"swing","beats":8,"params":{"who":"partner"},"text":"partners swing","section":"A2","row":4},
+  {"move":"square-do-si-do","beats":8,"params":{"who":"partner","amount":1,"shoulder":"right"},"text":"partners do si do once","section":"A2","row":3},
+  {"move":"square-swing","beats":8,"params":{"who":"partner"},"text":"partners swing","section":"A2","row":4},
   {"move":"allemande","beats":6,"params":{"who":"neighbor","hand":"left","amount":1},"text":"neighbors allemande left once","section":"B1","row":5},
   {"move":"grand-meet","beats":10,"params":{"hand":"right"},"text":"grand right and left","section":"B1","row":6},
-  {"move":"do-si-do","beats":8,"params":{"who":"partner","amount":1,"shoulder":"right"},"text":"partners do si do once","section":"B2","row":7},
-  {"move":"swing","beats":8,"params":{"who":"partner"},"text":"partners swing","section":"B2","row":8}
+  {"move":"square-do-si-do","beats":8,"params":{"who":"partner","amount":1,"shoulder":"right"},"text":"partners do si do once","section":"B2","row":7},
+  {"move":"square-swing","beats":8,"params":{"who":"partner"},"text":"partners swing","section":"B2","row":8}
  ]
 }

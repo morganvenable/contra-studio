@@ -9,6 +9,6 @@
   {"move":"star","beats":8,"params":{"hand":"right","places":4,"among":["ends"]},"text":"outside four star right 4 places","section":"B1","row":7},
   {"move":"do-si-do","beats":8,"params":{"who":"partner","amount":1,"shoulder":"right"},"text":"partners do si do once","section":"B1","row":8},
   {"move":"balance","beats":4,"params":{"formation":"pair","who":"partner","hand":"both"},"text":"partners balance & swing · balance","section":"B2","row":9},
-  {"move":"swing","beats":12,"params":{"who":"partner"},"text":"partners balance & swing · swing","progression":true,"section":"B2","row":9}
+  {"move":"lines-swing","beats":12,"params":{"who":"partner"},"text":"partners balance & swing · swing","progression":true,"section":"B2","row":9}
  ]
 }

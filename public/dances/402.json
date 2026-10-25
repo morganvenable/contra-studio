@@ -2,7 +2,7 @@
  "figures": [
   {"move":"star","beats":4,"params":{"hand":"right","places":2,"grip":"hands-across"},"text":"star right - hands across - 2 places","section":"A1","row":1},
   {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance the ring","section":"A1","row":2},
-  {"move":"swing","beats":8,"params":{"who":"neighbor"},"text":"first corners swing +","section":"A1","row":3},
+  {"move":"corner-swing","beats":8,"params":{"who":"neighbor"},"text":"first corners swing +","section":"A1","row":3},
   {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"first corners down the center and turn as a couple","section":"A2","row":4},
   {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"first corners up the center to cast off with partners","section":"A2","row":5},
   {"move":"hold","beats":2,"params":{"reason":"unparsed"},"text":"pass through across the set to meet on the other side","section":"B1","row":6},

@@ -8,6 +8,6 @@
   {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"balance & Rory O'More left waves of four","section":"B1","row":7},
   {"move":"hold","beats":2,"params":{"reason":"unparsed"},"text":"neighbors allemande right ½ with same","section":"B2","row":8},
   {"move":"hold","beats":6,"params":{"reason":"unparsed"},"text":"robins star left halfway","section":"B2","row":9},
-  {"move":"swing","beats":8,"params":{"who":"partner"},"text":"partners swing","progression":true,"section":"B2","row":10}
+  {"move":"lines-swing","beats":8,"params":{"who":"partner"},"text":"partners swing","progression":true,"section":"B2","row":10}
  ]
 }

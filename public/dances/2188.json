@@ -3,10 +3,10 @@
   {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"half grand square (just 8 steps)","section":"A1","row":2},
   {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"shadows swing (the one you're with, original Opposites) and square the set - robins have move one place to the right and larks have moved one place to the left","section":"A1","row":3},
   {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"half grand square (8 steps)","section":"A2","row":5},
-  {"move":"swing","beats":8,"params":{"who":"partner"},"text":"partners swing","section":"A2","row":6},
+  {"move":"square-swing","beats":8,"params":{"who":"partner"},"text":"partners swing","section":"A2","row":6},
   {"move":"allemande","beats":8,"params":{"who":"neighbor","hand":"left","amount":1},"text":"neighbors allemande left once (Corners)","section":"B1","row":7},
   {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"half grand right and left to home","section":"B1","row":8},
-  {"move":"do-si-do","beats":8,"params":{"who":"partner","amount":1,"shoulder":"right"},"text":"partners do si do once","section":"B2","row":9},
-  {"move":"swing","beats":8,"params":{"who":"partner"},"text":"partners swing","section":"B2","row":10}
+  {"move":"square-do-si-do","beats":8,"params":{"who":"partner","amount":1,"shoulder":"right"},"text":"partners do si do once","section":"B2","row":9},
+  {"move":"square-swing","beats":8,"params":{"who":"partner"},"text":"partners swing","section":"B2","row":10}
  ]
 }

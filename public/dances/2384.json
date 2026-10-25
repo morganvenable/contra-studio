@@ -1,12 +1,12 @@
-{ "schema": "contra-studio/next-dance", "version": 2, "id": "2384", "title": "Opening Break", "author": "Bob Isaacs", "formation": "square", "progression": "mixer", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/2384", "formation": "Square Break", "retrievedAt": "2026-10-20T06:07:33.123Z", "sha256": "6779119e4f64c0e9cf142d8daade71a44834b152d4774d8e3cf72edbe05f02e1" }, "status": "check", "problems": [ "Row 8 \"partners promenade home\": a dancer has to move 1.26 m in one beat, faster than a walk (with 4 couples)." ], "unparsed": [], "choices": [],
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "2384", "title": "Opening Break", "author": "Bob Isaacs", "formation": "square", "progression": "mixer", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/2384", "formation": "Square Break", "retrievedAt": "2026-10-20T06:07:33.123Z", "sha256": "6779119e4f64c0e9cf142d8daade71a44834b152d4774d8e3cf72edbe05f02e1" }, "status": "ok", "problems": [], "unparsed": [], "choices": [],
  "figures": [
   {"move":"still","beats":8,"params":{"action":"stand"},"text":"Identify partners, neighbors, opposites","section":"A1","row":1},
-  {"move":"swing","beats":8,"params":{"who":"partner"},"text":"partners swing","section":"A1","row":2},
+  {"move":"square-swing","beats":8,"params":{"who":"partner"},"text":"partners swing","section":"A1","row":2},
   {"move":"ring-circle","beats":8,"params":{"direction":"left","places":4},"text":"circle left 4 places","section":"A2","row":3},
   {"move":"ring-circle","beats":8,"params":{"direction":"right","places":4},"text":"circle right 4 places","section":"A2","row":4},
   {"move":"allemande","beats":6,"params":{"who":"neighbor","hand":"left","amount":1},"text":"neighbors allemande left once","section":"B1","row":5},
   {"move":"grand-meet","beats":10,"params":{"hand":"right"},"text":"grand right and left","section":"B1","row":6},
-  {"move":"do-si-do","beats":8,"params":{"who":"partner","amount":1,"shoulder":"right"},"text":"partners do si do once","section":"B2","row":7},
+  {"move":"square-do-si-do","beats":8,"params":{"who":"partner","amount":1,"shoulder":"right"},"text":"partners do si do once","section":"B2","row":7},
   {"move":"promenade-home","beats":8,"params":{"who":"partner"},"text":"partners promenade home","section":"B2","row":8}
  ]
 }

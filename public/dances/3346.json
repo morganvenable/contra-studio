@@ -7,7 +7,7 @@
   {"move":"petronella","beats":4,"params":{},"text":"with same couple, balance and petronella · petronella","section":"A2","row":3},
   {"move":"star","beats":8,"params":{"hand":"left","places":4,"among":["middle"]},"text":"middle 4 star left 4 places","section":"A2","row":4},
   {"move":"balance","beats":4,"params":{"formation":"pair","who":"partner","hand":"both"},"text":"partners balance & swing · balance","section":"B1","row":5},
-  {"move":"swing","beats":12,"params":{"who":"partner"},"text":"partners balance & swing · swing","section":"B1","row":5},
+  {"move":"lines-swing","beats":12,"params":{"who":"partner"},"text":"partners balance & swing · swing","section":"B1","row":5},
   {"move":"right-left-through","beats":8,"params":{},"text":"right left through and courtesy turn with opposite couple","section":"B2","row":6},
   {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance the ring of 8","progression":true,"section":"B2","row":7},
   {"move":"twirl","beats":4,"params":{"style":"california","who":"partner"},"text":"partners California twirl","section":"B2","row":8}

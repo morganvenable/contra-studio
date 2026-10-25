@@ -9,7 +9,7 @@
   {"move":"square-middle","beats":8,"params":{"move":"chain","params":{"who":"robins"},"among":["heads"]},"text":"head robins chain across","section":"B2","row":7},
   {"move":"square-middle","beats":8,"params":{"move":"chain","params":{"who":"robins"},"among":["sides"]},"text":"side robins chain across","section":"B2","row":8},
   {"move":"grand-chain","beats":8,"params":{"who":"robins"},"text":"all four robins grand chain","progression":true,"section":"B2","row":9},
-  {"move":"allemande","beats":8,"params":{"who":"neighbor","hand":"left","amount":1},"text":"first corners allemande left once","section":"B2","row":10},
+  {"move":"square-corners","beats":8,"params":{"move":"allemande","params":{"who":"neighbor","hand":"left","amount":1}},"text":"first corners allemande left once","section":"B2","row":10},
   {"move":"grand-meet","beats":8,"params":{"hand":"right"},"text":"right left grand","progression":true,"section":"B2","row":11}
  ]
 }

@@ -2,13 +2,13 @@
  "figures": [
   {"move":"square-middle","beats":8,"params":{"move":"right-left-through","params":{},"among":["heads"]},"text":"along the set right left through (HEADS)","section":"A1","row":1},
   {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"neighbors swing (SIDES with OPPOSITE) and face the nearest HEAD couple, form a ring of four","section":"A1","row":2},
-  {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance & petronella · balance","section":"A2","row":3},
+  {"move":"square-balance","beats":4,"params":{"formation":"ring"},"text":"balance & petronella · balance","section":"A2","row":3},
   {"move":"petronella","beats":4,"params":{},"text":"balance & petronella · petronella","section":"A2","row":3},
-  {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance & petronella · balance","section":"A2","row":4},
+  {"move":"square-balance","beats":4,"params":{"formation":"ring"},"text":"balance & petronella · balance","section":"A2","row":4},
   {"move":"petronella","beats":4,"params":{},"text":"balance & petronella · petronella","section":"A2","row":4},
-  {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance the ring","section":"B1","row":5},
+  {"move":"square-balance","beats":4,"params":{"formation":"ring"},"text":"balance the ring","section":"B1","row":5},
   {"move":"pass-through","beats":2,"params":{"shoulder":"right","axis":"along"},"text":"pass through along the set","section":"B1","row":6},
-  {"move":"swing","beats":10,"params":{"who":"partner"},"text":"partners swing","section":"B1","row":7},
+  {"move":"square-swing","beats":10,"params":{"who":"partner"},"text":"partners swing","section":"B1","row":7},
   {"move":"allemande","beats":8,"params":{"who":"neighbor","hand":"left","amount":1},"text":"neighbors allemande left once (corners)","section":"B2","row":8},
   {"move":"promenade-home","beats":8,"params":{"who":"partner"},"text":"partners promenade to home (half-way)","section":"B2","row":9}
  ]

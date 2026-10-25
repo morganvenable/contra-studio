@@ -5,7 +5,7 @@
   {"move":"allemande","beats":8,"params":{"who":"partner","hand":"left","amount":1.5},"text":"partners allemande left 1½","section":"A2","row":3},
   {"move":"star","beats":8,"params":{"hand":"right","places":4,"among":["middle"]},"text":"other 4 star right 4 places","section":"A2","row":4},
   {"move":"balance","beats":4,"params":{"formation":"pair","who":"partner","hand":"both"},"text":"partners balance & swing · balance","section":"B1","row":5},
-  {"move":"swing","beats":12,"params":{"who":"partner"},"text":"partners balance & swing · swing","section":"B1","row":5},
+  {"move":"lines-swing","beats":12,"params":{"who":"partner"},"text":"partners balance & swing · swing","section":"B1","row":5},
   {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance the ring","section":"B2","row":6},
   {"move":"twirl","beats":4,"params":{"style":"california","who":"partner"},"text":"partners California twirl","section":"B2","row":7},
   {"move":"lines-circle","beats":8,"params":{"direction":"left","places":4},"text":"circle left 4 places","progression":true,"section":"B2","row":8}

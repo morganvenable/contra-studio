@@ -1,12 +1,12 @@
-{ "schema": "contra-studio/next-dance", "version": 2, "id": "1341", "title": "Star Three Places break", "author": "[none]", "formation": "square", "progression": "mixer", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/1341", "formation": "square dance break", "retrievedAt": "2026-10-20T06:14:12.466Z", "sha256": "e82db269dc08523fbe820c769947ff32f3ab3c574b06e34395c3ed526cac9be6" }, "status": "check", "problems": [ "Row 1 \"star right 3 places robins\": a dancer has to move 1.22 m in one beat, faster than a walk (with 4 couples)." ], "unparsed": [], "choices": [ "A star with no grip named is a basket star (wrist grip)." ],
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "1341", "title": "Star Three Places break", "author": "[none]", "formation": "square", "progression": "mixer", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/1341", "formation": "square dance break", "retrievedAt": "2026-10-20T06:14:12.466Z", "sha256": "e82db269dc08523fbe820c769947ff32f3ab3c574b06e34395c3ed526cac9be6" }, "status": "ok", "problems": [], "unparsed": [], "choices": [],
  "figures": [
-  {"move":"star","beats":8,"params":{"hand":"right","places":3,"among":["robins"]},"text":"star right 3 places robins","section":"A1","row":1},
-  {"move":"swing","beats":8,"params":{"who":"neighbor"},"text":"1st neighbors swing (Corners)","section":"A1","row":2},
-  {"move":"star","beats":8,"params":{"hand":"left","places":3,"among":["larks"]},"text":"star left 3 places larks","section":"A2","row":3},
-  {"move":"swing","beats":8,"params":{"who":"opposite"},"text":"2nd neighbors swing (Opposites, but not in opposite place)","section":"A2","row":4},
-  {"move":"star","beats":8,"params":{"hand":"right","places":3,"among":["robins"]},"text":"star right 3 places robins","section":"B1","row":5},
+  {"move":"role-star","beats":8,"params":{"who":"robins","hand":"right","amount":0.75},"text":"star right 3 places robins","section":"A1","row":1},
+  {"move":"square-swing","beats":8,"params":{"who":"neighbor"},"text":"1st neighbors swing (Corners)","section":"A1","row":2},
+  {"move":"role-star","beats":8,"params":{"who":"larks","hand":"left","amount":0.75},"text":"star left 3 places larks","section":"A2","row":3},
+  {"move":"square-swing","beats":8,"params":{"who":"opposite"},"text":"2nd neighbors swing (Opposites, but not in opposite place)","section":"A2","row":4},
+  {"move":"role-star","beats":8,"params":{"who":"robins","hand":"right","amount":0.75},"text":"star right 3 places robins","section":"B1","row":5},
   {"move":"beside","beats":8,"params":{"move":"swing","side":"right","params":{}},"text":"3rd neighbors swing (\"that other larks\")","section":"B1","row":6},
-  {"move":"star","beats":8,"params":{"hand":"left","places":3,"among":["larks"]},"text":"star left 3 places larks","section":"B2","row":7},
+  {"move":"role-star","beats":8,"params":{"who":"larks","hand":"left","amount":0.75},"text":"star left 3 places larks","section":"B2","row":7},
   {"move":"promenade-home","beats":8,"params":{"who":"partner"},"text":"partners promenade along the set on the right to home (halfway around)","section":"B2","row":8}
  ]
 }

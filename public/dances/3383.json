@@ -7,7 +7,7 @@
   {"move":"do-si-do","beats":8,"params":{"who":"neighbor","amount":1,"shoulder":"right"},"text":"neighbors do si do once","section":"A2","row":3},
   {"move":"allemande","beats":8,"params":{"who":"neighbor","hand":"right","amount":1},"text":"neighbors allemande right once","section":"A2","row":4},
   {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"partners gyre left shoulders once (leftmost dancer u-turn back to start)","section":"B1","row":5},
-  {"move":"circle","beats":8,"params":{"direction":"right","places":3},"text":"circle right 3 places","section":"B1","row":6},
+  {"move":"whole-circle","beats":8,"params":{"direction":"right","places":3},"text":"circle right 3 places","section":"B1","row":6},
   {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"circle right 6 places (open from circle 3 into circle 6, circle to return home)","section":"B2","row":7},
   {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"zig right zag left","section":"B2","row":8,"progression":true}
  ]

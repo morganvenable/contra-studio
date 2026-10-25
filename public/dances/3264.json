@@ -1,4 +1,4 @@
-{ "schema": "contra-studio/next-dance", "version": 2, "id": "3264", "title": "Roll Away (variation)", "author": "Bill Sudkamp", "formation": "square", "progression": "mixer", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/3264", "formation": "square dance", "retrievedAt": "2026-10-20T06:11:07.017Z", "sha256": "76d25a49d4bb403418d4d65cc37ed051440e702042262da985c9f7cfec7072b4", "status": "sketchbook" }, "status": "check", "problems": [ "Row 11 \"partners swing\": a dancer has to move 1.31 m in one beat, faster than a walk (with 4 couples)." ], "unparsed": [], "choices": [],
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "3264", "title": "Roll Away (variation)", "author": "Bill Sudkamp", "formation": "square", "progression": "mixer", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/3264", "formation": "square dance", "retrievedAt": "2026-10-20T06:11:07.017Z", "sha256": "76d25a49d4bb403418d4d65cc37ed051440e702042262da985c9f7cfec7072b4", "status": "sketchbook" }, "status": "ok", "problems": [], "unparsed": [], "choices": [],
  "figures": [
   {"move":"forward-back","beats":8,"params":{"back":true,"among":["heads"]},"text":"Heads forward & back","section":"A1","row":1},
   {"move":"square-middle","beats":8,"params":{"move":"star","params":{"hand":"right","places":4},"among":["heads"]},"text":"star right 4 places Heads","section":"A1","row":2},
@@ -10,6 +10,6 @@
   {"move":"line-pairs","beats":4,"params":{"action":"roll","pairs":"center"},"text":"larks roll away neighbors with a half sashay (center two) - roll left to right, sashay right to left","section":"B1","row":8},
   {"move":"line-pairs","beats":4,"params":{"action":"balance","pairs":"ends"},"text":"next neighbors balance (Corners)","section":"B2","row":9},
   {"move":"line-pairs","beats":4,"params":{"action":"roll","pairs":"ends"},"text":"larks roll away next neighbors with a half sashay (Corners) - roll left to right, sashay right to left","section":"B2","row":10},
-  {"move":"swing","beats":8,"params":{"who":"partner"},"text":"partners swing","section":"B2","row":11}
+  {"move":"square-swing","beats":8,"params":{"who":"partner"},"text":"partners swing","section":"B2","row":11}
  ]
 }

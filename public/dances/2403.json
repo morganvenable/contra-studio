@@ -7,8 +7,8 @@
   {"move":"star","beats":4,"params":{"hand":"left","places":2},"text":"star left 2 places","section":"A2","row":5},
   {"move":"star","beats":4,"params":{"hand":"right","places":2},"text":"star right 2 places","section":"A2","row":6},
   {"move":"balance","beats":4,"params":{"formation":"pair","who":"neighbor","hand":"both"},"text":"neighbors balance & swing · balance","section":"B1","row":7},
-  {"move":"swing","beats":12,"params":{"who":"neighbor"},"text":"neighbors balance & swing · swing","section":"B1","row":7},
+  {"move":"lines-swing","beats":12,"params":{"who":"neighbor"},"text":"neighbors balance & swing · swing","section":"B1","row":7},
   {"move":"lines-circle","beats":8,"params":{"direction":"left","places":3},"text":"circle left 3 places","section":"B2","row":8},
-  {"move":"swing","beats":8,"params":{"who":"partner"},"text":"partners swing","progression":true,"section":"B2","row":9}
+  {"move":"lines-swing","beats":8,"params":{"who":"partner"},"text":"partners swing","progression":true,"section":"B2","row":9}
  ]
 }
