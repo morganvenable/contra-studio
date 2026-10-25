@@ -376,3 +376,21 @@ line each, for review.
 - First and second corners in a minor set of numbered couples: first corners are the lark of the 1s and the robin of the 2s; second corners the robin of the 1s and the lark of the 2s; in a square both name the corner. "Corner allemande L 3/2": the corner, left, 1½.
 - "Robins courtesy turn larks": the robins turn the larks beside them (neighbors unless partners are named). "Partners courtesy turn 1¼ to face the center": the wheel goes once round more than the turn to face the center.
 - "New/next neighbors ..." on a row before the row the source marks as the progression: the stored neighbors when they can dance it, otherwise the next neighbors as the dancers stand.
+- Right and left through "(larks on right)", "(robins courtesy turn this same neighbor larks)": the robins courtesy turn (they take the left place).
+- One-off rows, each read the standard way (parse-hands.ts round 2b):
+  - "Balance and swing", "dosido and swing neighbor": the neighbors.
+  - "Swing partner", "all swing": partners swing. "Elbow swing": partners allemande right once.
+  - "Right shoulder and melt into swing": a meltdown swing.
+  - Swing notes ("end swing, end facing down", "join hands four", "take hands in long lines", "balance optional", "this is a traveling swing", "twirl to the swing on other side"): the plain swing.
+  - "Partners balance & swing by balance the ring first": a ring balance, then partners swing.
+  - Mirror do-si-dos and handy-hand allemandes "(ones split the twos)": the split readings already in the table.
+  - "Larks allemande ____ 1½": left hand.
+  - Allemande notes ("keep hands", "scooping up your partner", "while robins drop out", "while robins face counterclockwise", "to trade back to the proper side"): the plain allemande. "While larks loop back over their right shoulders": the larks turn alone meanwhile.
+  - Chain notes ("to opposite neighbor", "to corner I", "courtesy turn ¾ ...", "courtesy turn is optional", "then turn"): the plain chain. "Across and back": over and back.
+  - Star notes ("and scatter single", "into a new wave", "back", "until larks are on their home side"): the plain star.
+  - "Star promenade left ½ and move right along set to new couple": the star promenade, then slide right.
+  - Balance spellings ("short wave", "the line right then left", "the wave l, r", "long lines", "lines of three"): a balance of what the dancers hold.
+  - "Balance towards and away (neighbor), spin or slide past neighbor": a neighbor balance, then neighbors pass by right shoulders.
+  - Give and take and take notes ("to the robins's side", "draw back partner", "with underarm turn"): the plain figure. "Robins give & take partners, swing": then partners swing.
+  - "Robins pull partner to your home side into a swing": partners swing.
+  - Right and left through notes ("with a second new neighbor ...", "straight across, face partner up & down", "courtesy turn 3/4 til ..."): the plain right and left through.

@@ -11,7 +11,7 @@
  * the one on the left does the courtesy turn, whatever the role.
  */
 import type { Figure, FigureContact } from '../core/figure.ts';
-import { onlyKeys, settle } from '../core/figure.ts';
+import { oneOf, onlyKeys, settle } from '../core/figure.ts';
 import { bodyMap, withinReach } from '../core/contacts.ts';
 import {
   courtesyAt,
@@ -24,7 +24,14 @@ import type { Vec2 } from '../../types.ts';
 import { SET } from '../core/config.ts';
 import { mirrored } from '../core/mirror.ts';
 import { add, distance, dot, forward, heading, leftOf, mix, scale, smooth, sub } from '../core/math.ts';
-import { body, groupCenter, minorSets, withChanges, type DanceState } from '../core/state.ts';
+import {
+  body,
+  groupCenter,
+  minorSets,
+  roleOf,
+  withChanges,
+  type DanceState,
+} from '../core/state.ts';
 
 export interface RightLeftThroughParams {
   /**
@@ -32,6 +39,11 @@ export interface RightLeftThroughParams {
    * hands and courtesy turning the other way round.
    */
   hand?: 'right' | 'left';
+  /**
+   * Who courtesy turns, when the row says ("right left through (larks on
+   * right)": the robins turn). Otherwise whoever is on the left.
+   */
+  turner?: 'larks' | 'robins';
 }
 
 /**
@@ -66,15 +78,26 @@ const WALK = 1.0;
 const VEER = 0.3;
 
 export const rightLeftThrough: Figure<RightLeftThroughParams> = (state, params, beats) => {
-  onlyKeys('right left through', params, ['hand']);
-  if (params.hand === 'left') return mirrored(rightHanded)(state, {}, beats);
+  onlyKeys('right left through', params, ['hand', 'turner']);
+  const turner =
+    params.turner === undefined
+      ? {}
+      : {
+          turner: oneOf('right left through', 'turner', params.turner, [
+            'larks',
+            'robins',
+          ] as const),
+        };
+  if (params.hand === 'left') return mirrored(rightHanded)(state, turner, beats);
   if (params.hand !== undefined && params.hand !== 'right')
     throw new Error(`right left through hand must be right or left; got ${String(params.hand)}.`);
-  return rightHanded(state, {}, beats);
+  return rightHanded(state, turner, beats);
 };
 
-const rightHanded: Figure<Record<string, never>> = (state, params, beats) => {
-  onlyKeys('right left through', params, []);
+const rightHanded: Figure<{ turner?: 'larks' | 'robins' }> = (state, params, beats) => {
+  onlyKeys('right left through', params, ['turner']);
+  const turnerRole =
+    params.turner === undefined ? undefined : params.turner === 'larks' ? 'lark' : 'robin';
   const plans = minorSets(state).flatMap((g) => {
     const middle = groupCenter(state, g);
     const at = linePlaces(state, g, middle);
@@ -94,9 +117,12 @@ const rightHanded: Figure<Record<string, never>> = (state, params, beats) => {
       const yaw = side(far[0]) > 0 ? -Math.PI / 2 : Math.PI / 2;
       // Whoever is on the left (facing in) courtesy turns; crossing keeps the order.
       const inward = yaw + Math.PI;
-      const [left, right] = [...line].sort((a, b) =>
+      let [left, right] = [...line].sort((a, b) =>
         dot(sub(at(b), at(a)), leftOf(inward)) > 0 ? 1 : -1,
       );
+      // The row names the turner: that dancer takes the left place instead.
+      if (turnerRole && roleOf(state, right) === turnerRole && roleOf(state, left) !== turnerRole)
+        [left, right] = [right, left];
       const pair = courtesyPair(
         left,
         right,
