@@ -380,13 +380,15 @@ const PATTERNS: readonly (readonly [RegExp, Build])[] = [
   [
     // "star promenade left ½ with partner", "... larks pick up partner",
     // "... scooping your partner".
-    /^(?:(\w+) )?star promenade (left|right) (\S+)(.*)$/,
+    /^(?:(\w+) )?star promenade (left|right) ([^\s,]+)(.*)$/,
     (m, b) => {
-      const rest = m[4].replace(
+      // "Larks pick up neighbor": the neighbor walks the outside instead.
+      const withNeighbor = /^,? ?(?:\w+ )?pick(?:ing)? up (?:your )?neighbors?$/.test(m[4]);
+      const rest = (withNeighbor ? '' : m[4]).replace(
         /^,? ?(?:with (?:your )?partners?|(?:\w+ )?(?:pick(?:ing)? up|scoop(?:ing)?|scoping)(?: up)? (?:your )?partners?(?: by the waist)?(?: back to place)?|\(?with partners?\)?)/,
         '',
       );
-      notes(rest, 'star promenade');
+      notes(rest.replace(/^,?\s*\w+ drop out on \w+ side,?$/, ''), 'star promenade');
       const amounts: Readonly<Record<string, number>> = { '¼': 0.25, '½': 0.5, '¾': 0.75, once: 1 };
       const amount = amounts[m[3]];
       if (amount === undefined) throw new Error(`Unknown star promenade amount "${m[3]}".`);
@@ -396,6 +398,7 @@ const PATTERNS: readonly (readonly [RegExp, Build])[] = [
           hand: m[2],
           amount,
           ...(center === 'larks' || center === 'robins' ? { center } : {}),
+          ...(withNeighbor ? { pair: 'neighbor' } : {}),
         }),
       ];
     },

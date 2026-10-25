@@ -1248,14 +1248,14 @@
     "uses": 17
    },
    {
-    "name": "star promenade",
-    "unlocks": 3,
-    "uses": 16
-   },
-   {
     "name": "box circulate",
     "unlocks": 3,
     "uses": 15
+   },
+   {
+    "name": "star promenade",
+    "unlocks": 3,
+    "uses": 12
    },
    {
     "name": "rory o'more",
