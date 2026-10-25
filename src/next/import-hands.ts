@@ -111,7 +111,7 @@ export function joinHandRows(rows: readonly SourceRow[], parsed: Parsed) {
   };
   rows.forEach((row, i) => {
     const calls = parsed[i];
-    if (!Array.isArray(calls) || !/(?:new|next) neighbors?/i.test(row.text)) return;
+    if (!Array.isArray(calls) || !/(?:new|next).*neighbors?|neighbors?.*(?:new|next)/i.test(row.text)) return;
     if (marked(i) || !rows.some((_r, j) => j > i && marked(j))) return;
     if (rows.some((_r, j) => j < i && marked(j))) return;
     parsed[i] = calls.map((c) =>

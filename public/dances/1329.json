@@ -4,7 +4,7 @@
   {"move":"chain","beats":8,"params":{"who":"robins"},"text":"robins chain","section":"A1","row":2},
   {"move":"pass-by","beats":4,"params":{"who":"partner","shoulder":"right","hands":false},"text":"cross trails - partners across the set right shoulders, neighbors along the set left shoulders · pull by","section":"A2","row":3},
   {"move":"pass-by","beats":4,"params":{"who":"neighbor","shoulder":"left","hands":false},"text":"cross trails - partners across the set right shoulders, neighbors along the set left shoulders · pull by","section":"A2","row":3},
-  {"move":"swing","beats":8,"params":{"who":"neighbor","orNext":true},"text":"next neighbors swing","section":"A2","row":4},
+  {"move":"swing","beats":8,"params":{"who":"neighbor"},"text":"next neighbors swing","section":"A2","row":4},
   {"move":"allemande","beats":8,"params":{"who":"larks","hand":"left","amount":1.5},"text":"larks allemande left 1½","section":"B1","row":5},
   {"move":"hey","beats":8,"params":{"start":"partner","amount":0.5,"center":"left"},"text":"partners start a half hey - rights on ends, lefts in center","section":"B1","row":6},
   {"move":"swing","beats":16,"params":{"who":"neighbor","meltdown":true},"text":"neighbors meltdown swing","progression":true,"section":"B2","row":7}

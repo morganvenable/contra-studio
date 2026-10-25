@@ -2,7 +2,7 @@
  "figures": [
   {"move":"gyre","beats":8,"params":{"who":"neighbor","amount":1.5},"text":"neighbors gyre 1½","section":"A1","row":1},
   {"move":"star","beats":8,"params":{"hand":"right","places":4},"text":"star right 4 places (same neighbors)","section":"A1","row":2},
-  {"move":"gyre","beats":8,"params":{"who":"neighbor","amount":1,"shoulder":"left","orNext":true},"text":"next neighbors gyre left shoulders once","section":"A2","row":3},
+  {"move":"gyre","beats":8,"params":{"who":"neighbor","amount":1,"shoulder":"left"},"text":"next neighbors gyre left shoulders once","section":"A2","row":3},
   {"move":"swing","beats":8,"params":{"who":"neighbor"},"text":"neighbors swing (original neighbors)","section":"A2","row":4},
   {"move":"circle","beats":8,"params":{"direction":"left","places":3},"text":"circle left 3 places","section":"B1","row":5},
   {"move":"swing","beats":8,"params":{"who":"partner"},"text":"partners swing","section":"B1","row":6},

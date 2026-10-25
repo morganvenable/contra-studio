@@ -5,7 +5,7 @@
   {"move":"long-lines","beats":4,"params":{"back":false},"text":"long lines forward","section":"A1","row":3},
   {"move":"roll-away","beats":4,"params":{"who":"larks","whom":"shadow"},"text":"larks roll away shadows with a half sashay","section":"A1","row":4},
   {"move":"hey","beats":8,"params":{"start":"larks","amount":0.5,"center":"right","ricochet":[{"who":"larks"},{"who":"robins"}]},"text":"larks start a half hey - rights in center, lefts on ends - larks ricochet, robins ricochet across the set - look for next neighbors †","section":"A2","row":5},
-  {"move":"swing","beats":8,"params":{"who":"neighbor","orNext":true},"text":"next neighbors swing","section":"A2","row":6},
+  {"move":"swing","beats":8,"params":{"who":"neighbor"},"text":"next neighbors swing","section":"A2","row":6},
   {"move":"right-left-through","beats":8,"params":{},"text":"right left through ‡","section":"B1","row":7},
   {"move":"hey","beats":8,"params":{"start":"robins","amount":0.5,"center":"right","ricochet":[{"who":"robins"},{"who":"larks"}]},"text":"robins start a half hey - rights in center, lefts on ends - robins ricochet, larks ricochet across the set ‡","section":"B1","row":8},
   {"move":"balance","beats":4,"params":{"formation":"pair","who":"partner","hand":"both"},"text":"partners balance & swing · balance","section":"B2","row":9},

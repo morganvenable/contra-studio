@@ -2,7 +2,7 @@
  "figures": [
   {"move":"star","beats":8,"params":{"hand":"right","places":4},"text":"star right 4 places","section":"A1","row":1},
   {"move":"allemande","beats":8,"params":{"who":"neighbor","hand":"right","amount":1.25},"text":"neighbors allemande right 1¼","section":"A1","row":2},
-  {"move":"gyre","beats":8,"params":{"who":"neighbor","amount":1,"shoulder":"left","orNext":true},"text":"next neighbors gyre left shoulders once","section":"A2","row":3},
+  {"move":"gyre","beats":8,"params":{"who":"neighbor","amount":1,"shoulder":"left"},"text":"next neighbors gyre left shoulders once","section":"A2","row":3},
   {"move":"swing","beats":8,"params":{"who":"neighbor"},"text":"neighbors swing original neighbor","section":"A2","row":4},
   {"move":"give-and-take","beats":8,"params":{"who":"larks","whom":"partner"},"text":"larks give & take partners","section":"B1","row":5},
   {"move":"swing","beats":8,"params":{"who":"partner"},"text":"partners swing","section":"B1","row":6},

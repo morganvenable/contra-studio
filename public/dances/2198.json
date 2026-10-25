@@ -1,6 +1,6 @@
 { "schema": "contra-studio/next-dance", "version": 2, "id": "2198", "title": "Slam Poetry", "author": "Nicholas Rockstroh", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/2198", "formation": "improper", "retrievedAt": "2026-10-20T06:12:47.864Z", "sha256": "bce5aaf53c1e93f6af305f8b217bbf4d9ed2b473ef1eacc39163f7bb60d659ce" }, "status": "ok", "problems": [], "unparsed": [], "choices": [ "A star with no grip named is a basket star (wrist grip).", "A meltdown swing starts with 4 beats of right-shoulder round, then swings." ],
  "figures": [
-  {"move":"swing","beats":16,"params":{"who":"neighbor","meltdown":true,"orNext":true},"text":"next neighbors meltdown swing","section":"A1","row":1},
+  {"move":"swing","beats":16,"params":{"who":"neighbor","meltdown":true},"text":"next neighbors meltdown swing","section":"A1","row":1},
   {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance & petronella · balance","section":"A2","row":2},
   {"move":"petronella","beats":4,"params":{},"text":"balance & petronella · petronella","section":"A2","row":2},
   {"move":"swing","beats":8,"params":{"who":"partner"},"text":"partners swing","section":"A2","row":3},

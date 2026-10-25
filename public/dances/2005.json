@@ -5,7 +5,7 @@
   {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"circle left 8 places whole circle set circle left","section":"A2","row":3},
   {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"turn by the individual right shoulder to walk single file counterclockwise around the ring","section":"A2","row":4},
   {"move":"hold","beats":1,"params":{"reason":"unparsed"},"text":"robins tap larks walking in front. larks turns around. say \"yooohooo! tap tap tap!\"","section":"B1","row":5},
-  {"move":"do-si-do","beats":8,"params":{"who":"neighbor","amount":1,"shoulder":"right","orNext":true},"text":"This one is the new neighbor. Do Si Do","section":"B1","row":6},
+  {"move":"do-si-do","beats":8,"params":{"who":"neighbor","amount":1,"shoulder":"right"},"text":"This one is the new neighbor. Do Si Do","section":"B1","row":6},
   {"move":"swing","beats":8,"params":{"who":"neighbor"},"text":"neighbors swing","section":"B1","row":7},
   {"move":"ring-promenade","beats":8,"params":{"who":"partner"},"text":"Promenade and walk that ring (counterclockwise)","progression":true,"section":"B1","row":8}
  ]

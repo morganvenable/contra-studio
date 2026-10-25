@@ -3,7 +3,7 @@
   {"move":"chain","beats":8,"params":{"who":"robins"},"text":"robins chain","section":"A1","row":1},
   {"move":"star","beats":4,"params":{"hand":"right","places":2},"text":"star right 2 places","section":"A1","row":2},
   {"move":"star","beats":4,"params":{"hand":"left","places":2},"text":"star left 2 places next couple","section":"A1","row":3},
-  {"move":"allemande","beats":8,"params":{"who":"neighbor","hand":"left","amount":1,"orNext":true},"text":"next neighbors allemande left once","section":"A2","row":4},
+  {"move":"allemande","beats":8,"params":{"who":"neighbor","hand":"left","amount":1},"text":"next neighbors allemande left once","section":"A2","row":4},
   {"move":"allemande","beats":8,"params":{"who":"robins","hand":"right","amount":1.5},"text":"robins allemande right 1½","section":"A2","row":5},
   {"move":"hey","beats":16,"params":{"start":"partner","center":"right","until":{"who":"partner","time":2}},"text":"partners start a hey - lefts on ends, rights in center - until partners meet the second time","section":"B1","row":6},
   {"move":"balance","beats":4,"params":{"formation":"pair","who":"partner","hand":"both"},"text":"partners balance & swing · balance","section":"B2","row":7},

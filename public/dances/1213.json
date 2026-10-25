@@ -5,7 +5,7 @@
   {"move":"balance","beats":4,"params":{"formation":"current"},"text":"balance","section":"A1","row":3},
   {"move":"allemande","beats":4,"params":{"who":"neighbor","hand":"right","amount":0.75,"longWaves":true},"text":"neighbors allemande right ¾ to long wave, larks in robins out","section":"A1","row":4},
   {"move":"balance","beats":4,"params":{"formation":"wave","style":"right-left"},"text":"balance wave","section":"A2","row":5},
-  {"move":"allemande","beats":2,"params":{"who":"neighbor","hand":"left","amount":0.75,"orNext":true},"text":"next neighbors allemande left ¾ robins (pass right shoulder in center to face partner · allemande","section":"A2","row":6},
+  {"move":"allemande","beats":2,"params":{"who":"neighbor","hand":"left","amount":0.75},"text":"next neighbors allemande left ¾ robins (pass right shoulder in center to face partner · allemande","section":"A2","row":6},
   {"move":"pass-by","beats":2,"params":{"who":"robins","shoulder":"right","hands":false},"text":"next neighbors allemande left ¾ robins (pass right shoulder in center to face partner · pull by","section":"A2","row":6},
   {"move":"swing","beats":8,"params":{"who":"partner"},"text":"partners swing","section":"A2","row":7},
   {"move":"give-and-take","beats":8,"params":{"who":"robins","whom":"neighbor"},"text":"robins give & take neighbors","progression":true,"section":"B1","row":8},

@@ -2889,7 +2889,7 @@
    },
    {
     "name": "swing variant",
-    "unlocks": 45
+    "unlocks": 48
    },
    {
     "name": "ocean wave / long wave",
@@ -2897,15 +2897,15 @@
    },
    {
     "name": "diagonal chain / right left through",
-    "unlocks": 28
-   },
-   {
-    "name": "circle variant",
-    "unlocks": 18
+    "unlocks": 27
    },
    {
     "name": "allemande variant",
     "unlocks": 17
+   },
+   {
+    "name": "circle variant",
+    "unlocks": 16
    },
    {
     "name": "star variant",

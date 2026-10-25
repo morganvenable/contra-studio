@@ -2,7 +2,7 @@
  "figures": [
   {"move":"balance","beats":3,"params":{"formation":"pair","who":"neighbor","hand":"right"},"text":"neighbors balance & pull by right along the set · balance","section":"A1","row":1},
   {"move":"pass-by","beats":3,"params":{"who":"neighbor","shoulder":"right","hands":true},"text":"neighbors balance & pull by right along the set · pull by","section":"A1","row":1},
-  {"move":"swing","beats":10,"params":{"who":"neighbor","orNext":true},"text":"next neighbors swing (neighbor 2)","section":"A1","row":2},
+  {"move":"swing","beats":10,"params":{"who":"neighbor"},"text":"next neighbors swing (neighbor 2)","section":"A1","row":2},
   {"move":"circle","beats":8,"params":{"direction":"left","places":4},"text":"circle left 4 places","section":"A2","row":3},
   {"move":"do-si-do","beats":8,"params":{"who":"neighbor","amount":1,"shoulder":"right"},"text":"neighbors do si do once","section":"A2","row":4},
   {"move":"balance","beats":4,"params":{"formation":"pair","who":"neighbor","hand":"right"},"text":"neighbors balance & pull by right · balance","section":"B1","row":5},

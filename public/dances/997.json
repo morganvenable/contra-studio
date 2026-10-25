@@ -2,7 +2,7 @@
  "figures": [
   {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance star","section":"A1","row":1},
   {"move":"star","beats":4,"params":{"hand":"left","places":2},"text":"star left 2 places","section":"A1","row":2},
-  {"move":"swing","beats":8,"params":{"who":"neighbor","orNext":true},"text":"next neighbors swing then turn back to original group of four","section":"A1","row":3},
+  {"move":"swing","beats":8,"params":{"who":"neighbor"},"text":"next neighbors swing then turn back to original group of four","section":"A1","row":3},
   {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance star with N1","section":"A2","row":4},
   {"move":"star","beats":4,"params":{"hand":"left","places":2},"text":"star left 2 places","section":"A2","row":5},
   {"move":"swing","beats":8,"params":{"who":"previous-neighbor"},"text":"prev neighbors swing then turn back to original group of four","section":"A2","row":6},

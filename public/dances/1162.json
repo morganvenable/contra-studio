@@ -5,7 +5,7 @@
   {"move":"allemande","beats":4,"params":{"who":"larks","hand":"left","amount":0.5,"wave":{"middle":"lark","ends":"neighbor"}},"text":"larks allemande left ½ to wave of four larks in center left hands right hand to neighbor","section":"A1","row":3},
   {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"balance & Rory O'More right slide right pass neighbor nose to nose","section":"A2","row":4},
   {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"balance & Rory O'More left slide left passing neighbor nose to nose","section":"A2","row":5},
-  {"move":"swing","beats":16,"params":{"who":"neighbor","meltdown":true,"orNext":true},"text":"neighbors meltdown swing ( New neighbor in the next wave you are facing on slight right diagonal)","section":"B1","row":6},
+  {"move":"swing","beats":16,"params":{"who":"neighbor","meltdown":true},"text":"neighbors meltdown swing ( New neighbor in the next wave you are facing on slight right diagonal)","section":"B1","row":6},
   {"move":"swing","beats":16,"params":{"who":"partner"},"text":"robins take partners back to her side of set, partners swing dance starts with this couple!","progression":true,"section":"B2","row":7}
  ]
 }

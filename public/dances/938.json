@@ -4,7 +4,7 @@
   {"move":"forward-back","beats":2,"params":{"back":false},"text":"walk forward to next neighbors","section":"A1","row":2},
   {"move":"ocean-wave","beats":2,"params":{"middle":"larks","middleHand":"right","ends":"neighbor","endHand":"left"},"text":"form an ocean wave - larks by right hands and next neighbors by left hands - ID this wave for later","section":"A1","row":3},
   {"move":"balance","beats":4,"params":{"formation":"wave","style":"right-left"},"text":"balance the wave","section":"A1","row":4},
-  {"move":"allemande","beats":4,"params":{"who":"neighbor","hand":"left","amount":0.75,"orNext":true},"text":"next neighbors allemande left ¾","section":"A1","row":5},
+  {"move":"allemande","beats":4,"params":{"who":"neighbor","hand":"left","amount":0.75},"text":"next neighbors allemande left ¾","section":"A1","row":5},
   {"move":"balance","beats":4,"params":{"formation":"pair","who":"neighbor","hand":"both"},"text":"neighbors balance & swing - *original* neighbors · balance","section":"A2","row":6},
   {"move":"swing","beats":12,"params":{"who":"neighbor"},"text":"neighbors balance & swing - *original* neighbors · swing","section":"A2","row":6},
   {"move":"hey","beats":8,"params":{"start":"larks","amount":0.5,"center":"left","ricochet":[{"who":"robins"}]},"text":"larks start a half hey - lefts in center, rights on ends - robins ricochet","section":"B1","row":7},

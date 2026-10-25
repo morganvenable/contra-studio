@@ -2,7 +2,7 @@
  "figures": [
   {"move":"ocean-wave","beats":4,"params":{"middle":"robins","middleHand":"left","ends":"neighbor","endHand":"right","balance":true},"text":"balance Wave","section":"A1","row":1},
   {"move":"orbit","beats":4,"params":{"center":"allemande","who":"robins","hand":"left","amount":1,"others":"forward"},"text":"robins allemande left once Around in center while the larks move straight ahead in oval","section":"A1","row":2},
-  {"move":"swing","beats":8,"params":{"who":"neighbor","orNext":true},"text":"next neighbors swing At top and bottom of set the person will be your partner to swing","section":"A1","row":3},
+  {"move":"swing","beats":8,"params":{"who":"neighbor"},"text":"next neighbors swing At top and bottom of set the person will be your partner to swing","section":"A1","row":3},
   {"move":"circle","beats":8,"params":{"direction":"left","places":3},"text":"circle left 3 places","section":"A2","row":4},
   {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance the ring","section":"A2","row":5},
   {"move":"twirl","beats":4,"params":{"style":"california","who":"neighbor"},"text":"neighbors California twirl To face partner","section":"A2","row":6},
