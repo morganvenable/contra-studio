@@ -4,26 +4,26 @@
  "catalogue": 2422,
  "stored": 2422,
  "counts": {
-  "ok": 327,
-  "check": 95,
-  "partial": 1718,
+  "ok": 330,
+  "check": 96,
+  "partial": 1714,
   "unsupported": 282
  },
  "formations": [
   {
    "formation": "improper",
    "dances": 1189,
-   "ok": 293,
-   "check": 56,
-   "partial": 840,
+   "ok": 294,
+   "check": 57,
+   "partial": 838,
    "unsupported": 0
   },
   {
    "formation": "becket",
    "dances": 655,
-   "ok": 29,
+   "ok": 31,
    "check": 34,
-   "partial": 592,
+   "partial": 590,
    "unsupported": 0
   },
   {
@@ -1099,17 +1099,17 @@
   "missingFigures": [
    {
     "name": "allemande variant",
-    "unlocks": 75,
+    "unlocks": 76,
     "uses": 317
    },
    {
     "name": "ocean wave / long wave",
-    "unlocks": 66,
+    "unlocks": 67,
     "uses": 269
    },
    {
     "name": "swing variant",
-    "unlocks": 37,
+    "unlocks": 38,
     "uses": 271
    },
    {
@@ -1119,13 +1119,18 @@
    },
    {
     "name": "circle variant",
-    "unlocks": 25,
+    "unlocks": 26,
     "uses": 156
    },
    {
     "name": "promenade",
-    "unlocks": 22,
+    "unlocks": 23,
     "uses": 88
+   },
+   {
+    "name": "down/up the hall",
+    "unlocks": 22,
+    "uses": 111
    },
    {
     "name": "turn alone / as a couple",
@@ -1133,9 +1138,9 @@
     "uses": 115
    },
    {
-    "name": "down/up the hall",
+    "name": "diagonal chain / right left through",
     "unlocks": 20,
-    "uses": 111
+    "uses": 93
    },
    {
     "name": "hey (other)",
@@ -1143,9 +1148,9 @@
     "uses": 85
    },
    {
-    "name": "diagonal chain / right left through",
-    "unlocks": 19,
-    "uses": 97
+    "name": "mad robin",
+    "unlocks": 20,
+    "uses": 57
    },
    {
     "name": "star variant",
@@ -1156,11 +1161,6 @@
     "name": "orbit allemande",
     "unlocks": 19,
     "uses": 59
-   },
-   {
-    "name": "mad robin",
-    "unlocks": 19,
-    "uses": 57
    },
    {
     "name": "balance variant",
@@ -1174,7 +1174,7 @@
    },
    {
     "name": "gyre",
-    "unlocks": 11,
+    "unlocks": 12,
     "uses": 53
    },
    {
@@ -1183,19 +1183,14 @@
     "uses": 46
    },
    {
-    "name": "ricochet hey",
+    "name": "square through",
     "unlocks": 10,
-    "uses": 40
+    "uses": 44
    },
    {
     "name": "slide along set",
     "unlocks": 9,
     "uses": 52
-   },
-   {
-    "name": "square through",
-    "unlocks": 9,
-    "uses": 44
    },
    {
     "name": "roll away",
@@ -1208,9 +1203,9 @@
     "uses": 50
    },
    {
-    "name": "arch & dive",
-    "unlocks": 7,
-    "uses": 28
+    "name": "ricochet hey",
+    "unlocks": 8,
+    "uses": 38
    },
    {
     "name": "petronella",
@@ -1218,7 +1213,7 @@
     "uses": 31
    },
    {
-    "name": "zig zag",
+    "name": "arch & dive",
     "unlocks": 6,
     "uses": 27
    },
@@ -1243,11 +1238,6 @@
     "uses": 23
    },
    {
-    "name": "rory o'more",
-    "unlocks": 3,
-    "uses": 29
-   },
-   {
     "name": "butterfly whirl",
     "unlocks": 3,
     "uses": 20
@@ -1268,6 +1258,11 @@
     "uses": 15
    },
    {
+    "name": "rory o'more",
+    "unlocks": 2,
+    "uses": 25
+   },
+   {
     "name": "poussette",
     "unlocks": 2,
     "uses": 25
@@ -1275,7 +1270,12 @@
    {
     "name": "figure 8",
     "unlocks": 2,
-    "uses": 12
+    "uses": 8
+   },
+   {
+    "name": "zig zag",
+    "unlocks": 2,
+    "uses": 5
    },
    {
     "name": "other: long lines back",
@@ -1288,9 +1288,14 @@
     "uses": 3
    },
    {
+    "name": "other: weave the line:",
+    "unlocks": 2,
+    "uses": 2
+   },
+   {
     "name": "contra corners",
     "unlocks": 1,
-    "uses": 11
+    "uses": 7
    },
    {
     "name": "diagonal hey",
@@ -1775,7 +1780,7 @@
    {
     "name": "revolving door",
     "unlocks": 0,
-    "uses": 3
+    "uses": 2
    },
    {
     "name": "other: ones turn by the right and cast below twos",
@@ -2066,11 +2071,6 @@
     "name": "other: partners la baratte see teaching note",
     "unlocks": 0,
     "uses": 1
-   },
-   {
-    "name": "other: weave the line:",
-    "unlocks": 0,
-    "uses": 2
    },
    {
     "name": "other: partners nevada twirl robins twirl the larks to swap & face",
@@ -2851,7 +2851,7 @@
   "figuresThatCannotStart": [
    {
     "name": "progression or other",
-    "unlocks": 58
+    "unlocks": 60
    },
    {
     "name": "diagonal chain / right left through",
@@ -2862,12 +2862,12 @@
     "unlocks": 17
    },
    {
-    "name": "do-si-do variant",
+    "name": "circle variant",
     "unlocks": 14
    },
    {
-    "name": "circle variant",
-    "unlocks": 13
+    "name": "do-si-do variant",
+    "unlocks": 14
    },
    {
     "name": "allemande variant",
@@ -2923,7 +2923,7 @@
    },
    {
     "name": "roll away",
-    "unlocks": 4
+    "unlocks": 5
    },
    {
     "name": "box circulate",
@@ -2981,7 +2981,7 @@
    },
    {
     "name": "The next time through can't start from where the dancers end",
-    "unlocks": 9
+    "unlocks": 10
    },
    {
     "name": "allemande variant",

@@ -9,11 +9,13 @@ import { body, type DanceState } from './state.ts';
 
 /** How directly someone must stand in front (cosine) to count as faced. */
 const AHEAD = 0.7;
+/** How far off straight ahead a diagonal partner may stand (cosine). */
+const WIDE = 0.3;
 /** Farthest apart two dancers can be and still face each other for a figure. */
 const REACH = 3;
 
 /** Who stands most directly in front of `id` within `group`, if anyone. */
-export function facedBy(state: DanceState, id: number, group: readonly number[]) {
+export function facedBy(state: DanceState, id: number, group: readonly number[], within = AHEAD) {
   const me = body(state, id);
   const ahead = forward(me.yaw);
   let best: number | undefined;
@@ -24,7 +26,7 @@ export function facedBy(state: DanceState, id: number, group: readonly number[])
     const d = length(gap);
     if (d < 1e-6 || d > REACH) continue;
     const cos = dot(gap, ahead) / d;
-    if (cos < AHEAD) continue;
+    if (cos < within) continue;
     // Straighter first, then nearer.
     const score = cos - 0.1 * d;
     if (score > bestScore) {
@@ -37,12 +39,15 @@ export function facedBy(state: DanceState, id: number, group: readonly number[])
 
 /** Pairs [a, b] (a < b) in `group` who face each other, each the other's best. */
 export function facingPairs(state: DanceState, group: readonly number[]): [number, number][] {
-  const pairs: [number, number][] = [];
-  for (const id of group) {
-    const other = facedBy(state, id, group);
-    if (other === undefined || other < id) continue;
-    if (facedBy(state, other, group) === id) pairs.push([id, other]);
+  // Straight ahead first; failing that, anyone ahead at all (a diagonal).
+  for (const ahead of [AHEAD, WIDE]) {
+    const pairs: [number, number][] = [];
+    for (const id of group) {
+      const other = facedBy(state, id, group, ahead);
+      if (other === undefined || other < id) continue;
+      if (facedBy(state, other, group, ahead) === id) pairs.push([id, other]);
+    }
+    if (pairs.length) return pairs;
   }
-  if (!pairs.length) throw new Error('Nobody here faces anyone to dance with.');
-  return pairs;
+  throw new Error('Nobody here faces anyone to dance with.');
 }

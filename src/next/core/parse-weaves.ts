@@ -93,9 +93,12 @@ const NOTES: readonly RegExp[] = [
   /^(?:the )?(?:dance starts|ones are back)\b.*$/,
   /^\(?roll (?:left to right|right to left)\)?$/,
   // Taking hands for the next figure: that figure joins them.
-  /^(?:the )?(?:trailing two|new \w+|original \w+|\w+) catch(?:ing)? (?:\w+ )?hands?(?: \w+)?$/,
+  /^(?:the )?(?:trailing two|new \w+|original \w+|\w+ )?\s*catch(?:ing)?(?: (?:\w+ )?(?:hands?|partners?|shadows?|neighbors?))?(?: in (?:the )?(?:left|right) hands?)?(?: \w+)?$/,
   /^(?:just )?(?:halfway|once around)$/,
   /^to progress$/,
+  /^balance (?:left|right) first(?: to (?:neighbors?|partners?))?$/,
+  /^;?\s*return to (?:partners?|neighbors?)$/,
+  /^(?:\w+ )?drop off (?:partners?|neighbors?)$/,
   /^(?:passing )?(?:by )?(?:the )?(?:left|right)(?: shoulders?)?$/,
   /^\(?see note\)?$/,
   /^(?:one full hey in total|across set|across the set)$/,
@@ -171,6 +174,22 @@ function heyRest(rest: string) {
 }
 
 const PATTERNS: readonly (readonly [RegExp, Build])[] = [
+  [
+    /^(?:((?:\d\w* |next |new )*\w+) )?(pass|pull) by (right|left)(?: along)?(?: (?:short |slight )?(left|right))? diagonal(.*)$/,
+    (m, b) => {
+      notes(m[5].replace(/^\s*-?\s*(?:partners?|robins|larks)$/, ''), 'pull by');
+      const w = m[1] ? who(m[1]) : 'facing';
+      return [
+        call('pass-by', b, {
+          who: w === 'shadow' ? 'facing' : w,
+          shoulder: m[3],
+          hands: m[2] === 'pull',
+          // A diagonal not named: the one on the side of the hand.
+          diagonal: m[4] ?? m[3],
+        }),
+      ];
+    },
+  ],
   [
     // "robins balance & pull by right, face a new neighbor", "neighbors
     // balance & pull by right along the set", "1st neighbors balance &
@@ -300,7 +319,12 @@ const PATTERNS: readonly (readonly [RegExp, Build])[] = [
     /^(\w+) contra corners(.*)$/,
     (m, b) => {
       notes(
-        m[2].replace(/^\s*-?\s*opposite role - first corners then second corners/, ''),
+        m[2]
+          .replace(/^\s*-?\s*opposite role - first corners then second corners/, '')
+          .replace(
+            /^\s*(?:opposite file|home file|ending progressed|alternate with twos|up\/down - opposite-role neighbors first, same roles second)$/,
+            '',
+          ),
         'contra corners',
       );
       return [call('contra-corners', b, { who: who(m[1]) })];
@@ -319,7 +343,11 @@ const PATTERNS: readonly (readonly [RegExp, Build])[] = [
     // "zig left zag right", "neighbors zig right zag left".
     /^(?:(\w+) )?zig (left|right),? zag (?:right|left)(.*)$/,
     (m, b) => {
-      notes(m[3], 'zig zag');
+      // Whom the pairs pass or meet, and who leads, are notes: the pairs
+      // trade places all the same. Anything forming a wave or another
+      // figure is not.
+      if (/wave|roll|swing|allemande|balance|chain/.test(m[3]))
+        throw new Error(`The zig zag row adds "${m[3].trim()}".`);
       const pair = m[1] ? who(m[1]) : undefined;
       if (pair && pair !== 'partner' && pair !== 'neighbor')
         throw new Error(`Unknown zig zag pairs "${m[1]}".`);
@@ -471,15 +499,33 @@ const PATTERNS: readonly (readonly [RegExp, Build])[] = [
     // "twos arch ones dive", "ones arch, twos duck under".
     /^(\w+) arch,? (?:and )?(\w+) (?:dive|duck)(?: under| through)?(.*)$/,
     (m, b) => {
-      notes(m[3], 'arch and dive');
+      notes(
+        m[3].replace(
+          /^\s*(?:forwards|\(?\w+ will be on one side of the set, \w+ on the other\)?)$/,
+          '',
+        ),
+        'arch and dive',
+      );
       return [call('arch-dive', b, { arch: who(m[1]), dive: who(m[2]) })];
+    },
+  ],
+  [
+    // "ones full figure 8": two half figure eights, around one standing
+    // dancer and then the other, ending home.
+    /^(\w+) (?:full|whole) figure (?:8|eight)(?: (above|below))?$/,
+    (m, b) => {
+      const half = { who: who(m[1]), ...(m[2] ? { around: m[2] } : {}) };
+      return [call('figure-eight', b / 2, half), call('figure-eight', b / 2, half)];
     },
   ],
   [
     // "ones half figure 8 below", "twos half figure 8 above, first larks leading".
     /^(\w+) half figure (?:8|eight)(?: (above|below))?(?:,? (?:(?:first|second) )?(\w+) leading)?(.*)$/,
     (m, b) => {
-      notes(m[4], 'half figure eight');
+      notes(
+        m[4].replace(/^\s*(?:the (?:ones|twos)|down between(?: next neighbors)?)$/, ''),
+        'half figure eight',
+      );
       const lead = m[3] ? who(m[3]) : undefined;
       return [
         call('figure-eight', b, {

@@ -39,3 +39,7 @@ below. One line each; change any of them by telling us the other reading.
 - Star notes read as the plain star: "larks drop out (on home side)", "robins falling in / stepping in behind partners", "a bit more until ...", "just halfway", "with shadow #1", "seek your new neighbor", "to take right hands with next neighbors".
 - A trailing turn with no one named ("robins balance & pull by right, turn back in") is done by the dancers the row named; a turn named alongside a pass ("larks pass by ..., robins turn over right shoulders") is drawn right after the pass.
 - Hey rows: "pass partner right to start" / "(pull by r)" restate the first pass; "passing by the left" restates the shoulder; blank shoulders ("____ in center") take the row's "passing ... shoulders", else rights; "until partners meet back on home side" is the usual "until partners meet"; "when the robins meet the second time they ricochet" is a ricochet on that meeting; "larks finish an ordinary hey" is a note.
+- Zig zag rows saying whom the pairs pass or meet, or who leads out ("larks lead out, robins in to face new couple", "into a ring with new neighbors") read as the plain zig zag; one forming a wave or another figure does not.
+- "Ones full figure 8": two half figure eights, around one standing dancer then the other, ending home.
+- "Pull by right diagonal" with no diagonal side named: the diagonal on the side of the hand; whoever faces across that diagonal pulls by.
+- Contra corners notes "home file", "opposite file", "ending progressed", "(alternate with twos)" read as plain contra corners.
