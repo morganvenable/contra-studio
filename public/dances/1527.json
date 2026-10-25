@@ -11,6 +11,6 @@
   {"move":"give-and-take","beats":8,"params":{"who":"larks","whom":"neighbor"},"text":"larks give & take neighbors","section":"B1","row":4},
   {"move":"swing","beats":8,"params":{"who":"neighbor"},"text":"neighbors swing","section":"B1","row":5},
   {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"robins chain and courtesy turn to face left diagonal","section":"B2","row":6},
-  {"move":"slice","beats":8,"params":{"direction":"left","back":"straight"},"text":"slice left and straight back to face new couple","section":"B2","row":7}
+  {"move":"slice","beats":8,"params":{"direction":"left","back":"straight"},"text":"slice left and straight back to face new couple","section":"B2","row":7,"progression":true}
  ]
 }

@@ -5,6 +5,6 @@
   {"move":"hold","beats":16,"params":{"reason":"unparsed"},"text":"Neighbors right shoulder and melt into swing","section":"A2","row":3},
   {"move":"hold","beats":16,"params":{"reason":"unparsed"},"text":"robins start a full hey - rights in center, lefts on ends robins continue hey for a little longer and cross the set once more to meet their partner","section":"B1","row":4},
   {"move":"hold","beats":14,"params":{"reason":"unparsed"},"text":"Partners right shoulder and melt into swing","section":"B2","row":5},
-  {"move":"slide","beats":2,"params":{"direction":"left"},"text":"slide left along set","section":"B2","row":6}
+  {"move":"slide","beats":2,"params":{"direction":"left"},"text":"slide left along set","section":"B2","row":6,"progression":true}
  ]
 }

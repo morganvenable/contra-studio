@@ -4,9 +4,9 @@
  "catalogue": 2422,
  "stored": 2422,
  "counts": {
-  "ok": 362,
-  "check": 148,
-  "partial": 1630,
+  "ok": 369,
+  "check": 150,
+  "partial": 1621,
   "unsupported": 282
  },
  "formations": [
@@ -21,9 +21,9 @@
   {
    "formation": "becket",
    "dances": 655,
-   "ok": 39,
-   "check": 63,
-   "partial": 553,
+   "ok": 46,
+   "check": 65,
+   "partial": 544,
    "unsupported": 0
   },
   {
@@ -2616,7 +2616,7 @@
   "figuresThatCannotStart": [
    {
     "name": "progression or other",
-    "unlocks": 107
+    "unlocks": 108
    },
    {
     "name": "ocean wave / long wave",
@@ -2631,19 +2631,19 @@
     "unlocks": 13
    },
    {
-    "name": "circle variant",
-    "unlocks": 13
-   },
-   {
     "name": "rory o'more",
     "unlocks": 9
    },
    {
-    "name": "allemande variant",
-    "unlocks": 7
+    "name": "circle variant",
+    "unlocks": 8
    },
    {
     "name": "slide along set",
+    "unlocks": 6
+   },
+   {
+    "name": "allemande variant",
     "unlocks": 6
    },
    {
@@ -2656,10 +2656,6 @@
    },
    {
     "name": "gyre",
-    "unlocks": 5
-   },
-   {
-    "name": "mad robin",
     "unlocks": 5
    },
    {
@@ -2725,6 +2721,10 @@
    {
     "name": "down/up the hall",
     "unlocks": 1
+   },
+   {
+    "name": "mad robin",
+    "unlocks": 1
    }
   ],
   "checkFailures": [
@@ -2761,15 +2761,19 @@
     "unlocks": 5
    },
    {
+    "name": "roll away",
+    "unlocks": 3
+   },
+   {
     "name": "do-si-do variant",
     "unlocks": 3
    },
    {
-    "name": "roll away",
+    "name": "circle variant",
     "unlocks": 2
    },
    {
-    "name": "circle variant",
+    "name": "box the gnat / swat the flea",
     "unlocks": 2
    },
    {
@@ -2794,10 +2798,6 @@
    },
    {
     "name": "slide along set",
-    "unlocks": 1
-   },
-   {
-    "name": "box the gnat / swat the flea",
     "unlocks": 1
    },
    {

@@ -20,6 +20,6 @@
   {"move":"pass-by","beats":2,"params":{"who":"neighbor","shoulder":"left","hands":true},"text":"2nd neighbors pull by left","section":"B1","row":18},
   {"move":"circle","beats":6,"params":{"direction":"left","places":3},"text":"circle left 3 places","section":"B2","row":19},
   {"move":"swing","beats":8,"params":{"who":"partner"},"text":"partners swing","section":"B2","row":20},
-  {"move":"slide","beats":2,"params":{"direction":"left"},"text":"slide left along set","section":"B2","row":21}
+  {"move":"slide","beats":2,"params":{"direction":"left"},"text":"slide left along set","section":"B2","row":21,"progression":true}
  ]
 }

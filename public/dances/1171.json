@@ -6,7 +6,7 @@
   {"move":"balance","beats":4,"params":{"formation":"pair","who":"neighbor","hand":"both"},"text":"neighbors balance & swing · balance","section":"A2","row":4},
   {"move":"swing","beats":12,"params":{"who":"neighbor"},"text":"neighbors balance & swing · swing","section":"A2","row":4},
   {"move":"swing","beats":16,"params":{"who":"partner"},"text":"robins take partners, partners swing","section":"B1","row":5},
-  {"move":"slice","beats":8,"params":{"direction":"left","back":"straight"},"text":"slice left and straight back to new couple","section":"B2","row":7},
-  {"move":"long-lines","beats":8,"params":{"back":true},"text":"long lines forward & back","progression":true,"section":"B2","row":8}
+  {"move":"slice","beats":8,"params":{"direction":"left","back":"straight"},"text":"slice left and straight back to new couple","section":"B2","row":7,"progression":true},
+  {"move":"long-lines","beats":8,"params":{"back":true},"text":"long lines forward & back","section":"B2","row":8}
  ]
 }

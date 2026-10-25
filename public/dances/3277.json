@@ -10,6 +10,6 @@
   {"move":"allemande","beats":8,"params":{"who":"robins","hand":"right","amount":1.5},"text":"robins allemande right 1½","section":"B1","row":8},
   {"move":"hold","beats":4,"params":{"reason":"unparsed"},"text":"robins ricochet off neighbor to cross back across the set clockwise","section":"B2","row":9},
   {"move":"swing","beats":10,"params":{"who":"partner"},"text":"partners swing (slide left) · swing","section":"B2","row":10},
-  {"move":"slide","beats":2,"params":{"direction":"left"},"text":"partners swing (slide left) · slide","section":"B2","row":10}
+  {"move":"slide","beats":2,"params":{"direction":"left"},"text":"partners swing (slide left) · slide","section":"B2","row":10,"progression":true}
  ]
 }

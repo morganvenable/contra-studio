@@ -72,3 +72,4 @@ reading below. One line each; change any of them and the figure follows.
 - "Slice left and diagonal back": the couples slice out on the diagonal and back the same way, ending home.
 - "Right and left through across": an ordinary right and left through.
 - "Ladles chain left diagonal": the chain on the left diagonal; a row ending "to" after a reminder ("chain (to new neighbor)") is the figure alone.
+- Becket (minor-set) dances progress at their slide or slice along the set: when the source marks only the last row as the progression (or none) and the dance has exactly one slide or slice, the new neighbors are met at that slide.

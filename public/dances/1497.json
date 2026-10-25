@@ -6,6 +6,6 @@
   {"move":"swing","beats":12,"params":{"who":"neighbor"},"text":"neighbors balance & swing · swing","section":"A2","row":3},
   {"move":"swing","beats":16,"params":{"who":"partner"},"text":"larks take partners, partners swing","section":"B1","row":4},
   {"move":"long-lines","beats":8,"params":{"back":true},"text":"long lines forward & back","section":"B2","row":6},
-  {"move":"slice","beats":8,"params":{"direction":"left","back":"straight"},"text":"slice left and straight back to face new neighbors","section":"B2","row":7}
+  {"move":"slice","beats":8,"params":{"direction":"left","back":"straight"},"text":"slice left and straight back to face new neighbors","section":"B2","row":7,"progression":true}
  ]
 }

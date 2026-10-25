@@ -7,6 +7,6 @@
   {"move":"do-si-do","beats":8,"params":{"who":"partner","amount":1,"shoulder":"right"},"text":"partners do si do once","section":"B1","row":5},
   {"move":"swing","beats":8,"params":{"who":"partner"},"text":"partners swing","section":"B1","row":6},
   {"move":"long-lines","beats":8,"params":{"back":true},"text":"long lines forward & back","section":"B2","row":7},
-  {"move":"slice","beats":8,"params":{"direction":"left","back":"straight"},"text":"slice left and straight back in long lines","section":"B2","row":8}
+  {"move":"slice","beats":8,"params":{"direction":"left","back":"straight"},"text":"slice left and straight back in long lines","section":"B2","row":8,"progression":true}
  ]
 }

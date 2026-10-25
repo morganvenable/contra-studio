@@ -5,6 +5,6 @@
   {"move":"hold","beats":4,"params":{"reason":"unparsed"},"text":"shadows allemande ____ once Handy hand","section":"B1","row":3},
   {"move":"swing","beats":12,"params":{"who":"partner"},"text":"partners swing","section":"B1","row":4},
   {"move":"circle","beats":8,"params":{"direction":"left","places":4},"text":"circle left 4 places","section":"B2","row":5},
-  {"move":"slice","beats":8,"params":{"direction":"left","back":"straight"},"text":"slice left and straight back","section":"B2","row":6}
+  {"move":"slice","beats":8,"params":{"direction":"left","back":"straight"},"text":"slice left and straight back","section":"B2","row":6,"progression":true}
  ]
 }

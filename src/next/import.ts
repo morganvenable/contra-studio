@@ -236,6 +236,30 @@ function startInWave(parsed: (StoredCall[] | Error)[]) {
 }
 
 /**
+ * A minor-set (Becket) dance progresses by sliding or slicing along the set.
+ * When the source marks its last row as the progression, or marks none, and
+ * the dance has exactly one slide or slice to new neighbors, the progression
+ * happens at that slide: the dancers meet their new neighbors there.
+ */
+function slideProgression(figures: StoredCall[], shape: Shape | undefined) {
+  if (shape?.progression !== 'minor-set') return;
+  const slides = figures
+    .map((c, i) => [c, i] as const)
+    .filter(([c]) => c.move === 'slide' || (c.move === 'slice' && c.params.back !== 'diagonal'));
+  if (slides.length !== 1) return;
+  const marked = figures.flatMap((c, i) => (c.progression ? [i] : []));
+  const last = figures.length - 1;
+  if (marked.length > 1 || (marked.length === 1 && marked[0] !== last)) return;
+  const [slide, at] = slides[0];
+  if (slide.progression) return;
+  for (const i of marked) {
+    const { progression: _, ...rest } = figures[i];
+    figures[i] = rest;
+  }
+  figures[at] = { ...slide, progression: true };
+}
+
+/**
  * Import one snapshot. `sha256` is the hex hash of `snapshot.html` (the
  * caller hashes; this module stays free of Node APIs).
  */
@@ -287,6 +311,7 @@ export function importDance(id: string, snapshot: ContraDbSnapshot, sha256: stri
         });
     }
   });
+  slideProgression(figures, shape);
   const choices = CHOICES.filter(([test]) => figures.some(test)).map(([, t]) => t);
   return {
     schema: 'contra-studio/next-dance',
