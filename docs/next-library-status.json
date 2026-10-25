@@ -4,34 +4,34 @@
  "catalogue": 2422,
  "stored": 2422,
  "counts": {
-  "ok": 372,
-  "check": 181,
-  "partial": 1587,
+  "ok": 378,
+  "check": 187,
+  "partial": 1575,
   "unsupported": 282
  },
  "formations": [
   {
    "formation": "improper",
    "dances": 1189,
-   "ok": 311,
-   "check": 74,
-   "partial": 804,
+   "ok": 312,
+   "check": 76,
+   "partial": 801,
    "unsupported": 0
   },
   {
    "formation": "becket",
    "dances": 655,
-   "ok": 50,
-   "check": 83,
-   "partial": 522,
+   "ok": 53,
+   "check": 87,
+   "partial": 515,
    "unsupported": 0
   },
   {
    "formation": "becket ccw",
    "dances": 169,
-   "ok": 1,
+   "ok": 3,
    "check": 18,
-   "partial": 150,
+   "partial": 148,
    "unsupported": 0
   },
   {
@@ -1099,27 +1099,27 @@
   "missingFigures": [
    {
     "name": "ricochet hey",
-    "unlocks": 56,
+    "unlocks": 61,
     "uses": 156
    },
    {
     "name": "star variant",
-    "unlocks": 51,
+    "unlocks": 53,
     "uses": 162
    },
    {
     "name": "ocean wave / long wave",
-    "unlocks": 50,
-    "uses": 185
+    "unlocks": 49,
+    "uses": 177
    },
    {
     "name": "petronella",
-    "unlocks": 47,
+    "unlocks": 48,
     "uses": 113
    },
    {
     "name": "hey (other)",
-    "unlocks": 45,
+    "unlocks": 46,
     "uses": 137
    },
    {
@@ -1129,22 +1129,17 @@
    },
    {
     "name": "pull by / pass by",
-    "unlocks": 30,
+    "unlocks": 31,
     "uses": 116
    },
    {
     "name": "zig zag",
-    "unlocks": 29,
+    "unlocks": 30,
     "uses": 61
    },
    {
-    "name": "promenade",
-    "unlocks": 24,
-    "uses": 80
-   },
-   {
     "name": "allemande variant",
-    "unlocks": 23,
+    "unlocks": 24,
     "uses": 99
    },
    {
@@ -1159,8 +1154,13 @@
    },
    {
     "name": "balance variant",
-    "unlocks": 18,
+    "unlocks": 19,
     "uses": 82
+   },
+   {
+    "name": "do-si-do variant",
+    "unlocks": 17,
+    "uses": 51
    },
    {
     "name": "revolving door",
@@ -1168,19 +1168,14 @@
     "uses": 39
    },
    {
-    "name": "do-si-do variant",
-    "unlocks": 16,
-    "uses": 51
+    "name": "rory o'more",
+    "unlocks": 15,
+    "uses": 52
    },
    {
     "name": "circle variant",
     "unlocks": 14,
-    "uses": 83
-   },
-   {
-    "name": "rory o'more",
-    "unlocks": 14,
-    "uses": 52
+    "uses": 82
    },
    {
     "name": "swing variant",
@@ -1188,13 +1183,18 @@
     "uses": 79
    },
    {
+    "name": "promenade",
+    "unlocks": 13,
+    "uses": 46
+   },
+   {
     "name": "chain variant",
-    "unlocks": 12,
+    "unlocks": 13,
     "uses": 28
    },
    {
     "name": "cross trails",
-    "unlocks": 9,
+    "unlocks": 10,
     "uses": 17
    },
    {
@@ -1210,12 +1210,12 @@
    {
     "name": "turn alone / as a couple",
     "unlocks": 7,
-    "uses": 72
+    "uses": 70
    },
    {
-    "name": "slide along set",
-    "unlocks": 7,
-    "uses": 35
+    "name": "star promenade",
+    "unlocks": 6,
+    "uses": 26
    },
    {
     "name": "diagonal hey",
@@ -1233,9 +1233,9 @@
     "uses": 33
    },
    {
-    "name": "star promenade",
+    "name": "slide along set",
     "unlocks": 5,
-    "uses": 26
+    "uses": 29
    },
    {
     "name": "into the middle / forward & back",
@@ -1358,6 +1358,11 @@
     "uses": 1
    },
    {
+    "name": "other: robins turn back to neighbors",
+    "unlocks": 1,
+    "uses": 1
+   },
+   {
     "name": "other: robins trade by the left shoulder, catch left hands",
     "unlocks": 1,
     "uses": 1
@@ -1423,7 +1428,7 @@
     "uses": 1
    },
    {
-    "name": "other: right left through actually it should be left right through, but we don't have the option in the system",
+    "name": "other: partners courtesy turn",
     "unlocks": 1,
     "uses": 1
    },
@@ -1439,11 +1444,6 @@
    },
    {
     "name": "other: pass through; pass your partner by the right to find your shadow",
-    "unlocks": 1,
-    "uses": 1
-   },
-   {
-    "name": "other: left right through",
     "unlocks": 1,
     "uses": 1
    },
@@ -1829,11 +1829,6 @@
    },
    {
     "name": "other: twos seperate, cast home",
-    "unlocks": 0,
-    "uses": 1
-   },
-   {
-    "name": "other: robins turn back to neighbors",
     "unlocks": 0,
     "uses": 1
    },
@@ -2258,11 +2253,6 @@
     "uses": 1
    },
    {
-    "name": "other: partners courtesy turn",
-    "unlocks": 0,
-    "uses": 1
-   },
-   {
     "name": "other: right left through interrupted by",
     "unlocks": 0,
     "uses": 1
@@ -2601,11 +2591,11 @@
   "figuresThatCannotStart": [
    {
     "name": "progression or other",
-    "unlocks": 59
+    "unlocks": 60
    },
    {
     "name": "swing variant",
-    "unlocks": 24
+    "unlocks": 25
    },
    {
     "name": "ocean wave / long wave",
@@ -2625,15 +2615,19 @@
    },
    {
     "name": "chain variant",
-    "unlocks": 7
+    "unlocks": 8
+   },
+   {
+    "name": "allemande variant",
+    "unlocks": 8
    },
    {
     "name": "circle variant",
     "unlocks": 7
    },
    {
-    "name": "allemande variant",
-    "unlocks": 7
+    "name": "roll away",
+    "unlocks": 6
    },
    {
     "name": "gyre",
@@ -2641,10 +2635,6 @@
    },
    {
     "name": "butterfly whirl",
-    "unlocks": 5
-   },
-   {
-    "name": "roll away",
     "unlocks": 5
    },
    {
@@ -2684,6 +2674,10 @@
     "unlocks": 3
    },
    {
+    "name": "do-si-do variant",
+    "unlocks": 2
+   },
+   {
     "name": "other: pass through across the set",
     "unlocks": 1
    },
@@ -2700,10 +2694,6 @@
     "unlocks": 1
    },
    {
-    "name": "do-si-do variant",
-    "unlocks": 1
-   },
-   {
     "name": "mad robin",
     "unlocks": 1
    }
@@ -2711,7 +2701,7 @@
   "checkFailures": [
    {
     "name": "Couples don't end the round where the progression puts them",
-    "unlocks": 72
+    "unlocks": 78
    },
    {
     "name": "pull by / pass by",
@@ -2746,11 +2736,11 @@
     "unlocks": 4
    },
    {
-    "name": "promenade",
+    "name": "roll away",
     "unlocks": 3
    },
    {
-    "name": "roll away",
+    "name": "into the middle / forward & back",
     "unlocks": 3
    },
    {
@@ -2758,12 +2748,16 @@
     "unlocks": 2
    },
    {
-    "name": "into the middle / forward & back",
+    "name": "california twirl",
     "unlocks": 2
    },
    {
-    "name": "california twirl",
+    "name": "circle variant",
     "unlocks": 2
+   },
+   {
+    "name": "promenade",
+    "unlocks": 1
    },
    {
     "name": "diagonal chain / right left through",
@@ -2771,10 +2765,6 @@
    },
    {
     "name": "slide along set",
-    "unlocks": 1
-   },
-   {
-    "name": "butterfly whirl",
     "unlocks": 1
    },
    {

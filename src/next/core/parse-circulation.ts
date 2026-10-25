@@ -230,6 +230,62 @@ export const CIRCULATION_PATTERNS: readonly (readonly [RegExp, Build])[] = [
     (m, b) => [call('promenade', b, { who: one(m[1]) })],
   ],
   [
+    // "ladles slide right to partner", "meanwhile ladles slide left to meet
+    // partner": only that role slides, one place.
+    /^(?:meanwhile )?(larks|robins|gentlespoons|ladles|men|women|ladies|gents) slide (left|right)(?: one place)?(?: (?:along (?:the )?set|to (?:meet )?(?:your |their |a )?(?:new )?(?:partners?|neighbors?))(?: for an?)?)?$/,
+    (m, b) => [call('slide', b, { direction: m[2], who: who(m[1]) })],
+  ],
+  [
+    // "left right through": the mirror image of a right and left through.
+    /^left (?:and |& )?right through$|^right left through actually it should be left right through\b.*$/,
+    (_m, b) => [call('right-left-through', b, { hand: 'left' })],
+  ],
+  [
+    // "neighbors promenade along the set on the right (counterclockwise big
+    // oval)", "... on the left (move in a clockwise oval)": the whole set
+    // walks half way round the oval, single file, facing the way it goes.
+    /^(?:(\w+) )?promenade along (?:the )?set on the (right|left)\b.*$/,
+    (m, b) => [
+      call('oval', b, { direction: m[2] === 'right' ? 'right' : 'left', half: true, facing: 'travel' }),
+    ],
+  ],
+  [
+    // "partners promenade and loop (left) to next neighbors", "partners
+    // promenade J-hook", "promenade across, and shift ccw around set",
+    // "partners promenade and to the right along the set to a new couple":
+    // the promenade, then the couples go on one place along the set. The way
+    // is the one named ("to the right"); otherwise the formation's
+    // progression (Becket clockwise: left), settled at import.
+    /^(?:(\w+) )?promenade(?: across(?: the)?(?: set)?)?(?:,| and| &| then)*\s*((?:and )?(?:loop|looping|j-hook|hook|shift|shifting|too? the right|to the left|across set and to the right|along set to the right|pomenade along set to the right)\b.*)$/,
+    (m, b) => {
+      if (/up and down|along the set on the/.test(m[2])) throw new Error('Not a promenade to new neighbors.');
+      const way = /\bright\b/.test(m[2]) && !/loop(?:ing)? (?:wide |large )?(?:left|right)/.test(m[2])
+        ? 'right'
+        : /\bto the left\b/.test(m[2]) && !/loop/.test(m[2])
+          ? 'left'
+          : 'progression';
+      return [
+        call('promenade', b - 2, { who: m[1] ? one(m[1]) : 'partner' }),
+        call('slide', 2, { direction: way }),
+      ];
+    },
+  ],
+  [
+    // "circle left 3 places to wave of four (ladles in center left hands,
+    // right hand to neighbor)": the circle, then the last 2 beats open into
+    // the wave. Unnamed: robins left hands in the middle, neighbors right.
+    /^circle (left|right) (\w+) places? to (?:a |an )?(?:new |original |ocean )?(?:wave|wavy line)(?: of (?:4|four))?(?:,? (\w+) (?:in )?(?:the )?(?:center|centre|cntr) (left|right) hands?,? (?:and )?(?:(?:right|left) (?:hand )?)?(?:to )?(neighbors?|partners?|neithbor))?$/,
+    (m, b) => [
+      call('circle', b - 2, { direction: m[1], places: count(m[2]) }),
+      call('ocean-wave', 2, {
+        middle: m[3] ? who(m[3]) : 'robins',
+        middleHand: m[4] ?? 'left',
+        ends: m[5] ? (m[5].startsWith('p') ? 'partner' : 'neighbor') : 'neighbor',
+        endHand: (m[4] ?? 'left') === 'left' ? 'right' : 'left',
+      }),
+    ],
+  ],
+  [
     // "entire set oval left", "big oval circle right": the whole set in one
     // ring, a place every two beats.
     /^(?:entire set|big|custom) oval(?: circle)? (left|right)(?: in (?:a )?large circle)?$/,

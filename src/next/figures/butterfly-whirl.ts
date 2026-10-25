@@ -15,6 +15,7 @@
  */
 import type { Vec2 } from '../../types.ts';
 import type { Figure, FigureContact } from '../core/figure.ts';
+import { bodyMap, withinReach } from '../core/contacts.ts';
 import { onlyKeys, settle } from '../core/figure.ts';
 import { SET } from '../core/config.ts';
 import {
@@ -89,18 +90,22 @@ export const butterflyWhirl: Figure<Record<string, never>> = (state, params, bea
           : CLOSE + (SET.slot - CLOSE) * smooth((t - (1 - OPEN)) / OPEN);
       const d = scale(rotate(p.u0, a), apart);
       const yaw = p.yaw0 - a;
-      // Each dancer turns from their own facing to the couple's over the first beat.
-      const blend = smooth(beat / 1);
+      // Each dancer turns from their own facing to the couple's over the first
+      // beat, or longer for one with farther to turn (at most half the figure).
+      const over = (from: number) =>
+        Math.min(beats / 2, Math.max(1, (1.5 * Math.abs(turn(p.yaw0, from))) / 2.5));
+      const blendL = smooth(beat / over(p.pl.yaw));
+      const blendR = smooth(beat / over(p.pr.yaw));
       return [
         {
           id: p.lark,
           position: sub(center, scale(d, 0.5)),
-          yaw: p.pl.yaw + turn(yaw, p.pl.yaw) * blend,
+          yaw: yaw - turn(p.yaw0, p.pl.yaw) * (1 - blendL),
         },
         {
           id: p.robin,
           position: add(center, scale(d, 0.5)),
-          yaw: p.pr.yaw + turn(yaw, p.pr.yaw) * blend,
+          yaw: yaw - turn(p.yaw0, p.pr.yaw) * (1 - blendR),
         },
       ];
     });
@@ -114,7 +119,9 @@ export const butterflyWhirl: Figure<Record<string, never>> = (state, params, bea
       target: 'waist',
       strength,
     }));
-    return { bodies, contacts };
+    // The arm goes round the waist only once the partners are close enough.
+    const map = bodyMap(bodies);
+    return { bodies, contacts: contacts.map((c) => withinReach(c, map)) };
   };
   return {
     kind: 'butterfly-whirl',

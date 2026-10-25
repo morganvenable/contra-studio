@@ -14,6 +14,7 @@
  */
 import type { Vec2 } from '../../types.ts';
 import { SET } from './config.ts';
+import { bodyMap, withinReach } from './contacts.ts';
 import type { Figure } from './figure.ts';
 import { settle } from './figure.ts';
 import { add, dot, forward, leftOf, mean, rightOf, scale, smooth, sub, turn } from './math.ts';
@@ -97,7 +98,7 @@ export function onDiagonal<P>(figure: Figure<P>): Figure<P & { diagonal?: 'left'
     // Close up over the first beats, and spread back to the side lines'
     // places over the last ones: each dancer takes back the shift of the
     // couple whose side of the minor set they end on.
-    const span = Math.min(GATHER_BEATS, beats / 3);
+    const span = Math.min(GATHER_BEATS, beats / 2);
     const end = result.motion(beats);
     const back = new Map<number, Vec2>();
     for (const g of groups) {
@@ -112,15 +113,18 @@ export function onDiagonal<P>(figure: Figure<P>): Figure<P & { diagonal?: 'left'
       const frame = result.motion(beat);
       const open = smooth(beat / span);
       const close = smooth((beat - (beats - span)) / span);
-      return {
-        bodies: frame.bodies.map((b) => {
-          const d = shifts.get(b.id);
-          if (!d) return b;
-          const position = sub(add(b.position, scale(back.get(b.id)!, -close)), scale(d, 1 - open));
-          return { ...b, position };
-        }),
-        contacts: frame.contacts.map((c) => (shifts.has(c.a) ? { ...c, point: undefined } : c)),
-      };
+      const moved = frame.bodies.map((b) => {
+        const d = shifts.get(b.id);
+        if (!d) return b;
+        const position = sub(add(b.position, scale(back.get(b.id)!, -close)), scale(d, 1 - open));
+        return { ...b, position };
+      });
+      // Hands are taken again where the dancers really stand, and only where they reach.
+      const map = bodyMap(moved);
+      const contacts = frame.contacts.map((c) =>
+        shifts.has(c.a) || shifts.has(c.b) ? withinReach({ ...c, point: undefined }, map) : c,
+      );
+      return { bodies: moved, contacts };
     };
     return {
       ...result,
@@ -131,7 +135,7 @@ export function onDiagonal<P>(figure: Figure<P>): Figure<P & { diagonal?: 'left'
 }
 
 /** Beats, at most, to close up to a diagonal couple, and to spread back. */
-const GATHER_BEATS = 3;
+const GATHER_BEATS = 4;
 
 /**
  * Couples on a diagonal stand farther apart along the set than couples

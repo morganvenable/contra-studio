@@ -23,16 +23,27 @@ import { body, withChanges } from '../core/state.ts';
 
 export interface OvalParams {
   direction: 'left' | 'right';
-  /** Places around the oval; one place is one slot. */
-  places: number;
+  /** Places around the oval; one place is one slot. Or `half`: half way round. */
+  places?: number;
+  half?: boolean;
+  /**
+   * `travel` for a promenade along the set: no hands, everyone facing the
+   * way they walk, single file around the oval. Otherwise facing in, hands
+   * joined.
+   */
+  facing?: 'in' | 'travel';
 }
 
 const FACE_BEATS = 1;
+/** How far behind and ahead a walker looks to face along the oval (smooths the corners). */
+const LOOK = 0.7;
 
 export const oval: Figure<OvalParams> = (state, params, beats) => {
-  onlyKeys('oval', params, ['direction', 'places']);
+  onlyKeys('oval', params, ['direction', 'places', 'half', 'facing']);
   const direction = oneOf('oval', 'direction', params.direction, ['left', 'right'] as const);
-  if (!(Number.isInteger(params.places) && params.places >= 1))
+  const travelFacing = params.facing === 'travel';
+  if (params.facing !== undefined) oneOf('oval', 'facing', params.facing, ['in', 'travel'] as const);
+  if (!params.half && !(Number.isInteger(params.places) && params.places! >= 1))
     throw new Error('An oval moves a whole number of places.');
   if (state.hands.length) throw new Error('An oval starts with free hands.');
   const ids = state.dancers.map((d) => d.id);
@@ -63,7 +74,9 @@ export const oval: Figure<OvalParams> = (state, params, beats) => {
     heading(p, { x: 0, z: clamp(p.z, top + SET.slot / 2, bottom - SET.slot / 2) });
 
   const sign = direction === 'left' ? 1 : -1;
-  const travel = sign * params.places * SET.slot;
+  const places = params.half ? state.dancers.length / 2 : params.places!;
+  if (!Number.isInteger(places)) throw new Error('Half an oval must land on places.');
+  const travel = sign * places * SET.slot;
   const movers = ids.map((id) => {
     const s = body(state, id);
     const from = along(s.position);
@@ -84,14 +97,19 @@ export const oval: Figure<OvalParams> = (state, params, beats) => {
     const q = progress(beat / beats);
     const bodies = movers.map((m) => {
       const position = at(m.from + travel * q);
-      const face = inward(position);
+      // Walking along the oval: the heading from just behind to just ahead.
+      const face = travelFacing
+        ? heading(at(m.from + travel * q - sign * LOOK), at(m.from + travel * q + sign * LOOK))
+        : inward(position);
       const yaw = m.s.yaw + turn(face, m.s.yaw) * smooth(beat / FACE_BEATS);
       return { id: m.id, position, yaw: beat >= FACE_BEATS ? face : yaw };
     });
     const t = beat / beats;
     const strength = Math.min(smooth(t / 0.1), smooth((1 - t) / 0.1));
     const map = bodyMap(bodies);
-    const contacts: FigureContact[] = holds.map((h) => withinReach(joined(h, strength), map));
+    const contacts: FigureContact[] = travelFacing
+      ? []
+      : holds.map((h) => withinReach(joined(h, strength), map));
     return { bodies, contacts };
   };
   return {

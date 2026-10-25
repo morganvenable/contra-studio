@@ -188,8 +188,8 @@ function joinLeadIns(parsed: (StoredCall[] | Error)[]) {
 }
 
 /**
- * A zero-beat "turn alone" row after a figure of 6 beats or more takes that
- * figure's last 2 beats ("circle right 4 places", then "turn alone to face
+ * A zero-beat "turn alone" or "slide along set" row after a figure of 6
+ * beats or more takes that figure's last 2 beats ("circle right 4 places", then "turn alone to face
  * next neighbors"). A zero-beat "form a long wave in the center" only says
  * where the dancers already are, so it adds no call.
  */
@@ -204,12 +204,20 @@ function joinLeadOuts(
       parsed[i] = [];
       continue;
     }
-    if (lead.move !== 'turn-alone') continue;
+    if (lead.move !== 'turn-alone' && lead.move !== 'slide') continue;
     const before = i > 0 ? parsed[i - 1] : undefined;
-    if (!Array.isArray(before)) continue;
-    const last = before.at(-1);
-    if (!last || last.beats < 6) continue;
-    before[before.length - 1] = { ...last, beats: last.beats - 2 };
+    const last = Array.isArray(before) ? before.at(-1) : undefined;
+    if (Array.isArray(before) && last && last.beats >= 6) {
+      before[before.length - 1] = { ...last, beats: last.beats - 2 };
+      parsed[i] = [{ ...lead, beats: 2 }];
+      continue;
+    }
+    // A zero-beat slide that opens the dance takes the first 2 beats of the
+    // figure after it.
+    const after = lead.move === 'slide' ? parsed[i + 1] : undefined;
+    const next = Array.isArray(after) ? after[0] : undefined;
+    if (!next || next.beats < 6) continue;
+    (after as StoredCall[])[0] = { ...next, beats: next.beats - 2 };
     parsed[i] = [{ ...lead, beats: 2 }];
   }
 }
@@ -233,6 +241,20 @@ function startInWave(parsed: (StoredCall[] | Error)[]) {
     move: 'ocean-wave',
     params: { ...wave, balance: true },
   };
+}
+
+/**
+ * A slide the source leaves to the progression ("promenade and loop to next
+ * neighbors", a J-hook) goes the formation's way: right in Becket
+ * counterclockwise, left otherwise (Becket clockwise, and the usual reading
+ * elsewhere).
+ */
+function progressionSlides(figures: StoredCall[], shape: Shape | undefined) {
+  const way = shape?.formation === 'becket-ccw' ? 'right' : 'left';
+  figures.forEach((c, i) => {
+    if (c.move === 'slide' && c.params.direction === 'progression')
+      figures[i] = { ...c, params: { ...c.params, direction: way } };
+  });
 }
 
 /**
@@ -317,6 +339,7 @@ export function importDance(id: string, snapshot: ContraDbSnapshot, sha256: stri
         });
     }
   });
+  progressionSlides(figures, shape);
   slideProgression(figures, shape);
   const choices = CHOICES.filter(([test]) => figures.some(test)).map(([, t]) => t);
   return {

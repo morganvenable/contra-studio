@@ -22,10 +22,17 @@ import {
 } from '../core/courtesy.ts';
 import type { Vec2 } from '../../types.ts';
 import { SET } from '../core/config.ts';
+import { mirrored } from '../core/mirror.ts';
 import { add, distance, dot, forward, heading, leftOf, mix, scale, smooth, sub } from '../core/math.ts';
 import { body, groupCenter, minorSets, withChanges, type DanceState } from '../core/state.ts';
 
-export type RightLeftThroughParams = Record<string, never>;
+export interface RightLeftThroughParams {
+  /**
+   * Left for a "left right through": the mirror image, pulling by left
+   * hands and courtesy turning the other way round.
+   */
+  hand?: 'right' | 'left';
+}
 
 /**
  * Where each dancer counts as standing. Two couples in one line of four
@@ -59,6 +66,14 @@ const WALK = 1.0;
 const VEER = 0.3;
 
 export const rightLeftThrough: Figure<RightLeftThroughParams> = (state, params, beats) => {
+  onlyKeys('right left through', params, ['hand']);
+  if (params.hand === 'left') return mirrored(rightHanded)(state, {}, beats);
+  if (params.hand !== undefined && params.hand !== 'right')
+    throw new Error(`right left through hand must be right or left; got ${String(params.hand)}.`);
+  return rightHanded(state, {}, beats);
+};
+
+const rightHanded: Figure<Record<string, never>> = (state, params, beats) => {
   onlyKeys('right left through', params, []);
   const plans = minorSets(state).flatMap((g) => {
     const middle = groupCenter(state, g);

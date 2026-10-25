@@ -85,5 +85,13 @@ reading below. One line each; change any of them and the figure follows.
 - A circle shorter than four beats closes up less and keeps a steadier pace; closing up always takes at least 0.8 beat.
 - A gyre between dancers far apart (opposite corners) walks in, around and out along one path at a steady pace, going around close enough (never under 0.27 m from the middle) to stay at a walk.
 - A right and left through straight from a line of four (after up or down the hall): the line bends as the couples set off, ends forward and middles back. A long crossing (to a diagonal couple) takes up to 65% of the beats before the courtesy turn.
-- Figures on a diagonal (circle, chain, right and left through): the two couples close up along their lines to stand straight across from each other over the first beats (up to 3, a third of the figure), and step back out to the places on their sides over the last ones.
+- Figures on a diagonal (circle, chain, right and left through): the two couples close up along their lines to stand straight across from each other over the first beats (up to 4, half the figure), and step back out to the places on their sides over the last ones.
 - In Becket lines, couples on a side line face across whichever way each dancer is turned (finding new neighbors after a ring); a lark's couple is the robin on his right, else the robin on his left.
+- Left right through: the mirror image of a right and left through (pull by left hands, courtesy turn the other way round).
+- "Ladles slide right to partner", "meanwhile ladles slide left to meet partner": only that role slides one place to its own right or left, letting go of hands.
+- A zero-beat "slide left along set" row takes the last 2 beats of the figure before it (6 beats or more), or the first 2 of the figure after it when it opens the dance.
+- J-hook, "promenade and loop (left/wide/large)", "promenade and hook", "promenade, shift ccw around set": the promenade, then the couples go on one place along the set in 2 beats; the way is the one the row names ("to the right"), otherwise the formation's progression (left in Becket clockwise and elsewhere, right in Becket counterclockwise).
+- "Neighbors (partners) promenade along the set on the right/left": the whole set walks half way round the oval (right = counterclockwise), single file, facing the way it goes, no hands; a second such row brings everyone home.
+- "Circle left 3 places to (a) wave of four": the circle, then the last 2 beats open into the wave; unnamed, robins take left hands in the middle and neighbors right hands on the ends.
+- Promenades shorter than 8 beats spend 68% of the beats crossing and leave more of the wheel for opening out; partners close in on the pair's middle steadily as it walks.
+- A butterfly whirl takes hands only once partners are within reach, and each turns to the couple's facing over a beat or more.

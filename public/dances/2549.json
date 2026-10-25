@@ -1,4 +1,4 @@
-{ "schema": "contra-studio/next-dance", "version": 2, "id": "2549", "title": "Winter Fog variation", "author": "Nicholas Rockstroh", "formation": "becket", "progression": "minor-set", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/2549", "formation": "Becket", "retrievedAt": "2026-10-20T06:23:34.817Z", "sha256": "2a3c0d2cddfeb516385c23d4f52ac68c5afbf4f360ca9defee77b2a64e97990b" }, "status": "partial", "problems": [ "Row 8 \"slide left along set\" isn't drawn yet." ], "unparsed": [ { "row": 8, "text": "slide left along set", "why": "0 beats is too short for this row's parts." } ], "choices": [ "A balance with a partner or neighbor holds both hands." ],
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "2549", "title": "Winter Fog variation", "author": "Nicholas Rockstroh", "formation": "becket", "progression": "minor-set", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/2549", "formation": "Becket", "retrievedAt": "2026-10-20T06:23:34.817Z", "sha256": "2a3c0d2cddfeb516385c23d4f52ac68c5afbf4f360ca9defee77b2a64e97990b" }, "status": "ok", "problems": [], "unparsed": [], "choices": [ "A balance with a partner or neighbor holds both hands." ],
  "figures": [
   {"move":"chain","beats":8,"params":{"who":"robins"},"text":"robins chain","section":"A1","row":1},
   {"move":"hey","beats":8,"params":{"start":"robins","amount":0.5,"center":"right"},"text":"robins start a half hey - rights in center, lefts on ends","section":"A1","row":2},
@@ -7,6 +7,7 @@
   {"move":"hey","beats":8,"params":{"start":"larks","amount":0.5,"center":"left"},"text":"larks start a half hey - lefts in center, rights on ends","section":"B1","row":4},
   {"move":"do-si-do","beats":8,"params":{"who":"larks","amount":1,"shoulder":"left"},"text":"larks see saw once","section":"B1","row":5},
   {"move":"circle","beats":6,"params":{"direction":"left","places":3},"text":"circle left 3 places","section":"B2","row":6},
-  {"move":"swing","beats":10,"params":{"who":"partner"},"text":"partners swing","section":"B2","row":7}
+  {"move":"swing","beats":8,"params":{"who":"partner"},"text":"partners swing","section":"B2","row":7},
+  {"move":"slide","beats":2,"params":{"direction":"left"},"text":"slide left along set","progression":true,"section":"B2","row":8}
  ]
 }
