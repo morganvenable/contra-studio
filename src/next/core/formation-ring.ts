@@ -22,7 +22,7 @@ import type { Vec2 } from '../../types.ts';
 import { SET } from './config.ts';
 import { createDancers } from './dancers.ts';
 import type { Formation } from './formation.ts';
-import { distance, dot, heading, rightOf, leftOf, sub } from './math.ts';
+import { distance, dot, heading, mean, rightOf, leftOf, sub } from './math.ts';
 import type { CheckSpec, MeetingRule, SlotsModel } from './models.ts';
 import type { Progression } from './progression.ts';
 import { body, type Body, type DanceState, withChanges } from './state.ts';
@@ -50,9 +50,16 @@ export function ringPlaces(n: number, center: Vec2 = RING_CENTER, paired = false
 }
 
 /** Dancer on `id`'s right (or left) side, standing beside them facing the same way. */
-export function besideOf(state: DanceState, id: number, side: 'right' | 'left', role?: string) {
+export function besideOf(
+  state: DanceState,
+  id: number,
+  side: 'right' | 'left',
+  role?: string,
+  facing?: number,
+) {
   const b = body(state, id);
-  const dir = side === 'right' ? rightOf(b.yaw) : leftOf(b.yaw);
+  const yaw = facing ?? b.yaw;
+  const dir = side === 'right' ? rightOf(yaw) : leftOf(yaw);
   let best: number | undefined;
   let bestD = Infinity;
   for (const d of state.dancers) {
@@ -70,17 +77,22 @@ export function besideOf(state: DanceState, id: number, side: 'right' | 'left', 
   return best;
 }
 
-/** Partners and corners from where everyone stands in the ring. */
+/**
+ * Partners and corners from where everyone stands in the ring, as if each
+ * lark faced the center (whichever way he faces after the last figure).
+ */
 function ringRelations(state: DanceState) {
   const partner = new Map<number, number>();
   const neighbor = new Map<number, number>();
+  const center = mean(state.dancers.map((d) => body(state, d.id).position));
   for (const d of state.dancers) {
     if (d.role !== 'lark') continue;
-    const p = besideOf(state, d.id, 'right', 'robin');
+    const inward = heading(body(state, d.id).position, center);
+    const p = besideOf(state, d.id, 'right', 'robin', inward);
     if (p === undefined) throw new Error(`Lark ${d.couple + 1} has no robin on the right.`);
     if (partner.has(p)) throw new Error('Two larks have the same robin on their right.');
     partner.set(d.id, p).set(p, d.id);
-    const n = besideOf(state, d.id, 'left', 'robin');
+    const n = besideOf(state, d.id, 'left', 'robin', inward);
     if (n !== undefined) neighbor.set(d.id, n).set(n, d.id);
   }
   if (partner.size !== state.dancers.length)

@@ -281,7 +281,10 @@ export function inLayout<P>(move: string, figure: Figure<P>): Figure<P & { among
     const relation = named ? { name: who as string } : undefined;
     let runs: Run[];
     if (layout?.center && !WHOLE.has(move)) {
-      const pairs = typeof who === 'string' ? pairsOf(state, groups, who) : undefined;
+      // A role dancing with someone ("larks roll away partners") pairs by whom.
+      const whom = (rest as { whom?: unknown }).whom;
+      const by = typeof whom === 'string' && state.relations.has(whom) ? whom : who;
+      const pairs = typeof by === 'string' ? pairsOf(state, groups, by) : undefined;
       runs = (pairs ?? groups).map((g) => ({
         group: g,
         frame: radialFrame(state, g, layout.center!),

@@ -48,7 +48,7 @@ const WHEEL = 0.2;
 const HOLD_HALF = 0.3;
 const SETTLE_BEATS = 1;
 /** An easy promenade walk, meters per beat. */
-const WALK = 0.6;
+const WALK = 0.55;
 
 export const ringPromenade: Figure<RingPromenadeParams> = (state, params, beats) => {
   onlyKeys('promenade', params, ['who', 'direction', 'places', 'amount']);

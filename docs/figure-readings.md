@@ -35,3 +35,13 @@ line each, for review.
 - "Proper" (duple minor): every lark on the larks' side, partners facing each other across the set at the start (lines facing).
 - A pair figure that names a place ("ones allemande right 1½", "heads do si do"): those dancers dance it with their partners.
 - A dance whose rows carry two progression marks progresses twice a time through (a double progression), whatever its formation line says.
+- In a ring, a row that says the figure makes a new partner ("this neighbor is your new partner", "that's your new partner") is the progression, even without the progression sign.
+- A role moving "one place" or to the "next partner" in a ring goes one couple (two dancer places) round; "move to your next partner" with no role named means the larks.
+- A robin's new partner "behind her" after a counterclockwise promenade is the lark on her left; a lark going to the "next" robin goes to the robin on his left (his corner), as in the Circassian Circle.
+- "Turn over the left/right shoulder & go to new partner": walk into the middle, turn that way, come out two places over on that side, and end facing in.
+- "Slide left along set" in a ring: everyone faces in and slides round the ring, one place per four beats.
+- Grand right and left: each change is one dancer place; a right hand passes right shoulders with the lark inside; "count to N" pulls by N-1 and meets the Nth beside them, facing in.
+- "Sashay in & out": partners face with two hands, slide about 1 m into the middle and back, and end on their places.
+- "Partners swing right elbow", "elbow swing": an allemande by that hand.
+- "Neighbors scatter promenade" in a ring: promenade with the robin now on your right, who becomes your partner.
+- In a ring, partners after the progression are found as if each lark faced the center: the robin beside him on his right.
