@@ -43,10 +43,10 @@ export interface StarPromenadeParams {
 }
 
 /** Distance from the middle to each center dancer, and to their partner. */
-export const INNER = 0.35;
-export const OUTER = 0.95;
+export const INNER = 0.45;
+export const OUTER = 1.0;
 /** Share of the figure spent stepping into the star promenade. */
-const ENTRY = 0.25;
+const ENTRY = 0.6;
 
 export const starPromenade: Figure<StarPromenadeParams> = (state, params, beats) => {
   onlyKeys('star promenade', params, ['hand', 'center', 'amount']);

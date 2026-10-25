@@ -9,8 +9,9 @@
  * Source: Caller's Box glossary, "Roll away with a half sashay"; ContraDB
  * rows "gentlespoons roll away neighbors with a half sashay" (usually right
  * after "long lines forward"). Dancers standing in from their side line roll
- * away on the way back to it, everyone facing across. The spin is part of the figure's definition
- * and stays within the ordinary turn limit.
+ * away on the way back to it, everyone facing across. The spin is part of the figure's definition;
+ * in four beats or more it stays within the ordinary turn limit, and a quicker
+ * roll away reports it as styled motion.
  *
  * Anywhere else the two only need to stand side by side: in a ring ("balance
  * the ring, larks roll away partners") they face the middle, and the rolled
@@ -189,7 +190,8 @@ export const rollAway: Figure<RollAwayParams> = (state, params, beats) => {
 
   const motion = (beat: number) => ({
     bodies: moves.map((m) => {
-      const q = progress(beat / beats);
+      // A quick (2-beat) roll away keeps its pace even to the ends.
+      const q = progress(beat / beats, beats <= 2 ? 0.1 : 0.18);
       const position = add(mix(m.from.position, m.to, q), scale(m.offset, Math.sin(Math.PI * q)));
       const face = m.from.yaw + turn(m.yaw, m.from.yaw) * smooth(beat / FACE_BEATS);
       return { id: m.id, position, yaw: face + m.spin * ease(beat / beats) };
@@ -200,5 +202,9 @@ export const rollAway: Figure<RollAwayParams> = (state, params, beats) => {
     kind: 'rollaway',
     motion,
     exit: withChanges(settle(state, motion, beats), { hands: [] }),
+    // The rolled dancer's full spin is the figure itself; done in under four
+    // beats it turns faster than an ordinary walk, so it is reported as
+    // styled motion (like the Rory twirl) rather than failed.
+    ...(beats < 4 ? { styled: { name: 'Roll away spin' } } : {}),
   };
 };

@@ -14,6 +14,7 @@ import { body, type DanceState } from '../core/state.ts';
 import { parseRow } from '../core/parse.ts';
 import { diagonalGroups } from '../core/diagonal.ts';
 import { FIGURES } from '../figures/index.ts';
+import { MINOR_SET_PROGRESSION } from '../core/progression.ts';
 import { call, near } from './helpers.ts';
 
 const improper = (calls: readonly FigureCall[], couples = 2): DanceState =>
@@ -437,4 +438,20 @@ test('larks gate neighbors to face down: the larks pivot, the neighbors walk aro
   for (const id of [0, 1, 2, 3])
     assert.ok(Math.abs(turn(r.exit.bodies.get(id)!.yaw, 0)) < 1e-6, `${id} faces down`);
   withinLimits(r, 8, 'gate');
+});
+
+test('Becket progression with partners across the set, after a zig zag', () => {
+  const s = becket(
+    [call('circle', 8, { direction: 'left', places: 3 }), call('zig-zag', 6, { first: 'left' })],
+    4,
+  );
+  const next = MINOR_SET_PROGRESSION.rebind(s);
+  assert.equal(next.groups.length, 1, 'one new minor set in the middle, two couples waiting');
+  for (const [a, b] of next.relations.get('neighbor')!) {
+    assert.notEqual(next.dancers[a].role, next.dancers[b].role);
+    assert.notEqual(next.dancers[a].couple, next.dancers[b].couple);
+  }
+  // The new minor set is two couples that did not just dance together.
+  const g = next.groups[0];
+  assert.ok(!s.groups.some((old) => g.every((id) => old.includes(id))));
 });

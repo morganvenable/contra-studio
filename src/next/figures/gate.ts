@@ -20,6 +20,7 @@ import {
   dot,
   forward,
   length,
+  mean,
   progress,
   rightOf,
   rotate,
@@ -38,12 +39,31 @@ export interface GateParams {
 
 const NAMES = ['larks', 'robins', '1s', '2s'] as const;
 /** Pivot to gated dancer once the gate swings: side by side, near hands joined. */
-const GATE_RADIUS = 0.9;
+const GATE_RADIUS = 0.8;
 
 function named(state: DanceState, who: string, id: number) {
   if (who === 'larks' || who === 'robins')
     return roleOf(state, id) === (who === 'larks' ? 'lark' : 'robin');
   return state.positions.get(who)?.includes(id) ?? false;
+}
+
+const gateRadius = (r0: number, q: number) =>
+  r0 + (Math.min(r0, GATE_RADIUS) - r0) * smooth(q / 0.7);
+
+/**
+ * Share of the gate's turn done at travel progress q, weighted by 1/radius
+ * so the gated dancer's walking speed follows the progress ramp.
+ */
+function swingShare(r0: number, q: number) {
+  const steps = 64;
+  let total = 0;
+  let done = 0;
+  for (let i = 0; i < steps; i++) {
+    const w = 1 / gateRadius(r0, (i + 0.5) / steps);
+    total += w;
+    done += w * Math.max(0, Math.min(1, q * steps - i));
+  }
+  return done / total;
 }
 
 export const gate: Figure<GateParams> = (state, params, beats) => {
@@ -52,6 +72,7 @@ export const gate: Figure<GateParams> = (state, params, beats) => {
   const whom = oneOf('gate', 'whom', params.whom, [...NAMES, 'partner', 'neighbor'] as const);
   const face = oneOf('gate', 'face', params.face, ['in', 'down', 'up'] as const);
   const pairs = minorSets(state).flatMap((g) => {
+    const middle = mean(g.map((id) => body(state, id).position));
     const gaters = g.filter((id) => named(state, who, id));
     if (gaters.length !== 2) throw new Error(`A gate needs two ${who} here.`);
     const taken = new Set<number>();
@@ -85,8 +106,20 @@ export const gate: Figure<GateParams> = (state, params, beats) => {
         const w = (((sense * (pv.yaw - target)) % TAU) + TAU) % TAU;
         return w < 0.3 ? w + TAU : w;
       };
+      // Equal turns (a full gate) swing out away from the middle of the set.
+      const outward = (sense: number) => {
+        const half = add(p, rotate(r, (sense * sweepFor(sense)) / 4));
+        return length(sub(half, middle));
+      };
+      const back = -forwardSense;
       const sense =
-        sweepFor(-forwardSense) < sweepFor(forwardSense) - 0.1 ? -forwardSense : forwardSense;
+        Math.abs(sweepFor(back) - sweepFor(forwardSense)) < 0.1
+          ? outward(back) > outward(forwardSense)
+            ? back
+            : forwardSense
+          : sweepFor(back) < sweepFor(forwardSense)
+            ? back
+            : forwardSense;
       const sweep = sweepFor(sense);
       const hand: Hand = dot(rightOf(pv.yaw), r) > 0 ? 'right' : 'left';
       return { pivot, gated, p, r, a: sense * sweep, pv, gb, hand };
@@ -95,10 +128,11 @@ export const gate: Figure<GateParams> = (state, params, beats) => {
   const motion = (beat: number) => {
     const q = progress(beat / beats);
     const bodies = pairs.flatMap((x) => {
-      const a = x.a * q;
-      // The gated dancer draws in to arm's length as the gate starts to swing.
+      // The gated dancer draws in to arm's length as the gate starts to
+      // swing; the swing spreads its turn so the walk keeps an even pace.
       const r0 = length(x.r);
-      const radius = r0 + (Math.min(r0, GATE_RADIUS) - r0) * smooth(q / 0.3);
+      const radius = gateRadius(r0, q);
+      const a = x.a * swingShare(r0, q);
       const g: Vec2 = add(x.p, rotate(scale(x.r, radius / r0), a));
       return [
         { id: x.pivot, position: x.p, yaw: x.pv.yaw - a },

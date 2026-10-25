@@ -4,26 +4,26 @@
  "catalogue": 2422,
  "stored": 2422,
  "counts": {
-  "ok": 302,
-  "check": 110,
-  "partial": 1728,
+  "ok": 308,
+  "check": 91,
+  "partial": 1741,
   "unsupported": 282
  },
  "formations": [
   {
    "formation": "improper",
    "dances": 1189,
-   "ok": 272,
-   "check": 58,
+   "ok": 275,
+   "check": 55,
    "partial": 859,
    "unsupported": 0
   },
   {
    "formation": "becket",
    "dances": 655,
-   "ok": 25,
-   "check": 48,
-   "partial": 582,
+   "ok": 28,
+   "check": 32,
+   "partial": 595,
    "unsupported": 0
   },
   {
@@ -2851,19 +2851,31 @@
   "figuresThatCannotStart": [
    {
     "name": "progression or other",
-    "unlocks": 92
+    "unlocks": 55
+   },
+   {
+    "name": "diagonal chain / right left through",
+    "unlocks": 16
    },
    {
     "name": "rory o'more",
     "unlocks": 16
    },
    {
-    "name": "diagonal chain / right left through",
-    "unlocks": 15
-   },
-   {
     "name": "do-si-do variant",
     "unlocks": 13
+   },
+   {
+    "name": "circle variant",
+    "unlocks": 12
+   },
+   {
+    "name": "allemande variant",
+    "unlocks": 11
+   },
+   {
+    "name": "hey (other)",
+    "unlocks": 10
    },
    {
     "name": "slide along set",
@@ -2871,39 +2883,47 @@
    },
    {
     "name": "ocean wave / long wave",
-    "unlocks": 8
+    "unlocks": 9
    },
    {
     "name": "other: pass through",
     "unlocks": 7
    },
    {
-    "name": "hey (other)",
+    "name": "swing variant",
+    "unlocks": 7
+   },
+   {
+    "name": "into the middle / forward & back",
     "unlocks": 6
    },
    {
-    "name": "swing variant",
+    "name": "turn alone / as a couple",
     "unlocks": 5
    },
    {
-    "name": "circle variant",
-    "unlocks": 4
+    "name": "promenade",
+    "unlocks": 5
+   },
+   {
+    "name": "chain variant",
+    "unlocks": 5
+   },
+   {
+    "name": "mad robin",
+    "unlocks": 5
    },
    {
     "name": "petronella",
-    "unlocks": 3
+    "unlocks": 4
    },
    {
-    "name": "allemande variant",
-    "unlocks": 3
-   },
-   {
-    "name": "promenade",
-    "unlocks": 3
+    "name": "roll away",
+    "unlocks": 4
    },
    {
     "name": "box circulate",
-    "unlocks": 2
+    "unlocks": 3
    },
    {
     "name": "star variant",
@@ -2914,11 +2934,11 @@
     "unlocks": 2
    },
    {
-    "name": "into the middle / forward & back",
-    "unlocks": 2
+    "name": "gate",
+    "unlocks": 1
    },
    {
-    "name": "gate",
+    "name": "other: pass through across the set",
     "unlocks": 1
    },
    {
@@ -2927,10 +2947,6 @@
    },
    {
     "name": "pull by / pass by",
-    "unlocks": 1
-   },
-   {
-    "name": "turn alone / as a couple",
     "unlocks": 1
    },
    {
@@ -2946,22 +2962,18 @@
     "unlocks": 1
    },
    {
+    "name": "poussette",
+    "unlocks": 1
+   },
+   {
     "name": "arch & dive",
-    "unlocks": 1
-   },
-   {
-    "name": "chain variant",
-    "unlocks": 1
-   },
-   {
-    "name": "roll away",
     "unlocks": 1
    }
   ],
   "checkFailures": [
    {
     "name": "Couples don't end the round where the progression puts them",
-    "unlocks": 20
+    "unlocks": 22
    },
    {
     "name": "pull by / pass by",
@@ -2969,26 +2981,22 @@
    },
    {
     "name": "The next time through can't start from where the dancers end",
-    "unlocks": 10
+    "unlocks": 9
    },
    {
     "name": "allemande variant",
-    "unlocks": 10
+    "unlocks": 9
    },
    {
-    "name": "swing variant",
-    "unlocks": 8
-   },
-   {
-    "name": "star promenade",
-    "unlocks": 7
-   },
-   {
-    "name": "roll away",
-    "unlocks": 4
+    "name": "hey (other)",
+    "unlocks": 5
    },
    {
     "name": "gyre",
+    "unlocks": 4
+   },
+   {
+    "name": "chain variant",
     "unlocks": 4
    },
    {
@@ -2996,23 +3004,23 @@
     "unlocks": 4
    },
    {
-    "name": "box the gnat / swat the flea",
-    "unlocks": 4
-   },
-   {
-    "name": "hey (other)",
-    "unlocks": 4
-   },
-   {
-    "name": "chain variant",
-    "unlocks": 3
-   },
-   {
     "name": "mad robin",
     "unlocks": 3
    },
    {
+    "name": "roll away",
+    "unlocks": 2
+   },
+   {
     "name": "promenade",
+    "unlocks": 2
+   },
+   {
+    "name": "star promenade",
+    "unlocks": 2
+   },
+   {
+    "name": "box the gnat / swat the flea",
     "unlocks": 2
    },
    {
@@ -3020,27 +3028,15 @@
     "unlocks": 2
    },
    {
-    "name": "do-si-do variant",
-    "unlocks": 2
-   },
-   {
-    "name": "ocean wave / long wave",
-    "unlocks": 1
-   },
-   {
     "name": "star variant",
     "unlocks": 1
    },
    {
-    "name": "gate",
-    "unlocks": 1
-   },
-   {
-    "name": "revolving door",
-    "unlocks": 1
-   },
-   {
     "name": "butterfly whirl",
+    "unlocks": 1
+   },
+   {
+    "name": "do-si-do variant",
     "unlocks": 1
    }
   ],

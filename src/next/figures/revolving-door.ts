@@ -46,7 +46,7 @@ export interface RevolvingDoorParams {
 }
 
 /** Share of the figure the carried dancers take to reach the other side. */
-const CARRY = 0.55;
+const CARRY = 0.65;
 /** Share of a turn spent stepping in, and again stepping back out. */
 const EDGE = 0.25;
 

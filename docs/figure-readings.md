@@ -27,3 +27,5 @@ below. One line each; change any of them by telling us the other reading.
 - "Balance the star" is drawn as a ring balance (step in toward the middle and back).
 - Gate ("larks gate neighbors to face into the set"): each gater pivots in place holding the near hand while the other walks around them, the shorter way round (forward when equal), until both face the named way, arm's length apart; "(cw)"/"(ccw)" notes are not drawn separately.
 - "Balance & petronella turning to face partners", "(standard 4 person petronella)", "roll away ... half sashay alone set" (along) and "star ... & look for new neighbor" are read as the plain figure.
+- Becket progression when partners stand across the set (after "circle left 3 places" then a zig zag or half poussette): each couple joins the couple beside it along the set that it was not just dancing with; neighbors are the other-role dancers of the two couples.
+- A roll away in under four beats: the rolled dancer's spin is reported as styled motion (like the Rory twirl), since a full turn in two beats is faster than an ordinary walk turn.

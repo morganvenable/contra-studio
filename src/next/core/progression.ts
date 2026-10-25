@@ -18,6 +18,7 @@ import type { Vec2 } from '../../types.ts';
 import { SET } from './config.ts';
 import { dot, forward, mean, sub } from './math.ts';
 import { body, partnerOf, type DanceState, type WaitingCouple, withChanges } from './state.ts';
+import { acrossCouples, rebindAcross } from './progression-across.ts';
 
 export interface Progression {
   readonly kind: 'minor-set' | 'duple-minor' | 'duple-minor-proper' | 'whole-set' | 'none';
@@ -53,6 +54,9 @@ function coupleSpots(state: DanceState): Map<number, CoupleSpot> {
 export const MINOR_SET_PROGRESSION: Progression = {
   kind: 'minor-set',
   rebind(state) {
+    // Partners standing across the set from each other (progression-across.ts).
+    const across = acrossCouples(state);
+    if (across) return rebindAcross(state, across);
     const couples = coupleSpots(state);
     for (const [c, spot] of couples) {
       if (dot(spot.facing, forward(body(state, spot.robin).yaw)) < 0.9) {
