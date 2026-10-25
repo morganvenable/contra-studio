@@ -45,3 +45,10 @@ line each, for review.
 - "Partners swing right elbow", "elbow swing": an allemande by that hand.
 - "Neighbors scatter promenade" in a ring: promenade with the robin now on your right, who becomes your partner.
 - In a ring, partners after the progression are found as if each lark faced the center: the robin beside him on his right.
+- A heads or sides figure for two couples (star, circle, right and left through, chain, promenade across ...) is danced in the middle of the square: the couples step in to a minor set, dance it, and step back out to the nearest places they came from.
+- "First corners X", "neighbors X (corners)": the corner (the dancer beside you in the next couple); "next neighbors X (next corner)": the robin now on the lark's left, by place.
+- "Swing the one you meet", "3rd neighbors swing (that other lark)": the robin now in the lark's partner place.
+- A plain grand right and left (right and left grand, weave the ring) in a square goes until partners meet, halfway round.
+- Promenade home: counterclockwise to the lark's home place; a couple already home goes once all the way round.
+- A grand chain crosses to the opposite couple (half a star) and ends with a courtesy turn beside the one who receives them.
+- "Heads separate, go around two": pass behind the side couple and end in lark-lark-robin-robin lines facing across; in a line roll away the lark rolls the robin.
