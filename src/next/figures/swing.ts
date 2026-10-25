@@ -140,7 +140,23 @@ function planPair(
   const across = center0.x - middle.x;
   let exitYaw: number;
   let exitCenter: Vec2;
-  if (end === 'across') {
+  // In a whole set (a triplet, a longways set), a pair swinging from across
+  // the set has no room on a side line: it ends back in its own places,
+  // facing each other across.
+  const larkX = start.get(lark)!.position.x - middle.x;
+  const robinX = start.get(robin)!.position.x - middle.x;
+  const home =
+    end === 'across' &&
+    !!group &&
+    group.length > 4 &&
+    Math.abs(across) < SIDE_MARGIN &&
+    Math.sign(larkX) === -Math.sign(robinX) &&
+    Math.abs(Math.abs(larkX) - SET.halfWidth) < 0.2 &&
+    Math.abs(start.get(lark)!.position.z - start.get(robin)!.position.z) < 0.2;
+  if (home) {
+    exitCenter = center0;
+    exitYaw = larkX < 0 ? Math.PI / 2 : -Math.PI / 2;
+  } else if (end === 'across') {
     const larkAcross = start.get(lark)!.position.x - middle.x;
     const from = Math.abs(across) >= SIDE_MARGIN ? across : larkAcross;
     if (Math.abs(from) < SIDE_MARGIN)
@@ -155,10 +171,17 @@ function planPair(
     exitCenter = { x: middle.x, z: center0.z };
   }
   const half = scale(leftOf(exitYaw), SET.slot / 2);
-  const exitAt = new Map([
-    [lark, add(exitCenter, half)],
-    [robin, sub(exitCenter, half)],
-  ]);
+  const exitAt = home
+    ? new Map([
+        [lark, start.get(lark)!.position],
+        [robin, start.get(robin)!.position],
+      ])
+    : new Map([
+        [lark, add(exitCenter, half)],
+        [robin, sub(exitCenter, half)],
+      ]);
+  // Facing each other at home; side by side facing the same way otherwise.
+  const exitYawOf = (id: number) => (home && id === robin ? exitYaw + Math.PI : exitYaw);
 
   const theta0 = new Map([...start].map(([id, s]) => [id, polar(sub(s.position, center0))]));
   const offset = positiveAngle(polar(sub(exitAt.get(lark)!, exitCenter)) - theta0.get(lark)!);
@@ -192,7 +215,7 @@ function planPair(
       yaw = s.yaw + (yaw - s.yaw) * smooth(t / turnIn);
     } else if (t > 1 - OPEN) {
       const end = bodyYaw(id, 1);
-      yaw += turn(exitYaw, end) * smooth((t - (1 - OPEN)) / OPEN);
+      yaw += turn(exitYawOf(id), end) * smooth((t - (1 - OPEN)) / OPEN);
     }
     return { id, position, yaw, lean: 0.1 };
   };

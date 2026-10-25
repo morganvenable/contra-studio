@@ -70,3 +70,4 @@ line each, for review.
 - "Neighbor/partner right/left elbow": an allemande by that hand, once round unless an amount is given.
 - "Swing, end facing the next / new lines / direction of travel" in these formations ends on the pair's own side facing out of the minor set.
 - In four face four, "opposite" is the dancer you face (the neighbor); "balance the ring of 8" is a ring balance in rings of four.
+- In a whole set (triplet, longways set), a partner swing from across the set ends back in the partners' own places, facing each other across.
