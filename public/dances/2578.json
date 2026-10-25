@@ -7,9 +7,9 @@
   {"move":"balance","beats":4,"params":{"formation":"wave","style":"right-left"},"text":"balance the wave","section":"A2","row":3},
   {"move":"allemande","beats":4,"params":{"who":"robins","hand":"left","amount":0.5},"text":"robins allemande left ½","section":"A2","row":4},
   {"move":"swing","beats":8,"params":{"who":"neighbor"},"text":"neighbors swing","section":"A2","row":5},
-  {"move":"chain","beats":8,"params":{"who":"robins","to":"partner","diagonal":"right"},"text":"right diagonal robins chain to partners","section":"B1","row":6},
+  {"move":"chain","beats":8,"params":{"who":"robins","to":"partner","diagonal":"right"},"text":"right diagonal robins chain to partners","section":"B1","row":6,"progression":true},
   {"move":"hey","beats":8,"params":{"start":"robins","amount":0.5,"center":"right"},"text":"robins start a half hey - rights in center, lefts on ends","section":"B1","row":7},
   {"move":"balance","beats":4,"params":{"formation":"pair","who":"partner","hand":"both"},"text":"partners balance & swing · balance","section":"B2","row":8},
-  {"move":"swing","beats":12,"params":{"who":"partner"},"text":"partners balance & swing · swing","progression":true,"section":"B2","row":8}
+  {"move":"swing","beats":12,"params":{"who":"partner"},"text":"partners balance & swing · swing","section":"B2","row":8}
  ]
 }

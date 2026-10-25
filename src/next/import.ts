@@ -236,16 +236,22 @@ function startInWave(parsed: (StoredCall[] | Error)[]) {
 }
 
 /**
- * A minor-set (Becket) dance progresses by sliding or slicing along the set.
- * When the source marks its last row as the progression, or marks none, and
- * the dance has exactly one slide or slice to new neighbors, the progression
- * happens at that slide: the dancers meet their new neighbors there.
+ * A minor-set (Becket) dance progresses by sliding or slicing along the set,
+ * or by a figure on the diagonal ("left diagonal robins chain"). When the
+ * source marks its last row as the progression, or marks none, and the dance
+ * has exactly one such figure, the progression happens there: the dancers
+ * meet their new neighbors at that figure.
  */
 function slideProgression(figures: StoredCall[], shape: Shape | undefined) {
   if (shape?.progression !== 'minor-set') return;
   const slides = figures
     .map((c, i) => [c, i] as const)
-    .filter(([c]) => c.move === 'slide' || (c.move === 'slice' && c.params.back !== 'diagonal'));
+    .filter(
+      ([c]) =>
+        c.move === 'slide' ||
+        (c.move === 'slice' && c.params.back !== 'diagonal') ||
+        c.params.diagonal !== undefined,
+    );
   if (slides.length !== 1) return;
   const marked = figures.flatMap((c, i) => (c.progression ? [i] : []));
   const last = figures.length - 1;

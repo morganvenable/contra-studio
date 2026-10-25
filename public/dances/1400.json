@@ -1,6 +1,6 @@
 { "schema": "contra-studio/next-dance", "version": 2, "id": "1400", "title": "Crazy Foot", "author": "Don Flaherty", "formation": "becket", "progression": "minor-set", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/1400", "formation": "Becket", "retrievedAt": "2026-10-20T05:52:06.474Z", "sha256": "daf49e0748f5136c4d2c5ceb2cf9385cf2e6d085270d455627884649619a48ea" }, "status": "partial", "problems": [ "Row 5 \"partners allemande right ¾ to long wave on the side of set\" isn't drawn yet.", "Row 1 \"circle left 3 places on left diagonal\" can't start from where the dancers are: A circle of 4 needs the dancers spaced around a ring.", "Row 4 \"pass through to an ocean wave - robins by left in the center, partners by right on the sides\" can't start from where the dancers are: The robins cannot join left hands facing the way they do." ], "unparsed": [ { "row": 5, "text": "partners allemande right ¾ to long wave on the side of set", "why": "No figure pattern matches \"partners allemande right ¾ to long wave on the side of set\"." } ], "choices": [ "A balance with a partner or neighbor holds both hands.", "Long waves form during the balance before each box circulate: crossers face in, loopers face out; hands join only where they reach." ],
  "figures": [
-  {"move":"circle","beats":8,"params":{"direction":"left","places":3,"diagonal":"left"},"text":"circle left 3 places on left diagonal","section":"A1","row":1},
+  {"move":"circle","beats":8,"params":{"direction":"left","places":3,"diagonal":"left"},"text":"circle left 3 places on left diagonal","section":"A1","row":1,"progression":true},
   {"move":"swing","beats":8,"params":{"who":"neighbor"},"text":"neighbors swing new","section":"A1","row":2},
   {"move":"chain","beats":8,"params":{"who":"robins","to":"partner"},"text":"robins chain to partner","section":"A2","row":3},
   {"move":"ocean-wave","beats":4,"params":{"middle":"robins","middleHand":"left","ends":"partner","endHand":"right"},"text":"pass through to an ocean wave - robins by left in the center, partners by right on the sides","section":"A2","row":4},
@@ -10,6 +10,6 @@
   {"move":"balance","beats":4,"params":{"formation":"long-waves","in":"larks"},"text":"balance & box circulate - larks cross while robins loop right · balance","section":"B1","row":7},
   {"move":"box-circulate","beats":4,"params":{"cross":"larks","loop":"right"},"text":"balance & box circulate - larks cross while robins loop right · box circulate","section":"B1","row":7},
   {"move":"balance","beats":4,"params":{"formation":"pair","who":"partner","hand":"both"},"text":"partners balance & swing · balance","section":"B2","row":8},
-  {"move":"swing","beats":12,"params":{"who":"partner"},"text":"partners balance & swing · swing","progression":true,"section":"B2","row":8}
+  {"move":"swing","beats":12,"params":{"who":"partner"},"text":"partners balance & swing · swing","section":"B2","row":8}
  ]
 }

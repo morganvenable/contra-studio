@@ -2,13 +2,13 @@
  "figures": [
   {"move":"allemande","beats":8,"params":{"who":"larks","hand":"left","amount":1.5},"text":"larks allemande left 1½","section":"A1","row":1},
   {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"neighbors swing end facing left diagonal","section":"A1","row":2},
-  {"move":"chain","beats":8,"params":{"who":"robins","diagonal":"left"},"text":"left diagonal robins chain to shadow","section":"A2","row":3},
+  {"move":"chain","beats":8,"params":{"who":"robins","diagonal":"left"},"text":"left diagonal robins chain to shadow","section":"A2","row":3,"progression":true},
   {"move":"right-left-through","beats":8,"params":{},"text":"right left through","section":"A2","row":4},
   {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance & petronella · balance","section":"B1","row":5},
   {"move":"petronella","beats":4,"params":{},"text":"balance & petronella · petronella","section":"B1","row":5},
   {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance & petronella · balance","section":"B1","row":6},
   {"move":"petronella","beats":4,"params":{},"text":"balance & petronella · petronella","section":"B1","row":6},
   {"move":"hold","beats":4,"params":{"reason":"unparsed"},"text":"cross trails - neighbors across the set right shoulders, shadows along the set left shoulders","section":"B2","row":7},
-  {"move":"swing","beats":12,"params":{"who":"partner"},"text":"partners swing","progression":true,"section":"B2","row":8}
+  {"move":"swing","beats":12,"params":{"who":"partner"},"text":"partners swing","section":"B2","row":8}
  ]
 }

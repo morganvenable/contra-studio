@@ -5,8 +5,8 @@
  "stored": 2422,
  "counts": {
   "ok": 370,
-  "check": 164,
-  "partial": 1606,
+  "check": 165,
+  "partial": 1605,
   "unsupported": 282
  },
  "formations": [
@@ -22,8 +22,8 @@
    "formation": "becket",
    "dances": 655,
    "ok": 47,
-   "check": 73,
-   "partial": 535,
+   "check": 74,
+   "partial": 534,
    "unsupported": 0
   },
   {
@@ -2616,7 +2616,7 @@
   "figuresThatCannotStart": [
    {
     "name": "progression or other",
-    "unlocks": 91
+    "unlocks": 92
    },
    {
     "name": "ocean wave / long wave",
@@ -2624,26 +2624,26 @@
    },
    {
     "name": "swing variant",
-    "unlocks": 17
+    "unlocks": 21
    },
    {
     "name": "diagonal chain / right left through",
-    "unlocks": 13
-   },
-   {
-    "name": "circle variant",
-    "unlocks": 9
+    "unlocks": 12
    },
    {
     "name": "rory o'more",
     "unlocks": 9
    },
    {
+    "name": "circle variant",
+    "unlocks": 7
+   },
+   {
     "name": "allemande variant",
     "unlocks": 6
    },
    {
-    "name": "star variant",
+    "name": "gyre",
     "unlocks": 6
    },
    {
@@ -2655,8 +2655,8 @@
     "unlocks": 5
    },
    {
-    "name": "gyre",
-    "unlocks": 5
+    "name": "star variant",
+    "unlocks": 4
    },
    {
     "name": "turn alone / as a couple",
@@ -2664,6 +2664,10 @@
    },
    {
     "name": "take hands (wave/line set-up)",
+    "unlocks": 3
+   },
+   {
+    "name": "square through",
     "unlocks": 3
    },
    {
@@ -2675,10 +2679,6 @@
     "unlocks": 3
    },
    {
-    "name": "other: right left through",
-    "unlocks": 3
-   },
-   {
     "name": "promenade",
     "unlocks": 3
    },
@@ -2687,23 +2687,23 @@
     "unlocks": 3
    },
    {
-    "name": "chain variant",
-    "unlocks": 3
-   },
-   {
-    "name": "hey (other)",
-    "unlocks": 3
-   },
-   {
-    "name": "square through",
-    "unlocks": 2
-   },
-   {
     "name": "butterfly whirl",
     "unlocks": 2
    },
    {
+    "name": "chain variant",
+    "unlocks": 2
+   },
+   {
+    "name": "hey (other)",
+    "unlocks": 2
+   },
+   {
     "name": "other: pass through across the set",
+    "unlocks": 1
+   },
+   {
+    "name": "other: right left through",
     "unlocks": 1
    },
    {
@@ -2716,6 +2716,10 @@
    },
    {
     "name": "down/up the hall",
+    "unlocks": 1
+   },
+   {
+    "name": "do-si-do variant",
     "unlocks": 1
    },
    {
@@ -2741,12 +2745,12 @@
     "unlocks": 15
    },
    {
-    "name": "star promenade",
+    "name": "The next time through can't start from where the dancers end",
     "unlocks": 14
    },
    {
-    "name": "The next time through can't start from where the dancers end",
-    "unlocks": 13
+    "name": "star promenade",
+    "unlocks": 14
    },
    {
     "name": "ocean wave / long wave",
