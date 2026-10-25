@@ -159,6 +159,44 @@ const NOTES: readonly (readonly [RegExp, Replace])[] = [
   [/^(right (?:and |& )?left through) - identify$/, '$1'],
   // Swing through.
   [/^swing though$/, 'swing through'],
+  // Round 2c: rows that add motion, read the standard way.
+  [/^balance (?:the )?wave(?: of (?:4|four)| 4)?,? (?:and )?(larks|robins) (?:move straight(?: ahead)?|move forward)(?: to (?:a )?new wave(?: of 4)?)? while (larks|robins) (?:cross left to partner|slide left in center)\b.*$/, 'balance the wave & $1 walk forward while $2 slide left'],
+  [/^balance (?:the )?wave(?: of (?:4|four)| 4)?,? (?:and )?(larks|robins) move straight(?: ahead)? while (larks|robins) cross left to partner\b.*$/, 'balance the wave & $1 walk forward while $2 slide left'],
+  [/^balance larks move straight ahead while robins cross left to partner\b.*$/, 'balance the wave & larks walk forward while robins slide left'],
+  [/^balance (?:the )?wave(?: of (?:4|four)| 4)?,? (?:just the )?(larks|robins) (?:move (?:straight ahead|forward))(?: to new wave.*| to new wave of 4 while (?:larks|robins) stay at home)?$/, 'balance the wave & $1 walk forward'],
+  [/^balance wave 4 (robins|larks) move straight ahead to new wave of 4 while (?:larks|robins) stay at home$/, 'balance the wave & $1 walk forward'],
+  [/^balance wave of 4, just the (larks|robins) move forward to new wave\b.*$/, 'balance the wave & $1 walk forward'],
+  [/^balance (?:the )?(?:ocean )?wave(?: of (?:4|four)| 4)?,? (?:and )?(?:couples )?(?:move|moves) (?:forward )?on (?:the )?(?:left|right) diagonal\b.*$/, 'balance and move straight ahead to a new wave'],
+  [/^balance & move forward to new wave on the (?:left|right) diagonal\b.*$/, 'balance and move straight ahead to a new wave'],
+  [/^balance wave of 4 and (robins|larks) slide left in center pass each other!?$/, 'balance & $1 slide left'],
+  [/^(larks allemande right 1½) to face new neighbor on right diagonal$/, '$1'],
+  [/^(robins allemande right 1½) (?:new robins, )?on (?:the )?right diagonal,? (?:larks turn to face partner|while larks move up to meet partner)$/, 'right diagonal $1'],
+  [/^(robins allemande left 1½) on the left diagonal with new robins\b.*$/, 'left diagonal $1'],
+  [/^(robins allemande right 1½) larks cross straight across to partner$/, '$1 while larks pass through'],
+  [/^robins allemande right ½ - ¾ while larks loop right$/, 'robins allemande right ¾ while larks turn alone'],
+  [/^(robins allemande right ¾) new robins, larks slide r slightly$/, '$1, larks shift right'],
+  [/^(larks allemande left ¾),? (?:with next larks, )?robins (?:shift left slightly|slide along set)$/, '$1, robins shift left'],
+  [/^robins allemande ____ 1½ to face new neighbors and larks just turn around$/, 'robins allemande left 1½ while larks turn alone'],
+  [/^(robins allemande left ½) new robins ,.*$/, '$1'],
+  [/^(\w+ allemande (?:left|right) ¾) (?:in the like the larks would form a long wave|as if to form a long wave in center of set)\b.*$/, '$1 to a long wave'],
+  [/^(next neighbors allemande left ¾) robins pass right shoulder in center to face partner$/, '$1, robins pass right in center'],
+  [/^allemande shadow left once, allemande partner 1\/2\b.*$/, 'shadows allemande left once, partners allemande right ½'],
+  [/^(robins do si do once),? (?:while )?larks (?:go straight across set|orbit half to meet partner across set)$/, (_m: string, a: string) => `${a} while larks ${_m.includes('orbit') ? 'orbit clockwise ½' : 'pass through'}`],
+  [/^(neighbors do si do (?:1 1\/2|1½)),? (?:ending with larks facing in.*|progress to new neighbors in short wavy lines)$/, '$1'],
+  [/^(neighbors do si do once), melt into a wavy ring\b.*$/, '$1'],
+  [/^do si do current neighbor, finish in long waves\b.*$/, 'neighbors do si do once'],
+  [/^see saw prev_neighbor, finishing in long wavy lines\b.*$/, 'prev_neighbors see saw once'],
+  [/^(partners do si do once) end in long wavy lines\b.*$/, '$1'],
+  [/^(star left 3 places) putting everyone on side of set they started the dance then larks turn turn back over right shoulder$/, '$1, larks turn alone'],
+  [/^(star right - hands across - 4 places) - larks drop out, robins pull by to start$/, '$1'],
+  [/^(neighbors meltdown swing) for the robins who cross over .*$/, '$1 to a wave of four'],
+  [/^larks pull by left, robins cast over right shoulder$/, 'larks pull by left while robins turn alone'],
+  [/^pass through left shoulders across the set larks to (?:face partner|neighbor)$/, 'pass through by the left'],
+  [/^pass through across the set larks to face partner$/, 'pass through'],
+  [/^larks walk across the set while robins step left, partners take right hands$/, 'larks pass through while robins shift left'],
+  [/^balance & petronella shift right and make a wave of four, robins taking left hands in the wave$/, 'balance & petronella to a wave of four, robins in center left hands'],
+  [/^balance & trade the wave - partners passing right\b.*$/, 'balance the wave, partners pass by right shoulders'],
+  [/^trade the wave - partners passing right\b.*$/, 'partners pass by right shoulders'],
   // Round 2b: one-off rows read the standard way (docs/figure-readings.md).
   [/\.$/, ''],
   [/^balance (?:and|ans) swing(?: with neighbors?(?: 2)?)?$/, 'neighbors balance & swing'],
@@ -300,7 +338,7 @@ let depth = 0;
 export function handsPatterns(h: HandsHelpers): readonly (readonly [RegExp, Build])[] {
   const { who, call } = h;
   const again = (text: string, beats: number) => {
-    if (depth > 0) return undefined;
+    if (depth > 1) return undefined;
     depth++;
     try {
       return h.match(text, beats);

@@ -394,3 +394,18 @@ line each, for review.
   - Give and take and take notes ("to the robins's side", "draw back partner", "with underarm turn"): the plain figure. "Robins give & take partners, swing": then partners swing.
   - "Robins pull partner to your home side into a swing": partners swing.
   - Right and left through notes ("with a second new neighbor ...", "straight across, face partner up & down", "courtesy turn 3/4 til ..."): the plain right and left through.
+- Rows that add motion, read the standard way (round 2c):
+  - "Balance wave, larks move straight ahead while robins cross left to partner (courtesy turn ...)": a balance, then the larks walk forward while the robins slide left.
+  - "Balance wave, robins move straight ahead while larks stay at home": a balance, then that role walks forward.
+  - "Balance wave and move on the right diagonal to a new wave": a balance, then everyone moves straight ahead to the new wave.
+  - "Robins allemande right 1½ on right diagonal, larks turn to face partner / move up to meet partner": the diagonal allemande.
+  - "Robins allemande right 1½, larks cross straight across": the larks pass through meanwhile. "... larks loop right / just turn around": they turn alone meanwhile. "Larks slide R slightly / shift left slightly / slide along set": they shift one place.
+  - "Allemande ¾ as if to form a long wave in center": to a long wave.
+  - "Allemande shadow left once, allemande partner 1/2": both, in turn.
+  - "Robins do si do once while larks go straight across set / larks orbit half": the larks pass through, or orbit clockwise ½, meanwhile.
+  - Do-si-do notes about ending in long or short wavy lines: the plain do-si-do; the next figure forms the line.
+  - "Star left 3 places ... then larks turn back over right shoulder": the star, then the larks turn alone.
+  - "Larks pull by left, robins cast over right shoulder": the pull by while the robins turn alone.
+  - "Pass through left shoulders across the set": a pass through by the left.
+  - "Larks walk across the set while robins step left": the larks pass through while the robins shift left.
+  - "(Balance &) trade the wave - partners passing right ...": partners pass by right shoulders.

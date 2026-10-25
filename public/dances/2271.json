@@ -8,6 +8,6 @@
   {"move":"roll-away","beats":4,"params":{"who":"first-corner","whom":"partner"},"text":"first corners roll away partners with a half sashay","section":"A2","row":4},
   {"move":"swing","beats":16,"params":{"who":"partner","meltdown":true},"text":"partners meltdown swing","section":"B1","row":5},
   {"move":"long-lines","beats":8,"params":{"back":true},"text":"long lines forward & back","section":"B2","row":6},
-  {"move":"allemande","beats":8,"params":{"who":"robins","hand":"left","amount":1.5},"text":"robins allemande ____ 1½ To face new neighbors and larks just turn around","section":"B2","row":7}
+  {"move":"meanwhile","beats":8,"params":{"first":{"move":"allemande","params":{"who":"robins","hand":"left","amount":1.5}},"second":{"move":"turn-alone","params":{"among":["larks"]}}},"text":"robins allemande ____ 1½ To face new neighbors and larks just turn around","section":"B2","row":7}
  ]
 }
