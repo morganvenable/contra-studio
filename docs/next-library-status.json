@@ -4,26 +4,26 @@
  "catalogue": 2422,
  "stored": 2422,
  "counts": {
-  "ok": 231,
-  "check": 57,
-  "partial": 1767,
+  "ok": 242,
+  "check": 65,
+  "partial": 1748,
   "unsupported": 367
  },
  "formations": [
   {
    "formation": "improper",
    "dances": 1189,
-   "ok": 207,
-   "check": 34,
-   "partial": 948,
+   "ok": 217,
+   "check": 37,
+   "partial": 935,
    "unsupported": 0
   },
   {
    "formation": "becket",
    "dances": 655,
    "ok": 23,
-   "check": 22,
-   "partial": 610,
+   "check": 26,
+   "partial": 606,
    "unsupported": 0
   },
   {
@@ -61,9 +61,9 @@
   {
    "formation": "becket cw",
    "dances": 30,
-   "ok": 0,
-   "check": 0,
-   "partial": 30,
+   "ok": 1,
+   "check": 1,
+   "partial": 28,
    "unsupported": 0
   },
   {
@@ -1099,38 +1099,43 @@
   "missingFigures": [
    {
     "name": "ocean wave / long wave",
-    "unlocks": 75,
-    "uses": 377
+    "unlocks": 52,
+    "uses": 262
    },
    {
     "name": "allemande variant",
-    "unlocks": 35,
-    "uses": 340
+    "unlocks": 41,
+    "uses": 319
    },
    {
     "name": "ricochet hey",
-    "unlocks": 28,
+    "unlocks": 35,
     "uses": 156
    },
    {
-    "name": "star variant",
-    "unlocks": 25,
-    "uses": 166
-   },
-   {
     "name": "hey (other)",
-    "unlocks": 24,
+    "unlocks": 27,
     "uses": 137
    },
    {
+    "name": "star variant",
+    "unlocks": 26,
+    "uses": 166
+   },
+   {
     "name": "roll away",
-    "unlocks": 24,
+    "unlocks": 25,
     "uses": 103
    },
    {
     "name": "diagonal chain / right left through",
-    "unlocks": 22,
+    "unlocks": 24,
     "uses": 206
+   },
+   {
+    "name": "do-si-do variant",
+    "unlocks": 23,
+    "uses": 118
    },
    {
     "name": "petronella",
@@ -1139,23 +1144,28 @@
    },
    {
     "name": "pull by / pass by",
-    "unlocks": 18,
+    "unlocks": 19,
     "uses": 130
    },
    {
-    "name": "do-si-do variant",
-    "unlocks": 18,
-    "uses": 118
-   },
-   {
     "name": "zig zag",
-    "unlocks": 16,
+    "unlocks": 17,
     "uses": 58
    },
    {
     "name": "swing variant",
     "unlocks": 15,
-    "uses": 273
+    "uses": 253
+   },
+   {
+    "name": "circle variant",
+    "unlocks": 15,
+    "uses": 150
+   },
+   {
+    "name": "orbit allemande",
+    "unlocks": 15,
+    "uses": 56
    },
    {
     "name": "poussette",
@@ -1163,24 +1173,19 @@
     "uses": 67
    },
    {
-    "name": "orbit allemande",
-    "unlocks": 12,
-    "uses": 56
-   },
-   {
     "name": "arch & dive",
     "unlocks": 12,
     "uses": 39
    },
    {
-    "name": "circle variant",
+    "name": "balance variant",
     "unlocks": 11,
-    "uses": 150
+    "uses": 123
    },
    {
-    "name": "balance variant",
+    "name": "down/up the hall",
     "unlocks": 10,
-    "uses": 123
+    "uses": 87
    },
    {
     "name": "chain variant",
@@ -1188,19 +1193,24 @@
     "uses": 70
    },
    {
-    "name": "take hands (wave/line set-up)",
-    "unlocks": 9,
-    "uses": 100
-   },
-   {
     "name": "turn alone / as a couple",
     "unlocks": 9,
     "uses": 96
    },
    {
-    "name": "down/up the hall",
+    "name": "promenade",
     "unlocks": 8,
-    "uses": 87
+    "uses": 88
+   },
+   {
+    "name": "rory o'more",
+    "unlocks": 7,
+    "uses": 59
+   },
+   {
+    "name": "revolving door",
+    "unlocks": 7,
+    "uses": 36
    },
    {
     "name": "cross trails",
@@ -1218,19 +1228,24 @@
     "uses": 51
    },
    {
-    "name": "promenade",
-    "unlocks": 5,
-    "uses": 88
-   },
-   {
-    "name": "revolving door",
-    "unlocks": 5,
-    "uses": 36
-   },
-   {
     "name": "gate",
     "unlocks": 5,
     "uses": 25
+   },
+   {
+    "name": "diagonal hey",
+    "unlocks": 5,
+    "uses": 16
+   },
+   {
+    "name": "mad robin",
+    "unlocks": 4,
+    "uses": 53
+   },
+   {
+    "name": "into the middle / forward & back",
+    "unlocks": 4,
+    "uses": 48
    },
    {
     "name": "square through",
@@ -1238,34 +1253,19 @@
     "uses": 44
    },
    {
-    "name": "diagonal hey",
-    "unlocks": 4,
-    "uses": 16
-   },
-   {
-    "name": "rory o'more",
-    "unlocks": 3,
-    "uses": 59
-   },
-   {
-    "name": "mad robin",
-    "unlocks": 3,
-    "uses": 53
-   },
-   {
-    "name": "into the middle / forward & back",
-    "unlocks": 3,
-    "uses": 48
-   },
-   {
     "name": "slice",
-    "unlocks": 3,
+    "unlocks": 4,
     "uses": 27
    },
    {
     "name": "contra corners",
     "unlocks": 3,
     "uses": 23
+   },
+   {
+    "name": "take hands (wave/line set-up)",
+    "unlocks": 2,
+    "uses": 43
    },
    {
     "name": "california twirl",
@@ -1276,6 +1276,11 @@
     "name": "stand still / no figure",
     "unlocks": 2,
     "uses": 15
+   },
+   {
+    "name": "other: dance forward",
+    "unlocks": 2,
+    "uses": 3
    },
    {
     "name": "star promenade",
@@ -1293,12 +1298,22 @@
     "uses": 26
    },
    {
+    "name": "box circulate",
+    "unlocks": 1,
+    "uses": 14
+   },
+   {
     "name": "other: all trade on rt diag with same role person the larks trade with someone in a different foursome, while the robins trade with robins of current foursome.",
     "unlocks": 1,
     "uses": 1
    },
    {
     "name": "other: larks walk, robins dodge, forming long wavy lines",
+    "unlocks": 1,
+    "uses": 1
+   },
+   {
+    "name": "other: pass through to face a",
     "unlocks": 1,
     "uses": 1
    },
@@ -1324,6 +1339,16 @@
    },
    {
     "name": "other: robins trade by the left shoulder, catch left hands",
+    "unlocks": 1,
+    "uses": 1
+   },
+   {
+    "name": "other: neighbor two hand turn",
+    "unlocks": 1,
+    "uses": 1
+   },
+   {
+    "name": "other: cloverleaf turn single face to face with partners",
     "unlocks": 1,
     "uses": 1
    },
@@ -1406,11 +1431,6 @@
     "name": "other: robins courtesy turn larks",
     "unlocks": 0,
     "uses": 1
-   },
-   {
-    "name": "box circulate",
-    "unlocks": 0,
-    "uses": 14
    },
    {
     "name": "other: right left through with neighbor",
@@ -1534,11 +1554,6 @@
    },
    {
     "name": "other: left shoulders around person who had been in left hand",
-    "unlocks": 0,
-    "uses": 1
-   },
-   {
-    "name": "other: pass through to face a",
     "unlocks": 0,
     "uses": 1
    },
@@ -1908,11 +1923,6 @@
     "uses": 3
    },
    {
-    "name": "other: neighbor two hand turn",
-    "unlocks": 0,
-    "uses": 1
-   },
-   {
     "name": "other: neighbor courtesy turn",
     "unlocks": 0,
     "uses": 1
@@ -1944,11 +1954,6 @@
    },
    {
     "name": "other: finish the double la baratte",
-    "unlocks": 0,
-    "uses": 1
-   },
-   {
-    "name": "other: cloverleaf turn single face to face with partners",
     "unlocks": 0,
     "uses": 1
    },
@@ -2343,11 +2348,6 @@
     "uses": 1
    },
    {
-    "name": "other: dance forward",
-    "unlocks": 0,
-    "uses": 3
-   },
-   {
     "name": "other: right left through - identify",
     "unlocks": 0,
     "uses": 1
@@ -2626,22 +2626,30 @@
   "figuresThatCannotStart": [
    {
     "name": "progression or other",
-    "unlocks": 42
+    "unlocks": 49
    },
    {
-    "name": "swing variant",
-    "unlocks": 11
+    "name": "do-si-do variant",
+    "unlocks": 10
    },
    {
     "name": "slide along set",
     "unlocks": 8
    },
    {
+    "name": "ocean wave / long wave",
+    "unlocks": 7
+   },
+   {
+    "name": "other: pass through",
+    "unlocks": 5
+   },
+   {
     "name": "rory o'more",
     "unlocks": 4
    },
    {
-    "name": "do-si-do variant",
+    "name": "circle variant",
     "unlocks": 3
    },
    {
@@ -2649,11 +2657,15 @@
     "unlocks": 2
    },
    {
-    "name": "circle variant",
+    "name": "swing variant",
     "unlocks": 2
    },
    {
     "name": "allemande variant",
+    "unlocks": 1
+   },
+   {
+    "name": "gyre",
     "unlocks": 1
    },
    {
@@ -2663,20 +2675,28 @@
    {
     "name": "slice",
     "unlocks": 1
+   },
+   {
+    "name": "promenade",
+    "unlocks": 1
    }
   ],
   "checkFailures": [
+   {
+    "name": "Couples don't end the round where the progression puts them",
+    "unlocks": 15
+   },
    {
     "name": "pull by / pass by",
     "unlocks": 13
    },
    {
-    "name": "Couples don't end the round where the progression puts them",
-    "unlocks": 11
+    "name": "allemande variant",
+    "unlocks": 10
    },
    {
-    "name": "allemande variant",
-    "unlocks": 9
+    "name": "gyre",
+    "unlocks": 4
    },
    {
     "name": "swing variant",
@@ -2687,15 +2707,11 @@
     "unlocks": 4
    },
    {
-    "name": "gyre",
+    "name": "hey (other)",
     "unlocks": 3
    },
    {
     "name": "mad robin",
-    "unlocks": 2
-   },
-   {
-    "name": "hey (other)",
     "unlocks": 2
    },
    {
@@ -2716,6 +2732,10 @@
    },
    {
     "name": "chain variant",
+    "unlocks": 1
+   },
+   {
+    "name": "ocean wave / long wave",
     "unlocks": 1
    },
    {

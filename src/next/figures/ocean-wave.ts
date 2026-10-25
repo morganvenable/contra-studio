@@ -1,0 +1,189 @@
+/**
+ * Form an ocean wave (and balance it).
+ *
+ * Definition: the four dancers of a minor set step into one line of four,
+ * neighbors in line facing opposite ways and holding hands: the named role
+ * in the middle joins the named hand ("robins by left hands"), and each of
+ * them joins the other hand with the dancer on the end who is their partner
+ * or neighbor ("neighbors by right hands"). "Pass through to an ocean wave"
+ * walks forward past that dancer into the same wave. "& balance" balances
+ * the wave right and left once it has formed.
+ *
+ * Geometry: each end faces the dancer it holds, so the wave runs across the
+ * line between those pairs (across the set when neighbors face along it, as
+ * in improper; along the set when they face across, as in Becket). Every
+ * dancer keeps facing the way of the one they hold; the hands named decide
+ * which end of the line each takes. A wave the hands cannot make from these
+ * facings is an error, never a guess.
+ * Source: Caller's Box glossary, "Ocean wave", "Balance"; ContraDB rows
+ * "form an ocean wave & balance - ladles by left hands and neighbors by
+ * right hands", "pass through to an ocean wave - ladles by left in the
+ * center, neighbors by right on the sides". Spacing matches a short wave
+ * after an allemande (0.9 m between hands-joined dancers).
+ */
+import type { Hand, Role, Vec2 } from '../../types.ts';
+import type { Figure, FigureContact } from '../core/figure.ts';
+import { oneOf, onlyKeys, settle } from '../core/figure.ts';
+import { bodyMap, joined, withinReach } from '../core/contacts.ts';
+import {
+  add,
+  dot,
+  ease,
+  forward,
+  heading,
+  leftOf,
+  length,
+  mean,
+  mix,
+  progress,
+  rightOf,
+  scale,
+  smooth,
+  sub,
+  turn,
+} from '../core/math.ts';
+import { roleOfGroup } from '../core/roles.ts';
+import {
+  body,
+  minorSets,
+  related,
+  roleOf,
+  withChanges,
+  type Body,
+  type Hold,
+} from '../core/state.ts';
+
+export interface OceanWaveParams {
+  /** Who stands in the middle of the wave. */
+  middle: 'larks' | 'robins';
+  /** The hand the middle two join. */
+  middleHand: 'right' | 'left';
+  /** Who each end holds: their partner or neighbor in the middle. */
+  ends: 'partner' | 'neighbor';
+  /** The hand ends and middles join. */
+  endHand: 'right' | 'left';
+  /** Balance the wave right and left once formed (the last 4 beats, or half a short row). */
+  balance?: boolean;
+}
+
+/** Gap between hands-joined dancers in the wave. */
+export const WAVE_GAP = 0.9;
+const STEP = 0.1;
+const STEPS = [0, 1, 0, -1, 0];
+
+const handSide = (yaw: number, hand: Hand) => (hand === 'right' ? rightOf(yaw) : leftOf(yaw));
+
+export const oceanWave: Figure<OceanWaveParams> = (state, params, beats) => {
+  onlyKeys('ocean wave', params, ['middle', 'middleHand', 'ends', 'endHand', 'balance']);
+  const middle = oneOf('ocean wave', 'middle', params.middle, ['larks', 'robins'] as const);
+  const middleHand = oneOf('ocean wave', 'middleHand', params.middleHand, [
+    'right',
+    'left',
+  ] as const);
+  const ends = oneOf('ocean wave', 'ends', params.ends, ['partner', 'neighbor'] as const);
+  const endHand = oneOf('ocean wave', 'endHand', params.endHand, ['right', 'left'] as const);
+  if (middleHand === endHand)
+    throw new Error('An ocean wave joins different hands in the middle and on the ends.');
+  const role: Role = roleOfGroup(middle)!;
+  const formBeats = params.balance ? (beats >= 8 ? beats - 4 : beats / 2) : beats;
+  if (formBeats < 1) throw new Error('An ocean wave needs a beat to form.');
+
+  const plans = minorSets(state).map((g) => {
+    if (g.length !== 4) throw new Error('An ocean wave needs four dancers.');
+    const mids = g.filter((id) => roleOf(state, id) === role);
+    if (mids.length !== 2) throw new Error(`An ocean wave needs two ${middle} in the middle.`);
+    const pairs = mids.map((m) => {
+      const e = related(state, ends, m);
+      if (e === undefined || !g.includes(e) || mids.includes(e))
+        throw new Error(`Each of the ${middle} needs their ${ends} on an end.`);
+      return { mid: m, end: e };
+    });
+    // Each end faces the middle dancer it holds; the wave runs across that.
+    // Pairs facing each other (as neighbors across an improper minor set)
+    // set the facing axis by where they stand; pairs already side by side
+    // facing opposite ways (as after an allemande in a wave) keep the axis
+    // they face along.
+    const s0 = sub(body(state, pairs[0].mid).position, body(state, pairs[0].end).position);
+    const s1 = sub(body(state, pairs[1].mid).position, body(state, pairs[1].end).position);
+    const endFacing = forward(body(state, pairs[0].end).yaw);
+    const facingEachOther = length(s0) > 0.3 && Math.abs(dot(s0, endFacing)) > 0.7 * length(s0);
+    let axisRaw: Vec2;
+    if (facingEachOther) axisRaw = dot(s0, s1) >= 0 ? add(s0, s1) : sub(s0, s1);
+    else axisRaw = endFacing;
+    if (length(axisRaw) < 0.3)
+      throw new Error(`The ${ends} pairs are not facing each other to form a wave.`);
+    const facing = scale(axisRaw, 1 / length(axisRaw));
+    const along: Vec2 = { x: -facing.z, z: facing.x };
+    const center = mean(g.map((id) => body(state, id).position));
+    // Yaw each dancer takes along the facing axis: toward the one they hold
+    // when facing them, otherwise the way they already face.
+    const yawOf = (self: number, other: number) => {
+      const d = facingEachOther
+        ? sub(body(state, other).position, body(state, self).position)
+        : forward(body(state, self).yaw);
+      return heading({ x: 0, z: 0 }, dot(d, facing) >= 0 ? facing : scale(facing, -1));
+    };
+    const target = new Map<number, Body>();
+    for (const p of pairs) {
+      const endYaw = yawOf(p.end, p.mid);
+      const midYaw = yawOf(p.mid, p.end);
+      // The end's joined hand points in toward the middle of the line.
+      const inward = dot(handSide(endYaw, endHand), along) > 0 ? 1 : -1;
+      target.set(p.end, {
+        position: add(center, scale(along, -inward * 1.5 * WAVE_GAP)),
+        yaw: endYaw,
+      });
+      target.set(p.mid, {
+        position: add(center, scale(along, -inward * 0.5 * WAVE_GAP)),
+        yaw: midYaw,
+      });
+    }
+    const [a, b] = mids;
+    if (length(sub(target.get(a)!.position, target.get(b)!.position)) < 0.1)
+      throw new Error(
+        'Both ends would take the same end of the wave; the hands named do not fit how the dancers face.',
+      );
+    const ta = target.get(a)!;
+    const tb = target.get(b)!;
+    if (dot(handSide(ta.yaw, middleHand), sub(tb.position, ta.position)) <= 0)
+      throw new Error(`The ${middle} cannot join ${middleHand} hands facing the way they do.`);
+    const holds: Hold[] = [
+      { a, handA: middleHand, b, handB: middleHand },
+      ...pairs.map((p) => ({ a: p.end, handA: endHand, b: p.mid, handB: endHand })),
+    ];
+    return { ids: g, target, holds, along };
+  });
+
+  const start = new Map(plans.flatMap((p) => p.ids.map((id) => [id, body(state, id)] as const)));
+  const motion = (beat: number) => {
+    const t = Math.min(1, beat / formBeats);
+    const q = progress(t);
+    const steps =
+      params.balance && beat > formBeats ? ((beat - formBeats) / (beats - formBeats)) * 4 : 0;
+    const i = Math.min(3, Math.floor(steps));
+    const side = params.balance ? STEPS[i] + (STEPS[i + 1] - STEPS[i]) * ease(steps - i) : 0;
+    const bodies = plans.flatMap((p) =>
+      p.ids.map((id) => {
+        const from = start.get(id)!;
+        const to = p.target.get(id)!;
+        const yaw = from.yaw + turn(to.yaw, from.yaw) * smooth(t / 0.7);
+        const position = add(
+          mix(from.position, to.position, q),
+          scale(rightOf(to.yaw), STEP * side),
+        );
+        return { id, position, yaw };
+      }),
+    );
+    const map = bodyMap(bodies);
+    const strength = smooth((t - 0.6) / 0.3);
+    const contacts: FigureContact[] = plans.flatMap((p) =>
+      p.holds.map((h) => withinReach(joined(h, strength), map)),
+    );
+    return { bodies, contacts };
+  };
+  return {
+    kind: params.balance ? 'wave-balance' : 'pass-to-wave',
+    motion,
+    exit: withChanges(settle(state, motion, beats), { hands: plans.flatMap((p) => p.holds) }),
+  };
+};

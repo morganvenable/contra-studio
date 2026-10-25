@@ -81,7 +81,7 @@ const PATTERNS: readonly (readonly [RegExp, Build])[] = [
     ],
   ],
   [
-    /^(\w+) allemande (left|right)(?: ([^ ]+(?: 1\/2| and a half)?))?(?: to (?:a )?short waves? with (\w+) in the middle)?$/,
+    /^((?:next |new )?\w+) allemande (left|right)(?: ([^ ]+(?: 1\/2| and a half)?))?(?: to (?:a )?short waves? with (\w+) in the middle)?$/,
     (m, b) => [
       call('allemande', b, {
         who: who(m[1]),
@@ -100,8 +100,23 @@ const PATTERNS: readonly (readonly [RegExp, Build])[] = [
   ],
   [/^rory o'more (left|right)$/, (m, b) => [call('rory', b, { direction: m[1], spin: 'full' })]],
   [
-    /^balance the wave$/,
+    /^balance (?:the )?(?:ocean )?wave(?: of (?:4|four))?$/,
     (_m, b) => [call('balance', b, { formation: 'wave', style: 'right-left' })],
+  ],
+  [
+    // "Form an ocean wave & balance - robins by left hands and neighbors by
+    // right hands", and "pass through to an ocean wave ... in the center,
+    // ... on the sides": the same wave, walked into.
+    /^(?:form an|pass through to an?) ocean wave( (?:&|and) balance)? - (\w+) by (left|right)(?: hands?)?(?: in the (?:center|middle))?,? (?:and )?(neighbors|partners) by (left|right)(?: hands?)?(?: on the (?:sides|ends))?$/,
+    (m, b) => [
+      call('ocean-wave', b, {
+        middle: who(m[2]),
+        middleHand: m[3],
+        ends: who(m[4]),
+        endHand: m[5],
+        ...(m[1] ? { balance: true } : {}),
+      }),
+    ],
   ],
   [/^balance$/, (_m, b) => [call('balance', b, { formation: 'current' })]],
   [
@@ -271,6 +286,11 @@ const PATTERNS: readonly (readonly [RegExp, Build])[] = [
   ],
   [/^turn alone$/, (_m, b) => [call('turn-alone', b, {})]],
   [
+    // A lead-in: joins the swing in the next row (see joinLeadIns in import.ts).
+    /^(\w+) take (partners|neighbors)$/,
+    (m, b) => [call('take', b, { who: who(m[1]), whom: who(m[2]) })],
+  ],
+  [
     /^((?:next |new )?\w+) balance (?:&|and) pull by (right|left)$/,
     (m, b) => [
       call('balance', 4, { formation: 'pair', who: who(m[1]), hand: m[2] }),
@@ -334,6 +354,7 @@ const TIDY: readonly (readonly [RegExp, string])[] = [
   [/\s+(?:with )?(?:your |the |this is a |this is your )?(?:new|next) neighbors?$/, ''],
   [/(\bswing),? (?:and )?(?:end )?fac(?:e|ing) (down|up)(?: the hall)?$/, '$1, end facing $2'],
   [/\bright-hand chain\b/, 'chain'],
+  [/(\bswing) (?:new|original)(?: neighbors?)?$/, '$1'],
 ];
 const tidy = (text: string) => TIDY.reduce((t, [re, to]) => t.replace(re, to), text).trim();
 

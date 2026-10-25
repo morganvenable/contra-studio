@@ -136,6 +136,49 @@ const CHOICES: readonly (readonly [(c: StoredCall) => boolean, string])[] = [
 ];
 
 /**
+ * Rows that only lead into the next row join it, so the pair is one call
+ * spanning both rows' beats (labeled with both rows' text):
+ * - "larks take partners" right before "partners swing": the larks take
+ *   their partners into the swing, so the swing starts that many beats early.
+ * - A zero-beat "form an ocean wave - ..." right before "balance the wave":
+ *   the wave forms as the balance starts.
+ * A lead-in with nothing to join is a row the engine cannot draw.
+ */
+function joinLeadIns(parsed: (StoredCall[] | Error)[]) {
+  const only = (i: number) => {
+    const calls = parsed[i];
+    return Array.isArray(calls) && calls.length === 1 ? calls[0] : undefined;
+  };
+  for (let i = 0; i < parsed.length; i++) {
+    const lead = only(i);
+    if (!lead || (lead.move !== 'take' && !(lead.move === 'ocean-wave' && lead.beats === 0)))
+      continue;
+    const after = parsed[i + 1];
+    const next = Array.isArray(after) ? after : undefined;
+    const first = next?.[0];
+    const text = `${lead.text}, ${first?.text}`;
+    if (lead.move === 'take' && first?.move === 'swing' && first.params.who === lead.params.whom) {
+      next![0] = { ...first!, beats: first.beats + lead.beats, text, row: lead.row };
+      parsed[i] = [];
+    } else if (
+      lead.move === 'ocean-wave' &&
+      first?.move === 'balance' &&
+      first.params.formation === 'wave'
+    ) {
+      const params = { ...lead.params, balance: true };
+      next![0] = { ...lead, params, beats: first.beats, text, row: lead.row };
+      parsed[i] = [];
+    } else {
+      parsed[i] = new Error(
+        lead.move === 'take'
+          ? 'Taking hands leads into a swing with them; none follows.'
+          : 'A zero-beat ocean wave leads into a balance of the wave; none follows.',
+      );
+    }
+  }
+}
+
+/**
  * Import one snapshot. `sha256` is the hex hash of `snapshot.html` (the
  * caller hashes; this module stays free of Node APIs).
  */
@@ -147,19 +190,31 @@ export function importDance(id: string, snapshot: ContraDbSnapshot, sha256: stri
   const figures: StoredCall[] = [];
   const unparsed: UnparsedRow[] = [];
   const parts: { name: string; bars: number }[] = [];
+  const beatsOf = (beats: number) => (Number.isFinite(beats) && beats > 0 ? beats : 0);
+  // Parse every row first, so a lead-in row can join the row after it.
+  const parsed: (StoredCall[] | Error)[] = rows.map((row, i) => {
+    const beats = beatsOf(row.beats);
+    try {
+      if (!beats && row.beats !== 0) throw new Error('The row has no beat count.');
+      return parseRow({ ...row, beats }).map((c) => ({ ...c, section: row.section, row: i + 1 }));
+    } catch (error) {
+      return error instanceof Error ? error : new Error(String(error));
+    }
+  });
+  joinLeadIns(parsed);
   rows.forEach((row, i) => {
     const number = i + 1;
-    const beats = Number.isFinite(row.beats) && row.beats > 0 ? row.beats : 0;
+    const beats = beatsOf(row.beats);
     const name = row.section ?? 'A1';
     if (parts.at(-1)?.name !== name) parts.push({ name, bars: 0 });
     parts.at(-1)!.bars += beats / 2;
     const label = canonicalText(row.text.replace(/⁋/g, '').replace(/\s+/g, ' ').trim());
     try {
-      if (!beats && row.beats !== 0) throw new Error('The row has no beat count.');
-      const calls = parseRow({ ...row, beats });
+      const calls = parsed[i];
+      if (calls instanceof Error) throw calls;
       if (calls.some((c) => !(c.beats > 0)))
         throw new Error(`${beats} beats is too short for this row's parts.`);
-      for (const c of calls) figures.push({ ...c, section: row.section, row: number });
+      figures.push(...calls);
     } catch (error) {
       const why = error instanceof Error ? error.message : String(error);
       unparsed.push({ row: number, text: label, why });

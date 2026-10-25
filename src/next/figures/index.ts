@@ -13,6 +13,7 @@ import { hey } from './hey.ts';
 import { hold } from './hold.ts';
 import { longLines } from './long-lines.ts';
 import { madRobin } from './mad-robin.ts';
+import { oceanWave } from './ocean-wave.ts';
 import { passBy } from './pass-by.ts';
 import { passThrough } from './pass-through.ts';
 import { petronella } from './petronella.ts';
@@ -41,6 +42,7 @@ export const FIGURES: FigureRegistry = Object.freeze({
   hold,
   'long-lines': longLines,
   'mad-robin': madRobin,
+  'ocean-wave': oceanWave,
   'pass-by': passBy,
   'pass-through': passThrough,
   petronella,

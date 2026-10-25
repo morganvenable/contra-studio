@@ -6,6 +6,8 @@
  * for the figure's beats. They end side by side facing across the set on the
  * side line nearest them, the lark on the left. In a minor set of four they
  * end in their side's two places, level with the middle of the minor set.
+ * A pair that meets from opposite side lines (partners across an improper
+ * set) ends on the lark's side.
  * Source: Caller's Box glossary, "Swing"; ContraDB rows "neighbors swing" and
  * "partners swing" (dance 2321). Orbit radius (0.31 m), turn count, 60 degree
  * frame angle, release timing and hand frame ported from the swing primitive
@@ -139,9 +141,11 @@ function planPair(
   let exitYaw: number;
   let exitCenter: Vec2;
   if (end === 'across') {
-    if (Math.abs(across) < SIDE_MARGIN)
+    const larkAcross = start.get(lark)!.position.x - middle.x;
+    const from = Math.abs(across) >= SIDE_MARGIN ? across : larkAcross;
+    if (Math.abs(from) < SIDE_MARGIN)
       throw new Error('A swing that ends facing across must start nearer one side.');
-    const side = Math.sign(across);
+    const side = Math.sign(from);
     exitYaw = side > 0 ? -Math.PI / 2 : Math.PI / 2;
     exitCenter = { x: middle.x + side * SET.halfWidth, z: middle.z };
   } else {

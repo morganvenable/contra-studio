@@ -63,7 +63,7 @@ export interface BalanceParams {
   /** Side to step toward first, for a right-left wave balance. */
   first?: 'right' | 'left';
   /** Pair balance: who faces whom. */
-  who?: 'partner' | 'neighbor' | 'larks' | 'robins';
+  who?: 'partner' | 'neighbor' | 'larks' | 'robins' | '1s' | '2s';
   /** Pair balance: which hands join. */
   hand?: 'right' | 'left' | 'both' | 'none';
 }
@@ -250,6 +250,8 @@ const pairBalance: Figure<BalanceParams> = (state, params, beats) => {
     'neighbor',
     'larks',
     'robins',
+    '1s',
+    '2s',
   ] as const);
   const hand = oneOf('balance', 'hand', params.hand ?? 'both', [
     'right',
