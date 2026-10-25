@@ -2,7 +2,7 @@
  "figures": [
   {"move":"long-lines","beats":8,"params":{"back":true},"text":"long lines forward & back","section":"A1","row":1},
   {"move":"balance","beats":4,"params":{"formation":"pair","who":"robins","hand":"right"},"text":"robins balance & pull by right to face new neighbor (larks look left) · balance","section":"A1","row":2},
-  {"move":"pass-by","beats":4,"params":{"who":"robins","shoulder":"right","hands":true},"text":"robins balance & pull by right to face new neighbor (larks look left) · pull by","progression":true,"section":"A1","row":2},
+  {"move":"pass-by","beats":4,"params":{"who":"robins","shoulder":"right","hands":true,"arrive":true},"text":"robins balance & pull by right to face new neighbor (larks look left) · pull by","progression":true,"section":"A1","row":2},
   {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"neighbors left hand balance & swat the flea; larks reach right hand across","section":"A2","row":3},
   {"move":"balance","beats":3,"params":{"formation":"pair","who":"larks","hand":"right"},"text":"larks balance & pull by right; let go and turn to face back in · balance","section":"A2","row":4},
   {"move":"pass-by","beats":3,"params":{"who":"larks","shoulder":"right","hands":true},"text":"larks balance & pull by right; let go and turn to face back in · pull by","section":"A2","row":4},

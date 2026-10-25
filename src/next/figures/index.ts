@@ -60,6 +60,8 @@ import { orbit } from './orbit.ts';
 import { standStill } from './stand-still.ts';
 import { coupleTravel } from './couple-travel.ts';
 import { cloverleaf, diamond } from './diamond.ts';
+import { roll } from './roll.ts';
+import { oval } from './oval.ts';
 import { walkForward } from './walk-forward.ts';
 
 const BASE: FigureRegistry = {
@@ -96,6 +98,8 @@ const BASE: FigureRegistry = {
   'center-wave': centerWave,
   orbit,
   'stand-still': standStill,
+  roll,
+  oval,
   'walk-forward': walkForward,
   'couple-travel': coupleTravel,
   diamond,

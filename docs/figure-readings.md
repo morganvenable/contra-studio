@@ -247,6 +247,68 @@ line each, for review.
 - "Balance the ring, shift one place to the left": a ring balance, then circle left one place.
 - Dancers stepping into an ocean wave whose straight paths would pass closer than 0.75 m bow apart sideways, each to its own side.
 
+
+## Circles, chains, passes and shifts
+
+- A row with a trailing note ("dance starts with this couple", "to new couple", "with original neighbors", footnote marks, "briskly", "smush") is drawn as the figure it names; the note is not drawn.
+- "The first time through just circle 3/4" and similar first-time variations: every time through is drawn the usual way.
+- "X or Y" (an alternative the caller may choose): X, the first one named, is drawn.
+- A row naming two figures ("circle left 2 places and roll neighbor across") is split: a circle takes two beats a place (at most what leaves the second figure two beats, at least what leaves it no more than eight); a pass through, slide or turn alone at the end takes two beats; otherwise the row is halved.
+- "Single file" circles are drawn as the ring path with no hands, dancers turned to walk along the ring and back in to face the center at the end.
+- "Circle left 1 place (single file promenade)" is a single-file circle one place.
+- "Roll neighbor across / along (the set)" inside a ring: the larks roll unless another role is named; whether the roll goes across or along is read from where the pair stands, and a direction the source names is checked against it.
+- "Left-hand chain" (and "chain, pull by left"): the mirror image of a chain: pull by left hands, then a right-hand courtesy turn with the turner on the right, wheeling clockwise.
+- "Chain over and back", "full chain: across and back": two chains, half the beats each.
+- "Chain back (to partners)", "chain over", "chain across (the set)", "chain straight across": an ordinary chain.
+- "Chain to shadow / trail buddy / shadow 1": an ordinary chain; the turner is whoever stands on the far side.
+- "Right left through" with "straight across", "with neighbors/partners", "w/o hands", "use a twirl instead of courtesy turn", "you pull past your partner": an ordinary right and left through (hands and courtesy turn drawn).
+- "Along the set right left through": an ordinary right and left through with the couples facing along the set.
+- Square through two, three or four: the pulls alternate between the named pairs ("four" repeats the first two), a balance starts each pair of pulls when the row says "balance & pull by", each balance takes 4 beats and the pulls share the rest evenly. Words after the last pull ("and go to new neighbors", "face in") are notes.
+- "Mad robin ½": half way around, the two on each side line trade places; "mad robin twice": two times around. Notes after "in front" ("around neighbors", "eyes on partner") are not drawn (a "mad ricochet" is a figure of its own, not read as a mad robin); a direction (cw/ccw) is checked.
+- Mad robins travel at a steady walk with short ramps at each end (not a C2-eased orbit), so a 6-beat mad robin stays at walking speed.
+- "Slide right along set past neighbor / with neighbor", "shift left with neighbor", "slide left to new couple": an ordinary slide along the set, one place.
+- "Slice left and straight back in long lines / to (face) new couple": an ordinary slice.
+- "Box circulate - X cross while Y loop right" with no balance: the box circulate alone, from waves already formed.
+- "Pass through up and down": a pass through along the set.
+- "Pass partner (by right) along set": a pass through along the set by the right shoulder (or the shoulder named).
+- "X give & take partners, X take partners / Y bring back Z": an ordinary give & take; the second half restates the first.
+- "Entire set oval left/right", "big oval circle left/right": the whole set joins one ring (along each side line and across each end) and moves one place every two beats; hands are drawn only where they reach (dancers on a side line stand 1.8 m apart).
+- "Butterfly whirl moving right (along the line) to next neighbors", "butterfly whirl (shift left to next couple)": the whirl, then a 2-beat slide one place that way.
+- "Half poussette - ... then left clockwise / (current neighbors) / around next neighbors": an ordinary half poussette; the words after the turn are notes.
+- "Pass through with partner / past partners / passing partner; going to shadow": an ordinary pass through.
+- Gyre notes ("gypsy", "look into partner's eyes", "walk around partner") are not drawn; a gyre may go a quarter at a time (1¼).
+- "Partners promenade, shifting right along the side": the promenade, then a 2-beat slide right.
+- Turning in to face (circles, gyres) takes longer the farther a dancer has to turn: at least one beat, at most half the figure, at a walking turn rate.
+- Circle hands join only where they reach, so a dancer still arriving from the far side of the set takes hands as they close in.
+- "Slice left and diagonal back": the couples slice out on the diagonal and back the same way, ending home.
+- "Right and left through across": an ordinary right and left through.
+- "Ladles chain left diagonal": the chain on the left diagonal; a row ending "to" after a reminder ("chain (to new neighbor)") is the figure alone.
+- Becket (minor-set) dances progress at their slide or slice along the set, or at their figure on a diagonal: when the source marks only the last row as the progression (or none) and the dance has exactly one such figure, the new neighbors are met there.
+- In Becket lines a couple, for finding new neighbors and diagonals, is a lark and the robin standing on his right on his side line facing the same way (after a diagonal chain that is not his partner); otherwise his partner.
+- Box circulate "loop right/left" names the way the loopers turn (over the right or left shoulder); they always travel to the crosser's place on their own side line, even when that is the other way.
+- A slide or slice along the set starts from any facing on the side lines (out of a ring, a star, or waiting at an end): dancers turn to face across as they set off, taking longer the farther they turn.
+- "Balance & box circulate - ..." with words after the loop ("ladles cross set, men rotate right", "with shadows"): an ordinary balance and box circulate.
+- "Butterfly whirl to face in / across": an ordinary butterfly whirl (it ends facing in).
+- "Promenade neighbor (to new couple)": neighbors promenade across.
+- "Pass through with/past shadows", "chain (to) shadow": an ordinary pass through or chain. A star "with shadows" is not read this way (it names other dancers) and stays undrawn.
+- Square through with no balances may go as fast as a pull by a beat (three pull bys in 4 beats); the physical check judges it.
+- A row a pattern half-reads ("ladles chain to partner (the dance starts with same couple)") gets the same note dropping as any other row.
+- A circle shorter than four beats closes up less and keeps a steadier pace; closing up always takes at least 0.8 beat.
+- A gyre between dancers far apart (opposite corners) walks in, around and out along one path at a steady pace, going around close enough (never under 0.27 m from the middle) to stay at a walk.
+- A right and left through straight from a line of four (after up or down the hall): the line bends as the couples set off, ends forward and middles back. A long crossing (to a diagonal couple) takes up to 65% of the beats before the courtesy turn.
+- Figures on a diagonal (circle, chain, right and left through): the two couples close up along their lines (at a steady pace) to stand straight across from each other over the first beats (up to 4, half the figure), and step back out to the places on their sides over the last ones.
+- In Becket lines, couples on a side line face across whichever way each dancer is turned (finding new neighbors after a ring); a lark's couple is the robin on his right, else the robin on his left.
+- Left right through: the mirror image of a right and left through (pull by left hands, courtesy turn the other way round).
+- "Ladles slide right to partner", "meanwhile ladles slide left to meet partner": only that role slides one place to its own right or left, letting go of hands.
+- A zero-beat "slide left along set" row takes the last 2 beats of the figure before it (6 beats or more), or the first 2 of the figure after it when it opens the dance.
+- J-hook, "promenade and loop (left/wide/large)", "promenade and hook", "promenade, shift ccw around set": the promenade, then the couples go on one place along the set in 2 beats; the way is the one the row names ("to the right"), otherwise the formation's progression (left in Becket clockwise and elsewhere, right in Becket counterclockwise).
+- "Neighbors (partners) promenade along the set on the right/left": the whole set walks half way round the oval (right = counterclockwise), single file, facing the way it goes, no hands; a second such row brings everyone home.
+- "Circle left 3 places to (a) wave of four": the circle, then the last 2 beats open into the wave; unnamed, robins take left hands in the middle and neighbors right hands on the ends.
+- Promenades shorter than 8 beats spend 68% of the beats crossing and leave more of the wheel for opening out; partners close in on the pair's middle steadily as it walks.
+- A butterfly whirl takes hands only once partners are within reach, and each turns to the couple's facing over a beat or more.
+- After a figure on a diagonal that leaves couples straight across from new couples (a diagonal chain or right and left through), those foursomes are the minor sets for the figures that follow; relationships change only at the progression.
+- ContraDB's plain "Becket" does not say which way round: clockwise is the usual reading, and a dance whose own slides take the couples counterclockwise is checked and stored as Becket counterclockwise when that is how it works out.
+
 ## Where two builders read the same figure (integration)
 
 - Contra corners: in a triple-minor group or triplet, the ECD reading above (back to place); in a duple minor contra, the contra reading above (corners in the next minor sets, actives end in the middle back to back).
@@ -259,3 +321,8 @@ line each, for review.
 - "Stand still": hands held stay held; claps and stomps let go.
 - "Shadows pass by / pull by": whoever faces each other passes.
 - A ring of more than 8 dancers (a circle mixer's whole ring) may stand up to 0.32 m per dancer from its center, so neighbors stay about 2 m apart.
+- "Promenade along the set" and other rows both the formation table and the circulation table read: the formation reading (ring promenade, promenade home in rings and squares); the circulation table (the whole-set oval) takes the rest.
+- A minor-set dance progresses with couples read as partners; a Becket dance that only works out with couples read as they stand (a robin on the lark's right) is stored that way.
+- A pass by that carries the progression walks all the way to the other's place.
+- "Ones balance", "twos do si do" in a contra set: the figure dances those dancers itself first; failing that, those dancers with their partners.
+- A row whose trailing note adds motion ("robins shift left to meet partners", "to form cloverleaf", "and square the set") stays undrawn rather than drawn without it.

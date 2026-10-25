@@ -425,10 +425,11 @@ function repeatSections(rows: readonly SourceRow[], parsed: (StoredCall[] | Erro
 }
 
 /**
- * A zero-beat "turn alone" row after a figure of 6 beats or more takes that
- * figure's last 2 beats ("circle right 4 places", then "turn alone to face
- * next neighbors"); after a shorter one, the first 2 beats of the next
- * figure when that has 6 or more. A zero-beat "form a long wave in the center" only says
+ * A zero-beat "turn alone" or "slide along set" row after a figure of 6
+ * beats or more takes that figure's last 2 beats ("circle right 4 places",
+ * then "turn alone to face next neighbors"); after a shorter one (or opening
+ * the dance), the first 2 beats of the next figure when that has 6 or more.
+ * A zero-beat "form a long wave in the center" only says
  * where the dancers already are, so it adds no call.
  */
 function joinLeadOuts(
@@ -442,7 +443,7 @@ function joinLeadOuts(
       parsed[i] = [];
       continue;
     }
-    if (lead.move !== 'turn-alone') continue;
+    if (lead.move !== 'turn-alone' && lead.move !== 'slide') continue;
     const before = i > 0 ? parsed[i - 1] : undefined;
     const last = Array.isArray(before) ? before.at(-1) : undefined;
     if (Array.isArray(before) && last && last.beats >= 6) {
@@ -537,6 +538,60 @@ function startAsTold(parsed: (StoredCall[] | Error)[], html: string) {
 }
 
 /**
+ * A slide the source leaves to the progression ("promenade and loop to next
+ * neighbors", a J-hook) goes the formation's way: right in Becket
+ * counterclockwise, left otherwise (Becket clockwise, and the usual reading
+ * elsewhere).
+ */
+function progressionSlides(figures: StoredCall[], shape: Shape | undefined) {
+  const way = shape?.formation === 'becket-ccw' ? 'right' : 'left';
+  figures.forEach((c, i) => {
+    if (c.move === 'slide' && c.params.direction === 'progression')
+      figures[i] = { ...c, params: { ...c.params, direction: way } };
+  });
+}
+
+/**
+ * A pass by that carries the progression walks all the way to the other's
+ * place, so the dancers stand where they meet their new neighbors.
+ */
+function arriveToProgress(figures: StoredCall[]) {
+  figures.forEach((c, i) => {
+    if (c.move === 'pass-by' && c.progression) figures[i] = { ...c, params: { ...c.params, arrive: true } };
+  });
+}
+
+/**
+ * A minor-set (Becket) dance progresses by sliding or slicing along the set,
+ * or by a figure on the diagonal ("left diagonal robins chain"). When the
+ * source marks its last row as the progression, or marks none, and the dance
+ * has exactly one such figure, the progression happens there: the dancers
+ * meet their new neighbors at that figure.
+ */
+function slideProgression(figures: StoredCall[], shape: Shape | undefined) {
+  if (shape?.progression !== 'minor-set') return;
+  const slides = figures
+    .map((c, i) => [c, i] as const)
+    .filter(
+      ([c]) =>
+        c.move === 'slide' ||
+        (c.move === 'slice' && c.params.back !== 'diagonal') ||
+        c.params.diagonal !== undefined,
+    );
+  if (slides.length !== 1) return;
+  const marked = figures.flatMap((c, i) => (c.progression ? [i] : []));
+  const last = figures.length - 1;
+  if (marked.length > 1 || (marked.length === 1 && marked[0] !== last)) return;
+  const [slide, at] = slides[0];
+  if (slide.progression) return;
+  for (const i of marked) {
+    const { progression: _, ...rest } = figures[i];
+    figures[i] = rest;
+  }
+  figures[at] = { ...slide, progression: true };
+}
+
+/**
  * Import one snapshot. `sha256` is the hex hash of `snapshot.html` (the
  * caller hashes; this module stays free of Node APIs).
  */
@@ -616,6 +671,9 @@ export function importDance(id: string, snapshot: ContraDbSnapshot, sha256: stri
     figures.forEach((c, i) => {
       if (moves[c.move]) figures[i] = { ...c, move: moves[c.move] };
     });
+  progressionSlides(figures, shape);
+  slideProgression(figures, shape);
+  arriveToProgress(figures);
   const choices = CHOICES.filter(([test]) => figures.some(test)).map(([, t]) => t);
   return {
     schema: 'contra-studio/next-dance',

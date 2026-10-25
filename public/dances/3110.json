@@ -10,6 +10,6 @@
   {"move":"petronella","beats":4,"params":{},"text":"balance & petronella · petronella","section":"B1","row":5},
   {"move":"star","beats":8,"params":{"hand":"left","places":4},"text":"star left 4 places","section":"B2","row":6},
   {"move":"circle","beats":6,"params":{"direction":"right","places":3},"text":"circle right 3 places","section":"B2","row":7},
-  {"move":"pass-by","beats":2,"params":{"who":"neighbor","shoulder":"left","hands":false},"text":"neighbors pass by left shoulders","progression":true,"section":"B2","row":8}
+  {"move":"pass-by","beats":2,"params":{"who":"neighbor","shoulder":"left","hands":false,"arrive":true},"text":"neighbors pass by left shoulders","progression":true,"section":"B2","row":8}
  ]
 }

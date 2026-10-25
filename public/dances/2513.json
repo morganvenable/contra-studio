@@ -8,7 +8,7 @@
   {"move":"swing","beats":12,"params":{"who":"neighbor"},"text":"neighbors balance & swing · swing","section":"B1","row":5},
   {"move":"balance","beats":4,"params":{"formation":"pair","who":"partner","hand":"both"},"text":"partners balance","section":"B2","row":6},
   {"move":"pass-by","beats":3,"params":{"who":"partner","shoulder":"right","hands":true},"text":"partners pull by right","section":"B2","row":7},
-  {"move":"pass-by","beats":3,"params":{"who":"neighbor","shoulder":"right","hands":true},"text":"neighbors pull by right","progression":true,"section":"B2","row":8},
+  {"move":"pass-by","beats":3,"params":{"who":"neighbor","shoulder":"right","hands":true,"arrive":true},"text":"neighbors pull by right","progression":true,"section":"B2","row":8},
   {"move":"pass-by","beats":3,"params":{"who":"partner","shoulder":"right","hands":true},"text":"partners pull by right","section":"B2","row":9},
   {"move":"pass-by","beats":3,"params":{"who":"neighbor","shoulder":"right","hands":true},"text":"neighbors pull by right","section":"B2","row":10}
  ]

@@ -17,6 +17,49 @@ import { verifyDance, type Verdict } from './core/verify.ts';
 export interface DanceCheck {
   readonly status: Exclude<DanceStatus, 'unchecked'>;
   readonly problems: readonly string[];
+  /** Set when the check settled the formation (plain "Becket": which way round). */
+  readonly formation?: string;
+  /** Set when the check settled how couples are read at the progression. */
+  readonly progression?: StoredDance['progression'];
+}
+
+const RANK: Readonly<Record<DanceCheck['status'], number>> = {
+  ok: 3,
+  check: 2,
+  partial: 1,
+  unsupported: 0,
+};
+
+/**
+ * ContraDB's plain "Becket" does not say which way the couples go round.
+ * Clockwise is the usual reading; a dance whose own slides and figures take
+ * the couples counterclockwise is checked (and stored) as Becket
+ * counterclockwise when that is how it works out.
+ */
+export function checkDance(stored: StoredDance): DanceCheck {
+  const usual = checkWay(stored);
+  const alternative = COUPLES[stored.progression ?? ''];
+  if (usual.status === 'ok' || !alternative) return usual;
+  // A minor-set dance whose couples, at the progression, are read as they
+  // stand (a robin on the lark's right) rather than as partners, when that
+  // is how it works out.
+  const couples = checkWay({ ...stored, progression: alternative });
+  return RANK[couples.status] > RANK[usual.status]
+    ? { ...couples, progression: alternative }
+    : usual;
+}
+
+const COUPLES: Readonly<Record<string, StoredDance['progression']>> = {
+  'minor-set': 'minor-set-couples',
+  'minor-set-double': 'minor-set-couples-double',
+};
+
+function checkWay(stored: StoredDance): DanceCheck {
+  const usual = checkAs(stored);
+  const plain = stored.source.formation.toLowerCase().replace(/\s+/g, ' ').trim() === 'becket';
+  if (usual.status === 'ok' || !plain || stored.formation !== 'becket') return usual;
+  const other = checkAs({ ...stored, formation: 'becket-ccw' });
+  return RANK[other.status] > RANK[usual.status] ? { ...other, formation: 'becket-ccw' } : usual;
 }
 
 const strict = (stored: StoredDance, couples: number) =>
@@ -77,7 +120,7 @@ function plainVerdict(stored: StoredDance, v: Verdict): string {
   }
 }
 
-export function checkDance(stored: StoredDance): DanceCheck {
+function checkAs(stored: StoredDance): DanceCheck {
   if (!formationBuilt(stored))
     return {
       status: 'unsupported',

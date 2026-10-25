@@ -4,9 +4,9 @@
   {"move":"mad-robin","beats":8,"params":{"front":"larks"},"text":"mad robins, larks in front","section":"A1","row":2},
   {"move":"circle","beats":6,"params":{"direction":"left","places":3},"text":"circle left 3 places","section":"A2","row":3},
   {"move":"swing","beats":10,"params":{"who":"neighbor"},"text":"neighbors swing","section":"A2","row":4},
-  {"move":"chain","beats":8,"params":{"who":"robins","diagonal":"right"},"text":"right diagonal robins chain","section":"B1","row":5},
+  {"move":"chain","beats":8,"params":{"who":"robins","diagonal":"right"},"text":"right diagonal robins chain","section":"B1","row":5,"progression":true},
   {"move":"star","beats":8,"params":{"hand":"left","places":4},"text":"star left 4 places","section":"B1","row":6},
   {"move":"balance","beats":4,"params":{"formation":"pair","who":"partner","hand":"both"},"text":"partners balance & swing · balance","section":"B2","row":7},
-  {"move":"swing","beats":12,"params":{"who":"partner"},"text":"partners balance & swing · swing","progression":true,"section":"B2","row":7}
+  {"move":"swing","beats":12,"params":{"who":"partner"},"text":"partners balance & swing · swing","section":"B2","row":7}
  ]
 }

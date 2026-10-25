@@ -8,7 +8,7 @@
   {"move":"swing","beats":12,"params":{"who":"neighbor"},"text":"neighbors balance & swing (same neighbors!) · swing","section":"A2","row":5},
   {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance the ring","section":"B1","row":6},
   {"move":"pass-by","beats":2,"params":{"who":"partner","shoulder":"right","hands":false},"text":"cross trails - partners across the set right shoulders, neighbors along the set left shoulders · pull by","section":"B1","row":7},
-  {"move":"pass-by","beats":2,"params":{"who":"neighbor","shoulder":"left","hands":false},"text":"cross trails - partners across the set right shoulders, neighbors along the set left shoulders · pull by","progression":true,"section":"B1","row":7},
+  {"move":"pass-by","beats":2,"params":{"who":"neighbor","shoulder":"left","hands":false,"arrive":true},"text":"cross trails - partners across the set right shoulders, neighbors along the set left shoulders · pull by","progression":true,"section":"B1","row":7},
   {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance the ring (with new neighbors)","section":"B1","row":8},
   {"move":"petronella","beats":4,"params":{},"text":"petronella","section":"B1","row":9},
   {"move":"balance","beats":4,"params":{"formation":"pair","who":"partner","hand":"both"},"text":"partners balance & swing · balance","section":"B2","row":10},

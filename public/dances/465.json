@@ -8,6 +8,6 @@
   {"move":"swing","beats":12,"params":{"who":"partner"},"text":"partners swing","section":"B1","row":6},
   {"move":"star","beats":8,"params":{"hand":"right","places":3,"grip":"wrist"},"text":"star right - wrist grip - 3 places","section":"B2","row":7},
   {"move":"balance","beats":4,"params":{"formation":"pair","who":"neighbor","hand":"both"},"text":"neighbors balance","section":"B2","row":8},
-  {"move":"pass-by","beats":4,"params":{"who":"neighbor","shoulder":"right","hands":false},"text":"neighbors pass by right shoulders","progression":true,"section":"B2","row":9}
+  {"move":"pass-by","beats":4,"params":{"who":"neighbor","shoulder":"right","hands":false,"arrive":true},"text":"neighbors pass by right shoulders","progression":true,"section":"B2","row":9}
  ]
 }

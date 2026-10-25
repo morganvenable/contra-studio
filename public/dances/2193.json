@@ -10,6 +10,6 @@
   {"move":"rory","beats":4,"params":{"direction":"right","spin":"full"},"text":"balance & Rory O'More right · slide","section":"B1","row":7},
   {"move":"balance","beats":4,"params":{"formation":"pair","who":"partner","hand":"both"},"text":"partners balance & swing Slide left to progress · balance","section":"B2","row":8},
   {"move":"swing","beats":10,"params":{"who":"partner"},"text":"partners balance & swing Slide left to progress · swing","section":"B2","row":8},
-  {"move":"slide","beats":2,"params":{"direction":"left"},"text":"partners balance & swing Slide left to progress · slide","section":"B2","row":8}
+  {"move":"slide","beats":2,"params":{"direction":"left"},"text":"partners balance & swing Slide left to progress · slide","section":"B2","row":8,"progression":true}
  ]
 }

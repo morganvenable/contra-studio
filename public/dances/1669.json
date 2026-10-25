@@ -6,6 +6,6 @@
   {"move":"circle","beats":8,"params":{"direction":"left","places":3},"text":"circle left 3 places","section":"B1","row":3},
   {"move":"swing","beats":8,"params":{"who":"neighbor"},"text":"neighbors swing","section":"B1","row":4},
   {"move":"chain","beats":8,"params":{"who":"robins","to":"partner"},"text":"robins chain To partner","section":"B2","row":5},
-  {"move":"slice","beats":8,"params":{"direction":"right","back":"straight"},"text":"slice right and straight back To face new neighbor","section":"B2","row":6}
+  {"move":"slice","beats":8,"params":{"direction":"right","back":"straight"},"text":"slice right and straight back To face new neighbor","section":"B2","row":6,"progression":true}
  ]
 }

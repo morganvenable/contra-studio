@@ -26,6 +26,11 @@ export interface PassByParams {
   shoulder: 'right' | 'left';
   /** True for a pull by: the passing hands join. */
   hands: boolean;
+  /**
+   * True: walk all the way to the other's place however long the pass (the
+   * progression meets new neighbors there).
+   */
+  arrive?: boolean;
 }
 
 /** Each walker veers this far to the side so the pair passes 0.6 m apart. */
@@ -36,7 +41,9 @@ const WALK = 0.9;
 const TURN = 3.4;
 
 export const passBy: Figure<PassByParams> = (state, params, beats) => {
-  onlyKeys('pass by', params, ['who', 'shoulder', 'hands']);
+  onlyKeys('pass by', params, ['who', 'shoulder', 'hands', 'arrive']);
+  if (params.arrive !== undefined && params.arrive !== true)
+    throw new Error('pass by arrive must be true when given.');
   const who = oneOf('pass by', 'who', params.who, [
     'partner',
     'neighbor',
@@ -68,7 +75,7 @@ export const passBy: Figure<PassByParams> = (state, params, beats) => {
       // speed check reports it.
       const span = Math.hypot(there.x - from.position.x, there.z - from.position.z);
       const walkable = Math.min(1, (WALK * beats) / Math.max(span, 1e-9));
-      const reach = walkable < 0.5 ? 1 : walkable;
+      const reach = params.arrive || walkable < 0.5 ? 1 : walkable;
       const to = mix(from.position, there, reach);
       const yaw = heading(from.position, there);
       // Turning to face the way they walk: slower for a bigger turn.

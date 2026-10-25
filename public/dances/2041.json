@@ -7,6 +7,6 @@
   {"move":"circle","beats":8,"params":{"direction":"left","places":3},"text":"circle left 3 places","section":"B1","row":4},
   {"move":"swing","beats":8,"params":{"who":"partner"},"text":"partners swing","section":"B1","row":5},
   {"move":"promenade","beats":8,"params":{"who":"partner"},"text":"partners promenade across the set","section":"B2","row":6},
-  {"move":"right-left-through","beats":8,"params":{"diagonal":"left"},"text":"left diagonal right left through","section":"B2","row":7}
+  {"move":"right-left-through","beats":8,"params":{"diagonal":"left"},"text":"left diagonal right left through","section":"B2","row":7,"progression":true}
  ]
 }

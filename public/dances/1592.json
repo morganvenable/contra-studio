@@ -9,7 +9,7 @@
   {"move":"swing","beats":8,"params":{"who":"neighbor"},"text":"neighbors swing","section":"B1","row":5},
   {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance the ring","section":"B2","row":6},
   {"move":"pass-by","beats":2,"params":{"who":"partner","shoulder":"right","hands":false},"text":"cross trails - partners across the set right shoulders, neighbors along the set left shoulders · pull by","section":"B2","row":7},
-  {"move":"pass-by","beats":2,"params":{"who":"neighbor","shoulder":"left","hands":false},"text":"cross trails - partners across the set right shoulders, neighbors along the set left shoulders · pull by","progression":true,"section":"B2","row":7},
+  {"move":"pass-by","beats":2,"params":{"who":"neighbor","shoulder":"left","hands":false,"arrive":true},"text":"cross trails - partners across the set right shoulders, neighbors along the set left shoulders · pull by","progression":true,"section":"B2","row":7},
   {"move":"do-si-do","beats":8,"params":{"who":"neighbor","amount":1.25,"shoulder":"right"},"text":"next neighbors do si do 1¼","section":"B2","row":8}
  ]
 }

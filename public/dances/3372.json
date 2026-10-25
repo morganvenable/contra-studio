@@ -7,7 +7,7 @@
   {"move":"swing","beats":12,"params":{"who":"previous-neighbor"},"text":"prev neighbors balance & swing · swing","section":"A2","row":4},
   {"move":"balance","beats":4,"params":{"formation":"pair","who":"partner","hand":"right"},"text":"partners balance & pull by right · balance","section":"B1","row":5},
   {"move":"pass-by","beats":2,"params":{"who":"partner","shoulder":"right","hands":true},"text":"partners balance & pull by right · pull by","section":"B1","row":5},
-  {"move":"pass-by","beats":2,"params":{"who":"facing","shoulder":"left","hands":true},"text":"pull by left (neighbors)","progression":true,"section":"B1","row":6},
+  {"move":"pass-by","beats":2,"params":{"who":"facing","shoulder":"left","hands":true,"arrive":true},"text":"pull by left (neighbors)","progression":true,"section":"B1","row":6},
   {"move":"hey","beats":8,"params":{"start":"larks","center":"left","until":{"who":"larks","time":2}},"text":"larks start a hey - lefts in center, rights on ends - until larks meet the second time (with next neighbors)","section":"B1","row":7},
   {"move":"allemande","beats":8,"params":{"who":"larks","hand":"left","amount":1.5},"text":"larks allemande left 1½","section":"B2","row":8},
   {"move":"swing","beats":8,"params":{"who":"partner"},"text":"partners swing","section":"B2","row":9}

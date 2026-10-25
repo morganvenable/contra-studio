@@ -8,6 +8,6 @@
   {"move":"swing","beats":12,"params":{"who":"partner"},"text":"partners balance & swing · swing","section":"B1","row":4},
   {"move":"right-left-through","beats":8,"params":{},"text":"right left through","section":"B2","row":5},
   {"move":"star","beats":6,"params":{"hand":"left","places":3},"text":"star left 3 places","section":"B2","row":6},
-  {"move":"pass-by","beats":2,"params":{"who":"neighbor","shoulder":"left","hands":true},"text":"neighbors pull by left","progression":true,"section":"B2","row":7}
+  {"move":"pass-by","beats":2,"params":{"who":"neighbor","shoulder":"left","hands":true,"arrive":true},"text":"neighbors pull by left","progression":true,"section":"B2","row":7}
  ]
 }

@@ -48,6 +48,8 @@ export interface CourtesyPair {
    * out, three quarters when the follower arrives walking along the line.
    */
   readonly sweep: number;
+  /** Share of the courtesy phase spent wheeling (the rest opens out); 0.7 unless set. */
+  readonly wheelShare?: number;
 }
 
 /** A pair ending side by side at two places, facing `yaw`, turner on the left. */
@@ -80,10 +82,11 @@ export function courtesyStart(pair: CourtesyPair): { turner: Body; follower: Bod
 /** The wheel and the opening out, u in [0, 1]. */
 export function courtesyAt(pair: CourtesyPair, u: number): MovedBody[] {
   const { middle, e } = frame(pair);
-  const w = Math.min(1, u / WHEEL_SHARE);
+  const share = pair.wheelShare ?? WHEEL_SHARE;
+  const w = Math.min(1, u / share);
   // Counterclockwise from above is decreasing angle in rotate().
   const angle = pair.sweep * (1 - progress(w));
-  const open = smooth((u - WHEEL_SHARE) / (1 - WHEEL_SHARE));
+  const open = smooth((u - share) / (1 - share));
   const axis = rotate(e, angle);
   const yaw = pair.yaw - angle;
   const turner = sub(middle, scale(axis, WHEEL_HALF));
@@ -96,7 +99,8 @@ export function courtesyAt(pair: CourtesyPair, u: number): MovedBody[] {
 
 /** Left hands joined and the turner's right hand at the follower's waist. */
 export function courtesyContacts(pair: CourtesyPair, u: number): FigureContact[] {
-  const strength = smooth(u / 0.08) * smooth((WHEEL_SHARE + 0.05 - u) / 0.1);
+  const share = pair.wheelShare ?? WHEEL_SHARE;
+  const strength = smooth(u / 0.08) * smooth((share + 0.05 - u) / 0.1);
   if (strength <= 0) return [];
   return [
     { a: pair.turner, handA: 'left', b: pair.follower, handB: 'left', kind: 'courtesy', strength },

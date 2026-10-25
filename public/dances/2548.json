@@ -1,4 +1,4 @@
-{ "schema": "contra-studio/next-dance", "version": 2, "id": "2548", "title": "Winter is Coming", "author": "Bryan Suchenski", "formation": "becket-ccw", "progression": "minor-set", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/2548", "formation": "Becket ccw", "retrievedAt": "2026-10-20T06:23:37.852Z", "sha256": "e0b71ad02e4af15411e4e8ab0fc7293e2a229db1d322b35e10cbe3282695a283" }, "status": "partial", "problems": [ "Row 9 \"partners promenade and loop to next neighbors\" isn't drawn yet." ], "unparsed": [ { "row": 9, "text": "partners promenade and loop to next neighbors", "why": "No figure pattern matches \"partners promenade and loop to next neighbors ⁋\"." } ], "choices": [ "A gyre goes by the right shoulder, facing each other, with no hands." ],
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "2548", "title": "Winter is Coming", "author": "Bryan Suchenski", "formation": "becket-ccw", "progression": "minor-set", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/2548", "formation": "Becket ccw", "retrievedAt": "2026-10-20T06:23:37.852Z", "sha256": "e0b71ad02e4af15411e4e8ab0fc7293e2a229db1d322b35e10cbe3282695a283" }, "status": "ok", "problems": [], "unparsed": [], "choices": [ "A gyre goes by the right shoulder, facing each other, with no hands." ],
  "figures": [
   {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance the ring","section":"A1","row":1},
   {"move":"roll-away","beats":4,"params":{"who":"larks","whom":"neighbor"},"text":"larks roll away neighbors with a half sashay","section":"A1","row":2},
@@ -7,7 +7,8 @@
   {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance the ring","section":"A2","row":5},
   {"move":"swing","beats":12,"params":{"who":"neighbor"},"text":"larks take neighbors, neighbors swing","section":"A2","row":6},
   {"move":"chain","beats":8,"params":{"who":"robins"},"text":"robins chain","section":"B1","row":8},
-  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"partners promenade and loop to next neighbors","section":"B1","row":9,"progression":true},
+  {"move":"promenade","beats":6,"params":{"who":"partner"},"text":"partners promenade and loop to next neighbors · promenade","section":"B1","row":9},
+  {"move":"slide","beats":2,"params":{"direction":"right"},"text":"partners promenade and loop to next neighbors · slide","progression":true,"section":"B1","row":9},
   {"move":"gyre","beats":8,"params":{"who":"robins","amount":1},"text":"robins gyre once","section":"B2","row":10},
   {"move":"swing","beats":8,"params":{"who":"partner"},"text":"partners swing","section":"B2","row":11}
  ]

@@ -10,6 +10,7 @@ import { canonical, canonicalText, roleOfGroup } from './roles.ts';
 import { MORE_PATTERNS, qualifiers } from './parse-more.ts';
 import { WEAVE_PATTERNS } from './parse-weaves.ts';
 import { extraPatterns, extraTidy } from './parse-extra.ts';
+import { CIRCULATION_PATTERNS, looseCalls } from './parse-circulation.ts';
 
 export interface SourceRow {
   readonly section?: string;
@@ -467,6 +468,23 @@ function matchCalls(text: string, beats: number): FigureCall[] | undefined {
   return undefined;
 }
 
+/**
+ * The calls one fully tidied row text names (on a diagonal, if it says so),
+ * from the first pattern that matches, for the loose reading
+ * (parse-circulation.ts).
+ */
+function matchText(plain: string, beats: number): FigureCall[] | undefined {
+  const { text, diagonal } = onDiagonal(plain);
+  // A pattern that matches but cannot build lets later patterns try; the
+  // first one's reason stands if none builds.
+  let failure: unknown;
+  const found = matchRow([...coreWithExtra(), ...WEAVE_PATTERNS], text, beats, (error) => {
+    failure ??= error;
+  });
+  if (!found && failure) throw failure;
+  return found?.map((c) => (diagonal ? { ...c, params: { ...c.params, diagonal } } : c));
+}
+
 export function parseRow(row: SourceRow): FigureCall[] {
   const normal = normalizeRow(row.text);
   const progression = normal.progression;
@@ -495,6 +513,13 @@ export function parseRow(row: SourceRow): FigureCall[] {
     ...full.map((t) => ({ ...t, table: coreWithExtra() })),
     ...full.map((t) => ({ ...t, table: WEAVE_PATTERNS })),
   ];
+  const label = canonicalText(row.text.replace(/⁋/g, '').replace(/\s+/g, ' ').trim());
+  const labeled = (calls: readonly FigureCall[]) =>
+    calls.map((c, i) => ({
+      ...c,
+      text: calls.length > 1 ? `${label} · ${PART_NAMES[c.move] ?? c.move}` : label,
+      ...(progression && i === calls.length - 1 ? { progression: true } : {}),
+    }));
   for (const { text, diagonal, among, table } of attempts) {
     const found = matchRow(table, text, row.beats, (error) => {
       failure ??= error;
@@ -508,30 +533,42 @@ export function parseRow(row: SourceRow): FigureCall[] {
         ...(among?.length ? { among } : {}),
       },
     }));
-    const label = canonicalText(row.text.replace(/⁋/g, '').replace(/\s+/g, ' ').trim());
-    return calls.map((c, i) => ({
-      ...c,
-      text: calls.length > 1 ? `${label} · ${PART_NAMES[c.move] ?? c.move}` : label,
-      ...(progression && i === calls.length - 1 ? { progression: true } : {}),
-    }));
+    return labeled(calls);
   }
   // "A while B": B happens during A's last part, on other dancers.
   const both = splitMeanwhile(row, normal.text);
   if (both) return both;
+  // Read loosely: notes dropped one at a time, or two figures split
+  // (parse-circulation.ts).
+  let loose: FigureCall[] | undefined;
+  for (const text of [baseRow(row.text), normal.text]) {
+    try {
+      loose ??= looseCalls(text, row.beats, matchText);
+    } catch (error) {
+      failure ??= error;
+    }
+  }
+  if (loose) return labeled(loose);
   if (failure) throw failure;
   throw new Error(`No figure pattern matches "${row.text}".`);
 }
 
 /**
- * Contra patterns first, then other formations (parse-more.ts). Read at call time: parse-more.ts and parse.ts
- * import each other.
+ * Contra patterns first, then other formations (parse-more.ts), then
+ * circles, chains, passes and shifts (parse-circulation.ts). Read at call
+ * time: parse-more.ts and parse.ts import each other.
  */
-const coreTable = (): readonly (readonly [RegExp, Build])[] => [...PATTERNS, ...MORE_PATTERNS];
+const coreTable = (): readonly (readonly [RegExp, Build])[] => [
+  ...PATTERNS,
+  ...MORE_PATTERNS,
+  ...CIRCULATION_PATTERNS,
+];
 /** The same with parse-extra.ts's patterns after this file's own. */
 const coreWithExtra = (): readonly (readonly [RegExp, Build])[] => [
   ...PATTERNS,
   ...EXTRA_PATTERNS,
   ...MORE_PATTERNS,
+  ...CIRCULATION_PATTERNS,
 ];
 
 /**

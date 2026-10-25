@@ -10,6 +10,6 @@
   {"move":"petronella","beats":4,"params":{},"text":"balance & petronella · petronella","section":"B1","row":6},
   {"move":"balance","beats":4,"params":{"formation":"pair","who":"partner","hand":"both"},"text":"partners balance & swing, slide left to new neighbors · balance","section":"B2","row":7},
   {"move":"swing","beats":10,"params":{"who":"partner"},"text":"partners balance & swing, slide left to new neighbors · swing","section":"B2","row":7},
-  {"move":"slide","beats":2,"params":{"direction":"left"},"text":"partners balance & swing, slide left to new neighbors · slide","section":"B2","row":7}
+  {"move":"slide","beats":2,"params":{"direction":"left"},"text":"partners balance & swing, slide left to new neighbors · slide","section":"B2","row":7,"progression":true}
  ]
 }

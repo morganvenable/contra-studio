@@ -28,6 +28,7 @@ import {
   leftOf,
   length,
   mix,
+  progress,
   rightOf,
   scale,
   smooth,
@@ -41,11 +42,13 @@ export interface PromenadeParams {
 }
 
 /** Share of the figure spent crossing; the wheel takes the rest. */
-const CROSS = 0.65;
+const BASE_CROSS = 0.65;
+/** A quick promenade (under 8 beats) spends more of it crossing. */
+const QUICK_CROSS = 0.68;
 /** Each pair crosses this far to its right of the middle, so pairs pass left shoulders. */
-const LANE = 0.6;
+const LANE = 0.65;
 /** Share of the crossing spent closing up into promenade hold. */
-const GATHER = 0.5;
+const GATHER = 0.55;
 /** The lane runs straight this far each side of the middle, where the pairs pass. */
 const LANE_RUN = 0.45;
 
@@ -66,12 +69,16 @@ export const promenade: Figure<PromenadeParams> = (state, params, beats) => {
       const leftFirst =
         dot(sub(body(state, b).position, body(state, a).position), leftOf(inward)) < 0;
       const [left, right] = leftFirst ? [a, b] : [b, a];
-      const pair = courtesyPair(
-        left,
-        right,
-        [body(state, far[0]).position, body(state, far[1]).position],
-        -inward,
-      );
+      const pair = {
+        ...courtesyPair(
+          left,
+          right,
+          [body(state, far[0]).position, body(state, far[1]).position],
+          -inward,
+        ),
+        // A quick promenade leaves more of its short wheel for opening out.
+        ...(beats < 8 ? { wheelShare: 0.6 } : {}),
+      };
       const start = courtesyStart(pair);
       const lane = add(middle, scale(rightOf(inward), LANE));
       // The pair travels as one unit: its middle walks the lane to the wheel.
@@ -90,14 +97,18 @@ export const promenade: Figure<PromenadeParams> = (state, params, beats) => {
         // The pair keeps facing across as it walks, sidestepping into its lane.
         const toward = inward;
         const side = scale(leftOf(toward), WHEEL_HALF);
-        const gather = smooth(s / GATHER);
+        const gather = progress(Math.min(1, s / GATHER));
+        // Each partner closes in on the pair's middle as the pair walks: an
+        // offset from the walking middle, shrinking from where they stood.
+        const offL = mix(sub(pl.position, unitStart.position), side, gather);
+        const offR = mix(sub(pr.position, unitStart.position), scale(side, -1), gather);
         return {
           left: {
-            position: mix(pl.position, add(here, side), gather),
+            position: add(here, offL),
             yaw: pl.yaw + turn(toward, pl.yaw) * gather,
           },
           right: {
-            position: mix(pr.position, sub(here, side), gather),
+            position: add(here, offR),
             yaw: pr.yaw + turn(toward, pr.yaw) * gather,
           },
         };
@@ -106,6 +117,7 @@ export const promenade: Figure<PromenadeParams> = (state, params, beats) => {
     });
   });
 
+  const CROSS = beats < 8 ? QUICK_CROSS : BASE_CROSS;
   const motion = (beat: number) => {
     const t = beat / beats;
     const bodies = plans.flatMap((p) => {

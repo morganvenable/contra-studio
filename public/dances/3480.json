@@ -1,4 +1,4 @@
-{ "schema": "contra-studio/next-dance", "version": 2, "id": "3480", "title": "J⁰", "author": "Mattie Rynkiewicz", "formation": "becket", "progression": "minor-set", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/3480", "formation": "Becket", "retrievedAt": "2026-10-20T06:01:26.093Z", "sha256": "268adbb9b8fb1eafee3dfe4f3b6f730e4fd7747457fb7773a716f7894cce861c" }, "status": "partial", "problems": [ "Row 6 \"slice left and straight back in long lines\" isn't drawn yet." ], "unparsed": [ { "row": 6, "text": "slice left and straight back in long lines", "why": "No figure pattern matches \"slice left and straight back in long lines ⁋\"." } ], "choices": [ "A balance with a partner or neighbor holds both hands." ],
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "3480", "title": "J⁰", "author": "Mattie Rynkiewicz", "formation": "becket", "progression": "minor-set", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/3480", "formation": "Becket", "retrievedAt": "2026-10-20T06:01:26.093Z", "sha256": "268adbb9b8fb1eafee3dfe4f3b6f730e4fd7747457fb7773a716f7894cce861c" }, "status": "ok", "problems": [], "unparsed": [], "choices": [ "Slice: half the counts on the diagonal, half straight back.", "A balance with a partner or neighbor holds both hands." ],
  "figures": [
   {"move":"balance","beats":4,"params":{"formation":"pair","who":"partner","hand":"both"},"text":"partners balance & swing · balance","section":"A1","row":1},
   {"move":"swing","beats":12,"params":{"who":"partner"},"text":"partners balance & swing · swing","section":"A1","row":1},
@@ -6,6 +6,6 @@
   {"move":"chain","beats":8,"params":{"who":"robins"},"text":"robins chain","section":"A2","row":3},
   {"move":"hey","beats":16,"params":{"start":"robins","amount":1,"center":"right"},"text":"robins start a full hey - rights in center, lefts on ends","section":"B1","row":4},
   {"move":"chain","beats":8,"params":{"who":"robins"},"text":"robins chain","section":"B2","row":5},
-  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"slice left and straight back in long lines","section":"B2","row":6,"progression":true}
+  {"move":"slice","beats":8,"params":{"direction":"left","back":"straight"},"text":"slice left and straight back in long lines","progression":true,"section":"B2","row":6}
  ]
 }

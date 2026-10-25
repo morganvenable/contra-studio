@@ -3,7 +3,7 @@
   {"move":"hall","beats":8,"params":{"direction":"down","turn":"couple"},"text":"down the hall and turn as a couple","section":"A1","row":1},
   {"move":"hall","beats":8,"params":{"direction":"up","end":"ring"},"text":"up the hall and bend into a ring","section":"A1","row":2},
   {"move":"circle","beats":6,"params":{"direction":"left","places":3},"text":"circle left 3 places","section":"A2","row":3},
-  {"move":"pass-by","beats":2,"params":{"who":"neighbor","shoulder":"right","hands":false},"text":"neighbors pass by right shoulders","progression":true,"section":"A2","row":4},
+  {"move":"pass-by","beats":2,"params":{"who":"neighbor","shoulder":"right","hands":false,"arrive":true},"text":"neighbors pass by right shoulders","progression":true,"section":"A2","row":4},
   {"move":"do-si-do","beats":8,"params":{"who":"neighbor","amount":1,"shoulder":"right"},"text":"neighbors do si do once","section":"A2","row":5},
   {"move":"balance","beats":4,"params":{"formation":"pair","who":"neighbor","hand":"both"},"text":"neighbors balance & swing · balance","section":"B1","row":6},
   {"move":"swing","beats":12,"params":{"who":"neighbor"},"text":"neighbors balance & swing · swing","section":"B1","row":6},

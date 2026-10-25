@@ -10,7 +10,7 @@
   {"move":"swing","beats":12,"params":{"who":"partner"},"text":"partners swing","section":"B1","row":8},
   {"move":"long-lines","beats":4,"params":{"back":false},"text":"long lines forward","section":"B2","row":9},
   {"move":"roll-away","beats":4,"params":{"who":"larks","whom":"partner"},"text":"larks roll away partners with a half sashay on way back","section":"B2","row":10},
-  {"move":"pass-by","beats":4,"params":{"who":"larks","shoulder":"right","hands":false},"text":"larks pass by right shoulders (loop right to progress)","progression":true,"section":"B2","row":11},
+  {"move":"pass-by","beats":4,"params":{"who":"larks","shoulder":"right","hands":false,"arrive":true},"text":"larks pass by right shoulders (loop right to progress)","progression":true,"section":"B2","row":11},
   {"move":"allemande","beats":4,"params":{"who":"robins","hand":"right","amount":0.75},"text":"robins allemande right ¾ (look for new robins to restart dance)","progression":true,"section":"B2","row":12}
  ]
 }

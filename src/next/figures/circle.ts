@@ -12,7 +12,7 @@
  */
 import type { Figure, FigureContact } from '../core/figure.ts';
 import { oneOf, onlyKeys, settle } from '../core/figure.ts';
-import { joined } from '../core/contacts.ts';
+import { bodyMap, joined, withinReach } from '../core/contacts.ts';
 import { add, heading, progress, rotate, scale, smooth, sub, TAU, turn } from '../core/math.ts';
 import { findRing, ringHolds } from '../core/ring.ts';
 import { body, minorSets, withChanges } from '../core/state.ts';
@@ -23,15 +23,24 @@ export interface CircleParams {
   places?: number;
   /** Or: times around (0.75, 1, 1.5). */
   amount?: number;
+  /**
+   * Single file: no hands, each dancer turns to walk along the ring behind
+   * the one ahead, and turns back in to face the center at the end.
+   */
+  singleFile?: boolean;
 }
 
 const TIGHTEN = 0.32;
 const EDGE = 0.16;
+const EDGE_BEATS = 0.8;
 /** Beats, at least, to turn in to face the center. */
 const TURN_IN_BEATS = 1;
+/** Radians a beat, at most, for the turn in. */
+const TURN_IN_RATE = 2.5;
 
 export const circle: Figure<CircleParams> = (state, params, beats) => {
-  onlyKeys('circle', params, ['direction', 'places', 'amount']);
+  onlyKeys('circle', params, ['direction', 'places', 'amount', 'singleFile']);
+  const single = params.singleFile === true;
   const direction = oneOf('circle', 'direction', params.direction, ['left', 'right'] as const);
   if ((params.places === undefined) === (params.amount === undefined)) {
     throw new Error('A circle needs either places or an amount.');
@@ -57,13 +66,17 @@ export const circle: Figure<CircleParams> = (state, params, beats) => {
 
   const motion = (beat: number) => {
     const t = beat / beats;
-    const radius = 1 - TIGHTEN * Math.min(smooth(t / EDGE), smooth((1 - t) / EDGE));
+    // Closing up takes at least EDGE_BEATS, so a short circle does not jerk in.
+    const edge = Math.min(0.45, Math.max(EDGE, EDGE_BEATS / beats));
+    // A quick circle (under four beats) closes up less and keeps a steadier pace.
+    const quick = Math.min(1, beats / 4);
+    const radius = 1 - TIGHTEN * quick * Math.min(smooth(t / edge), smooth((1 - t) / edge));
     // Hands join once the ring has closed enough to reach, and let go as it opens.
-    const reachable = (u: number) => smooth((u / EDGE - 0.5) / 0.5);
+    const reachable = (u: number) => smooth((u / edge - 0.5) / 0.5);
     const strength = Math.min(reachable(t), reachable(1 - t));
     const bodies = rings.flatMap((ring) =>
       ring.ids.map((id) => {
-        const angle = ring.sweep * progress(t);
+        const angle = ring.sweep * progress(t, quick < 1 ? 0.1 : undefined);
         const s = body(state, id);
         const position = add(
           ring.center,
@@ -71,11 +84,23 @@ export const circle: Figure<CircleParams> = (state, params, beats) => {
         );
         // Face the center: turn in over the opening, then turn with the ring.
         const into = turn(heading(s.position, ring.center), s.yaw);
-        const yaw = s.yaw + into * smooth(beat / Math.max(EDGE * beats, TURN_IN_BEATS)) - angle;
-        return { id, position, yaw };
+        // A dancer with farther to turn takes longer (a smooth turn peaks at 1.5x).
+        const inBeats = Math.min(
+          beats / 2,
+          Math.max(EDGE * beats, TURN_IN_BEATS, (1.5 * Math.abs(into)) / TURN_IN_RATE),
+        );
+        const yaw = s.yaw + into * smooth(beat / inBeats) - angle;
+        if (!single) return { id, position, yaw };
+        // Single file: a quarter turn toward the travel, and back in at the end.
+        const along = Math.min(smooth(t / 0.2), smooth((1 - t) / 0.2));
+        return { id, position, yaw: yaw + sign * (Math.PI / 2) * along };
       }),
     );
-    const contacts: FigureContact[] = rings.flatMap((r) => r.hands.map((h) => joined(h, strength)));
+    // Hands join only where they reach (a dancer still arriving from afar).
+    const map = bodyMap(bodies);
+    const contacts: FigureContact[] = single
+      ? []
+      : rings.flatMap((r) => r.hands.map((h) => withinReach(joined(h, strength), map)));
     return { bodies, contacts };
   };
   return {

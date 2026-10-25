@@ -26,6 +26,7 @@ import {
   dupleMinorRebind,
   DUPLE_MINOR_PROGRESSION,
   DUPLE_MINOR_PROPER_PROGRESSION,
+  MINOR_SET_COUPLES_PROGRESSION,
   MINOR_SET_PROGRESSION,
   type Progression,
 } from './progression.ts';
@@ -33,6 +34,11 @@ import {
 export const MINOR_SET_DOUBLE: Progression = {
   kind: 'minor-set-double',
   rebind: MINOR_SET_PROGRESSION.rebind,
+};
+
+export const MINOR_SET_COUPLES_DOUBLE: Progression = {
+  kind: 'minor-set-couples-double',
+  rebind: MINOR_SET_COUPLES_PROGRESSION.rebind,
 };
 
 export const DUPLE_MINOR_DOUBLE: Progression = {

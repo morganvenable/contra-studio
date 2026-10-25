@@ -17,12 +17,16 @@
 import type { Vec2 } from '../../types.ts';
 import { SET } from './config.ts';
 import { dot, forward, mean, sub } from './math.ts';
+import { coupleRobin } from './couples.ts';
 import { body, partnerOf, type DanceState, type WaitingCouple, withChanges } from './state.ts';
 import { acrossCouples, rebindAcross } from './progression-across.ts';
 
 export interface Progression {
   readonly kind:
     | 'minor-set'
+    // Couples read as they stand before partners (MINOR_SET_COUPLES_PROGRESSION).
+    | 'minor-set-couples'
+    | 'minor-set-couples-double'
     | 'duple-minor'
     | 'duple-minor-proper'
     | 'whole-set'
@@ -60,11 +64,12 @@ interface CoupleSpot {
   readonly facing: Vec2;
 }
 
-function coupleSpots(state: DanceState): Map<number, CoupleSpot> {
+function coupleSpots(state: DanceState, beside = false): Map<number, CoupleSpot> {
   const couples = new Map<number, CoupleSpot>();
   for (const d of state.dancers) {
     if (d.role !== 'lark') continue;
-    const robin = partnerOf(state, d.id);
+    // Becket: whoever stands with the lark as a couple (core/couples.ts).
+    const robin = beside ? coupleRobin(state, d.id) : partnerOf(state, d.id);
     const a = body(state, d.id);
     const b = body(state, robin);
     couples.set(d.couple, {
@@ -79,8 +84,51 @@ function coupleSpots(state: DanceState): Map<number, CoupleSpot> {
 
 export const MINOR_SET_PROGRESSION: Progression = {
   kind: 'minor-set',
-  rebind(state) {
-    const couples = coupleSpots(state);
+  // Couples as partners first; failing that, as whoever stands with each
+  // lark as a couple (Becket, core/couples.ts).
+  rebind: (state) => rebindEither(state, false),
+};
+
+/**
+ * The same, reading couples as they stand first (a robin on the lark's
+ * right, core/couples.ts) and as partners only failing that. A Becket dance
+ * is stored with this when it works out this way and not the other
+ * (status.ts).
+ */
+export const MINOR_SET_COUPLES_PROGRESSION: Progression = {
+  kind: 'minor-set-couples',
+  rebind: (state) => rebindEither(state, true),
+};
+
+function rebindEither(state: DanceState, besideFirst: boolean): DanceState {
+  try {
+    return rebindMinorSet(state, besideFirst);
+  } catch (error) {
+    try {
+      return rebindMinorSet(state, !besideFirst);
+    } catch {
+      throw error;
+    }
+  }
+}
+
+/** Minor-set rebind, couples found as partners or (`beside`) as they stand. */
+function rebindMinorSet(state: DanceState, beside: boolean): DanceState {
+  {
+    const couples = coupleSpots(state, beside);
+    const across = new Set<number>();
+    for (const [c, spot] of couples) {
+      // A couple on a side line faces across the set, whichever way each one
+      // is turned (into a ring, say); elsewhere both must face the same way.
+      const lark = body(state, spot.lark).position;
+      const robin = body(state, spot.robin).position;
+      const onLine =
+        Math.abs(Math.abs(lark.x) - SET.halfWidth) < 0.05 && Math.abs(robin.x - lark.x) < 0.05;
+      if (onLine) {
+        couples.set(c, { ...spot, facing: { x: -Math.sign(lark.x), z: 0 } });
+        across.add(c);
+      }
+    }
     // Partners facing the same way find the couple they face. Partners who
     // do not (out of a star, or a ring balance and California twirl) find
     // the couple standing square to them one place away that they did not
@@ -88,14 +136,15 @@ export const MINOR_SET_PROGRESSION: Progression = {
     // each other find the couple beside them along the set
     // (progression-across.ts).
     const aligned = [...couples].every(
-      ([, spot]) => dot(spot.facing, forward(body(state, spot.robin).yaw)) >= 0.9,
+      ([c, spot]) =>
+        across.has(c) || dot(spot.facing, forward(body(state, spot.robin).yaw)) >= 0.9,
     );
     if (!aligned) {
       try {
         return rebindByPlace(state, couples);
       } catch (error) {
-        const across = acrossCouples(state);
-        if (across) return rebindAcross(state, across);
+        const partnersAcross = acrossCouples(state);
+        if (partnersAcross) return rebindAcross(state, partnersAcross);
         throw error;
       }
     }
@@ -130,8 +179,8 @@ export const MINOR_SET_PROGRESSION: Progression = {
     }
     const relations = withNeighbors(state, neighbor);
     return withChanges(state, { relations, groups, waiting, epoch: state.epoch + 1 });
-  },
-};
+  }
+}
 
 /** Minor-set rebind by where couples stand, for partners not facing alike. */
 function rebindByPlace(state: DanceState, couples: Map<number, CoupleSpot>): DanceState {

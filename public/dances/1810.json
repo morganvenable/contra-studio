@@ -8,7 +8,7 @@
   {"move":"petronella","beats":4,"params":{},"text":"balance & petronella · petronella","section":"A2","row":4},
   {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance the ring","section":"B1","row":5},
   {"move":"pass-by","beats":2,"params":{"who":"partner","shoulder":"right","hands":false},"text":"cross trails - partners across the set right shoulders, neighbors along the set left shoulders · pull by","section":"B1","row":6},
-  {"move":"pass-by","beats":2,"params":{"who":"neighbor","shoulder":"left","hands":false},"text":"cross trails - partners across the set right shoulders, neighbors along the set left shoulders · pull by","progression":true,"section":"B1","row":6},
+  {"move":"pass-by","beats":2,"params":{"who":"neighbor","shoulder":"left","hands":false,"arrive":true},"text":"cross trails - partners across the set right shoulders, neighbors along the set left shoulders · pull by","progression":true,"section":"B1","row":6},
   {"move":"swing","beats":8,"params":{"who":"neighbor"},"text":"next neighbors swing","section":"B1","row":7},
   {"move":"circle","beats":8,"params":{"direction":"left","places":3},"text":"circle left 3 places","section":"B2","row":8},
   {"move":"swing","beats":8,"params":{"who":"partner"},"text":"partners swing","section":"B2","row":9}

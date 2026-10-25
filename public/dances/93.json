@@ -11,6 +11,6 @@
   {"move":"hold","beats":4,"params":{"reason":"unparsed"},"text":"pull by right across the set - same dancer","section":"B2","row":9},
   {"move":"pass-by","beats":4,"params":{"who":"facing","shoulder":"left","hands":true,"diagonal":"left"},"text":"pull by left diagonal","section":"B2","row":10},
   {"move":"pass-by","beats":4,"params":{"who":"facing","shoulder":"right","hands":true,"diagonal":"right"},"text":"pull by right diagonal","section":"B2","row":11},
-  {"move":"pass-by","beats":4,"params":{"who":"facing","shoulder":"left","hands":true,"diagonal":"left"},"text":"pull by left diagonal - partner","progression":true,"section":"B2","row":12}
+  {"move":"pass-by","beats":4,"params":{"who":"facing","shoulder":"left","hands":true,"diagonal":"left","arrive":true},"text":"pull by left diagonal - partner","progression":true,"section":"B2","row":12}
  ]
 }

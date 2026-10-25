@@ -1,4 +1,4 @@
-{ "schema": "contra-studio/next-dance", "version": 2, "id": "235", "title": "Whirl-A-Way", "author": "Karl Senseman", "formation": "becket", "progression": "minor-set", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/235", "formation": "Becket", "retrievedAt": "2026-10-20T06:23:11.615Z", "sha256": "3a6e9a33ba16f48d28b44d22bb6a23270a7f5ae5b33282e5aeb6e58cc582b2ad" }, "status": "partial", "problems": [ "Row 8 \"butterfly whirl (shift left to next couple)\" isn't drawn yet." ], "unparsed": [ { "row": 8, "text": "butterfly whirl (shift left to next couple)", "why": "No figure pattern matches \"butterfly whirl (shift left to next couple) ⁋\"." } ], "choices": [],
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "235", "title": "Whirl-A-Way", "author": "Karl Senseman", "formation": "becket", "progression": "minor-set", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/235", "formation": "Becket", "retrievedAt": "2026-10-20T06:23:11.615Z", "sha256": "3a6e9a33ba16f48d28b44d22bb6a23270a7f5ae5b33282e5aeb6e58cc582b2ad" }, "status": "check", "problems": [ "Row 8 \"butterfly whirl (shift left to next couple) · butterfly-whirl\": a dancer has to move 1.33 m in one beat, faster than a walk." ], "unparsed": [], "choices": [],
  "figures": [
   {"move":"circle","beats":8,"params":{"direction":"left","places":3},"text":"circle left 3 places","section":"A1","row":1},
   {"move":"swing","beats":8,"params":{"who":"neighbor"},"text":"neighbors swing","section":"A1","row":2},
@@ -7,6 +7,7 @@
   {"move":"swing","beats":14,"params":{"who":"partner"},"text":"partners swing","section":"B1","row":5},
   {"move":"allemande","beats":8,"params":{"who":"robins","hand":"right","amount":1},"text":"robins allemande right once pick up partner","section":"B2","row":6},
   {"move":"star-promenade","beats":4,"params":{"hand":"right","amount":0.5,"center":"robins"},"text":"robins star promenade right ½","section":"B2","row":7},
-  {"move":"hold","beats":4,"params":{"reason":"unparsed"},"text":"butterfly whirl (shift left to next couple)","section":"B2","row":8,"progression":true}
+  {"move":"butterfly-whirl","beats":2,"params":{},"text":"butterfly whirl (shift left to next couple) · butterfly-whirl","section":"B2","row":8},
+  {"move":"slide","beats":2,"params":{"direction":"left"},"text":"butterfly whirl (shift left to next couple) · slide","progression":true,"section":"B2","row":8}
  ]
 }

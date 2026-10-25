@@ -7,7 +7,7 @@
   {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance the ring","section":"A2","row":5},
   {"move":"corners","beats":8,"params":{"move":"do-si-do","params":{"who":"neighbor","amount":1,"shoulder":"right"}},"text":"first corners do si do once","section":"A2","row":6},
   {"move":"balance","beats":4,"params":{"formation":"pair","who":"partner","hand":"right"},"text":"partners balance & pull by right · balance","section":"B1","row":7},
-  {"move":"pass-by","beats":4,"params":{"who":"partner","shoulder":"right","hands":true},"text":"partners balance & pull by right · pull by","progression":true,"section":"B1","row":7},
+  {"move":"pass-by","beats":4,"params":{"who":"partner","shoulder":"right","hands":true,"arrive":true},"text":"partners balance & pull by right · pull by","progression":true,"section":"B1","row":7},
   {"move":"corners","beats":4,"params":{"move":"pass-by","params":{"who":"neighbor","shoulder":"left","hands":true}},"text":"first corners pull by left","section":"B1","row":8},
   {"move":"hold","beats":4,"params":{"reason":"unparsed"},"text":"second corners pull by right","section":"B1","row":9},
   {"move":"swing","beats":16,"params":{"who":"partner"},"text":"partners long swing","section":"B2","row":10}

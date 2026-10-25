@@ -12,6 +12,6 @@
   {"move":"mad-robin","beats":8,"params":{"front":"robins"},"text":"mad robins, robins in front","section":"B1","row":5},
   {"move":"give-and-take","beats":4,"params":{"who":"robins","whom":"partner"},"text":"robins give & take partners","section":"B2","row":6},
   {"move":"swing","beats":10,"params":{"who":"partner"},"text":"partners swing (Slide Left) · swing","section":"B2","row":7},
-  {"move":"slide","beats":2,"params":{"direction":"left"},"text":"partners swing (Slide Left) · slide","section":"B2","row":7}
+  {"move":"slide","beats":2,"params":{"direction":"left"},"text":"partners swing (Slide Left) · slide","section":"B2","row":7,"progression":true}
  ]
 }

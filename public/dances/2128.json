@@ -6,7 +6,7 @@
   {"move":"roll-away","beats":4,"params":{"who":"robins","whom":"partner"},"text":"long lines forward & back, robins roll away partners right to left · roll-away","section":"A1","row":2},
   {"move":"chain","beats":8,"params":{"who":"robins"},"text":"robins chain","section":"A2","row":3},
   {"move":"hey","beats":8,"params":{"start":"robins","amount":0.5,"center":"right"},"text":"robins start a half hey - rights in center, lefts on ends","section":"A2","row":4},
-  {"move":"pass-by","beats":2,"params":{"who":"neighbor","shoulder":"left","hands":true},"text":"neighbors pull by left","progression":true,"section":"B1","row":5},
+  {"move":"pass-by","beats":2,"params":{"who":"neighbor","shoulder":"left","hands":true,"arrive":true},"text":"neighbors pull by left","progression":true,"section":"B1","row":5},
   {"move":"swing","beats":14,"params":{"who":"neighbor","meltdown":true},"text":"next neighbors meltdown swing","section":"B1","row":6},
   {"move":"give-and-take","beats":8,"params":{"who":"robins","whom":"partner"},"text":"robins give & take partners","section":"B2","row":7},
   {"move":"swing","beats":8,"params":{"who":"partner"},"text":"partners swing","section":"B2","row":8}

@@ -309,17 +309,32 @@ const WHOLE = new Set<string>(['ring-circle', 'ring-promenade', 'forward-back', 
  * with no `among` the figure runs exactly as written.
  */
 export function inLayout<P>(move: string, figure: Figure<P>): Figure<P & { among?: string[] }> {
+  const run = placed(move, figure);
   return (state, input, beats) => {
-    let params = input as P & { among?: string[] };
-    const named0 = (params as { who?: unknown }).who;
-    if (
+    const named = (input as { who?: unknown }).who;
+    const byPlace =
       PAIRS_BY_PLACE.has(move) &&
-      typeof named0 === 'string' &&
-      state.positions.has(named0) &&
-      partnersWithin(state, state.positions.get(named0)!)
-    ) {
-      params = { ...params, who: 'partner', among: [...(params.among ?? []), named0] };
+      typeof named === 'string' &&
+      state.positions.has(named) &&
+      partnersWithin(state, state.positions.get(named)!);
+    if (!byPlace) return run(state, input, beats);
+    const asPartners = { ...input, who: 'partner', among: [...(input.among ?? []), named] };
+    // In a plain contra set a figure that takes places itself ("ones
+    // balance") dances them first; otherwise those dancers with partners.
+    if (!state.layout) {
+      try {
+        return run(state, input, beats);
+      } catch {
+        return run(state, asPartners, beats);
+      }
     }
+    return run(state, asPartners, beats);
+  };
+}
+
+function placed<P>(move: string, figure: Figure<P>): Figure<P & { among?: string[] }> {
+  return (state, input, beats) => {
+    const params = input as P & { among?: string[] };
     const { among, ...rest } = params;
     const layout = state.layout;
     const who = (rest as { who?: unknown }).who;

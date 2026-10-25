@@ -1,6 +1,6 @@
 { "schema": "contra-studio/next-dance", "version": 2, "id": "1567", "title": "Alexander Avery's Articulate Anime Adventure", "author": "Dugan Murphy", "formation": "becket", "progression": "minor-set", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/1567", "formation": "Becket", "retrievedAt": "2026-10-20T05:45:59.466Z", "sha256": "57f055690f66a8e1e75132b3649c804a8e45eee90ab6b20dd0dc721c699851c8" }, "status": "partial", "problems": [ "Row 1 \"left diagonal robins chain to 2nd neighbor\" can't start from where the dancers are: The robins would chain to someone who is not their neighbor.", "Row 7 \"balance & Rory O'More right past shadow · balance\" can't start from where the dancers are: Dancers in a wave must face across the line.", "Row 7 \"balance & Rory O'More right past shadow · slide\" can't start from where the dancers are: Dancers in a wave must face across the line." ], "unparsed": [], "choices": [ "Rory O'More spins one full turn in the travel direction.", "The balance before each Rory steps toward the slide direction first.", "A balance with a partner or neighbor holds both hands." ],
  "figures": [
-  {"move":"chain","beats":8,"params":{"who":"robins","to":"neighbor","diagonal":"left"},"text":"left diagonal robins chain to 2nd neighbor","section":"A1","row":1},
+  {"move":"chain","beats":8,"params":{"who":"robins","to":"neighbor","diagonal":"left"},"text":"left diagonal robins chain to 2nd neighbor","section":"A1","row":1,"progression":true},
   {"move":"hey","beats":8,"params":{"start":"robins","amount":0.5,"center":"right"},"text":"robins start a half hey - rights in center, lefts on ends","section":"A1","row":2},
   {"move":"balance","beats":4,"params":{"formation":"pair","who":"neighbor","hand":"both"},"text":"neighbors balance & swing (2nd neighbor) · balance","section":"A2","row":3},
   {"move":"swing","beats":12,"params":{"who":"neighbor"},"text":"neighbors balance & swing (2nd neighbor) · swing","section":"A2","row":3},
@@ -9,6 +9,6 @@
   {"move":"petronella","beats":4,"params":{},"text":"balance & petronella, larks turn a little extra to... · petronella","section":"B1","row":5},
   {"move":"balance","beats":4,"params":{"formation":"wave","style":"right-left","first":"right"},"text":"balance & Rory O'More right past shadow · balance","section":"B2","row":7},
   {"move":"rory","beats":4,"params":{"direction":"right","spin":"full"},"text":"balance & Rory O'More right past shadow · slide","section":"B2","row":7},
-  {"move":"swing","beats":8,"params":{"who":"partner"},"text":"partners swing","progression":true,"section":"B2","row":8}
+  {"move":"swing","beats":8,"params":{"who":"partner"},"text":"partners swing","section":"B2","row":8}
  ]
 }

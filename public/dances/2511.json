@@ -7,6 +7,6 @@
   {"move":"swing","beats":16,"params":{"who":"partner","meltdown":true},"text":"partners meltdown swing","section":"B1","row":4},
   {"move":"do-si-do","beats":8,"params":{"who":"robins","amount":1,"shoulder":"right"},"text":"robins do si do once","section":"B2","row":5},
   {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance the ring","section":"B2","row":6},
-  {"move":"pass-by","beats":4,"params":{"who":"larks","shoulder":"right","hands":false},"text":"larks pass by right shoulders to a new neighbor, robins turn single to face the next","progression":true,"section":"B2","row":7}
+  {"move":"pass-by","beats":4,"params":{"who":"larks","shoulder":"right","hands":false,"arrive":true},"text":"larks pass by right shoulders to a new neighbor, robins turn single to face the next","progression":true,"section":"B2","row":7}
  ]
 }

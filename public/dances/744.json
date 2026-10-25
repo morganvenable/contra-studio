@@ -9,6 +9,6 @@
   {"move":"balance","beats":4,"params":{"formation":"wave","style":"right-left","first":"left"},"text":"balance & Rory O'More left · balance","section":"B2","row":7},
   {"move":"rory","beats":4,"params":{"direction":"left","spin":"full"},"text":"balance & Rory O'More left · slide","section":"B2","row":7},
   {"move":"balance","beats":4,"params":{"formation":"pair","who":"neighbor","hand":"right"},"text":"neighbors balance & pull by right · balance","section":"B2","row":8},
-  {"move":"pass-by","beats":4,"params":{"who":"neighbor","shoulder":"right","hands":true},"text":"neighbors balance & pull by right · pull by","progression":true,"section":"B2","row":8}
+  {"move":"pass-by","beats":4,"params":{"who":"neighbor","shoulder":"right","hands":true,"arrive":true},"text":"neighbors balance & pull by right · pull by","progression":true,"section":"B2","row":8}
  ]
 }

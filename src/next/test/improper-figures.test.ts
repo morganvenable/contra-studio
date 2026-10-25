@@ -257,8 +257,10 @@ test('long waves and box circulate: crossers go across, loopers loop into their 
   const lark = r.exit.bodies.get(0)!;
   assert.ok(Math.sign(lark.position.x) === Math.sign(pos(waved, 0).x), 'lark stays on its side');
   near(lark.position, pos(waved, 3), "lark loops into the other robin's place");
-  assert.throws(
-    () => FIGURES['box-circulate'](waved, { cross: 'robins', loop: 'right' }, 4),
-    /wrong way/,
-  );
+  // "Loop right" names the turn: the lark still ends in the same place,
+  // turning over the other shoulder.
+  const right = FIGURES['box-circulate'](waved, { cross: 'robins', loop: 'right' }, 4);
+  near(right.exit.bodies.get(0)!.position, pos(waved, 3), 'same place either way');
+  const mid = (res: typeof r) => res.motion(2).bodies.find((b) => b.id === 0)!.yaw;
+  assert.ok(Math.abs(mid(r) - mid(right)) > 1, 'the two loops turn opposite ways');
 });

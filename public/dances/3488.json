@@ -8,6 +8,6 @@
   {"move":"swing","beats":8,"params":{"who":"partner"},"text":"partners swing","section":"B1","row":6},
   {"move":"circle","beats":8,"params":{"direction":"left","places":3},"text":"circle left 3 places","section":"B2","row":7},
   {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance the ring","section":"B2","row":8},
-  {"move":"pass-by","beats":2,"params":{"who":"neighbor","shoulder":"right","hands":false},"text":"neighbors pass by right shoulders to new neighbors","progression":true,"section":"B2","row":9}
+  {"move":"pass-by","beats":2,"params":{"who":"neighbor","shoulder":"right","hands":false,"arrive":true},"text":"neighbors pass by right shoulders to new neighbors","progression":true,"section":"B2","row":9}
  ]
 }

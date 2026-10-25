@@ -6,7 +6,7 @@
   {"move":"circle","beats":8,"params":{"direction":"right","places":3},"text":"circle right 3 places","section":"A2","row":4},
   {"move":"poussette","beats":8,"params":{"who":"robins","pair":"neighbor","then":"right","amount":0.5},"text":"half poussette - robins pull neighbors back then right","section":"B1","row":5},
   {"move":"chain","beats":8,"params":{"who":"robins"},"text":"robins chain","section":"B1","row":6},
-  {"move":"chain","beats":8,"params":{"who":"robins","diagonal":"right"},"text":"right diagonal robins chain to shadow","section":"B2","row":7},
-  {"move":"swing","beats":8,"params":{"who":"partner"},"text":"partners swing","progression":true,"section":"B2","row":8}
+  {"move":"chain","beats":8,"params":{"who":"robins","diagonal":"right"},"text":"right diagonal robins chain to shadow","section":"B2","row":7,"progression":true},
+  {"move":"swing","beats":8,"params":{"who":"partner"},"text":"partners swing","section":"B2","row":8}
  ]
 }

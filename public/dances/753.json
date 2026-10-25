@@ -7,7 +7,7 @@
   {"move":"pass-by","beats":2,"params":{"who":"neighbor","shoulder":"left","hands":true},"text":"square through four - partners balance & pull by right, then neighbors pull by left, then repeat · pull by","section":"A2","row":3},
   {"move":"balance","beats":4,"params":{"formation":"pair","who":"partner","hand":"right"},"text":"square through four - partners balance & pull by right, then neighbors pull by left, then repeat · balance","section":"A2","row":3},
   {"move":"pass-by","beats":2,"params":{"who":"partner","shoulder":"right","hands":true},"text":"square through four - partners balance & pull by right, then neighbors pull by left, then repeat · pull by","section":"A2","row":3},
-  {"move":"pass-by","beats":2,"params":{"who":"neighbor","shoulder":"left","hands":true},"text":"square through four - partners balance & pull by right, then neighbors pull by left, then repeat · pull by","progression":true,"section":"A2","row":3},
+  {"move":"pass-by","beats":2,"params":{"who":"neighbor","shoulder":"left","hands":true,"arrive":true},"text":"square through four - partners balance & pull by right, then neighbors pull by left, then repeat · pull by","progression":true,"section":"A2","row":3},
   {"move":"balance","beats":4,"params":{"formation":"pair","who":"neighbor","hand":"both"},"text":"next neighbors balance & swing · balance","section":"B1","row":4},
   {"move":"swing","beats":12,"params":{"who":"neighbor"},"text":"next neighbors balance & swing · swing","section":"B1","row":4},
   {"move":"circle","beats":8,"params":{"direction":"left","places":3},"text":"circle left 3 places","section":"B2","row":5},

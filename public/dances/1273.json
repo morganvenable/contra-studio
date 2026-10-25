@@ -11,6 +11,6 @@
   {"move":"pass-by","beats":2,"params":{"who":"neighbor","shoulder":"left","hands":true},"text":"square through four - partners balance & pull by right, then neighbors pull by left, then repeat · pull by","section":"B2","row":6},
   {"move":"balance","beats":4,"params":{"formation":"pair","who":"partner","hand":"right"},"text":"square through four - partners balance & pull by right, then neighbors pull by left, then repeat · balance","section":"B2","row":6},
   {"move":"pass-by","beats":2,"params":{"who":"partner","shoulder":"right","hands":true},"text":"square through four - partners balance & pull by right, then neighbors pull by left, then repeat · pull by","section":"B2","row":6},
-  {"move":"pass-by","beats":2,"params":{"who":"neighbor","shoulder":"left","hands":true},"text":"square through four - partners balance & pull by right, then neighbors pull by left, then repeat · pull by","progression":true,"section":"B2","row":6}
+  {"move":"pass-by","beats":2,"params":{"who":"neighbor","shoulder":"left","hands":true,"arrive":true},"text":"square through four - partners balance & pull by right, then neighbors pull by left, then repeat · pull by","progression":true,"section":"B2","row":6}
  ]
 }
