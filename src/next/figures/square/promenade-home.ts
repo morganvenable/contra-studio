@@ -11,21 +11,26 @@
  * square instructions ("promenade along the set on the right" =
  * counterclockwise); ContraDB rows "promenade home", "partners promenade
  * around the set".
- * Reading: every couple must be the same number of places from home (as
- * after a grand right and left or a star); the walk itself is the ring
- * promenade (figures/ring-promenade.ts), and a couple standing off its
- * places drifts onto its home places on the way.
+ * Readings: every couple must be the same number of places from home (as
+ * after a grand right and left or a star). The couples wheel into promenade
+ * hold and out of it as in the ring promenade (figures/ring-promenade.ts),
+ * while the square draws in toward the middle and opens out again, so a
+ * brisk promenade (half way round in 8 beats) walks a smaller ring at a
+ * walking pace; a couple standing off its places drifts onto them.
  */
-import type { Figure } from '../../core/figure.ts';
+import type { Figure, FigureContact } from '../../core/figure.ts';
 import type { Vec2 } from '../../../types.ts';
 import { oneOf, onlyKeys, settle } from '../../core/figure.ts';
 import { RING_CENTER, ringPlaces } from '../../core/formation-ring.ts';
 import {
   add,
   heading,
+  leftOf,
+  length,
   mean,
   polar,
   positiveAngle,
+  progress,
   scale,
   smooth,
   sub,
@@ -33,13 +38,26 @@ import {
   turn,
 } from '../../core/math.ts';
 import { body, minorSets, partnerOf, withChanges } from '../../core/state.ts';
-import { ringPromenade } from '../ring-promenade.ts';
+import { bodyMap, withinReach } from '../../core/contacts.ts';
 
 export interface PromenadeHomeParams {
   who: 'partner';
   /** Places already home go all the way round (default), or stand. */
   fromHome?: 'around' | 'stay';
 }
+
+/**
+ * How far (meters) the promenade draws in toward the center halfway round,
+ * for a brisk promenade (half way round in 8 beats); a slower one less.
+ */
+const DRAW = 1.3;
+/** Share of the figure spent wheeling into promenade, and back out. */
+const WHEEL = 0.25;
+/** Half the distance between partners in promenade hold. */
+const HOLD_HALF = 0.3;
+const SETTLE_BEATS = 1;
+/** The walk speeds up and slows down smoothly, the couples wheeling meanwhile. */
+const RAMP = 0.5;
 
 export const promenadeHome: Figure<PromenadeHomeParams> = (state, params, beats) => {
   onlyKeys('promenade home', params, ['who', 'fromHome']);
@@ -70,7 +88,79 @@ export const promenadeHome: Figure<PromenadeHomeParams> = (state, params, beats)
   }
   if (need === undefined) throw new Error('Nobody promenades.');
   if (need === 0) throw new Error('Everyone is already home.');
-  const walk = ringPromenade(state, { who: 'partner', places: need }, beats);
+  const sweep = -need * step;
+  const draw = DRAW * Math.min(1, (2 * need) / beats);
+  const plans = ids
+    .filter((id) => state.dancers[id].role === 'lark')
+    .map((lark) => {
+      const d = state.dancers[lark];
+      const robin = partnerOf(state, lark);
+      const a = body(state, lark);
+      const b = body(state, robin);
+      if (length(sub(a.position, b.position)) > 2.6)
+        throw new Error('Partners promenade home from side by side.');
+      const u0 = mean([a.position, b.position]);
+      const uE = mean([places[d.couple * 2], places[d.couple * 2 + 1]]);
+      const yaw0 = heading(u0, RING_CENTER);
+      const half0 = length(sub(a.position, b.position)) / 2;
+      const ideal0 = (sign: number) => add(u0, scale(leftOf(yaw0), sign * half0));
+      return {
+        lark,
+        robin,
+        a,
+        b,
+        theta0: polar(sub(u0, RING_CENTER)),
+        r0: length(sub(u0, RING_CENTER)),
+        rE: length(sub(uE, RING_CENTER)),
+        half0,
+        halfE: length(sub(places[d.couple * 2], places[d.couple * 2 + 1])) / 2,
+        yaw0,
+        dLark: sub(a.position, ideal0(1)),
+        dRobin: sub(b.position, ideal0(-1)),
+      };
+    });
+  const walk = {
+    motion: (beat: number) => {
+      const t = beat / beats;
+      const q = progress(t, RAMP);
+      const wheel = Math.min(smooth(t / WHEEL), smooth((1 - t) / WHEEL));
+      const settleIn = 1 - smooth(beat / SETTLE_BEATS);
+      const bodies = plans.flatMap((p) => {
+        const r = p.r0 + (p.rE - p.r0) * smooth(t) - draw * Math.sin(Math.PI * q);
+        const theta = p.theta0 + sweep * q;
+        const unit = add(RING_CENTER, { x: r * Math.cos(theta), z: r * Math.sin(theta) });
+        // Counterclockwise: a quarter turn right to face round the ring.
+        const yaw = heading(unit, RING_CENTER) - (Math.PI / 2) * wheel;
+        const half = p.half0 + (p.halfE - p.half0) * smooth(t);
+        const off = scale(leftOf(yaw), half + (HOLD_HALF - half) * wheel);
+        return [
+          {
+            id: p.lark,
+            position: add(add(unit, off), scale(p.dLark, settleIn)),
+            yaw: yaw + turn(p.a.yaw, p.yaw0) * settleIn,
+          },
+          {
+            id: p.robin,
+            position: add(sub(unit, off), scale(p.dRobin, settleIn)),
+            yaw: yaw + turn(p.b.yaw, p.yaw0) * settleIn,
+          },
+        ];
+      });
+      const map = bodyMap(bodies);
+      const strength = Math.min(
+        smooth((t - WHEEL * 0.4) / (WHEEL * 0.4)),
+        smooth((1 - t - WHEEL * 0.4) / (WHEEL * 0.4)),
+      );
+      const contacts: FigureContact[] = plans.flatMap((p) =>
+        (['left', 'right'] as const).map((hand) =>
+          withinReach({ a: p.lark, handA: hand, b: p.robin, handB: hand, kind: 'joined', strength }, map),
+        ),
+      );
+      return { bodies, contacts };
+    },
+    kind: 'promenade' as const,
+  };
+  const walkExit = settle(state, walk.motion, beats);
   // Couples that started off their places (after lines or a swing in the
   // middle) drift onto the home places as they walk.
   const fix = new Map<number, { dp: Vec2; dyaw: number }>();
@@ -82,7 +172,7 @@ export const promenadeHome: Figure<PromenadeHomeParams> = (state, params, beats)
       [id, places[d.couple * 2]],
       [robin, places[d.couple * 2 + 1]],
     ] as const) {
-      const end = body(walk.exit, who);
+      const end = body(walkExit, who);
       fix.set(who, {
         dp: sub(place, end.position),
         dyaw: turn(heading(place, RING_CENTER), end.yaw),

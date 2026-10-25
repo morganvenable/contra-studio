@@ -142,6 +142,17 @@ function ring(
     grouping: 'whole-set',
     couples: { min, max },
     moves: {
+      // A square meets partners standing across it before pair figures.
+      ...(square
+        ? {
+            swing: 'square-swing',
+            balance: 'square-balance',
+            'do-si-do': 'square-do-si-do',
+            'star-promenade': 'star-wheel',
+            corners: 'square-corners',
+            'corner-swing': 'square-corner-swing',
+          }
+        : {}),
       circle: 'ring-circle',
       'long-lines': 'forward-back',
       promenade: 'ring-promenade',

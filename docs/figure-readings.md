@@ -97,3 +97,12 @@ line each, for review.
 - Line cast-off: the left-hand lark of each line leads it single file round the end, halfway, to the other line's place, everyone facing the way their line faced.
 - "Lines of four, pass through and back" (Dead Simple): the lines pass through to the next line (the progression mark is on that row).
 - A quick (two-beat) arch and dive keeps the arch a little open and the divers a little wider so nobody has to run.
+- "Other four": the other four from the row before (heads and sides, larks and robins swap).
+- "One from each couple forward and back": the robins.
+- A star of one role (or of the same/other four) walks into a small star (0.62 m) and back out to the places it reaches; a bare "star right/left" by four named dancers goes once round.
+- Texas Star: "larks to the center for a right hand star" goes ½ round and stays in; "star left/right, pass your partner" goes ¾ round to the place beside the next robin; in the star promenade the inside dancer is 0.62 m out and the partner 0.7 m beyond on the same spoke; "butterfly whirl to put X in the center" turns each couple half round about its middle.
+- "Monkey in the middle" ("at random" made deterministic): the monkey is the lark nearest the band; every lark swings his corner, the monkey's pair first, then the pair across, then all four; corners become partners.
+- Pass through and cross trail: one walk to the point opposite across the square, passing right shoulders, the robin crossing in front of the lark; they end facing out.
+- In "separate and go around", each dancer goes away from their partner.
+- In a square, partners standing across the square (or in the middle) meet at the nearest two free places before a swing, balance or do si do.
+- A brisk promenade home draws the square in toward the middle on the way.

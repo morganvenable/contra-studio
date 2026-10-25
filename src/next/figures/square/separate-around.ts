@@ -53,7 +53,7 @@ const TURN_IN = 1;
 const TURN_OUT = 1.5;
 
 /** A smooth path through the points (Catmull-Rom), sampled by arc length. */
-function pathThrough(points: readonly Vec2[]) {
+export function pathThrough(points: readonly Vec2[]) {
   const pts = [points[0], ...points, points[points.length - 1]];
   const samples: Vec2[] = [];
   for (let i = 1; i < pts.length - 2; i++) {
@@ -112,7 +112,20 @@ export function separateAround(
   const plans = movers.map((id) => {
     const s = body(state, id);
     const lark = state.dancers[id].role === 'lark';
-    const away = lark ? leftOf(s.yaw) : rightOf(s.yaw);
+    // Away from the partner beside them (the lark to his left, the robin to
+    // her right when facing in; the same way after a cross trail).
+    const mate = movers
+      .filter((o) => o !== id)
+      .reduce((a, b) =>
+        distance(body(state, a).position, s.position) <= distance(body(state, b).position, s.position) ? a : b,
+      );
+    const apart = sub(s.position, body(state, mate).position);
+    const away =
+      distance(body(state, mate).position, s.position) < 2.6
+        ? scale(apart, 1 / length(apart))
+        : lark
+          ? leftOf(s.yaw)
+          : rightOf(s.yaw);
     // The two standing dancers on that side, nearer first.
     const side = standing
       .filter((o) => dot(sub(body(state, o).position, s.position), away) > 0.3)

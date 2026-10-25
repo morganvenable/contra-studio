@@ -80,6 +80,11 @@ function besideCall(text: string, beats: number, side: 'left' | 'right'): Figure
   });
 }
 
+const ROLES = '(ladles|ladies|lady|ladle|robins|robin|gentlespoons|gentlespoon|gents|gent|larks|lark)';
+const roleName = (w: string) => canonical(w === 'ladies' ? 'ladles' : w);
+
+const NUMBERS: Readonly<Record<string, number>> = { one: 1, two: 2, three: 3, four: 4 };
+
 const PAIR =
   '(allemande .+|do si do .+|see saw .+|(?:long |meltdown )?swing|balance (?:&|and) swing|pull by .+|pass by .+|balance|gyre .+)';
 
@@ -158,8 +163,41 @@ export const SQUARE_PATTERNS: readonly Pattern[] = [
     (m, b) => {
       const role = canonical(m[2] === 'ladies' ? 'ladles' : m[2]);
       const calls = inner(m[1], b);
-      return calls.map((c) => ({ ...c, params: { ...c.params, among: [role] } }));
+      // A star of the four of one role turns in the middle (role-star.ts).
+      return calls.map((c) => {
+        const p = c.params as { hand?: string; places?: number; grip?: string };
+        if (c.move === 'star' && p.places !== undefined && !p.grip)
+          return call('role-star', c.beats, { who: role, hand: p.hand, amount: p.places / 4 });
+        return { ...c, params: { ...c.params, among: [role] } };
+      });
     },
+  ],
+  // Texas Star (star-wheel.ts, role-star.ts).
+  [
+    new RegExp(`^${ROLES} (?:go )?(?:to|into) the (?:center|centre|middle) (?:&|and) back(?: to the bar| out| home| again)?$`),
+    (m, b) => [call('forward-back', b, { back: true, among: [roleName(m[1])] })],
+  ],
+  [
+    new RegExp(`^${ROLES} (?:go )?(?:to|into) the (?:center|centre|middle) (?:for|with) a (right|left)[- ]hand star$`),
+    (m, b) => [call('role-star', b, { who: roleName(m[1]), hand: m[2], amount: 0.5, end: 'center' })],
+  ],
+  [
+    new RegExp(`^${ROLES} star (right|left),? (?:and )?pass (?:by )?(?:your )?partners?$`),
+    (m, b) => [call('role-star', b, { who: roleName(m[1]), hand: m[2], amount: 0.75, end: 'places' })],
+  ],
+  [
+    new RegExp(`^pick up (?:the |your )?next ${ROLES}(?: for a)?$`),
+    (_m, b) => [call('still', b, { action: 'stand' })],
+  ],
+  [
+    new RegExp(`^butterfly whirl,? (?:to )?put(?:ting)? (?:the )?${ROLES} in(?:to)? (?:the )?(?:center|centre|middle).*$`),
+    (_m, b) => [call('star-whirl', b, { amount: 0.5 })],
+  ],
+  [/^star (right|left)$/, (m, b) => [call('star-wheel', b, { hand: m[1] })]],
+  [
+    // A quoted aside after a call: "partners swing "swing this ladle"".
+    /^(.+?),? "[^"]*"$/,
+    (m, b) => inner(m[1], b),
   ],
   [
     // "heads separate, go around two - form lines at the sides (L-L-R-R)".
@@ -197,6 +235,53 @@ export const SQUARE_PATTERNS: readonly Pattern[] = [
   ],
   [/^neighbors balance,? center two$/, (_m, b) => [call('line-pairs', b, { action: 'balance', pairs: 'center' })]],
   [/^next neighbors balance,? corners$/, (_m, b) => [call('line-pairs', b, { action: 'balance', pairs: 'ends' })]],
+  [
+    // Named couples: "heads (sides) pass through and cross trail" (cross-trail.ts).
+    /^pass through (?:and|&) cross trail$/,
+    (_m, b) => [call('cross-trail', b, {})],
+  ],
+  // Monkey in the middle (cascade-swing.ts).
+  [
+    /^(?:the )?monkey(?: in the middle)? swings? (?:one|1)(?: person)?(?: at random)?$/,
+    (_m, b) => [call('cascade-swing', b, { pairs: 1 })],
+  ],
+  [
+    /^those two(?: people)? swing two more(?: people)?(?: at random)?$/,
+    (_m, b) => [call('cascade-swing', b, { pairs: 2 })],
+  ],
+  [
+    /^those four(?: people)? swing four more(?: people)?(?: at random)?(?:,? (?:sending (?:a )?)?new monkey (?:to|in) the middle)?$/,
+    (_m, b) => [call('cascade-swing', b, { pairs: 4 })],
+  ],
+  [
+    // "one from each couple forward and back": the robins (a reading).
+    /^one from each couple (?:go )?(forward (?:and|&) back|into the (?:middle|center) (?:and|&) back)$/,
+    (_m, b) => [call('forward-back', b, { back: true, among: ['robins'] })],
+  ],
+  [
+    // "other four star right", "same four star left": a star of those four in
+    // the middle, from their places and back to places (once round unless
+    // places are named). import.ts names them from the row before.
+    /^(other|same) four star (right|left)(?: (\w+) places?)?$/,
+    (m, b) => {
+      const places = m[3] ? (NUMBERS[m[3]] ?? Number(m[3])) : 4;
+      return [call('role-star', b, { hand: m[2], amount: places / 4, among: [m[1] === 'same' ? '@same' : '@other'] })];
+    },
+  ],
+  [
+    // "circle left 4 places same four": the dancers the row before named
+    // (import.ts fills in '@same'), in the middle when two couples.
+    /^(.+?),? (?:the )?same four$/,
+    (m, b) => {
+      const calls = inner(m[1], b);
+      const among = ['@same'];
+      if (calls.length === 1 && MIDDLE_MOVES.has(calls[0].move)) {
+        const { among: _a, ...params } = calls[0].params as Record<string, unknown>;
+        return [call('square-middle', calls[0].beats, { move: calls[0].move, params, among })];
+      }
+      return calls.map((c) => ({ ...c, params: { ...c.params, among } }));
+    },
+  ],
   [
     // Heads or sides: "star right 4 places (heads)", "heads (sides) right left through".
     /^(?:heads|sides|head couples|side couples|end couples|h)\b.+|.+\b(?:heads|sides|head couples|side couples|end couples)(?: only)?$|^(?:head|side) (?:ladles|ladies|robins|gents|gentlespoons|larks) .+$/,

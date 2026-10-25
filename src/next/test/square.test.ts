@@ -68,7 +68,7 @@ test('square rows parse to square figures', () => {
     { move: 'forward-back', params: { back: true, among: ['heads'] } },
   ]);
   assert.deepEqual(row('first corners allemande left once'), [
-    { move: 'allemande', params: { who: 'neighbor', hand: 'left', amount: 1 } },
+    { move: 'corners', params: { move: 'allemande', params: { who: 'neighbor', hand: 'left', amount: 1 } } },
   ]);
   assert.deepEqual(row('next neighbors swing (NEXT CORNER)'), [
     { move: 'beside', params: { move: 'swing', side: 'left', params: {} } },
@@ -77,7 +77,7 @@ test('square rows parse to square figures', () => {
     { move: 'swing', params: { who: 'opposite' } },
   ]);
   assert.deepEqual(row('star right 3 places ladles'), [
-    { move: 'star', params: { hand: 'right', places: 3, among: ['robins'] } },
+    { move: 'role-star', params: { who: 'robins', hand: 'right', amount: 0.75 } },
   ]);
   for (const text of [
     'promenade home',
@@ -208,4 +208,119 @@ test('heads go around two to lines at the sides, and the lines roll away', () =>
   );
   // The heads meet their partners from across the square in the swing.
   assert.ok(v.ok || v.kind === 'physical', JSON.stringify(v));
+});
+
+test('round 2 rows: Texas Star, monkey swings, cross trail, same and other four', () => {
+  assert.deepEqual(row('gentlespoons to the center for a right hand star'), [
+    { move: 'role-star', params: { who: 'larks', hand: 'right', amount: 0.5, end: 'center' } },
+  ]);
+  assert.deepEqual(row('gentlespoons star LEFT pass your partner'), [
+    { move: 'role-star', params: { who: 'larks', hand: 'left', amount: 0.75, end: 'places' } },
+  ]);
+  assert.deepEqual(row('butterfly whirl to put ladles in center of a right hand star ("shoot the star")'), [
+    { move: 'star-whirl', params: { amount: 0.5 } },
+  ]);
+  assert.deepEqual(row('star left'), [{ move: 'star-wheel', params: { hand: 'left' } }]);
+  assert.deepEqual(row('monkey in the middle swing one person at random'), [
+    { move: 'cascade-swing', params: { pairs: 1 } },
+  ]);
+  assert.deepEqual(row('heads (sides) pass through and cross trail'), [
+    { move: 'cross-trail', params: { among: ['heads'] } },
+  ]);
+  assert.deepEqual(row('other four star right'), [
+    { move: 'role-star', params: { hand: 'right', amount: 1, among: ['@other'] } },
+  ]);
+  assert.deepEqual(row('circle left 4 places same four'), [
+    { move: 'square-middle', params: { move: 'circle', params: { direction: 'left', places: 4 }, among: ['@same'] } },
+  ]);
+});
+
+test('the robins star 3 places from their places to their corners at a walk', () => {
+  const calls = [
+    call('role-star', 8, { who: 'robins', hand: 'right', amount: 0.75 }),
+    call('swing', 8, { who: 'neighbor' }),
+    call('role-star', 8, { who: 'larks', hand: 'left', amount: 0.75 }),
+    call('swing', 8, { who: 'opposite' }),
+  ];
+  const s = run(FORMATIONS.square.start(4), calls.slice(0, 1));
+  // Robin k ends in the robin place of couple k + 1, beside her corner.
+  for (let c = 0; c < 4; c++) at(s, c * 2 + 1, ((c + 1) % 4) * 2 + 1, 'star 3 places:');
+  const v = verifyDance(
+    square([
+      ...calls,
+      call('role-star', 8, { who: 'robins', hand: 'right', amount: 0.75 }),
+      call('beside', 8, { move: 'swing', side: 'right', params: {} }),
+      call('role-star', 8, { who: 'larks', hand: 'left', amount: 0.75 }),
+      call('promenade-home', 8, { who: 'partner' }),
+    ]),
+    strict,
+  );
+  assert.ok(v.ok, JSON.stringify(v));
+});
+
+test('a halfway promenade home fits in 8 beats', () => {
+  const v = verifyDance(
+    square([
+      call('allemande', 6, { who: 'neighbor', hand: 'left', amount: 1 }),
+      call('grand-meet', 10, { hand: 'right' }),
+      call('do-si-do', 8, { who: 'partner', amount: 1, shoulder: 'right' }),
+      call('promenade-home', 8, { who: 'partner' }),
+    ]),
+    strict,
+  );
+  assert.ok(v.ok, JSON.stringify(v));
+});
+
+test('Texas Star: larks star in, out to the next robin, star promenade, whirl, swing home', () => {
+  const v = verifyDance(
+    square([
+      call('forward-back', 8, { back: true, among: ['robins'] }),
+      call('role-star', 8, { who: 'larks', hand: 'right', amount: 0.5, end: 'center' }),
+      { ...call('role-star', 8, { who: 'larks', hand: 'left', amount: 0.75, end: 'places' }), progression: true },
+      call('still', 2, { action: 'stand' }),
+      call('star-wheel', 6, { hand: 'left', amount: 0.5 }),
+      call('star-whirl', 8, { amount: 0.5 }),
+      call('star-wheel', 8, { hand: 'right', amount: 0.5, center: 'robins' }),
+      call('star-whirl', 8, { amount: 0.5 }),
+      call('star-wheel', 8, { hand: 'left' }),
+      call('square-swing', 8, { who: 'partner' }),
+      call('promenade-home', 8, { who: 'partner' }),
+    ]),
+    strict,
+  );
+  assert.ok(v.ok, JSON.stringify(v));
+});
+
+test('monkey in the middle: one pair, two pairs, then everyone swings their corner', () => {
+  const v = verifyDance(
+    square([
+      call('forward-back', 8, { back: true }),
+      call('cascade-swing', 8, { pairs: 1 }),
+      call('cascade-swing', 8, { pairs: 2 }),
+      call('cascade-swing', 16, { pairs: 4 }),
+    ]),
+    strict,
+  );
+  assert.ok(v.ok, JSON.stringify(v));
+});
+
+test('heads cross trail and go around two; partners meet from across to swing', () => {
+  const s = run(FORMATIONS.square.start(4), [
+    call('square-middle', 8, { move: 'right-left-through', params: {}, among: ['heads'] }),
+    call('cross-trail', 8, { among: ['heads'] }),
+    call('separate-around', 8, { around: 2, end: 'lines', among: ['heads'] }),
+  ]);
+  assert.equal(linesOfFour(s, [0, 1, 2, 3, 4, 5, 6, 7]).length, 2);
+  const v = verifyDance(
+    square([
+      call('separate-around', 8, { around: 2, end: 'lines', among: ['heads'] }),
+      call('line-pairs', 4, { action: 'roll', pairs: 'same-roles' }),
+      call('line-pairs', 4, { action: 'roll', pairs: 'center' }),
+      call('line-pairs', 4, { action: 'roll', pairs: 'ends' }),
+      call('square-balance', 4, { formation: 'pair', who: 'partner', hand: 'both' }),
+      call('square-swing', 12, { who: 'partner' }),
+    ]),
+    strict,
+  );
+  assert.ok(v.ok, JSON.stringify(v));
 });

@@ -467,13 +467,22 @@ export function importDance(id: string, snapshot: ContraDbSnapshot, sha256: stri
         });
     }
   });
-  // "Same four": whoever the row before named.
+  // "Same four": whoever the row before named; "other four": the other four.
+  const OTHER: Readonly<Record<string, string>> = {
+    heads: 'sides',
+    sides: 'heads',
+    larks: 'robins',
+    robins: 'larks',
+  };
   figures.forEach((c, i) => {
     const among = (c.params as { among?: string[] }).among;
-    if (!among?.includes('@same')) return;
+    if (!among?.includes('@same') && !among?.includes('@other')) return;
     const before = i > 0 ? (figures[i - 1].params as { among?: string[] }).among : undefined;
-    const rest = among.filter((a) => a !== '@same');
-    const named = [...rest, ...(before ?? [])];
+    const rest = among.filter((a) => a !== '@same' && a !== '@other');
+    const resolved = among.includes('@other')
+      ? (before ?? []).map((a) => OTHER[a]).filter((a): a is string => !!a)
+      : (before ?? []);
+    const named = [...rest, ...resolved];
     const { among: _drop, ...params } = c.params as Record<string, unknown>;
     figures[i] = { ...c, params: named.length ? { ...params, among: named } : params };
   });

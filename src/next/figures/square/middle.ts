@@ -67,6 +67,13 @@ export function squareMiddle(state: DanceState, params: MiddleParams, beats: num
   onlyKeys('in the middle', params, ['move', 'params']);
   if (!MIDDLE_MOVES.has(params.move))
     throw new Error(`"${params.move}" is not danced in the middle of a square.`);
+  // Outside a ring or square (a row like "same four" in a minor set), the
+  // figure is simply danced where the dancers stand.
+  if (!state.layout?.center) {
+    const plain = FIGURES[params.move];
+    if (!plain) throw new Error(`No figure named "${params.move}".`);
+    return plain(state, params.params ?? {}, beats);
+  }
   const ids = minorSets(state).flat();
   if (ids.length !== 4) throw new Error('Two couples dance in the middle of the square.');
   const center = RING_CENTER;
