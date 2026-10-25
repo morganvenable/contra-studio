@@ -1,6 +1,7 @@
 /** Every figure the next engine knows, by move name. */
 import type { FigureRegistry } from '../core/fold.ts';
 import { onDiagonal } from '../core/diagonal.ts';
+import { withRelations } from '../core/relations.ts';
 import { allemande } from './allemande.ts';
 import { balance } from './balance.ts';
 import { boxCirculate } from './box-circulate.ts';
@@ -31,6 +32,11 @@ import { starPromenade } from './star-promenade.ts';
 import { swing } from './swing.ts';
 import { turnAlone } from './turn-alone.ts';
 import { twirl } from './twirl.ts';
+import { centerWave } from './center-wave.ts';
+import { couplesDoSiDo } from './couples-do-si-do.ts';
+import { orbit } from './orbit.ts';
+import { standStill } from './stand-still.ts';
+import { twoHandTurn } from './two-hand-turn.ts';
 import { roll } from './roll.ts';
 
 const BASE: FigureRegistry = {
@@ -64,10 +70,20 @@ const BASE: FigureRegistry = {
   swing,
   'turn-alone': turnAlone,
   twirl,
+  'center-wave': centerWave,
+  'couples-do-si-do': couplesDoSiDo,
+  orbit,
+  'stand-still': standStill,
+  'two-hand-turn': twoHandTurn,
   roll,
 };
 
-/** Every figure, each also able to run on a diagonal (core/diagonal.ts). */
+/**
+ * Every figure, each also able to run on a diagonal (core/diagonal.ts) and
+ * with shadows, previous neighbors or same-role pairs (core/relations.ts).
+ */
 export const FIGURES: FigureRegistry = Object.freeze(
-  Object.fromEntries(Object.entries(BASE).map(([move, f]) => [move, onDiagonal(f)])),
+  Object.fromEntries(
+    Object.entries(BASE).map(([move, f]) => [move, onDiagonal(withRelations(f))]),
+  ),
 );

@@ -19,6 +19,7 @@ import type { Figure, FigureContact } from '../core/figure.ts';
 import { oneOf, onlyKeys, settle } from '../core/figure.ts';
 import { joined, sameHold } from '../core/contacts.ts';
 import { findWave, lineHolds, middleRole } from '../core/lines.ts';
+import { PAIR_NAMES, type PairName } from '../core/relations.ts';
 import {
   add,
   dot,
@@ -37,7 +38,7 @@ import {
 import { body, holdsBetween, minorSets, pairsIn, withChanges, type Hold } from '../core/state.ts';
 
 export interface AllemandeParams {
-  who: 'partner' | 'neighbor' | 'larks' | 'robins';
+  who: PairName;
   hand: 'right' | 'left';
   /** Turns: 0.5, 0.75, 1, 1.5 ... */
   amount: number;
@@ -50,12 +51,7 @@ export const HOLD_RADIUS = 0.45;
 
 export const allemande: Figure<AllemandeParams> = (state, params, beats) => {
   onlyKeys('allemande', params, ['who', 'hand', 'amount', 'wave']);
-  const who = oneOf('allemande', 'who', params.who, [
-    'partner',
-    'neighbor',
-    'larks',
-    'robins',
-  ] as const);
+  const who = oneOf('allemande', 'who', params.who, PAIR_NAMES);
   const hand = oneOf('allemande', 'hand', params.hand, ['right', 'left'] as const);
   const amount = params.amount;
   if (!(Number.isFinite(amount) && amount > 0 && amount <= 4)) {

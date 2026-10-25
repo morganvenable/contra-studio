@@ -26,10 +26,11 @@ import {
   TAU,
   turn,
 } from '../core/math.ts';
+import { PAIR_NAMES, type PairName } from '../core/relations.ts';
 import { body, minorSets, pairsIn, withChanges } from '../core/state.ts';
 
 export interface DoSiDoParams {
-  who: 'partner' | 'neighbor' | 'larks' | 'robins';
+  who: PairName;
   /** Times around: 1 (back home), 1.5 (to the other's place) ... */
   amount: number;
   /** Shoulder passed first: right for a do-si-do, left for a see-saw. */
@@ -45,12 +46,7 @@ const FACE_BEATS = 1.5;
 
 export const doSiDo: Figure<DoSiDoParams> = (state, params, beats) => {
   onlyKeys('do-si-do', params, ['who', 'amount', 'shoulder']);
-  const who = oneOf('do-si-do', 'who', params.who, [
-    'partner',
-    'neighbor',
-    'larks',
-    'robins',
-  ] as const);
+  const who = oneOf('do-si-do', 'who', params.who, PAIR_NAMES);
   const shoulder = oneOf('do-si-do', 'shoulder', params.shoulder ?? 'right', [
     'right',
     'left',

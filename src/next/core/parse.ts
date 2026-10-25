@@ -7,7 +7,8 @@
  */
 import type { FigureCall } from './figure.ts';
 import { canonical, canonicalText, roleOfGroup } from './roles.ts';
-import { looseCalls, MORE_PATTERNS } from './parse-more.ts';
+import { CIRCULATION_PATTERNS, looseCalls } from './parse-circulation.ts';
+import { morePatterns, moreTidy } from './parse-more.ts';
 
 export interface SourceRow {
   readonly section?: string;
@@ -338,7 +339,7 @@ const PATTERNS: readonly (readonly [RegExp, Build])[] = [
       return [call('circle', b, { direction: m[1], amount: amount(m[3], 1) })];
     },
   ],
-  ...MORE_PATTERNS,
+  ...CIRCULATION_PATTERNS,
 ];
 
 /** Lowercase, plain spacing, straight quotes, progression mark removed. */
@@ -376,6 +377,11 @@ export function normalizeRow(text: string): { text: string; progression: boolean
 const TIDY: readonly (readonly [RegExp, string])[] = [
   [/\bthru\b/g, 'through'],
   [/\b(?:1st|2nd|3rd|4th|first|second|third|fourth) (neighbors?)\b/g, '$1'],
+  // Which shadow is whichever is nearest then (core/relations.ts).
+  [/\b(?:1st|2nd|first|second) (shadows?)\b/g, '$1'],
+  // Two-word relationship names as one word for the patterns' (\w+).
+  [/\bprev(?:ious)? (neighbors?)\b/g, 'prev_$1'],
+  [/\bsame (roles?)\b/g, 'same_$1'],
   [/(once|twice|¼|½|¾|1¼|1½|1¾|\d\/\d)(?: times)? around\b/g, '$1'],
   [/\s+(?:with )?(?:your |the |this is a |this is your )?(?:new|next) neighbors?$/, ''],
   [/(\bswing),? (?:and )?(?:end )?fac(?:e|ing) (down|up)(?: the hall)?$/, '$1, end facing $2'],
@@ -385,7 +391,8 @@ const TIDY: readonly (readonly [RegExp, string])[] = [
   [/,? (?:and )?scoop (?:up )?(?:your )?partners?(?: on the side)?$/, ''],
   [/^(butterfly whirl) with (?:your )?partners?(?: on the side)?$/, '$1'],
 ];
-const tidy = (text: string) => TIDY.reduce((t, [re, to]) => t.replace(re, to), text).trim();
+const tidy = (text: string) =>
+  moreTidy(TIDY.reduce((t, [re, to]) => t.replace(re, to), text).trim());
 
 /** How a split row names its parts in labels. */
 const PART_NAMES: Readonly<Record<string, string>> = {
@@ -407,10 +414,13 @@ function onDiagonal(text: string): { text: string; diagonal?: 'left' | 'right' }
   return { text };
 }
 
+/** The patterns in parse-more.ts, after this file's own. */
+const MORE_PATTERNS = morePatterns({ who, amount, call, numbers: NUMBERS });
+
 /** The calls one plain row text names (on a diagonal, if it says so), if any pattern matches. */
 function matchText(plain: string, beats: number): FigureCall[] | undefined {
   const { text, diagonal } = onDiagonal(plain);
-  for (const [pattern, build] of PATTERNS) {
+  for (const [pattern, build] of [...PATTERNS, ...MORE_PATTERNS]) {
     const m = text.match(pattern);
     if (!m) continue;
     return build(m, beats).map((c) => (diagonal ? { ...c, params: { ...c.params, diagonal } } : c));

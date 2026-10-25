@@ -1,6 +1,6 @@
-{ "schema": "contra-studio/next-dance", "version": 2, "id": "1136", "title": "Autumn Joy", "author": "Don Flaherty", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/1136", "formation": "improper", "retrievedAt": "2026-10-20T05:47:17.000Z", "sha256": "fcad9dc464ed802ccafc38c11a8355fd6f06be2501fc12a8ccd37d9bb88e6e38" }, "status": "partial", "problems": [ "Row 1 \"larks do si do 1½ go to Partner\" isn't drawn yet.", "Row 8 \"robins do si do 1½ same robins\" isn't drawn yet." ], "unparsed": [ { "row": 1, "text": "larks do si do 1½ go to Partner", "why": "No figure pattern matches \"gentlespoons do si do 1½ go to Partner\"." }, { "row": 8, "text": "robins do si do 1½ same robins", "why": "No figure pattern matches \"ladles do si do 1½ same ladles\"." } ], "choices": [ "A balance with a partner or neighbor holds both hands." ],
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "1136", "title": "Autumn Joy", "author": "Don Flaherty", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/1136", "formation": "improper", "retrievedAt": "2026-10-20T05:47:17.000Z", "sha256": "fcad9dc464ed802ccafc38c11a8355fd6f06be2501fc12a8ccd37d9bb88e6e38" }, "status": "ok", "problems": [], "unparsed": [], "choices": [ "A balance with a partner or neighbor holds both hands." ],
  "figures": [
-  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"larks do si do 1½ go to Partner","section":"A1","row":1},
+  {"move":"do-si-do","beats":8,"params":{"who":"larks","amount":1.5,"shoulder":"right"},"text":"larks do si do 1½ go to Partner","section":"A1","row":1},
   {"move":"swing","beats":8,"params":{"who":"partner"},"text":"partners swing","section":"A1","row":2},
   {"move":"circle","beats":8,"params":{"direction":"left","places":3},"text":"circle left 3 places","section":"A2","row":3},
   {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance the ring","section":"A2","row":4},
@@ -8,6 +8,6 @@
   {"move":"balance","beats":4,"params":{"formation":"pair","who":"neighbor","hand":"both"},"text":"neighbors balance & swing · balance","section":"B1","row":6},
   {"move":"swing","beats":12,"params":{"who":"neighbor"},"text":"neighbors balance & swing · swing","section":"B1","row":6},
   {"move":"chain","beats":8,"params":{"who":"robins","to":"partner"},"text":"robins chain to partner","section":"B2","row":7},
-  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"robins do si do 1½ same robins","section":"B2","row":8}
+  {"move":"do-si-do","beats":8,"params":{"who":"robins","amount":1.5,"shoulder":"right"},"text":"robins do si do 1½ same robins","section":"B2","row":8}
  ]
 }

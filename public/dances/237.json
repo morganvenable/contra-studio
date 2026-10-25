@@ -1,4 +1,4 @@
-{ "schema": "contra-studio/next-dance", "version": 2, "id": "237", "title": "Shadrack's Delight", "author": "Tony Parkes", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/237", "formation": "improper", "retrievedAt": "2026-10-20T06:12:24.672Z", "sha256": "41e56de1d1cadef89c65d9809e657311e359ca95d038efa8beb8a36cec1fb530" }, "status": "partial", "problems": [ "Row 8 \"up the hall\" isn't drawn yet.", "Row 1 \"neighbors do si do 1¼ to\" can't start from where the dancers are: Do-si-do amount must be a whole or half number of times around." ], "unparsed": [ { "row": 8, "text": "up the hall", "why": "No figure pattern matches \"up the hall\"." } ], "choices": [],
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "237", "title": "Shadrack's Delight", "author": "Tony Parkes", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/237", "formation": "improper", "retrievedAt": "2026-10-20T06:12:24.672Z", "sha256": "41e56de1d1cadef89c65d9809e657311e359ca95d038efa8beb8a36cec1fb530" }, "status": "partial", "problems": [ "Row 1 \"neighbors do si do 1¼ to\" can't start from where the dancers are: Do-si-do amount must be a whole or half number of times around." ], "unparsed": [], "choices": [],
  "figures": [
   {"move":"do-si-do","beats":8,"params":{"who":"neighbor","amount":1.25,"shoulder":"right"},"text":"neighbors do si do 1¼ to","section":"A1","row":1},
   {"move":"ocean-wave","beats":4,"params":{"middle":"robins","middleHand":"left","ends":"neighbor","endHand":"right","balance":true},"text":"form an ocean wave & balance - robins by left hands and neighbors by right hands","section":"A1","row":2},
@@ -7,7 +7,7 @@
   {"move":"allemande","beats":4,"params":{"who":"larks","hand":"left","amount":0.5},"text":"larks allemande left ½","section":"A2","row":5},
   {"move":"swing","beats":8,"params":{"who":"partner"},"text":"partners swing","section":"A2","row":6},
   {"move":"hall","beats":8,"params":{"direction":"down","turn":"couple"},"text":"down the hall and turn as a couple","section":"B1","row":7},
-  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"up the hall","section":"B1","row":8},
+  {"move":"hall","beats":8,"params":{"direction":"up"},"text":"up the hall","section":"B1","row":8},
   {"move":"right-left-through","beats":8,"params":{},"text":"right left through","section":"B2","row":9},
   {"move":"chain","beats":8,"params":{"who":"robins"},"text":"robins chain","progression":true,"section":"B2","row":10}
  ]

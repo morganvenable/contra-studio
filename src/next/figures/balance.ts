@@ -42,6 +42,7 @@ import {
   turn,
 } from '../core/math.ts';
 import { findRing, ringHolds } from '../core/ring.ts';
+import { PAIR_NAMES, type PairName } from '../core/relations.ts';
 import { roleOfGroup } from '../core/roles.ts';
 import {
   body,
@@ -63,7 +64,7 @@ export interface BalanceParams {
   /** Side to step toward first, for a right-left wave balance. */
   first?: 'right' | 'left';
   /** Pair balance: who faces whom. */
-  who?: 'partner' | 'neighbor' | 'larks' | 'robins' | '1s' | '2s';
+  who?: PairName;
   /** Pair balance: which hands join. */
   hand?: 'right' | 'left' | 'both' | 'none';
 }
@@ -245,14 +246,7 @@ const ringBalance: Figure<BalanceParams> = (state, params, beats) => {
 
 const pairBalance: Figure<BalanceParams> = (state, params, beats) => {
   if (params.style || params.first) throw new Error('A pair balance steps in and out.');
-  const who = oneOf('balance', 'who', params.who, [
-    'partner',
-    'neighbor',
-    'larks',
-    'robins',
-    '1s',
-    '2s',
-  ] as const);
+  const who = oneOf('balance', 'who', params.who, PAIR_NAMES);
   const hand = oneOf('balance', 'hand', params.hand ?? 'both', [
     'right',
     'left',
