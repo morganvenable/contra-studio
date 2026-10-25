@@ -12,6 +12,7 @@
  */
 import type { Figure } from '../core/figure.ts';
 import { oneOf, onlyKeys, settle } from '../core/figure.ts';
+import { joined } from '../core/contacts.ts';
 import {
   add,
   clamp,
@@ -40,6 +41,8 @@ export interface GyreParams {
 /** Distance from the middle of the pair while going around. */
 const RADIUS = 0.45;
 const MIN_RADIUS = 0.27;
+/** Clearance kept between dancers of two pairs gyring side by side. */
+const BESIDE = 0.56;
 /** Average meters a beat a gyre's path may take. */
 const WALK = 0.95;
 /** Share of the figure spent closing in, and again opening out. */
@@ -47,6 +50,8 @@ const CLOSE = 0.2;
 /** Share of a far-apart gyre's path spent closing in, and opening out. */
 const FAR_CLOSE = 0.3;
 const SAMPLES = 400;
+/** Beats over which hands still held from the figure before let go. */
+const RELEASE = 0.4;
 const FAR_RAMP = 0.1;
 /** A far-apart pair goes around mostly once close in. */
 const farTurn = (u: number) => clamp((u - FAR_CLOSE / 2) / (1 - FAR_CLOSE));
@@ -54,7 +59,7 @@ const farTurn = (u: number) => clamp((u - FAR_CLOSE / 2) / (1 - FAR_CLOSE));
 const CLOSE_SPEED = 0.8;
 const FACE_BEATS = 1;
 /** Turning in to face the other takes longer the farther there is to turn. */
-const FACE_RATE = 2.5;
+const FACE_RATE = 2.1;
 const faceBeats = (into: number, beats: number) =>
   Math.min(beats / 2, Math.max(FACE_BEATS, (1.5 * Math.abs(into)) / FACE_RATE));
 
@@ -68,22 +73,28 @@ export const gyre: Figure<GyreParams> = (state, params, beats) => {
   const amount = params.amount;
   if (!(amount > 0 && amount <= 3 && Number.isInteger(amount * 4)))
     throw new Error('Gyre amount must be a whole number of quarters around.');
-  if (state.hands.length) throw new Error('A gyre starts with free hands.');
   // By the right shoulder: clockwise from above, increasing polar angle.
   const sweep = (shoulder === 'right' ? 1 : -1) * amount * TAU;
 
-  const plans = minorSets(state)
-    .flatMap((g) => pairsIn(state, g, who))
-    .flatMap(([a, b]) => {
+  const pairs = minorSets(state).flatMap((g) => pairsIn(state, g, who));
+  const centers = pairs.map(([a, b]) => mix(body(state, a).position, body(state, b).position, 0.5));
+  const plans = pairs
+    .flatMap(([a, b], k) => {
       const pa = body(state, a);
       const pb = body(state, b);
-      const center = mix(pa.position, pb.position, 0.5);
+      const center = centers[k];
       const half = length(sub(pa.position, pb.position)) / 2;
       if (half < 0.25) throw new Error(`Dancers ${a} and ${b} stand too close to gyre.`);
       // Close round, unless the walk in, around and out would outpace a walk:
-      // then a tighter round (never closer than the clearance allows).
+      // then a tighter round (never closer than the clearance allows), and
+      // tighter again beside another pair gyring close by.
       const fit = (WALK * beats - 2 * half) / (TAU * amount - 2);
-      const radius = Math.max(MIN_RADIUS, Math.min(RADIUS, fit));
+      const nearest = Math.min(
+        Infinity,
+        ...centers.filter((_, j) => j !== k).map((c) => length(sub(c, center))),
+      );
+      const room = (nearest - BESIDE) / 2;
+      const radius = Math.max(MIN_RADIUS, Math.min(RADIUS, fit, room));
       return [pa, pb].map((self, i) => ({
         id: i ? b : a,
         start: self,
@@ -117,7 +128,16 @@ export const gyre: Figure<GyreParams> = (state, params, beats) => {
     };
   });
 
+  // Hands held from the figure before let go as the gyre starts; hands
+  // between dancers who are not gyring stay joined.
+  const gyring = new Set(plans.map((p) => p.id));
+  const letGo = state.hands.filter((h) => gyring.has(h.a) || gyring.has(h.b));
+  const kept = state.hands.filter((h) => !letGo.includes(h));
   const motion = (beat: number) => ({
+    contacts: [
+      ...kept.map((h) => joined(h, 1)),
+      ...(beat < RELEASE ? letGo.map((h) => joined(h, 1 - smooth(beat / RELEASE))) : []),
+    ],
     bodies: plans.map((p, k) => {
       const t = beat / beats;
       const walkTo = steady[k];
@@ -133,7 +153,6 @@ export const gyre: Figure<GyreParams> = (state, params, beats) => {
       const yaw = p.start.yaw + into * smooth(beat / faceBeats(into, beats)) - phi;
       return { id: p.id, position, yaw };
     }),
-    contacts: [],
   });
-  return { kind: 'gyre', motion, exit: withChanges(settle(state, motion, beats), { hands: [] }) };
+  return { kind: 'gyre', motion, exit: withChanges(settle(state, motion, beats), { hands: kept }) };
 };

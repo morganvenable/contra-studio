@@ -66,6 +66,11 @@ export interface HeyParams {
    * everyone else on the hey where that leaves them. Replaces `amount`.
    */
   until?: { who: 'robins' | 'larks' | '1s' | '2s' | 'partner' | 'neighbor'; time?: number };
+  /**
+   * "Three-quarters hey", "five changes of a hey": this many passes, then
+   * the hey ends at the next meeting as `until` does. Replaces `amount`.
+   */
+  passes?: number;
 }
 
 /**
@@ -114,7 +119,7 @@ interface Track {
 }
 
 export const hey: Figure<HeyParams> = (state, params, beats) => {
-  onlyKeys('hey', params, ['start', 'amount', 'center', 'ricochet', 'until']);
+  onlyKeys('hey', params, ['start', 'amount', 'center', 'ricochet', 'until', 'passes']);
   const start = oneOf('hey', 'start', params.start, [...NAMED, 'partner', 'neighbor'] as const);
   const ricochets = (params.ricochet ?? []).map((r) => ({
     who: oneOf('hey', 'ricochet', r.who, NAMED),
@@ -128,7 +133,13 @@ export const hey: Figure<HeyParams> = (state, params, beats) => {
     who: oneOf('hey', 'until', params.until.who, [...NAMED, 'partner', 'neighbor'] as const),
     time: params.until.time ?? 1,
   };
-  if (!until && params.amount !== 0.5 && params.amount !== 1)
+  const counted = params.passes;
+  if (counted !== undefined && !(Number.isInteger(counted) && counted >= 2 && counted <= 24))
+    throw new Error('A hey counted in passes goes 2 to 24 passes.');
+  if (counted !== undefined && until) throw new Error('A hey ends by passes or by a meeting, not both.');
+  /** The hey ends at a meeting: `until`, or after counted passes. */
+  const endsMeeting = !!until || counted !== undefined;
+  if (!endsMeeting && params.amount !== 0.5 && params.amount !== 1)
     throw new Error('A hey goes half way (0.5) or all the way (1).');
   if (until && !(Number.isInteger(until.time) && until.time >= 1))
     throw new Error('A hey ends on a whole-numbered meeting, 1 or more.');
@@ -194,6 +205,7 @@ export const hey: Figure<HeyParams> = (state, params, beats) => {
     if (meet < 2) throw new Error('A hey goes at least two passes before the meeting.');
     passes = meet;
   }
+  if (counted !== undefined) passes = counted;
   const phases = phasesOf(passes);
   const sign = center === 'right' ? 1 : -1;
   // Even pass timing between an entry before the first gate and an exit
@@ -201,13 +213,13 @@ export const hey: Figure<HeyParams> = (state, params, beats) => {
   // its last one, slowing to a stop as the two meet.
   const short = Math.min(1, beats / 8);
   const firstGate = FIRST_GATE * short;
-  const unit = until
+  const unit = endsMeeting
     ? (beats - firstGate) / passes
-    : (beats - firstGate - LAST_EXIT * short) / (passes - 1);
+    : (beats - firstGate - LAST_EXIT * short ** 2.25) / (passes - 1);
   const gate = (k: number) => firstGate + k * unit;
   /** Track time at figure time t: a meeting hey slows to a stop over its last pass. */
   const warp = (t: number) => {
-    if (!until || t <= beats - unit) return t;
+    if (!endsMeeting || t <= beats - unit) return t;
     const s = (t - (beats - unit)) / unit;
     return beats - unit + unit * (s - (s * s) / 2);
   };
@@ -296,7 +308,7 @@ export const hey: Figure<HeyParams> = (state, params, beats) => {
       const track = trackSlot(index, slot, (t - gate(index)) / unit + 0.5, ric);
       return { p: add(middle, track.p), v: track.v };
     };
-    if (until)
+    if (endsMeeting)
       return order.map((id) =>
         frame.back(planDancer(local, id, middle, at, beats, passedAt(id), undefined)),
       );
@@ -367,11 +379,15 @@ export const hey: Figure<HeyParams> = (state, params, beats) => {
     const candidates = Array.from({ length: 21 }, (_, k) => preferred + k * 0.05 * unit)
       .filter((t, k) => k === 0 || t < latest)
       .map(entryAt);
+    // The join that leads on is taken when its entry turns gently enough;
+    // otherwise the gentlest of the later joins, it among them.
+    const leading = ahead === undefined ? undefined : entryAt(ahead);
+    const options = leading ? [leading, ...candidates] : candidates;
     const { join, entry, entryYaw } =
-      ahead !== undefined
-        ? entryAt(ahead)
+      leading && peakTurn(leading) <= GENTLE_TURN
+        ? leading
         : (candidates.find((e) => peakTurn(e) <= GENTLE_TURN) ??
-          candidates.reduce((best, e) => (peakTurn(e) < peakTurn(best) ? e : best)));
+          options.reduce((best, e) => (peakTurn(e) < peakTurn(best) ? e : best)));
     const joinYaw = entryYaw(join);
     const trackYaw = (t: number) => {
       const v = at(id, t).v;
@@ -389,12 +405,36 @@ export const hey: Figure<HeyParams> = (state, params, beats) => {
     const across = heading(place, { x: middle.x, z: place.z });
     const exit = hermite(out.p, out.v, { p: place, v: { x: 0, z: 0 } }, total - leave);
     const leaveYaw = onTrackYaw(leave);
-    const exitYaw = (t: number) =>
-      leaveYaw + turn(across, leaveYaw) * smooth(t / Math.max(total - leave, 1e-9));
+    // The turn to face across starts a little before the dancer leaves the
+    // track (half a pass at most), so a short exit does not snap round.
+    // Whichever start (at the leave, or up to half a pass before) turns
+    // least sharply.
+    const delta = turn(across, leaveYaw);
+    const yawWith = (early: number) => {
+      const turning = (t: number) =>
+        smooth((t - (leave - early)) / Math.max(total - leave + early, 1e-9));
+      return (t: number) =>
+        t < leave - early
+          ? onTrackYaw(t)
+          : t < leave
+            ? onTrackYaw(t) + delta * turning(t)
+            : leaveYaw + delta * turning(t);
+    };
+    const room = Math.max(0, leave - join);
+    const peak = (yaw: (t: number) => number) => {
+      let most = 0;
+      const from = Math.max(join, leave - 0.5 * unit - 0.5);
+      for (let t = from + 0.05; t <= total; t += 0.05)
+        most = Math.max(most, Math.abs(yaw(t) - yaw(t - 0.05)) / 0.05);
+      return most;
+    };
+    const exitYaw = [0, 0.25, 0.5]
+      .map((k) => yawWith(Math.min(k * unit, room)))
+      .reduce((best, y) => (peak(y) < peak(best) ? y : best));
     return (t: number) => {
       if (t <= join) return { id, position: entry(t).p, yaw: entryYaw(t) };
-      if (t < leave) return { id, position: at(id, t).p, yaw: onTrackYaw(t) };
-      return { id, position: exit(t - leave).p, yaw: exitYaw(t - leave) };
+      if (t < leave) return { id, position: at(id, t).p, yaw: exitYaw(t) };
+      return { id, position: exit(t - leave).p, yaw: exitYaw(t) };
     };
   }
 

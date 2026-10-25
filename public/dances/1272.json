@@ -8,7 +8,7 @@
   {"move":"allemande","beats":8,"params":{"who":"robins","hand":"right","amount":1.5},"text":"robins allemande right 1½ - hold on","section":"B1","row":6},
   {"move":"ocean-wave","beats":4,"params":{"middle":"robins","middleHand":"right","ends":"neighbor","endHand":"left","balance":true},"text":"form an ocean wave - robins by right hands and neighbors by left hands, balance the wave *left* & right","section":"B2","row":7},
   {"move":"allemande","beats":4,"params":{"who":"neighbor","hand":"left","amount":0.75},"text":"neighbors allemande left ¾ - hold on, join right hand with next neighbors","section":"B2","row":9},
-  {"move":"balance","beats":4,"params":{"formation":"wave","style":"right-left"},"text":"balance the wave","section":"B2","row":11},
+  {"move":"balance","beats":4,"params":{"formation":"long-waves","in":"robins"},"text":"balance the wave","section":"B2","row":11},
   {"move":"allemande","beats":4,"params":{"who":"neighbor","hand":"right","amount":0.75},"text":"next neighbors allemande right ¾","section":"B2","row":12}
  ]
 }

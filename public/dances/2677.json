@@ -4,8 +4,8 @@
   {"move":"swing","beats":8,"params":{"who":"neighbor"},"text":"neighbors swing","section":"A1","row":2},
   {"move":"chain","beats":8,"params":{"who":"robins"},"text":"robins chain","section":"A2","row":3},
   {"move":"star","beats":8,"params":{"hand":"left","places":4},"text":"star left 4 places","section":"A2","row":4},
-  {"move":"gyre","beats":4,"params":{"who":"partner","amount":1},"text":"partners gyre once (robins turn over right shoulder) · gyre","section":"B1","row":5},
-  {"move":"turn-back","beats":4,"params":{"who":"robins","shoulder":"right"},"text":"partners gyre once (robins turn over right shoulder) · turn-back","section":"B1","row":5},
+  {"move":"gyre","beats":6,"params":{"who":"partner","amount":1},"text":"partners gyre once (robins turn over right shoulder) · gyre","section":"B1","row":5},
+  {"move":"turn-back","params":{"who":"robins","shoulder":"right"},"beats":2,"text":"partners gyre once (robins turn over right shoulder) · turn-back","section":"B1","row":5},
   {"move":"swing","beats":8,"params":{"who":"partner"},"text":"partners swing","section":"B1","row":6},
   {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"partners promenade ¾ to next","section":"B2","row":7},
   {"move":"couples-do-si-do","beats":8,"params":{"amount":1},"text":"neighbors do si do once as a couple","progression":true,"section":"B2","row":8}

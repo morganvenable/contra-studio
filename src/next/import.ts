@@ -461,6 +461,62 @@ function joinLeadOuts(
 }
 
 /**
+ * A zero-beat "form long waves - larks face in, robins face out" before a
+ * wave balance ("balance & Rory O'More right"): that balance forms the long
+ * waves, the named role facing in (on the last row, it leads into the first
+ * row of the next time through).
+ */
+function longWavesToBalance(rows: readonly SourceRow[], parsed: (StoredCall[] | Error)[]) {
+  rows.forEach((row, i) => {
+    const m = canonicalText(row.text.replace(/⁋/g, ' ').trim().toLowerCase()).match(
+      /^form long waves - (\w+) face in\b/,
+    );
+    if (!m || row.beats !== 0 || !Array.isArray(parsed[i]) || parsed[i].length) return;
+    const inRole = canonical(m[1]);
+    if (inRole !== 'larks' && inRole !== 'robins') return;
+    const at = i === rows.length - 1 ? 0 : i + 1;
+    const next = parsed[at];
+    const first = Array.isArray(next) ? next[0] : undefined;
+    if (!first || first.move !== 'balance' || first.params.formation !== 'wave') return;
+    if (first.params.style && first.params.style !== 'right-left') return;
+    (next as StoredCall[])[0] = {
+      ...first,
+      params: {
+        formation: 'long-waves',
+        in: inRole,
+        ...(first.params.first ? { first: first.params.first } : {}),
+      },
+    };
+  });
+}
+
+/**
+ * A hey that ends "to long waves, larks facing out" (or "in long ocean
+ * waves, robins in"): the wave balance after it forms those long waves,
+ * the role named facing in (the other role's facing out says the same).
+ */
+function heyToLongWaves(figures: StoredCall[]) {
+  figures.forEach((c, i) => {
+    if (c.move !== 'hey' || !/\blong (?:ocean |wavy )?wav/.test(c.text ?? '')) return;
+    const m = (c.text ?? '').toLowerCase().match(/\b(larks|robins) (?:(?:are |end )?fac(?:e|ing) )?(in|out)\b/);
+    if (!m) return;
+    const inRole = m[2] === 'in' ? m[1] : m[1] === 'larks' ? 'robins' : 'larks';
+    const next = figures[(i + 1) % figures.length];
+    if (next.move !== 'balance') return;
+    if (next.params.formation !== 'wave' && next.params.formation !== 'current') return;
+    if (next.params.style && next.params.style !== 'right-left') return;
+    figures[(i + 1) % figures.length] = {
+      ...next,
+      params: {
+        formation: 'long-waves',
+        in: inRole,
+        ...(next.params.first ? { first: next.params.first } : {}),
+      },
+    };
+  });
+}
+
+/**
  * A dance that opens by balancing the wave its last row forms ("balance the
  * wave" ... "form an ocean wave - ladles by left hands and next neighbors by
  * right hands") starts in that wave: the first balance forms it, the first
@@ -617,6 +673,7 @@ export function importDance(id: string, snapshot: ContraDbSnapshot, sha256: stri
   repeatSections(rows, parsed);
   joinWhile(rows, parsed);
   joinLeadIns(parsed);
+  longWavesToBalance(rows, parsed);
   startAsTold(parsed, html);
   rows.forEach((row, i) => {
     const number = i + 1;
@@ -674,6 +731,7 @@ export function importDance(id: string, snapshot: ContraDbSnapshot, sha256: stri
   progressionSlides(figures, shape);
   slideProgression(figures, shape);
   arriveToProgress(figures);
+  heyToLongWaves(figures);
   const choices = CHOICES.filter(([test]) => figures.some(test)).map(([, t]) => t);
   return {
     schema: 'contra-studio/next-dance',

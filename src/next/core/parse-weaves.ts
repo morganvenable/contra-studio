@@ -15,6 +15,8 @@
  */
 import type { FigureCall } from './figure.ts';
 import { canonical } from './roles.ts';
+import { HEY_PATTERNS } from './parse-heys.ts';
+import { CORE_NOTE_PATTERNS, TURN_PATTERNS } from './parse-turns.ts';
 
 type Build = (m: RegExpMatchArray, beats: number) => FigureCall[];
 
@@ -125,6 +127,24 @@ const NOTES: readonly RegExp[] = [
   /^(?:\w+ )*clap\w*(?: \w+)*$/,
   // Footnote marks.
   /^\d$/,
+  // Hey reminders: whom they meet or face as it ends, the passes spelled
+  // out, hands the next figure takes.
+  /^(?:and )?(?:end|finish)(?:ing)? facing(?: (?:across|in|the center|(?:the |your |a )?(?:new |next |\d\w* )*(?:neighbors?|partners?|shadows?|couple)))?$/,
+  /^with (?:first |second )?corners$/,
+  /^with facing (?:neighbors?|partners?)$/,
+  /^to meet (?:\w+ )*(?:neighbors?|partners?)$/,
+  /^at the end of (?:the )?hey$/,
+  /^(?:and )?(?:take|give|catch) (?:left|right) hands?(?: (?:to|with) (?:your )?(?:partners?|neighbors?))?$/,
+  /^(?:\w+ )?can catch (?:right|left) hands? on (?:the )?last pass$/,
+  /^(?:(?:pass )?(?:neighbors?|partners?|larks|robins|shadows?|p|n|ot|\d[lg]) (?:by )?(?:right|left|r|l)(?:,\s*|\s+|$))+$/,
+  /^(?:(?:neighbors?|partners?|larks|robins|shadows?)(?:,\s*|$))+$/,
+  /^(?:pull by|pass) (?:\w+ )?to start,? end on (?:the )?home sides?$/,
+  /^end on (?:the )?(?:home sides?|opposite side\b.*)$/,
+  /^half hey for \w+, full hey for \w+$/,
+  /^to form a ring$/,
+  /^they meet$/,
+  /^\w+ pass (?:right|left) (?:the )?last time$/,
+  /^rather than crossing the set, \w+ dance a standard half hey$/,
 ];
 
 /** True when `rest` (what follows a figure's own words) is only a note. */
@@ -147,11 +167,20 @@ function notes(rest: string | undefined, what: string) {
 }
 
 /**
+ * A hey that ends on the side lines in long waves or long lines ("to long
+ * waves, larks facing out", "finish in long waves, neighbors' left hands
+ * joined", "end in long lines"): the hey's own end, in the corners facing
+ * across; the balance after it forms the waves (import.ts heyToLongWaves).
+ */
+export const LONG_WAVE_END =
+  /(?:^|[,;.-]|\band\b)\s*(?:to|into|finish(?:ing)?(?: across (?:the )?set)? in|ends? in|ending in|ends?)\s+(?:a\s+)?long (?:ocean |wavy )?(?:waves?|wavy lines|ocean wave|lines)\b(?![^,]*\b(?:allemande|swing|balance|pass|cross|walk|slide|loop|step|ricochet)\b)[^]*$/;
+
+/**
  * The rest of a hey row after its shoulders: ricochet clauses and notes.
  * "robins ricochet", "larks ricochet second time", "robins ricochet to
  * start" (the first meeting).
  */
-function heyRest(rest: string) {
+export function heyRest(rest: string) {
   const ricochet: { who: string; time?: number }[] = [];
   const times: Readonly<Record<string, number>> = {
     first: 1,
@@ -174,7 +203,8 @@ function heyRest(rest: string) {
         return ',';
       },
     )
-    .replace(/,\s*(?:\w+ )?finish(?:es)? (?:an? )?(?:ordinary |standard )?hey\.?/g, ',');
+    .replace(/,\s*(?:\w+ )?finish(?:es)? (?:an? )?(?:ordinary |standard )?hey\.?/g, ',')
+    .replace(LONG_WAVE_END, ',');
   if (!onlyNotes(left.replace(/,/g, ' ')))
     throw new Error(`The hey row adds "${left.replace(/^[\s,-]+|[\s,-]+$/g, '')}".`);
   return ricochet;
@@ -743,7 +773,11 @@ const PATTERNS: readonly (readonly [RegExp, Build])[] = [
         }),
       ];
     },
-  ],
+  ],  // More hey wordings: short forms, heys counted in passes (parse-heys.ts).
+  ...HEY_PATTERNS,
+  // Gyre, roll away and turn alone with notes (parse-turns.ts).
+  ...TURN_PATTERNS,
+  ...CORE_NOTE_PATTERNS,
 ];
 
 /**

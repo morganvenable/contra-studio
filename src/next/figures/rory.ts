@@ -20,8 +20,30 @@ import type { Figure, FigureContact } from '../core/figure.ts';
 import { oneOf, onlyKeys, settle } from '../core/figure.ts';
 import { joined, sameHold } from '../core/contacts.ts';
 import { findWave, lineHolds } from '../core/lines.ts';
-import { add, ease, forward, mix, progress, scale, TAU } from '../core/math.ts';
-import { body, handOf, minorSets, roleOf, withChanges, type Hold } from '../core/state.ts';
+import {
+  add,
+  dot,
+  ease,
+  forward,
+  mix,
+  progress,
+  rightOf,
+  scale,
+  sub,
+  TAU,
+  turn,
+} from '../core/math.ts';
+import type { Hand } from '../../types.ts';
+import {
+  body,
+  handOf,
+  handToward,
+  minorSets,
+  roleOf,
+  withChanges,
+  type DanceState,
+  type Hold,
+} from '../core/state.ts';
 
 export interface RoryParams {
   direction: 'right' | 'left';
@@ -50,8 +72,17 @@ export const rory: Figure<RoryParams> = (state, params, beats) => {
 
   const groups = minorSets(state);
   const swaps = new Map<number, number>();
+  let held: ReturnType<typeof heldLine> | undefined;
   for (const g of groups) {
-    const line = findWave(state, g);
+    let line: ReturnType<typeof findWave>;
+    try {
+      line = findWave(state, g);
+    } catch (error) {
+      // Long waves along the side lines (a held line across minor sets).
+      held = named === undefined ? heldLine(state, direction, error) : undefined;
+      if (!held) throw error;
+      break;
+    }
     const slides = (id: number) =>
       named === undefined ||
       (named === 'centers'
@@ -75,6 +106,10 @@ export const rory: Figure<RoryParams> = (state, params, beats) => {
     }
   }
 
+  if (held) {
+    swaps.clear();
+    for (const [a, b] of held.swaps) swaps.set(a, b);
+  }
   const moves = [...swaps].map(([id, other]) => ({
     id,
     start: body(state, id),
@@ -105,7 +140,11 @@ export const rory: Figure<RoryParams> = (state, params, beats) => {
   const slid = settle(state, motion, beats);
   // Named dancers sliding may leave no wave behind them (the others turn
   // or step meanwhile): then no new hands join.
-  newHolds = named === undefined ? groups.flatMap((g) => lineHolds(slid, findWave(slid, g))) : [];
+  newHolds = held
+    ? held.after(slid)
+    : named === undefined
+      ? groups.flatMap((g) => lineHolds(slid, findWave(slid, g)))
+      : [];
   if (named === undefined && newHolds.some((h) => state.hands.some((old) => sameHold(old, h)))) {
     throw new Error('Rory must end holding hands with new people.');
   }
@@ -116,3 +155,54 @@ export const rory: Figure<RoryParams> = (state, params, beats) => {
     ...(turnBy ? { styled: { name: 'Rory twirl' } } : {}),
   };
 };
+
+/**
+ * A Rory in a held line that is not one wave per minor set (long waves on
+ * the side lines): every pair holding `direction` hands, facing opposite
+ * ways, slides past each other; the other holds join again between the
+ * dancers who now stand where the old holders stood.
+ */
+function heldLine(state: DanceState, direction: Hand, failure: unknown) {
+  const active = minorSets(state).flat();
+  const swaps = new Map<number, number>();
+  // The dancer on `direction`'s side, along the line it faces across, who
+  // faces the other way and has this dancer on the same side.
+  const beside = (id: number): number | undefined => {
+    const me = body(state, id);
+    const side = direction === 'right' ? rightOf(me.yaw) : scale(rightOf(me.yaw), -1);
+    let best: number | undefined;
+    let bestD = SIDE_REACH;
+    for (const other of active) {
+      if (other === id) continue;
+      const o = body(state, other);
+      const off = sub(o.position, me.position);
+      const along = dot(off, side);
+      if (along <= 0.3 || Math.abs(dot(off, forward(me.yaw))) > 0.3) continue;
+      if (Math.abs(Math.abs(turn(me.yaw, o.yaw)) - Math.PI) > 0.2) continue;
+      if (along < bestD) {
+        bestD = along;
+        best = other;
+      }
+    }
+    return best;
+  };
+  for (const id of active) {
+    const other = beside(id);
+    if (other !== undefined && beside(other) === id) swaps.set(id, other);
+  }
+  if (!swaps.size) throw failure;
+  const at = (id: number) => swaps.get(id) ?? id;
+  const kept = state.hands.filter((h) => swaps.get(h.a) !== h.b);
+  const after = (slid: DanceState): Hold[] =>
+    kept.map((h) => {
+      const a = at(h.a);
+      const b = at(h.b);
+      const pa = body(slid, a);
+      const pb = body(slid, b);
+      return { a, handA: handToward(pa, pb.position), b, handB: handToward(pb, pa.position) };
+    });
+  return { swaps, after };
+}
+
+/** Farthest a long-wave neighbor stands to slide past (one place along a side line). */
+const SIDE_REACH = 2.2;
