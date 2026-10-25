@@ -1,6 +1,7 @@
 /** Every figure the next engine knows, by move name. */
 import type { FigureRegistry } from '../core/fold.ts';
 import { onDiagonal } from '../core/diagonal.ts';
+import { withRelations } from '../core/relations.ts';
 import { allemande } from './allemande.ts';
 import { balance } from './balance.ts';
 import { boxCirculate } from './box-circulate.ts';
@@ -65,7 +66,12 @@ const BASE: FigureRegistry = {
   twirl,
 };
 
-/** Every figure, each also able to run on a diagonal (core/diagonal.ts). */
+/**
+ * Every figure, each also able to run on a diagonal (core/diagonal.ts) and
+ * with shadows, previous neighbors or same-role pairs (core/relations.ts).
+ */
 export const FIGURES: FigureRegistry = Object.freeze(
-  Object.fromEntries(Object.entries(BASE).map(([move, f]) => [move, onDiagonal(f)])),
+  Object.fromEntries(
+    Object.entries(BASE).map(([move, f]) => [move, onDiagonal(withRelations(f))]),
+  ),
 );

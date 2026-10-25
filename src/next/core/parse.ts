@@ -374,6 +374,11 @@ export function normalizeRow(text: string): { text: string; progression: boolean
 const TIDY: readonly (readonly [RegExp, string])[] = [
   [/\bthru\b/g, 'through'],
   [/\b(?:1st|2nd|3rd|4th|first|second|third|fourth) (neighbors?)\b/g, '$1'],
+  // Which shadow is whichever is nearest then (core/relations.ts).
+  [/\b(?:1st|2nd|first|second) (shadows?)\b/g, '$1'],
+  // Two-word relationship names as one word for the patterns' (\w+).
+  [/\bprev(?:ious)? (neighbors?)\b/g, 'prev_$1'],
+  [/\bsame (roles?)\b/g, 'same_$1'],
   [/(once|twice|¼|½|¾|1¼|1½|1¾|\d\/\d)(?: times)? around\b/g, '$1'],
   [/\s+(?:with )?(?:your |the |this is a |this is your )?(?:new|next) neighbors?$/, ''],
   [/(\bswing),? (?:and )?(?:end )?fac(?:e|ing) (down|up)(?: the hall)?$/, '$1, end facing $2'],
