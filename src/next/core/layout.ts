@@ -74,6 +74,13 @@ function toWorld(f: Frame, id: number, p: Vec2, yaw: number): Body {
 /** Relations a figure is asked to dance with, which it may not list itself. */
 const STANDARD = new Set(['partner', 'neighbor']);
 
+/**
+ * Pair figures that name a place instead of a relationship ("ones
+ * allemande right 1½", "heads do si do"): those dancers dance it with their
+ * partners. Only for figures that do not take places themselves.
+ */
+const PAIRS_BY_PLACE = new Set(['allemande', 'balance', 'do-si-do', 'gyre', 'pass-by', 'promenade']);
+
 interface Run {
   readonly group: readonly number[];
   readonly frame: Frame;
@@ -245,8 +252,18 @@ const WHOLE = new Set<string>(['ring-circle', 'ring-promenade', 'forward-back', 
  * with no `among` the figure runs exactly as written.
  */
 export function inLayout<P>(move: string, figure: Figure<P>): Figure<P & { among?: string[] }> {
-  return (state, params, beats) => {
-    const { among, ...rest } = params as P & { among?: string[] };
+  return (state, input, beats) => {
+    let params = input as P & { among?: string[] };
+    const named0 = (params as { who?: unknown }).who;
+    if (
+      PAIRS_BY_PLACE.has(move) &&
+      typeof named0 === 'string' &&
+      state.positions.has(named0) &&
+      partnersWithin(state, state.positions.get(named0)!)
+    ) {
+      params = { ...params, who: 'partner', among: [...(params.among ?? []), named0] };
+    }
+    const { among, ...rest } = params;
     const layout = state.layout;
     const who = (rest as { who?: unknown }).who;
     const named = typeof who === 'string' && !STANDARD.has(who) && state.relations.has(who);
@@ -279,6 +296,12 @@ export function inLayout<P>(move: string, figure: Figure<P>): Figure<P & { among
     }
     return runAll(figure, state, p, beats, runs, relation);
   };
+}
+
+/** True when every dancer named has their partner among them too. */
+function partnersWithin(state: DanceState, ids: readonly number[]) {
+  const partner = state.relations.get('partner');
+  return !!partner && ids.every((id) => ids.includes(partner.get(id) ?? -1));
 }
 
 /** Mark a move as dancing the whole set at true positions in ring and square layouts. */

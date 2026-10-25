@@ -32,3 +32,5 @@ line each, for review.
 - "Quadruple minor", "grid square", "square with ninepin": drawn as a square of four couples. "Five couple horseshoe": drawn as a ring of five couples.
 - "Three face three" (and spellings): lines of three facing lines of three round a circle, drawn as a set with no ends like a Sicilian circle; each trio's center dances the lark's part and the ends the robins'; neighbors (opposites) are the dancers straight across.
 - Not built, because their dancers do not come in couples or the set has a one-off shape: "5 dancers", "line of 5 people", "9-person mixer", "three-person mixer", "circle of threes", "tempest".
+- "Proper" (duple minor): every lark on the larks' side, partners facing each other across the set at the start (lines facing).
+- A pair figure that names a place ("ones allemande right 1½", "heads do si do"): those dancers dance it with their partners.

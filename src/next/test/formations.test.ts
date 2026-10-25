@@ -109,3 +109,44 @@ void compileFold;
 void CONTRA_AABB;
 void FIGURES;
 void DANCE;
+
+test('square: couple 1 centered at the top with its back to the band; heads, sides, corners', () => {
+  const s = FORMATIONS.square.start(4);
+  const c1 = [body(s, 0).position, body(s, 1).position];
+  assert.ok(Math.abs(c1[0].x + c1[1].x) < 1e-9, 'couple 1 centered on x = 0');
+  assert.ok(c1[0].z < -1.5 && Math.abs(c1[0].z - c1[1].z) < 1e-9, 'at the top, level');
+  assert.ok(Math.abs(body(s, 0).yaw) < 0.5, 'facing down into the square');
+  assert.deepEqual(s.positions.get('heads'), [0, 1, 4, 5]);
+  assert.deepEqual(s.positions.get('sides'), [2, 3, 6, 7]);
+  assert.equal(s.relations.get('corner')!.get(0), 7, 'lark 1 has robin 4 on his left');
+  assert.equal(s.relations.get('opposite')!.get(0), 5);
+});
+
+test('square: partners circle, swing and promenade, back on the square places', () => {
+  const dance = stored('square', 'mixer', [
+    call('ring-circle', 8, { direction: 'left', places: 4 }),
+    call('ring-circle', 8, { direction: 'right', places: 4 }),
+    call('do-si-do', 8, { who: 'corner', amount: 1, shoulder: 'right' }),
+    call('allemande', 8, { who: 'corner', hand: 'left', amount: 1 }),
+    call('swing', 16, { who: 'partner' }),
+    call('ring-promenade', 16, { who: 'partner' }),
+  ]);
+  assert.deepEqual(verifyDance(dance, strict), { ok: true });
+});
+
+test('three face three: trios face trios; neighbors straight across', () => {
+  const s = FORMATIONS['three-face-three'].start(4);
+  assert.equal(s.dancers.length, 12);
+  assert.equal(s.groups.length, 2);
+  for (const [a, b] of s.relations.get('neighbor')!)
+    assert.ok(Math.abs(body(s, a).position.x - body(s, b).position.x) < 1e-9);
+});
+
+test('proper starts with partners facing across', () => {
+  const s = FORMATIONS.proper.start(4);
+  for (const d of s.dancers) {
+    const b = body(s, d.id);
+    assert.ok(Math.abs(Math.abs(b.yaw) - Math.PI / 2) < 1e-9);
+    assert.ok(Math.sign(b.position.x) === -Math.sign(Math.sin(b.yaw)), 'facing the other line');
+  }
+});

@@ -153,7 +153,12 @@ export const BECKET_CCW_INDECENT: Formation = becket('Indecent Becket counterclo
  * odd count the bottom couple waits out as 2s, already on its proper side.
  * Position labels "1s" and "2s" name who travels down and up.
  */
-function dupleMinor(name: string, onesLark: 1 | -1, twosLark: 1 | -1): Formation {
+function dupleMinor(
+  name: string,
+  onesLark: 1 | -1,
+  twosLark: 1 | -1,
+  across = false,
+): Formation {
   return {
     name,
     shape: 'longways',
@@ -174,8 +179,10 @@ function dupleMinor(name: string, onesLark: 1 | -1, twosLark: 1 | -1): Formation
         // Down the set is +z: the 1s face +z (yaw 0), the 2s face -z.
         const yaw = isOnes ? 0 : Math.PI;
         const lark = isOnes ? onesLark : twosLark;
-        bodies.set(c * 2, { position: { x: lark * SET.halfWidth, z }, yaw });
-        bodies.set(c * 2 + 1, { position: { x: -lark * SET.halfWidth, z }, yaw });
+        // Facing across: each dancer faces the other side line (partners face).
+        const face = (x: number) => (across ? (x < 0 ? Math.PI / 2 : -Math.PI / 2) : yaw);
+        bodies.set(c * 2, { position: { x: lark * SET.halfWidth, z }, yaw: face(lark) });
+        bodies.set(c * 2 + 1, { position: { x: -lark * SET.halfWidth, z }, yaw: face(-lark) });
         (isOnes ? ones : twos).push(c * 2, c * 2 + 1);
         if (!isOnes && c % 2 === 0) waiting.push({ couple: c, crossed: true });
       }
@@ -210,13 +217,14 @@ function dupleMinor(name: string, onesLark: 1 | -1, twosLark: 1 | -1): Formation
  * set, 1s facing down and 2s up, partners side by side one place apart.
  * - Improper: the 1s are crossed over (1s larks +x, 2s larks -x), so each
  *   couple has its lark on the left.
- * - Proper: every lark on the -x line.
+ * - Proper: every lark on the -x line, partners facing each other across
+ *   the set (the usual start of a proper dance: lines facing).
  * - Indecent: the 2s are crossed over instead of the 1s.
  * - Duple neutral: partners side by side facing their neighbors, lark on the
  *   left, which is the improper start.
  */
 export const IMPROPER: Formation = dupleMinor('Improper', 1, -1);
-export const PROPER: Formation = dupleMinor('Proper', -1, -1);
+export const PROPER: Formation = dupleMinor('Proper', -1, -1, true);
 export const INDECENT: Formation = dupleMinor('Indecent', -1, 1);
 export const DUPLE_NEUTRAL: Formation = dupleMinor('Duple neutral', 1, -1);
 
