@@ -16,10 +16,11 @@ function Check($what) {
 
 if (-not (Test-Path node_modules)) { npm ci; Check 'npm ci' }
 
+# whoami exits 0 even when signed out, so read what it says.
 $ErrorActionPreference = 'Continue'
-npx wrangler whoami *> $null
+$who = npx wrangler whoami 2>&1 | Out-String
 $ErrorActionPreference = 'Stop'
-if ($LASTEXITCODE -ne 0) {
+if ($who -match 'not authenticated') {
   Write-Host 'Signing in to Cloudflare (a browser window opens)...'
   npx wrangler login; Check 'Cloudflare sign-in'
 }
