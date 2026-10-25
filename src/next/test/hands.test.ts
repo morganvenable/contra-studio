@@ -69,7 +69,7 @@ test('allemande by a fraction, open chain and half do-si-do', () => {
     ['allemande', 5, { who: 'neighbor', hand: 'left', amount: 0.75 }],
   ]);
   assert.deepEqual(read('larks do si do ½ to trade places', 4), [
-    ['pass-by', 4, { who: 'larks', shoulder: 'right' }],
+    ['pass-by', 4, { who: 'larks', shoulder: 'right', hands: false }],
   ]);
   assert.deepEqual(read('partners do si do ¾, as couples'), [
     ['couples-do-si-do', 8, { amount: 0.75 }],

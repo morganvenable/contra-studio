@@ -356,3 +356,7 @@ line each, for review.
 - A zero-beat pass through or pull by: takes the last 2 beats of the figure before it (or the first 2 of the one after) when that figure has 6 beats or more.
 - "X take Y" of 4 beats or more with no swing with Y after it: a give and take.
 - A pair figure named by partners or neighbors when some pairs stand in different foursomes (after a figure on a diagonal regrouped the set): every pair dances together for that figure, when all are within reach (2.7 m); the foursomes come back afterward.
+- A star steps in over at least 1.2 beats (and at an easy pace from a big ring), and a dancer who must turn far to face the way round turns over longer; a star of a big ring (a circle mixer's) stays wide enough that dancers side by side round it are 0.6 m apart.
+- An allemande turns each dancer to face the way round at about 2 radians a beat at most (sooner when there is time), and the hands join once both have turned most of the way.
+- A figure on a diagonal when only one minor set dances (three couples, or couples out at both ends): nobody has a couple on the diagonal, so everyone stands still for it.
+- A balance given other than four beats: two or three beats balance quickly; five or six balance in four and stand the rest; seven or eight balance twice.

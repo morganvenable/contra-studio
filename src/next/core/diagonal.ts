@@ -57,7 +57,10 @@ export function diagonalGroups(state: DanceState, side: 'left' | 'right'): numbe
     if (!o || choose(o) !== c || o.lark < c.lark) continue;
     groups.push([c.lark, c.robin, o.lark, o.robin]);
   }
-  if (!groups.length) throw new Error(`No couples face each other on the ${side} diagonal.`);
+  // With a single minor set dancing (a short set, or couples waiting out at
+  // both ends) there is nobody on a diagonal: everyone stands still.
+  if (!groups.length && state.groups.length > 1)
+    throw new Error(`No couples face each other on the ${side} diagonal.`);
   return groups;
 }
 

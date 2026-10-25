@@ -4,34 +4,34 @@
  "catalogue": 2422,
  "stored": 2422,
  "counts": {
-  "ok": 677,
-  "check": 397,
-  "partial": 1348,
+  "ok": 680,
+  "check": 412,
+  "partial": 1330,
   "unsupported": 0
  },
  "formations": [
   {
    "formation": "improper",
    "dances": 1189,
-   "ok": 502,
+   "ok": 504,
    "check": 130,
-   "partial": 557,
+   "partial": 555,
    "unsupported": 0
   },
   {
    "formation": "becket",
    "dances": 655,
-   "ok": 84,
-   "check": 179,
-   "partial": 392,
+   "ok": 85,
+   "check": 190,
+   "partial": 380,
    "unsupported": 0
   },
   {
    "formation": "becket ccw",
    "dances": 169,
    "ok": 6,
-   "check": 48,
-   "partial": 115,
+   "check": 51,
+   "partial": 112,
    "unsupported": 0
   },
   {
@@ -470,8 +470,8 @@
    "formation": "becket mixer",
    "dances": 1,
    "ok": 0,
-   "check": 0,
-   "partial": 1,
+   "check": 1,
+   "partial": 0,
    "unsupported": 0
   },
   {
@@ -3101,27 +3101,27 @@
   "figuresThatCannotStart": [
    {
     "name": "progression or other",
-    "unlocks": 111
+    "unlocks": 115
    },
    {
     "name": "swing variant",
-    "unlocks": 48
+    "unlocks": 40
    },
    {
     "name": "rory o'more",
-    "unlocks": 39
-   },
-   {
-    "name": "diagonal chain / right left through",
-    "unlocks": 37
+    "unlocks": 40
    },
    {
     "name": "ocean wave / long wave",
     "unlocks": 32
    },
    {
+    "name": "diagonal chain / right left through",
+    "unlocks": 20
+   },
+   {
     "name": "allemande variant",
-    "unlocks": 15
+    "unlocks": 17
    },
    {
     "name": "circle variant",
@@ -3129,14 +3129,18 @@
    },
    {
     "name": "pull by / pass by",
-    "unlocks": 12
-   },
-   {
-    "name": "gyre",
-    "unlocks": 10
+    "unlocks": 11
    },
    {
     "name": "poussette",
+    "unlocks": 9
+   },
+   {
+    "name": "gyre",
+    "unlocks": 9
+   },
+   {
+    "name": "star variant",
     "unlocks": 9
    },
    {
@@ -3148,23 +3152,23 @@
     "unlocks": 8
    },
    {
-    "name": "do-si-do variant",
-    "unlocks": 8
-   },
-   {
-    "name": "star variant",
-    "unlocks": 8
+    "name": "petronella",
+    "unlocks": 7
    },
    {
     "name": "promenade",
     "unlocks": 7
    },
    {
-    "name": "petronella",
+    "name": "do-si-do variant",
     "unlocks": 6
    },
    {
     "name": "chain variant",
+    "unlocks": 5
+   },
+   {
+    "name": "into the middle / forward & back",
     "unlocks": 5
    },
    {
@@ -3182,10 +3186,6 @@
    {
     "name": "butterfly whirl",
     "unlocks": 4
-   },
-   {
-    "name": "diagonal hey",
-    "unlocks": 3
    },
    {
     "name": "turn alone / as a couple",
@@ -3216,8 +3216,12 @@
     "unlocks": 2
    },
    {
-    "name": "into the middle / forward & back",
+    "name": "other: right left through",
     "unlocks": 2
+   },
+   {
+    "name": "diagonal hey",
+    "unlocks": 1
    },
    {
     "name": "gate",
@@ -3233,10 +3237,6 @@
    },
    {
     "name": "other: pass through to face sides",
-    "unlocks": 1
-   },
-   {
-    "name": "other: right left through",
     "unlocks": 1
    },
    {
@@ -3263,27 +3263,27 @@
   "checkFailures": [
    {
     "name": "Couples don't end the round where the progression puts them.",
-    "unlocks": 177
+    "unlocks": 183
    },
    {
     "name": "allemande variant",
-    "unlocks": 33
+    "unlocks": 31
    },
    {
     "name": "ocean wave / long wave",
-    "unlocks": 26
+    "unlocks": 27
    },
    {
     "name": "swing variant",
-    "unlocks": 22
+    "unlocks": 23
+   },
+   {
+    "name": "diagonal chain / right left through",
+    "unlocks": 15
    },
    {
     "name": "hey (other)",
     "unlocks": 14
-   },
-   {
-    "name": "The next time through can't start from where the dancers end: No couples face each other on the left diagonal.).",
-    "unlocks": 11
    },
    {
     "name": "circle variant",
@@ -3291,18 +3291,14 @@
    },
    {
     "name": "promenade",
-    "unlocks": 7
+    "unlocks": 8
    },
    {
     "name": "down/up the hall",
-    "unlocks": 7
+    "unlocks": 8
    },
    {
-    "name": "star variant",
-    "unlocks": 6
-   },
-   {
-    "name": "The next time through can't start from where the dancers end: No couples face each other on the right diagonal.).",
+    "name": "The next time through can't start from where the dancers end: A star of 4 needs the dancers spaced around a ring.).",
     "unlocks": 6
    },
    {
@@ -3311,6 +3307,10 @@
    },
    {
     "name": "box circulate",
+    "unlocks": 5
+   },
+   {
+    "name": "diagonal hey",
     "unlocks": 5
    },
    {
@@ -3338,6 +3338,10 @@
     "unlocks": 3
    },
    {
+    "name": "roll away",
+    "unlocks": 3
+   },
+   {
     "name": "gyre",
     "unlocks": 3
    },
@@ -3350,7 +3354,7 @@
     "unlocks": 3
    },
    {
-    "name": "roll away",
+    "name": "The next time through can't start from where the dancers end: A ring balance of 4 needs the dancers spaced around a ring.).",
     "unlocks": 2
    },
    {
@@ -3382,15 +3386,15 @@
     "unlocks": 2
    },
    {
-    "name": "The next time through can't start from where the dancers end: A ring balance of 4 needs the dancers spaced around a ring.).",
-    "unlocks": 1
-   },
-   {
     "name": "zig zag",
     "unlocks": 1
    },
    {
     "name": "The next time through can't start from where the dancers end: A roll away needs the two side by side.).",
+    "unlocks": 1
+   },
+   {
+    "name": "The next time through can't start from where the dancers end: The dancers in the middle of a hey must start on opposite sides of the set.).",
     "unlocks": 1
    },
    {
@@ -3426,15 +3430,19 @@
     "unlocks": 1
    },
    {
-    "name": "diagonal chain / right left through",
-    "unlocks": 1
-   },
-   {
     "name": "slide along set",
     "unlocks": 1
    },
    {
     "name": "pull by / pass by",
+    "unlocks": 1
+   },
+   {
+    "name": "star variant",
+    "unlocks": 1
+   },
+   {
+    "name": "The next time through can't start from where the dancers end: Dancer 0's partner is outside the group.).",
     "unlocks": 1
    },
    {

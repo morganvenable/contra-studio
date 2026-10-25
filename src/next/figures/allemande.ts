@@ -78,6 +78,8 @@ const WAVE_GAP = 2 * HOLD_RADIUS;
 const TIGHT_RADIUS = 0.38;
 /** Closing in takes this much of a turn (or the first share of a short one). */
 const GATHER_TURNS = 0.3;
+/** Fastest rate (radians per beat) for turning to face the way round. */
+const TURN_RATE = 2;
 /** Samples along the path for walking it at a steady pace. */
 const PATH_STEPS = 240;
 
@@ -209,10 +211,21 @@ export const allemande: Figure<AllemandeParams> = (state, params, beats) => {
 
   const motion = (beat: number) => {
     const t = beat / beats;
-    const at = new Map(orbits.map((o) => [o.id, { o, ...shape(o, along(o.id, t)) }]));
-    const bodies = [...at.values()].map(({ o, g, r, angle }) => {
+    const at = new Map(
+      orbits.map((o) => {
+        const u = along(o.id, t);
+        // Turning to face the way round takes longer the farther it is, at
+        // about TURN_RATE at its fastest, and at least the closing-in share.
+        const turnShare = Math.min(
+          0.8,
+          Math.max(share, (1.875 * Math.abs(o.needed)) / (TURN_RATE * beats)),
+        );
+        return [o.id, { o, faced: smooth(u / turnShare), ...shape(o, u) }] as const;
+      }),
+    );
+    const bodies = [...at.values()].map(({ o, faced, r, angle }) => {
       const position = add(o.center, rotate(scale(o.rel, r / o.radius), angle));
-      return { id: o.id, position, yaw: o.start.yaw + o.needed * g - angle };
+      return { id: o.id, position, yaw: o.start.yaw + o.needed * faced - angle };
     });
     for (const st of steppers) {
       const q = progress(t);
@@ -225,8 +238,11 @@ export const allemande: Figure<AllemandeParams> = (state, params, beats) => {
     const contacts: FigureContact[] = holds.map((h) => {
       const held = state.hands.some((s) => sameHold(s, h));
       const { g, out } = at.get(h.a)!;
-      // Hands join once the pair has closed in enough to reach.
-      return joined(h, (held ? 1 : smooth((g - 0.5) / 0.5)) * (1 - smooth(out / 0.5)));
+      // Hands join once the pair has closed in enough to reach, and both
+      // have turned most of the way to face round.
+      const turned = Math.min(at.get(h.a)!.faced, at.get(h.b)!.faced);
+      const join = held ? 1 : smooth((g - 0.5) / 0.5) * smooth((turned - 0.4) / 0.4);
+      return joined(h, join * (1 - smooth(out / 0.5)));
     });
     if (waveHolds.length) {
       const strength = smooth((beat - (beats - 0.25)) / 0.25);

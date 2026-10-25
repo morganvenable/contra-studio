@@ -224,7 +224,7 @@ export function handsPatterns(h: HandsHelpers): readonly (readonly [RegExp, Buil
     // the right shoulder into the other's place, still facing the same way.
     [
       /^(larks|robins|\w+) do si do ½ to trade places$/,
-      (m, b) => [call('pass-by', b, { who: who(m[1]), shoulder: 'right' })],
+      (m, b) => [call('pass-by', b, { who: who(m[1]), shoulder: 'right', hands: false })],
     ],
     // "Swing through: neighbors allemande right ½, larks allemande left ½":
     // the two half turns, half the beats each.
@@ -250,7 +250,7 @@ export function handsPatterns(h: HandsHelpers): readonly (readonly [RegExp, Buil
         const amount = handsAmount(m[3]);
         return [
           call('allemande', turnBeats, { who: who(m[1]), hand: m[2], amount }),
-          call('pass-by', b - turnBeats, { who: who(m[4]), shoulder: m[5] }),
+          call('pass-by', b - turnBeats, { who: who(m[4]), shoulder: m[5], hands: false }),
         ];
       },
     ],
@@ -264,7 +264,7 @@ export function handsPatterns(h: HandsHelpers): readonly (readonly [RegExp, Buil
         const turnBeats = Math.max(b - 2, b / 2);
         return [
           call('allemande', turnBeats, { who: who(m[1]), hand: m[2], amount: handsAmount(m[3]) }),
-          call('pass-by', b - turnBeats, { who: 'partner', shoulder: m[4] }),
+          call('pass-by', b - turnBeats, { who: 'partner', shoulder: m[4], hands: false }),
         ];
       },
     ],
