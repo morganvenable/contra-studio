@@ -98,7 +98,8 @@ export function foldRound(
     beat += call.beats;
     const last = index === calls.length - 1;
     let exit = result.exit;
-    if (progression && (call.progression || (!marked && last))) {
+    const due = progression?.atRoundEnd ? last : call.progression || (!marked && last);
+    if (progression && due) {
       try {
         exit = progression.rebind(exit);
       } catch (error) {
@@ -175,7 +176,9 @@ function scheduleCrossings(
       x: (from.get(ids[0])!.position.x + from.get(ids[1])!.position.x) / 2,
       z: (from.get(ids[0])!.position.z + from.get(ids[1])!.position.z) / 2,
     };
-    const crossing = { ids, start: beat, from, pivot: { x: 0, z: center.z } };
+    // Lines of four (layout.columns) turn each couple about its own middle.
+    const pivot = { x: state.layout?.columns ? center.x : 0, z: center.z };
+    const crossing = { ids, start: beat, from, pivot };
     crossings.push(crossing);
     for (const id of ids) bodies.set(id, crossingBody(crossing, id, 1));
   }
@@ -214,6 +217,8 @@ export interface FoldedDance extends CompiledDance {
   round(repeat: number): Round;
   /** Styling a figure declared (Rory twirl, a flourish), for the physical check. */
   figureStyling(repeat: number, figureIndex: number): Styling | undefined;
+  /** Raw z repeats every `period` meters (a set with no ends, drawn bent). */
+  readonly period?: number;
 }
 
 export function compileFold(options: FoldOptions): FoldedDance {

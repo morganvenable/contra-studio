@@ -1,12 +1,12 @@
-{ "schema": "contra-studio/next-dance", "version": 2, "id": "2385", "title": "Middle Break", "author": "Bob Isaacs", "formation": null, "progression": null, "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/2385", "formation": "Square Break", "retrievedAt": "2026-10-20T06:04:08.449Z", "sha256": "0ad59166a6c77c09be8f5f8189f26678a33b70a386a5e829bcc6944d127e05d4" }, "status": "unsupported", "problems": [ "The \"Square Break\" formation isn't built yet." ], "unparsed": [ { "row": 2, "text": "grand right and left", "why": "No figure pattern matches \"grand right and left\"." }, { "row": 6, "text": "grand right and left", "why": "No figure pattern matches \"grand right and left\"." } ], "choices": [],
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "2385", "title": "Middle Break", "author": "Bob Isaacs", "formation": "square", "progression": "mixer", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/2385", "formation": "Square Break", "retrievedAt": "2026-10-20T06:04:08.449Z", "sha256": "0ad59166a6c77c09be8f5f8189f26678a33b70a386a5e829bcc6944d127e05d4" }, "status": "ok", "problems": [], "unparsed": [], "choices": [],
  "figures": [
   {"move":"allemande","beats":6,"params":{"who":"neighbor","hand":"left","amount":1},"text":"neighbors allemande left once","section":"A1","row":1},
-  {"move":"hold","beats":10,"params":{"reason":"unparsed"},"text":"grand right and left","section":"A1","row":2},
-  {"move":"do-si-do","beats":8,"params":{"who":"partner","amount":1,"shoulder":"right"},"text":"partners do si do once","section":"A2","row":3},
-  {"move":"swing","beats":8,"params":{"who":"partner"},"text":"partners swing","section":"A2","row":4},
+  {"move":"grand-meet","beats":10,"params":{"hand":"right"},"text":"grand right and left","section":"A1","row":2},
+  {"move":"square-do-si-do","beats":8,"params":{"who":"partner","amount":1,"shoulder":"right"},"text":"partners do si do once","section":"A2","row":3},
+  {"move":"square-swing","beats":8,"params":{"who":"partner"},"text":"partners swing","section":"A2","row":4},
   {"move":"allemande","beats":6,"params":{"who":"neighbor","hand":"left","amount":1},"text":"neighbors allemande left once","section":"B1","row":5},
-  {"move":"hold","beats":10,"params":{"reason":"unparsed"},"text":"grand right and left","section":"B1","row":6},
-  {"move":"do-si-do","beats":8,"params":{"who":"partner","amount":1,"shoulder":"right"},"text":"partners do si do once","section":"B2","row":7},
-  {"move":"swing","beats":8,"params":{"who":"partner"},"text":"partners swing","section":"B2","row":8}
+  {"move":"grand-meet","beats":10,"params":{"hand":"right"},"text":"grand right and left","section":"B1","row":6},
+  {"move":"square-do-si-do","beats":8,"params":{"who":"partner","amount":1,"shoulder":"right"},"text":"partners do si do once","section":"B2","row":7},
+  {"move":"square-swing","beats":8,"params":{"who":"partner"},"text":"partners swing","section":"B2","row":8}
  ]
 }

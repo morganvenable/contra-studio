@@ -2,6 +2,7 @@
  * DanceState is the only thing carried from one figure to the next.
  */
 import type { Dancer, Hand, Role, Vec2 } from '../../types.ts';
+import type { Layout } from './layout.ts';
 import { dot, rightOf, sub } from './math.ts';
 
 export interface Body {
@@ -40,6 +41,8 @@ export interface DanceState {
   readonly epoch: number;
   /** Couples waiting out at an end of a longways set (minor-set progression). */
   readonly waiting: readonly WaitingCouple[];
+  /** Where groups stand when it is not one contra set (layout.ts). */
+  readonly layout?: Layout;
 }
 
 export function body(state: DanceState, id: number): Body {

@@ -1,11 +1,11 @@
-{ "schema": "contra-studio/next-dance", "version": 2, "id": "1193", "title": "Road to Boston", "author": "unknown", "formation": null, "progression": null, "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/1193", "formation": "circle", "retrievedAt": "2026-10-20T06:10:42.813Z", "sha256": "e3faf35b5a953431c8a4935ec2753c9d564e5c7852073fd0687eb86d1e75564a" }, "status": "unsupported", "problems": [ "The \"circle\" formation isn't built yet." ], "unparsed": [ { "row": 1, "text": "into the middle and back", "why": "No figure pattern matches \"into the middle and back\"." }, { "row": 2, "text": "into the middle and back", "why": "No figure pattern matches \"into the middle and back\"." }, { "row": 3, "text": "larks in and clap and back up", "why": "No figure pattern matches \"gentlespoons in and clap and back up\"." }, { "row": 4, "text": "robins in and clap and back up", "why": "No figure pattern matches \"ladles in and clap and back up\"." }, { "row": 7, "text": "circle left 8 places (or however many you can go in 16 beats", "why": "No figure pattern matches \"circle left 8 places (or however many you can go in 16 beats\"." } ], "choices": [],
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "1193", "title": "Road to Boston", "author": "unknown", "formation": "circle", "progression": "mixer", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/1193", "formation": "circle", "retrievedAt": "2026-10-20T06:10:42.813Z", "sha256": "e3faf35b5a953431c8a4935ec2753c9d564e5c7852073fd0687eb86d1e75564a" }, "status": "ok", "problems": [], "unparsed": [], "choices": [],
  "figures": [
-  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"into the middle and back","section":"A1","row":1},
-  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"into the middle and back","section":"A1","row":2},
-  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"larks in and clap and back up","section":"A2","row":3},
-  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"robins in and clap and back up","section":"A2","row":4},
+  {"move":"forward-back","beats":8,"params":{"back":true},"text":"into the middle and back","section":"A1","row":1},
+  {"move":"forward-back","beats":8,"params":{"back":true},"text":"into the middle and back","section":"A1","row":2},
+  {"move":"forward-back","beats":8,"params":{"back":true,"among":["larks"]},"text":"larks in and clap and back up","section":"A2","row":3},
+  {"move":"forward-back","beats":8,"params":{"back":true,"among":["robins"]},"text":"robins in and clap and back up","section":"A2","row":4},
   {"move":"do-si-do","beats":8,"params":{"who":"partner","amount":1,"shoulder":"right"},"text":"partners do si do once","section":"B1","row":5},
   {"move":"swing","beats":8,"params":{"who":"partner"},"text":"partners swing","section":"B1","row":6},
-  {"move":"hold","beats":16,"params":{"reason":"unparsed"},"text":"circle left 8 places (or however many you can go in 16 beats","section":"B2","row":7}
+  {"move":"ring-circle","beats":16,"params":{"direction":"left","places":8},"text":"circle left 8 places (or however many you can go in 16 beats","section":"B2","row":7}
  ]
 }

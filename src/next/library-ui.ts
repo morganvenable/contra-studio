@@ -4,6 +4,7 @@
  * dance's JSON only when it is opened, so none of them are in the bundle.
  */
 import type { Dance } from "../types.ts";
+import { FORMATIONS } from "./core/formation.ts";
 import {
   registerNextDance,
   type DanceStatus,
@@ -74,6 +75,14 @@ export function fetchStoredDance(id: string): Promise<StoredDance> {
   return found;
 }
 
+/** The formation's own name, for formations other than duple minor and Becket. */
+function formationName(stored: StoredDance): { formationName?: string } {
+  const key = stored.formation;
+  if (!key || key === "improper" || key.startsWith("becket")) return {};
+  const name = FORMATIONS[key]?.name;
+  return name ? { formationName: name } : {};
+}
+
 /** An app Dance for a stored dance with no old-engine program of its own. */
 export function danceFromStored(stored: StoredDance): Dance {
   return {
@@ -84,6 +93,7 @@ export function danceFromStored(stored: StoredDance): Dance {
       ? "becket"
       : "duple-improper",
     circulation: stored.formation === "becket-ccw" ? "ccw" : "cw",
+    ...formationName(stored),
     sourceUrl: stored.source.url,
     description: stored.problems[0] ?? "",
     figures: [],

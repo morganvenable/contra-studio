@@ -1,11 +1,11 @@
-{ "schema": "contra-studio/next-dance", "version": 2, "id": "2523", "title": "Around We Go", "author": "Mattie Rynkiewicz", "formation": null, "progression": null, "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/2523", "formation": "circle", "retrievedAt": "2026-10-20T05:47:03.939Z", "sha256": "69324531a5ff0ac8578d3cd730256eb73c5fa5016387f2c7a027e9cf53b462c8" }, "status": "unsupported", "problems": [ "The \"circle\" formation isn't built yet." ], "unparsed": [ { "row": 4, "text": "into the middle and back", "why": "No figure pattern matches \"into the middle and back\"." }, { "row": 5, "text": "into the middle and back", "why": "No figure pattern matches \"into the middle and back\"." }, { "row": 6, "text": "partner right elbow swing", "why": "No figure pattern matches \"partner right elbow swing\"." }, { "row": 7, "text": "partner left elbow swing", "why": "No figure pattern matches \"partner left elbow swing\"." } ], "choices": [],
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "2523", "title": "Around We Go", "author": "Mattie Rynkiewicz", "formation": "circle", "progression": "mixer", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/2523", "formation": "circle", "retrievedAt": "2026-10-20T05:47:03.939Z", "sha256": "69324531a5ff0ac8578d3cd730256eb73c5fa5016387f2c7a027e9cf53b462c8" }, "status": "ok", "problems": [], "unparsed": [], "choices": [],
  "figures": [
-  {"move":"circle","beats":8,"params":{"direction":"left","amount":1},"text":"circle left","section":"A1","row":1},
-  {"move":"circle","beats":8,"params":{"direction":"right","amount":1},"text":"circle right","section":"A1","row":2},
-  {"move":"circle","beats":16,"params":{"direction":"left","amount":1},"text":"circle left","section":"A2","row":3},
-  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"into the middle and back","section":"B1","row":4},
-  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"into the middle and back","section":"B1","row":5},
-  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"partner right elbow swing","section":"B2","row":6},
-  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"partner left elbow swing","section":"B2","row":7}
+  {"move":"ring-circle","beats":8,"params":{"direction":"left","amount":1},"text":"circle left","section":"A1","row":1},
+  {"move":"ring-circle","beats":8,"params":{"direction":"right","amount":1},"text":"circle right","section":"A1","row":2},
+  {"move":"ring-circle","beats":16,"params":{"direction":"left","amount":1},"text":"circle left","section":"A2","row":3},
+  {"move":"forward-back","beats":8,"params":{"back":true},"text":"into the middle and back","section":"B1","row":4},
+  {"move":"forward-back","beats":8,"params":{"back":true},"text":"into the middle and back","section":"B1","row":5},
+  {"move":"allemande","beats":8,"params":{"who":"partner","hand":"right","amount":1},"text":"partner right elbow swing","section":"B2","row":6},
+  {"move":"allemande","beats":8,"params":{"who":"partner","hand":"left","amount":1},"text":"partner left elbow swing","section":"B2","row":7}
  ]
 }

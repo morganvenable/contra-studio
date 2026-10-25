@@ -7,6 +7,7 @@
  */
 import type { FigureCall } from './figure.ts';
 import { canonical, canonicalText, roleOfGroup } from './roles.ts';
+import { MORE_PATTERNS, qualifiers } from './parse-more.ts';
 
 export interface SourceRow {
   readonly section?: string;
@@ -31,6 +32,13 @@ const AMOUNTS: Readonly<Record<string, number>> = {
   '1 1/2': 1.5,
   'once and a half': 1.5,
   twice: 2,
+  // Decimal spellings.
+  '0.25': 0.25,
+  '0.5': 0.5,
+  '0.75': 0.75,
+  '1.25': 1.25,
+  '1.5': 1.5,
+  '1.75': 1.75,
 };
 const NUMBERS: Readonly<Record<string, number>> = { one: 1, two: 2, three: 3, four: 4 };
 
@@ -408,13 +416,22 @@ function onDiagonal(text: string): { text: string; diagonal?: 'left' | 'right' }
 export function parseRow(row: SourceRow): FigureCall[] {
   const normal = normalizeRow(row.text);
   const progression = normal.progression;
-  const { text, diagonal } = onDiagonal(normal.text);
-  for (const [pattern, build] of PATTERNS) {
-    const m = text.match(pattern);
-    if (!m) continue;
-    const calls = build(m, row.beats).map((c) =>
-      diagonal ? { ...c, params: { ...c.params, diagonal } } : c,
-    );
+  const { text: plain, diagonal } = onDiagonal(normal.text);
+  // As written first; then with a qualifier ("heads", "middle 4") lifted into `among`.
+  const lifted = qualifiers(plain);
+  const tries = [{ text: plain, among: undefined as readonly string[] | undefined }];
+  if (lifted) tries.push({ text: lifted.text, among: lifted.among });
+  for (const { text, among } of tries) {
+    const found = matchRow(text, row.beats);
+    if (!found) continue;
+    const calls = found.map((c) => ({
+      ...c,
+      params: {
+        ...c.params,
+        ...(diagonal ? { diagonal } : {}),
+        ...(among?.length ? { among } : {}),
+      },
+    }));
     const label = canonicalText(row.text.replace(/⁋/g, '').replace(/\s+/g, ' ').trim());
     return calls.map((c, i) => ({
       ...c,
@@ -423,6 +440,15 @@ export function parseRow(row: SourceRow): FigureCall[] {
     }));
   }
   throw new Error(`No figure pattern matches "${row.text}".`);
+}
+
+/** The calls the first matching pattern builds, contra patterns first. */
+function matchRow(text: string, beats: number): FigureCall[] | undefined {
+  for (const [pattern, build] of [...PATTERNS, ...MORE_PATTERNS]) {
+    const m = text.match(pattern);
+    if (m) return build(m, beats);
+  }
+  return undefined;
 }
 
 const ENTITIES: Readonly<Record<string, string>> = {

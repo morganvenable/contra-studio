@@ -9,8 +9,10 @@
  */
 import type { Progression } from './core/progression.ts';
 import { canonicalText } from './core/roles.ts';
-import { contraDbRows, decodeEntities, parseRow } from './core/parse.ts';
+import { contraDbRows, decodeEntities, parseRow, type SourceRow } from './core/parse.ts';
 import type { StoredCall, StoredDance, UnparsedRow } from './dance.ts';
+import { FORMATIONS } from './core/formation.ts';
+import { GROUPS_FORMATION_TEXT } from './core/formation-groups.ts';
 
 export interface ContraDbSnapshot {
   readonly sourceUrl: string;
@@ -61,10 +63,163 @@ export const FORMATION_TEXT: Readonly<Record<string, Shape>> = {
   'becket ccw': { formation: 'becket-ccw', progression: 'minor-set' },
   'becket counterclockwise': { formation: 'becket-ccw', progression: 'minor-set' },
   'becket counter-clockwise': { formation: 'becket-ccw', progression: 'minor-set' },
+  // Spellings and qualifiers of the formations above (docs/figure-readings.md).
+  'improper or proper': { formation: 'improper', progression: 'duple-minor' },
+  'improper/proper': { formation: 'improper', progression: 'duple-minor' },
+  'duple minor improper': { formation: 'improper', progression: 'duple-minor' },
+  'duple improper longways': { formation: 'improper', progression: 'duple-minor' },
+  'duple improper contra': { formation: 'improper', progression: 'duple-minor' },
+  'duple minor - improper - single progression': {
+    formation: 'improper',
+    progression: 'duple-minor',
+  },
+  'improper - waltz tempo': { formation: 'improper', progression: 'duple-minor' },
+  imroper: { formation: 'improper', progression: 'duple-minor' },
+  'improper⁹': { formation: 'improper', progression: 'duple-minor' },
+  'duple minor': { formation: 'improper', progression: 'duple-minor' },
+  'all improper': { formation: 'improper', progression: 'duple-minor' },
+  'progressed improper': { formation: 'improper', progression: 'duple-minor' },
+  'improper progressed': { formation: 'improper', progression: 'duple-minor' },
+  'duple improper; begins progressed': { formation: 'improper', progression: 'duple-minor' },
+  "improper, but with 1's below 2's": { formation: 'improper', progression: 'duple-minor' },
+  beckett: { formation: 'becket', progression: 'minor-set' },
+  becketa: { formation: 'becket', progression: 'minor-set' },
+  'becket (no matter)': { formation: 'becket', progression: 'minor-set' },
+  'becket l': { formation: 'becket', progression: 'minor-set' },
+  'duple becket': { formation: 'becket', progression: 'minor-set' },
+  'duple minor becket': { formation: 'becket', progression: 'minor-set' },
+  'becket ccwkoi': { formation: 'becket-ccw', progression: 'minor-set' },
+  'beckett ccw': { formation: 'becket-ccw', progression: 'minor-set' },
+  'duple becket (reverse progression)': { formation: 'becket-ccw', progression: 'minor-set' },
+  'becket, indecent': { formation: 'becket-indecent', progression: 'minor-set' },
+  'becket indecent': { formation: 'becket-indecent', progression: 'minor-set' },
+  'indecent becket': { formation: 'becket-indecent', progression: 'minor-set' },
+  'becket cw (gents on right, ladies on left)': {
+    formation: 'becket-indecent',
+    progression: 'minor-set',
+  },
+  'indecent becket ccw': { formation: 'becket-ccw-indecent', progression: 'minor-set' },
+  'becket ccw indecent1': { formation: 'becket-ccw-indecent', progression: 'minor-set' },
+  // Double progressions: the figures move couples two places a round.
+  'improper, double progression': { formation: 'improper', progression: 'duple-minor-double' },
+  'improper - double progression': { formation: 'improper', progression: 'duple-minor-double' },
+  'duple neutral, double progression': {
+    formation: 'duple-neutral',
+    progression: 'duple-minor-double',
+  },
+  'becket double progression': { formation: 'becket', progression: 'minor-set-double' },
+  'beckett double progression': { formation: 'becket', progression: 'minor-set-double' },
+  'becket, double progression': { formation: 'becket', progression: 'minor-set-double' },
+  'becket - double progression': { formation: 'becket', progression: 'minor-set-double' },
+  'becket cw, double progression': { formation: 'becket', progression: 'minor-set-double' },
+  'becket cw, dbl prog': { formation: 'becket', progression: 'minor-set-double' },
+  'becket, double ccw progression': { formation: 'becket-ccw', progression: 'minor-set-double' },
+  'duple becket (reverse double progression)': {
+    formation: 'becket-ccw',
+    progression: 'minor-set-double',
+  },
+  // Whole sets: a triplet and longways sets for a few couples.
+  triplet: { formation: 'triplet', progression: 'places' },
+  'proper triplet': { formation: 'triplet', progression: 'places' },
+  'triplet, 1s and 2s improper': { formation: 'triplet', progression: 'places' },
+  longways: { formation: 'longways-set', progression: 'places' },
+  'longways sets, up to 6 couples': { formation: 'longways-set', progression: 'places' },
+  'longways set, 4-6 couples': { formation: 'longways-set', progression: 'places' },
+  'longways sets, 4-6 couples': { formation: 'longways-set', progression: 'places' },
+  'longways set, no h4': { formation: 'longways-set', progression: 'places' },
+  'four couple longways set': { formation: 'longways-four', progression: 'places' },
+  // Sets with no ends and lines of four.
+  'sicilian circle': { formation: 'sicilian', progression: 'sicilian' },
+  'four face four': { formation: 'four-face-four', progression: 'lines' },
+  'four facing four': { formation: 'four-face-four', progression: 'lines' },
+  // One big ring.
+  'circle mixer': { formation: 'circle-mixer', progression: 'mixer' },
+  mixer: { formation: 'circle-mixer', progression: 'mixer' },
+  circle: { formation: 'circle', progression: 'mixer' },
+  // Scatter mixers are drawn as one ring (docs/figure-readings.md).
+  'scatter mixer': { formation: 'circle-mixer', progression: 'mixer' },
+  'scatter mixer (single)': { formation: 'circle-mixer', progression: 'mixer' },
+  'duple scatter mixer': { formation: 'circle-mixer', progression: 'mixer' },
+  'three-couple scatter mixer': { formation: 'circle-mixer', progression: 'mixer' },
+  // Squares: four couples; partners are found where they stand.
+  'square dance': { formation: 'square', progression: 'mixer' },
+  'square break': { formation: 'square', progression: 'mixer' },
+  'square dance break': { formation: 'square', progression: 'mixer' },
+  'four couple square': { formation: 'square', progression: 'mixer' },
+  square: { formation: 'square', progression: 'mixer' },
+  // Zoom contras for one couple are drawn in an improper set.
+  'one couple': { formation: 'improper', progression: 'duple-minor' },
+  singlet: { formation: 'improper', progression: 'duple-minor' },
+  'solo/couple': { formation: 'improper', progression: 'duple-minor' },
+  // Triple minor and its relatives, drawn as one minor set of three couples.
+  'triple minor': { formation: 'triple-minor', progression: 'places' },
+  'triple proper': { formation: 'triple-minor', progression: 'places' },
+  'triple minor dutribecket': { formation: 'triple-minor', progression: 'places' },
+  'triad (triple minor dutribecket)': { formation: 'triple-minor', progression: 'places' },
+  'triple minor, triad formation': { formation: 'triple-minor', progression: 'places' },
+  triad: { formation: 'triple-minor', progression: 'places' },
+  // One-off qualifiers of built formations (docs/figure-readings.md).
+  'indecent becket cw gents change place with partner': {
+    formation: 'becket-indecent',
+    progression: 'minor-set',
+  },
+  'becket men in center left hands, right hand to partner in ocean of four': {
+    formation: 'becket',
+    progression: 'minor-set',
+  },
+  'quadruple minor becket': { formation: 'becket', progression: 'minor-set' },
+  'becket quadruplet': { formation: 'becket', progression: 'minor-set' },
+  'sawtooth cw': { formation: 'becket', progression: 'minor-set' },
+  'cross contra': { formation: 'improper', progression: 'duple-minor' },
+  'cross contra - improper then ladle one and gentlespoon two trade places': {
+    formation: 'improper',
+    progression: 'duple-minor',
+  },
+  'cross contra - improper then ladle one and ladle two trade places': {
+    formation: 'improper',
+    progression: 'duple-minor',
+  },
+  'long waves, larks facing out': { formation: 'improper', progression: 'duple-minor' },
+  'proper, ladles traded': { formation: 'proper', progression: 'duple-minor-proper' },
+  'improper, reverse progression': { formation: 'improper', progression: 'duple-minor' },
+  'improper reverse progression': { formation: 'improper', progression: 'duple-minor' },
+  'duple indecent (reverse progression)': { formation: 'indecent', progression: 'duple-minor' },
+  'contra mixer': { formation: 'improper', progression: 'duple-minor' },
+  'duple mixer': { formation: 'improper', progression: 'duple-minor' },
+  'proper mixer': { formation: 'proper', progression: 'duple-minor-proper' },
+  'becket mixer': { formation: 'becket', progression: 'minor-set' },
+  'quadruple minor': { formation: 'square', progression: 'mixer' },
+  'grid square': { formation: 'square', progression: 'mixer' },
+  'square with ninepin': { formation: 'square', progression: 'mixer' },
+  'five couple horseshoe': { formation: 'circle', progression: 'mixer' },
+  // Lines of three facing lines of three round a circle.
+  'three face three': { formation: 'three-face-three', progression: 'trios' },
+  'three-face-three': { formation: 'three-face-three', progression: 'trios' },
+  '3 face 3': { formation: 'three-face-three', progression: 'trios' },
+  'three facing three': { formation: 'three-face-three', progression: 'trios' },
+  'three-facing-three': { formation: 'three-face-three', progression: 'trios' },
+  // Sets not made of couples (core/formation-groups.ts).
+  ...(GROUPS_FORMATION_TEXT as Readonly<Record<string, Shape>>),
 };
 
 export function shapeOf(formation: string): Shape | undefined {
   return FORMATION_TEXT[formation.toLowerCase().replace(/\s+/g, ' ').trim()];
+}
+
+/**
+ * The progression kind: the formation's, made double when the source marks
+ * two progressions in one time through (the figures carry each couple two
+ * places).
+ */
+function progressionOf(shape: Shape | undefined, figures: readonly StoredCall[]) {
+  if (!shape) return null;
+  const marks = figures.filter((c) => c.progression).length;
+  const double: Partial<Record<Progression['kind'], Progression['kind']>> = {
+    'duple-minor': 'duple-minor-double',
+    'minor-set': 'minor-set-double',
+    'duple-minor-proper': 'duple-minor-proper-double',
+  };
+  return marks === 2 ? (double[shape.progression] ?? shape.progression) : shape.progression;
 }
 
 /** Usual answers the parser filled in, listed so a reviewer can change them. */
@@ -184,6 +339,84 @@ function joinLeadIns(parsed: (StoredCall[] | Error)[]) {
 }
 
 /**
+ * "Ones allemande right 1½ WHILE" followed by a zero-beat "twos allemande
+ * right 1½ as well": both rows dance at once, as one call (figures/ecd
+ * together.ts) taking the first row's beats.
+ */
+function joinWhile(rows: readonly SourceRow[], parsed: (StoredCall[] | Error)[]) {
+  rows.forEach((row, i) => {
+    const next = rows[i + 1];
+    if (!/\bwhile\s*⁋?\s*$/i.test(row.text) || !next || next.beats !== 0) return;
+    try {
+      const first = parseRow({ ...row, text: row.text.replace(/\s*\bwhile\b\s*/i, ' ').trim() });
+      const second = parseRow({
+        ...next,
+        beats: row.beats,
+        text: next.text.replace(/,?\s*(?:as well|too|at the same time)\s*$/i, '').trim(),
+      });
+      if (first.length !== 1 || second.length !== 1) throw new Error('Each part must be one figure.');
+      const parts = [first[0], second[0]].map((c) => ({ move: c.move, params: c.params }));
+      parsed[i] = [
+        {
+          move: 'together',
+          beats: row.beats,
+          params: { parts },
+          text: `${first[0].text} while ${second[0].text}`,
+          section: row.section,
+          row: i + 1,
+          ...(first[0].progression || second[0].progression ? { progression: true } : {}),
+        },
+      ];
+      parsed[i + 1] = [];
+    } catch (error) {
+      parsed[i] = error instanceof Error ? error : new Error(String(error));
+    }
+  });
+}
+
+/**
+ * "Same as B1": the row dances the named section's calls again, labeled
+ * with its own row and section. Its beats must match the section's; the
+ * repeat carries a progression mark only when this row has one.
+ */
+function repeatSections(rows: readonly SourceRow[], parsed: (StoredCall[] | Error)[]) {
+  rows.forEach((row, i) => {
+    const m = row.text.replace(/⁋/g, '').trim().match(/^same as ([AB][1-4])\.?$/i);
+    if (!m) return;
+    const name = m[1].toUpperCase();
+    const source = rows.flatMap((r, j) => (r.section === name && j < i ? [j] : []));
+    if (!source.length) {
+      parsed[i] = new Error(`There is no ${name} before this row to repeat.`);
+      return;
+    }
+    const calls: StoredCall[] = [];
+    for (const j of source) {
+      const p = parsed[j];
+      if (p instanceof Error) {
+        parsed[i] = new Error(`${name} has a row the engine cannot draw.`);
+        return;
+      }
+      calls.push(...p);
+    }
+    const beats = calls.reduce((n, c) => n + c.beats, 0);
+    if (beats !== row.beats) {
+      parsed[i] = new Error(`${name} takes ${beats} beats, this row ${row.beats}.`);
+      return;
+    }
+    const mark = row.text.includes('⁋');
+    parsed[i] = calls.map((c, k) => {
+      const { progression: _drop, ...rest } = c;
+      return {
+        ...rest,
+        section: row.section,
+        row: i + 1,
+        ...(mark && k === calls.length - 1 ? { progression: true } : {}),
+      };
+    });
+  });
+}
+
+/**
  * Import one snapshot. `sha256` is the hex hash of `snapshot.html` (the
  * caller hashes; this module stays free of Node APIs).
  */
@@ -206,6 +439,8 @@ export function importDance(id: string, snapshot: ContraDbSnapshot, sha256: stri
       return error instanceof Error ? error : new Error(String(error));
     }
   });
+  repeatSections(rows, parsed);
+  joinWhile(rows, parsed);
   joinLeadIns(parsed);
   rows.forEach((row, i) => {
     const number = i + 1;
@@ -235,6 +470,31 @@ export function importDance(id: string, snapshot: ContraDbSnapshot, sha256: stri
         });
     }
   });
+  // "Same four": whoever the row before named; "other four": the other four.
+  const OTHER: Readonly<Record<string, string>> = {
+    heads: 'sides',
+    sides: 'heads',
+    larks: 'robins',
+    robins: 'larks',
+  };
+  figures.forEach((c, i) => {
+    const among = (c.params as { among?: string[] }).among;
+    if (!among?.includes('@same') && !among?.includes('@other')) return;
+    const before = i > 0 ? (figures[i - 1].params as { among?: string[] }).among : undefined;
+    const rest = among.filter((a) => a !== '@same' && a !== '@other');
+    const resolved = among.includes('@other')
+      ? (before ?? []).map((a) => OTHER[a]).filter((a): a is string => !!a)
+      : (before ?? []);
+    const named = [...rest, ...resolved];
+    const { among: _drop, ...params } = c.params as Record<string, unknown>;
+    figures[i] = { ...c, params: named.length ? { ...params, among: named } : params };
+  });
+  // Calls that mean another move in this formation ("long lines" facing along the hall).
+  const moves = shape ? FORMATIONS[shape.formation]?.moves : undefined;
+  if (moves)
+    figures.forEach((c, i) => {
+      if (moves[c.move]) figures[i] = { ...c, move: moves[c.move] };
+    });
   const choices = CHOICES.filter(([test]) => figures.some(test)).map(([, t]) => t);
   return {
     schema: 'contra-studio/next-dance',
@@ -243,7 +503,7 @@ export function importDance(id: string, snapshot: ContraDbSnapshot, sha256: stri
     title: meta.title,
     author: meta.author,
     formation: shape?.formation ?? null,
-    progression: shape?.progression ?? null,
+    progression: progressionOf(shape, figures),
     music: { meter: '2/4', parts, times: 'repeat' },
     source: {
       url: snapshot.sourceUrl,

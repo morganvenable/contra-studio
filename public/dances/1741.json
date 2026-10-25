@@ -1,14 +1,14 @@
-{ "schema": "contra-studio/next-dance", "version": 2, "id": "1741", "title": "Patty Cake Polka", "author": "Chestnut", "formation": null, "progression": null, "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/1741", "formation": "Circle Mixer", "retrievedAt": "2026-10-20T06:08:14.446Z", "sha256": "add381015abcb682dee77d8d4f2fb18dc280dd0c39d367ecfeaf00462023179f" }, "status": "unsupported", "problems": [ "The \"Circle Mixer\" formation isn't built yet." ], "unparsed": [ { "row": 1, "text": "heel, toe, heel, toe", "why": "No figure pattern matches \"heel, toe, heel, toe\"." }, { "row": 2, "text": "slide left along set, slide, slide", "why": "No figure pattern matches \"slide left along set, slide, slide\"." }, { "row": 3, "text": "heel, toe, heel, toe", "why": "No figure pattern matches \"heel, toe, heel, toe\"." }, { "row": 4, "text": "slide right along set, slide slide", "why": "No figure pattern matches \"slide right along set, slide slide\"." }, { "row": 5, "text": "right hand: clap clap clap", "why": "No figure pattern matches \"right hand: clap clap clap\"." }, { "row": 6, "text": "left hand: clap clap clap", "why": "No figure pattern matches \"left hand: clap clap clap\"." }, { "row": 7, "text": "both hands: clap clap clap", "why": "No figure pattern matches \"both hands: clap clap clap\"." }, { "row": 8, "text": "own legs: clap clap clap", "why": "No figure pattern matches \"own legs: clap clap clap\"." }, { "row": 10, "text": "move to your next partner", "why": "No figure pattern matches \"move to your next partner ⁋\"." } ], "choices": [],
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "1741", "title": "Patty Cake Polka", "author": "Chestnut", "formation": "circle-mixer", "progression": "mixer", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/1741", "formation": "Circle Mixer", "retrievedAt": "2026-10-20T06:08:14.446Z", "sha256": "add381015abcb682dee77d8d4f2fb18dc280dd0c39d367ecfeaf00462023179f" }, "status": "ok", "problems": [], "unparsed": [], "choices": [],
  "figures": [
-  {"move":"hold","beats":4,"params":{"reason":"unparsed"},"text":"heel, toe, heel, toe","section":"A1","row":1},
-  {"move":"hold","beats":4,"params":{"reason":"unparsed"},"text":"slide left along set, slide, slide","section":"A1","row":2},
-  {"move":"hold","beats":4,"params":{"reason":"unparsed"},"text":"heel, toe, heel, toe","section":"A1","row":3},
-  {"move":"hold","beats":4,"params":{"reason":"unparsed"},"text":"slide right along set, slide slide","section":"A1","row":4},
-  {"move":"hold","beats":4,"params":{"reason":"unparsed"},"text":"right hand: clap clap clap","section":"A2","row":5},
-  {"move":"hold","beats":4,"params":{"reason":"unparsed"},"text":"left hand: clap clap clap","section":"A2","row":6},
-  {"move":"hold","beats":4,"params":{"reason":"unparsed"},"text":"both hands: clap clap clap","section":"A2","row":7},
-  {"move":"hold","beats":4,"params":{"reason":"unparsed"},"text":"own legs: clap clap clap","section":"A2","row":8},
+  {"move":"still","beats":4,"params":{"action":"stand"},"text":"heel, toe, heel, toe","section":"A1","row":1},
+  {"move":"ring-slide","beats":4,"params":{"direction":"left"},"text":"slide left along set, slide, slide","section":"A1","row":2},
+  {"move":"still","beats":4,"params":{"action":"stand"},"text":"heel, toe, heel, toe","section":"A1","row":3},
+  {"move":"ring-slide","beats":4,"params":{"direction":"right"},"text":"slide right along set, slide slide","section":"A1","row":4},
+  {"move":"still","beats":4,"params":{"action":"clap"},"text":"right hand: clap clap clap","section":"A2","row":5},
+  {"move":"still","beats":4,"params":{"action":"clap"},"text":"left hand: clap clap clap","section":"A2","row":6},
+  {"move":"still","beats":4,"params":{"action":"clap"},"text":"both hands: clap clap clap","section":"A2","row":7},
+  {"move":"still","beats":4,"params":{"action":"clap"},"text":"own legs: clap clap clap","section":"A2","row":8},
   {"move":"allemande","beats":8,"params":{"who":"partner","hand":"right","amount":1},"text":"partners allemande right once","section":"B1","row":9},
-  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"move to your next partner","section":"B1","row":10,"progression":true}
+  {"move":"ring-shift","beats":8,"params":{"who":"larks","direction":"left"},"text":"move to your next partner","progression":true,"section":"B1","row":10}
  ]
 }

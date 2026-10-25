@@ -1,11 +1,11 @@
-{ "schema": "contra-studio/next-dance", "version": 2, "id": "2507", "title": "Palette Cleanser", "author": "Mattie Rynkiewicz", "formation": null, "progression": null, "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/2507", "formation": "triplet", "retrievedAt": "2026-10-20T06:08:02.350Z", "sha256": "dd25a595c7be4541b0577b032c742ce17f8ea64d2ffc891dbe7e17347c6bc947" }, "status": "unsupported", "problems": [ "The \"triplet\" formation isn't built yet." ], "unparsed": [ { "row": 3, "text": "star right", "why": "No figure pattern matches \"star right\"." }, { "row": 4, "text": "star left", "why": "No figure pattern matches \"star left\"." }, { "row": 6, "text": "ones sashay down & up & down", "why": "No figure pattern matches \"ones sashay down & up & down ⁋\"." } ], "choices": [ "A balance with a partner or neighbor holds both hands.", "The 1s end their swing side by side in the middle of the set facing down, the way they progress." ],
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "2507", "title": "Palette Cleanser", "author": "Mattie Rynkiewicz", "formation": "triplet", "progression": "places", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/2507", "formation": "triplet", "retrievedAt": "2026-10-20T06:08:02.350Z", "sha256": "dd25a595c7be4541b0577b032c742ce17f8ea64d2ffc891dbe7e17347c6bc947" }, "status": "ok", "problems": [], "unparsed": [], "choices": [ "A balance with a partner or neighbor holds both hands.", "The 1s end their swing side by side in the middle of the set facing down, the way they progress." ],
  "figures": [
-  {"move":"circle","beats":8,"params":{"direction":"left","amount":1},"text":"circle left","section":"A1","row":1},
-  {"move":"circle","beats":8,"params":{"direction":"right","amount":1},"text":"circle right","section":"A1","row":2},
-  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"star right","section":"A2","row":3},
-  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"star left","section":"A2","row":4},
+  {"move":"whole-circle","beats":8,"params":{"direction":"left","amount":1},"text":"circle left","section":"A1","row":1},
+  {"move":"whole-circle","beats":8,"params":{"direction":"right","amount":1},"text":"circle right","section":"A1","row":2},
+  {"move":"star-around","beats":8,"params":{"hand":"right"},"text":"star right","section":"A2","row":3},
+  {"move":"star-around","beats":8,"params":{"hand":"left"},"text":"star left","section":"A2","row":4},
   {"move":"balance","beats":4,"params":{"formation":"pair","who":"1s","hand":"both"},"text":"ones balance & swing · balance","section":"B1","row":5},
   {"move":"swing","beats":12,"params":{"who":"1s","end":"down"},"text":"ones balance & swing · swing","section":"B1","row":5},
-  {"move":"hold","beats":16,"params":{"reason":"unparsed"},"text":"ones sashay down & up & down","section":"B2","row":6,"progression":true}
+  {"move":"center-travel","beats":16,"params":{"who":"1s","style":"sashay","legs":["bottom","top","bottom"]},"text":"ones sashay down & up & down","progression":true,"section":"B2","row":6}
  ]
 }

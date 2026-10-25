@@ -75,11 +75,12 @@ try {
   assert.ok(box && box.width > 400 && box.height > 300, `stage renders (${JSON.stringify(box)})`);
   assert.deepEqual(errors, []);
 
-  // An unsupported dance and the first partial non-Ready dance open from review links.
+  // An unsupported dance (when any is left) and the first partial non-Ready
+  // dance open from review links.
   for (const entry of [
     first('unsupported'),
     index.find((e) => e.status === 'partial' && e.id !== first('partial').id),
-  ]) {
+  ].filter(Boolean)) {
     const review = await browser.newPage({ viewport: { width: 1280, height: 900 } });
     const reviewErrors = watch(review);
     await review.goto(`${base}?ready=${entry.id}`, { waitUntil: 'networkidle' });

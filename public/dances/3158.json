@@ -1,14 +1,14 @@
-{ "schema": "contra-studio/next-dance", "version": 2, "id": "3158", "title": "The Mariposa", "author": "Fred Breunig", "formation": null, "progression": null, "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/3158", "formation": "Sicilian Circle", "retrievedAt": "2026-10-20T06:18:55.720Z", "sha256": "7642adc9fc7c981313bd2d517a55a58e2b270072b13b3d73c733a4f3d4dd5e7f" }, "status": "unsupported", "problems": [ "The \"Sicilian Circle\" formation isn't built yet." ], "unparsed": [ { "row": 5, "text": "ones arch twos dive", "why": "No figure pattern matches \"ones arch twos dive\"." }, { "row": 6, "text": "twos arch ones dive (back up)", "why": "No figure pattern matches \"twos arch ones dive (back up)\"." }, { "row": 7, "text": "ones arch twos dive", "why": "No figure pattern matches \"ones arch twos dive\"." }, { "row": 8, "text": "twos arch ones dive (back up)", "why": "No figure pattern matches \"twos arch ones dive (back up)\"." }, { "row": 10, "text": "partners swing, end facing the next", "why": "No figure pattern matches \"partners swing, end facing the next ⁋\"." } ], "choices": [ "A star with no grip named is a basket star (wrist grip)." ],
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "3158", "title": "The Mariposa", "author": "Fred Breunig", "formation": "sicilian", "progression": "sicilian", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/3158", "formation": "Sicilian Circle", "retrievedAt": "2026-10-20T06:18:55.720Z", "sha256": "7642adc9fc7c981313bd2d517a55a58e2b270072b13b3d73c733a4f3d4dd5e7f" }, "status": "ok", "problems": [], "unparsed": [], "choices": [ "A star with no grip named is a basket star (wrist grip)." ],
  "figures": [
   {"move":"star","beats":8,"params":{"hand":"right","places":4},"text":"star right 4 places","section":"A1","row":1},
   {"move":"star","beats":8,"params":{"hand":"left","places":4},"text":"star left 4 places","section":"A1","row":2},
   {"move":"do-si-do","beats":8,"params":{"who":"neighbor","amount":1,"shoulder":"right"},"text":"neighbors do si do once","section":"A2","row":3},
   {"move":"do-si-do","beats":8,"params":{"who":"partner","amount":1,"shoulder":"right"},"text":"partners do si do once","section":"A2","row":4},
-  {"move":"hold","beats":4,"params":{"reason":"unparsed"},"text":"ones arch twos dive","section":"B1","row":5},
-  {"move":"hold","beats":4,"params":{"reason":"unparsed"},"text":"twos arch ones dive (back up)","section":"B1","row":6},
-  {"move":"hold","beats":4,"params":{"reason":"unparsed"},"text":"ones arch twos dive","section":"B1","row":7},
-  {"move":"hold","beats":4,"params":{"reason":"unparsed"},"text":"twos arch ones dive (back up)","section":"B1","row":8},
+  {"move":"arch-dive","beats":4,"params":{"arch":"1s","backing":false},"text":"ones arch twos dive","section":"B1","row":5},
+  {"move":"arch-dive","beats":4,"params":{"arch":"2s","backing":true},"text":"twos arch ones dive (back up)","section":"B1","row":6},
+  {"move":"arch-dive","beats":4,"params":{"arch":"1s","backing":false},"text":"ones arch twos dive","section":"B1","row":7},
+  {"move":"arch-dive","beats":4,"params":{"arch":"2s","backing":true},"text":"twos arch ones dive (back up)","section":"B1","row":8},
   {"move":"circle","beats":4,"params":{"direction":"left","places":2},"text":"circle left 2 places","section":"B2","row":9},
-  {"move":"hold","beats":12,"params":{"reason":"unparsed"},"text":"partners swing, end facing the next","section":"B2","row":10,"progression":true}
+  {"move":"swing-out","beats":12,"params":{"who":"partner"},"text":"partners swing, end facing the next","progression":true,"section":"B2","row":10}
  ]
 }

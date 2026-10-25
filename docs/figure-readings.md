@@ -1,0 +1,116 @@
+# Figure readings
+
+Where ContraDB text is ambiguous, the standard reading the engine uses, one
+line each, for review.
+
+## Formations and progressions
+
+- "Improper or proper", "improper/proper", "all improper", misspellings and qualifiers ("imroper", "improper - waltz tempo", "duple minor"): improper duple minor.
+- "Progressed improper", "improper progressed", "begins progressed", "improper, but with 1's below 2's": the improper start; the first figures meet whoever the couples face.
+- "Beckett", "becketa", "Becket (no matter)", "Becket L", "duple Becket": clockwise Becket.
+- "Duple Becket (reverse progression)", "Becket ccwkoi", "Beckett ccw": counterclockwise Becket.
+- "Indecent Becket", "Becket cw (gents on right, ladies on left)": Becket with each lark on the partner's right; neighbors are still the dancer across.
+- "... double progression", "dbl prog": the same formation; the figures carry each couple two places a round, so the corpus check expects two places.
+- "Triplet", "proper triplet": three couples proper (larks on the larks' side), 1s at the top; couples are renamed 1s, 2s, 3s by place at the end of each time through, and the check expects the 1s at the bottom.
+- "Longways", "longways set, 4-6 couples", "four couple longways set": a proper whole set, renamed by place each time through; the check expects the top couple at the bottom.
+- "Sicilian circle": couples face couples round a circle, partners side by side, lark on the left; the 1s face one way round and the 2s the other, and the figures pass each couple on to the next couple coming; the 1s and 2s never change direction.
+- "Four face four", "four facing four": lines of four facing along the hall (two couples side by side, each lark on its partner's left); each couple's minor set is the couple straight across; lines pass on to the next line, and a line at an end waits and each couple turns round in place.
+- "Circle mixer", "mixer": one ring facing in, the robin on her partner's right; at the progression each lark's partner becomes the robin then on his right (usually the one just swung).
+- "Circle": the same ring, for dances that keep partners.
+- "Long lines forward & back" in four face four and Sicilian circles: the lines (or couples) facing each other walk forward and back.
+- "Promenade" in a ring: counterclockwise (lark inside) unless the caller says otherwise; with no distance named, as many couples' places as an easy walk covers.
+- "Square dance", "square break", "four couple square": four couples in a square, couple 1 with its back to the band, numbered counterclockwise; heads are couples 1 and 3; corners stand beside each other in neighboring couples; partners are found where they stand at the end of each time through.
+- "Scatter mixer": drawn as one ring (a circle mixer); scattering and finding a new partner happen round the ring.
+- "One couple", "singlet", "solo/couple" (Zoom contras): drawn in an improper set, the imagined neighbors danced by real couples.
+- A row that names who dances ("star right 4 places (heads)", "middle 4 star right", "ones and twos circle left", "hands six"): the figure for just those dancers; everyone else stands.
+- "Stand still", claps and stomps, "heel, toe": everyone keeps their place.
+- "Triple minor", "triple proper", "triad", "dutribecket": drawn as one minor set of three couples, proper; the 1s progress to second place each time through and couples are renamed by place; the step on to the next minor set down a long set is not drawn.
+- "Sawtooth cw", "quadruple minor Becket", "Becket quadruplet", "Becket men in center ...": drawn as clockwise Becket.
+- "Cross contra", "long waves, larks facing out", "proper, ladles traded": drawn from the plain improper (or proper) start; rows that need the traded start stay labeled.
+- "Reverse progression" (improper, indecent): the same formation; where the couples travel is left to the figures, and the check expects the usual places.
+- "Contra mixer", "duple mixer", "proper mixer", "Becket mixer": drawn as the plain contra formation; the partner change is not drawn.
+- "Quadruple minor", "grid square", "square with ninepin": drawn as a square of four couples. "Five couple horseshoe": drawn as a ring of five couples.
+- "Three face three" (and spellings): lines of three facing lines of three round a circle, drawn as a set with no ends like a Sicilian circle; each trio's center dances the lark's part and the ends the robins'; neighbors (opposites) are the dancers straight across.
+- Not built, because their dancers do not come in couples or the set has a one-off shape: "5 dancers", "line of 5 people", "9-person mixer", "three-person mixer", "circle of threes", "tempest".
+- "Proper" (duple minor): every lark on the larks' side, partners facing each other across the set at the start (lines facing).
+- A pair figure that names a place ("ones allemande right 1½", "heads do si do"): those dancers dance it with their partners.
+- A dance whose rows carry two progression marks progresses twice a time through (a double progression), whatever its formation line says.
+- In a ring, a row that says the figure makes a new partner ("this neighbor is your new partner", "that's your new partner") is the progression, even without the progression sign.
+- A role moving "one place" or to the "next partner" in a ring goes one couple (two dancer places) round; "move to your next partner" with no role named means the larks.
+- A robin's new partner "behind her" after a counterclockwise promenade is the lark on her left; a lark going to the "next" robin goes to the robin on his left (his corner), as in the Circassian Circle.
+- "Turn over the left/right shoulder & go to new partner": walk into the middle, turn that way, come out two places over on that side, and end facing in.
+- "Slide left along set" in a ring: everyone faces in and slides round the ring, one place per four beats.
+- Grand right and left: each change is one dancer place; a right hand passes right shoulders with the lark inside; "count to N" pulls by N-1 and meets the Nth beside them, facing in.
+- "Sashay in & out": partners face with two hands, slide about 1 m into the middle and back, and end on their places.
+- "Partners swing right elbow", "elbow swing": an allemande by that hand.
+- "Neighbors scatter promenade" in a ring: promenade with the robin now on your right, who becomes your partner.
+- In a ring, partners after the progression are found as if each lark faced the center: the robin beside him on his right.
+- A heads or sides figure for two couples (star, circle, right and left through, chain, promenade across ...) is danced in the middle of the square: the couples step in to a minor set, dance it, and step back out to the nearest places they came from.
+- "First corners X", "neighbors X (corners)": the corner (the dancer beside you in the next couple); "next neighbors X (next corner)": the robin now on the lark's left, by place.
+- "Swing the one you meet", "3rd neighbors swing (that other lark)": the robin now in the lark's partner place.
+- A plain grand right and left (right and left grand, weave the ring) in a square goes until partners meet, halfway round.
+- Promenade home: counterclockwise to the lark's home place; a couple already home goes once all the way round.
+- A grand chain crosses to the opposite couple (half a star) and ends with a courtesy turn beside the one who receives them.
+- "Heads separate, go around two": pass behind the side couple and end in lark-lark-robin-robin lines facing across; in a line roll away the lark rolls the robin.
+- "Same four": the dancers the row before named.
+- A cast with no place named goes one place; the couples it passes move one place toward where the casting couple started.
+- "Up the center and cast to the bottom": up the middle between the couples above, round the top of the set, down the outside.
+- "Sashay/lead down and back" with no place named goes as far as a steady walk (0.75 m a beat) carries it, then back; "down & up & down" goes bottom, top, bottom.
+- "Promenade to the bottom" in a proper whole set is led side by side on own sides with inside hands.
+- A whole-set circle or oval with no amount goes as far as 0.75 m a beat carries it, a whole number of places; a circle of a whole set goes round a true ring of places.
+- A star with no places named is the whole group, once round (six places in a triplet).
+- A two-hand turn goes clockwise, once round; "swing two hand" is drawn as a two-hand turn.
+- Contra corners (16 beats, split 3+4+2+4+3): partner by the right, first corner by the left, partner right, second corner left, partner right back to place; the first corner is the one on the active's left after crossing (Chorus Jig).
+- Peel the banana / cast and arch: the others follow their leader; "top couple cast off, make an arch at the bottom" means the others follow and come up through the arch, as in the Virginia Reel.
+- Strip the willow: both actives strip at once; partners turn right 1½ at the top, once between, ½ at the bottom; each turned couple moves up one place.
+- In four face four and Sicilian circles, each group of four is a Becket minor set turned a quarter: couples face across within the group, so a swing ends facing the other couple and a pass through goes on to the next.
+- In four face four, "circle left/right 4 places" (or 8) with no ring named is the ring of eight from the two lines (4 places is halfway, the lines trade places); other places are danced in rings of four. A ring of eight all facing out stays facing out.
+- Arch and dive: the arching couple raises joined inside hands and the other couple ducks under; "(back up)" backs through to the places just left, the named couple arching.
+- "As couples do si do": two couples holding inside hands do-si-do as units, passing right sides.
+- "Neighbor/partner right/left elbow": an allemande by that hand, once round unless an amount is given.
+- "Swing, end facing the next / new lines / direction of travel" in these formations ends on the pair's own side facing out of the minor set.
+- In four face four, "opposite" is the dancer you face (the neighbor); "balance the ring of 8" is a ring balance in rings of four.
+- In a whole set (triplet, longways set), a partner swing from across the set ends back in the partners' own places, facing each other across.
+- A whole set renamed by place (triplet, longways set) renames once, at the end of each time through, even where several rows carry the progression mark.
+- "Top four" and "bottom four" are the four standing nearest the top or the bottom now, by place.
+- Becket progression where partners do not face the same way (out of a star, or a ring balance and California twirl): the new neighbors are the couple standing square to them one place away that they did not just dance with; couples pair only when they choose each other.
+- In a big ring, a circle given in times round goes as far as a steady walk covers in its beats, in whole places (8 beats is about halfway).
+- Going "to a new partner" through the center ends facing the new partner, after one and a half turns over the named shoulder.
+- A roll away in a ring: the rolled dancer passes in front, spinning once, to the roller's place; both end facing in.
+- Footnote markers "[n]" and glosses "(corners)", "(former partner)" are notes, not figures.
+- In a triplet, a neighbor is the dancer of the other role in the other couple the row names (lark 1 with robin 2, robin 1 with lark 2).
+- In three face three, a trio's "partners" are the rest of its own trio; the basket swing turns about once every 4 beats, a whole number of times, and ends in the same line.
+- An elbow turn is a hand turn by that hand; a whole turn ends back in the line facing the line's way.
+- A swing with no side line to end on (same roles, facing lines of three) ends where it began.
+- "Neighbors do si do 1½ as throuples": every neighbor pair at once, the lines keeping hands; the 1½ is the progression.
+- "X WHILE / Y as well": both rows dance at once.
+- "Same as B1" repeats B1's calls, without B1's progression mark unless the row has its own.
+- Hey for three: a figure eight whose loops end on the end places, 0.5 m either side of the line, dancers a third of the loop apart; in a half hey the ends trade places.
+- Dip and dive: when two couples meet and neither has arched, the couple facing up arches; couples then alternate; a couple at an end facing out turns as a couple; "until everyone is back home" is twice the number of couples.
+- In a whole set, "right left through at the top" is the 1s and 2s across.
+- A cloverleaf turn single turns toward the named dancer and ends facing along the set, away from the middle of the minor set.
+- "Ones cross": partners pass right shoulders and face in on the other side, in the same place.
+- Set to corners: a step toward the corner and back, ending facing each other; corners as in contra corners.
+- "Four couple longways set": a proper whole set of exactly four couples.
+- In four face four, "corners swing" squares the set: corners swing and open out without trading places onto a square of eight; the middle couples become the heads, the end couples the sides; "partners swing" from the square swings back into lines.
+- In four face four, corners are the neighbors round the ring of eight on the far side from your partner: the middle two of a line, and an end dancer with the dancer facing them.
+- Line cast-off: the left-hand lark of each line leads it single file round the end, halfway, to the other line's place, everyone facing the way their line faced.
+- "Lines of four, pass through and back" (Dead Simple): the lines pass through to the next line (the progression mark is on that row).
+- A quick (two-beat) arch and dive keeps the arch a little open and the divers a little wider so nobody has to run.
+- "Other four": the other four from the row before (heads and sides, larks and robins swap).
+- "One from each couple forward and back": the robins.
+- A star of one role (or of the same/other four) walks into a small star (0.62 m) and back out to the places it reaches; a bare "star right/left" by four named dancers goes once round.
+- Texas Star: "larks to the center for a right hand star" goes ½ round and stays in; "star left/right, pass your partner" goes ¾ round to the place beside the next robin; in the star promenade the inside dancer is 0.62 m out and the partner 0.7 m beyond on the same spoke; "butterfly whirl to put X in the center" turns each couple half round about its middle.
+- "Monkey in the middle" ("at random" made deterministic): the monkey is the lark nearest the band; every lark swings his corner, the monkey's pair first, then the pair across, then all four; corners become partners.
+- Pass through and cross trail: one walk to the point opposite across the square, passing right shoulders, the robin crossing in front of the lark; they end facing out.
+- In "separate and go around", each dancer goes away from their partner.
+- In a square, partners standing across the square (or in the middle) meet at the nearest two free places before a swing, balance or do si do.
+- A brisk promenade home draws the square in toward the middle on the way.
+- "5 dancers": a ring of five places 1.53 m apart; the dancer on the first's left becomes first each time through.
+- Solo strip the willow: the active turns each other dancer once round, left hand first, going round the ring to the left from just inside it.
+- Birdie in the cage: the ring closes up, circles once round and opens back to its places; "slide back into place" backs the birdie out to the empty place.
+- "Line of 5": numbered 1-5 from stage left; renumbered by place each time through (no.1 goes to the far end).
+- Double dolphin hey: a hey for three on a figure eight, tandems 1.0 m nose to tail; thread the needle: 2 and 3 arch, no.1 leads the rest once through and back to place.
+- "Circle of threes", "three-person mixer": lines of three in a big ring facing counterclockwise, the inside end on the center's left; "promenade anywhere" is drawn round the ring; a basket swing "with a different person in the center" stops a third of a turn on.
+- "9-person mixer": a Becket set of four couples plus a lonesome fifth lark at the top facing down; "swing at random": each robin swings the lark on her other side round the loop, the leftover lark becomes the lonesome dancer.
+- "Tempest": a line of four 1s facing down, then the 2s, one couple per side line facing in; down the hall the line walks 2 m and each couple wheels to face up while the 2s slide up one level.

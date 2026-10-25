@@ -11,9 +11,11 @@
  * set instead, and their places shift by one along each side.
  */
 import { physicalCheck } from './check.ts';
-import { SET } from './config.ts';
 import type { FoldedDance } from './fold.ts';
 import type { StoredDance } from '../dance.ts';
+import type { Vec2 } from '../../types.ts';
+import { FORMATIONS } from './formation.ts';
+import { contraSpec, type CheckSpec, type MeetingRule, type RoundModel } from './models.ts';
 
 export interface Verdict {
   readonly ok: boolean;
@@ -33,57 +35,22 @@ const coupleZ = (dance: FoldedDance, beat: number, couple: number) => {
   return (f.poses[couple * 2].position.z + f.poses[couple * 2 + 1].position.z) / 2;
 };
 
-/** Expected couple-center z after each round, improper duple minor. */
-export function improperModel(couples: number, rounds: number): number[][] {
-  const place = Array.from({ length: couples }, (_, c) => c); // place 0 is the top
-  // The top of the set is -z.
-  const z = (p: number) => (p - (couples - 1) / 2) * SET.slot;
-  const out: number[][] = [];
-  for (let r = 0; r < rounds; r++) {
-    const byPlace = new Map(place.map((p, c) => [p, c]));
-    for (let p = r % 2; p + 1 < couples; p += 2) {
-      const a = byPlace.get(p)!;
-      const b = byPlace.get(p + 1)!;
-      place[a] = p + 1;
-      place[b] = p;
-    }
-    out.push(place.map(z));
-  }
-  return out;
-}
+export { becketModel, improperModel } from './models.ts';
 
-/**
- * Expected couple-center z after each round, Becket (as in the 2321 test).
- * Clockwise, each couple moves one place to its left; counterclockwise
- * (`direction` -1), to its right, and the extra couple waits at the other end.
- */
-export function becketModel(couples: number, rounds: number, direction: 1 | -1 = 1): number[][] {
-  const rows = Math.floor(couples / 2);
-  const spots = Array.from({ length: couples }, (_, c) => {
-    if (c === couples - 1 && couples % 2)
-      return { side: -1, z: ((direction > 0 ? rows : -1) - (rows - 1) / 2) * 2 * SET.slot };
-    return { side: c % 2 ? -1 : 1, z: (Math.floor(c / 2) - (rows - 1) / 2) * 2 * SET.slot };
-  });
-  const out: number[][] = [];
-  for (let r = 0; r < rounds; r++) {
-    for (const s of spots) s.z += direction * s.side * SET.slot;
-    for (const s of spots) {
-      const across = spots.some((o) => o !== s && o.side === -s.side && Math.abs(o.z - s.z) < 1e-6);
-      if (!across) s.side = -s.side;
-    }
-    // Built with the top at +z as in the 2321 test; the set's top is -z.
-    out.push(spots.map((s) => -s.z));
-  }
-  return out;
+/** The check spec of a stored dance: its formation's own, or the contra one. */
+export function specOf(stored: StoredDance): CheckSpec {
+  const own = stored.formation ? FORMATIONS[stored.formation]?.check : undefined;
+  return own ?? contraSpec(stored.formation, stored.progression);
 }
 
 export function verifyDance(
   stored: StoredDance,
   compile: (stored: StoredDance, couples: number) => FoldedDance,
-  counts: readonly number[] = [3, 4, 6],
+  counts?: readonly number[],
 ): Verdict {
+  const spec = specOf(stored);
   try {
-    for (const couples of counts) {
+    for (const couples of counts ?? spec.counts) {
       const dance = compile(stored, couples);
       if (!dance.repeatable)
         return {
@@ -93,7 +60,7 @@ export function verifyDance(
           kind: 'repeat',
           ...figureOf(dance.warnings.at(-1) ?? ''),
         };
-      const rounds = couples + 2;
+      const rounds = spec.rounds?.(couples) ?? couples + 2;
       const report = physicalCheck(dance, { rounds });
       if (report.problems.length) {
         const beat = Number(report.problems[0].match(/^beat ([\d.]+)/)?.[1] ?? 0);
@@ -112,46 +79,107 @@ export function verifyDance(
           kind: 'physical',
         };
       }
-      const expected =
-        stored.formation === 'becket'
-          ? becketModel(couples, rounds)
-          : stored.formation === 'becket-ccw'
-            ? becketModel(couples, rounds, -1)
-            : improperModel(couples, rounds);
-      for (let r = 1; r <= rounds; r++) {
-        for (let c = 0; c < couples; c++) {
-          const z = coupleZ(dance, r * dance.totalBeats, c);
-          if (Math.abs(z - expected[r - 1][c]) > 0.05) {
-            return {
-              ok: false,
-              problem: `${couples} couples: couple ${c + 1} after round ${r} is at z ${z.toFixed(2)}, expected ${expected[r - 1][c].toFixed(2)}`,
-              couples,
-              kind: 'progression',
-            };
-          }
-        }
-      }
-      const met = new Set<string>();
-      for (let r = 0; r < 2 * couples + 2; r++) {
-        for (const g of dance.round(r).end.groups) {
-          const cs = [...new Set(g.map((id) => Math.floor(id / 2)))].sort((a, b) => a - b);
-          met.add(cs.join('-'));
-        }
-      }
-      const pairs = (couples * (couples - 1)) / 2;
-      if (met.size !== pairs)
-        return {
-          ok: false,
-          problem: `${couples} couples: only ${met.size} of ${pairs} pairs of couples meet`,
-          couples,
-          kind: 'meeting',
-        };
+      const wrong = modelProblem(dance, spec.model?.(couples, rounds), couples);
+      if (wrong) return { ok: false, problem: wrong, couples, kind: 'progression' };
+      const missed = meetingProblem(dance, spec.meeting, couples);
+      if (missed) return { ok: false, problem: missed, couples, kind: 'meeting' };
     }
     return { ok: true };
   } catch (error) {
     const problem = error instanceof Error ? error.message : String(error);
     return { ok: false, problem, kind: 'compile', ...figureOf(problem) };
   }
+}
+
+/** Where the model puts couples (or dancers) after each round, if they are not there. */
+function modelProblem(
+  dance: FoldedDance,
+  model: RoundModel | undefined,
+  couples: number,
+): string | undefined {
+  if (!model) return undefined;
+  if (model.kind === 'slots') {
+    for (let r = 1; r <= model.rounds; r++) {
+      const frame = dance.rawSample(r * dance.totalBeats);
+      for (const pose of frame.poses) {
+        const slots = dance.dancers[pose.id].role === 'lark' ? model.larks : model.robins;
+        const near = slots.some(
+          (s) => Math.hypot(pose.position.x - s.x, pose.position.z - s.z) < 0.05,
+        );
+        if (!near)
+          return `${couples} couples: dancer ${pose.id} after round ${r} is not on a place of the starting ring`;
+      }
+    }
+    return undefined;
+  }
+  for (let r = 1; r <= model.rounds.length; r++) {
+    const expected = model.rounds[r - 1];
+    if (model.kind === 'couple-z') {
+      for (let c = 0; c < couples; c++) {
+        const z = coupleZ(dance, r * dance.totalBeats, c);
+        const want = expected[c] as number;
+        if (Math.abs(z - want) > 0.05)
+          return `${couples} couples: couple ${c + 1} after round ${r} is at z ${z.toFixed(2)}, expected ${want.toFixed(2)}`;
+      }
+      continue;
+    }
+    const frame = dance.rawSample(r * dance.totalBeats);
+    for (const pose of frame.poses) {
+      const want = expected[pose.id] as Vec2;
+      let dz = pose.position.z - want.z;
+      if (model.period) dz -= Math.round(dz / model.period) * model.period;
+      const off = Math.hypot(pose.position.x - want.x, dz);
+      if (off > 0.05)
+        return `${couples} couples: dancer ${pose.id} after round ${r} is ${off.toFixed(2)} m from where the progression puts them`;
+    }
+    const partners = model.partners?.[r - 1];
+    if (partners) {
+      const state = dance.round(r - 1).end;
+      for (const d of state.dancers) {
+        const p = state.relations.get('partner')?.get(d.id);
+        if (p !== partners[d.id])
+          return `${couples} couples: dancer ${d.id} after round ${r} has partner ${p}, expected ${partners[d.id]}`;
+      }
+    }
+  }
+  return undefined;
+}
+
+/** Who has not met whom over enough rounds, by the formation's meeting rule. */
+function meetingProblem(dance: FoldedDance, rule: MeetingRule, couples: number) {
+  if (rule === 'none') return undefined;
+  const rounds = 2 * couples + 2;
+  if (rule === 'all-partners') {
+    const met = new Set<string>();
+    for (let r = 0; r < rounds; r++) {
+      const partner = dance.round(r).end.relations.get('partner');
+      for (const [a, b] of partner ?? []) if (a % 2 === 0) met.add(`${a}-${b}`);
+    }
+    const pairs = couples * couples;
+    return met.size === pairs
+      ? undefined
+      : `${couples} couples: only ${met.size} of ${pairs} lark-robin pairs become partners`;
+  }
+  const ones = new Set<number>();
+  const met = new Set<string>();
+  for (let r = 0; r < rounds; r++) {
+    const round = dance.round(r);
+    const end = round.end;
+    for (const id of end.positions.get('1s') ?? []) if (r === 0) ones.add(Math.floor(id / 2));
+    // Every grouping danced this round: a double progression regroups mid-round.
+    const groupings = [...round.segments.map((s) => s.entry.groups), end.groups];
+    for (const g of groupings.flat()) {
+      const unit = rule === 'all-lines' ? 4 : 2;
+      const cs = [...new Set(g.map((id) => Math.floor(id / unit)))].sort((a, b) => a - b);
+      met.add(cs.join('-'));
+    }
+  }
+  const units = rule === 'all-lines' ? couples / 2 : couples;
+  const pairs =
+    rule === 'ones-twos' ? ones.size * (couples - ones.size) : (units * (units - 1)) / 2;
+  return met.size === pairs
+    ? undefined
+    : `${couples} couples: only ${met.size} of ${pairs} pairs of couples meet`;
 }
 
 /** The figure an error message names ("Figure 3 (text): why"), if any. */
