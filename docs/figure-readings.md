@@ -9,6 +9,7 @@ line each, for review.
 - "Progressed improper", "improper progressed", "begins progressed", "improper, but with 1's below 2's": the improper start; the first figures meet whoever the couples face.
 - "Beckett", "becketa", "Becket (no matter)", "Becket L", "duple Becket": clockwise Becket.
 - "Duple Becket (reverse progression)", "Becket ccwkoi", "Beckett ccw": counterclockwise Becket.
+- A Becket dance labeled one way round whose own figures carry the couples the other way ("Becket CCW" with "slide left along set"): it goes the way its figures go, when it then works out completely.
 - "Indecent Becket", "Becket cw (gents on right, ladies on left)": Becket with each lark on the partner's right; neighbors are still the dancer across.
 - "... double progression", "dbl prog": the same formation; the figures carry each couple two places a round, so the corpus check expects two places.
 - "Triplet", "proper triplet": three couples proper (larks on the larks' side), 1s at the top; couples are renamed 1s, 2s, 3s by place at the end of each time through, and the check expects the 1s at the bottom.

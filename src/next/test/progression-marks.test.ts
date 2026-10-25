@@ -98,3 +98,20 @@ test('a circle mixer is checked for everyone partnering everyone in a ring of 5 
   assert.deepEqual(spec.meetingCounts, [5]);
   assert.deepEqual(spec.counts, [4, 5, 6]);
 });
+
+test('beats that add up with rounding error still fill the music', (t) => {
+  const got = marked('3079');
+  if (!got) return t.skip('snapshot not available');
+  const total = got.stored.figures.reduce((n, c) => n + c.beats, 0);
+  assert.ok(Math.abs(total - 64) < 1e-6);
+  compileNext(got.stored, 4, undefined, { lenient: true });
+});
+
+test('a Becket dance labeled counterclockwise that slides left goes clockwise', (t) => {
+  const got = marked('1328');
+  if (!got) return t.skip('snapshot not available');
+  assert.equal(got.stored.formation, 'becket-ccw');
+  const check = checkDance(got.stored);
+  assert.equal(check.status, 'ok');
+  assert.equal(check.formation, 'becket');
+});

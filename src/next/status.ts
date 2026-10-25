@@ -57,10 +57,24 @@ const COUPLES: Readonly<Record<string, StoredDance['progression']>> = {
 function checkWay(stored: StoredDance): DanceCheck {
   const usual = checkAs(stored);
   const plain = stored.source.formation.toLowerCase().replace(/\s+/g, ' ').trim() === 'becket';
-  if (usual.status === 'ok' || !plain || stored.formation !== 'becket') return usual;
-  const other = checkAs({ ...stored, formation: 'becket-ccw' });
-  return RANK[other.status] > RANK[usual.status] ? { ...other, formation: 'becket-ccw' } : usual;
+  if (usual.status === 'ok') return usual;
+  if (plain && stored.formation === 'becket') {
+    const other = checkAs({ ...stored, formation: 'becket-ccw' });
+    return RANK[other.status] > RANK[usual.status] ? { ...other, formation: 'becket-ccw' } : usual;
+  }
+  // A Becket dance labeled one way round whose own figures carry the
+  // couples the other way ("Becket ccw" with "slide left along the set")
+  // goes the way its figures go, when it then works out completely.
+  const flip = WAY_ROUND[stored.formation ?? ''];
+  if (!flip) return usual;
+  const other = checkAs({ ...stored, formation: flip });
+  return other.status === 'ok' ? { ...other, formation: flip } : usual;
 }
+
+const WAY_ROUND: Readonly<Record<string, string>> = {
+  becket: 'becket-ccw',
+  'becket-ccw': 'becket',
+};
 
 const strict = (stored: StoredDance, couples: number) =>
   compileNext(stored, couples, undefined, { lenient: false });

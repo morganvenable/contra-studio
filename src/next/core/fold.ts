@@ -323,6 +323,8 @@ export function compileFold(options: FoldOptions): FoldedDance {
     starts.push(totalBeats);
     totalBeats += c.beats;
   }
+  // Thirds of a beat in the source add up with rounding error.
+  if (Math.abs(totalBeats - beatsPerTime(music)) < 1e-6) totalBeats = beatsPerTime(music);
   if (totalBeats !== beatsPerTime(music)) {
     throw new Error(
       `The figures take ${totalBeats} beats but the music has ${beatsPerTime(music)}.`,

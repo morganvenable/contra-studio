@@ -4,26 +4,26 @@
  "catalogue": 2422,
  "stored": 2422,
  "counts": {
-  "ok": 768,
+  "ok": 770,
   "check": 273,
-  "partial": 1381,
+  "partial": 1379,
   "unsupported": 0
  },
  "formations": [
   {
    "formation": "improper",
    "dances": 1189,
-   "ok": 494,
+   "ok": 495,
    "check": 117,
-   "partial": 578,
+   "partial": 577,
    "unsupported": 0
   },
   {
    "formation": "becket",
    "dances": 655,
    "ok": 148,
-   "check": 103,
-   "partial": 404,
+   "check": 104,
+   "partial": 403,
    "unsupported": 0
   },
   {
@@ -837,8 +837,8 @@
   {
    "formation": "beckett ccw",
    "dances": 1,
-   "ok": 0,
-   "check": 1,
+   "ok": 1,
+   "check": 0,
    "partial": 0,
    "unsupported": 0
   },
@@ -3206,7 +3206,7 @@
   "figuresThatCannotStart": [
    {
     "name": "progression or other",
-    "unlocks": 83
+    "unlocks": 80
    },
    {
     "name": "swing variant",
@@ -3234,7 +3234,7 @@
    },
    {
     "name": "pull by / pass by",
-    "unlocks": 10
+    "unlocks": 11
    },
    {
     "name": "gyre",
@@ -3360,7 +3360,7 @@
   "checkFailures": [
    {
     "name": "Couples don't end the round where the progression puts them.",
-    "unlocks": 64
+    "unlocks": 63
    },
    {
     "name": "allemande variant",
@@ -3447,6 +3447,10 @@
     "unlocks": 3
    },
    {
+    "name": "other: long lines forward",
+    "unlocks": 3
+   },
+   {
     "name": "roll away",
     "unlocks": 2
    },
@@ -3460,10 +3464,6 @@
    },
    {
     "name": "The next time through can't start from where the dancers end: Dancer 0 is not standing in a side line.).",
-    "unlocks": 2
-   },
-   {
-    "name": "other: long lines forward",
     "unlocks": 2
    },
    {
