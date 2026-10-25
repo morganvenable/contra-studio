@@ -374,3 +374,6 @@ line each, for review.
 - A circle of four in a contra set standing a little off its places (off the middle line, or squeezed in after a roll away from long lines forward) drifts onto the minor set's places as it goes round, so it ends on the side lines.
 - A down the hall of 12 beats or more that turns, with no up the hall after it ("down the hall and turn as a couple, come back to face across"): half the beats down and turning, half back up bending into a ring.
 - "Swing, end swing facing up/down (the hall)": the swing ending facing that way.
+- Scatter mixers: "individual scatter promenade", "single promenade to find new partner", "promenade single, find new partner": the larks move on to the next robin round the ring; "find a new partner", "join in rings of any number of couples": everyone stands (the big ring is the ring); "partners promenade scatter": the ring promenade; "ring go forward": into the middle & back.
+- In a ring, a dancer turned away from the middle (after a turn alone) unwinds over a longer share of a move to the next partner, at a walking turn rate.
+- Zero-beat notes about the group that dances next ("all form a ring of six", "top two couples form a ring of four", "open up to face new neighbors, hands four", "moon dance") are no figure.

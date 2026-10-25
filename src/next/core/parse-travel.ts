@@ -387,9 +387,29 @@ const PATTERNS: readonly (readonly [RegExp, Build])[] = [
   ],
   [/^stand still let go hands and turn$/, as('turn alone')],
 
+  // ---- Scatter mixers, drawn round one ring ----
+  [
+    // Scattering to a new partner: the larks move on to the next robin.
+    /^(?:individual scatter promenade|single promenade to find (?:a )?new partner|promenade single,? find (?:a )?new partner)(?: -.*)?$/,
+    as('move to your next partner'),
+  ],
+  [/^(?:find a new partner|join in rings of any number of couples)(?: -.*)?$/, nothing],
+  [/^ring go forward(?: -.*)?$/, as('into the middle & back')],
+  [/^balance ring$/, as('balance the ring')],
+  [/^partners promenade scatter(?: -.*)?$/, as('partners promenade')],
+  [/^partners promenade,? wheel around to go back the other way$/, as('partners promenade')],
+  [/^partners promenade,? wheel around to face in to the center$/, as('partners promenade clockwise')],
+  [/^promenade clockwise back to place with your new partner(?:,.*)?$/, as('partners promenade clockwise')],
+  [/^partners allemande right twice to form a circle wave$/, as('partners allemande right twice')],
+
   // ---- Notes that are no figure ----
   [/^(?:larks|robins) drop out(?: at home)?$/, nothing],
   [/^reach across and behind to form (?:a )?clover(?:leaf)?$/, nothing],
+  [
+    // Who dances together next, said at zero beats: the next figure forms it.
+    /^(?:all form a ring of six|join hands in your ring of 8|top two couples form a ring of four|open up to face new neighbors,? hands four|end progressed,? facing a new threesome|look for your partner|staying with the person you just turned,?|form a ring with next neighbor and shadow|moon dance|sun dance)$/,
+    nothing,
+  ],
 ];
 
 const NUMBERS: Readonly<Record<string, number>> = { one: 1, two: 2, three: 3, four: 4, five: 5, six: 6, seven: 7, eight: 8 };

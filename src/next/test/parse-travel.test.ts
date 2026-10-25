@@ -168,3 +168,9 @@ test('a 16-beat down the hall that turns, with no up the hall after it, comes ba
     ],
   );
 });
+
+test('scatter mixers: scattering to a new partner moves the larks on; group notes are no figure', () => {
+  assert.deepEqual(row('individual scatter promenade', 4), [['ring-shift', 4, { who: 'larks', direction: 'left' }]]);
+  assert.deepEqual(row('join in rings of any number of couples', 8), [['stand-still', 8, {}]]);
+  assert.deepEqual(row('all form a ring of six', 0), []);
+});

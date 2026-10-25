@@ -4,9 +4,9 @@
  "catalogue": 2422,
  "stored": 2422,
  "counts": {
-  "ok": 691,
+  "ok": 692,
   "check": 380,
-  "partial": 1351,
+  "partial": 1350,
   "unsupported": 0
  },
  "formations": [
@@ -133,9 +133,9 @@
   {
    "formation": "scatter mixer",
    "dances": 7,
-   "ok": 1,
+   "ok": 2,
    "check": 1,
-   "partial": 5,
+   "partial": 4,
    "unsupported": 0
   },
   {
@@ -1099,7 +1099,7 @@
   "missingFigures": [
    {
     "name": "diagonal chain / right left through",
-    "unlocks": 42,
+    "unlocks": 44,
     "uses": 85
    },
    {
@@ -1114,7 +1114,7 @@
    },
    {
     "name": "star variant",
-    "unlocks": 33,
+    "unlocks": 35,
     "uses": 71
    },
    {
@@ -1130,7 +1130,7 @@
    {
     "name": "balance variant",
     "unlocks": 21,
-    "uses": 66
+    "uses": 65
    },
    {
     "name": "swing variant",
@@ -1180,7 +1180,7 @@
    {
     "name": "promenade",
     "unlocks": 11,
-    "uses": 26
+    "uses": 20
    },
    {
     "name": "rory o'more",
@@ -1199,8 +1199,8 @@
    },
    {
     "name": "circle variant",
-    "unlocks": 8,
-    "uses": 21
+    "unlocks": 7,
+    "uses": 20
    },
    {
     "name": "butterfly whirl",
@@ -1218,12 +1218,12 @@
     "uses": 12
    },
    {
-    "name": "into the middle / forward & back",
+    "name": "mad robin",
     "unlocks": 6,
-    "uses": 10
+    "uses": 9
    },
    {
-    "name": "mad robin",
+    "name": "into the middle / forward & back",
     "unlocks": 6,
     "uses": 9
    },
@@ -1648,11 +1648,6 @@
     "uses": 1
    },
    {
-    "name": "other: form a ring with next neighbor and shadow",
-    "unlocks": 1,
-    "uses": 1
-   },
-   {
     "name": "other: long lines forward facing out",
     "unlocks": 1,
     "uses": 1
@@ -1703,26 +1698,6 @@
     "uses": 1
    },
    {
-    "name": "other: find a new partner",
-    "unlocks": 0,
-    "uses": 1
-   },
-   {
-    "name": "other: join in rings of any number of couples 6",
-    "unlocks": 0,
-    "uses": 1
-   },
-   {
-    "name": "other: find a new partner - \"catch someone's eye\"",
-    "unlocks": 0,
-    "uses": 1
-   },
-   {
-    "name": "other: join in rings of any number of couples",
-    "unlocks": 0,
-    "uses": 1
-   },
-   {
     "name": "other: neighbors trade places, ones behind twos",
     "unlocks": 0,
     "uses": 2
@@ -1739,11 +1714,6 @@
    },
    {
     "name": "other: left shoulders around the 3rd",
-    "unlocks": 0,
-    "uses": 1
-   },
-   {
-    "name": "other: join hands in your ring of 8",
     "unlocks": 0,
     "uses": 1
    },
@@ -1813,11 +1783,6 @@
     "uses": 1
    },
    {
-    "name": "other: staying with the person you just turned",
-    "unlocks": 0,
-    "uses": 1
-   },
-   {
     "name": "other: heads lead right, split sides separate, go around one dancer - meet your opposite head coming at you",
     "unlocks": 0,
     "uses": 1
@@ -1869,11 +1834,6 @@
    },
    {
     "name": "other: all follow, peel the banana",
-    "unlocks": 0,
-    "uses": 1
-   },
-   {
-    "name": "other: look for your partner",
     "unlocks": 0,
     "uses": 1
    },
@@ -2233,11 +2193,6 @@
     "uses": 1
    },
    {
-    "name": "other: open up to face new neighbors, hands four",
-    "unlocks": 0,
-    "uses": 1
-   },
-   {
     "name": "other: repeat to go back to original places",
     "unlocks": 0,
     "uses": 1
@@ -2429,16 +2384,6 @@
    },
    {
     "name": "other: three more changes of rights and lefts",
-    "unlocks": 0,
-    "uses": 1
-   },
-   {
-    "name": "other: top two couples form a ring of four",
-    "unlocks": 0,
-    "uses": 1
-   },
-   {
-    "name": "other: all form a ring of six",
     "unlocks": 0,
     "uses": 1
    },
@@ -2643,16 +2588,6 @@
     "uses": 1
    },
    {
-    "name": "other: moon dance",
-    "unlocks": 0,
-    "uses": 1
-   },
-   {
-    "name": "other: sun dance",
-    "unlocks": 0,
-    "uses": 1
-   },
-   {
     "name": "other: robins hold their place while larks roll from right side to left side of partner, to finish facing",
     "unlocks": 0,
     "uses": 1
@@ -2793,11 +2728,6 @@
     "uses": 1
    },
    {
-    "name": "other: end progressed, facing a new threesome",
-    "unlocks": 0,
-    "uses": 1
-   },
-   {
     "name": "other: right left through across the set with a courtesy turn",
     "unlocks": 0,
     "uses": 1
@@ -2890,7 +2820,7 @@
    },
    {
     "name": "swing variant",
-    "unlocks": 47
+    "unlocks": 48
    },
    {
     "name": "rory o'more",
@@ -2898,7 +2828,7 @@
    },
    {
     "name": "diagonal chain / right left through",
-    "unlocks": 30
+    "unlocks": 31
    },
    {
     "name": "ocean wave / long wave",
@@ -2906,7 +2836,7 @@
    },
    {
     "name": "allemande variant",
-    "unlocks": 28
+    "unlocks": 29
    },
    {
     "name": "circle variant",
@@ -2957,12 +2887,12 @@
     "unlocks": 5
    },
    {
-    "name": "roll away",
+    "name": "do-si-do variant",
     "unlocks": 5
    },
    {
-    "name": "do-si-do variant",
-    "unlocks": 4
+    "name": "roll away",
+    "unlocks": 5
    },
    {
     "name": "ricochet hey",
