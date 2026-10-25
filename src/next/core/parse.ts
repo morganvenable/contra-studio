@@ -321,10 +321,14 @@ const PATTERNS: readonly (readonly [RegExp, Build])[] = [
   ],
   [
     /^((?:next |new )?\w+) balance (?:&|and) pull by (right|left)$/,
-    (m, b) => [
-      call('balance', 4, { formation: 'pair', who: who(m[1]), hand: m[2] }),
-      call('pass-by', b - 4, { who: who(m[1]), shoulder: m[2], hands: true }),
-    ],
+    (m, b) => {
+      // Under 8 beats the balance and the pull by share the row evenly.
+      const balance = b >= 8 ? 4 : b / 2;
+      return [
+        call('balance', balance, { formation: 'pair', who: who(m[1]), hand: m[2] }),
+        call('pass-by', b - balance, { who: who(m[1]), shoulder: m[2], hands: true }),
+      ];
+    },
   ],
   [
     // "Circle left 3 places and pass through": the last 2 beats pass through.

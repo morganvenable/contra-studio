@@ -29,6 +29,8 @@ const call = (move: string, beats: number, params: Record<string, unknown>): Fig
  * "previous" are carried by the progression mark, as in parse.ts.
  */
 function who(word: string): string {
+  // "Same roles", "same couple": whoever faces each other (core/facing.ts).
+  if (/^same (?:roles?|couple)$/.test(word)) return 'facing';
   const w = word
     .replace(/^(?:next|new|prev|previous|original|current|same|first|second|1st|2nd|3rd|4th) /, '')
     .replace(/^(?:\d\w* )+/, '');
@@ -94,8 +96,14 @@ const NOTES: readonly RegExp[] = [
   /^(?:the )?(?:trailing two|new \w+|original \w+|\w+) catch(?:ing)? (?:\w+ )?hands?(?: \w+)?$/,
   /^(?:just )?(?:halfway|once around)$/,
   /^to progress$/,
+  /^(?:passing )?(?:by )?(?:the )?(?:left|right)(?: shoulders?)?$/,
+  /^\(?see note\)?$/,
+  /^(?:one full hey in total|across set|across the set)$/,
+  /^(?:\w+ )?(?:pass|pull by) (?:\w+ )?(?:right|left|r|l)(?: to start(?: hey on the end)?)?$/,
+  /^(?:\w+ )?(?:pass|pull by) \w+ (?:right|left) to start$/,
+  /^(?:changing places|up (?:and|&) down|to cross(?: the)?(?: set)?|to get across the set|to meet partners?|same roles|same couple)$/,
   /^(?:to |in )?(?:a |that |the )?diamond.*$/,
-  /^(?:\w+ )?(?:turn(?:ing)?|spinning) (?:extra|a little (?:more|extra)|around)\b.*$/,
+  /^(?:\w+ )?(?:turn(?:ing)?|spinning) (?:extra|a little (?:more|extra))\b.*$/,
   /^(?:everyone is home|new ring|across|shift right)$/,
   /^on the side(?: of the set)?$/,
   /^to the (?:right|left)$/,
@@ -141,19 +149,59 @@ function heyRest(rest: string) {
     third: 3,
     fourth: 4,
   };
-  const left = rest.replace(
-    /(?:^|[,-]|\band\b)\s*(\w+) ricochet(?: (first|second|third|fourth) time| to start| once)?(?: (?:to|back to) (?:partners?|neighbors?)| and join (?:partners?|neighbors?)| aka "?recoil"?)?/g,
-    (_m, w: string, t?: string) => {
-      ricochet.push({ who: who(w), ...(t ? { time: times[t] } : {}) });
-      return ',';
-    },
-  );
+  const left = rest
+    .replace(
+      /(?:^|[,-]|\band\b)\s*when (?:the )?(\w+) meet (?:the )?(first|second|third|fourth) time,? they ricochet\b[^,]*/g,
+      (_m, w: string, t: string) => {
+        ricochet.push({ who: who(w), time: times[t] });
+        return ',';
+      },
+    )
+    .replace(
+      /(?:^|[,-]|\band\b)\s*(?:the )?(\w+) ricochet(?: (?:the )?(first|second|third|fourth) time| to start| once)?(?: (?:to|back to) (?:partners?|neighbors?)| and join (?:partners?|neighbors?)| aka "?recoil"?(?: and join (?:partners?|neighbors?))?| when meeting in the middle| the first time they meet| to trade roles| across the set| \(?\w+ don't cross the set\)?| back to (?:partners?|neighbors?))?/g,
+      (_m, w: string, t?: string) => {
+        ricochet.push({ who: who(w), ...(t ? { time: times[t] } : {}) });
+        return ',';
+      },
+    )
+    .replace(/,\s*(?:\w+ )?finish(?:es)? (?:an? )?(?:ordinary |standard )?hey\.?/g, ',');
   if (!onlyNotes(left.replace(/,/g, ' ')))
     throw new Error(`The hey row adds "${left.replace(/^[\s,-]+|[\s,-]+$/g, '')}".`);
   return ricochet;
 }
 
 const PATTERNS: readonly (readonly [RegExp, Build])[] = [
+  [
+    // "robins balance & pull by right, face a new neighbor", "neighbors
+    // balance & pull by right along the set", "1st neighbors balance &
+    // pull by right", "same roles balance & pull by right".
+    /^((?:\d\w* |next |new |same )*\w+) balance (?:&|and) pull by (right|left)(?: (?:across|along|up and down)(?: the set)?)?(.*)$/,
+    (m, b) => {
+      notes(m[3], 'pull by');
+      const w = /^same roles?$/.test(m[1]) ? 'facing' : who(m[1]);
+      const pair = w === 'shadow' ? 'facing' : w;
+      const balance = b >= 8 ? 4 : b / 2;
+      return [
+        call('balance', balance, {
+          formation: 'pair',
+          who: pair === 'facing' ? 'neighbor' : pair,
+          hand: m[2],
+        }),
+        call('pass-by', b - balance, { who: pair, shoulder: m[2], hands: true }),
+      ];
+    },
+  ],
+  [
+    // "neighbor ii pull by l", "neighbor i pull by r".
+    /^(\w+) (?:i|ii|iii|iv) (pass|pull) by (r|l)$/,
+    (m, b) => [
+      call('pass-by', b, {
+        who: who(m[1]),
+        shoulder: m[3] === 'r' ? 'right' : 'left',
+        hands: m[2] === 'pull',
+      }),
+    ],
+  ],
   [
     // "facing star clockwise 3 places with robins putting their left hands
     // in and backing up", "facing star, robins back up 3 places".
@@ -235,7 +283,7 @@ const PATTERNS: readonly (readonly [RegExp, Build])[] = [
         'star thru',
       );
       const named = m[1] ?? m[2]?.trim() ?? m[3];
-      const w = named ? who(named) : 'facing';
+      const w = named && !/^same (?:roles?|couple)$/.test(named) ? who(named) : 'facing';
       const pair = w === 'shadow' ? 'facing' : w;
       const balanced = !!m[2] || /balance/.test(m[0].slice(0, m[0].indexOf('star')));
       if (!balanced) return [call('star-thru', b, { who: pair })];
@@ -325,14 +373,18 @@ const PATTERNS: readonly (readonly [RegExp, Build])[] = [
     // "larks start a half hey - lefts in center, rights on ends - robins
     // ricochet", "robins start a left diagonal half hey - ...", "ones start
     // a full hey - ...".
-    /^(\w+) start an? (?:(left|right) diagonal )?(full|half) hey - (?:(right|left)s in (?:the )?center, (?:right|left)s on (?:the )?ends|(right|left)s on (?:the )?ends, (right|left)s in (?:the )?center)(.*)$/,
+    /^((?:next |new )?\w+) start an? (?:(left|right) diagonal )?(full|half) hey - (?:(right|left|____)s? in (?:the )?center, (?:right|left|____)s? on (?:the )?ends|(right|left)s on (?:the )?ends, (right|left)s in (?:the )?center)(.*)$/,
     (m, b) => {
-      const ricochet = heyRest(m[7]);
+      const ricochet = heyRest(m[7].replace(/^\s*passing (?:right|left) shoulders?/, ''));
       return [
         call('hey', b, {
           start: who(m[1]),
           amount: m[3] === 'full' ? 1 : 0.5,
-          center: m[4] ?? m[6],
+          // Shoulders left blank: as the row's "passing ... shoulders" says, else rights.
+          center:
+            m[4] === '____'
+              ? (m[7].match(/passing (right|left) shoulders?/)?.[1] ?? 'right')
+              : (m[4] ?? m[6]),
           ...(ricochet.length ? { ricochet } : {}),
           ...(m[2] ? { diagonal: m[2] } : {}),
         }),
@@ -342,7 +394,7 @@ const PATTERNS: readonly (readonly [RegExp, Build])[] = [
   [
     // "larks start a hey - lefts in center, rights on ends - until partners
     // meet the second time": as many passes as come before that meeting.
-    /^(\w+) start an? (?:(left|right) diagonal )?hey - (?:(right|left)s in (?:the )?center, (?:right|left)s on (?:the )?ends|(right|left)s on (?:the )?ends, (right|left)s in (?:the )?center),? -? ?until (\w+) meet(?: (?:the|a) (first|second|third|1st|2nd|3rd) time)?(.*)$/,
+    /^((?:next |new )?\w+) start an? (?:(left|right) diagonal )?(?:(?:full|half) )?hey - (?:(right|left)s in (?:the )?center, (?:right|left)s on (?:the )?ends|(right|left)s on (?:the )?ends, (right|left)s in (?:the )?center),? -? ?until (\w+) meet(?: (?:the|a) (first|second|third|1st|2nd|3rd) time)?(.*)$/,
     (m, b) => {
       const times: Readonly<Record<string, number>> = {
         first: 1,
@@ -353,7 +405,15 @@ const PATTERNS: readonly (readonly [RegExp, Build])[] = [
         '3rd': 3,
       };
       // "(rl, pr, ll, nr, rl)": the passes spelled out, a reminder.
-      const ricochet = heyRest(m[8].replace(/^\s*\w\w(?:, \w\w)+\s*/, ''));
+      const ricochet = heyRest(
+        m[8]
+          .replace(/^\s*\w\w(?:, \w\w)+\s*/, '')
+          .replace(/^\s*(?:\w+ (?:right|left),?\s*)+$/, '')
+          .replace(
+            /^\s*(?:back )?on (?:the )?(?:home )?side(?: of (?:the )?set)?(?: they started the dance)?$/,
+            '',
+          ),
+      );
       return [
         call('hey', b, {
           start: who(m[1]),
@@ -522,7 +582,7 @@ const PATTERNS: readonly (readonly [RegExp, Build])[] = [
     // "pull by right", "shadows pull by left", "ones pass by right
     // shoulders", "pull by right across the set w/partner", "larks pass by
     // left shoulders in center to face partner".
-    /^(?:((?:next |new |prev |previous |\d\w* )*\w+) )?(pass|pull) by (right|left)(?: shoulders?| hands?)?(?: (?:straight )?(across|along)(?: the)?(?: set)?)?(?: in (?:the )?center)?(?: (?:with |w\/ ?)(?:your )?(partners?|neighbors?|shadows?))?(.*)$/,
+    /^(?:((?:next |new |prev |previous |same |\d\w* )*\w+) )?(pass|pull) by (right|left)(?: shoulders?| hands?)?(?: (?:straight )?(across|along)(?: the)?(?: set)?)?(?: in (?:the )?center)?(?: (?:with |w\/ ?)(?:your )?(partners?|neighbors?|shadows?))?(.*)$/,
     (m, b) => {
       notes(m[6], m[2] === 'pull' ? 'pull by' : 'pass by');
       const named = m[1] ?? m[5];
@@ -547,7 +607,7 @@ const PATTERNS: readonly (readonly [RegExp, Build])[] = [
  */
 const TAILS: readonly (readonly [RegExp, (m: RegExpMatchArray) => Omit<FigureCall, 'beats'>])[] = [
   [
-    /[,;]?\s*(?:then |and )?(?:(\w+) )?turns? (?:turn )?(?:(?:back|around|out)(?: over (?:their |your )?(right|left) shoulders?)?|over (?:their |your )?(right|left) shoulders?)$/,
+    /[,;]?\s*(?:then |and )?(?:let go and )?(?:(\w+) )?turns? (?:turn )?(?:to face back in|(?:back|around|out)(?: in)?(?: over (?:their |your )?(right|left) shoulders?)?|over (?:their |your )?(right|left) shoulders?)(?: to face (?:back in|\w+(?: \w+)?))?$/,
     (m) => ({
       move: 'turn-back',
       params: {
@@ -586,7 +646,16 @@ export const WEAVE_PATTERNS: readonly (readonly [RegExp, Build])[] = PATTERNS.ma
               continue;
             }
             const tb = Math.min(2, beats / 4);
-            return [...build(head, beats - tb), { ...extra, beats: tb }];
+            const own = build(head, beats - tb);
+            // A turn with no one named is done by whoever the row named.
+            const named = own.at(-1)?.params.who;
+            if (
+              extra.move === 'turn-back' &&
+              !extra.params.who &&
+              (named === 'larks' || named === 'robins' || named === '1s' || named === '2s')
+            )
+              extra = { ...extra, params: { ...extra.params, who: named } };
+            return [...own, { ...extra, beats: tb }];
           }
           throw error;
         }
