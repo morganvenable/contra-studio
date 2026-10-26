@@ -356,7 +356,9 @@ export function compileFold(options: FoldOptions): FoldedDance {
   const bodiesAt = (r: Round, segment: Segment, local: number) => {
     const bodies = new Map(segment.entry.bodies);
     for (const c of r.crossings) {
-      if (local >= c.start) {
+      // Only while crossing: afterwards the state carries where the couple
+      // is (a later figure may have moved it on).
+      if (local >= c.start && local < c.start + CROSS_BEATS) {
         for (const id of c.ids)
           bodies.set(id, crossingBody(c, id, (local - c.start) / CROSS_BEATS));
       }
