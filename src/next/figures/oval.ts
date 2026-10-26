@@ -20,6 +20,7 @@ import { SET } from '../core/config.ts';
 import { bodyMap, joined, withinReach } from '../core/contacts.ts';
 import { clamp, heading, progress, smooth, turn } from '../core/math.ts';
 import { body, withChanges } from '../core/state.ts';
+import { fastStyling } from '../core/fast.ts';
 
 export interface OvalParams {
   direction: 'left' | 'right';
@@ -125,5 +126,8 @@ export const oval: Figure<OvalParams> = (state, params, beats) => {
     kind: 'circle',
     motion,
     exit: withChanges(settle(state, motion, beats), { hands: [] }),
+    // Half way round a long set in 8 beats is more than a walk: a styled
+    // brisk promenade along the set (core/fast.ts).
+    ...(params.half ? fastStyling('brisk oval', motion, beats) : {}),
   };
 };

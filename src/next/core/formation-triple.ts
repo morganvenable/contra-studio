@@ -105,6 +105,8 @@ export const TRIPLE_MINOR_SET: Formation = {
   // Two minor sets at least, so sets dance side by side and couples wait.
   couples: { min: 6, max: 15 },
   fit: (couples) => Math.max(6, Math.min(15, couples)),
+  // Three minor sets, so sets dance side by side and couples wait at each end.
+  display: 9,
   moves: { circle: 'whole-circle', 'star-wheel': 'star-around' },
   check: {
     counts: [6, 9],

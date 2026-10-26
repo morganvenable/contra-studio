@@ -160,12 +160,14 @@ export const formationBuilt = (stored: StoredDance) =>
  */
 export function compileNext(
   stored: StoredDance,
-  couples = 6,
+  couples?: number,
   base?: Dance,
   options: CompileOptions = {},
 ): FoldedDance {
   const built = formationBuilt(stored);
   const formation = FORMATIONS[built ? stored.formation! : 'improper'];
+  // Unless a count is asked for, the formation's own display size.
+  couples ??= formation.display ?? 6;
   // A fixed-size set (a triplet, a square) dances with its own couple count.
   couples = Math.min(formation.couples.max, Math.max(formation.couples.min, couples));
   if (formation.fit) couples = formation.fit(couples);

@@ -29,6 +29,7 @@ import {
 import { findRing, ringHolds } from '../core/ring.ts';
 import { body, minorSets, withChanges, type DanceState } from '../core/state.ts';
 import { SET } from '../core/config.ts';
+import { fastStyling } from '../core/fast.ts';
 
 export interface CircleParams {
   direction: 'left' | 'right';
@@ -226,5 +227,8 @@ export const circle: Figure<CircleParams> = (state, params, beats) => {
     kind: 'circle',
     motion,
     exit: withChanges(settle(state, motion, beats), { hands: [] }),
+    // A ring that even closed in tight cannot keep to a walk ("circle left
+    // 2 places" in 2 beats): a styled quick circle (core/fast.ts).
+    ...(rings.some((r) => r.fast) ? fastStyling('quick circle', motion, beats) : {}),
   };
 };

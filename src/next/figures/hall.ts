@@ -25,6 +25,7 @@ import type { Vec2 } from '../../types.ts';
 import type { Figure } from '../core/figure.ts';
 import { oneOf, onlyKeys, settle } from '../core/figure.ts';
 import { SET } from '../core/config.ts';
+import { fastStyling } from '../core/fast.ts';
 import {
   add,
   clamp,
@@ -220,6 +221,9 @@ export const hall: Figure<HallParams> = (state, params, beats) => {
     kind: 'hall-travel',
     motion,
     exit: withChanges(settle(state, motion, beats), { hands: [] }),
+    // Four beats to form the line, walk and turn is more than a walk: a
+    // styled quick down the hall (core/fast.ts).
+    ...(beats < 6 && (params.turn || params.end) ? fastStyling('quick hall', motion, beats) : {}),
   };
 };
 

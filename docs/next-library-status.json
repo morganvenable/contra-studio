@@ -4,8 +4,8 @@
  "catalogue": 2422,
  "stored": 2422,
  "counts": {
-  "ok": 700,
-  "check": 385,
+  "ok": 708,
+  "check": 377,
   "partial": 1337,
   "unsupported": 0
  },
@@ -13,16 +13,16 @@
   {
    "formation": "improper",
    "dances": 1189,
-   "ok": 510,
-   "check": 116,
+   "ok": 511,
+   "check": 115,
    "partial": 563,
    "unsupported": 0
   },
   {
    "formation": "becket",
    "dances": 655,
-   "ok": 89,
-   "check": 178,
+   "ok": 91,
+   "check": 176,
    "partial": 388,
    "unsupported": 0
   },
@@ -77,8 +77,8 @@
   {
    "formation": "square dance",
    "dances": 23,
-   "ok": 10,
-   "check": 5,
+   "ok": 15,
+   "check": 0,
    "partial": 8,
    "unsupported": 0
   },
@@ -2953,10 +2953,6 @@
     "unlocks": 7
    },
    {
-    "name": "promenade",
-    "unlocks": 6
-   },
-   {
     "name": "gyre",
     "unlocks": 5
    },
@@ -2965,7 +2961,7 @@
     "unlocks": 5
    },
    {
-    "name": "circle variant",
+    "name": "do-si-do variant",
     "unlocks": 5
    },
    {
@@ -2977,10 +2973,6 @@
     "unlocks": 4
    },
    {
-    "name": "turn alone / as a couple",
-    "unlocks": 4
-   },
-   {
     "name": "Not every couple gets to dance with every other couple.",
     "unlocks": 4
    },
@@ -2989,7 +2981,7 @@
     "unlocks": 4
    },
    {
-    "name": "do-si-do variant",
+    "name": "circle variant",
     "unlocks": 4
    },
    {
@@ -3025,6 +3017,10 @@
     "unlocks": 2
    },
    {
+    "name": "down/up the hall",
+    "unlocks": 2
+   },
+   {
     "name": "petronella",
     "unlocks": 2
    },
@@ -3057,11 +3053,11 @@
     "unlocks": 1
    },
    {
-    "name": "The next time through can't start from where the dancers end: Dancers 1 and 3 are too far apart to do-si-do.).",
+    "name": "turn alone / as a couple",
     "unlocks": 1
    },
    {
-    "name": "down/up the hall",
+    "name": "The next time through can't start from where the dancers end: Dancers 1 and 3 are too far apart to do-si-do.).",
     "unlocks": 1
    },
    {

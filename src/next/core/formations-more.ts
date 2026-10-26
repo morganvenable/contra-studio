@@ -213,6 +213,7 @@ export const FOUR_FACE_FOUR: Formation = {
   // Four lines (16 dancers) at least, so two pairs of lines face each other.
   couples: { min: 8, max: 16 },
   fit: (couples) => Math.max(8, couples - (couples % 2)),
+  display: 8,
   moves: { 'long-lines': 'forward-back', circle: 'lines-circle', swing: 'lines-swing' },
   check: {
     counts: [8, 12],

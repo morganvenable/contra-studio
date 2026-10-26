@@ -39,6 +39,7 @@ import {
 } from '../../core/math.ts';
 import { body, minorSets, partnerOf, withChanges } from '../../core/state.ts';
 import { bodyMap, withinReach } from '../../core/contacts.ts';
+import { fastStyling } from '../../core/fast.ts';
 
 export interface PromenadeHomeParams {
   who: 'partner';
@@ -191,5 +192,12 @@ export const promenadeHome: Figure<PromenadeHomeParams> = (state, params, beats)
       }),
     };
   };
-  return { ...walk, motion, exit: withChanges(settle(state, motion, beats), { hands: [] }) };
+  return {
+    ...walk,
+    motion,
+    exit: withChanges(settle(state, motion, beats), { hands: [] }),
+    // All the way round from home in a few beats (8) is faster than a walk:
+    // a styled brisk promenade, reported rather than failed (core/fast.ts).
+    ...fastStyling('brisk promenade', motion, beats),
+  };
 };

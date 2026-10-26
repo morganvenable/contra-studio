@@ -228,3 +228,45 @@ test('every couple sashays down and back: partners close in, slide a place and r
   for (const id of [0, 1, 2, 3])
     near(body(down, id).position, { x: body(s0, id).position.x, z: body(s0, id).position.z + 1.8 });
 });
+
+test('a circle too fast even when tight is a styled quick circle: its speed is reported, not failed', () => {
+  const s0 = BECKET.start(2);
+  const calls = [call('circle', 2, { direction: 'left', places: 2 })];
+  const beats = 2;
+  const dance = compileFold({
+    dance: DANCE,
+    calls,
+    start: s0,
+    registry: FIGURES,
+    progression: NO_PROGRESSION,
+    music: { meter: METERS['2/4'], parts: [{ name: 'A1', bars: beats / 2 }], times: 1 },
+  });
+  const report = physicalCheck(dance, { rounds: 1 });
+  assert.ok(!report.problems.some((p) => /m\/beat/.test(p)), report.problems.join('; '));
+  assert.equal(report.styled[0]?.name, 'quick circle');
+  assert.ok(report.styled[0].maximumSpeed > 1.2);
+});
+
+test('display size: a formation shows its own couple count unless one is asked for', async () => {
+  const { compileNext } = await import('../dance.ts');
+  const stored = (formation: string, progression: string) => ({
+    schema: 'contra-studio/next-dance',
+    version: 2,
+    id: '0',
+    title: 't',
+    author: 't',
+    formation,
+    progression,
+    music: { meter: '2/4', parts: [{ name: 'A1', bars: 32 }], times: 'repeat' },
+    source: { url: 'x', formation, sha256: 'x' },
+    status: 'ok',
+    problems: [],
+    unparsed: [],
+    choices: [],
+    figures: [{ move: 'stand-still', beats: 64, params: {} }],
+  }) as never;
+  assert.equal(compileNext(stored('triple-minor', 'none')).dancers.length, 18);
+  assert.equal(compileNext(stored('four-face-four', 'none')).dancers.length, 16);
+  assert.equal(compileNext(stored('improper', 'none')).dancers.length, 12);
+  assert.equal(compileNext(stored('triple-minor', 'none'), 6).dancers.length, 12);
+});

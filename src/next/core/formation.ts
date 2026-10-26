@@ -31,6 +31,11 @@ export interface Formation {
   start(couples: number): DanceState;
   /** What the corpus check expects (models.ts); duple minor relatives omit it. */
   readonly check?: CheckSpec;
+  /**
+   * Couples shown when the viewer has not chosen a count (display only; the
+   * corpus check uses `check.counts`). Six when not given.
+   */
+  readonly display?: number;
   /** The nearest couple count this formation dances with (e.g. even only). */
   readonly fit?: (couples: number) => number;
   /** Calls that mean another move here ("long lines" are lines facing: forward & back). */
