@@ -16,6 +16,7 @@ import type { StoredDance } from '../dance.ts';
 import type { Vec2 } from '../../types.ts';
 import { FORMATIONS } from './formation.ts';
 import { contraSpec, type CheckSpec, type MeetingRule, type RoundModel } from './models.ts';
+import { rowsSpec } from './progression-rows.ts';
 
 export interface Verdict {
   readonly ok: boolean;
@@ -40,6 +41,8 @@ export { becketModel, improperModel } from './models.ts';
 /** The check spec of a stored dance: its formation's own, or the contra one. */
 export function specOf(stored: StoredDance): CheckSpec {
   const own = stored.formation ? FORMATIONS[stored.formation]?.check : undefined;
+  // The top minor set to the bottom each time (progression-rows.ts).
+  if (stored.progression === 'becket-rows' && stored.formation) return rowsSpec(stored.formation);
   return own ?? contraSpec(stored.formation, stored.progression);
 }
 

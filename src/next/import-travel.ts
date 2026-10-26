@@ -210,7 +210,13 @@ export function wholeSetShape<S extends { formation: string; progression: string
   rows: readonly SourceRow[],
   shape: S | undefined,
 ): S | { formation: string; progression: 'places' } | undefined {
-  if (!shape || !/^duple-minor/.test(shape.progression)) return shape;
+  if (!shape) return shape;
+  // A Becket set whose top minor set dances to the bottom (Riverside Jig).
+  if (/^minor-set/.test(shape.progression) && /^becket/.test(shape.formation))
+    return rows.some((r) => /^top (?:2|two) couples\b.*\bto the bottom\b/.test(plain(r)))
+      ? { formation: shape.formation, progression: 'becket-rows' as never }
+      : shape;
+  if (!/^duple-minor/.test(shape.progression)) return shape;
   const wholeSet = rows.some((r) =>
     /^top couple\b.*\b(?:sashay|promenade|lead|cast)\b.*\b(?:down|bottom|end of (?:the )?set)\b/.test(
       plain(r),

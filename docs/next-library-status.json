@@ -4,9 +4,9 @@
  "catalogue": 2422,
  "stored": 2422,
  "counts": {
-  "ok": 712,
+  "ok": 714,
   "check": 378,
-  "partial": 1332,
+  "partial": 1330,
   "unsupported": 0
  },
  "formations": [
@@ -21,9 +21,9 @@
   {
    "formation": "becket",
    "dances": 655,
-   "ok": 91,
+   "ok": 92,
    "check": 176,
-   "partial": 388,
+   "partial": 387,
    "unsupported": 0
   },
   {
@@ -725,9 +725,9 @@
   {
    "formation": "becket (no matter)",
    "dances": 1,
-   "ok": 0,
+   "ok": 1,
    "check": 0,
-   "partial": 1,
+   "partial": 0,
    "unsupported": 0
   },
   {
@@ -1188,13 +1188,13 @@
     "uses": 18
    },
    {
-    "name": "down/up the hall",
-    "unlocks": 8,
-    "uses": 22
-   },
-   {
     "name": "take hands (wave/line set-up)",
     "unlocks": 8,
+    "uses": 21
+   },
+   {
+    "name": "down/up the hall",
+    "unlocks": 7,
     "uses": 21
    },
    {
@@ -1529,11 +1529,6 @@
    },
    {
     "name": "other: grand right and left 1/2 to meet partner on opposite side",
-    "unlocks": 1,
-    "uses": 1
-   },
-   {
-    "name": "other: top 2 couples form line of 4, dance to the bottom over everyone's heads",
     "unlocks": 1,
     "uses": 1
    },

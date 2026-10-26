@@ -473,6 +473,12 @@ const PATTERNS: readonly (readonly [RegExp, Build])[] = [
   ],
 
   [/^(larks|robins) cross (right|left)(?: again)?$/, as('$1 pass by $2')],
+  [
+    // The top minor set dances down the middle under its own arches while
+    // everyone else steps up (a whole-set move, figures/top-to-bottom.ts).
+    /^top (?:2|two) couples form (?:a )?line of (?:4|four)\b.*\bto the bottom\b.*$/,
+    (_m, b) => [call('top-to-bottom', b, {})],
+  ],
 
   // ---- Chainsaw promenade: the set goes round its long oval like a chainsaw's chain ----
   [/^chainsaw promenade (left|right)$/, as('neighbors promenade along the set on the $1')],
@@ -501,7 +507,7 @@ function way(named: string | undefined) {
 }
 
 /** Rows read here before any other table (others would drop words that add motion). */
-const FIRST = /right hand high,? left hand low/;
+const FIRST = /right hand high,? left hand low|^top (?:2|two) couples form (?:a )?line of (?:4|four)/;
 
 /** The calls for a row this table reads first, or undefined. */
 export function travelFirst(text: string, beats: number): FigureCall[] | undefined {

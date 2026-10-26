@@ -9,6 +9,7 @@
  * registers it here before compiling; nothing is bundled.
  */
 import { TRIPLE_MINOR_PROGRESSION } from './core/formation-triple.ts';
+import { ROWS_PROGRESSION } from './core/progression-rows.ts';
 import type { Dance } from '../types.ts';
 import type { FigureCall } from './core/figure.ts';
 import { compileFold, type FoldedDance } from './core/fold.ts';
@@ -121,6 +122,7 @@ const PROGRESSIONS: Readonly<Record<Progression['kind'], Progression>> = {
   mixer: MIXER_PROGRESSION,
   trios: TRIOS_PROGRESSION,
   'triple-minor': TRIPLE_MINOR_PROGRESSION,
+  'becket-rows': ROWS_PROGRESSION,
   ...(GROUPS_PROGRESSIONS as unknown as Record<string, Progression>),
 } as Readonly<Record<Progression['kind'], Progression>>;
 

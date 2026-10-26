@@ -211,3 +211,18 @@ test('right hand high, left hand low; chainsaw and Gay Gordons promenades', () =
     ['ring-promenade', 'ring-promenade'],
   );
 });
+
+test('top two couples to the bottom over everyone\'s heads: a whole-set move in a Becket set', () => {
+  const d = importDance(
+    '0',
+    page('Becket', [
+      ['A1', 16, 'neighbors balance &amp; swing'],
+      ['A2', 16, 'partners balance &amp; swing'],
+      ['B1', 16, 'circle left 4 places'],
+      ['', 16, "top 2 couples form line of 4, dance to the bottom over everyone's heads ⁋"],
+    ]),
+    'x',
+  );
+  assert.equal(d.progression, 'becket-rows');
+  assert.equal(d.figures.at(-1)?.move, 'top-to-bottom');
+});
