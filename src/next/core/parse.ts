@@ -11,7 +11,7 @@ import { MORE_PATTERNS, qualifiers } from './parse-more.ts';
 import { WEAVE_PATTERNS } from './parse-weaves.ts';
 import { extraPatterns, extraTidy } from './parse-extra.ts';
 import { CIRCULATION_PATTERNS, looseCalls } from './parse-circulation.ts';
-import { travelCalls } from './parse-travel.ts';
+import { travelCalls, travelFirst } from './parse-travel.ts';
 
 export interface SourceRow {
   readonly section?: string;
@@ -498,6 +498,15 @@ export function parseRow(row: SourceRow): FigureCall[] {
     if (lifted) out.push({ text: lifted.text, diagonal, among: lifted.among });
     return out;
   };
+  // Rows the other tables would misread by dropping words that add motion
+  // ("down the hall and right hand high, left hand low", parse-travel.ts).
+  const first = travelFirst(row.text.replace(/⁋/g, '').trim().toLowerCase(), row.beats);
+  if (first)
+    return first.map((c, i) => ({
+      ...c,
+      text: canonicalText(row.text.replace(/⁋/g, '').replace(/\s+/g, ' ').trim()),
+      ...(normal.progression && i === first.length - 1 ? { progression: true } : {}),
+    }));
   const base = tries(baseRow(row.text));
   const full = tries(normal.text);
   // A pattern that matches but cannot build (an unknown dancer name, say)

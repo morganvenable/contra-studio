@@ -58,7 +58,13 @@ export interface HallParams {
    * couples of each line trade places, the right-hand couple passing in
    * front, then everyone turns alone.
    */
-  turn?: 'couple' | 'alone' | 'doors';
+  turn?: 'couple' | 'alone' | 'doors' | 'high-low';
+  /**
+   * Right hand high, left hand low: the dancer who does it (the pivot),
+   * named by role and number ("lark 2": { role: 'lark', of: '2s' }) or by
+   * place in the line from the left facing down (0-3).
+   */
+  pivot?: { role: 'lark' | 'robin'; of: string } | { index: number };
   /** The lines bend into a ring at the end. */
   end?: 'ring';
   /** Walk backward: face the other way from the way the lines travel. */
@@ -82,6 +88,8 @@ const ENDING = 2.5;
 const DOORS = 4;
 const DOORS_SLIDE = 0.55;
 const DOORS_PASS = 0.4;
+/** Right hand high, left hand low: how far the trading pair pass in front of and behind the pivot. */
+const HIGH_LOW_PASS = 0.6;
 
 interface Mover {
   readonly id: number;
@@ -96,7 +104,7 @@ interface Mover {
 }
 
 export const hall: Figure<HallParams> = (state, params, beats) => {
-  onlyKeys('hall', params, ['direction', 'turn', 'end', 'backward', 'stay']);
+  onlyKeys('hall', params, ['direction', 'turn', 'end', 'backward', 'stay', 'pivot']);
   const stay = params.stay === true;
   const direction = stay
     ? facingDown(state)
@@ -105,22 +113,25 @@ export const hall: Figure<HallParams> = (state, params, beats) => {
     : oneOf('hall', 'direction', params.direction, ['down', 'up'] as const);
   if (stay && !(params.turn || params.end)) throw new Error('Staying in the hall needs an ending.');
   if (params.turn !== undefined)
-    oneOf('hall', 'turn', params.turn, ['couple', 'alone', 'doors'] as const);
+    oneOf('hall', 'turn', params.turn, ['couple', 'alone', 'doors', 'high-low'] as const);
+  if ((params.turn === 'high-low') !== (params.pivot !== undefined))
+    throw new Error('Right hand high, left hand low names its pivot, and only it does.');
   if (params.end !== undefined) oneOf('hall', 'end', params.end, ['ring'] as const);
   if (params.turn && params.end) throw new Error('The lines either turn or bend, not both.');
   if (params.backward !== undefined && typeof params.backward !== 'boolean')
     throw new Error('hall backward must be true or false.');
-  if (beats < (stay ? 2 : params.turn === 'doors' ? 6 : 4))
+  const slow = params.turn === 'doors' || params.turn === 'high-low';
+  if (beats < (stay ? 2 : slow ? 6 : 4))
     throw new Error('Down or up the hall needs at least four beats (six to slide doors).');
   // The top of the set is -z: down the hall faces +z (yaw 0).
   const facing = (direction === 'down') !== !!params.backward ? 0 : Math.PI;
-  const ending = stay ? beats : params.turn === 'doors' ? Math.min(DOORS, beats - 3) : ENDING;
+  const ending = stay ? beats : slow ? Math.min(DOORS, beats - 3) : ENDING;
   // The ending starts `ending` beats from the end; a short figure (under
   // six beats) keeps walking into it, so nobody has to hurry.
   // Sliding doors begins as the lines arrive.
   const endStart = params.turn || params.end ? beats - ending : beats;
   const walkEnd =
-    params.turn === 'doors'
+    slow
       ? beats - ending * 0.75
       : beats < 6 && endStart < beats
         ? beats - 1
@@ -135,6 +146,7 @@ export const hall: Figure<HallParams> = (state, params, beats) => {
     const c = groupCenter(state, g);
     const line = lineOrder(state, g, c, facing, direction, !!params.backward);
     const slot = (i: number) => add(c, scale(left, (1.5 - i) * LINE_GAP));
+    const pivot = params.pivot ? pivotIndex(state, line, params.pivot) : -1;
     line.forEach((id, i) => {
       const b = body(state, id);
       const mate = i % 2 === 0 ? i + 1 : i - 1;
@@ -155,7 +167,18 @@ export const hall: Figure<HallParams> = (state, params, beats) => {
           const spin = ease((u - 0.55) / 0.45);
           return { position: add(add(at, across), ahead), yaw: facing + sign * Math.PI * spin };
         }
-        if (params.turn === 'alone') {
+        if (params.turn === 'high-low' && Math.abs(i - pivot) === 1) {
+          // The pivot's two hand-holders trade places past it, the one on
+          // its left in front (under the high right hand's side), the one on
+          // its right behind, both turning to face up.
+          const s = progress(clamp((u - 0.1) / 0.75));
+          const side = i < pivot ? -1 : 1;
+          const across = scale(left, side * 2 * LINE_GAP * s);
+          const ahead = scale(forward(facing), -side * HIGH_LOW_PASS * Math.sin(Math.PI * s));
+          const spin = ease((u - 0.3) / 0.7);
+          return { position: add(add(at, across), ahead), yaw: facing + side * Math.PI * spin };
+        }
+        if (params.turn === 'alone' || params.turn === 'high-low') {
           // Turn toward the neighbor in line: the left one of a pair turns right.
           const sign = i % 2 === 0 ? -1 : 1;
           return { position: at, yaw: facing + sign * Math.PI * ease(u) };
@@ -244,6 +267,23 @@ function inStep(state: DanceState, at: Vec2, travel: Vec2): boolean {
   // Behind the line and close (it would back into them), or far ahead (it
   // would walk away from its place).
   return gap < 0 ? -gap > 1.25 * SET.slot : gap < 2.25 * SET.slot;
+}
+
+/** Where in the line (from the left facing down) the right-hand-high pivot stands. */
+function pivotIndex(
+  state: DanceState,
+  line: readonly number[],
+  pivot: NonNullable<HallParams['pivot']>,
+): number {
+  if ('index' in pivot) {
+    if (!(pivot.index >= 1 && pivot.index <= line.length - 2))
+      throw new Error('The pivot must stand inside the line.');
+    return pivot.index;
+  }
+  const named = state.positions.get(pivot.of) ?? [];
+  const i = line.findIndex((id) => named.includes(id) && state.dancers[id].role === pivot.role);
+  if (i < 1 || i > line.length - 2) throw new Error('The pivot must stand inside the line.');
+  return i;
 }
 
 /** The minor sets' dancers face down the hall (more than up). */

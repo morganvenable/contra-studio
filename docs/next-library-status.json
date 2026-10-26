@@ -4,18 +4,18 @@
  "catalogue": 2422,
  "stored": 2422,
  "counts": {
-  "ok": 708,
-  "check": 377,
-  "partial": 1337,
+  "ok": 712,
+  "check": 378,
+  "partial": 1332,
   "unsupported": 0
  },
  "formations": [
   {
    "formation": "improper",
    "dances": 1189,
-   "ok": 511,
+   "ok": 515,
    "check": 115,
-   "partial": 563,
+   "partial": 559,
    "unsupported": 0
   },
   {
@@ -30,8 +30,8 @@
    "formation": "becket ccw",
    "dances": 169,
    "ok": 8,
-   "check": 50,
-   "partial": 111,
+   "check": 51,
+   "partial": 110,
    "unsupported": 0
   },
   {
@@ -1175,7 +1175,7 @@
    {
     "name": "turn alone / as a couple",
     "unlocks": 11,
-    "uses": 33
+    "uses": 32
    },
    {
     "name": "rory o'more",
@@ -1183,14 +1183,14 @@
     "uses": 25
    },
    {
-    "name": "down/up the hall",
-    "unlocks": 10,
-    "uses": 24
+    "name": "promenade",
+    "unlocks": 9,
+    "uses": 18
    },
    {
-    "name": "promenade",
-    "unlocks": 10,
-    "uses": 19
+    "name": "down/up the hall",
+    "unlocks": 8,
+    "uses": 22
    },
    {
     "name": "take hands (wave/line set-up)",
@@ -1251,11 +1251,6 @@
     "name": "poussette",
     "unlocks": 3,
     "uses": 4
-   },
-   {
-    "name": "other: robins cross right again",
-    "unlocks": 3,
-    "uses": 3
    },
    {
     "name": "contra corners",
@@ -2756,7 +2751,7 @@
   "figuresThatCannotStart": [
    {
     "name": "progression or other",
-    "unlocks": 121
+    "unlocks": 122
    },
    {
     "name": "swing variant",
@@ -2926,7 +2921,7 @@
   "checkFailures": [
    {
     "name": "Couples don't end the round where the progression puts them.",
-    "unlocks": 190
+    "unlocks": 191
    },
    {
     "name": "allemande variant",

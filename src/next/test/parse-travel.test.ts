@@ -198,3 +198,16 @@ test('grand square rows number their legs: heads in first, then the other way ro
   );
   assert.equal(d.status, 'unchecked');
 });
+
+test('right hand high, left hand low; chainsaw and Gay Gordons promenades', () => {
+  assert.deepEqual(row('down the hall and right hand high, left hand low lark 2, lark 1 turns alone'), [
+    ['hall', 8, { direction: 'down', turn: 'high-low', pivot: { role: 'lark', of: '2s' } }],
+  ]);
+  assert.deepEqual(row('chainsaw promenade left'), [
+    ['oval', 8, { direction: 'left', half: true, facing: 'travel' }],
+  ]);
+  assert.deepEqual(
+    row('Gay Gordons promenade; take promenade hands', 16).map((c) => c[0]),
+    ['ring-promenade', 'ring-promenade'],
+  );
+});

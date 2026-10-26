@@ -428,6 +428,55 @@ const PATTERNS: readonly (readonly [RegExp, Build])[] = [
   [/^partners promenade,? wheel around to face in to the center$/, as('partners promenade clockwise')],
   [/^promenade clockwise back to place with your new partner(?:,.*)?$/, as('partners promenade clockwise')],
   [/^partners allemande right twice to form a circle wave$/, as('partners allemande right twice')],
+  [
+    // Gay Gordons: forward, back up, the other way and back: a promenade
+    // round the ring and back again, half the beats each.
+    /^(?:partners )?gay gordons? promenade\b.*$/,
+    (_m, b) => [
+      call('ring-promenade', b / 2, { who: 'partner' }),
+      call('ring-promenade', b / 2, { who: 'partner', direction: 'cw' }),
+    ],
+  ],
+
+  // ---- Right hand high, left hand low (down the hall in lines of four) ----
+  [
+    // "... lark 2, lark 1 turns alone": the pivot is named; the end dancer
+    // away from it turns alone. ("Larks 1, larks 2 turns alone" stays the
+    // plain down the hall: read the same way it splits the couples the
+    // poussette after it needs.)
+    /^down the hall and right hand high,? left hand low,? (larks?|robins?) ?(2),? (?:larks?|robins?) ?1 turns? alone$/,
+    (m, b) => [
+      call('hall', b, {
+        direction: 'down',
+        turn: 'high-low',
+        pivot: { role: m[1].startsWith('lark') ? 'lark' : 'robin', of: `${m[2]}s` },
+      }),
+    ],
+  ],
+  [
+    // "..., leftmost 1 turn alone": the pivot is the dancer two from the left.
+    /^down the hall and right hand high,? left hand low,? leftmost \w+ turns? alone$/,
+    (_m, b) => [call('hall', b, { direction: 'down', turn: 'high-low', pivot: { index: 2 } })],
+  ],
+  [
+    // A 16-beat row that comes back to a ring: down with right hand high,
+    // left hand low (8), up the hall bending into a ring (8).
+    /^down the hall,? (?:4 ?in line ?,? )?(?:(larks?|robins?) (\d) in (?:the )?middle (?:does|dose) )?(?:and )?right hand high,? left hand low\b.*\b(?:circle|ring)\b.*$/,
+    (m, b) => [
+      call('hall', b / 2, {
+        direction: 'down',
+        turn: 'high-low',
+        pivot: m[1] ? { role: m[1].startsWith('lark') ? 'lark' : 'robin', of: `${m[2]}s` } : { index: 1 },
+      }),
+      call('hall', b / 2, { direction: 'up', end: 'ring' }),
+    ],
+  ],
+
+  [/^(larks|robins) cross (right|left)(?: again)?$/, as('$1 pass by $2')],
+
+  // ---- Chainsaw promenade: the set goes round its long oval like a chainsaw's chain ----
+  [/^chainsaw promenade (left|right)$/, as('neighbors promenade along the set on the $1')],
+  [/^chainsaw promenade back to the (left|right)$/, as('neighbors promenade along the set on the $1')],
 
   // ---- Clapping in place ----
   [/^(?:hand )?clapping(?: with partners?)?:? .*$|^pointing at partners?:? .*$/, (_m, b) => (b > 0 ? [call('still', b, { action: 'clap' })] : [])],
@@ -449,6 +498,14 @@ const count = (word: string) => NUMBERS[word] ?? Number(word);
 function way(named: string | undefined) {
   if (!named) return 'progression';
   return /^(?:cw|clockwise)$/.test(named) ? 'left' : 'right';
+}
+
+/** Rows read here before any other table (others would drop words that add motion). */
+const FIRST = /right hand high,? left hand low/;
+
+/** The calls for a row this table reads first, or undefined. */
+export function travelFirst(text: string, beats: number): FigureCall[] | undefined {
+  return FIRST.test(text) ? travelCalls(text, beats) : undefined;
 }
 
 /**
