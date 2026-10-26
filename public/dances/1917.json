@@ -7,7 +7,7 @@
   {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance & petronella · balance","section":"A2","row":3},
   {"move":"petronella","beats":4,"params":{},"text":"balance & petronella · petronella","section":"A2","row":3},
   {"move":"hold","beats":2,"params":{"reason":"unparsed"},"text":"robins roll away partners with a half sashay robins move right with partner","section":"A2","row":4},
-  {"move":"zig-zag","beats":6,"params":{"first":"right"},"text":"zig right zag left To face new neighbors","section":"A2","row":5},
+  {"move":"zig-zag","beats":6,"params":{"first":"right"},"text":"zig right zag left To face new neighbors","section":"A2","row":5,"progression":true},
   {"move":"balance","beats":4,"params":{"formation":"pair","who":"neighbor","hand":"both"},"text":"neighbors balance & swing · balance","section":"B1","row":6},
   {"move":"swing","beats":12,"params":{"who":"neighbor"},"text":"neighbors balance & swing · swing","section":"B1","row":6},
   {"move":"give-and-take","beats":8,"params":{"who":"robins","whom":"partner"},"text":"robins give & take partners","section":"B2","row":7},

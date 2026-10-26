@@ -14,7 +14,7 @@
   {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance the ring","section":"B2","row":7},
   {"move":"hold","beats":4,"params":{"reason":"unparsed"},"text":"larks pass by right shoulders to reform circle on the other side of set","section":"B2","row":8},
   {"move":"circle","beats":4,"params":{"direction":"left","places":3},"text":"circle left 3 places and pass thru to new wave of four · circle","section":"B2","row":9},
-  {"move":"pass-through","beats":2,"params":{"shoulder":"right"},"text":"circle left 3 places and pass thru to new wave of four · pass through","section":"B2","row":9},
+  {"move":"pass-through","beats":2,"params":{"shoulder":"right"},"text":"circle left 3 places and pass thru to new wave of four · pass through","section":"B2","row":9,"progression":true},
   {"move":"ocean-wave","beats":2,"params":{"middle":"robins","middleHand":"left","ends":"neighbor","endHand":"right"},"text":"circle left 3 places and pass thru to new wave of four · ocean-wave","section":"B2","row":9}
  ]
 }

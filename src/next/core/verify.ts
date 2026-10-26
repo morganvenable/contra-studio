@@ -81,7 +81,8 @@ export function verifyDance(
       }
       const wrong = modelProblem(dance, spec.model?.(couples, rounds), couples);
       if (wrong) return { ok: false, problem: wrong, couples, kind: 'progression' };
-      const missed = meetingProblem(dance, spec.meeting, couples);
+      const meets = !spec.meetingCounts || spec.meetingCounts.includes(couples);
+      const missed = meets ? meetingProblem(dance, spec.meeting, couples) : undefined;
       if (missed) return { ok: false, problem: missed, couples, kind: 'meeting' };
     }
     return { ok: true };

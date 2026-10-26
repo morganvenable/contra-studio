@@ -9,7 +9,7 @@
   {"move":"hall","beats":8,"params":{"direction":"down","turn":"couple"},"text":"down the hall and turn as a couple","section":"B1","row":5},
   {"move":"hall","beats":8,"params":{"direction":"up","end":"ring"},"text":"up the hall and bend into a ring","section":"B1","row":6},
   {"move":"circle","beats":6,"params":{"direction":"left","places":3},"text":"circle left 3 places and pass thru to new neighbors · circle","section":"B2","row":7},
-  {"move":"pass-through","beats":2,"params":{"shoulder":"right"},"text":"circle left 3 places and pass thru to new neighbors · pass through","section":"B2","row":7},
-  {"move":"do-si-do","beats":8,"params":{"who":"neighbor","amount":1,"shoulder":"right"},"text":"neighbors do si do once new","progression":true,"section":"B2","row":8}
+  {"move":"pass-through","beats":2,"params":{"shoulder":"right"},"text":"circle left 3 places and pass thru to new neighbors · pass through","section":"B2","row":7,"progression":true},
+  {"move":"do-si-do","beats":8,"params":{"who":"neighbor","amount":1,"shoulder":"right"},"text":"neighbors do si do once new","section":"B2","row":8}
  ]
 }

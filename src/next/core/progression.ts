@@ -27,6 +27,11 @@ export interface Progression {
     // Couples read as they stand before partners (MINOR_SET_COUPLES_PROGRESSION).
     | 'minor-set-couples'
     | 'minor-set-couples-double'
+    // Couples out at the ends cross over by themselves (progression-more.ts).
+    | 'minor-set-crossing'
+    | 'minor-set-couples-crossing'
+    | 'minor-set-crossing-double'
+    | 'minor-set-couples-crossing-double'
     | 'duple-minor'
     | 'duple-minor-proper'
     | 'whole-set'
@@ -53,6 +58,13 @@ export interface Progression {
    * time through each "progress", but names change only after the last).
    */
   readonly atRoundEnd?: boolean;
+  /**
+   * A couple out at an end crosses over by a half turn about the middle of
+   * its ghost minor set (ghosts.ts), to the place of the ghost set's other
+   * couple, rather than about its own middle. Becket: the couples out at the
+   * ends keep moving along with the set and cross to the other side line.
+   */
+  readonly crossAtGhostSet?: boolean;
 }
 
 export const NO_PROGRESSION: Progression = { kind: 'none', rebind: (s) => s };
@@ -84,6 +96,7 @@ function coupleSpots(state: DanceState, beside = false): Map<number, CoupleSpot>
 
 export const MINOR_SET_PROGRESSION: Progression = {
   kind: 'minor-set',
+  crossAtGhostSet: true,
   // Couples as partners first; failing that, as whoever stands with each
   // lark as a couple (Becket, core/couples.ts).
   rebind: (state) => rebindEither(state, false),
@@ -97,6 +110,7 @@ export const MINOR_SET_PROGRESSION: Progression = {
  */
 export const MINOR_SET_COUPLES_PROGRESSION: Progression = {
   kind: 'minor-set-couples',
+  crossAtGhostSet: true,
   rebind: (state) => rebindEither(state, true),
 };
 
@@ -347,6 +361,28 @@ export function dupleMinorRebind(state: DanceState, cross: boolean, columns = fa
       );
     return withChanges(state, { relations, groups, waiting, positions, epoch: state.epoch + 1 });
   }
+}
+
+/**
+ * A rebind in a set of three or more couples that finds nobody to meet at
+ * all: everyone waits out at once. The fold keeps it (the corpus check
+ * reports where couples end the round), but a mark that comes too early
+ * does not wait for it (fold.ts).
+ */
+export class NoOneMeets extends Error {
+  readonly state: DanceState;
+  constructor(state: DanceState) {
+    super('No couples meet new neighbors here.');
+    this.state = state;
+  }
+}
+
+/** The rebind, throwing NoOneMeets when nobody meets anyone. */
+export function rebindMeeting(progression: Progression, state: DanceState): DanceState {
+  const next = progression.rebind(state);
+  const couples = state.dancers.length / 2;
+  if (!next.groups.length && state.groups.length && couples > 2) throw new NoOneMeets(next);
+  return next;
 }
 
 /** New neighbors; the old ones are kept as previous neighbors ("prev neighbors"). */

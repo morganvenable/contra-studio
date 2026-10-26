@@ -3,7 +3,7 @@
   {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance the ring and robins trade right shoulder · balance","section":"A1","row":1},
   {"move":"pass-by","beats":4,"params":{"who":"robins","shoulder":"right","hands":false},"text":"balance the ring and robins trade right shoulder · pull by","section":"A1","row":1},
   {"move":"swing","beats":8,"params":{"who":"neighbor"},"text":"neighbors swing","section":"A1","row":2},
-  {"move":"hey","beats":16,"params":{"start":"robins","amount":1,"center":"right"},"text":"robins start a full hey - rights in center, lefts on ends look for new neighbors on side of set","section":"A2","row":3},
+  {"move":"hey","beats":16,"params":{"start":"robins","amount":1,"center":"right"},"text":"robins start a full hey - rights in center, lefts on ends look for new neighbors on side of set","section":"A2","row":3,"progression":true},
   {"move":"circle","beats":8,"params":{"direction":"left","places":3},"text":"circle left 3 places","section":"B1","row":4},
   {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance the ring & pass thru to wave of 4 - robins in center left hands right to partners · balance","section":"B1","row":5},
   {"move":"pass-through","beats":2,"params":{"shoulder":"right"},"text":"balance the ring & pass thru to wave of 4 - robins in center left hands right to partners · pass through","section":"B1","row":5},

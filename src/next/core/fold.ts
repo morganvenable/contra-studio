@@ -5,7 +5,9 @@
  *
  * Round N+1 starts from round N's end state. Relationships change only
  * through the dance's Progression, at the reached end of the figure the source
- * marks as the progression (or at the end of the round when none is marked).
+ * marks as the progression (or at the end of the round when none is marked;
+ * when the couples have not passed yet at the marked figure, at the end of
+ * the first later figure where they have, up to the next mark).
  * Couples waiting out at an end cross to the other side (a half turn about the
  * set's center line) right after they start waiting, or at the start of the
  * next round when the progression comes too late in this one. Round length and how
@@ -23,9 +25,11 @@ import type {
 } from './figure.ts';
 import { clamp, distance, progress, rotate, smooth, sub, add, turn } from './math.ts';
 import { beatsPerTime, type MusicStructure } from './music.ts';
-import type { Progression } from './progression.ts';
+import { NoOneMeets, rebindMeeting, type Progression } from './progression.ts';
 import { body, type Body, type DanceState, withChanges } from './state.ts';
 import { hold } from '../figures/hold.ts';
+import { ghostCopies, ghostTurn, withGhosts } from './ghosts.ts';
+import { REGROUPING } from './relations.ts';
 
 export type FigureRegistry = Readonly<Record<string, Figure<any>>>;
 
@@ -79,15 +83,19 @@ export function foldRound(
   const crossings: Crossing[] = [];
   const held: HeldFigure[] = [];
   const total = calls.reduce((n, c) => n + c.beats, 0);
-  let state = scheduleCrossings(start, 0, total, crossings);
+  // Becket: couples out at the ends dance with ghosts (ghosts.ts).
+  const ghostPivot = progression?.crossAtGhostSet ?? false;
+  let state = scheduleCrossings(start, 0, total, crossings, ghostPivot);
   let beat = 0;
+  // A marked progression that could not rebind yet (see below).
+  let late: { index: number; error: unknown } | undefined;
   for (const [index, call] of calls.entries()) {
     if (!(call.beats > 0 && call.beats <= 64)) throw new Error(`${call.move} needs 1-64 beats.`);
     let result: FigureResult;
     let moved: Set<number>;
     state = settleCrossings(state, beat, crossings);
     try {
-      ({ result, moved } = runFigure(registry, state, call, index, beat, crossings));
+      ({ result, moved } = runFigure(registry, state, call, index, beat, crossings, ghostPivot));
     } catch (error) {
       if (!lenient) throw error;
       // Hold everyone still for this row so the rest keeps its place in time.
@@ -100,16 +108,40 @@ export function foldRound(
     const last = index === calls.length - 1;
     let exit = result.exit;
     const due = progression?.atRoundEnd ? last : call.progression || (!marked && last);
-    if (progression && due) {
+    // A failed mark on the first row means the round starts progressed: the
+    // couples meet new neighbors at the end of the round.
+    const retry = late && (late.index > 0 || last);
+    if (progression && (due || retry)) {
       try {
-        exit = progression.rebind(exit);
+        exit = rebindMeeting(progression, exit);
+        late = undefined;
       } catch (error) {
-        if (!lenient) throw error;
-        const why = error instanceof Error ? error.message : String(error);
-        held.push({ index, why: `The progression does not work out: ${why}`, progression: true });
+        // A row marked as the progression sometimes comes before the couples
+        // have passed (the mark on the figure that starts it): new neighbors
+        // are found at the end of a later figure, up to the next mark or the
+        // end of the round.
+        const more = !last && !calls[index + 1]?.progression;
+        if (error instanceof NoOneMeets && !late) {
+          // Nobody meets anyone: everyone waits out (as the rebind says).
+          exit = error.state;
+        } else if (due && !late && more) late = { index, error };
+        else if (late && !due && more) {
+          // Still not passed: try again after the next figure.
+        } else {
+          const failed = late ?? { index, error };
+          late = undefined;
+          if (!lenient) throw failed.error;
+          const e = failed.error;
+          const why = e instanceof Error ? e.message : String(e);
+          held.push({
+            index: failed.index,
+            why: `The progression does not work out: ${why}`,
+            progression: true,
+          });
+        }
       }
     }
-    state = scheduleCrossings(exit, beat, total, crossings);
+    state = scheduleCrossings(exit, beat, total, crossings, ghostPivot);
   }
   return { segments, crossings, end: state, held };
 }
@@ -122,6 +154,7 @@ function runFigure(
   index: number,
   beat: number,
   crossings: readonly Crossing[],
+  ghosts = false,
 ) {
   const figure = registry[call.move];
   if (!figure) throw new Error(`No figure named "${call.move}".`);
@@ -132,6 +165,17 @@ function runFigure(
     const why = error instanceof Error ? error.message : String(error);
     throw new Error(`Figure ${index + 1} (${call.text ?? call.move}): ${why}`);
   }
+  // Couples out at the ends dance with ghosts (ghosts.ts), unless crossing over.
+  const crossingNow = new Set(
+    crossings
+      .filter((c) => c.start + CROSS_BEATS > beat && c.start < beat + call.beats)
+      .map((c) => c.ids[0] / 2),
+  );
+  // Figures danced with someone outside the minor set (shadows, a diagonal)
+  // take the couples at the ends in directly instead (relations.ts).
+  const across = REGROUPING.has(String(call.params.who)) || call.params.diagonal !== undefined;
+  if (ghosts && !across)
+    result = withGhosts(state, result, ghostCopies(state, crossingNow), call.beats);
   const moved = new Set(result.motion(0).bodies.map((b) => b.id));
   assertSeam(state, result, call);
   for (const c of crossings) {
@@ -164,9 +208,31 @@ function scheduleCrossings(
   beat: number,
   total: number,
   crossings: Crossing[],
+  ghostPivot = false,
 ): DanceState {
-  const pending = state.waiting.filter((w) => !w.crossed);
+  let pending = state.waiting.filter((w) => !w.crossed);
   if (!pending.length) return state;
+  // Becket: a couple that repeats a couple of the nearest minor set changes
+  // ends with the ghosts while it dances the next figure (ghosts.ts).
+  const turns = new Map(
+    ghostPivot
+      ? pending.flatMap((w) => {
+          const t = ghostTurn(state, w.couple);
+          return t ? [[w.couple, t] as const] : [];
+        })
+      : [],
+  );
+  if (turns.size) {
+    state = withChanges(state, {
+      waiting: state.waiting.map((w) =>
+        turns.has(w.couple)
+          ? { couple: w.couple, crossed: true, ghostTurn: turns.get(w.couple) }
+          : w,
+      ),
+    });
+    pending = pending.filter((w) => !turns.has(w.couple));
+    if (!pending.length) return state;
+  }
   // Too late in the round: the couple crosses at the start of the next one.
   if (beat + CROSS_BEATS > total) return state;
   const bodies = new Map(state.bodies);
@@ -183,8 +249,9 @@ function scheduleCrossings(
     crossings.push(crossing);
     for (const id of ids) bodies.set(id, crossingBody(crossing, id, 1));
   }
+  const crossed = new Set(pending.map((w) => w.couple));
   const waiting = state.waiting.map((w) =>
-    w.crossed ? w : { ...w, crossed: true, crossing: true },
+    crossed.has(w.couple) ? { ...w, crossed: true, crossing: true } : w,
   );
   return withChanges(state, { bodies, waiting });
 }
@@ -256,6 +323,8 @@ export function compileFold(options: FoldOptions): FoldedDance {
     starts.push(totalBeats);
     totalBeats += c.beats;
   }
+  // Thirds of a beat in the source add up with rounding error.
+  if (Math.abs(totalBeats - beatsPerTime(music)) < 1e-6) totalBeats = beatsPerTime(music);
   if (totalBeats !== beatsPerTime(music)) {
     throw new Error(
       `The figures take ${totalBeats} beats but the music has ${beatsPerTime(music)}.`,
@@ -287,7 +356,9 @@ export function compileFold(options: FoldOptions): FoldedDance {
   const bodiesAt = (r: Round, segment: Segment, local: number) => {
     const bodies = new Map(segment.entry.bodies);
     for (const c of r.crossings) {
-      if (local >= c.start) {
+      // Only while crossing: afterwards the state carries where the couple
+      // is (a later figure may have moved it on).
+      if (local >= c.start && local < c.start + CROSS_BEATS) {
         for (const id of c.ids)
           bodies.set(id, crossingBody(c, id, (local - c.start) / CROSS_BEATS));
       }

@@ -3,11 +3,11 @@
   {"move":"allemande","beats":8,"params":{"who":"larks","hand":"left","amount":1.5},"text":"larks allemande left 1½","section":"A1","row":1},
   {"move":"swing","beats":8,"params":{"who":"neighbor"},"text":"neighbors swing","section":"A1","row":2},
   {"move":"circle","beats":8,"params":{"direction":"left","places":4},"text":"circle left 4 places (book it!)","section":"A2","row":3},
-  {"move":"pass-by","beats":4,"params":{"who":"neighbor","shoulder":"right","hands":true},"text":"neighbors pull by right (up and down)","section":"A2","row":4},
+  {"move":"pass-by","beats":4,"params":{"who":"neighbor","shoulder":"right","hands":true,"arrive":true},"text":"neighbors pull by right (up and down)","section":"A2","row":4,"progression":true},
   {"move":"courtesy-turn","beats":4,"params":{"who":"neighbor"},"text":"new neighbor courtesy turn, face across","section":"A2","row":5},
   {"move":"chain","beats":8,"params":{"who":"robins"},"text":"robins chain (straight across)","section":"B1","row":6},
   {"move":"hey","beats":8,"params":{"start":"robins","amount":0.5,"center":"right"},"text":"robins start a half hey - rights in center, lefts on ends","section":"B1","row":7},
   {"move":"balance","beats":4,"params":{"formation":"pair","who":"partner","hand":"both"},"text":"partners balance & swing · balance","section":"B2","row":8},
-  {"move":"swing","beats":12,"params":{"who":"partner"},"text":"partners balance & swing · swing","progression":true,"section":"B2","row":8}
+  {"move":"swing","beats":12,"params":{"who":"partner"},"text":"partners balance & swing · swing","section":"B2","row":8}
  ]
 }

@@ -37,30 +37,49 @@ const RANK: Readonly<Record<DanceCheck['status'], number>> = {
  * counterclockwise when that is how it works out.
  */
 export function checkDance(stored: StoredDance): DanceCheck {
-  const usual = checkWay(stored);
-  const alternative = COUPLES[stored.progression ?? ''];
-  if (usual.status === 'ok' || !alternative) return usual;
+  let best = checkWay(stored);
   // A minor-set dance whose couples, at the progression, are read as they
-  // stand (a robin on the lark's right) rather than as partners, when that
-  // is how it works out.
-  const couples = checkWay({ ...stored, progression: alternative });
-  return RANK[couples.status] > RANK[usual.status]
-    ? { ...couples, progression: alternative }
-    : usual;
+  // stand (a robin on the lark's right) rather than as partners; then the
+  // couples out at the ends crossing over by themselves rather than dancing
+  // with ghosts (progression-more.ts). Each only when it works out better.
+  for (const progression of ALTERNATIVES[stored.progression ?? ''] ?? []) {
+    if (best.status === 'ok') break;
+    const other = checkWay({ ...stored, progression });
+    if (RANK[other.status] > RANK[best.status]) best = { ...other, progression };
+  }
+  return best;
 }
 
-const COUPLES: Readonly<Record<string, StoredDance['progression']>> = {
-  'minor-set': 'minor-set-couples',
-  'minor-set-double': 'minor-set-couples-double',
+const ALTERNATIVES: Readonly<Record<string, readonly StoredDance['progression'][]>> = {
+  'minor-set': ['minor-set-couples', 'minor-set-crossing', 'minor-set-couples-crossing'],
+  'minor-set-double': [
+    'minor-set-couples-double',
+    'minor-set-crossing-double',
+    'minor-set-couples-crossing-double',
+  ],
 };
 
 function checkWay(stored: StoredDance): DanceCheck {
   const usual = checkAs(stored);
   const plain = stored.source.formation.toLowerCase().replace(/\s+/g, ' ').trim() === 'becket';
-  if (usual.status === 'ok' || !plain || stored.formation !== 'becket') return usual;
-  const other = checkAs({ ...stored, formation: 'becket-ccw' });
-  return RANK[other.status] > RANK[usual.status] ? { ...other, formation: 'becket-ccw' } : usual;
+  if (usual.status === 'ok') return usual;
+  if (plain && stored.formation === 'becket') {
+    const other = checkAs({ ...stored, formation: 'becket-ccw' });
+    return RANK[other.status] > RANK[usual.status] ? { ...other, formation: 'becket-ccw' } : usual;
+  }
+  // A Becket dance labeled one way round whose own figures carry the
+  // couples the other way ("Becket ccw" with "slide left along the set")
+  // goes the way its figures go, when it then works out completely.
+  const flip = WAY_ROUND[stored.formation ?? ''];
+  if (!flip) return usual;
+  const other = checkAs({ ...stored, formation: flip });
+  return other.status === 'ok' ? { ...other, formation: flip } : usual;
 }
+
+const WAY_ROUND: Readonly<Record<string, string>> = {
+  becket: 'becket-ccw',
+  'becket-ccw': 'becket',
+};
 
 const strict = (stored: StoredDance, couples: number) =>
   compileNext(stored, couples, undefined, { lenient: false });

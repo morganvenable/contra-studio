@@ -4,7 +4,7 @@
   {"move":"star","beats":8,"params":{"hand":"left","places":4,"grip":"hands-across"},"text":"star left - hands across - 4 places","section":"A1","row":2},
   {"move":"orbit","beats":8,"params":{"center":"do-si-do","who":"larks","shoulder":"left","amount":1,"direction":"clockwise","around":0.5},"text":"larks see-saw, while robins turn back over right shoulder and orbit clockwise half way around larks","section":"A2","row":3},
   {"move":"swing","beats":8,"params":{"who":"neighbor"},"text":"neighbors swing","section":"A2","row":4},
-  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"forward and the way back roll away, and finish reaching across to join right hand's with partner across set","section":"B1","row":5},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"forward and the way back roll away, and finish reaching across to join right hand's with partner across set","section":"B1","row":5,"progression":true},
   {"move":"right-left-through","beats":8,"params":{},"text":"right and left through with NEW neighbors (while holding partner's hand, larks note robins to right, robins note larks to lefr, pull by parnenter and courtesy turn wih noted person, finishing facing partner across.)","section":"B1","row":6},
   {"move":"circle","beats":8,"params":{"direction":"left","places":3},"text":"circle left 3 places, partners swing · circle","section":"B2","row":7},
   {"move":"swing","beats":8,"params":{"who":"partner"},"text":"circle left 3 places, partners swing · swing","section":"B2","row":7}

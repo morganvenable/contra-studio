@@ -649,6 +649,64 @@ function slideProgression(figures: StoredCall[], shape: Shape | undefined) {
 }
 
 /**
+ * A Becket dance whose source marks no progression (or only its last row,
+ * the end of the time through), but whose rows name the new neighbors,
+ * progresses where the dancers meet them:
+ * at the end of a row that takes them "to new neighbors" ("pass through to
+ * next neighbors", "end facing new neighbors"), or just before the first row
+ * danced with them ("next neighbors swing", "circle with new neighbors").
+ * Failing that, "circle left 3 places, pass through" is the progression.
+ */
+function namedProgression(figures: StoredCall[], shape: Shape | undefined) {
+  // (Improper dances read "new neighbors" mid-round as a visit, or the
+  // corpus model already places their progression; they are left alone.)
+  if (shape?.progression !== 'minor-set') return;
+  // No mark, or only the last row marked (the end of the time through).
+  const marked = figures.flatMap((c, k) => (c.progression ? [k] : []));
+  const last = figures.length - 1;
+  if (marked.length > 1 || (marked.length === 1 && marked[0] !== last)) return;
+  const mark = (at: number) => {
+    if (at === last) return;
+    if (marked.length) {
+      const { progression: _, ...rest } = figures[last];
+      figures[last] = rest;
+    }
+    figures[at] = { ...figures[at], progression: true };
+  };
+  // Next neighbors visited and left again ("prev neighbors ...") are not a progression.
+  if (figures.some((c) => /\bprev(?:ious)? neighbou?rs?\b/i.test(c.text ?? ''))) return;
+  const NEW = /\b(?:new|next) neighbou?rs?\b/i;
+  const WITH = /^(?:the )?(?:new|next) neighbou?rs?\b|\bwith (?:the |a |your )?(?:new|next) neighbou?rs?\b/i;
+  const TO =
+    /\b(?:to|towards?|face|facing|meet|look for|looking for|find|past|progress to)\b[^,.;·]*\b(?:new|next) neighbou?rs?\b/i;
+  const i = figures.findIndex((c) => NEW.test(c.text ?? ''));
+  if (i < 0) {
+    // "Circle left 3 places, pass through": the Becket progression.
+    const pass = figures.findIndex(
+      (c, k) =>
+        c.move === 'pass-through' &&
+        k > 0 &&
+        figures[k - 1].move === 'circle' &&
+        figures[k - 1].params.places === 3,
+    );
+    if (pass > 0) mark(pass);
+    return;
+  }
+  const text = figures[i].text ?? '';
+  let at: number | undefined;
+  if (WITH.test(text)) {
+    // The progression comes before the row's first call.
+    let first = i;
+    while (first > 0 && figures[first - 1].row === figures[i].row) first--;
+    at = first > 0 ? first - 1 : undefined;
+  } else if (TO.test(text)) {
+    at = i;
+    while (at + 1 < figures.length && figures[at + 1].row === figures[i].row) at++;
+  }
+  if (at !== undefined) mark(at);
+}
+
+/**
  * Import one snapshot. `sha256` is the hex hash of `snapshot.html` (the
  * caller hashes; this module stays free of Node APIs).
  */
@@ -732,6 +790,7 @@ export function importDance(id: string, snapshot: ContraDbSnapshot, sha256: stri
     });
   progressionSlides(figures, shape);
   slideProgression(figures, shape);
+  namedProgression(figures, shape);
   arriveToProgress(figures);
   heyToLongWaves(figures);
   const choices = CHOICES.filter(([test]) => figures.some(test)).map(([, t]) => t);

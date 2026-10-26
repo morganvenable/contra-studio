@@ -5,7 +5,7 @@
   {"move":"swing","beats":8,"params":{"who":"neighbor"},"text":"Neighbors swing","section":"A2","row":3},
   {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"Right and left through, roll away (leaving larks to right of neighbor on side opposite from which larks started dance)","section":"A2","row":4},
   {"move":"hey","beats":8,"params":{"start":"larks","center":"right","amount":0.5},"text":"1/2 hey, larks start right shoulder, finish in long waves, larks facing in, neighbors left hands joined","section":"B1","row":5},
-  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"Balance forward and back, larks cross set to partner's place, robins turn over right shoulder to place of larks in her right hand (new neighbor).","section":"B1","row":6},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"Balance forward and back, larks cross set to partner's place, robins turn over right shoulder to place of larks in her right hand (new neighbor).","section":"B1","row":6,"progression":true},
   {"move":"balance","beats":4,"params":{"formation":"pair","who":"partner","hand":"both"},"text":"Partners balance and swing, finish facing new neighbors · balance","section":"B2","row":7},
   {"move":"swing","beats":4,"params":{"who":"partner"},"text":"Partners balance and swing, finish facing new neighbors · swing","section":"B2","row":7}
  ]

@@ -59,6 +59,8 @@ export interface CheckSpec {
   readonly meeting: MeetingRule;
   /** Rounds to check at `couples`; the default is couples + 2. */
   readonly rounds?: (couples: number) => number;
+  /** Couple counts to check the meeting rule at; the default is every count. */
+  readonly meetingCounts?: readonly number[];
 }
 
 /** Expected couple-center z after each round, improper duple minor. */

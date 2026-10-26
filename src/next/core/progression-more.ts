@@ -33,13 +33,37 @@ import {
 
 export const MINOR_SET_DOUBLE: Progression = {
   kind: 'minor-set-double',
+  crossAtGhostSet: true,
   rebind: MINOR_SET_PROGRESSION.rebind,
 };
 
 export const MINOR_SET_COUPLES_DOUBLE: Progression = {
   kind: 'minor-set-couples-double',
+  crossAtGhostSet: true,
   rebind: MINOR_SET_COUPLES_PROGRESSION.rebind,
 };
+
+/**
+ * The Becket progressions with couples out at the ends crossing over by
+ * themselves, as before ghosts (ghosts.ts): no ghost dancing, no changing
+ * ends with the ghosts. A Becket dance is stored with one of these only
+ * when it works out better that way (status.ts).
+ */
+const crossing = (p: Progression, kind: Progression['kind']): Progression => ({
+  ...p,
+  kind,
+  crossAtGhostSet: false,
+});
+export const MINOR_SET_CROSSING = crossing(MINOR_SET_PROGRESSION, 'minor-set-crossing');
+export const MINOR_SET_COUPLES_CROSSING = crossing(
+  MINOR_SET_COUPLES_PROGRESSION,
+  'minor-set-couples-crossing',
+);
+export const MINOR_SET_CROSSING_DOUBLE = crossing(MINOR_SET_DOUBLE, 'minor-set-crossing-double');
+export const MINOR_SET_COUPLES_CROSSING_DOUBLE = crossing(
+  MINOR_SET_COUPLES_DOUBLE,
+  'minor-set-couples-crossing-double',
+);
 
 export const DUPLE_MINOR_DOUBLE: Progression = {
   kind: 'duple-minor-double',

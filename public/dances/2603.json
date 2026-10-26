@@ -6,7 +6,7 @@
   {"move":"promenade","beats":8,"params":{"who":"partner"},"text":"partners promenade","section":"B1","row":3},
   {"move":"right-left-through","beats":8,"params":{},"text":"right left through","section":"B1","row":4},
   {"move":"circle","beats":7,"params":{"direction":"left","places":3},"text":"circle left 3 places","section":"B2","row":5},
-  {"move":"pass-through","beats":2,"params":{"shoulder":"right"},"text":"pass through","section":"B2","row":6},
+  {"move":"pass-through","beats":2,"params":{"shoulder":"right"},"text":"pass through","section":"B2","row":6,"progression":true},
   {"move":"circle","beats":7,"params":{"direction":"right","places":3},"text":"circle right 3 places with new neighbors","section":"B2","row":7}
  ]
 }

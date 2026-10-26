@@ -23,6 +23,21 @@ export interface WaitingCouple {
   readonly crossed: boolean;
   /** True while the couple is crossing over (figures leave it be). */
   readonly crossing?: boolean;
+  /** Changing ends round the middle of its ghost minor set (ghosts.ts). */
+  readonly ghostTurn?: GhostTurn;
+}
+
+/** A waiting couple part way through changing ends (core/ghosts.ts). */
+export interface GhostTurn {
+  readonly pivot: Vec2;
+  /** Turned so far, radians (a half turn in all). */
+  readonly angle: number;
+  /** Beats left to turn in. */
+  readonly left: number;
+  /** The dancers of the nearest minor set it repeats, lark first. */
+  readonly templates: readonly [number, number];
+  /** Shift along the set from those dancers to this couple's ghost set. */
+  readonly shift: number;
 }
 
 /** A relationship between dancers, e.g. partner, neighbor, corner. */

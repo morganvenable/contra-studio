@@ -3,7 +3,7 @@
   {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"Circle balance. Pass to a wave by larks turning right 1/2, robins crossing set to take partner's left hand","section":"A1","row":1},
   {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"Balance left and right; allemande left 3/4 to long wavy lines, larks facing in","section":"A1","row":2},
   {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"Balance forward and back, box circulate to long waves, : with larks facing out, current (next) neighbors left (right) hands joined.","section":"A2","row":3},
-  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"Balance right and left; robins cross set while : larks turn over right shoulder to next neighbor's place.","section":"A2","row":4},
+  {"move":"hold","beats":8,"params":{"reason":"unparsed"},"text":"Balance right and left; robins cross set while : larks turn over right shoulder to next neighbor's place.","section":"A2","row":4,"progression":true},
   {"move":"balance","beats":4,"params":{"formation":"pair","who":"partner","hand":"both"},"text":"Partners balance and swing, end facing new neighbors · balance","section":"B1","row":5},
   {"move":"swing","beats":12,"params":{"who":"partner"},"text":"Partners balance and swing, end facing new neighbors · swing","section":"B1","row":5},
   {"move":"long-lines","beats":8,"params":{"back":true},"text":"Long lines forward and back.","section":"B2","row":6},
