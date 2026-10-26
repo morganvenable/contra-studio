@@ -14,7 +14,7 @@
  */
 import type { Figure } from '../core/figure.ts';
 import { oneOf, onlyKeys, settle } from '../core/figure.ts';
-import { add, length, mean, progress, scale, sub } from '../core/math.ts';
+import { add, dot, length, mean, progress, scale, sub } from '../core/math.ts';
 import { body, minorSets, pairsIn, withChanges } from '../core/state.ts';
 
 export interface ZigZagParams {
@@ -26,6 +26,8 @@ export interface ZigZagParams {
 
 /** How far to the side the pairs step as they pass. */
 const ZIG = 0.55;
+/** Gap kept between the near dancers of the two pairs as they pass. */
+const PASS_CLEAR = 0.56;
 
 export const zigZag: Figure<ZigZagParams> = (state, params, beats) => {
   onlyKeys('zig zag', params, ['first', 'pair']);
@@ -37,11 +39,21 @@ export const zigZag: Figure<ZigZagParams> = (state, params, beats) => {
     const centers = pairs.map((p) => mean(p.map((id) => body(state, id).position)));
     const travel = sub(centers[1], centers[0]);
     if (length(travel) < 0.8) throw new Error('The two pairs of a zig zag must stand apart.');
+    // Wide pairs (side by side across the way they travel) step out far
+    // enough that their near dancers pass clear of each other.
+    const across = { x: travel.z / length(travel), z: -travel.x / length(travel) };
+    const width = Math.max(
+      ...pairs.map((p) => {
+        const [a, b] = p.map((id) => body(state, id).position);
+        return Math.abs(dot(sub(a, b), across));
+      }),
+    );
+    const zig = Math.max(ZIG, (width + PASS_CLEAR) / 2);
     return pairs.flatMap((p, i) => {
       const d = i === 0 ? travel : scale(travel, -1);
       // Left of the way the pair travels.
       const left = { x: d.z / length(d), z: -d.x / length(d) };
-      const side = scale(left, first === 'left' ? ZIG : -ZIG);
+      const side = scale(left, first === 'left' ? zig : -zig);
       return p.map((id) => ({ id, from: body(state, id), d, side }));
     });
   });

@@ -4,7 +4,7 @@
   {"move":"do-si-do","beats":8,"params":{"who":"neighbor","amount":1,"shoulder":"right"},"text":"neighbors do si do once do si do neighbor in front of you","section":"A1","row":2},
   {"move":"balance","beats":4,"params":{"formation":"pair","who":"neighbor","hand":"both"},"text":"neighbors balance & swing · balance","section":"A2","row":3},
   {"move":"swing","beats":12,"params":{"who":"neighbor"},"text":"neighbors balance & swing · swing","section":"A2","row":3},
-  {"move":"pass-by","beats":2,"params":{"who":"facing","shoulder":"left","hands":true,"among":["larks"]},"text":"pull by left across the set larks","section":"B1","row":4},
+  {"move":"pass-by","beats":2,"params":{"who":"facing","shoulder":"left","hands":true},"text":"pull by left across the set larks","section":"B1","row":4},
   {"move":"swing","beats":14,"params":{"who":"partner"},"text":"partners swing","section":"B1","row":5},
   {"move":"circle","beats":8,"params":{"direction":"left","places":3},"text":"circle left 3 places","section":"B2","row":6},
   {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance the ring","section":"B2","row":7},

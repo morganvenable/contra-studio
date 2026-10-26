@@ -189,6 +189,10 @@ const waveBalance: Figure<BalanceParams> = (state, params, beats) => {
     // holding hands balances side to side in place.
     if (style === 'right-left' && state.hands.length)
       return heldBalance(state, beats, undefined, first);
+    // Long waves too wide apart to hold hands: everyone on the side lines,
+    // facing across, balances right and left in place.
+    if (style === 'right-left' && inSideLines(state))
+      return heldBalance(state, beats, activeIds(state), first);
     throw error;
   }
 
@@ -215,6 +219,33 @@ const waveBalance: Figure<BalanceParams> = (state, params, beats) => {
   return { kind: 'wave-balance', motion, exit: settle(state, motion, beats) };
 };
 
+/**
+ * Everyone active stands on a side line facing across, and on each side
+ * line some dancers next to each other face opposite ways: long waves.
+ */
+function inSideLines(state: Parameters<typeof balance>[0]): boolean {
+  const ids = activeIds(state);
+  const across = ids.every((id) => {
+    const b = body(state, id);
+    return Math.abs(b.position.x) > 0.5 && Math.abs(Math.abs(Math.sin(b.yaw)) - 1) < 1e-3;
+  });
+  if (!across) return false;
+  return [-1, 1].every((side) => {
+    const line = ids
+      .filter((id) => Math.sign(body(state, id).position.x) === side)
+      .sort((a, b) => body(state, a).position.z - body(state, b).position.z);
+    // Mostly alternating: after a Rory along the side line the ends, with
+    // no one to slide past, can stand facing the same way as the next one.
+    return (
+      line.length >= 2 &&
+      line.some(
+        (id, i) =>
+          i > 0 && Math.sin(body(state, id).yaw) * Math.sin(body(state, line[i - 1]).yaw) < 0,
+      )
+    );
+  });
+}
+
 /** Beats to turn to face in or out when forming long waves. */
 const FORM_BEATS = 2;
 /** Neighbors along a side line farther apart than this do not join hands. */
@@ -226,12 +257,30 @@ const longWaveBalance: Figure<BalanceParams> = (state, params, beats) => {
   const inRole = roleOfGroup(oneOf('balance', 'in', params.in, ['larks', 'robins'] as const))!;
   const first = oneOf('balance', 'first', params.first ?? 'right', ['right', 'left'] as const);
   const sign = first === 'left' ? -1 : 1;
+  try {
+    return formLongWaves(state, inRole, sign, beats);
+  } catch (error) {
+    // Already holding a long wave (an allemande that ended in one): balance it.
+    if (error instanceof NotInSideLine && state.hands.length)
+      return heldBalance(state, beats, undefined, first);
+    throw error;
+  }
+};
+
+class NotInSideLine extends Error {}
+
+function formLongWaves(
+  state: Parameters<typeof balance>[0],
+  inRole: string,
+  sign: number,
+  beats: number,
+) {
   const plans = minorSets(state).flatMap((g) => {
     const middle = groupCenter(state, g);
     return g.map((id) => {
       const s = body(state, id);
       const off = s.position.x - middle.x;
-      if (Math.abs(off) < 0.5) throw new Error(`Dancer ${id} is not standing in a side line.`);
+      if (Math.abs(off) < 0.5) throw new NotInSideLine(`Dancer ${id} is not standing in a side line.`);
       const facingIn = off > 0 ? -Math.PI / 2 : Math.PI / 2;
       const yaw = roleOf(state, id) === inRole ? facingIn : facingIn + Math.PI;
       return { id, s, yaw, side: Math.sign(off) };
@@ -271,7 +320,7 @@ const longWaveBalance: Figure<BalanceParams> = (state, params, beats) => {
   const end = motion(beats).contacts;
   const kept = holds.filter((_, i) => end[i].strength > 0.5);
   return {
-    kind: 'wave-balance',
+    kind: 'wave-balance' as const,
     motion,
     exit: withChanges(settle(state, motion, beats), { hands: kept }),
   };
@@ -332,7 +381,7 @@ const pairBalance: Figure<BalanceParams> = (state, params, beats) => {
     const pb = body(state, b);
     const center = mix(pa.position, pb.position, 0.5);
     const span = length(sub(pa.position, pb.position));
-    if (span < 0.6 || span > 2.7)
+    if (span < 0.6 - 1e-6 || span > 2.7)
       throw new Error(`Dancers ${a} and ${b} are too far apart to balance.`);
     const holds: Hold[] = hands(hand).map(([ha, hb]) => ({ a, handA: ha, b, handB: hb }));
     const at = (id: number, beat: number) => {

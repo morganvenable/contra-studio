@@ -48,6 +48,8 @@ const TURN_RADIUS = 0.4;
 const CORNER_REACH = 0.9;
 /** Beats each dancer takes to face the next person at a turn's start. */
 const FACE_BEATS = 2;
+/** Share of a corner's turn after which it turns back to its own facing. */
+const CORNER_HOME = 0.55;
 
 interface Turn {
   /** Ids turning, rotating about their midpoint by `angle` (rotate() sense). */
@@ -193,18 +195,29 @@ export const contraCorners: Figure<ContraCornersParams> = (state, params, beats)
         // back to their own facing from there.
         const corner = !isActive.has(id);
         const blendIn = corner ? smooth(local / 0.5) : smooth((beat - starts[k]) / FACE_BEATS);
-        const u = corner ? Math.min(local, 0.65) : local;
+        const u = corner ? Math.min(local, CORNER_HOME) : local;
         // The line to the other dancer turns with the pair (a turn by angle
         // a changes a heading by -a), so follow it unwrapped from the start.
         const toward0 = heading(placeAt(t, id, 0), placeAt(t, other, 0));
-        const toward = was + turn(toward0, was) - t.angle * progress(u);
+        // Turning in to face the other dancer goes against the pair's turn
+        // when that is not much the longer way, so the two do not add up.
+        const short = turn(toward0, was);
+        const against = short - Math.sign(short) * TAU;
+        const into =
+          Math.sign(short) !== Math.sign(t.angle) && Math.abs(against) < 1.25 * Math.PI
+            ? against
+            : short;
+        const toward = was + into - t.angle * progress(u);
         const face = was + (toward - was) * blendIn;
-        if (!corner || local <= 0.65) {
+        if (!corner || local <= CORNER_HOME) {
           bodies.set(id, { ...me, yaw: face });
           continue;
         }
         const own = state.bodies.get(id)!.yaw;
-        bodies.set(id, { ...me, yaw: face + turn(own, face) * smooth((local - 0.65) / 0.35) });
+        bodies.set(id, {
+          ...me,
+          yaw: face + turn(own, face) * smooth((local - CORNER_HOME) / (1 - CORNER_HOME)),
+        });
       }
       contacts.push(
         withinReach(

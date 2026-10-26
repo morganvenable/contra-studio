@@ -172,8 +172,13 @@ test('hey rows with ricochets, diagonals and notes parse to one hey', () => {
     one('robins start a half hey - rights in center, lefts on ends and go to new neighbors').move,
     'hey',
   );
+  // Ending in long waves: the hey's own end; the balance after it forms them.
+  assert.equal(
+    one('robins start a half hey - rights in center, lefts on ends to long ocean wave').move,
+    'hey',
+  );
   assert.throws(
-    () => one('robins start a half hey - rights in center, lefts on ends to long ocean wave'),
+    () => one('robins start a half hey - rights in center, lefts on ends larks turn to the wall'),
     /adds/,
   );
 });

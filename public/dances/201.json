@@ -4,7 +4,7 @@
   {"move":"swing","beats":12,"params":{"who":"neighbor"},"text":"neighbors balance & swing · swing","section":"A1","row":1},
   {"move":"ocean-wave","beats":8,"params":{"middle":"robins","middleHand":"left","ends":"neighbor","endHand":"right","balance":true},"text":"pass through to an ocean wave & balance - robins by left in the center, neighbors by right on the sides","section":"A2","row":2},
   {"move":"allemande","beats":8,"params":{"who":"neighbor","hand":"right","amount":1.25},"text":"neighbors allemande right 1¼ to","section":"A2","row":3},
-  {"move":"balance","beats":4,"params":{"formation":"wave","style":"right-left"},"text":"balance the wave","section":"B1","row":5},
+  {"move":"balance","beats":4,"params":{"formation":"long-waves","in":"larks"},"text":"balance the wave","section":"B1","row":5},
   {"move":"pass-by","beats":2,"params":{"who":"larks","shoulder":"right","hands":false},"text":"larks pass by right shoulders","section":"B1","row":6},
   {"move":"swing","beats":10,"params":{"who":"partner"},"text":"partners swing","section":"B1","row":7},
   {"move":"balance","beats":4,"params":{"formation":"ring"},"text":"balance & petronella · balance","section":"B2","row":8},

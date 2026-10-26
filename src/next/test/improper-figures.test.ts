@@ -207,16 +207,11 @@ test('mad robin: the front role goes in toward the middle first, facing across, 
   assert.ok(Math.abs(robin.position.x) < Math.abs(pos(lines, 1).x) - 0.2, 'robin in front');
   assert.ok(Math.abs(lark.position.x) > Math.abs(pos(lines, 0).x) + 0.2, 'lark behind');
   facing(robin.yaw, yaw(lines, 1), 'robin still faces across');
-  // A written direction must agree with the front role: exactly one does here.
-  const agrees = (['clockwise', 'counterclockwise'] as const).filter((direction) => {
-    try {
-      FIGURES['mad-robin'](lines, { front: 'robins', direction }, 8);
-      return true;
-    } catch {
-      return false;
-    }
-  });
-  assert.equal(agrees.length, 1);
+  // A written direction is a reminder: the front role decides the turn.
+  for (const direction of ['clockwise', 'counterclockwise'] as const) {
+    const d = FIGURES['mad-robin'](lines, { front: 'robins', direction }, 8);
+    near(d.motion(2).bodies.find((b) => b.id === 1)!.position, robin.position);
+  }
 });
 
 test('gyre: neighbors go around by the right shoulder facing each other', () => {

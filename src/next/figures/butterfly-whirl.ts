@@ -50,21 +50,37 @@ export const butterflyWhirl: Figure<Record<string, never>> = (state, params, bea
   onlyKeys('butterfly whirl', params, []);
   const plans = minorSets(state).flatMap((g) => {
     const middle = mean(g.map((id) => body(state, id).position));
-    return pairsIn(state, g, 'partner').map(([a, b]) => {
+    const couples = pairsIn(state, g, 'partner').map(([a, b]) => {
       const lark = roleOf(state, a) === 'lark' ? a : b;
-      const robin = lark === a ? b : a;
+      return { lark, robin: lark === a ? b : a };
+    });
+    // Clockwise turn from the couple's facing to facing in on `side`.
+    const sweepTo = (d0: Vec2, side: number) => {
+      const d1 = scale(leftOf(side > 0 ? -Math.PI / 2 : Math.PI / 2), -SET.slot);
+      const sweep = positiveAngle(polar(d1) - polar(d0));
+      return sweep < Math.PI ? sweep + TAU : sweep;
+    };
+    // A couple standing in the middle (after a star promenade along the
+    // set) ends on the side the other couple is not heading to, or else on
+    // the side its whirl reaches first.
+    const sides = couples.map(({ lark, robin }) => {
+      const c = mean([body(state, lark).position, body(state, robin).position]);
+      return Math.abs(c.x - middle.x) < 0.15 ? 0 : Math.sign(c.x - middle.x);
+    });
+    couples.forEach(({ lark, robin }, i) => {
+      if (sides[i]) return;
+      const other = sides.find((s, j) => j !== i && s !== 0);
+      const d0 = sub(body(state, robin).position, body(state, lark).position);
+      sides[i] = other ? -other : sweepTo(d0, 1) <= sweepTo(d0, -1) ? 1 : -1;
+    });
+    return couples.map(({ lark, robin }, i) => {
       const pl = body(state, lark);
       const pr = body(state, robin);
       const c0 = mean([pl.position, pr.position]);
       const d0 = sub(pr.position, pl.position);
-      const side = Math.sign(c0.x - middle.x);
-      if (Math.abs(c0.x - middle.x) < 0.15)
-        throw new Error('A butterfly whirl ends on a side; this couple is in the middle.');
-      const yaw1 = side > 0 ? -Math.PI / 2 : Math.PI / 2;
+      const side = sides[i];
       const c1 = { x: middle.x + side * SET.halfWidth, z: c0.z };
-      const d1 = scale(leftOf(yaw1), -SET.slot);
-      let sweep = positiveAngle(polar(d1) - polar(d0));
-      if (sweep < Math.PI) sweep += TAU;
+      const sweep = sweepTo(d0, side);
       const yaw0 = coupleYaw(d0);
       return {
         lark,

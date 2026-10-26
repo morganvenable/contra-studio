@@ -57,6 +57,12 @@ export interface HallParams {
   end?: 'ring';
   /** Walk backward: face the other way from the way the lines travel. */
   backward?: boolean;
+  /**
+   * "Down the hall, ones turn as a couple, twos turn alone": these two,
+   * next to each other in the line, wheel as a couple; the others turn
+   * alone. Goes with turn: 'couple'.
+   */
+  couple?: '1s' | '2s' | 'larks' | 'robins';
 }
 
 /** How far the lines walk. */
@@ -78,7 +84,17 @@ interface Mover {
 }
 
 export const hall: Figure<HallParams> = (state, params, beats) => {
-  onlyKeys('hall', params, ['direction', 'turn', 'end', 'backward']);
+  onlyKeys('hall', params, ['direction', 'turn', 'end', 'backward', 'couple']);
+  const coupleOf =
+    params.couple === undefined
+      ? undefined
+      : oneOf('hall', 'couple', params.couple, ['1s', '2s', 'larks', 'robins'] as const);
+  if (coupleOf && params.turn !== 'couple')
+    throw new Error('Naming who turns as a couple goes with turning as a couple.');
+  const named = (id: number) =>
+    coupleOf === 'larks' || coupleOf === 'robins'
+      ? state.dancers[id].role === coupleOf.slice(0, -1)
+      : (state.positions.get(coupleOf ?? '') ?? []).includes(id);
   const direction = oneOf('hall', 'direction', params.direction, ['down', 'up'] as const);
   if (params.turn !== undefined) oneOf('hall', 'turn', params.turn, ['couple', 'alone'] as const);
   if (params.end !== undefined) oneOf('hall', 'end', params.end, ['ring'] as const);
@@ -98,16 +114,22 @@ export const hall: Figure<HallParams> = (state, params, beats) => {
     const c = groupCenter(state, g);
     const line = lineOrder(state, g, c, facing, direction, !!params.backward);
     const slot = (i: number) => add(c, scale(left, (1.5 - i) * LINE_GAP));
+    // The named two wheel together (next to each other in the line).
+    const wheel = coupleOf ? line.flatMap((id, i) => (named(id) ? [i] : [])) : [];
+    if (coupleOf && (wheel.length !== 2 || wheel[1] - wheel[0] !== 1))
+      throw new Error(`The ${coupleOf} must stand next to each other in the line to turn as a couple.`);
     line.forEach((id, i) => {
       const b = body(state, id);
-      const mate = i % 2 === 0 ? i + 1 : i - 1;
+      const mate = coupleOf ? (wheel.includes(i) ? wheel[0] + wheel[1] - i : i) : i % 2 === 0 ? i + 1 : i - 1;
+      const alone = params.turn === 'alone' || (!!coupleOf && !wheel.includes(i));
       const pairMiddle = add(mix(slot(i), slot(mate), 0.5), travel);
       const outer = i === 0 || i === line.length - 1;
       const ringCenter = add(c, travel);
       const end = (u: number, at: Vec2) => {
-        if (params.turn === 'alone') {
-          // Turn toward the neighbor in line: the left one of a pair turns right.
-          const sign = i % 2 === 0 ? -1 : 1;
+        if (alone) {
+          // Turn toward the neighbor in line: the left one of a pair turns
+          // right (an end beside a wheeling couple turns toward it).
+          const sign = coupleOf ? (i < wheel[0] ? -1 : 1) : i % 2 === 0 ? -1 : 1;
           return { position: at, yaw: facing + sign * Math.PI * ease(u) };
         }
         if (params.turn === 'couple') {

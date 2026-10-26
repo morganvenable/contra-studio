@@ -165,6 +165,24 @@ line each, for review.
 - Chevron ("larks chevron into neighbors' place"): neighbors trade places; the named role walks a V in toward the middle (passing the other of their role by the right), the others walk straight across a little to the outside.
 - Flaherty's "1/2 hey, robins start right shoulders, upon facing neighbor veer to right to face new neighbor": the half hey; the veer to the next neighbor is left to the next row.
 - "Star left 3 places and take both hands with your partner", "balance & petronella to a left hand star": the hands are the next figure's to take.
+- Rory O'More in long waves (after "form long waves" or a long-wave balance): each pair standing side by side along a side line, facing opposite ways with the slide hand toward each other, slides past; dancers with no one on that side (the ends) stay.
+- A zero-beat "form long waves - larks face in, robins face out" before "balance & Rory O'More": that balance forms the long waves, the named role facing in.
+- A hey "to long waves, larks facing out" (or "finish in long waves", "end in long lines"): the hey ends as usual, in the corners facing across; the wave balance after it forms the long waves, the role named facing in (or the other role, when the row names who faces out).
+- A gyre after a figure that leaves hands held: the gyring dancers let go as they start. Two gyres side by side (after lines forward) go round tighter so the pairs keep clear.
+- "Three-quarters hey": six passes, ending at the next meeting; "five changes of a hey": five passes (or until the meeting the row names).
+- Short hey wordings ("1/2 hey, larks start right shoulder", "half hey, larks start passing left, partners pass right, robins pass left", "hey, partners passing left shoulders to start"): a role starts in the middle by that shoulder, partners or neighbors start on the ends by it; the passes spelled out after are a reminder. A hey with no size is full in 12 beats or more, half otherwise.
+- "Until again facing neighbor": until the neighbors meet the second time; "until partners meet on the side of the set they started": the second meeting in a hey of 12 beats or more.
+- A zig zag of pairs standing side by side across the way they travel (after "circle right 3 places"): the pairs step far enough to the side that their near dancers pass clear.
+- Colonnade ("ones arch, colonnade!"): four trades of a quarter of the beats each, the two of one role by the right shoulder (the one not in the arch going under it), then the other role, then each again; the role named first ("robins trade") goes first, else the larks; "left colonnade" by the left. The arch itself is not drawn.
+- "Down the hall, ones turn as a couple, twos turn alone" (or "centers (ones) turn as a couple while ends turn alone", "larks wheel, robins turn alone"): the two named, next to each other in the line, wheel to the left as a couple; the others turn alone toward them.
+- A butterfly whirl from the middle of the set (after a star promenade along the set): the couple ends on the side the other couple is not heading to, or else on the side its clockwise whirl reaches first.
+- Mad robin with a direction in the row ("larks in front (clockwise)"): the role in front decides the turn; a direction that disagrees is read as seen from the dancers' side. "Ones in front" (one of the ones on each side line): each side line turns so its one goes in front, a mirrored mad robin when the two turn opposite ways.
+- Half poussette "pull back then left/right": the pairs go round the middle of the minor set the way that keeps them in it; a left or right that disagrees is read as seen from the other dancer.
+- "Partners Nevada twirl (robins twirl the larks to swap & face next neighbors)": a California twirl. "Robins turn out" (after a star): the robins turn alone.
+- "Ones split the twos, then cast home" / "return to place": the ones walk between the twos (who step apart and back), a little past, then separate and come back up the outside to their places, facing as they began.
+- Rory O'More in long waves goes on past the next dancer, never back past the one just slid past; at an end with no one to slide past, a dancer stays.
+- "Down the hall and turn as a couple, come back, bend line to circle" in 16 beats: down the hall and turn (half the beats), then up the hall and bend into a ring.
+- Gyre, roll away, petronella, Rory O'More, slice, twirl and butterfly whirl rows with a remark after the figure ("partners gyre once, then face neighbors across", "larks roll away neighbors (corner I)", "balance & petronella (doesn't matter where it takes you)", "slice left (long lines slice)"): the figure as usual; a remark that adds motion leaves the row undrawn.
 
 ## Relationships, hand turns, do-si-dos, swings, balances, waves, lines
 
