@@ -5,8 +5,8 @@
  "stored": 2422,
  "counts": {
   "ok": 714,
-  "check": 378,
-  "partial": 1330,
+  "check": 379,
+  "partial": 1329,
   "unsupported": 0
  },
  "formations": [
@@ -78,8 +78,8 @@
    "formation": "square dance",
    "dances": 23,
    "ok": 15,
-   "check": 0,
-   "partial": 8,
+   "check": 1,
+   "partial": 7,
    "unsupported": 0
   },
   {
@@ -1114,8 +1114,8 @@
    },
    {
     "name": "star variant",
-    "unlocks": 35,
-    "uses": 71
+    "unlocks": 34,
+    "uses": 70
    },
    {
     "name": "allemande variant",
@@ -1833,17 +1833,7 @@
     "uses": 1
    },
    {
-    "name": "other: active couple lead right",
-    "unlocks": 0,
-    "uses": 1
-   },
-   {
     "name": "other: actives lead through lonesome couple",
-    "unlocks": 0,
-    "uses": 1
-   },
-   {
-    "name": "other: actives cast back to home",
     "unlocks": 0,
     "uses": 1
    },
@@ -2199,11 +2189,6 @@
    },
    {
     "name": "other: ones and twos, right and left four over and back",
-    "unlocks": 0,
-    "uses": 1
-   },
-   {
-    "name": "other: active couple out to the right",
     "unlocks": 0,
     "uses": 1
    },
@@ -2920,7 +2905,7 @@
    },
    {
     "name": "allemande variant",
-    "unlocks": 28
+    "unlocks": 29
    },
    {
     "name": "ocean wave / long wave",

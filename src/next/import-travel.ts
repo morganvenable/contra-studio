@@ -291,7 +291,32 @@ function grandSquare(rows: readonly SourceRow[], parsed: Parsed) {
   });
 }
 
-export function joinTravelRows(rows: readonly SourceRow[], parsed: Parsed) {
+/**
+ * A square's chain of hands ("corners allemande left, partners pull by
+ * right, next allemande left 3/4 ...", Backup Star): a pull by right after an
+ * allemande is a change of a grand right and left, so the dancers face the
+ * next one coming; an allemande right after such a change is with the one
+ * they meet.
+ */
+function squareChain(parsed: Parsed) {
+  const calls = parsed.flatMap((p) => (Array.isArray(p) ? p : []));
+  for (let n = 1; n < calls.length; n++) {
+    const before = calls[n - 1];
+    const c = calls[n];
+    if (c.move === 'pass-by' && c.params.hands && before.move === 'allemande' && before.params.hand === 'left' && before.params.amount === 1)
+      Object.assign(c, {
+        move: 'grand-right-left',
+        params: { changes: 1, hand: c.params.shoulder ?? 'right', end: 'face' },
+      });
+    else if (c.move === 'allemande' && before.move === 'grand-right-left' && before.params.end === 'face') {
+      const { who: _who, ...rest } = c.params as Record<string, unknown>;
+      Object.assign(c, { move: 'meet', params: { figure: 'allemande', params: rest, pair: 'facing' } });
+    }
+  }
+}
+
+export function joinTravelRows(rows: readonly SourceRow[], parsed: Parsed, formation?: string) {
+  if (formation === 'square') squareChain(parsed);
   grandSquare(rows, parsed);
   downAndUp(parsed);
   downAndBack(rows, parsed);

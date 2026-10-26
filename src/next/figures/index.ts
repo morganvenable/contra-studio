@@ -68,6 +68,7 @@ import { makeSimultaneous } from './simultaneous.ts';
 import { grandSquare } from './grand-square.ts';
 import { sashayAlong } from './sashay-along.ts';
 import { topToBottom } from './top-to-bottom.ts';
+import { visit, visitingOf } from './square/visit.ts';
 
 const BASE: FigureRegistry = {
   allemande,
@@ -135,7 +136,29 @@ const BASE: FigureRegistry = {
   'grand-square': grandSquare,
   'sashay-along': sashayAlong,
   'top-to-bottom': topToBottom,
+  visit,
 };
+
+/**
+ * While a couple visits another in a square (figures/square/visit.ts), the
+ * square's own versions of these figures give way to the contra ones,
+ * danced by the four in their minor set.
+ */
+const VISITING: Readonly<Record<string, string>> = {
+  'ring-circle': 'circle',
+  'square-swing': 'swing',
+  'square-balance': 'balance',
+  'square-do-si-do': 'do-si-do',
+  'ring-promenade': 'promenade',
+  'ring-roll-away': 'roll-away',
+};
+for (const [square, contra] of Object.entries(VISITING)) {
+  const own = BASE[square];
+  const plain = BASE[contra];
+  if (!own || !plain) continue;
+  (BASE as Record<string, typeof own>)[square] = (state, params, beats) =>
+    visitingOf(state) ? plain(state, params, beats) : own(state, params, beats);
+}
 
 /**
  * Every figure, each also able to run on a diagonal (core/diagonal.ts),
@@ -144,6 +167,10 @@ const BASE: FigureRegistry = {
  */
 export const FIGURES: FigureRegistry = Object.freeze(
   Object.fromEntries(
-    Object.entries(BASE).map(([move, f]) => [move, inLayout(move, onDiagonal(withRelations(f)))]),
+    Object.entries(BASE).map(([move, f]) => [
+      move,
+      // A visit changes who dances together itself (figures/square/visit.ts).
+      move === 'visit' ? f : inLayout(move, onDiagonal(withRelations(f))),
+    ]),
   ),
 );

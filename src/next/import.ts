@@ -617,7 +617,7 @@ export function importDance(id: string, snapshot: ContraDbSnapshot, sha256: stri
   });
   repeatSections(rows, parsed);
   joinWhile(rows, parsed);
-  joinTravelRows(rows, parsed);
+  joinTravelRows(rows, parsed, shape?.formation);
   joinLeadIns(parsed);
   startAsTold(parsed, html);
   rows.forEach((row, i) => {

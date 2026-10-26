@@ -480,6 +480,21 @@ const PATTERNS: readonly (readonly [RegExp, Build])[] = [
     (_m, b) => [call('top-to-bottom', b, {})],
   ],
 
+  // ---- Visiting couples in a square (figures/square/visit.ts) ----
+  [/^(?:the )?active couple (?:lead|leads|out) (?:to the )?right$/, (_m, b) => [call('visit', b, { to: 'right' })]],
+  [/^(?:the )?actives? (?:couple )?(?:on )?to the next(?: couple)?$/, (_m, b) => [call('visit', b, { to: 'next' })]],
+  [/^(?:the )?actives? (?:couple )?(?:cast back |go |lead )?(?:back )?(?:to )?home$/, (_m, b) => [call('visit', b, { to: 'home' })]],
+
+  [
+    // A backup star: the four of one role in the middle with left hands in,
+    // the ones they just turned beside them outside, the star backing up
+    // half round (figures/square/star-wheel.ts).
+    /^backup star,? (larks|robins) in the middle,? (?:larks|robins) on the outside$/,
+    (m, b) => [
+      call('star-promenade', b, { hand: 'left', amount: 0.5, center: m[1], backing: true, pairs: 'nearest' }),
+    ],
+  ],
+
   // ---- Chainsaw promenade: the set goes round its long oval like a chainsaw's chain ----
   [/^chainsaw promenade (left|right)$/, as('neighbors promenade along the set on the $1')],
   [/^chainsaw promenade back to the (left|right)$/, as('neighbors promenade along the set on the $1')],

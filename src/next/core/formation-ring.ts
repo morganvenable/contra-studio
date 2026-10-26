@@ -108,7 +108,18 @@ export const MIXER_PROGRESSION: Progression = {
       .set('partner', partner)
       .set('neighbor', neighbor)
       .set('corner', neighbor);
-    return withChanges(state, { relations, epoch: state.epoch + 1 });
+    // In a square the next couple round becomes the active (visiting) couple.
+    const actives = state.positions.get('actives');
+    const positions = actives
+      ? new Map(state.positions).set(
+          'actives',
+          (() => {
+            const c = (state.dancers[actives[0]].couple + 1) % (state.dancers.length / 2);
+            return [c * 2, c * 2 + 1];
+          })(),
+        )
+      : state.positions;
+    return withChanges(state, { relations, positions, epoch: state.epoch + 1 });
   },
 };
 
@@ -192,6 +203,8 @@ function ring(
         const ids = (cs: number[]) => cs.flatMap((c) => [c * 2, c * 2 + 1]);
         positions.set('heads', ids([0, 2])).set('sides', ids([1, 3]));
         for (let c = 0; c < 4; c++) positions.set(`${c + 1}s`, ids([c]));
+        // The active (visiting) couple: couple 1 the first time through.
+        positions.set('actives', ids([0]));
         // Opposites: the dancer of the other role in the couple across.
         const opposite = new Map<number, number>();
         for (let c = 0; c < 4; c++) {
