@@ -48,6 +48,11 @@ export interface Layout {
   readonly lines?: 'facing';
   /** Each dancer's home place (a square, a ring), for "promenade home". */
   readonly homes?: ReadonlyMap<number, Vec2>;
+  /**
+   * Each group dances on its own, as if it were the whole set (triple minor:
+   * a cast or a star with no places stays inside its minor set).
+   */
+  readonly separate?: boolean;
 }
 
 /** World <-> local: local = rotate(world + shift - origin, angle); yaw' = yaw - angle. */

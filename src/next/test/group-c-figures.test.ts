@@ -139,7 +139,11 @@ test('rows that carry notes read as the figure they name', () => {
   assert.deepEqual(row('ladles left-hand chain to partner'), [
     { move: 'chain', beats: 8, params: { who: 'robins', hand: 'left', to: 'partner' } },
   ]);
-  assert.throws(() => row('circle left 3 places and collapse to a wave'), /No figure pattern/);
+  // The circle, then the last 2 beats open into a wave of four (parse-travel.ts).
+  assert.deepEqual(
+    row('circle left 3 places and collapse to a wave').map((c) => c.move),
+    ['circle', 'ocean-wave'],
+  );
 });
 
 test('rows that name two figures split, the first taking its natural share', () => {

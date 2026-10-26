@@ -6,8 +6,7 @@
   {"move":"allemande","beats":8,"params":{"who":"partner","hand":"left","amount":1},"text":"partners allemande left once","section":"A2","row":4},
   {"move":"two-hand-turn","beats":8,"params":{"who":"partner","amount":1},"text":"partners two hand turn","section":"B1","row":5},
   {"move":"do-si-do","beats":8,"params":{"who":"partner","amount":1,"shoulder":"right"},"text":"partners do si do once","section":"B1","row":6},
-  {"move":"center-travel","beats":8,"params":{"who":"1s","style":"sashay","legs":["down"]},"text":"ones down the center sashay","section":"B2","row":7},
-  {"move":"center-travel","beats":8,"params":{"who":"1s","style":"sashay","legs":["up"]},"text":"ones up the center sashay","section":"B2","row":8},
+  {"move":"center-travel","beats":16,"params":{"who":"1s","style":"sashay","legs":["down","top"]},"text":"ones down the center sashay, ones up the center sashay","section":"B2","row":7},
   {"move":"peel","beats":8,"params":{"who":"1s","part":"cast"},"text":"ones down the outsides, followed by twos threes fours,","section":"B2","row":9},
   {"move":"peel","beats":8,"params":{"who":"bottom","part":"through"},"text":"twos up the center under the arch, followed by threes fours","progression":true,"section":"B2","row":11}
  ]

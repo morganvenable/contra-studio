@@ -94,8 +94,11 @@ export const ringShift: Figure<RingShiftParams> = (state, params, beats) => {
     const inward = faceIn(ring, position);
     let twist: number;
     if (path === 'inside') {
-      const bump = Math.min(smooth(t / TURN_SHARE), smooth((1 - t) / TURN_SHARE));
-      twist = p.startTwist * (1 - smooth(t / TURN_SHARE)) + sense * (Math.PI / 2) * bump;
+      // A dancer starting turned away (facing out after a turn alone) unwinds
+      // over a longer share, at a walking turn rate.
+      const share = Math.min(0.45, Math.max(TURN_SHARE, (1.5 * Math.abs(p.startTwist)) / (2.5 * beats)));
+      const bump = Math.min(smooth(t / share), smooth((1 - t) / TURN_SHARE));
+      twist = p.startTwist * (1 - smooth(t / share)) + sense * (Math.PI / 2) * bump;
     } else {
       // In facing in, turn over the shoulder in the middle and on, walking
       // out, to face the new partner: one and a half turns in all.

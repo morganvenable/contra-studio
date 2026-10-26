@@ -23,6 +23,11 @@ export interface WaitingCouple {
   readonly crossed: boolean;
   /** True while the couple is crossing over (figures leave it be). */
   readonly crossing?: boolean;
+  /**
+   * Kept in its place by ghosts (ghosts.ts): the fold marks it so for the
+   * figure it runs, which then need not guess whether it is in step.
+   */
+  readonly ghosts?: boolean;
   /** Changing ends round the middle of its ghost minor set (ghosts.ts). */
   readonly ghostTurn?: GhostTurn;
 }

@@ -52,6 +52,10 @@ export interface StarWheelParams {
   amount?: number;
   /** Who is in the middle; else whoever stands nearer it. */
   center?: 'larks' | 'robins';
+  /** A backup star: the wheel turns the other way, the middle ones backing up. */
+  backing?: boolean;
+  /** Who rides each spoke together: partners, or the nearest of the other role (the one just turned). */
+  pairs?: 'partner' | 'nearest';
 }
 
 /** Distance from the one in the star to the partner outside. */
@@ -61,12 +65,26 @@ const GATHER = 0.4;
 const TURN_BEATS = 2;
 
 /** Couples [inside, outside] of a wheel, by who is nearer the middle. */
-function spokes(state: DanceState, ids: readonly number[], center?: 'larks' | 'robins') {
+function spokes(
+  state: DanceState,
+  ids: readonly number[],
+  center?: 'larks' | 'robins',
+  nearest = false,
+) {
   const r = (id: number) => length(sub(body(state, id).position, RING_CENTER));
   const larks = ids.filter((id) => state.dancers[id].role === 'lark');
   if (larks.length !== 4) throw new Error('A star promenade here needs four couples.');
   const pairs = larks.map((l) => {
-    const p = partnerOf(state, l);
+    const p = nearest
+      ? ids
+          .filter((id) => state.dancers[id].role !== 'lark')
+          .reduce((a, b) =>
+            distance(body(state, a).position, body(state, l).position) <=
+            distance(body(state, b).position, body(state, l).position)
+              ? a
+              : b,
+          )
+      : partnerOf(state, l);
     if (!ids.includes(p) || distance(body(state, l).position, body(state, p).position) > 2.6)
       throw new Error('Partners make the star promenade together.');
     return [l, p] as const;
@@ -79,7 +97,7 @@ function spokes(state: DanceState, ids: readonly number[], center?: 'larks' | 'r
 }
 
 export function starWheel(state: DanceState, params: StarWheelParams, beats: number): FigureResult {
-  onlyKeys('star promenade', params, ['hand', 'amount', 'center']);
+  onlyKeys('star promenade', params, ['hand', 'amount', 'center', 'backing', 'pairs']);
   const hand = oneOf('star promenade', 'hand', params.hand, ['left', 'right'] as const);
   const amount = params.amount ?? 0.5;
   if (!(amount >= 0 && amount <= 3)) throw new Error('A star promenade goes up to three times round.');
@@ -87,10 +105,13 @@ export function starWheel(state: DanceState, params: StarWheelParams, beats: num
   // Outside a ring or square: the ordinary star.
   if (!state.layout?.center) return FIGURES.star(state, { hand, places: amount * 4 }, beats);
   const ids = minorSets(state).flat();
-  const pairs = spokes(state, ids, params.center);
-  // Left hands in turn counterclockwise from above: a negative rotation.
-  const sweep = (hand === 'right' ? 1 : -1) * amount * TAU;
+  const pairs = spokes(state, ids, params.center, params.pairs === 'nearest');
+  // Left hands in turn counterclockwise from above: a negative rotation
+  // (the other way round backing up).
+  const sweep = (hand === 'right' ? 1 : -1) * (params.backing ? -1 : 1) * amount * TAU;
   const along = hand === 'right' ? Math.PI / 2 : -Math.PI / 2;
+  // A backup star stands a little wider, so the turns out of it clear the middle.
+  const radius = STAR_RADIUS + (params.backing ? 0.15 : 0);
   const plans = pairs.map(([inside, outside]) => {
     const a = body(state, inside);
     const b = body(state, outside);
@@ -99,8 +120,8 @@ export function starWheel(state: DanceState, params: StarWheelParams, beats: num
       const u = { x: Math.cos(theta), z: Math.sin(theta) };
       const yaw = heading(u, { x: 0, z: 0 }) + along;
       return {
-        inside: add(RING_CENTER, scale(u, STAR_RADIUS)),
-        outside: add(RING_CENTER, scale(u, STAR_RADIUS + SPOKE)),
+        inside: add(RING_CENTER, scale(u, radius)),
+        outside: add(RING_CENTER, scale(u, radius + SPOKE)),
         yaw,
       };
     };

@@ -18,7 +18,8 @@ export interface PhysicalReport {
   readonly problems: readonly string[];
   /**
    * Styled motion (the Rory twirl, flourishes) is reported, not failed, for
-   * turn rate: how fast it turns and how close dancers come while it runs.
+   * turn rate: how fast it turns and how close dancers come while it runs;
+   * a styled fast move (Styling.fast) for speed too.
    */
   readonly styled: readonly StyledReport[];
 }
@@ -29,6 +30,7 @@ export interface StyledReport {
   readonly figureIndex: number;
   readonly maximumYawRate: number;
   readonly minimumClearance: number;
+  readonly maximumSpeed: number;
 }
 
 export interface CheckOptions {
@@ -95,7 +97,7 @@ export function physicalCheck(
         const speed = distance(p.position, q.position) / step;
         const yawRate = Math.abs(turn(p.yaw, q.yaw)) / step;
         maximumSpeed = Math.max(maximumSpeed, speed);
-        if (speed > limits.maximumSpeed)
+        if (speed > limits.maximumSpeed && !styling?.fast)
           note(beat, `dancer ${p.id} moves ${speed.toFixed(2)} m/beat`);
         if (styling) {
           const was = styled.get(key);
@@ -105,6 +107,7 @@ export function physicalCheck(
             figureIndex: frame.figureIndex,
             maximumYawRate: Math.max(was?.maximumYawRate ?? 0, yawRate),
             minimumClearance: Math.min(was?.minimumClearance ?? Infinity, frameClearance),
+            maximumSpeed: Math.max(was?.maximumSpeed ?? 0, speed),
           });
           continue;
         }

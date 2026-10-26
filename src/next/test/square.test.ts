@@ -324,3 +324,25 @@ test('heads cross trail and go around two; partners meet from across to swing', 
   );
   assert.ok(v.ok, JSON.stringify(v));
 });
+
+test('visiting couple: the actives lead right and circle with that couple, then go home', async () => {
+  const { FORMATIONS } = await import('../core/formation.ts');
+  const { foldRound } = await import('../core/fold.ts');
+  const { FIGURES } = await import('../figures/index.ts');
+  const { body } = await import('../core/state.ts');
+  const s0 = FORMATIONS.square.start(4);
+  const c = (move: string, beats: number, params: Record<string, unknown>) => ({ move, beats, params });
+  const visited = foldRound(
+    [c('visit', 4, { to: 'right' }), c('ring-circle', 8, { direction: 'left', places: 2 })],
+    s0,
+    FIGURES,
+  ).end;
+  assert.deepEqual([...visited.groups[0]].sort(), [0, 1, 2, 3]);
+  const home = foldRound([c('visit', 4, { to: 'home' })], visited, FIGURES).end;
+  for (const id of [0, 1]) {
+    const p = body(home, id).position;
+    const q = body(s0, id).position;
+    assert.ok(Math.hypot(p.x - q.x, p.z - q.z) < 1e-6, `dancer ${id} home`);
+  }
+  assert.equal(home.groups[0].length, 8);
+});

@@ -26,14 +26,16 @@ function configureBounds(){
 async function startPlaying(){const generation=++playGeneration;playPending=true;controlError=undefined;try{configureBounds();await audio.play();}catch(error){failed(error);}finally{if(generation===playGeneration)playPending=false;syncClock();}}
 function pause(){++playGeneration;playPending=false;audio.pause();syncClock();}
 function seek(beat:number){audio.setLoop(null);audio.seek(Math.max(0,Number.isFinite(beat)?beat:0));configureBounds();syncClock();}
-function loadDance(dance:Dance,couples=state.dancers.length/2){
+/** Couples the viewer chose; until then each dance shows its formation's own display size. */
+let chosenCouples:number|undefined;
+function loadDance(dance:Dance,couples=chosenCouples){
  const next=compileWithEngine(dance,couples,compileChoreography);pause();loopFigure=false;compiled=next;
  state.swingPresentationStatus=undefined;state.dance=isNextCompiled(next)?next.dance:dance;state.totalBeats=next.totalBeats;state.dancers=next.dancers;if(state.selectedDancer>=next.dancers.length)state.selectedDancer=-1;
  audio.setLoop(null);audio.seek(0);configureBounds();state.repeat=0;state.figureIndex=0;state.figureProgress=0;state.warnings=next.warnings;
  if(!state.dances.some(d=>d.id===dance.id))state.dances.push(dance);scene?.setDance(next);syncClock();
 }
 const actions:StudioActions={
- setCouples(count){if(!Number.isInteger(count)||count<2||count>12)throw new Error('Choose 2–12 couples.');loadDance(state.dance,count);},
+ setCouples(count){if(!Number.isInteger(count)||count<2||count>12)throw new Error('Choose 2–12 couples.');chosenCouples=count;loadDance(state.dance,count);},
  playPause(){if(audio.snapshot().playing||playPending)pause();else void startPlaying();},
  reset(){run(()=>{pause();loopFigure=false;audio.setLoop(null);audio.seek(0);configureBounds();});},
  seek(beat){run(()=>seek(beat));},setBpm(n){run(()=>audio.setTempo(Math.min(160,Math.max(60,n)),state.speed));},setSpeed(n){run(()=>audio.setTempo(state.bpm,Math.min(2,Math.max(.25,n))));},

@@ -20,6 +20,7 @@ import { placeLabels } from './progression-more.ts';
 import { BIG_CIRCLE, CIRCLE_MIXER, SQUARE } from './formation-ring.ts';
 import { THREE_FACE_THREE } from './formation-trios.ts';
 import { GROUPS_FORMATIONS } from './formation-groups.ts';
+import { TRIPLE_MINOR_SET } from './formation-triple.ts';
 import type { Body, DanceState, WaitingCouple } from './state.ts';
 
 export const partnerMap = (dancers: readonly Dancer[]) =>
@@ -212,6 +213,7 @@ export const FOUR_FACE_FOUR: Formation = {
   // Four lines (16 dancers) at least, so two pairs of lines face each other.
   couples: { min: 8, max: 16 },
   fit: (couples) => Math.max(8, couples - (couples % 2)),
+  display: 8,
   moves: { 'long-lines': 'forward-back', circle: 'lines-circle', swing: 'lines-swing' },
   check: {
     counts: [8, 12],
@@ -285,7 +287,7 @@ export const FOUR_FACE_FOUR: Formation = {
 
 export const MORE_FORMATIONS: Readonly<Record<string, Formation>> = {
   triplet: TRIPLET,
-  'triple-minor': TRIPLE_MINOR,
+  'triple-minor': TRIPLE_MINOR_SET,
   'longways-set': LONGWAYS_SET,
   'longways-four': LONGWAYS_FOUR,
   sicilian: SICILIAN,

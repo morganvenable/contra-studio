@@ -160,7 +160,12 @@ function runFigure(
   if (!figure) throw new Error(`No figure named "${call.move}".`);
   let result: FigureResult;
   try {
-    result = figure(state, call.params, call.beats);
+    // Waiting couples kept in place by ghosts are marked so for the figure.
+    const input =
+      ghosts && state.waiting.length
+        ? withChanges(state, { waiting: state.waiting.map((w) => ({ ...w, ghosts: true })) })
+        : state;
+    result = figure(input, call.params, call.beats);
   } catch (error) {
     const why = error instanceof Error ? error.message : String(error);
     throw new Error(`Figure ${index + 1} (${call.text ?? call.move}): ${why}`);

@@ -14,6 +14,7 @@ import type { StoredCall, StoredDance, UnparsedRow } from './dance.ts';
 import { FORMATIONS } from './core/formation.ts';
 import { GROUPS_FORMATION_TEXT } from './core/formation-groups.ts';
 import { joinHandRows } from './import-hands.ts';
+import { joinTravelRows, wholeSetShape } from './import-travel.ts';
 
 export interface ContraDbSnapshot {
   readonly sourceUrl: string;
@@ -153,12 +154,12 @@ export const FORMATION_TEXT: Readonly<Record<string, Shape>> = {
   singlet: { formation: 'improper', progression: 'duple-minor' },
   'solo/couple': { formation: 'improper', progression: 'duple-minor' },
   // Triple minor and its relatives, drawn as one minor set of three couples.
-  'triple minor': { formation: 'triple-minor', progression: 'places' },
-  'triple proper': { formation: 'triple-minor', progression: 'places' },
-  'triple minor dutribecket': { formation: 'triple-minor', progression: 'places' },
-  'triad (triple minor dutribecket)': { formation: 'triple-minor', progression: 'places' },
-  'triple minor, triad formation': { formation: 'triple-minor', progression: 'places' },
-  triad: { formation: 'triple-minor', progression: 'places' },
+  'triple minor': { formation: 'triple-minor', progression: 'triple-minor' },
+  'triple proper': { formation: 'triple-minor', progression: 'triple-minor' },
+  'triple minor dutribecket': { formation: 'triple-minor', progression: 'triple-minor' },
+  'triad (triple minor dutribecket)': { formation: 'triple-minor', progression: 'triple-minor' },
+  'triple minor, triad formation': { formation: 'triple-minor', progression: 'triple-minor' },
+  triad: { formation: 'triple-minor', progression: 'triple-minor' },
   // One-off qualifiers of built formations (docs/figure-readings.md).
   'indecent becket cw gents change place with partner': {
     formation: 'becket-indecent',
@@ -713,8 +714,8 @@ function namedProgression(figures: StoredCall[], shape: Shape | undefined) {
 export function importDance(id: string, snapshot: ContraDbSnapshot, sha256: string): StoredDance {
   const html = snapshot.html;
   const meta = contraDbMeta(html);
-  const shape = shapeOf(meta.formation);
   const rows = contraDbRows(html);
+  const shape = wholeSetShape(rows, shapeOf(meta.formation)) as Shape | undefined;
   const figures: StoredCall[] = [];
   const unparsed: UnparsedRow[] = [];
   const parts: { name: string; bars: number }[] = [];
@@ -732,6 +733,7 @@ export function importDance(id: string, snapshot: ContraDbSnapshot, sha256: stri
   repeatSections(rows, parsed);
   joinWhile(rows, parsed);
   joinHandRows(rows, parsed);
+  joinTravelRows(rows, parsed, shape?.formation);
   joinLeadIns(parsed);
   longWavesToBalance(rows, parsed);
   startAsTold(parsed, html);

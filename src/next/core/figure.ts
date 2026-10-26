@@ -47,6 +47,11 @@ export interface FigureResult {
 /** A named styled motion inside a figure, such as "Rory twirl". */
 export interface Styling {
   readonly name: string;
+  /**
+   * A move the source asks for faster than a walk (a full promenade in 8
+   * beats): its speed is reported with the styling, not failed.
+   */
+  readonly fast?: boolean;
 }
 
 export type Figure<P> = (state: DanceState, params: P, beats: number) => FigureResult;

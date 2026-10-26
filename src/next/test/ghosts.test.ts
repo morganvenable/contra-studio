@@ -132,3 +132,22 @@ test('the check stores a crossing progression only when it works out better', ()
   assert.equal(check.status, 'ok');
   assert.equal(check.progression, undefined);
 });
+
+test('figures see which waiting couples ghosts keep in place', () => {
+  const seen = (progression: typeof MINOR_SET_PROGRESSION) => {
+    const waiting: boolean[] = [];
+    const registry = {
+      ...FIGURES,
+      swing: ((state, params, beats) => {
+        for (const w of state.waiting) waiting.push(!!w.ghosts);
+        return FIGURES.swing(state, params, beats);
+      }) as (typeof FIGURES)['swing'],
+    };
+    foldRound(CIRCLE_PASS, BECKET.start(3), registry, progression);
+    return waiting;
+  };
+  const kept = seen(MINOR_SET_PROGRESSION);
+  assert.ok(kept.length > 0 && kept.every(Boolean));
+  const crossing = seen(MINOR_SET_CROSSING);
+  assert.ok(crossing.length > 0 && !crossing.some(Boolean));
+});

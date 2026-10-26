@@ -1,4 +1,4 @@
-{ "schema": "contra-studio/next-dance", "version": 2, "id": "61", "title": "Galopede", "author": "Chestnut", "formation": "improper", "progression": "duple-minor", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/61", "formation": "improper or proper", "retrievedAt": "2026-10-20T05:56:58.913Z", "sha256": "5f5a18ccee5dd863c6893f2c4db4bd53ab572632547d424cecae0cfd2128b51e" }, "status": "partial", "problems": [ "Row 9 \"top couple sashay to bottom of set - others move up\" isn't drawn yet." ], "unparsed": [ { "row": 9, "text": "top couple sashay to bottom of set - others move up", "why": "No figure pattern matches \"top couple sashay to bottom of set - others move up ⁋\"." } ], "choices": [ "Pass through goes by right shoulders." ],
+{ "schema": "contra-studio/next-dance", "version": 2, "id": "61", "title": "Galopede", "author": "Chestnut", "formation": "longways-set", "progression": "places", "music": { "meter": "2/4", "parts": [ { "name": "A1", "bars": 8 }, { "name": "A2", "bars": 8 }, { "name": "B1", "bars": 8 }, { "name": "B2", "bars": 8 } ], "times": "repeat" }, "source": { "url": "https://contradb.com/dances/61", "formation": "improper or proper", "retrievedAt": "2026-10-20T05:56:58.913Z", "sha256": "5f5a18ccee5dd863c6893f2c4db4bd53ab572632547d424cecae0cfd2128b51e" }, "status": "ok", "problems": [], "unparsed": [], "choices": [ "Pass through goes by right shoulders." ],
  "figures": [
   {"move":"long-lines","beats":8,"params":{"back":true},"text":"long lines forward & back","section":"A1","row":1},
   {"move":"pass-through","beats":4,"params":{"shoulder":"right","axis":"across"},"text":"pass through across the set","section":"A1","row":2},
@@ -8,6 +8,6 @@
   {"move":"turn-alone","beats":4,"params":{},"text":"turn alone","section":"A2","row":6},
   {"move":"do-si-do","beats":8,"params":{"who":"partner","amount":1,"shoulder":"right"},"text":"partners do si do once","section":"B1","row":7},
   {"move":"swing","beats":8,"params":{"who":"partner"},"text":"partners swing","section":"B1","row":8},
-  {"move":"hold","beats":16,"params":{"reason":"unparsed"},"text":"top couple sashay to bottom of set - others move up","section":"B2","row":9,"progression":true}
+  {"move":"center-travel","beats":16,"params":{"who":"top","style":"sashay","legs":["bottom"]},"text":"top couple sashay to bottom of set - others move up","progression":true,"section":"B2","row":9}
  ]
 }

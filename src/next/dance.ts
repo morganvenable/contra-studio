@@ -8,6 +8,8 @@
  * (with a small public/dances/index.json). The app fetches one by id and
  * registers it here before compiling; nothing is bundled.
  */
+import { TRIPLE_MINOR_PROGRESSION } from './core/formation-triple.ts';
+import { ROWS_PROGRESSION } from './core/progression-rows.ts';
 import type { Dance } from '../types.ts';
 import type { FigureCall } from './core/figure.ts';
 import { compileFold, type FoldedDance } from './core/fold.ts';
@@ -127,6 +129,8 @@ const PROGRESSIONS: Readonly<Record<Progression['kind'], Progression>> = {
   lines: LINES_PROGRESSION,
   mixer: MIXER_PROGRESSION,
   trios: TRIOS_PROGRESSION,
+  'triple-minor': TRIPLE_MINOR_PROGRESSION,
+  'becket-rows': ROWS_PROGRESSION,
   ...(GROUPS_PROGRESSIONS as unknown as Record<string, Progression>),
 } as Readonly<Record<Progression['kind'], Progression>>;
 
@@ -166,12 +170,14 @@ export const formationBuilt = (stored: StoredDance) =>
  */
 export function compileNext(
   stored: StoredDance,
-  couples = 6,
+  couples?: number,
   base?: Dance,
   options: CompileOptions = {},
 ): FoldedDance {
   const built = formationBuilt(stored);
   const formation = FORMATIONS[built ? stored.formation! : 'improper'];
+  // Unless a count is asked for, the formation's own display size.
+  couples ??= formation.display ?? 6;
   // A fixed-size set (a triplet, a square) dances with its own couple count.
   couples = Math.min(formation.couples.max, Math.max(formation.couples.min, couples));
   if (formation.fit) couples = formation.fit(couples);
