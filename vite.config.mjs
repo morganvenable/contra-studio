@@ -18,6 +18,7 @@ export default {
       input: {
         studio: fileURLToPath(new URL('./index.html', import.meta.url)),
         timing: fileURLToPath(new URL('./timing-lab.html', import.meta.url)),
+        figures: fileURLToPath(new URL('./figures.html', import.meta.url)),
       },
     },
   },
