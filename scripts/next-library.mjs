@@ -1,7 +1,8 @@
 // Import every ContraDB snapshot into the next engine's stored-dance format
 // and run the full corpus check, writing:
 //   public/dances/<id>.json   one stored dance (FigureCalls + source reference)
-//   public/dances/index.json  id, title, author, formation, status, note
+//   public/dances/index.json  id, title, author, formation, layout, moves,
+//                             status, note
 //   docs/next-library-status.json  counts, missing snapshots, blockers ranked
 //
 // node --experimental-strip-types scripts/next-library.mjs [--only=1,2,3] [--snapshots=<dir>]
@@ -164,6 +165,8 @@ const entryOf = (d) => ({
   title: d.title,
   author: d.author,
   formation: d.source.formation,
+  ...(d.formation ? { layout: d.formation } : {}),
+  moves: [...new Set(d.figures.map((f) => f.move))].sort(),
   status: d.status,
   ...(d.status !== 'ok' && d.problems.length ? { note: d.problems[0] } : {}),
 });
