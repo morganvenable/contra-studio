@@ -11,6 +11,7 @@ import type { LibraryEntry } from '../dance.ts';
 import {
   FIGURE_GROUPS,
   emptyFilter,
+  facetCounts,
   figuresOf,
   matchesFilter,
   styleOf,
@@ -60,4 +61,25 @@ test('filters keep unfinished dances and require every chosen figure', () => {
   assert.ok(new Set(both.map((e) => e.status)).size > 1);
   f.figures.add('petronella');
   assert.ok(index.filter((e) => matchesFilter(e, f)).length < both.length);
+});
+
+test('each count is what the list would show if that choice were added', () => {
+  const f = emptyFilter();
+  f.style = 'contra';
+  const counts = facetCounts(index, f);
+  // Strip the willow is only in a triplet, so under Contra it counts 0.
+  assert.equal(counts.figures.get('strip-the-willow') ?? 0, 0);
+  for (const [id, n] of counts.figures) {
+    const g = emptyFilter();
+    g.style = 'contra';
+    g.figures.add(id);
+    assert.equal(index.filter((e) => matchesFilter(e, g)).length, n, id);
+  }
+  // A style count ignores the chosen style but keeps the other filters.
+  f.figures.add('cast');
+  const withCast = facetCounts(index, f);
+  const g = emptyFilter();
+  g.style = 'english';
+  g.figures.add('cast');
+  assert.equal(withCast.style.get('english'), index.filter((e) => matchesFilter(e, g)).length);
 });

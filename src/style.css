@@ -67,6 +67,7 @@ a.nav-item { display: inline-flex; align-items: center; text-decoration: none; }
 .filter-figure input{accent-color:var(--green);margin:0}
 .filter-figure span{flex:1;min-width:0}
 .filter-figure small{font-size:10px;color:var(--muted)}
+.filter-figure.is-empty{opacity:.45;cursor:default}
 .library-filters .text-button{margin-left:0;align-self:center;padding:8px 0}
 @media(max-width:500px){.filter-figures{flex-basis:100%}.filter-figure-grid{width:100%}}
 .next-library-card{flex-direction:row;align-items:center}

@@ -19,7 +19,7 @@ import {squareThroughDescription} from './source-square-through.ts';
 import {CONVENTIONAL_RING_TWIRL,RING_TWIRL_CHOICE_DESCRIPTION} from './ring-twirl-policy.ts';
 import {READY_LIBRARY} from './ready-library.ts';
 import {STATUS_LABEL,STATUS_ORDER,countByStatus,danceFromStored,fetchStoredDance,filterLibrary,loadLibraryIndex} from './next/library-ui.ts';
-import {FIGURE_GROUPS,STYLE_LABEL,emptyFilter,figuresOf,formationLabel as layoutLabel,isFilterActive,matchesFilter,styleOf,type DanceStyle} from './next/library-filters.ts';
+import {FIGURE_GROUPS,STYLE_LABEL,emptyFilter,facetCounts,figuresOf,formationLabel as layoutLabel,isFilterActive,matchesFilter,type DanceStyle} from './next/library-filters.ts';
 import type {DanceStatus,LibraryEntry} from './next/dance.ts';
 import {CONVENTIONAL_DIAGONAL_HEY,DIAGONAL_HEY_CHOICE_DESCRIPTION} from './source-diagonal-hey.ts';
 import {CONVENTIONAL_REVOLVING_DOOR,REVOLVING_DOOR_CHOICE_DESCRIPTION} from './source-revolving-door.ts';
@@ -301,16 +301,28 @@ export function createUI(root: HTMLElement, actions: StudioActions, initial: Stu
     $<HTMLInputElement>('#library-search').addEventListener('input', e => {sourceIndexLimit=30;libraryLimit=40;renderLibrary((e.target as HTMLInputElement).value);});
     root.querySelector<HTMLDetailsElement>('.source-catalog')?.addEventListener('toggle',()=>{if(!root.querySelector<HTMLDetailsElement>('.source-catalog')?.open)return;if(!sourceIndexRequest&&!sourceIndex){sourceIndexRequest=(async()=>{try{const response=await fetch(catalogueUrl,{credentials:'omit'});if(!response.ok)throw new Error('Index unavailable');const body=await response.text();if(body.length>1_500_000)throw new Error('Index too large');sourceIndex=readSourceIndex(JSON.parse(body));sourceIndexError='';}catch{sourceIndexError=sourceDownloaderAvailable?'The public search index is unavailable. You can still open a source link or import a ContraDB URL / ID.':'The public search index is unavailable. You can still use the Ready library or import a saved source file.';}finally{sourceIndexRequest=undefined;const input=root.querySelector<HTMLInputElement>('#library-search');if(input&&dialog.open)renderSourceIndex(input.value);}})();}});
   }
-  /** Filter choices with how many dances in the whole library have each; every status counts. */
+  /** Filter choices: every formation and figure some dance calls. Counts come from updateFilterCounts. */
   function renderFilterOptions(){
-    const entries=libraryIndex??[],count=(test:(e:LibraryEntry)=>boolean)=>entries.filter(test).length;
-    const option=(value:string,label:string,n:number|undefined,selected:boolean)=>`<option value="${esc(value)}"${selected?' selected':''}>${esc(label)}${n===undefined?'':` (${n})`}</option>`;
-    $('#library-style').innerHTML=option('','All styles',undefined,!libraryFilter.style)+(Object.keys(STYLE_LABEL) as DanceStyle[]).map(k=>option(k,STYLE_LABEL[k],libraryIndex&&count(e=>styleOf(e.layout)===k),libraryFilter.style===k)).join('');
-    const layouts=new Map<string,number>();for(const e of entries)if(e.layout)layouts.set(e.layout,(layouts.get(e.layout)??0)+1);
+    const entries=libraryIndex??[],layouts=new Map<string,number>(),figures=new Set(entries.flatMap(e=>[...figuresOf(e)]));
+    for(const e of entries)if(e.layout)layouts.set(e.layout,(layouts.get(e.layout)??0)+1);
     if(libraryFilter.layout&&!layouts.has(libraryFilter.layout))layouts.set(libraryFilter.layout,0);
-    $('#library-formation').innerHTML=option('','All formations',undefined,!libraryFilter.layout)+[...layouts].sort((a,b)=>b[1]-a[1]).map(([k,n])=>option(k,layoutLabel(k),n,libraryFilter.layout===k)).join('');
-    const figures=entries.map(figuresOf);
-    $('#library-figure-grid').innerHTML=`<p class="field-help">Show dances that call every checked figure, whatever their status.</p>`+FIGURE_GROUPS.map(g=>[g,figures.filter(f=>f.has(g.id)).length] as const).filter(([g,n])=>n||!libraryIndex||libraryFilter.figures.has(g.id)).map(([g,n])=>`<label class="filter-figure"><input type="checkbox" data-figure-filter="${g.id}"${libraryFilter.figures.has(g.id)?' checked':''}><span>${esc(g.label)}</span><small>${libraryIndex?n:''}</small></label>`).join('');
+    const option=(value:string,label:string,selected:boolean,facet?:string)=>`<option value="${esc(value)}"${selected?' selected':''}${facet?` data-facet="${facet}" data-label="${esc(label)}"`:''}>${esc(label)}</option>`;
+    $('#library-style').innerHTML=option('','All styles',!libraryFilter.style)+(Object.keys(STYLE_LABEL) as DanceStyle[]).map(k=>option(k,STYLE_LABEL[k],libraryFilter.style===k,'style')).join('');
+    $('#library-formation').innerHTML=option('','All formations',!libraryFilter.layout)+[...layouts].sort((a,b)=>b[1]-a[1]).map(([k])=>option(k,layoutLabel(k),libraryFilter.layout===k,'layout')).join('');
+    $('#library-figure-grid').innerHTML=`<p class="field-help">Show dances that call every checked figure, whatever their status. Counts follow the other filters, the search and the status chosen.</p>`+FIGURE_GROUPS.filter(g=>!libraryIndex||figures.has(g.id)||libraryFilter.figures.has(g.id)).map(g=>`<label class="filter-figure"><input type="checkbox" data-figure-filter="${g.id}"${libraryFilter.figures.has(g.id)?' checked':''}><span>${esc(g.label)}</span><small></small></label>`).join('');
+  }
+  /** Each choice's count is what the list would show if it were picked; empty choices are disabled. */
+  function updateFilterCounts(query:string){
+    if(!libraryIndex)return;
+    const counts=facetCounts(filterLibrary(libraryIndex,query,libraryStatus),libraryFilter);
+    root.querySelectorAll<HTMLOptionElement>('#library-style option[data-facet],#library-formation option[data-facet]').forEach(o=>{
+      const n=(o.dataset.facet==='style'?counts.style.get(o.value as DanceStyle):counts.layout.get(o.value))??0;
+      o.textContent=`${o.dataset.label} (${n})`;o.disabled=!n&&!o.selected;
+    });
+    root.querySelectorAll<HTMLInputElement>('[data-figure-filter]').forEach(input=>{
+      const n=counts.figures.get(input.dataset.figureFilter!)??0,label=input.closest('label')!;
+      label.querySelector('small')!.textContent=String(n);input.disabled=!n&&!input.checked;label.classList.toggle('is-empty',input.disabled);
+    });
   }
   /** Built-in and saved dances as filterable entries: old-engine figure kinds mapped to move names. */
   const OLD_KIND_MOVE:Readonly<Record<string,string>>={'ladies-chain':'chain','robins-chain':'chain','larks-chain':'chain','california-twirl':'twirl','box-the-gnat':'twirl','becket-shift':'slide','becket-slice':'slice',rollaway:'roll-away','long-lines-rollaway':'roll-away','half-poussette':'poussette','balance-rory-slide':'rory','ring-balance':'balance','wave-balance':'ocean-wave','pass-to-wave':'ocean-wave','pass-to-wave-balance':'ocean-wave','form-short-wave':'ocean-wave','hall-travel':'hall','pull-by':'pass-by','square-through':'pass-by','ricochet-hey':'hey','balance-box-circulate':'box-circulate'};
@@ -326,6 +338,7 @@ export function createUI(root: HTMLElement, actions: StudioActions, initial: Stu
     const status=root.querySelector('#next-library-status'),list=root.querySelector('#next-library-list');if(!status||!list)return;
     root.querySelectorAll<HTMLElement>('[data-status-filter]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.statusFilter===libraryStatus)));
     if(!libraryIndex){status.textContent=libraryIndexError||'Loading every dance…';list.innerHTML='';return;}
+    updateFilterCounts(query);
     const filtered=libraryIndex.filter(e=>matchesFilter(e,libraryFilter));
     const counts=countByStatus(filterLibrary(filtered,query,'all'));
     root.querySelectorAll<HTMLElement>('[data-status-count]').forEach(el=>{el.textContent=String(counts[el.dataset.statusCount!]??0);});

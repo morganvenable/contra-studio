@@ -131,6 +131,39 @@ export const emptyFilter = (): LibraryFilter => ({
 export const isFilterActive = (f: LibraryFilter) =>
   !!f.style || !!f.layout || f.figures.size > 0;
 
+export interface FacetCounts {
+  readonly style: ReadonlyMap<DanceStyle, number>;
+  readonly layout: ReadonlyMap<string, number>;
+  readonly figures: ReadonlyMap<string, number>;
+}
+
+/**
+ * How many entries each choice would leave, given the other active filters:
+ * a style or formation count keeps the figures, and a figure count keeps
+ * the style, formation and figures already checked.
+ */
+export function facetCounts(
+  entries: readonly Pick<LibraryEntry, "layout" | "moves">[],
+  f: LibraryFilter,
+): FacetCounts {
+  const style = new Map<DanceStyle, number>();
+  const layout = new Map<string, number>();
+  const figures = new Map<string, number>();
+  const add = <K>(map: Map<K, number>, key: K) =>
+    map.set(key, (map.get(key) ?? 0) + 1);
+  for (const e of entries) {
+    const has = figuresOf(e);
+    if (![...f.figures].every((id) => has.has(id))) continue;
+    const s = styleOf(e.layout);
+    const styleOk = !f.style || s === f.style;
+    const layoutOk = !f.layout || e.layout === f.layout;
+    if (layoutOk) add(style, s);
+    if (styleOk && e.layout) add(layout, e.layout);
+    if (styleOk && layoutOk) for (const id of has) add(figures, id);
+  }
+  return { style, layout, figures };
+}
+
 /** Figures match when the dance calls every selected one. */
 export function matchesFilter(
   entry: Pick<LibraryEntry, "layout" | "moves">,
