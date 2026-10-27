@@ -104,6 +104,10 @@ export interface LibraryEntry {
   readonly title: string;
   readonly author: string;
   readonly formation: string;
+  /** The stored formation key (FORMATIONS), for the library's filters. */
+  readonly layout?: string;
+  /** Every move the dance calls, for the library's figure filter. */
+  readonly moves?: readonly string[];
   readonly status: DanceStatus;
   /** The first problem, in plain words, when the dance is not ok. */
   readonly note?: string;
