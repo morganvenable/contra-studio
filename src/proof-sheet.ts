@@ -1,14 +1,19 @@
 /**
  * Figure gallery (figures.html): every figure in the next engine's registry (and each
- * variant of it) looping on its own in a small overhead view. Cases come
- * from src/next/proof-cases.json (scripts/proof-cases.mjs); each compiles
- * here when its card scrolls into view. Clicking a card opens that figure
- * looping in the studio's 3D view (?figure=<move>&params=<json>).
+ * variant of it) looping on its own, danced by the studio's own 3D people
+ * (src/figure-cards-3d.ts; a flat overhead view where WebGL is missing).
+ * Cases come from src/next/proof-cases.json (scripts/proof-cases.mjs); each
+ * compiles here when its card scrolls into view. Clicking a card opens that
+ * figure looping in the studio (?figure=<move>&params=<json>); each card's
+ * Feedback button sends a note with that figure attached.
  */
 import './proof-sheet.css';
 import type { Frame } from './types.ts';
 import CASES from './next/proof-cases.json';
-import { compileProof, FAMILIES, type CompiledProof, type ProofCase } from './next/proof.ts';
+import { compileProof, FAMILIES, proofTitle, type CompiledProof, type ProofCase } from './next/proof.ts';
+import { FigureCardRenderer, type CardDancers } from './figure-cards-3d.ts';
+import { mountGalleryFeedback } from './feedback/index.ts';
+import type { FeedbackStateView } from './feedback/context.ts';
 
 const cases = CASES as unknown as ProofCase[];
 const BEATS_PER_SECOND = 112 / 60;
@@ -16,6 +21,8 @@ const root = document.querySelector<HTMLDivElement>('#proof-app')!;
 
 const esc = (s: string) =>
   s.replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]!);
+const bubble =
+  '<svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v11H9l-5 4Z"/><path d="M8 9h8M8 12h5"/></svg>';
 const value = (v: unknown) => (typeof v === 'object' ? JSON.stringify(v) : String(v));
 const paramText = (p: Readonly<Record<string, unknown>>) =>
   Object.entries(p)
@@ -31,11 +38,11 @@ export function studioLink(c: ProofCase): string {
 const figures = new Set(cases.map((c) => c.move)).size;
 const failing = cases.filter((c) => c.error);
 root.innerHTML = `
-  <header><a class="brand" href="./">Contra <span>Studio</span></a><nav><a href="./">Studio</a><a href="./figures.html" aria-current="page">Figures</a><a href="./timing-lab.html">Timing lab</a></nav></header>
+  <header><a class="brand" href="./">Contra <span>Studio</span></a><nav id="gallery-nav"><a href="./">Studio</a><a href="./figures.html" aria-current="page">Figures</a><a href="./timing-lab.html">Timing lab</a></nav></header>
   <main>
     <h1>Figure gallery</h1>
-    <p class="intro">${figures} figures in ${cases.length} cards, each looping from a small starting set: the formation's start, plus the few calls before it when it can't start there. Larks are teal, robins rust; held hands are lines, a raised ring marks an arch. The band is at the top right.</p>
-    <p class="intro"><strong>To comment on a figure</strong>, click its card: it opens looping in 3D, and the Feedback button there sends your note with that exact figure attached.${failing.length ? ` ${failing.length} cards can't start yet and say why; feedback on those helps too.` : ''}</p>
+    <p class="intro">${figures} figures in ${cases.length} cards, each looping from a small starting set: the formation's start, plus the few calls before it when it can't start there. These are the studio's own dancers, bodies, arms and all; gold dots mark held hands, and the music is toward the top of each card. A few cards near the middle of the window play at a time; point at any card to play it.</p>
+    <p class="intro"><strong>To say how a figure should look</strong>, press <em>Feedback</em> under its card: your note is sent with that exact figure and the beat it was on. Click the picture to watch it larger in the studio.${failing.length ? ` ${failing.length} cards can't start yet and say why; feedback on those helps too.` : ''}</p>
     <div class="tools"><label>Find <input id="find" type="search" placeholder="figure or param" aria-label="Find a figure"></label><label><input id="only-failing" type="checkbox"> Only cards that can't start</label></div>
     ${FAMILIES.map((family) => {
       const list = cases.filter((c) => c.family === family);
@@ -52,28 +59,38 @@ function card(c: ProofCase): string {
   const variant = Object.keys(c.variant).length ? paramText(c.variant) : '';
   const body = c.error
     ? `<div class="error" role="note"><strong>Can't start</strong>${esc(c.error)}</div>`
-    : `<canvas width="240" height="200" aria-label="${esc(c.move)} seen from above"></canvas>`;
-  return `<a class="card${c.error ? ' failed' : ''}" href="${esc(studioLink(c))}" data-case="${i}" data-text="${esc(text)}">
+    : `<canvas width="240" height="200" aria-label="${esc(c.move)} danced"></canvas>`;
+  return `<div class="card${c.error ? ' failed' : ''}" data-case="${i}" data-text="${esc(text)}"><a class="card-link" href="${esc(studioLink(c))}">
     ${body}
     <div class="caption"><strong>${esc(c.move)}${c.ending ? ` <em>${esc(c.ending)}</em>` : ''}</strong>
     ${variant ? `<span class="variant">${esc(variant)}</span>` : ''}
     <span class="params">${esc(paramText(c.params))} · ${c.beats} beats</span>
     <span class="where">${esc(c.formation)}, ${c.couples} couples${c.lead.length ? ` · after ${esc(leadText(c))}` : ''}</span>
-    ${c.isolation && !c.error ? `<span class="alone" title="${esc(c.isolation)}">Alone: ${esc(c.isolation)}</span>` : ''}</div></a>`;
+    ${c.isolation && !c.error ? `<span class="alone" title="${esc(c.isolation)}">Alone: ${esc(c.isolation)}</span>` : ''}</div></a>
+    <button type="button" class="card-feedback" hidden>${bubble}Feedback</button></div>`;
 }
 
 interface Live {
-  readonly el: HTMLAnchorElement;
+  readonly el: HTMLElement;
   readonly canvas: HTMLCanvasElement;
   readonly c: ProofCase;
   proof?: CompiledProof;
   bounds?: { minX: number; maxX: number; minZ: number; maxZ: number };
   visible: boolean;
+  dancers?: CardDancers;
+  /** Beat last drawn, sent with feedback. */
+  beat: number;
+}
+let people: FigureCardRenderer | undefined;
+try {
+  people = new FigureCardRenderer();
+} catch (error) {
+  console.warn('WebGL unavailable; the gallery shows flat overhead views.', error);
 }
 const live: Live[] = [];
-for (const el of root.querySelectorAll<HTMLAnchorElement>('.card')) {
+for (const el of root.querySelectorAll<HTMLElement>('.card')) {
   const canvas = el.querySelector('canvas');
-  if (canvas) live.push({ el, canvas, c: cases[Number(el.dataset.case)], visible: false });
+  if (canvas) live.push({ el, canvas, c: cases[Number(el.dataset.case)], visible: false, beat: 0 });
 }
 
 function prepare(card: Live) {
@@ -102,11 +119,41 @@ function prepare(card: Live) {
   card.bounds = { minX: minX - 0.6, maxX: maxX + 0.6, minZ: minZ - 0.6, maxZ: maxZ + 0.6 };
 }
 
+/** The figure's beat at a moment of the loop, with a beat's rest before it repeats. */
+function beatAt(proof: CompiledProof, seconds: number) {
+  const beats = proof.end - proof.start;
+  return proof.start + Math.min(beats - 1e-3, (seconds * BEATS_PER_SECOND) % (beats + 1));
+}
+
+function draw3d(card: Live, seconds: number, playing: boolean) {
+  if (!people || !card.proof) return;
+  // A card's first pose plans its steps over the whole figure (tens of ms):
+  // past a few per frame, the rest wait for the next frame.
+  if (card.dancers?.posedAt === undefined && performance.now() - frameStart > FIRST_POSE_BUDGET_MS) return;
+  card.dancers ??= people.build(card.proof.dance, card.proof.start, card.proof.end, card.canvas.clientWidth / card.canvas.clientHeight || 1.2);
+  // A card that isn't playing holds the middle of its figure.
+  card.beat = playing ? beatAt(card.proof, seconds) : (card.proof.start + card.proof.end) / 2;
+  try {
+    people.draw(card.dancers, card.beat, card.canvas);
+  } catch (error) {
+    // A body that cannot be posed is itself a finding: say so on the card.
+    console.warn(`Gallery card ${card.c.id} could not draw its dancers.`, error);
+    people.release(card.dancers);
+    card.dancers = undefined;
+    card.proof = undefined;
+    card.el.classList.add('failed');
+    const note = document.createElement('div');
+    note.className = 'error';
+    note.innerHTML = `<strong>Dancers can't be drawn</strong>${esc(error instanceof Error ? error.message : String(error))}`;
+    card.canvas.replaceWith(note);
+  }
+}
+
 function draw(card: Live, seconds: number) {
   if (!card.proof || !card.bounds) return;
   const { dance, start, end } = card.proof;
   const beats = end - start;
-  const beat = start + Math.min(beats - 1e-3, (seconds * BEATS_PER_SECOND) % (beats + 1));
+  const beat = (card.beat = beatAt(card.proof, seconds));
   const frame: Frame = dance.sample(beat);
   const ctx = card.canvas.getContext('2d')!;
   const dpr = window.devicePixelRatio || 1;
@@ -192,6 +239,11 @@ const seen = new IntersectionObserver(
       if (!card) continue;
       card.visible = e.isIntersecting;
       if (card.visible) prepare(card);
+      else if (card.dancers && people) {
+        // Free the bodies of cards scrolled away; they rebuild on return.
+        people.release(card.dancers);
+        card.dancers = undefined;
+      }
     }
   },
   { rootMargin: '200px' },
@@ -199,8 +251,33 @@ const seen = new IntersectionObserver(
 for (const card of live) seen.observe(card.el);
 
 const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const PLAYING = 4;
+const FIRST_POSE_BUDGET_MS = 12;
+let frameStart = 0;
+let pointed: Live | undefined;
+for (const card of live) {
+  card.el.addEventListener('pointerenter', () => (pointed = card));
+  card.el.addEventListener('focusin', () => (pointed = card));
+}
 function tick(now: number) {
-  for (const card of live) if (card.visible) draw(card, reduced ? 0 : now / 1000);
+  const seconds = reduced ? 0 : now / 1000;
+  if (!people) {
+    for (const card of live) if (card.visible) draw(card, seconds);
+  } else {
+    // A few cards play at once: the one under the pointer or keyboard focus,
+    // and those nearest the middle of the window. The rest hold still.
+    people.begin();
+    frameStart = performance.now();
+    const middle = window.innerHeight / 2;
+    const shown = live
+      .filter((card) => card.visible)
+      .map((card) => {
+        const r = card.canvas.getBoundingClientRect();
+        return { card, away: card === pointed ? -1 : Math.abs((r.top + r.bottom) / 2 - middle) };
+      })
+      .sort((a, b) => a.away - b.away);
+    shown.forEach(({ card }, n) => draw3d(card, seconds, n < PLAYING));
+  }
   requestAnimationFrame(tick);
 }
 requestAnimationFrame(tick);
@@ -217,10 +294,56 @@ function filter() {
     s.hidden = !s.querySelector('.card:not([hidden])');
 }
 find.addEventListener('input', filter);
+
+// Feedback: the header button sends a general note; a card's button sends
+// one with that figure, its variant and the beat it was showing attached.
+let noteCase: ProofCase | undefined;
+let noteCard: Live | undefined;
+function feedbackState(): FeedbackStateView {
+  const c = noteCase;
+  if (!c)
+    return {
+      dance: { id: 'figure-gallery', title: 'Figure gallery', figures: [] },
+      beat: 0, totalBeats: 0, repeat: 0, figureIndex: 0, camera: 'gallery',
+      selectedDancer: -1, dancers: [],
+    };
+  const proof = noteCard?.proof;
+  const calls = [...c.lead.map((l) => ({ label: l.text ?? l.move, beats: l.beats })), { label: proofTitle(c), beats: c.beats }];
+  return {
+    dance: { id: `figure:${c.id}`, title: 'Figure gallery', figures: calls },
+    beat: noteCard?.beat ?? proof?.start ?? 0,
+    totalBeats: proof?.end ?? 0,
+    repeat: 0,
+    figureIndex: c.lead.length,
+    camera: 'gallery card',
+    selectedDancer: -1,
+    dancers: proof?.dance.dancers ?? [],
+  };
+}
+// A card's note names its studio link, so it opens straight to that figure.
+const feedbackPage = () =>
+  noteCase
+    ? `${location.pathname.replace(/[^/]*$/, '')}${studioLink(noteCase).slice(2)}`
+    : `${location.pathname}${location.search}`;
+void mountGalleryFeedback(root.querySelector<HTMLElement>('#gallery-nav')!, feedbackState, feedbackPage).then((open) => {
+  if (!open) return;
+  root
+    .querySelector('#gallery-nav .feedback-trigger')
+    ?.addEventListener('click', () => (noteCase = noteCard = undefined), { capture: true });
+  for (const el of root.querySelectorAll<HTMLElement>('.card')) {
+    const button = el.querySelector<HTMLButtonElement>('.card-feedback')!;
+    button.hidden = false;
+    button.addEventListener('click', () => {
+      noteCase = cases[Number(el.dataset.case)];
+      noteCard = live.find((x) => x.el === el);
+      open();
+    });
+  }
+});
 onlyFailing.addEventListener('change', filter);
 
 // Read-only hook for the e2e flow.
 Object.defineProperty(window, '__proof', {
-  value: { cases: cases.length, figures, failing: failing.length },
+  value: { cases: cases.length, figures, failing: failing.length, stats: people?.stats },
   writable: false,
 });

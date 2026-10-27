@@ -5,7 +5,7 @@
 import { findNextDance } from "../next/dance.ts";
 import { nextEngineRequested } from "../next/switch.ts";
 import type { StudioState } from "../types.ts";
-import type { FeedbackEngine } from "./context.ts";
+import type { FeedbackEngine, FeedbackStateView } from "./context.ts";
 
 declare const __CONTRA_COMMIT__: string;
 
@@ -37,4 +37,26 @@ export function mountFeedback(
       engineFor: (state) => engineFor(state as StudioState),
     }),
   );
+}
+
+/**
+ * Feedback for the figure gallery: the header button sends a general note,
+ * and each card's button opens the same panel with that card's figure
+ * attached. Resolves to undefined when the build has no feedback service.
+ */
+export async function mountGalleryFeedback(
+  host: HTMLElement,
+  getState: () => FeedbackStateView,
+  page: () => string,
+): Promise<(() => void) | undefined> {
+  if (!endpoint) return undefined;
+  const { mountFeedbackPanel } = await import("./panel.ts");
+  return mountFeedbackPanel(host, {
+    endpoint,
+    commit,
+    turnstileSiteKey: siteKey || undefined,
+    getState,
+    engineFor: () => "next",
+    page,
+  }).open;
 }
