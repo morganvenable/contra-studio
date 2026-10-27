@@ -21,6 +21,8 @@ export interface FeedbackPanelOptions {
   turnstileSiteKey?: string;
   getState: () => FeedbackStateView;
   engineFor: (state: FeedbackStateView) => FeedbackEngine;
+  /** The page a note names; defaults to this page. */
+  page?: () => string;
 }
 
 const DRAFT_KEY = "contra-studio.feedback.draft";
@@ -138,13 +140,16 @@ export function mountFeedbackPanel(
     setStatus("");
   }
 
+  let returnFocus: HTMLElement | null = null;
   function open() {
+    returnFocus =
+      document.activeElement instanceof HTMLElement ? document.activeElement : null;
     const state = options.getState();
     captured = captureContext(state, {
       engine: options.engineFor(state),
       commit: options.commit,
       now: new Date(),
-      page: `${location.pathname}${location.search}`,
+      page: options.page?.() ?? `${location.pathname}${location.search}`,
       viewport: { width: window.innerWidth, height: window.innerHeight },
     });
     contextLine.textContent = describeContext(captured);
@@ -222,7 +227,7 @@ export function mountFeedbackPanel(
   const close = () => {
     if (outbox.status === "sent") outbox.reset();
     panel.close();
-    trigger.focus();
+    (returnFocus ?? trigger).focus();
   };
   cancel.addEventListener("click", close);
   $(".feedback-close").addEventListener("click", close);
