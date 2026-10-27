@@ -28,8 +28,9 @@ function pause(){++playGeneration;playPending=false;audio.pause();syncClock();}
 function seek(beat:number){audio.setLoop(null);audio.seek(Math.max(0,Number.isFinite(beat)?beat:0));configureBounds();syncClock();}
 /** Couples the viewer chose; until then each dance shows its formation's own display size. */
 let chosenCouples:number|undefined;
-function loadDance(dance:Dance,couples=chosenCouples){
- const next=compileWithEngine(dance,couples,compileChoreography);pause();loopFigure=false;compiled=next;
+function loadDance(dance:Dance,couples=chosenCouples){showCompiled(compileWithEngine(dance,couples,compileChoreography),dance);}
+function showCompiled(next:ReturnType<typeof compileWithEngine>,dance:Dance=next.dance){
+ pause();loopFigure=false;compiled=next;
  state.swingPresentationStatus=undefined;state.dance=isNextCompiled(next)?next.dance:dance;state.totalBeats=next.totalBeats;state.dancers=next.dancers;if(state.selectedDancer>=next.dancers.length)state.selectedDancer=-1;
  audio.setLoop(null);audio.seek(0);configureBounds();state.repeat=0;state.figureIndex=0;state.figureProgress=0;state.warnings=next.warnings;
  if(!state.dances.some(d=>d.id===dance.id))state.dances.push(dance);scene?.setDance(next);syncClock();
@@ -57,5 +58,11 @@ try{scene=new DanceScene(ui.viewport,compiled,actions.selectDancer);}catch(error
 function animate(){syncClock(true);const frame=compiled.sample(state.beat);state.figureIndex=frame.figureIndex;state.figureProgress=frame.figureProgress;state.repeat=frame.repeat;state.warnings=frame.warnings;scene?.update(frame,state);state.swingPresentationStatus=scene?.presentationStatus;ui.update(state);requestAnimationFrame(animate);}
 requestAnimationFrame(animate);
 window.addEventListener('pagehide',()=>audio.pause());
+// `?figure=<move>&params=<json>` (from the figure gallery) opens that one
+// figure from its small starting set, looping, so arms and hands can be checked.
+if(new URLSearchParams(location.search).get('figure'))void import('./next/proof-view.ts').then(({proofFromUrl})=>{
+ try{const proof=proofFromUrl(location.search);showCompiled(proof.dance);seek(proof.start);loopFigure=true;configureBounds();void startPlaying();}
+ catch(error){controlError=error instanceof Error?error.message:String(error);state.warnings=[`This figure can't start: ${controlError}`];syncClock();}
+});
 // Read-only inspection hook for deterministic QA and reproducible bug reports.
 Object.defineProperty(window,'__contra',{value:{get state(){return {...state};},get scene(){return scene;},get audioTiming(){return audio.timingInfo();},sample:(beat:number)=>compiled.sample(beat),actions},writable:false});
