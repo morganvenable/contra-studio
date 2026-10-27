@@ -41,7 +41,7 @@ root.innerHTML = `
   <header><a class="brand" href="./">Contra <span>Studio</span></a><nav id="gallery-nav"><a href="./">Studio</a><a href="./figures.html" aria-current="page">Figures</a><a href="./timing-lab.html">Timing lab</a></nav></header>
   <main>
     <h1>Figure gallery</h1>
-    <p class="intro">${figures} figures in ${cases.length} cards, each looping from a small starting set: the formation's start, plus the few calls before it when it can't start there. These are the studio's own dancers, bodies, arms and all; gold dots mark held hands, and the music is toward the top of each card. A few cards near the middle of the window play at a time; point at any card to play it.</p>
+    <p class="intro">${figures} figures in ${cases.length} cards, each looping from a small starting set: the formation's start, plus the few calls before it when it can't start there. These are the studio's own dancers, bodies, arms and all; gold dots mark held hands, and the music is toward the top of each card. Each card shows the middle of its figure; point at a card to play it from the start.</p>
     <p class="intro"><strong>To say how a figure should look</strong>, press <em>Feedback</em> under its card: your note is sent with that exact figure and the beat it was on. Click the picture to watch it larger in the studio.${failing.length ? ` ${failing.length} cards can't start yet and say why; feedback on those helps too.` : ''}</p>
     <div class="tools"><label>Find <input id="find" type="search" placeholder="figure or param" aria-label="Find a figure"></label><label><input id="only-failing" type="checkbox"> Only cards that can't start</label></div>
     ${FAMILIES.map((family) => {
@@ -251,32 +251,33 @@ const seen = new IntersectionObserver(
 for (const card of live) seen.observe(card.el);
 
 const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
-const PLAYING = 4;
 const FIRST_POSE_BUDGET_MS = 12;
 let frameStart = 0;
+// Only the card under the pointer (or keyboard focus) plays, from the
+// figure's start; every other card holds still.
 let pointed: Live | undefined;
+let pointedSince = 0;
+const point = (card: Live | undefined) => {
+  if (card === pointed) return;
+  pointed = card;
+  pointedSince = performance.now() / 1000;
+};
 for (const card of live) {
-  card.el.addEventListener('pointerenter', () => (pointed = card));
-  card.el.addEventListener('focusin', () => (pointed = card));
+  card.el.addEventListener('pointerenter', () => point(card));
+  card.el.addEventListener('focusin', () => point(card));
+  card.el.addEventListener('pointerleave', () => pointed === card && point(undefined));
+  card.el.addEventListener('focusout', () => pointed === card && point(undefined));
 }
 function tick(now: number) {
   const seconds = reduced ? 0 : now / 1000;
   if (!people) {
     for (const card of live) if (card.visible) draw(card, seconds);
   } else {
-    // A few cards play at once: the one under the pointer or keyboard focus,
-    // and those nearest the middle of the window. The rest hold still.
     people.begin();
     frameStart = performance.now();
-    const middle = window.innerHeight / 2;
-    const shown = live
-      .filter((card) => card.visible)
-      .map((card) => {
-        const r = card.canvas.getBoundingClientRect();
-        return { card, away: card === pointed ? -1 : Math.abs((r.top + r.bottom) / 2 - middle) };
-      })
-      .sort((a, b) => a.away - b.away);
-    shown.forEach(({ card }, n) => draw3d(card, seconds, n < PLAYING));
+    // The playing card goes first so it is never left waiting for its first pose.
+    if (pointed?.visible) draw3d(pointed, reduced ? 0 : seconds - pointedSince, true);
+    for (const card of live) if (card.visible && card !== pointed) draw3d(card, seconds, false);
   }
   requestAnimationFrame(tick);
 }
