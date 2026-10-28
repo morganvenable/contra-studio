@@ -4,8 +4,8 @@
  "catalogue": 2422,
  "stored": 2422,
  "counts": {
-  "ok": 955,
-  "check": 417,
+  "ok": 956,
+  "check": 416,
   "partial": 1050,
   "unsupported": 0
  },
@@ -21,8 +21,8 @@
   {
    "formation": "becket",
    "dances": 655,
-   "ok": 198,
-   "check": 176,
+   "ok": 199,
+   "check": 175,
    "partial": 281,
    "unsupported": 0
   },
@@ -2619,10 +2619,6 @@
     "unlocks": 5
    },
    {
-    "name": "california twirl",
-    "unlocks": 5
-   },
-   {
     "name": "box circulate",
     "unlocks": 5
    },
@@ -2648,6 +2644,10 @@
    },
    {
     "name": "slide along set",
+    "unlocks": 4
+   },
+   {
+    "name": "california twirl",
     "unlocks": 4
    },
    {

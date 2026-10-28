@@ -44,9 +44,14 @@ export interface TwirlParams {
   who: PairName;
 }
 
-/** Half the pair's gap while trading places under the arch. */
-const ARCH_HALF = 0.55;
-const EDGE = 0.25;
+/**
+ * Distance from the pair's middle while trading places: the dancer going
+ * under passes right beneath the raised hands, the other circles around.
+ */
+const UNDER_MID = 0.1;
+const OVER_MID = 0.5;
+/** Share of the figure spent closing in to the crossing (and opening out). */
+const EDGE = 0.5;
 
 export const twirl: Figure<TwirlParams> = (state, params, beats) => {
   onlyKeys('twirl', params, ['style', 'who']);
@@ -89,7 +94,10 @@ export const twirl: Figure<TwirlParams> = (state, params, beats) => {
         style === 'california' ? s.yaw : heading(s.position, id === a ? pb.position : pa.position);
       // Turning to face the partner first takes longer the farther it turns.
       const faceBeats = Math.min(beats / 2, Math.max(0.75, Math.abs(turn(face, s.yaw)) / 2));
-      return { id, s, rel, spin, face, faceBeats };
+      // The one going under closes in; the other keeps (or steps out to) a
+      // circle around them, so the two stay apart even when they start close.
+      const mid = id === under ? Math.min(half, UNDER_MID) : OVER_MID;
+      return { id, s, rel, spin, face, faceBeats, mid };
     });
     const contact: FigureContact = {
       a: over,
@@ -109,7 +117,7 @@ export const twirl: Figure<TwirlParams> = (state, params, beats) => {
     const close = Math.min(smooth(t / EDGE), smooth((1 - t) / EDGE));
     const bodies = plans.flatMap((p) =>
       p.ids.map((d) => {
-        const r = p.half + (Math.min(p.half, ARCH_HALF) - p.half) * close;
+        const r = p.half + (d.mid - p.half) * close;
         const position = add(p.center, rotate(scale(d.rel, r / p.half), sweep * q));
         const into = d.s.yaw + turn(d.face, d.s.yaw) * smooth(beat / d.faceBeats);
         return { id: d.id, position, yaw: into + d.spin * ease(t) };

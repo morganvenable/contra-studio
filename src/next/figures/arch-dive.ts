@@ -38,8 +38,10 @@ export interface ArchDiveParams {
 }
 
 /** Half the gap between the divers, and between the arching dancers, as they cross. */
-const DIVE_HALF = 0.27;
-const ARCH_HALF = 0.8;
+// The arching pair stands as close as keeps 0.5 m from the divers, so its
+// joined hands reach as high as they can; the divers duck the rest (fold.ts).
+const DIVE_HALF = 0.26;
+const ARCH_HALF = 0.76;
 const FACE_BEATS = 1;
 
 export const archDive: Figure<ArchDiveParams> = (state, params, beats) => {
@@ -130,7 +132,7 @@ export const archDive: Figure<ArchDiveParams> = (state, params, beats) => {
             handA: m.hand,
             b: other.id,
             handB: other.hand,
-            kind: 'joined',
+            kind: m.arching ? 'arch' : 'joined',
             strength,
           },
           map,

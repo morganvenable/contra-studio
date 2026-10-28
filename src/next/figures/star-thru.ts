@@ -20,11 +20,13 @@ export interface StarThruParams {
   who: 'partner' | 'neighbor' | '1s' | '2s' | 'facing';
 }
 
-/** Half the gap between the two side by side at the end, and their sidestep as they pass. */
+/** Half the gap between the two side by side at the end. */
 const HALF_GAP = 0.45;
 /** Farthest apart they end: in each other's places when they start that close. */
 const MAX_HALF = 0.9;
-const SIDESTEP = 0.35;
+/** Sidesteps as they pass: the robin passes close beneath the raised hands, the lark steps around. */
+const LARK_SIDESTEP = 0.45;
+const ROBIN_SIDESTEP = 0.15;
 
 export const starThru: Figure<StarThruParams> = (state, params, beats) => {
   onlyKeys('star thru', params, ['who']);
@@ -63,7 +65,7 @@ export const starThru: Figure<StarThruParams> = (state, params, beats) => {
         id: lark,
         from: pl,
         to: larkEnd,
-        side: scale(right, SIDESTEP),
+        side: scale(right, LARK_SIDESTEP),
         yaw: endYaw,
         hand: 'right' as const,
       },
@@ -71,7 +73,7 @@ export const starThru: Figure<StarThruParams> = (state, params, beats) => {
         id: robin,
         from: pr,
         to: robinEnd,
-        side: scale(right, -SIDESTEP),
+        side: scale(right, -ROBIN_SIDESTEP),
         yaw: endYaw,
         hand: 'left' as const,
       },
@@ -92,7 +94,7 @@ export const starThru: Figure<StarThruParams> = (state, params, beats) => {
     const strength = Math.min(smooth(beat / beats / 0.2), smooth((1 - beat / beats) / 0.15));
     const contacts: FigureContact[] = [...partnerOf].map(([lark, robin]) =>
       withinReach(
-        { a: lark, handA: 'right', b: robin, handB: 'left', kind: 'joined', strength },
+        { a: lark, handA: 'right', b: robin, handB: 'left', kind: 'arch', underId: robin, strength },
         map,
       ),
     );

@@ -40,19 +40,22 @@ export interface ArchDiveParams {
   backing?: boolean;
 }
 
-/** Half the gap between the arching partners as they pass. */
-const ARCH_HALF = 0.85;
+/**
+ * Half the gap between the arching partners as they pass: as close as keeps
+ * 0.5 m from the divers, so the joined hands reach as high as they can
+ * (contacts.ts archPoint); the divers duck under the rest (archDucks).
+ */
+const ARCH_HALF = 0.77;
 /** Half the gap between the diving partners as they duck under. */
-const DIVE_HALF = 0.33;
-/** Height of the arch's joined hands. */
-const ARCH_HEIGHT = 1.55;
+const DIVE_HALF = 0.26;
 /** Share of the figure spent closing in (and again opening out). */
 const CLOSE = 0.45;
 /**
  * A quick arch (under three beats, sharing a phrase with a pass through):
  * the couples change width less (the arch stays a little open, the divers
  * a little wider, still 0.52 m clear, closing over the whole approach) and get up to speed sooner, so no one
- * has to run.
+ * has to run. Too wide for the arching partners' hands to meet: in two beats
+ * the divers can't close in far enough at a walk.
  */
 const QUICK_BEATS = 3;
 const QUICK_ARCH_HALF = 1.1;
@@ -156,11 +159,7 @@ export const archDive: Figure<ArchDiveParams> = (state, params, beats) => {
     const contacts: FigureContact[] = all.map((p) => {
       const hold = joined(holdOf(p.pair), close);
       if (!p.arch) return withinReach(hold, map);
-      const center = add(p.from, scale(sub(p.to, p.from), q));
-      return withinReach(
-        { ...hold, kind: 'arch', point: { x: center.x, y: ARCH_HEIGHT, z: center.z } },
-        map,
-      );
+      return withinReach({ ...hold, kind: 'arch' }, map);
     });
     return { bodies, contacts };
   };

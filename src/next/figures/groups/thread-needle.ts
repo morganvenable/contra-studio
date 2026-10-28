@@ -153,9 +153,9 @@ export const threadNeedle: Figure<ThreadNeedleParams> = (state, params, beats) =
     const leftSide = dot(leftOf(yaw0), e) > 0;
     for (let i = 0; i + 1 < line.length; i++) {
       const [a, b] = [line[i], line[i + 1]];
-      contacts.push(
-        hold(a, leftSide ? 'left' : 'right', b, leftSide ? 'right' : 'left', strength, bodies),
-      );
+      const c = hold(a, leftSide ? 'left' : 'right', b, leftSide ? 'right' : 'left', strength, bodies);
+      // The last pair's hands go up as the arch, the inner dancer turning under it.
+      contacts.push(a === inner && b === outer ? { ...c, kind: 'arch', underId: inner } : c);
     }
     return { bodies, contacts };
   };
