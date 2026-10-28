@@ -76,11 +76,21 @@ const MOVE_UP = `(?:,? (?:and |while )?(?:${COUPLE}(?: (?:and|&) ${COUPLE})?|oth
 
 export const ECD_PATTERNS: readonly Pattern[] = [
   [
-    // "1s cast, 2s move up", "couple 1 cast down one place, couple 2 move up".
+    // "1s cast, 2s move up", "couple 1 cast down one place, couple 2 move up",
+    // "ones cast down one couple to long lines along" (Money Musk: the cast
+    // ends in the middle of the side lines, facing across).
     new RegExp(
-      `^(${COUPLE}) cast(?: off| down| alone)?(?: (?:one|1) (?:place|couple))?${MOVE_UP}$`,
+      `^(${COUPLE}) cast(?: off| down| alone)?(?: (?:one|1) (?:place|couple))?(?: (?:in)?to long lines(?: along)?)?${MOVE_UP}$`,
     ),
     (m, b) => [call('cast', b, { who: coupleLabel(m[1]), places: 1 })],
+  ],
+  [
+    // "ones allemande right ¾ into short lines across" (Money Musk): the
+    // ones turn into the middle of lines of three across the set.
+    new RegExp(`^(${COUPLE}) (?:allemande|turn) (right|left)(?: hand)? (?:¾|3/4|three quarters?) (?:in)?to (?:short )?lines(?: of three)? across$`),
+    (m, b) => [
+      call('lines-turn', b, { who: coupleLabel(m[1]), hand: m[2], amount: 0.75, to: 'lines' }),
+    ],
   ],
   [
     // "1s cast to bottom, others move up", "top couple cast off to bottom, all move up".

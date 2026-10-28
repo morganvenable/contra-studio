@@ -4,18 +4,18 @@
  "catalogue": 2422,
  "stored": 2422,
  "counts": {
-  "ok": 956,
-  "check": 416,
-  "partial": 1050,
+  "ok": 957,
+  "check": 419,
+  "partial": 1046,
   "unsupported": 0
  },
  "formations": [
   {
    "formation": "improper",
    "dances": 1189,
-   "ok": 601,
-   "check": 151,
-   "partial": 437,
+   "ok": 602,
+   "check": 152,
+   "partial": 435,
    "unsupported": 0
   },
   {
@@ -30,8 +30,8 @@
    "formation": "becket ccw",
    "dances": 169,
    "ok": 44,
-   "check": 47,
-   "partial": 78,
+   "check": 48,
+   "partial": 77,
    "unsupported": 0
   },
   {
@@ -70,8 +70,8 @@
    "formation": "triplet",
    "dances": 23,
    "ok": 8,
-   "check": 1,
-   "partial": 14,
+   "check": 2,
+   "partial": 13,
    "unsupported": 0
   },
   {
@@ -1160,7 +1160,7 @@
    {
     "name": "allemande variant",
     "unlocks": 10,
-    "uses": 26
+    "uses": 25
    },
    {
     "name": "arch & dive",
@@ -1983,11 +1983,6 @@
     "uses": 1
    },
    {
-    "name": "other: ones cast down one couple to long lines along",
-    "unlocks": 0,
-    "uses": 1
-   },
-   {
     "name": "other: ones and twos, right and left four over and back",
     "unlocks": 0,
     "uses": 1
@@ -2386,15 +2381,15 @@
   "figuresThatCannotStart": [
    {
     "name": "progression or other",
-    "unlocks": 127
+    "unlocks": 129
    },
    {
     "name": "swing variant",
-    "unlocks": 63
+    "unlocks": 67
    },
    {
     "name": "ocean wave / long wave",
-    "unlocks": 50
+    "unlocks": 51
    },
    {
     "name": "diagonal chain / right left through",
@@ -2409,10 +2404,6 @@
     "unlocks": 24
    },
    {
-    "name": "allemande variant",
-    "unlocks": 23
-   },
-   {
     "name": "star variant",
     "unlocks": 15
    },
@@ -2425,8 +2416,16 @@
     "unlocks": 13
    },
    {
+    "name": "allemande variant",
+    "unlocks": 11
+   },
+   {
     "name": "do-si-do variant",
     "unlocks": 11
+   },
+   {
+    "name": "promenade",
+    "unlocks": 10
    },
    {
     "name": "arch & dive",
@@ -2437,16 +2436,16 @@
     "unlocks": 9
    },
    {
-    "name": "into the middle / forward & back",
-    "unlocks": 8
-   },
-   {
-    "name": "promenade",
-    "unlocks": 8
-   },
-   {
     "name": "petronella",
     "unlocks": 8
+   },
+   {
+    "name": "into the middle / forward & back",
+    "unlocks": 7
+   },
+   {
+    "name": "balance variant",
+    "unlocks": 6
    },
    {
     "name": "chain variant",
@@ -2455,10 +2454,6 @@
    {
     "name": "slide along set",
     "unlocks": 6
-   },
-   {
-    "name": "balance variant",
-    "unlocks": 5
    },
    {
     "name": "ricochet hey",
@@ -2576,7 +2571,7 @@
   "checkFailures": [
    {
     "name": "Couples don't end the round where the progression puts them.",
-    "unlocks": 134
+    "unlocks": 135
    },
    {
     "name": "allemande variant",
@@ -2600,7 +2595,7 @@
    },
    {
     "name": "star promenade",
-    "unlocks": 9
+    "unlocks": 10
    },
    {
     "name": "diagonal hey",
@@ -2760,6 +2755,10 @@
    },
    {
     "name": "The next time through can't start from where the dancers end: Dancers 1 and 5 are too far apart to turn by the hand.).",
+    "unlocks": 1
+   },
+   {
+    "name": "The next time through can't start from where the dancers end: An oval needs everyone a slot apart around the set.).",
     "unlocks": 1
    },
    {
