@@ -82,7 +82,12 @@ export function verifyDance(
           kind: 'physical',
         };
       }
-      const wrong = modelProblem(dance, spec.model?.(couples, rounds), couples);
+      // Either model will do; the problem reported is the main model's.
+      const main = modelProblem(dance, spec.model?.(couples, rounds), couples);
+      const wrong =
+        main && spec.orModel && !modelProblem(dance, spec.orModel(couples, rounds), couples)
+          ? undefined
+          : main;
       if (wrong) return { ok: false, problem: wrong, couples, kind: 'progression' };
       const meets = !spec.meetingCounts || spec.meetingCounts.includes(couples);
       const missed = meets ? meetingProblem(dance, spec.meeting, couples) : undefined;
