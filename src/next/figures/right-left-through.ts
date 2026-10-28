@@ -12,7 +12,7 @@
  */
 import type { Figure, FigureContact } from '../core/figure.ts';
 import { oneOf, onlyKeys, settle } from '../core/figure.ts';
-import { bodyMap, withinReach } from '../core/contacts.ts';
+import { bodyMap, holdPoint, withinReach } from '../core/contacts.ts';
 import {
   courtesyAt,
   courtesyContacts,
@@ -76,6 +76,8 @@ const MOST_CROSS = 0.65;
 /** Meters a beat a crossing walk may average, with room for its ramps. */
 const WALK = 1.0;
 const VEER = 0.3;
+/** Waist height, where hands pull by. */
+const PULL_BY_HEIGHT = 1.0;
 
 export const rightLeftThrough: Figure<RightLeftThroughParams> = (state, params, beats) => {
   onlyKeys('right left through', params, ['hand', 'turner']);
@@ -176,14 +178,19 @@ const rightHanded: Figure<{ turner?: 'larks' | 'robins' }> = (state, params, bea
       const strength = smooth((s - 0.2) / 0.15) * smooth((0.85 - s) / 0.15);
       return p.passes
         .filter(([a, b]) => a < b)
-        .map(([a, b]) => ({
-          a,
-          handA: 'right' as const,
-          b,
-          handB: 'right' as const,
-          kind: 'joined' as const,
-          strength,
-        }));
+        .map(([a, b]) => {
+          // Pulling by: right hands forward at waist height, between the two.
+          const point = holdPoint(map.get(a)!, 'right', map.get(b)!, 'right');
+          return {
+            a,
+            handA: 'right' as const,
+            b,
+            handB: 'right' as const,
+            kind: 'joined' as const,
+            strength,
+            point: { ...point, y: PULL_BY_HEIGHT },
+          };
+        });
     });
     return { bodies, contacts: contacts.map((c) => withinReach(c, map)) };
   };

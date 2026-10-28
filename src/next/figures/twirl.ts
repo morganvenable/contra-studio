@@ -48,10 +48,12 @@ export interface TwirlParams {
  * Distance from the pair's middle while trading places: the dancer going
  * under passes right beneath the raised hands, the other circles around.
  */
-const UNDER_MID = 0.1;
+const UNDER_MID = 0.05;
 const OVER_MID = 0.5;
 /** Share of the figure spent closing in to the crossing (and opening out). */
 const EDGE = 0.5;
+/** The twirl itself: the middle of the figure, under the arch. */
+const TWIRL_FROM = 0.25;
 
 export const twirl: Figure<TwirlParams> = (state, params, beats) => {
   onlyKeys('twirl', params, ['style', 'who']);
@@ -108,7 +110,7 @@ export const twirl: Figure<TwirlParams> = (state, params, beats) => {
       underId: under,
       strength: 1,
     };
-    return { center, half, ids, contact };
+    return { center, half, ids, contact, under };
   });
 
   const motion = (beat: number) => {
@@ -120,7 +122,10 @@ export const twirl: Figure<TwirlParams> = (state, params, beats) => {
         const r = p.half + (d.mid - p.half) * close;
         const position = add(p.center, rotate(scale(d.rel, r / p.half), sweep * q));
         const into = d.s.yaw + turn(d.face, d.s.yaw) * smooth(beat / d.faceBeats);
-        return { id: d.id, position, yaw: into + d.spin * ease(t) };
+        // The one going under twirls while beneath the raised hands; the
+        // other turns steadily as they walk around.
+        const spun = d.id === p.under ? smooth((t - TWIRL_FROM) / (1 - 2 * TWIRL_FROM)) : ease(t);
+        return { id: d.id, position, yaw: into + d.spin * spun };
       }),
     );
     const map = bodyMap(bodies);

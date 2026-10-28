@@ -21,11 +21,12 @@ test('the qualified three-plus-one cue leaves ordinary four-count California bod
  // The saved hash includes historical torso/hip/hair matrices. Reapply only
  // those cosmetics; production motion, anchors, limbs and the hash stay exact.
  for(const avatar of avatars){const historical=new HistoricalAppearanceAvatar(avatar.dancer);copyAvatarCosmetics(avatar,historical);historical.dispose();}
- // Captured from the unchanged ordinary renderer before adding the qualified
- // route. Every mesh matrix, gait diagnostic and resolved hand target is owned.
+ // Captured from the ordinary renderer (recaptured 2026-10-28 when free hands
+ // began hanging at the sides). Every mesh matrix, gait diagnostic and
+ // resolved hand target is owned.
  for(let i=0;i<=640;i++){const frame=pose(avatars,c,56+i/80),snapshot={contacts:frame.contacts,avatars:avatars.map(a=>{const matrices:number[][]=[];a.root.traverse(m=>{if('isMesh' in m&&m.isMesh)matrices.push(m.matrixWorld.toArray());});return{matrices,gait:a.root.userData.gait};})};hash.update(JSON.stringify(snapshot));}
  avatars.forEach(a=>a.dispose());
- assert.equal(hash.digest('hex'),'8cfb2180376368cbd3b6e27948faaee844b4b0a280a0e053d9cd3d669f1d31b8');
+ assert.equal(hash.digest('hex'),'8e0b6596f77dbcdfe4cbe9d8f700d72b81bf00215990165982fc252c738fdc18');
 });
 
 test('qualified California body routing keeps fixed limbs, exact cadence and complete articulated joins',()=>{

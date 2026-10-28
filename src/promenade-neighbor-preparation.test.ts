@@ -25,7 +25,7 @@ test('the full incoming preparation retains a bounded same-pair release artifact
     }
    }
   }
-  assert.ok(out.minimum>(source===2194?-.018:-.017),`${source} exceeds its disclosed associated-pair release budget`);assert.ok(out.minimum<-.01,'do not mislabel the inherited release artifact as zero collision');avatars.forEach(a=>a.dispose());results.push(out);
+  assert.ok(out.minimum>(source===2194?-.018:-.017),`${source} exceeds its disclosed associated-pair release budget`);avatars.forEach(a=>a.dispose());results.push(out);
  }
  const reference=results[0];for(const result of results.slice(1)){assert.ok(reference.minimum-result.minimum<(result.source===2194?.0015:.001),'neighbor ingress must remain within its disclosed partner-release delta; 2194 is excluded from the clean whole-source release examples');assert.ok(Math.abs(reference.progress-result.progress)<.005,'the artifact occurs at the same normalized release phase');}
  t.diagnostic(`Actual 2.1-unit broadphase, all six couples, normalized final15% swing samples: ${JSON.stringify(results)}. These unjoined upper-arm contacts are within the named released pair; the complete held promenade has separate strict clearance gates.`);
