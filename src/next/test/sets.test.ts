@@ -15,6 +15,7 @@ import { lineSets } from '../core/layout.ts';
 import { METERS } from '../core/music.ts';
 import { parseRow } from '../core/parse.ts';
 import { NO_PROGRESSION } from '../core/progression.ts';
+import { complete } from '../core/contacts.ts';
 import { body, withChanges, type DanceState } from '../core/state.ts';
 import { verifyDance } from '../core/verify.ts';
 import { compileNext, type StoredDance } from '../dance.ts';
@@ -255,12 +256,20 @@ test('lines cast off: each line is led round to the other line, facing on', () =
   }
 });
 
-test('a quick arch and dive (two beats) keeps to a walk', () => {
+test('a quick arch and dive (two beats) keeps the arch, styled fast', () => {
   const across = once(becket(), [call('arch-dive', 4, { arch: '1s', backing: false })]);
   once(across, [
     call('arch-dive', 2, { arch: '2s', backing: true }),
     call('pass-through', 2, { shoulder: 'right' }),
   ]);
+  const quick = FIGURES['arch-dive'](across, { arch: '2s', backing: true }, 2);
+  assert.equal(quick.styled?.fast, true);
+  const mid = quick.motion(1);
+  const map = new Map(mid.bodies.map((b) => [b.id, b]));
+  const arch = mid.contacts.find((c) => c.kind === 'arch')!;
+  assert.ok(arch.strength > 0.9, `the arching partners hold hands (${arch.strength})`);
+  const y = complete(arch, map).point.y;
+  assert.ok(y > 1.6, `the joined hands are raised over the divers (${y})`);
 });
 
 // Whole dances need the four face four and Sicilian frames in layout.ts

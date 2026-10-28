@@ -22,6 +22,7 @@
 import type { Figure, FigureContact } from '../../core/figure.ts';
 import { onlyKeys, settle } from '../../core/figure.ts';
 import { bodyMap, joined, withinReach } from '../../core/contacts.ts';
+import { fastStyling } from '../../core/fast.ts';
 import { add, dot, length, mean, progress, scale, smooth, sub, turn } from '../../core/math.ts';
 import {
   body,
@@ -51,16 +52,12 @@ const DIVE_HALF = 0.26;
 /** Share of the figure spent closing in (and again opening out). */
 const CLOSE = 0.45;
 /**
- * A quick arch (under three beats, sharing a phrase with a pass through):
- * the couples change width less (the arch stays a little open, the divers
- * a little wider, still 0.52 m clear, closing over the whole approach) and get up to speed sooner, so no one
- * has to run. Too wide for the arching partners' hands to meet: in two beats
- * the divers can't close in far enough at a walk.
+ * A quick arch (under three beats, sharing a phrase with a pass through)
+ * keeps the full shape, the arching partners' hands joined high over the
+ * divers, and gets up to speed sooner; faster than a walk, it is styled
+ * fast (core/fast.ts) rather than drawn as a different figure.
  */
 const QUICK_BEATS = 3;
-const QUICK_ARCH_HALF = 1.1;
-const QUICK_DIVE_HALF = 0.58;
-const QUICK_CLOSE = 0.5;
 const QUICK_RAMP = 0.12;
 /** Beats, at least, to turn to face the way the couple travels (or away). */
 const FACE_BEATS = 1;
@@ -135,18 +132,11 @@ export const archDive: Figure<ArchDiveParams> = (state, params, beats) => {
   const motion = (beat: number) => {
     const t = beat / beats;
     const q = quick ? progress(t, QUICK_RAMP) : progress(t);
-    const span = quick ? QUICK_CLOSE : CLOSE;
-    const close = Math.min(smooth(t / span), smooth((1 - t) / span));
+    const close = Math.min(smooth(t / CLOSE), smooth((1 - t) / CLOSE));
     const bodies = all.flatMap((p) => {
       const center = add(p.from, scale(sub(p.to, p.from), q));
       return p.movers.map((m) => {
-        const half = quick
-          ? p.arch
-            ? QUICK_ARCH_HALF
-            : QUICK_DIVE_HALF
-          : p.arch
-            ? ARCH_HALF
-            : DIVE_HALF;
+        const half = p.arch ? ARCH_HALF : DIVE_HALF;
         const target = Math.sign(m.side) * half;
         const side = m.side + (target - m.side) * close;
         // A half turn takes about two beats; never more than half the figure.
@@ -167,5 +157,6 @@ export const archDive: Figure<ArchDiveParams> = (state, params, beats) => {
     kind: 'pass-through',
     motion,
     exit: withChanges(settle(state, motion, beats), { hands: [] }),
+    ...(quick ? fastStyling('quick arch and dive', motion, beats) : {}),
   };
 };
