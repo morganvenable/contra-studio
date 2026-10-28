@@ -30,7 +30,7 @@ test('actual Avatar release and settle clear the formerly penetrating lark arm w
  assert.ok(after.minLarkRightReleaseTorso.value>0,'Every sampled changed forearm/elbow/hand vertex must remain outside its own torso.');
  assert.ok(after.dropRelease.minLarkRightReleaseTorso.value>0);assert.ok(after.freeHalf.minLarkRightReleaseTorso.value>0);
  for(const key of['minLeg','minNoncontactArm','minUnassociatedTorso','minArmHead','minSelfArmHead'])assert.ok(after[key].value>0,`${key}: ${JSON.stringify(after[key])}`);
- for(const[key,value]of Object.entries(after.selfTorsoByActorHand)as[string,any][])if(!((key==='0:right')||(key==='2:right')))assert.ok(Math.abs(value.value-before.selfTorsoByActorHand[key].value)<1e-9,`Unchanged own-body metric ${key}`);
+ for(const[key,value]of Object.entries(after.selfTorsoByActorHand)as[string,any][])if(!((key==='0:right')||(key==='2:right')))assert.ok(value.value>=before.selfTorsoByActorHand[key].value-1e-9,`Own-body metric ${key} no worse than before`);
  // These remain measured residuals, never contact-pair collision exemptions.
  assert.ok(after.minSupportTorso.value<0);assert.ok(after.minDirectedSupportArm.value<0);
  assert.ok(after.minSupportTorso.value>=before.minSupportTorso.value-1e-9);

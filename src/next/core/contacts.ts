@@ -53,22 +53,43 @@ export function joined(hold: Hold, strength: number): FigureContact {
 /** Highest an arch's joined hands go, above any dancer's head. */
 const ARCH_TOP = 2.0;
 
+/** Farthest an arch's hands reach from either shoulder. */
+const ARCH_REACH = LIMITS.armReach * 0.97;
+
 /**
- * An arch's joined hands: between the two shoulders, as high as both arms
- * reach. They rise as the pair closes in and come down as it parts, so
- * whoever passes beneath goes under the hands, not through the arms.
+ * An arch's joined hands, as high as both arms reach. They rise as the pair
+ * closes in and come down as it parts, so whoever passes beneath goes under
+ * the hands, not through the arms. With someone of the pair turning under
+ * (a twirl, a star thru) the hands go over that dancer's head, as far
+ * toward it as the other's arm reaches.
  */
-export function archPoint(a: Body, handA: Hand, b: Body, handB: Hand): Vec3 {
-  const sa = shoulder(a, handA);
-  const sb = shoulder(b, handB);
-  const half = Math.hypot(sa.x - sb.x, sa.z - sb.z) / 2;
-  const lift = Math.sqrt(Math.max(0, (LIMITS.armReach * 0.97) ** 2 - half * half));
-  return {
-    x: (sa.x + sb.x) / 2,
-    y: Math.max(BODY.handHeight, Math.min(ARCH_TOP, BODY.shoulderHeight + lift)),
-    z: (sa.z + sb.z) / 2,
-  };
+export function archPoint(a: Body, handA: Hand, b: Body, handB: Hand, under?: Body): Vec3 {
+  const shoulders = [shoulder(a, handA), shoulder(b, handB)];
+  const mid = { x: (shoulders[0].x + shoulders[1].x) / 2, z: (shoulders[0].z + shoulders[1].z) / 2 };
+  const height = (x: number, z: number) =>
+    Math.min(
+      ...shoulders.map(
+        (s) => s.y + Math.sqrt(Math.max(0, ARCH_REACH ** 2 - (x - s.x) ** 2 - (z - s.z) ** 2)),
+      ),
+    );
+  let best = { x: mid.x, z: mid.z, y: height(mid.x, mid.z) };
+  if (under) {
+    // Slide from between the shoulders toward the head beneath, keeping the
+    // hands at least head-high-less-a-duck.
+    for (let k = 1; k <= 8; k++) {
+      const t = (k / 8) * 0.8;
+      const x = mid.x + (under.position.x - mid.x) * t;
+      const z = mid.z + (under.position.z - mid.z) * t;
+      const y = height(x, z);
+      if (y < UNDER_LOWEST) break;
+      best = { x, z, y };
+    }
+  }
+  return { x: best.x, y: Math.max(BODY.handHeight, Math.min(ARCH_TOP, best.y)), z: best.z };
 }
+
+/** Lowest the hands go over a dancer turning under them (who ducks the rest). */
+const UNDER_LOWEST = 1.82;
 
 /** Top of a dancer's head, plus room for the arm passing over it. */
 const HEAD_CLEAR = 1.87;
@@ -89,9 +110,11 @@ export function archDucks(
     if (c.kind !== 'arch' || c.strength < 0.05) continue;
     const arms = [shoulder(bodies.get(c.a)!, c.handA), shoulder(bodies.get(c.b)!, c.handB)];
     for (const [id, b] of bodies) {
-      if (id === c.a || id === c.b) continue;
+      // The one turning under ducks beneath the other's arm, not their own.
+      if ((id === c.a || id === c.b) && id !== c.underId) continue;
+      const others = id === c.a ? [arms[1]] : id === c.b ? [arms[0]] : arms;
       let duck = 0;
-      for (const s of arms) {
+      for (const s of others) {
         const dx = s.x - c.point.x;
         const dz = s.z - c.point.z;
         const len2 = dx * dx + dz * dz || 1e-9;
@@ -112,7 +135,9 @@ export function complete(c: FigureContact, bodies: ReadonlyMap<number, Body>): H
   const a = bodies.get(c.a);
   const b = bodies.get(c.b);
   if (!a || !b) throw new Error(`Contact ${c.a}-${c.b} names a dancer with no pose.`);
-  const point = c.kind === 'arch' ? archPoint(a, c.handA, b, c.handB) : holdPoint(a, c.handA, b, c.handB);
+  const under = c.underId === undefined ? undefined : bodies.get(c.underId);
+  const point =
+    c.kind === 'arch' ? archPoint(a, c.handA, b, c.handB, under) : holdPoint(a, c.handA, b, c.handB);
   return { ...c, point };
 }
 
