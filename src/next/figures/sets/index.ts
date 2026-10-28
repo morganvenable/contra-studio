@@ -8,6 +8,7 @@ import { couplesDoSiDo } from './couples-do-si-do.ts';
 import { linesCast } from './lines-cast.ts';
 import { linesCircle } from './lines-circle.ts';
 import { linesSwing } from './lines-swing.ts';
+import { linesTurn } from './lines-turn.ts';
 import { swingOut } from './swing-out.ts';
 
 // These dance in the groups of eight of a four face four (layout.ts
@@ -24,6 +25,7 @@ for (const move of [
   (layout as { lineSetMove?: (move: string) => void }).lineSetMove?.(move);
 
 export const SETS_FIGURES: FigureRegistry = {
+  'lines-turn': linesTurn,
   'arch-dive': archDive,
   'corner-swing': cornerSwing,
   corners,

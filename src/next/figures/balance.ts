@@ -128,6 +128,7 @@ const fourBeatBalance: Figure<BalanceParams> = (state, params, beats) => {
       }
     });
     const style = waved ? { style: 'right-left' as const } : {};
+    if (!waved && !state.hands.length && linesFacing(state)) return linesBalance(state, beats);
     if (!waved && state.hands.length && !ringed(state)) return heldBalance(state, beats);
     return fourBeatBalance(state, { formation: waved ? 'wave' : 'ring', ...style }, beats);
   }
@@ -147,6 +148,67 @@ const ringed = (state: Parameters<typeof balance>[0]) =>
       return false;
     }
   });
+
+/** How far a line steps in toward the line it faces. */
+const LINE_STEP = 0.3;
+
+/**
+ * Lines facing lines, holding no one (Money Musk's "balance long lines",
+ * "balance short lines"): everyone in the groups has someone straight
+ * ahead, a line or more away, and stands beside someone (up to a place
+ * apart) facing the same way; hands join where they reach.
+ */
+function linesFacing(state: Parameters<typeof balance>[0]): boolean {
+  const ids = activeIds(state);
+  if (ids.length < 6) return false;
+  return ids.every((id) => {
+    const b = body(state, id);
+    const f = forward(b.yaw);
+    const ahead = ids.some((o) => {
+      const v = sub(body(state, o).position, b.position);
+      const along = v.x * f.x + v.z * f.z;
+      return o !== id && along > 1.2 && Math.abs(v.x * f.z - v.z * f.x) < 0.5;
+    });
+    const beside = ids.some((o) => {
+      const ob = body(state, o);
+      const v = sub(ob.position, b.position);
+      const along = v.x * f.x + v.z * f.z;
+      return o !== id && Math.abs(along) < 0.3 && length(v) < 2.0 && Math.cos(turn(ob.yaw, b.yaw)) > 0.9;
+    });
+    return ahead && beside;
+  });
+}
+
+/**
+ * Lines balance: each line takes near hands, steps in toward the line it
+ * faces and steps back (forward on one, close, back on three, close).
+ */
+function linesBalance(state: Parameters<typeof balance>[0], beats: number) {
+  const ids = activeIds(state);
+  const holds: Hold[] = [];
+  for (const a of ids)
+    for (const b of ids) {
+      if (a >= b) continue;
+      const A = body(state, a);
+      const B = body(state, b);
+      const v = sub(B.position, A.position);
+      const f = forward(A.yaw);
+      if (length(v) > 2.0 || Math.abs(v.x * f.x + v.z * f.z) > 0.3) continue;
+      if (Math.cos(turn(B.yaw, A.yaw)) < 0.9) continue;
+      holds.push({ a, handA: handToward(A, B.position), b, handB: handToward(B, A.position) });
+    }
+  const motion = (beat: number) => {
+    const step = smooth(beat) - smooth(beat - 2);
+    const bodies = ids.map((id) => {
+      const b = body(state, id);
+      return { id, position: add(b.position, scale(forward(b.yaw), LINE_STEP * step)), yaw: b.yaw };
+    });
+    const map = bodyMap(bodies);
+    const grip = smooth(beat / 0.5) * smooth((beats - beat) / 0.5);
+    return { bodies, contacts: holds.map((h) => withinReach(joined(h, grip), map)) };
+  };
+  return { kind: 'balance' as const, motion, exit: withChanges(settle(state, motion, beats), { hands: [] }) };
+}
 
 /** Everyone holding hands steps right and back, left and back, keeping hold. */
 function heldBalance(

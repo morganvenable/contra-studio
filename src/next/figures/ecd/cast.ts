@@ -22,7 +22,7 @@
 import type { Vec2 } from '../../../types.ts';
 import type { Figure } from '../../core/figure.ts';
 import { oneOf, onlyKeys, settle } from '../../core/figure.ts';
-import { progress } from '../../core/math.ts';
+import { forward, progress } from '../../core/math.ts';
 import { body, withChanges } from '../../core/state.ts';
 import { CENTER_HALF } from './center-travel.ts';
 import {
@@ -99,11 +99,19 @@ export const cast: Figure<CastParams> = (state, params, beats) => {
             { x: side * 1.25, z: turnAt },
             { x: out, z: turnAt + dir * 0.45 },
           ]
-        : [
-            { x: x0, z: z0 },
-            { x: x0 + side * 0.3, z: z0 - dir * 0.35 },
-            { x: out, z: z0 + dir * 0.15 },
-          ];
+        : forward(s0.yaw).z * dir > 0.5
+          ? // Already facing the way the cast goes (out of a turn along the
+            // set): straight out and on, with no step back up first.
+            [
+              { x: x0, z: z0 },
+              { x: x0 + side * 0.35, z: z0 + dir * 0.2 },
+              { x: out, z: z0 + dir * 0.55 },
+            ]
+          : [
+              { x: x0, z: z0 },
+              { x: x0 + side * 0.3, z: z0 - dir * 0.35 },
+              { x: out, z: z0 + dir * 0.15 },
+            ];
     const track = new Track(
       [...start, { x: out, z: zq - dir * 0.55 }, { x: x0, z: zq }],
       0.3,
@@ -120,7 +128,7 @@ export const cast: Figure<CastParams> = (state, params, beats) => {
     if (k === p) continue;
     for (const id of [all[k].lark, all[k].robin]) {
       const goal: Vec2 = { x: body(state, id).position.x, z: all[k - dir].z };
-      paths.set(id, slidePath(state, id, goal, 0.2, 0.8));
+      paths.set(id, slidePath(state, id, goal, 0.1, 0.9));
     }
   }
   const bodies = choreograph(state, beats, paths, 1);

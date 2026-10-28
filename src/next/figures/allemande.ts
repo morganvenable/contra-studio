@@ -15,6 +15,7 @@
  * allemande primitive in src/engine.ts (gather to a held radius, C2 travel).
  */
 import type { Role } from '../../types.ts';
+import { linesTurn } from './sets/lines-turn.ts';
 import type { Figure, FigureContact } from '../core/figure.ts';
 import { oneOf, onlyKeys, settle } from '../core/figure.ts';
 import { joined, sameHold } from '../core/contacts.ts';
@@ -106,6 +107,15 @@ export const allemande: Figure<AllemandeParams> = (state, params, beats) => {
   }
   const stepsOut = !params.wave && !params.longWaves && Number.isInteger(amount * 2);
   const groups = minorSets(state);
+  // A couple in the middle of two lines across, a line apart, turns out of
+  // the lines back to places (Money Musk's second ¾ turn): see lines-turn.ts.
+  if (hand && !params.wave && !params.longWaves) {
+    const apart = groups.flatMap((g) => pairsIn(state, g, who)).map(([a, b]) =>
+      length(sub(body(state, a).position, body(state, b).position)),
+    );
+    if (apart.length && apart.every((d) => d > 2.7))
+      return linesTurn(state, { who, hand, amount, to: 'places' }, beats);
+  }
 
   const pairs = groups.flatMap((g) => pairsIn(state, g, who));
   // The hand each pair joins: as named, or the one that sends the splitting

@@ -342,3 +342,27 @@ test('corners read 1.25 as 1¼, only as a whole number', () => {
   const source = readFileSync(new URL('../core/parse-sets.ts', import.meta.url), 'utf8');
   assert.doesNotMatch(source, /[\u0000-\u0008\u000b\u000c\u000e-\u001f]/);
 });
+
+test('Money Musk: long lines, short lines across, and back out to second place', () => {
+  const stored = JSON.parse(
+    readFileSync(new URL('../../../public/dances/907.json', import.meta.url), 'utf8'),
+  ) as StoredDance;
+  const dance = compileNext(stored, 3);
+  const at = (beat: number) => new Map(dance.sample(beat).poses.map((p) => [p.id, p]));
+  // Ones (0, 1) cast below the twos (2, 3) into the middle of the side lines.
+  const lines = at(16);
+  assert.ok(Math.abs(lines.get(0)!.position.z - 0) < 0.05 && Math.abs(lines.get(1)!.position.z) < 0.05);
+  assert.ok(Math.abs(lines.get(2)!.position.z + 1.8) < 0.05);
+  // ¾ turn into short lines across: each one in the middle of a line of three.
+  const across = at(28);
+  const ends = [0, 1].map((id) => across.get(id)!.position).sort((a, b) => a.z - b.z);
+  assert.ok(Math.abs(ends[0].x) < 0.05 && Math.abs(ends[0].z + 1.8) < 0.05, 'one joins the twos');
+  assert.ok(Math.abs(ends[1].x) < 0.05 && Math.abs(ends[1].z - 1.8) < 0.05, 'one joins the threes');
+  // ¾ turn back out: the ones on their own sides in second place.
+  const home = at(32);
+  for (const id of [0, 1]) {
+    const p = home.get(id)!.position;
+    assert.ok(Math.abs(Math.abs(p.x) - 0.9) < 0.05 && Math.abs(p.z) < 0.05, `one ${id} on a side`);
+    assert.ok(Math.sign(p.x) === Math.sign(at(0).get(id)!.position.x), `one ${id} on own side`);
+  }
+});
