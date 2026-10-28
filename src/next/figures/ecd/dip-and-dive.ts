@@ -22,7 +22,6 @@
 import type { Vec2 } from '../../../types.ts';
 import type { Figure, FigureContact } from '../../core/figure.ts';
 import { onlyKeys, settle } from '../../core/figure.ts';
-import { shoulder } from '../../core/contacts.ts';
 import { add, mean, mix, progress, rotate, smooth, sub } from '../../core/math.ts';
 import { body, withChanges } from '../../core/state.ts';
 import { choreograph, type Path, placeOf, places } from './common.ts';
@@ -38,8 +37,8 @@ export interface DipAndDiveParams {
 
 /** Partners' distance from the middle line in the column, and in an arch. */
 const COLUMN_HALF = 0.26;
+// As close as keeps the divers 0.5 m clear; they duck under the arms (archDucks).
 const ARCH_HALF = 0.8;
-const ARCH_HEIGHT = 1.6;
 
 interface Step {
   /** Place index at the start and end of the change. */
@@ -155,13 +154,9 @@ export const dipAndDive: Figure<DipAndDiveParams> = (state, params, beats) => {
     for (const { a, b, k } of arches) {
       const w = (u - k * slice) / slice;
       if (w <= 0 || w >= 1) continue;
-      const pa = moved.find((m) => m.id === a)!;
-      const pb = moved.find((m) => m.id === b)!;
       // Inside hands: the lark (on the robin's left) gives the right, the robin the left.
       const handA = 'right' as const;
       const handB = 'left' as const;
-      const sa = shoulder(pa, handA);
-      const sb = shoulder(pb, handB);
       contacts.push({
         a,
         handA,
@@ -170,7 +165,6 @@ export const dipAndDive: Figure<DipAndDiveParams> = (state, params, beats) => {
         kind: 'arch',
         // Hands up once the arch is wide enough to reach over.
         strength: smooth((Math.sin(Math.PI * Math.min(1, w * 1.1)) - 0.8) / 0.15),
-        point: { x: (sa.x + sb.x) / 2, y: ARCH_HEIGHT, z: (sa.z + sb.z) / 2 },
       });
     }
     return { bodies: moved, contacts };

@@ -10,9 +10,10 @@
  * places as they stood at the top. A whole-set progression: the set's top
  * minor set is now at the bottom.
  * Source: ContraDB "Riverside Jig" and its variation (Becket).
- * Reading: the line's arches stand wide (0.35 m and 2 m out from the middle
- * line on each side) so the dancers coming up the side lines pass under
- * them clear of the arching dancers.
+ * Reading: each end dancer and the one beside them hold an arch (0.35 m
+ * and 1.5 m out from the middle line on each side), close enough that the
+ * joined hands reach up over the heads of the dancers coming up the side
+ * lines, who pass under them clear of the arching dancers.
  */
 import type { Vec2 } from '../../types.ts';
 import type { Figure, FigureContact } from '../core/figure.ts';
@@ -21,7 +22,7 @@ import { add, clamp, mean, progress, smooth, sub, turn } from '../core/math.ts';
 import { body, minorSets, withChanges } from '../core/state.ts';
 
 /** Where the four stand across the set in the line, from the -x side. */
-const LINE_X = [-2, -0.35, 0.35, 2];
+const LINE_X = [-1.5, -0.35, 0.35, 1.5];
 /** Share of the beats spent forming the line, and stepping back out. */
 const EDGE = 0.18;
 
@@ -70,8 +71,10 @@ export const topToBottom: Figure<Record<string, never>> = (state, params, beats)
     }
     const contacts: FigureContact[] = [];
     const hold = Math.min(smooth((t - EDGE * 0.5) / (EDGE * 0.5)), smooth((1 - EDGE - t) / (EDGE * 0.5)));
-    // The middle two hold hands; the arches out to the sides are drawn open.
+    // The middle two hold hands low; each side's pair raises an arch over a side line.
     contacts.push({ a: lineOrder[1], handA: 'left', b: lineOrder[2], handB: 'right', kind: 'joined', strength: hold });
+    contacts.push({ a: lineOrder[0], handA: 'left', b: lineOrder[1], handB: 'right', kind: 'arch', strength: hold });
+    contacts.push({ a: lineOrder[2], handA: 'left', b: lineOrder[3], handB: 'right', kind: 'arch', strength: hold });
     return { bodies, contacts };
   };
   return {

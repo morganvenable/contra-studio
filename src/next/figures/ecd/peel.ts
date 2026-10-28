@@ -32,7 +32,6 @@ import { oneOf, onlyKeys, settle } from '../../core/figure.ts';
 import { SET } from '../../core/config.ts';
 import { clamp, progress, smooth, turn } from '../../core/math.ts';
 import { activeIds, body, partnerOf, withChanges, type Hold } from '../../core/state.ts';
-import { shoulder } from '../../core/contacts.ts';
 import { choreograph, facingIn, type Path, placeOf, places, sideSign, SLOT, Track } from './common.ts';
 
 export interface PeelParams {
@@ -41,6 +40,7 @@ export interface PeelParams {
 }
 
 /** Leaders' distance from the middle while making the arch. */
+// Those passing under duck beneath the arms (archDucks in core/contacts.ts).
 export const ARCH_HALF = 0.8;
 /** Each follower's distance from the middle coming up through the arch. */
 export const THROUGH_HALF = 0.26;
@@ -50,8 +50,6 @@ const TURN_BELOW = 0.7;
 const RAMP = 0.1;
 /** How far outside the lines everyone walks down. */
 const PEEL_OUT = 0.55;
-/** Height of the joined hands of the arch. */
-const ARCH_HEIGHT = 1.6;
 
 interface Tracks {
   follow: Track;
@@ -226,13 +224,10 @@ export const peel: Figure<PeelParams> = (state, params, beats) => {
     if (on > 0.01) {
       const a = moved.find((b) => b.id === lark)!;
       const b = moved.find((m) => m.id === robin)!;
-      const sa = shoulder(a, 'left');
-      const sb = shoulder(b, 'right');
       contacts.push({
         ...hold,
         kind: 'arch',
         strength: on,
-        point: { x: (sa.x + sb.x) / 2, y: ARCH_HEIGHT, z: (sa.z + sb.z) / 2 },
       });
     }
     return { bodies: moved, contacts };

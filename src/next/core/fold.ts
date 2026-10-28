@@ -14,7 +14,7 @@
  * many times through come from the MusicStructure.
  */
 import type { CompiledDance, Dance, Figure as LegacyFigure, Frame, Pose } from '../../types.ts';
-import { complete, contactReach, joined, reachFade, sameHold } from './contacts.ts';
+import { archDucks, complete, contactReach, joined, reachFade, sameHold } from './contacts.ts';
 import type {
   Figure,
   FigureCall,
@@ -409,11 +409,25 @@ export function compileFold(options: FoldOptions): FoldedDance {
       ...frame.contacts.map((c) => complete(c, bodies)),
       ...released(segment, frame.contacts, local - segment.start).map((c) => complete(c, bodies)),
     ].filter((c) => c.strength > 0.01);
+    const figureProgress = clamp((local - segment.start) / segment.call.beats);
+    const ducks = archDucks(contacts, bodies);
+    // Tell the renderer who passes under each held arch, so the dancer going
+    // under keeps the held hand up rather than at rest, and who ducks under one.
+    for (const p of poses) {
+      const duck = ducks.get(p.id) ?? 0;
+      if (duck > 0.005) p.arch = { underId: p.id, progress: figureProgress, kneeLowering: duck };
+    }
+    for (const c of contacts)
+      if (c.kind === 'arch' && c.underId !== undefined)
+        for (const id of [c.a, c.b]) {
+          const pose = poses.find((p) => p.id === id);
+          if (pose) pose.arch = { underId: c.underId, progress: figureProgress, kneeLowering: pose.arch?.kneeLowering ?? 0 };
+        }
     return {
       beat,
       localBeat: local,
       figureIndex: index,
-      figureProgress: clamp((local - segment.start) / segment.call.beats),
+      figureProgress,
       repeat,
       poses,
       contacts,
