@@ -31,6 +31,7 @@ import type { Hand } from '../../types.ts';
 import type { Figure, FigureContact } from '../core/figure.ts';
 import { oneOf, onlyKeys, settle } from '../core/figure.ts';
 import { bodyMap, joined, withinReach } from '../core/contacts.ts';
+import { withGather } from '../core/wave-gather.ts';
 import { assertWaveHeld, findWave } from '../core/lines.ts';
 import {
   add,
@@ -247,6 +248,15 @@ const waveBalance: Figure<BalanceParams> = (state, params, beats) => {
   try {
     for (const g of groups) assertWaveHeld(state, findWave(state, g));
   } catch (error) {
+    // Long waves before a Rory ("balance & Rory O'More left", the balance
+    // naming the side): the waves close up and take hands again.
+    if (style === 'right-left' && params.first !== undefined && inSideLines(state)) {
+      try {
+        return formLongWaves(state, undefined, first === 'left' ? -1 : 1, beats);
+      } catch {
+        // Not side lines this can close up: balance in place, as below.
+      }
+    }
     // Long waves along the side lines (or another held line): everyone
     // holding hands balances side to side in place.
     if (style === 'right-left' && state.hands.length)
@@ -310,7 +320,16 @@ function inSideLines(state: Parameters<typeof balance>[0]): boolean {
 
 /** Beats to turn to face in or out when forming long waves. */
 const FORM_BEATS = 2;
-/** Neighbors along a side line farther apart than this do not join hands. */
+/**
+ * Long waves close up to hold hands (core/wave-gather.ts): everyone in a
+ * side line holds both neighbors' hands, so each run of the line (dancers
+ * within LINE_REACH of the next) draws in toward its middle until
+ * neighbors stand WAVE_GAP apart, near arm's length. The balance in a held
+ * long wave is a small rock (WAVE_STEP), so the hands stay joined.
+ */
+const WAVE_GAP = 1.5;
+const WAVE_STEP = 0.05;
+/** Line-mates farther apart than this do not join hands. */
 const LINE_REACH = 2.2;
 
 const longWaveBalance: Figure<BalanceParams> = (state, params, beats) => {
@@ -333,7 +352,8 @@ class NotInSideLine extends Error {}
 
 function formLongWaves(
   state: Parameters<typeof balance>[0],
-  inRole: string,
+  /** The role that turns to face in; undefined: everyone faces as they stand. */
+  inRole: string | undefined,
   sign: number,
   beats: number,
 ) {
@@ -344,8 +364,11 @@ function formLongWaves(
       const off = s.position.x - middle.x;
       if (Math.abs(off) < 0.5) throw new NotInSideLine(`Dancer ${id} is not standing in a side line.`);
       const facingIn = off > 0 ? -Math.PI / 2 : Math.PI / 2;
-      const yaw = roleOf(state, id) === inRole ? facingIn : facingIn + Math.PI;
-      return { id, s, yaw, side: Math.sign(off) };
+      const yaw =
+        inRole === undefined
+          ? Math.cos(turn(facingIn, s.yaw)) > 0 ? facingIn : facingIn + Math.PI
+          : roleOf(state, id) === inRole ? facingIn : facingIn + Math.PI;
+      return { id, s, yaw, side: Math.sign(off), gather: 0 };
     });
   });
   // Hands along each side line, between neighbors in line (across minor sets too).
@@ -354,28 +377,39 @@ function formLongWaves(
     const line = plans
       .filter((p) => p.side === side)
       .sort((a, b) => a.s.position.z - b.s.position.z);
-    for (let i = 1; i < line.length; i++) {
-      const [a, b] = [line[i - 1], line[i]];
-      if (Math.abs(b.s.position.z - a.s.position.z) > LINE_REACH) continue;
-      const fa = { position: a.s.position, yaw: a.yaw };
-      const fb = { position: b.s.position, yaw: b.yaw };
-      holds.push({
-        a: a.id,
-        handA: handToward(fa, fb.position),
-        b: b.id,
-        handB: handToward(fb, fa.position),
-      });
+    // Runs of the line close enough to join up.
+    const runs: (typeof line)[] = [];
+    for (const p of line) {
+      const run = runs.at(-1);
+      if (run && p.s.position.z - run.at(-1)!.s.position.z <= LINE_REACH) run.push(p);
+      else runs.push([p]);
+    }
+    for (const run of runs) {
+      const z = run.map((p) => p.s.position.z);
+      const middle = (z[0] + z.at(-1)!) / 2;
+      const widest = Math.max(0, ...z.slice(1).map((v, i) => v - z[i]));
+      const k = widest > WAVE_GAP ? WAVE_GAP / widest : 1;
+      for (const p of run) p.gather = (p.s.position.z - middle) * (k - 1);
+      for (let i = 1; i < run.length; i++) {
+        const [a, b] = [run[i - 1], run[i]];
+        const fa = { position: a.s.position, yaw: a.yaw };
+        const fb = { position: b.s.position, yaw: b.yaw };
+        holds.push({ a: a.id, handA: handToward(fa, fb.position), b: b.id, handB: handToward(fb, fa.position) });
+      }
     }
   }
   const motion = (beat: number) => {
     const i = Math.min(3, Math.floor(beat));
     const q = STEPS[i] + (STEPS[i + 1] - STEPS[i]) * ease(beat - i);
+    const close = smooth(beat / 1.25);
     const bodies = plans.map((p) => {
       const yaw = p.s.yaw + turn(p.yaw, p.s.yaw) * smooth(beat / FORM_BEATS);
-      return { id: p.id, position: add(p.s.position, scale(rightOf(yaw), STEP * q * sign)), yaw };
+      const home = { x: p.s.position.x, z: p.s.position.z + p.gather * close };
+      return { id: p.id, position: add(home, scale(rightOf(yaw), WAVE_STEP * q * sign)), yaw };
     });
     const map = bodyMap(bodies);
-    const strength = smooth((beat - 0.5) / 1);
+    // Hands join as the line closes up and stay joined through the balance.
+    const strength = smooth((beat - 0.25) / 0.75);
     return { bodies, contacts: holds.map((h) => withinReach(joined(h, strength), map)) };
   };
   // Keep the hands that still reach at the end (side-line places can be wide).
@@ -384,7 +418,10 @@ function formLongWaves(
   return {
     kind: 'wave-balance' as const,
     motion,
-    exit: withChanges(settle(state, motion, beats), { hands: kept }),
+    exit: withChanges(settle(state, motion, beats), {
+      hands: kept,
+      relations: withGather(state, new Map(plans.map((p) => [p.id, p.gather]))),
+    }),
   };
 };
 

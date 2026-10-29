@@ -23,8 +23,11 @@ import {
   mix,
   progress,
   scale,
+  smooth,
   sub,
 } from '../core/math.ts';
+import { joined } from '../core/contacts.ts';
+import { gatherOf, withoutGather } from '../core/wave-gather.ts';
 import { roleOfGroup } from '../core/roles.ts';
 import { body, groupCenter, minorSets, roleOf, withChanges } from '../core/state.ts';
 
@@ -34,6 +37,8 @@ export interface BoxCirculateParams {
   loop: 'right' | 'left';
 }
 
+/** Beats to let go of the wave hands at the start. */
+const RELEASE_BEATS = 0.5;
 /** How far outside the side line a loop swings. */
 const LOOP_DEPTH = 0.5;
 
@@ -56,7 +61,8 @@ export const boxCirculate: Figure<BoxCirculateParams> = (state, params, beats) =
       const s = body(state, id);
       if (dot(forward(s.yaw), sub({ x: middle.x, z: s.position.z }, s.position)) <= 0)
         throw new Error('The dancers who cross must face in across the set.');
-      const end: Vec2 = { x: 2 * middle.x - s.position.x, z: s.position.z };
+      // Out of a closed-up long wave, back to the places (core/wave-gather.ts).
+      const end: Vec2 = { x: 2 * middle.x - s.position.x, z: s.position.z - gatherOf(state, id) };
       const at = (t: number) => ({ id, position: mix(s.position, end, progress(t)), yaw: s.yaw });
       return { id, at };
     });
@@ -64,7 +70,8 @@ export const boxCirculate: Figure<BoxCirculateParams> = (state, params, beats) =
       const s = body(state, id);
       const mate = crossers.find((c) => sideOf(c) === sideOf(id));
       if (mate === undefined) throw new Error('Each looper needs a crosser on the same side line.');
-      const end = body(state, mate).position;
+      const at0 = body(state, mate).position;
+      const end = { x: at0.x, z: at0.z - gatherOf(state, mate) };
       const along = sub(end, s.position);
       const outward = { x: sideOf(id), z: 0 };
       if (dot(forward(s.yaw), outward) <= 0)
@@ -89,13 +96,14 @@ export const boxCirculate: Figure<BoxCirculateParams> = (state, params, beats) =
     return [...crossing, ...looping];
   });
 
+  // The wave hands let go as everyone sets off.
   const motion = (beat: number) => ({
     bodies: movers.map((m) => m.at(beat / beats)),
-    contacts: [],
+    contacts: state.hands.map((h) => joined(h, 1 - smooth(beat / RELEASE_BEATS))),
   });
   return {
     kind: 'box-circulate',
     motion,
-    exit: withChanges(settle(state, motion, beats), { hands: [] }),
+    exit: withChanges(settle(state, motion, beats), { hands: [], relations: withoutGather(state) }),
   };
 };
