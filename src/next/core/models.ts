@@ -56,8 +56,6 @@ export interface CheckSpec {
   /** Couple counts to compile and check at. */
   readonly counts: readonly number[];
   readonly model?: (couples: number, rounds: number) => RoundModel | undefined;
-  /** Another progression the formation's dances may follow instead of `model`. */
-  readonly orModel?: (couples: number, rounds: number) => RoundModel | undefined;
   readonly meeting: MeetingRule;
   /** Rounds to check at `couples`; the default is couples + 2. */
   readonly rounds?: (couples: number) => number;

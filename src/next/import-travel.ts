@@ -216,6 +216,17 @@ export function wholeSetShape<S extends { formation: string; progression: string
     return rows.some((r) => /^top (?:2|two) couples\b.*\bto the bottom\b/.test(plain(r)))
       ? { formation: shape.formation, progression: 'becket-rows' as never }
       : shape;
+  // A triplet whose ones only cast down one place, with nothing sending them
+  // on to the bottom (Money Musk: "ones cast down one couple"), is a triple
+  // minor: the ones keep dancing down the set and each couple starts dancing
+  // once it reaches the top.
+  if (shape.formation === 'triplet') {
+    const onePlace = rows.some((r) => /^(?:ones|1s) cast (?:down )?(?:below |one )/.test(plain(r)));
+    const bottom = rows.some((r) => /bottom/.test(plain(r)));
+    return onePlace && !bottom
+      ? { formation: 'triple-minor', progression: 'triple-minor' as never }
+      : shape;
+  }
   if (!/^duple-minor/.test(shape.progression)) return shape;
   const wholeSet = rows.some((r) =>
     /^top couple\b.*\b(?:sashay|promenade|lead|cast)\b.*\b(?:down|bottom|end of (?:the )?set)\b/.test(
