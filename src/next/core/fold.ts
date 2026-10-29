@@ -30,6 +30,7 @@ import { body, type Body, type DanceState, withChanges } from './state.ts';
 import { hold } from '../figures/hold.ts';
 import { ghostCopies, ghostTurn, withGhosts } from './ghosts.ts';
 import { REGROUPING } from './relations.ts';
+import { gatherOf, withoutGather } from './wave-gather.ts';
 
 export type FigureRegistry = Readonly<Record<string, Figure<any>>>;
 
@@ -146,6 +147,52 @@ export function foldRound(
   return { segments, crossings, end: state, held };
 }
 
+/** Figures that open a closed-up long wave themselves (wave-gather.ts). */
+const OPENS_WAVES = new Set(['box-circulate', 'rory']);
+
+/**
+ * A long wave closed up to hold hands (wave-gather.ts) and followed by a
+ * figure that does not open it (an allemande, a swing): the figure runs from
+ * the places, and the dancers ease out to them over the figure.
+ */
+function openingOut(
+  state: DanceState,
+  call: FigureCall,
+  run: (from: DanceState) => FigureResult,
+): FigureResult {
+  if (OPENS_WAVES.has(call.move)) return run(state);
+  const offsets = new Map<number, number>();
+  for (const d of state.dancers) {
+    const dz = gatherOf(state, d.id);
+    if (dz !== 0) offsets.set(d.id, dz);
+  }
+  if (!offsets.size) return run(state);
+  const bodies = new Map(state.bodies);
+  for (const [id, dz] of offsets) {
+    const b = body(state, id);
+    bodies.set(id, { ...b, position: { x: b.position.x, z: b.position.z - dz } });
+  }
+  // The wave's hands let go as the figure starts (the fold fades them, released()).
+  const hands = state.hands.filter((h) => !offsets.has(h.a) && !offsets.has(h.b));
+  const result = run(withChanges(state, { bodies, hands, relations: withoutGather(state) }));
+  const motion = (beat: number) => {
+    const frame = result.motion(beat);
+    const left = 1 - smooth(Math.min(beat, call.beats) / call.beats);
+    const out = frame.bodies.map((b) => {
+      const dz = offsets.get(b.id);
+      return dz ? { ...b, position: { x: b.position.x, z: b.position.z + dz * left } } : b;
+    });
+    // Dancers the figure leaves standing ease out on their own.
+    for (const [id, dz] of offsets) {
+      if (out.some((b) => b.id === id)) continue;
+      const p = bodies.get(id)!;
+      out.push({ id, position: { x: p.position.x, z: p.position.z + dz * left }, yaw: p.yaw });
+    }
+    return { ...frame, bodies: out };
+  };
+  return { ...result, motion };
+}
+
 /** Run one call from `state`, checking it meets the dancers where they are. */
 function runFigure(
   registry: FigureRegistry,
@@ -165,7 +212,7 @@ function runFigure(
       ghosts && state.waiting.length
         ? withChanges(state, { waiting: state.waiting.map((w) => ({ ...w, ghosts: true })) })
         : state;
-    result = figure(input, call.params, call.beats);
+    result = openingOut(input, call, (from) => figure(from, call.params, call.beats));
   } catch (error) {
     const why = error instanceof Error ? error.message : String(error);
     throw new Error(`Figure ${index + 1} (${call.text ?? call.move}): ${why}`);

@@ -27,14 +27,15 @@
  * Wave step size and timing
  * ported from src/rory-slide.ts (0.1 m steps, one per beat).
  */
-import type { Hand } from '../../types.ts';
+import type { Hand, Vec2 } from '../../types.ts';
 import type { Figure, FigureContact } from '../core/figure.ts';
 import { oneOf, onlyKeys, settle } from '../core/figure.ts';
-import { bodyMap, joined, withinReach } from '../core/contacts.ts';
+import { bodyMap, joined, sameHold, withinReach } from '../core/contacts.ts';
 import { withGather } from '../core/wave-gather.ts';
 import { assertWaveHeld, findWave } from '../core/lines.ts';
 import {
   add,
+  dot,
   ease,
   forward,
   heading,
@@ -130,6 +131,15 @@ const fourBeatBalance: Figure<BalanceParams> = (state, params, beats) => {
     });
     const style = waved ? { style: 'right-left' as const } : {};
     if (!waved && !state.hands.length && linesFacing(state)) return linesBalance(state, beats);
+    // Long waves on the side lines ("balance long waves" after a star or a
+    // box circulate): the waves close up and take hands.
+    if (!waved && inSideLines(state, true)) {
+      try {
+        return formLongWaves(state, undefined, 1, beats);
+      } catch {
+        // Not side lines that can close up: as below.
+      }
+    }
     if (!waved && state.hands.length && !ringed(state)) return heldBalance(state, beats);
     return fourBeatBalance(state, { formation: waved ? 'wave' : 'ring', ...style }, beats);
   }
@@ -198,11 +208,42 @@ function linesBalance(state: Parameters<typeof balance>[0], beats: number) {
       if (Math.cos(turn(B.yaw, A.yaw)) < 0.9) continue;
       holds.push({ a, handA: handToward(A, B.position), b, handB: handToward(B, A.position) });
     }
+  // Each line closes up along itself so neighbors reach (WAVE_GAP), and
+  // opens back out to the places as the balance ends.
+  const close = new Map<number, Vec2>();
+  const seen = new Set<number>();
+  for (const start of ids) {
+    if (seen.has(start)) continue;
+    const line = [start];
+    seen.add(start);
+    for (let i = 0; i < line.length; i++)
+      for (const h of holds) {
+        const o = h.a === line[i] ? h.b : h.b === line[i] ? h.a : undefined;
+        if (o !== undefined && !seen.has(o)) {
+          seen.add(o);
+          line.push(o);
+        }
+      }
+    if (line.length < 2) continue;
+    const axis = rightOf(body(state, start).yaw);
+    const at = (id: number) => dot(body(state, id).position, axis);
+    line.sort((a, b) => at(a) - at(b));
+    const middle = (at(line[0]) + at(line.at(-1)!)) / 2;
+    const widest = Math.max(...line.slice(1).map((id, i) => at(id) - at(line[i])));
+    const k = widest > WAVE_GAP ? WAVE_GAP / widest : 1;
+    for (const id of line) close.set(id, scale(axis, (at(id) - middle) * (k - 1)));
+  }
   const motion = (beat: number) => {
     const step = smooth(beat) - smooth(beat - 2);
+    const closed = smooth(beat / 1.25) * smooth((beats - beat) / 1.25);
     const bodies = ids.map((id) => {
       const b = body(state, id);
-      return { id, position: add(b.position, scale(forward(b.yaw), LINE_STEP * step)), yaw: b.yaw };
+      const inward = scale(close.get(id) ?? { x: 0, z: 0 }, closed);
+      return {
+        id,
+        position: add(add(b.position, inward), scale(forward(b.yaw), LINE_STEP * step)),
+        yaw: b.yaw,
+      };
     });
     const map = bodyMap(bodies);
     const grip = smooth(beat / 0.5) * smooth((beats - beat) / 0.5);
@@ -248,9 +289,9 @@ const waveBalance: Figure<BalanceParams> = (state, params, beats) => {
   try {
     for (const g of groups) assertWaveHeld(state, findWave(state, g));
   } catch (error) {
-    // Long waves before a Rory ("balance & Rory O'More left", the balance
-    // naming the side): the waves close up and take hands again.
-    if (style === 'right-left' && params.first !== undefined && inSideLines(state)) {
+    // Long waves ("balance the wave" on the side lines, "balance & Rory
+    // O'More left"): the waves close up and take hands again.
+    if (style === 'right-left' && inSideLines(state, params.first === undefined)) {
       try {
         return formLongWaves(state, undefined, first === 'left' ? -1 : 1, beats);
       } catch {
@@ -295,7 +336,7 @@ const waveBalance: Figure<BalanceParams> = (state, params, beats) => {
  * Everyone active stands on a side line facing across, and on each side
  * line some dancers next to each other face opposite ways: long waves.
  */
-function inSideLines(state: Parameters<typeof balance>[0]): boolean {
+function inSideLines(state: Parameters<typeof balance>[0], strict = false): boolean {
   const ids = activeIds(state);
   const across = ids.every((id) => {
     const b = body(state, id);
@@ -308,13 +349,10 @@ function inSideLines(state: Parameters<typeof balance>[0]): boolean {
       .sort((a, b) => body(state, a).position.z - body(state, b).position.z);
     // Mostly alternating: after a Rory along the side line the ends, with
     // no one to slide past, can stand facing the same way as the next one.
-    return (
-      line.length >= 2 &&
-      line.some(
-        (id, i) =>
-          i > 0 && Math.sin(body(state, id).yaw) * Math.sin(body(state, line[i - 1]).yaw) < 0,
-      )
-    );
+    const opposite = (id: number, i: number) =>
+      i > 0 && Math.sin(body(state, id).yaw) * Math.sin(body(state, line[i - 1]).yaw) < 0;
+    // Strict: every dancer faces the other way from the next (a true wave).
+    return line.length >= 2 && (strict ? line.slice(1).every((id, i) => opposite(id, i + 1)) : line.some(opposite));
   });
 }
 
@@ -420,10 +458,19 @@ function formLongWaves(
     motion,
     exit: withChanges(settle(state, motion, beats), {
       hands: kept,
-      relations: withGather(state, new Map(plans.map((p) => [p.id, p.gather]))),
+      relations: withGather(
+        state,
+        new Map(plans.map((p) => [p.id, p.gather])),
+        new Map(plans.map((p) => [p.id, p.s.position.z + p.gather])),
+      ),
     }),
   };
 };
+
+/** Neighbors round a balancing ring stand this far apart, holding hands. */
+const RING_GAP = 1.45;
+/** Farthest a dancer steps in to close the ring (m), at a walk. */
+const RING_CLOSE = 0.3;
 
 /** 0 -> 1 -> 0: in over the first two beats, out over the last two. */
 const inAndOut = (beat: number) =>
@@ -436,14 +483,33 @@ const ringBalance: Figure<BalanceParams> = (state, params, beats) => {
     const ring = findRing(state, g, 'ring balance');
     return { ...ring, holds: ringHolds(ring) };
   });
+  const heldAtStart = (h: Hold) => state.hands.some((o) => sameHold(o, h));
+  // Neighbors round a ring of places stand too far apart to hold hands: the
+  // ring closes in to RING_GAP between neighbors for the balance and opens
+  // back out to the places as it ends.
+  const closeBy = rings.map((r) => {
+    const gaps = r.holds.map((h) => length(sub(body(state, h.a).position, body(state, h.b).position)));
+    const radius = Math.max(...r.order.map((id) => length(sub(body(state, id).position, r.center))));
+    // Nobody closes in on anyone (a narrow ring, as after an allemande).
+    const nearest = Math.min(
+      ...r.order.flatMap((a, i) =>
+        r.order.slice(i + 1).map((b) => length(sub(body(state, a).position, body(state, b).position))),
+      ),
+    );
+    return Math.max(
+      0,
+      Math.min(RING_CLOSE / radius, 1 - RING_GAP / Math.max(...gaps), 1 - RING_GAP / nearest),
+    );
+  });
   const motion = (beat: number) => {
     const deep = inAndOut(beat);
     const face = smooth(beat / FACE_BEATS);
-    const bodies = rings.flatMap((r) =>
+    const closed = smooth(beat / 0.6) * smooth((beats - beat) / 0.6);
+    const bodies = rings.flatMap((r, k) =>
       r.order.map((id) => {
         const s = body(state, id);
         const rel = sub(s.position, r.center);
-        const inward = scale(rel, (-RING_DEPTH * deep) / length(rel));
+        const inward = scale(rel, -closeBy[k] * closed - (RING_DEPTH * deep) / length(rel));
         return {
           id,
           position: add(s.position, inward),
@@ -453,8 +519,11 @@ const ringBalance: Figure<BalanceParams> = (state, params, beats) => {
       }),
     );
     const map = bodyMap(bodies);
+    // Hands stay joined round the ring for the whole balance (taken at once
+    // when coming in without them); the next figure lets go.
+    const grip = (h: Hold) => (heldAtStart(h) ? 1 : smooth(beat / 0.5));
     const contacts = rings.flatMap((r) =>
-      r.holds.map((h) => withinReach(joined(h, smooth(deep / 0.5)), map)),
+      r.holds.map((h) => withinReach(joined(h, grip(h)), map)),
     );
     return { bodies, contacts };
   };
