@@ -4,8 +4,8 @@
  "catalogue": 2422,
  "stored": 2422,
  "counts": {
-  "ok": 959,
-  "check": 418,
+  "ok": 957,
+  "check": 420,
   "partial": 1045,
   "unsupported": 0
  },
@@ -13,8 +13,8 @@
   {
    "formation": "improper",
    "dances": 1189,
-   "ok": 602,
-   "check": 152,
+   "ok": 600,
+   "check": 154,
    "partial": 435,
    "unsupported": 0
   },
@@ -2389,7 +2389,7 @@
    },
    {
     "name": "ocean wave / long wave",
-    "unlocks": 50
+    "unlocks": 51
    },
    {
     "name": "diagonal chain / right left through",
@@ -2444,15 +2444,15 @@
     "unlocks": 7
    },
    {
-    "name": "slide along set",
-    "unlocks": 7
-   },
-   {
     "name": "balance variant",
     "unlocks": 6
    },
    {
     "name": "chain variant",
+    "unlocks": 6
+   },
+   {
+    "name": "slide along set",
     "unlocks": 6
    },
    {
@@ -2575,7 +2575,7 @@
    },
    {
     "name": "allemande variant",
-    "unlocks": 39
+    "unlocks": 41
    },
    {
     "name": "ocean wave / long wave",
