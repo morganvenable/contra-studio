@@ -15,6 +15,7 @@ import { body, withChanges, type DanceState } from '../core/state.ts';
 import { parseRow } from '../core/parse.ts';
 import { FIGURES } from '../figures/index.ts';
 import { call } from './helpers.ts';
+import { gatherOf } from '../core/wave-gather.ts';
 
 const improper = (calls: readonly FigureCall[], couples = 3): DanceState =>
   foldRound(calls, IMPROPER.start(couples), FIGURES).end;
@@ -63,7 +64,9 @@ test('Rory right in long waves: each pair holding right sides slides past, along
     const from = body(s, id).position;
     const to = r.exit.bodies.get(id)!.position;
     assert.ok(Math.abs(to.x - from.x) < 1e-6, `dancer ${id} stays on its side line`);
-    assert.ok(Math.abs(Math.abs(to.z - from.z) - 1.8) < 1e-6, `dancer ${id} slides one place`);
+    // From its place (the wave closed up to hold hands, core/wave-gather.ts).
+    const place = from.z - gatherOf(s, id);
+    assert.ok(Math.abs(Math.abs(to.z - place) - 1.8) < 1e-6, `dancer ${id} slides one place`);
   }
   withinLimits(r, 4, 'Rory in long waves');
   // Balance and Rory left: on along the line, past the next dancer, never

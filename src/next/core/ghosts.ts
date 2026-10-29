@@ -33,6 +33,7 @@ import type { FigureContact, FigureFrame, FigureResult, MovedBody } from './figu
 import { LIMITS, SET } from './config.ts';
 import { bodyMap, withinReach } from './contacts.ts';
 import { progress, rotate, smooth, turn } from './math.ts';
+import { gatherOf } from './wave-gather.ts';
 import {
   body,
   type Body,
@@ -74,7 +75,11 @@ function setShape(state: DanceState): SetShape | undefined {
   const groups = state.groups.filter((g) => g.length === 4);
   if (!groups.length || groups.length !== state.groups.length) return undefined;
   const centers = groups.map((g) => {
-    const ps = g.map((id) => body(state, id).position);
+    // From the places, not where a closed-up long wave stands (wave-gather.ts).
+    const ps = g.map((id) => {
+      const p = body(state, id).position;
+      return { x: p.x, z: p.z - gatherOf(state, id) };
+    });
     return {
       group: g,
       x: ps.reduce((n, p) => n + p.x, 0) / 4,

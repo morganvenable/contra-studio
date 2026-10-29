@@ -4,9 +4,9 @@
  "catalogue": 2422,
  "stored": 2422,
  "counts": {
-  "ok": 957,
-  "check": 419,
-  "partial": 1046,
+  "ok": 959,
+  "check": 418,
+  "partial": 1045,
   "unsupported": 0
  },
  "formations": [
@@ -21,9 +21,9 @@
   {
    "formation": "becket",
    "dances": 655,
-   "ok": 199,
+   "ok": 200,
    "check": 175,
-   "partial": 281,
+   "partial": 280,
    "unsupported": 0
   },
   {
@@ -69,8 +69,8 @@
   {
    "formation": "triplet",
    "dances": 23,
-   "ok": 8,
-   "check": 2,
+   "ok": 9,
+   "check": 1,
    "partial": 13,
    "unsupported": 0
   },
@@ -2389,7 +2389,7 @@
    },
    {
     "name": "ocean wave / long wave",
-    "unlocks": 51
+    "unlocks": 50
    },
    {
     "name": "diagonal chain / right left through",
@@ -2401,7 +2401,7 @@
    },
    {
     "name": "rory o'more",
-    "unlocks": 24
+    "unlocks": 22
    },
    {
     "name": "star variant",
@@ -2444,15 +2444,15 @@
     "unlocks": 7
    },
    {
+    "name": "slide along set",
+    "unlocks": 7
+   },
+   {
     "name": "balance variant",
     "unlocks": 6
    },
    {
     "name": "chain variant",
-    "unlocks": 6
-   },
-   {
-    "name": "slide along set",
     "unlocks": 6
    },
    {
@@ -2468,16 +2468,16 @@
     "unlocks": 5
    },
    {
+    "name": "box circulate",
+    "unlocks": 4
+   },
+   {
     "name": "star promenade",
     "unlocks": 4
    },
    {
     "name": "gyre",
     "unlocks": 4
-   },
-   {
-    "name": "box circulate",
-    "unlocks": 3
    },
    {
     "name": "other: pass through across the set",
@@ -2571,7 +2571,7 @@
   "checkFailures": [
    {
     "name": "Couples don't end the round where the progression puts them.",
-    "unlocks": 135
+    "unlocks": 133
    },
    {
     "name": "allemande variant",
@@ -2598,15 +2598,15 @@
     "unlocks": 10
    },
    {
+    "name": "rory o'more",
+    "unlocks": 7
+   },
+   {
     "name": "diagonal hey",
     "unlocks": 7
    },
    {
     "name": "gyre",
-    "unlocks": 6
-   },
-   {
-    "name": "rory o'more",
     "unlocks": 6
    },
    {

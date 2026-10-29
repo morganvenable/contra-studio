@@ -20,6 +20,7 @@ import type { Figure, FigureContact } from '../core/figure.ts';
 import { oneOf, onlyKeys, settle } from '../core/figure.ts';
 import { joined, sameHold } from '../core/contacts.ts';
 import { findWave, lineHolds } from '../core/lines.ts';
+import { gatherOf, withoutGather } from '../core/wave-gather.ts';
 import {
   add,
   dot,
@@ -110,15 +111,23 @@ export const rory: Figure<RoryParams> = (state, params, beats) => {
     swaps.clear();
     for (const [a, b] of held.swaps) swaps.set(a, b);
   }
-  const moves = [...swaps].map(([id, other]) => ({
-    id,
-    start: body(state, id),
-    end: body(state, other).position,
-  }));
+  // Out of a closed-up long wave, on to the places (core/wave-gather.ts);
+  // a dancer with no one to slide past steps back out to its own place.
+  const place = (id: number) => ({
+    x: body(state, id).position.x,
+    z: body(state, id).position.z - gatherOf(state, id),
+  });
+  const moves = [
+    ...[...swaps].map(([id, other]) => ({ id, start: body(state, id), end: place(other), slides: true })),
+    ...state.dancers
+      .filter((d) => !swaps.has(d.id) && gatherOf(state, d.id) !== 0)
+      .map((d) => ({ id: d.id, start: body(state, d.id), end: place(d.id), slides: false })),
+  ];
 
   const motion = (beat: number) => {
     const q = progress(beat / beats);
     const bodies = moves.map((m) => {
+      if (!m.slides) return { id: m.id, position: mix(m.start.position, m.end, q), yaw: m.start.yaw };
       const back = scale(forward(m.start.yaw), -BOW * Math.sin(Math.PI * q));
       return {
         id: m.id,
@@ -140,12 +149,19 @@ export const rory: Figure<RoryParams> = (state, params, beats) => {
   const slid = settle(state, motion, beats);
   // Named dancers sliding may leave no wave behind them (the others turn
   // or step meanwhile): then no new hands join.
+  // Long waves open out to the places as they slide; the next balance
+  // closes them up and takes hands again (core/wave-gather.ts).
   newHolds = held
-    ? held.after(slid)
+    ? []
     : named === undefined
       ? groups.flatMap((g) => lineHolds(slid, findWave(slid, g)))
       : [];
-  if (named === undefined && newHolds.some((h) => state.hands.some((old) => sameHold(old, h)))) {
+  // A pair that did not slide (at the end of a long wave) may keep its hold.
+  const slidHold = (h: Hold) => swaps.has(h.a) || swaps.has(h.b);
+  if (
+    named === undefined &&
+    newHolds.some((h) => slidHold(h) && state.hands.some((old) => sameHold(old, h)))
+  ) {
     throw new Error('Rory must end holding hands with new people.');
   }
   return {
@@ -153,7 +169,7 @@ export const rory: Figure<RoryParams> = (state, params, beats) => {
     motion,
     exit: withChanges(slid, {
       hands: newHolds,
-      ...(held ? { relations: withSlid(state, held.swaps) } : {}),
+      relations: held ? withSlid({ ...state, relations: withoutGather(state) }, held.swaps) : withoutGather(state),
     }),
     ...(turnBy ? { styled: { name: 'Rory twirl' } } : {}),
   };
@@ -170,13 +186,16 @@ function heldLine(state: DanceState, direction: Hand, failure: unknown) {
   const swaps = new Map<number, number>();
   // The dancer on `direction`'s side, along the line it faces across, who
   // faces the other way and has this dancer on the same side.
+  // Not back past the one just slid past (in long waves the Rory back
+  // passes the next person along; at the ends there may be none).
+  const passed = state.relations.get(slidKey(state));
   const beside = (id: number): number | undefined => {
     const me = body(state, id);
     const side = direction === 'right' ? rightOf(me.yaw) : scale(rightOf(me.yaw), -1);
     let best: number | undefined;
     let bestD = SIDE_REACH;
     for (const other of active) {
-      if (other === id) continue;
+      if (other === id || passed?.get(id) === other) continue;
       const o = body(state, other);
       const off = sub(o.position, me.position);
       const along = dot(off, side);
@@ -189,12 +208,9 @@ function heldLine(state: DanceState, direction: Hand, failure: unknown) {
     }
     return best;
   };
-  // Not back past the one just slid past (in long waves the Rory back
-  // passes the next person along; at the ends there may be none).
-  const passed = state.relations.get(slidKey(state));
   for (const id of active) {
     const other = beside(id);
-    if (other === undefined || beside(other) !== id || passed?.get(id) === other) continue;
+    if (other === undefined || beside(other) !== id) continue;
     swaps.set(id, other);
   }
   // In long waves whose slide partners are all out at the ends (one minor

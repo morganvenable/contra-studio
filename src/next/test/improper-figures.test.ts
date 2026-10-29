@@ -243,19 +243,25 @@ test('long waves and box circulate: crossers go across, loopers loop into their 
     const inward = p.x > 0 ? FACE_WEST : FACE_EAST;
     facing(yaw(waved, id), id % 2 ? inward : inward + Math.PI, `dancer ${id}`);
   }
+  // The waves close up to hold hands; each box mate holds the other's hand
+  // through the balance, and the circulate opens back out to the places.
+  assert.ok(Math.abs(pos(waved, 0).z - pos(waved, 3).z) < Math.abs(pos(lines, 0).z - pos(lines, 3).z));
+  assert.ok(waved.hands.length > 0, 'the wave holds hands into the circulate');
   const r = FIGURES['box-circulate'](waved, { cross: 'robins', loop: 'left' }, 4);
+  const held = (beat: number) => r.motion(beat).contacts.filter((c) => c.strength > 0.5).length;
+  assert.ok(held(0) > 0 && held(1) === 0, 'hands let go as they set off');
   near(
     r.exit.bodies.get(1)!.position,
-    { x: -pos(waved, 1).x, z: pos(waved, 1).z },
+    { x: -pos(lines, 1).x, z: pos(lines, 1).z },
     'robin crosses',
   );
   const lark = r.exit.bodies.get(0)!;
   assert.ok(Math.sign(lark.position.x) === Math.sign(pos(waved, 0).x), 'lark stays on its side');
-  near(lark.position, pos(waved, 3), "lark loops into the other robin's place");
+  near(lark.position, pos(lines, 3), "lark loops into the other robin's place");
   // "Loop right" names the turn: the lark still ends in the same place,
   // turning over the other shoulder.
   const right = FIGURES['box-circulate'](waved, { cross: 'robins', loop: 'right' }, 4);
-  near(right.exit.bodies.get(0)!.position, pos(waved, 3), 'same place either way');
+  near(right.exit.bodies.get(0)!.position, pos(lines, 3), 'same place either way');
   const mid = (res: typeof r) => res.motion(2).bodies.find((b) => b.id === 0)!.yaw;
   assert.ok(Math.abs(mid(r) - mid(right)) > 1, 'the two loops turn opposite ways');
 });
