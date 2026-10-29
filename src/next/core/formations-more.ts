@@ -46,42 +46,15 @@ export function topToBottomModel(couples: number, rounds: number): number[][] {
   );
 }
 
-/**
- * Model for a set whose top couple goes down one place each time through
- * (Money Musk as ContraDB 907 writes it: the 1s end in second place, and
- * the couple now at the top leads next time).
- */
-export function onePlaceModel(couples: number, rounds: number): number[][] {
-  const z = (p: number) => (p - (couples - 1) / 2) * SET.slot;
-  const place = Array.from({ length: couples }, (_, c) => c);
-  const out: number[][] = [];
-  for (let r = 0; r < rounds; r++) {
-    const top = place.indexOf(0);
-    const second = place.indexOf(1);
-    place[top] = 1;
-    place[second] = 0;
-    out.push(place.map(z));
-  }
-  return out;
-}
-
-// A triplet may also send its 1s down only one place (onePlaceModel).
-const placesSpec = (counts: readonly number[], onePlace = false): CheckSpec => ({
+const placesSpec = (counts: readonly number[]): CheckSpec => ({
   counts,
   meeting: 'none',
   rounds: (couples) => couples + 1,
   model: (c, r) => coupleZ(topToBottomModel(c, r)),
-  ...(onePlace && { orModel: (c: number, r: number) => coupleZ(onePlaceModel(c, r)) }),
 });
 
 /** Proper longways whole set, couples labeled by place ("1s", "2s" ...). */
-function properWholeSet(
-  name: string,
-  min: number,
-  max: number,
-  counts: number[],
-  onePlace = false,
-): Formation {
+function properWholeSet(name: string, min: number, max: number, counts: number[]): Formation {
   return {
     name,
     shape: min === max ? 'small-set' : 'longways',
@@ -89,7 +62,7 @@ function properWholeSet(
     couples: { min, max },
     // A circle of the whole set goes round a true ring of places.
     moves: { circle: 'whole-circle', 'star-wheel': 'star-around' },
-    check: placesSpec(counts, onePlace),
+    check: placesSpec(counts),
     start(couples) {
       count(this, couples);
       const dancers = createDancers(couples);
@@ -114,7 +87,7 @@ function properWholeSet(
   };
 }
 
-export const TRIPLET = properWholeSet('Triplet', 3, 3, [3], true);
+export const TRIPLET = properWholeSet('Triplet', 3, 3, [3]);
 
 /**
  * Triple minor, drawn as one minor set of three couples: the 1s progress
@@ -129,7 +102,19 @@ export const TRIPLE_MINOR: Formation = {
     counts: [3],
     meeting: 'none',
     rounds: () => 4,
-    model: (couples, rounds) => coupleZ(onePlaceModel(couples, rounds)),
+    model: (couples, rounds) => {
+      const z = (p: number) => (p - (couples - 1) / 2) * SET.slot;
+      const place = Array.from({ length: couples }, (_, c) => c);
+      const out: number[][] = [];
+      for (let r = 0; r < rounds; r++) {
+        const top = place.indexOf(0);
+        const second = place.indexOf(1);
+        place[top] = 1;
+        place[second] = 0;
+        out.push(place.map(z));
+      }
+      return coupleZ(out);
+    },
   },
 };
 export const LONGWAYS_SET = properWholeSet('Longways set', 3, 8, [4, 5, 6]);
