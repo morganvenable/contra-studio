@@ -169,10 +169,14 @@ function planPair(
     !!group &&
     group.length > 4 &&
     // A whole longways set: everyone on the two side lines.
-    group.every((id) => Math.abs(Math.abs(body(state, id).position.x - middle.x) - SET.halfWidth) < 0.2) &&
+    // (or closed in from them by a balance into the swing).
+    group.every((id) => Math.abs(body(state, id).position.x - middle.x) > 0.3) &&
     Math.abs(across) < SIDE_MARGIN &&
     Math.sign(larkX) === -Math.sign(robinX) &&
-    Math.abs(Math.abs(larkX) - SET.halfWidth) < 0.2 &&
+    // Evenly across from each other (on the side lines, or closed in
+    // together by a balance into the swing).
+    Math.abs(larkX) > 0.3 &&
+    Math.abs(Math.abs(larkX) - Math.abs(robinX)) < 0.2 &&
     Math.abs(start.get(lark)!.position.z - start.get(robin)!.position.z) < 0.2;
   if (home) {
     exitCenter = center0;
@@ -212,10 +216,12 @@ function planPair(
     exitCenter = { x: middle.x, z: center0.z };
   }
   const half = scale(leftOf(exitYaw), SET.slot / 2);
+  // Home: back out on the pair's own side lines.
+  const onSide = (p: Vec2) => ({ x: middle.x + Math.sign(p.x - middle.x) * SET.halfWidth, z: p.z });
   const exitAt = home
     ? new Map([
-        [lark, start.get(lark)!.position],
-        [robin, start.get(robin)!.position],
+        [lark, onSide(start.get(lark)!.position)],
+        [robin, onSide(start.get(robin)!.position)],
       ])
     : new Map([
         [lark, add(exitCenter, half)],

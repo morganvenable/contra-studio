@@ -67,6 +67,8 @@ export interface BalanceParams {
   formation: 'wave' | 'ring' | 'pair' | 'current' | 'long-waves' | 'solo';
   /** Long waves: the role that faces in across the set. */
   in?: 'larks' | 'robins';
+  /** A pair balance straight into a swing with the same pair (dance.ts). */
+  into?: 'swing';
   style?: 'right-left' | 'forward-back';
   /** Side to step toward first, for a right-left wave balance. */
   first?: 'right' | 'left';
@@ -108,7 +110,7 @@ export const balance: Figure<BalanceParams> = (state, params, beats) => {
 };
 
 const fourBeatBalance: Figure<BalanceParams> = (state, params, beats) => {
-  onlyKeys('balance', params, ['formation', 'style', 'first', 'who', 'hand', 'in']);
+  onlyKeys('balance', params, ['formation', 'style', 'first', 'who', 'hand', 'in', 'into']);
   const formation = oneOf('balance', 'formation', params.formation, [
     'wave',
     'ring',
@@ -235,7 +237,7 @@ function linesBalance(state: Parameters<typeof balance>[0], beats: number) {
   }
   const motion = (beat: number) => {
     const step = smooth(beat) - smooth(beat - 2);
-    const closed = smooth(beat / 1.25) * smooth((beats - beat) / 1.25);
+    const closed = smooth(beat / 0.6) * smooth((beats - beat) / 0.6);
     const bodies = ids.map((id) => {
       const b = body(state, id);
       const inward = scale(close.get(id) ?? { x: 0, z: 0 }, closed);
@@ -460,7 +462,7 @@ function formLongWaves(
   const motion = (beat: number) => {
     const i = Math.min(3, Math.floor(beat));
     const q = STEPS[i] + (STEPS[i + 1] - STEPS[i]) * ease(beat - i);
-    const close = smooth(beat / 1.25);
+    const close = smooth(beat / 0.6);
     const bodies = plans.map((p) => {
       const yaw = p.s.yaw + turn(p.yaw, p.s.yaw) * smooth(beat / FORM_BEATS);
       const home = { x: p.s.position.x, z: p.s.position.z + p.gather * close };
@@ -468,7 +470,7 @@ function formLongWaves(
     });
     const map = bodyMap(bodies);
     // Hands join as the line closes up and stay joined through the balance.
-    const strength = smooth((beat - 0.25) / 0.75);
+    const strength = smooth((beat - 0.1) / 0.4);
     return { bodies, contacts: holds.map((h) => withinReach(joined(h, strength), map)) };
   };
   // Keep the hands that still reach at the end (side-line places can be wide).
@@ -488,10 +490,14 @@ function formLongWaves(
   };
 };
 
+/** A balancing pair holds hands this far apart (m), and closes to it over PAIR_CLOSE beats. */
+const PAIR_HOLD = 1.0;
+const PAIR_CLOSE = 0.75;
+
 /** Neighbors round a balancing ring stand this far apart, holding hands. */
 const RING_GAP = 1.45;
-/** Farthest a dancer steps in to close the ring (m), at a walk. */
-const RING_CLOSE = 0.3;
+/** Farthest a dancer steps in to close the ring (m). */
+const RING_CLOSE = 0.5;
 
 /** 0 -> 1 -> 0: in over the first two beats, out over the last two. */
 const inAndOut = (beat: number) =>
@@ -579,7 +585,12 @@ const pairBalance: Figure<BalanceParams> = (state, params, beats) => {
       const out = sub(me.position, center);
       const unit = scale(out, 1 / length(out));
       const deep = inAndOut(beat);
-      const r = span / 2 + (Math.min(PAIR_IN, span) / 2 - span / 2) * deep;
+      // Into a swing, the pair comes together to hold hands (PAIR_HOLD
+      // apart) and balances in from there and back to there: it never steps
+      // apart again before the swing.
+      const together = params.into === 'swing' ? smooth(beat / PAIR_CLOSE) : 0;
+      const rest = span / 2 + (Math.min(PAIR_HOLD, span) / 2 - span / 2) * together;
+      const r = rest + (Math.min(PAIR_IN, span) / 2 - rest) * deep;
       const face = heading(me.position, other.position);
       return {
         id,

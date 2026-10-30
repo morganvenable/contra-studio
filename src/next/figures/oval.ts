@@ -111,7 +111,18 @@ export const oval: Figure<OvalParams> = (state, params, beats) => {
       const face = travelFacing
         ? heading(at(m.from + travel * q - sign * LOOK), at(m.from + travel * q + sign * LOOK))
         : inward(position);
-      const yaw = m.s.yaw + turn(face, m.s.yaw) * smooth(beat / m.faceBeats);
+      // Turn toward the way of travel as it keeps turning round the ends,
+      // followed continuously (not the short way at each moment, which
+      // flips round the end of the oval).
+      const faceAt = (u: number) =>
+        travelFacing
+          ? heading(at(m.from + travel * u - sign * LOOK), at(m.from + travel * u + sign * LOOK))
+          : inward(at(m.from + travel * u));
+      let swept = 0;
+      const steps = 24;
+      for (let i = 1; i <= steps; i++) swept += turn(faceAt((q * i) / steps), faceAt((q * (i - 1)) / steps));
+      const target = m.s.yaw + turn(faceAt(0), m.s.yaw) + swept;
+      const yaw = m.s.yaw + (target - m.s.yaw) * smooth(beat / m.faceBeats);
       return { id: m.id, position, yaw: beat >= m.faceBeats ? face : yaw };
     });
     const t = beat / beats;

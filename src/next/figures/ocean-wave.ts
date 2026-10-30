@@ -62,7 +62,7 @@ export interface OceanWaveParams {
 /** Gap between hands-joined dancers in the wave. */
 export const WAVE_GAP = 0.9;
 /** Average walking pace while forming a wave in a short row (m per beat). */
-const FORM_PACE = 0.8;
+const FORM_PACE = 1.4;
 /** Dancers stepping into a wave pass no closer than this. */
 const PASS_CLEAR = 0.75;
 const STEP = 0.1;

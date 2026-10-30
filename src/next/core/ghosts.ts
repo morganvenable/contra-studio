@@ -47,6 +47,13 @@ import {
 export const TURN_BEATS = 8;
 
 const PLACE = 0.05;
+/**
+ * A comfortable pace for a waiting couple copying its template (m and
+ * radians a beat): faster than this, it does something simpler instead.
+ * Not the physical sanity bounds (config.ts LIMITS).
+ */
+const COMFORT_SPEED = 1.2;
+const COMFORT_TURN = 4;
 
 /** Beats a copy takes to turn to face as its template does. */
 const FACE_BEATS = 2;
@@ -344,7 +351,7 @@ function turnCost(
       const dt = beats / steps;
       const speed =
         Math.hypot(now.position.x - prev.position.x, now.position.z - prev.position.z) / dt;
-      worst = Math.max(worst, speed / LIMITS.maximumSpeed);
+      worst = Math.max(worst, speed / COMFORT_SPEED);
       prev = now;
     }
   }
@@ -367,7 +374,7 @@ function facingTooFast(state: DanceState, result: FigureResult, c: GhostCopy, be
   for (let i = 1; i <= steps; i++) {
     const beat = (i / steps) * span;
     const now = yawAt(beat);
-    if (Math.abs(turn(now, prev)) / (span / steps) > 0.95 * LIMITS.maximumYawRate) return true;
+    if (Math.abs(turn(now, prev)) / (span / steps) > 0.95 * COMFORT_TURN) return true;
     prev = now;
   }
   return false;

@@ -86,7 +86,7 @@ export const contraCorners: Figure<ContraCornersParams> = (state, params, beats)
   const isActive = new Set(actives.flatMap((x) => [x.a, x.b]));
 
   /** Positions after a set of turns (pairs rotate about their midpoints). */
-  const after = (from: Map<number, { position: Vec2; yaw: number }>, list: Turn[]) => {
+  const after = (from: Map<number, { position: Vec2; yaw: number }>, list: Turn[], home = false) => {
     const next = new Map(from);
     for (const t of list) {
       const pa = from.get(t.a)!.position;
@@ -95,8 +95,9 @@ export const contraCorners: Figure<ContraCornersParams> = (state, params, beats)
       const end = (p: Vec2, keepCorner: boolean) =>
         keepCorner ? p : add(m, scale(rotate(sub(p, m), t.angle), TURN_RADIUS / length(sub(p, m))));
       // Actives end at turn radius from the pivot; corners go back to place.
-      next.set(t.a, { position: end(pa, !isActive.has(t.a)), yaw: from.get(t.a)!.yaw });
-      next.set(t.b, { position: end(pb, !isActive.has(t.b)), yaw: from.get(t.b)!.yaw });
+      // (`home`: the second corner turn, after which the actives come back into the middle.)
+      next.set(t.a, { position: end(pa, home || !isActive.has(t.a)), yaw: from.get(t.a)!.yaw });
+      next.set(t.b, { position: end(pb, home || !isActive.has(t.b)), yaw: from.get(t.b)!.yaw });
     }
     return next;
   };
@@ -152,13 +153,15 @@ export const contraCorners: Figure<ContraCornersParams> = (state, params, beats)
       used2.add(c);
       turns[3].push({ a: id, b: c, angle: -TAU, hand: 'left' });
     }
-  places.push(after(places[3], turns[3]));
+  places.push(after(places[3], turns[3], true));
 
   const moving = new Set(turns.flat().flatMap((t) => [t.a, t.b]));
 
   const motion = (beat: number) => {
-    const k = Math.max(0, Math.min(3, starts.findIndex((b) => b > beat) - 1));
-    const local = (beat - starts[k]) / (starts[k + 1] - starts[k]);
+    // At (or past) the last beat there is no later start: the last quarter.
+    const next = starts.findIndex((b) => b > beat);
+    const k = next < 0 ? 3 : Math.max(0, Math.min(3, next - 1));
+    const local = Math.min(1, (beat - starts[k]) / (starts[k + 1] - starts[k]));
     const from = places[k];
     const bodies = new Map<number, { id: number; position: Vec2; yaw: number }>();
     for (const id of moving) {
@@ -173,14 +176,29 @@ export const contraCorners: Figure<ContraCornersParams> = (state, params, beats)
       const m = mean([pa, pb]);
       const rel = sub(id === t.a ? pa : pb, m);
       const r0 = length(rel);
-      // Actives finish at turn radius; corners step in and back to place.
-      const radius = isActive.has(id)
+      // Actives finish at turn radius (back in the middle after the second
+      // corner); corners step in and back to place.
+      const radius = isActive.has(id) && k < 3
         ? r0 + (TURN_RADIUS - r0) * smooth(u / 0.4)
         : r0 + (TURN_RADIUS - r0) * Math.min(smooth(u / 0.3), smooth((1 - u) / 0.3));
       return add(m, rotate(scale(rel, radius / Math.max(r0, 1e-6)), t.angle * progress(u)));
     };
     for (const t of turns[k])
       for (const id of [t.a, t.b]) bodies.set(id, { id, position: placeAt(t, id, local), yaw: 0 });
+    // Out of the second corner each active pair comes home centered on its
+    // minor set's middle (an active with no corner at an end of the set
+    // waits off center).
+    if (k === 3) {
+      const home = smooth((local - 0.6) / 0.4);
+      for (const x of actives) {
+        const end = mean([places[4].get(x.a)!.position, places[4].get(x.b)!.position]);
+        const shift = scale(sub(x.middle, end), home);
+        for (const id of [x.a, x.b]) {
+          const me = bodies.get(id)!;
+          bodies.set(id, { ...me, position: add(me.position, shift) });
+        }
+      }
+    }
     // Facing: toward whoever the dancer turns with, blended in at the
     // quarter's start; dancers not turning keep their facing.
     for (const t of turns[k]) {

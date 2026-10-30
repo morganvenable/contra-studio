@@ -22,10 +22,14 @@ export const BODY = {
 export const LIMITS = {
   /** Closest any two body roots may come, in meters. */
   minimumClearance: 0.5,
-  /** Root speed, meters per beat. */
-  maximumSpeed: 1.2,
-  /** Body turn rate, radians per beat. */
-  maximumYawRate: 4,
+  /**
+   * Root speed, meters per beat: a sanity bound (a sprint), not a pace.
+   * Good dancers move quickly when they have to; figures take the shape the
+   * dance calls for and the speed that takes.
+   */
+  maximumSpeed: 3,
+  /** Body turn rate, radians per beat: a sanity bound (two turns a beat). */
+  maximumYawRate: 12,
   /** Shoulder-to-hand reach for a held contact (strength >= 0.5). */
   armReach: 0.62,
   /** Rendered contacts fade out over this extra distance past armReach. */

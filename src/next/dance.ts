@@ -172,6 +172,21 @@ export const formationBuilt = (stored: StoredDance) =>
  * A dance whose formation is not built shows its rows as holds in an
  * improper set, so its timeline and labels still read.
  */
+/**
+ * A pair balance straight into a swing with the same pair ("neighbors
+ * balance & swing"): the balance stays together, holding hands, into the
+ * swing (balance.ts `into`).
+ */
+function intoSwings(figures: readonly FigureCall[]): readonly FigureCall[] {
+  return figures.map((c, i) => {
+    const next = figures[i + 1];
+    const pair = c.move === 'balance' && c.params.formation === 'pair';
+    return pair && next?.move === 'swing' && next.params.who === c.params.who
+      ? { ...c, params: { ...c.params, into: 'swing' } }
+      : c;
+  });
+}
+
 export function compileNext(
   stored: StoredDance,
   couples?: number,
@@ -186,7 +201,7 @@ export function compileNext(
   couples = Math.min(formation.couples.max, Math.max(formation.couples.min, couples));
   if (formation.fit) couples = formation.fit(couples);
   const calls: readonly FigureCall[] = built
-    ? stored.figures
+    ? intoSwings(stored.figures)
     : stored.figures.map((c) => ({
         move: 'hold',
         beats: c.beats,

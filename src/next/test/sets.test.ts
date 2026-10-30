@@ -256,14 +256,13 @@ test('lines cast off: each line is led round to the other line, facing on', () =
   }
 });
 
-test('a quick arch and dive (two beats) keeps the arch, styled fast', () => {
+test('a quick arch and dive (two beats) keeps the arch, at whatever speed it takes', () => {
   const across = once(becket(), [call('arch-dive', 4, { arch: '1s', backing: false })]);
   once(across, [
     call('arch-dive', 2, { arch: '2s', backing: true }),
     call('pass-through', 2, { shoulder: 'right' }),
   ]);
   const quick = FIGURES['arch-dive'](across, { arch: '2s', backing: true }, 2);
-  assert.equal(quick.styled?.fast, true);
   const mid = quick.motion(1);
   const map = new Map(mid.bodies.map((b) => [b.id, b]));
   const arch = mid.contacts.find((c) => c.kind === 'arch')!;
