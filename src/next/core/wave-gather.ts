@@ -30,11 +30,15 @@ export function withGather(
  * while it still stands where the wave left it; 0 otherwise.
  */
 export function gatherOf(state: DanceState, id: number): number {
-  const at = state.relations.get(AT)?.get(id);
-  if (at === undefined) return 0;
-  const b = state.bodies.get(id);
-  if (!b || Math.abs(b.position.z * 1000 - at) > 2) return 0;
+  if (!inBalancedWave(state, id)) return 0;
   return (state.relations.get(KEY)?.get(id) ?? 0) / 1000;
+}
+
+/** True while dancer `id` stands where a long-wave balance left it. */
+export function inBalancedWave(state: DanceState, id: number): boolean {
+  const at = state.relations.get(AT)?.get(id);
+  const b = state.bodies.get(id);
+  return at !== undefined && !!b && Math.abs(b.position.z * 1000 - at) <= 2;
 }
 
 /** Relations with the record of the step in dropped (the line opened out). */

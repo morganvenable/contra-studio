@@ -398,7 +398,7 @@ function plainRow(text: string): { plain: string; progression: boolean } {
     .replace(/\s+(?:and \w+ let go|\+)$/i, '')
     // A row ending in "to" leads into the next row ("ladles do si do once to").
     .replace(/\s+to$/i, '')
-    .replace(/\s+(?:to|and face) (?:new|next) neighbors?$/i, '')
+    .replace(/(?<!\bforward)\s+(?:to|and face) (?:new|next) neighbors?$/i, '')
     .replace(/\s*(?:[;,]\s*|and )?(?:turn )?to face (?:the )?(?:new|next) neighbors?$/i, '')
     .replace(/[()]/g, '')
     .replace(/\s+/g, ' ')

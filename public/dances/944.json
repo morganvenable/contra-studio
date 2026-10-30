@@ -11,6 +11,6 @@
   {"move":"hey","beats":12,"params":{"start":"neighbor","center":"left","until":{"who":"partner","time":2}},"text":"neighbors start a hey - rights on ends, lefts in center - until partners meet the second time (neighbors right, robins left, partners right, larks left, neighbors right, robins left) - robins catch left hands","section":"B2","row":13},
   {"move":"ocean-wave","beats":4,"params":{"middle":"robins","middleHand":"left","ends":"partner","endHand":"right","balance":true},"text":"form an ocean wave & balance - robins by left hands and partners by right hands","section":"B2","row":14},
   {"move":"allemande","beats":2,"params":{"who":"robins","hand":"left","amount":0.5},"text":"robins allemande left ½","section":"B2","row":15},
-  {"move":"forward-back","beats":2,"params":{"back":false},"text":"walk forward to next neighbors","progression":true,"section":"B2","row":16}
+  {"move":"walk-forward","beats":2,"params":{},"text":"walk forward to next neighbors","progression":true,"section":"B2","row":16}
  ]
 }

@@ -4,8 +4,8 @@
  "catalogue": 2422,
  "stored": 2422,
  "counts": {
-  "ok": 957,
-  "check": 420,
+  "ok": 960,
+  "check": 417,
   "partial": 1045,
   "unsupported": 0
  },
@@ -21,8 +21,8 @@
   {
    "formation": "becket",
    "dances": 655,
-   "ok": 200,
-   "check": 175,
+   "ok": 203,
+   "check": 172,
    "partial": 280,
    "unsupported": 0
   },
@@ -2385,11 +2385,11 @@
    },
    {
     "name": "swing variant",
-    "unlocks": 67
+    "unlocks": 68
    },
    {
     "name": "ocean wave / long wave",
-    "unlocks": 51
+    "unlocks": 50
    },
    {
     "name": "diagonal chain / right left through",
@@ -2571,19 +2571,19 @@
   "checkFailures": [
    {
     "name": "Couples don't end the round where the progression puts them.",
-    "unlocks": 133
+    "unlocks": 134
    },
    {
     "name": "allemande variant",
-    "unlocks": 41
-   },
-   {
-    "name": "ocean wave / long wave",
-    "unlocks": 37
+    "unlocks": 40
    },
    {
     "name": "swing variant",
     "unlocks": 35
+   },
+   {
+    "name": "ocean wave / long wave",
+    "unlocks": 34
    },
    {
     "name": "diagonal chain / right left through",
