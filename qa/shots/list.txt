@@ -1,0 +1,27 @@
+gnat-1|twirl {"style":"box-the-gnat"}|1.5|0,3|pair
+gnat-2|twirl {"style":"box-the-gnat"}|2.25|0,3|pair
+gnat-3|twirl {"style":"box-the-gnat"}|3|0,3|pair
+flea-2|twirl {"style":"swat-the-flea"}|2.25|0,3|pair
+cali-1|twirl {"style":"california"}|1.5|0,1|pair
+cali-2|twirl {"style":"california"}|2.5|0,1|pair
+cali-3|twirl {"style":"california"}|3.75|0,1|pair
+walk-1|walk-forward|1.5|0|side
+walk-2|walk-forward|2.5|0|side
+pass-1|pass-through {"shoulder":"right"}|3.6|0|side
+rlt-1|right-left-through|2|0,1,2,3|deg45
+rlt-2|right-left-through|4|0,1|pair
+rlt-3|right-left-through|5.5|0,1|pair
+rlt-4|right-left-through|6.875|0,1|pair
+allemande|allemande|4|0,1|pair
+wave|balance {"formation":"wave","style":"right-left"}|1|0,1,2,3|pair
+circle|circle {"direction":"left"}|4|0,1,2,3|deg30
+star|star {"hand":"right"}|4|0,1,2,3|deg30
+swing|swing|6|0,1|pair
+gnat-side|twirl {"style":"box-the-gnat"}|2.25|3|rside
+flea-side|twirl {"style":"swat-the-flea"}|2.25|3|side
+cali-side|twirl {"style":"california"}|3.75|1|side
+walk-side|walk-forward|1.5|0|side
+pass-side|pass-through {"shoulder":"right"}|3.625|0|side
+rlt-side|right-left-through|6.875|0|rside
+rlt-pull-side|right-left-through|2.5|0|rside
+swing3|swing|9.7|0,1|pair

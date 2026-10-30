@@ -7,7 +7,7 @@
  * and each visible card is drawn into the patch over its own canvas.
  */
 import * as THREE from 'three';
-import {Avatar,applyBodyContactAnchors,fitPerspectiveBounds} from './scene.ts';
+import {Avatar,applyBodyContactAnchors,armLimitFor,fitPerspectiveBounds} from './scene.ts';
 import type {CompiledDance,Frame,StudioState} from './types.ts';
 
 /** Where the studio's default camera looks from, relative to its target. */
@@ -47,7 +47,7 @@ export class FigureCardRenderer {
   /** Dancers for one figure, framed on where they go between start and end. */
   build(compiled:CompiledDance,start:number,end:number,aspect:number):CardDancers {
     const group=new THREE.Group();group.visible=false;this.scene.add(group);
-    const avatars=compiled.dancers.map(d=>new Avatar(d));for(const a of avatars)group.add(a.root);
+    const avatars=compiled.dancers.map(d=>new Avatar(d)),limit=armLimitFor(compiled);for(const a of avatars){a.armLimit=limit;group.add(a.root);}
     // Feet and heads wherever the dancers go during the figure.
     const bounds=new THREE.Box3(),points:THREE.Vector3[]=[];
     for(let i=0;i<=32;i++)for(const p of compiled.sample(start+(end-start-1e-3)*i/32).poses)

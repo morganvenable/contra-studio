@@ -112,6 +112,7 @@ poses are distinct evidence.
 | Arch exchange boundary? | `src/bare-arch-step.ts`, `test-data/bare-arch-sequence/README.md` | `src/bare-arch-sequence.test.ts`, `src/bare-arch-sequence-source.test.ts` |
 | Star entry into partner gyre? | `src/star-gyre-step.ts`, local contract below | `src/star-gyre-step.test.ts` |
 | Visible pose differs from path? | `src/stance.ts`, relevant preparation module, `src/scene.ts` | matching stance tests, then actual browser rendering |
+| Arm behind the back? | `src/arm-limit.ts` (10° shoulder limit), `src/scene.ts` `solveLimitedElbow`, `shoulderLimitFade` in `src/next/core/contacts.ts` | `src/arm-limit.test.ts`; `qa/arm-limit-audit.ts`; renders with `qa/shots/run.sh` |
 
 ## Small work loop
 

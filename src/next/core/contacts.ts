@@ -4,6 +4,7 @@
  */
 import type { Hand, HandContact, Vec3 } from '../../types.ts';
 import { BODY, LIMITS } from './config.ts';
+import { SHOULDER_BACK_LIMIT } from '../../arm-limit.ts';
 import { leftOf, smooth } from './math.ts';
 import type { Body, Hold } from './state.ts';
 import type { FigureContact } from './figure.ts';
@@ -18,12 +19,23 @@ export function shoulder(b: Body, hand: Hand): Vec3 {
   };
 }
 
-/** Joined hands meet halfway between the two shoulders, at hand height. */
+/**
+ * Joined hands meet halfway between the two shoulders, at hand height. When
+ * the shoulders are close the hands hang lower, so each arm still reaches
+ * HOLD_REACH from its shoulder: a hand tucked up beside the shoulder could
+ * only be held with the elbow behind the back, past the shoulder limit
+ * (src/arm-limit.ts).
+ */
 export function holdPoint(a: Body, handA: Hand, b: Body, handB: Hand): Vec3 {
   const sa = shoulder(a, handA);
   const sb = shoulder(b, handB);
-  return { x: (sa.x + sb.x) / 2, y: BODY.handHeight, z: (sa.z + sb.z) / 2 };
+  const half = Math.hypot(sa.x - sb.x, sa.z - sb.z) / 2;
+  const y = Math.min(BODY.handHeight, BODY.shoulderHeight - Math.sqrt(Math.max(0, HOLD_REACH ** 2 - half ** 2)));
+  return { x: (sa.x + sb.x) / 2, y, z: (sa.z + sb.z) / 2 };
 }
+
+/** Shoulder-to-hand distance a joined hand keeps when the shoulders are close. */
+export const HOLD_REACH = 0.5;
 
 /** Straight-line shoulder-to-hand distance. */
 export function reach(b: Body, hand: Hand, point: Vec3): number {
@@ -161,3 +173,37 @@ export function withinReach(c: FigureContact, bodies: ReadonlyMap<number, Body>)
 export const bodyMap = (
   bodies: readonly { id: number; position: Body['position']; yaw: number }[],
 ) => new Map(bodies.map((b) => [b.id, { position: b.position, yaw: b.yaw }]));
+
+/** Degrees inside the shoulder limit a hold starts letting go, since a drawn body also leans and bobs. */
+const LIMIT_MARGIN = 4;
+
+/** Upper arm and forearm length of the drawn dancers (src/scene.ts). */
+const ARM_SEGMENT = 0.325;
+
+/** Radians past the shoulder limit (src/arm-limit.ts) that reaching a point from this shoulder needs, bending the elbow as far as it helps; 0 when it is in reach. */
+export function shoulderLimitExcess(b: Body, hand: Hand, point: Vec3): number {
+  const s = shoulder(b, hand);
+  const dx = point.x - s.x, dy = point.y - s.y, dz = point.z - s.z;
+  const d = Math.hypot(dx, dy, dz);
+  if (d < 1e-6) return 0;
+  const behind = -(dx * Math.sin(b.yaw) + dz * Math.cos(b.yaw)) / d;
+  const bend = Math.acos(Math.min(1, d / (2 * ARM_SEGMENT)));
+  return Math.max(0, Math.asin(Math.max(-1, Math.min(1, behind))) - bend - ((SHOULDER_BACK_LIMIT - LIMIT_MARGIN) * Math.PI) / 180);
+}
+
+/** Over this much past the shoulder limit a held hand has let go. */
+const LIMIT_FADE = (15 * Math.PI) / 180;
+
+/**
+ * Hands let go before holding on would pull an upper arm behind the
+ * shoulder past its limit: a pull-by or a passing hold releases as the hands
+ * come level with the shoulders, rather than trailing behind the back.
+ */
+export function shoulderLimitFade(c: HandContact, bodies: ReadonlyMap<number, Body>): number {
+  if (c.kind === 'arch' || c.kind === 'courtesy' || c.kind === 'swing-frame') return 1;
+  const a = bodies.get(c.a), b = bodies.get(c.b);
+  if (!a || !b) return 1;
+  let excess = shoulderLimitExcess(a, c.handA, c.point);
+  if (!c.target || c.target === 'hands') excess = Math.max(excess, shoulderLimitExcess(b, c.handB, c.point));
+  return smooth((LIMIT_FADE - excess) / LIMIT_FADE);
+}
