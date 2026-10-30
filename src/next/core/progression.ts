@@ -200,6 +200,68 @@ function rebindMinorSet(state: DanceState, beside: boolean): DanceState {
   }
 }
 
+/**
+ * Couples in waves: two couples whose four dancers stand in a straight
+ * line, each couple facing the opposite way from the other, their middles
+ * within a wave width (as after "walk forward to a new wave"). Pairs of
+ * couple numbers.
+ */
+function wavePairs(state: DanceState, couples: ReadonlyMap<number, CoupleSpot>): [number, number][] {
+  const taken = new Set<number>();
+  const pairs: [number, number][] = [];
+  const list = [...couples];
+  for (const [c, me] of list) {
+    if (taken.has(c)) continue;
+    const along = sub(body(state, me.robin).position, body(state, me.lark).position);
+    const n = Math.hypot(along.x, along.z);
+    if (n < 0.3) continue;
+    const u = { x: along.x / n, z: along.z / n };
+    const off = (p: Vec2) => Math.abs((p.x - me.center.x) * u.z - (p.z - me.center.z) * u.x);
+    const mates = list.filter(([k, o]) => {
+      if (k === c || taken.has(k) || dot(o.facing, me.facing) > -0.9) return false;
+      const gap = sub(o.center, me.center);
+      if (Math.hypot(gap.x, gap.z) > SET.slot / 2 + 0.05) return false;
+      return [o.lark, o.robin].every((id) => off(body(state, id).position) < 0.05);
+    });
+    if (mates.length !== 1) continue;
+    taken.add(c).add(mates[0][0]);
+    pairs.push([c, mates[0][0]]);
+  }
+  return pairs;
+}
+
+/**
+ * New neighbors in waves, for a progression marked mid-round that meets no
+ * one the usual way (couples face no one): couples that walked into a wave
+ * together ("walk forward to a new wave") and were not in a minor set
+ * together become neighbors. Undefined when no such couples stand so.
+ */
+export function rebindInWaves(state: DanceState): DanceState | undefined {
+  const couples = coupleSpots(state);
+  const oldGroup = new Map<number, number>();
+  state.groups.forEach((g, i) => g.forEach((id) => oldGroup.set(state.dancers[id].couple, i)));
+  const neighbor = new Map<number, number>();
+  const groups: number[][] = [];
+  for (const [c, k] of wavePairs(state, couples)) {
+    if (oldGroup.has(c) && oldGroup.get(c) === oldGroup.get(k)) continue;
+    const me = couples.get(c)!;
+    const other = couples.get(k)!;
+    neighbor.set(me.lark, other.robin).set(me.robin, other.lark);
+    neighbor.set(other.lark, me.robin).set(other.robin, me.lark);
+    groups.push([me.lark, me.robin, other.lark, other.robin]);
+  }
+  if (!groups.length) return undefined;
+  const waiting: WaitingCouple[] = [...couples.keys()]
+    .filter((c) => !neighbor.has(couples.get(c)!.lark))
+    .map((c) => ({ couple: c, crossed: false }));
+  return withChanges(state, {
+    relations: withNeighbors(state, neighbor),
+    groups,
+    waiting,
+    epoch: state.epoch + 1,
+  });
+}
+
 /** Minor-set rebind by where couples stand, for partners not facing alike. */
 function rebindByPlace(state: DanceState, couples: Map<number, CoupleSpot>): DanceState {
   const axis = new Map<number, Vec2>();

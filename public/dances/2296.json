@@ -10,6 +10,6 @@
   {"move":"swing","beats":8,"params":{"who":"partner"},"text":"partners swing","section":"B1","row":8},
   {"move":"circle","beats":8,"params":{"direction":"left","places":3},"text":"circle left 3 places","section":"B2","row":9},
   {"move":"ocean-wave","beats":4,"params":{"middle":"robins","middleHand":"left","ends":"neighbor","endHand":"right","balance":true},"text":"form an ocean wave - robins by left hands and neighbors by right hands (the original wave), balance the wave forward","section":"B2","row":10},
-  {"move":"forward-back","beats":8,"params":{"back":false},"text":"walk forward to next neighbors","section":"B2","row":12}
+  {"move":"walk-forward","beats":8,"params":{},"text":"walk forward to next neighbors","section":"B2","row":12}
  ]
 }

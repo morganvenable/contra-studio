@@ -25,12 +25,12 @@ import type {
 } from './figure.ts';
 import { clamp, distance, progress, rotate, smooth, sub, add, turn } from './math.ts';
 import { beatsPerTime, type MusicStructure } from './music.ts';
-import { NoOneMeets, rebindMeeting, type Progression } from './progression.ts';
+import { NoOneMeets, rebindInWaves, rebindMeeting, type Progression } from './progression.ts';
 import { body, type Body, type DanceState, withChanges } from './state.ts';
 import { hold } from '../figures/hold.ts';
 import { ghostCopies, ghostTurn, withGhosts } from './ghosts.ts';
 import { REGROUPING } from './relations.ts';
-import { gatherOf, withoutGather } from './wave-gather.ts';
+import { gatherOf, inBalancedWave, withoutGather } from './wave-gather.ts';
 
 export type FigureRegistry = Readonly<Record<string, Figure<any>>>;
 
@@ -122,7 +122,15 @@ export function foldRound(
         // are found at the end of a later figure, up to the next mark or the
         // end of the round.
         const more = !last && !calls[index + 1]?.progression;
-        if (error instanceof NoOneMeets && !late) {
+        const waved =
+          error instanceof NoOneMeets && !last && call.move === 'walk-forward'
+            ? rebindInWaves(exit)
+            : undefined;
+        if (waved) {
+          // Mid-round, couples that walked forward into a new wave meet in it.
+          exit = waved;
+          late = undefined;
+        } else if (error instanceof NoOneMeets && !late) {
           // Nobody meets anyone: everyone waits out (as the rebind says).
           exit = error.state;
         } else if (due && !late && more) late = { index, error };
@@ -161,19 +169,20 @@ function openingOut(
   run: (from: DanceState) => FigureResult,
 ): FigureResult {
   if (OPENS_WAVES.has(call.move)) return run(state);
+  const inWave = new Set(state.dancers.map((d) => d.id).filter((id) => inBalancedWave(state, id)));
+  if (!inWave.size) return run(state);
   const offsets = new Map<number, number>();
-  for (const d of state.dancers) {
-    const dz = gatherOf(state, d.id);
-    if (dz !== 0) offsets.set(d.id, dz);
+  for (const id of inWave) {
+    const dz = gatherOf(state, id);
+    if (dz !== 0) offsets.set(id, dz);
   }
-  if (!offsets.size) return run(state);
   const bodies = new Map(state.bodies);
   for (const [id, dz] of offsets) {
     const b = body(state, id);
     bodies.set(id, { ...b, position: { x: b.position.x, z: b.position.z - dz } });
   }
   // The wave's hands let go as the figure starts (the fold fades them, released()).
-  const hands = state.hands.filter((h) => !offsets.has(h.a) && !offsets.has(h.b));
+  const hands = state.hands.filter((h) => !inWave.has(h.a) && !inWave.has(h.b));
   const result = run(withChanges(state, { bodies, hands, relations: withoutGather(state) }));
   const motion = (beat: number) => {
     const frame = result.motion(beat);

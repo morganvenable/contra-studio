@@ -32,7 +32,7 @@ import type { Figure, FigureContact } from '../core/figure.ts';
 import { oneOf, onlyKeys, settle } from '../core/figure.ts';
 import { bodyMap, joined, sameHold, withinReach } from '../core/contacts.ts';
 import { withGather } from '../core/wave-gather.ts';
-import { assertWaveHeld, findWave } from '../core/lines.ts';
+import { assertWaveHeld, findWave, lineHolds } from '../core/lines.ts';
 import {
   add,
   dot,
@@ -286,8 +286,21 @@ const waveBalance: Figure<BalanceParams> = (state, params, beats) => {
   ] as const);
   const first = oneOf('balance', 'first', params.first ?? 'right', ['right', 'left'] as const);
   const groups = minorSets(state);
+  // Hands the wave still has to take (a wave just walked into): joined at once.
+  let taking: Hold[] = [];
   try {
-    for (const g of groups) assertWaveHeld(state, findWave(state, g));
+    for (const g of groups) {
+      const wave = findWave(state, g);
+      try {
+        assertWaveHeld(state, wave);
+      } catch (error) {
+        const missing = lineHolds(state, wave).filter(
+          (h) => !state.hands.some((o) => sameHold(o, h)),
+        );
+        if (!missing.length) throw error;
+        taking = [...taking, ...missing];
+      }
+    }
   } catch (error) {
     // Long waves ("balance the wave" on the side lines, "balance & Rory
     // O'More left"): the waves close up and take hands again.
@@ -326,10 +339,18 @@ const waveBalance: Figure<BalanceParams> = (state, params, beats) => {
           lean: style === 'forward-back' ? 0.07 * q : 0,
         };
       }),
-      contacts: state.hands.map((h) => joined(h, 1)),
+      contacts: [
+        ...state.hands.map((h) => joined(h, 1)),
+        ...taking.map((h) => joined(h, smooth(beat / 0.5))),
+      ],
     };
   };
-  return { kind: 'wave-balance', motion, exit: settle(state, motion, beats) };
+  const exit = settle(state, motion, beats);
+  return {
+    kind: 'wave-balance',
+    motion,
+    exit: taking.length ? withChanges(exit, { hands: [...state.hands, ...taking] }) : exit,
+  };
 };
 
 /**

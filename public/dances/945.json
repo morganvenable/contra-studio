@@ -7,7 +7,7 @@
   {"move":"hey","beats":12,"params":{"start":"neighbor","center":"left","until":{"who":"partner","time":2}},"text":"neighbors start a hey - rights on ends, lefts in center - until partners meet the second time (neighbors right, robins left, partners right, larks left, neighbors right, robins left) - robins catch left hands","section":"A2","row":7},
   {"move":"ocean-wave","beats":4,"params":{"middle":"robins","middleHand":"left","ends":"partner","endHand":"right","balance":true},"text":"form an ocean wave & balance - robins by left hands and partners by right hands","section":"B1","row":8},
   {"move":"allemande","beats":2,"params":{"who":"robins","hand":"left","amount":0.5},"text":"robins allemande left ½","section":"B1","row":9},
-  {"move":"forward-back","beats":2,"params":{"back":false},"text":"walk forward to next neighbors","progression":true,"section":"B1","row":10},
+  {"move":"walk-forward","beats":2,"params":{},"text":"walk forward to next neighbors","progression":true,"section":"B1","row":10},
   {"move":"do-si-do","beats":8,"params":{"who":"neighbor","amount":1,"shoulder":"right"},"text":"neighbors do si do once","section":"B1","row":12},
   {"move":"swing","beats":8,"params":{"who":"neighbor"},"text":"neighbors swing","section":"B2","row":13},
   {"move":"allemande","beats":8,"params":{"who":"larks","hand":"left","amount":1.5},"text":"larks allemande left 1½","section":"B2","row":15},
