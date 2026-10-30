@@ -4,7 +4,7 @@
  */
 import type { Hand, HandContact, Vec3 } from '../../types.ts';
 import { BODY, LIMITS } from './config.ts';
-import { SHOULDER_BACK_LIMIT } from '../../arm-limit.ts';
+import { backLimit } from '../../arm-limit.ts';
 import { leftOf, smooth } from './math.ts';
 import type { Body, Hold } from './state.ts';
 import type { FigureContact } from './figure.ts';
@@ -188,7 +188,7 @@ export function shoulderLimitExcess(b: Body, hand: Hand, point: Vec3): number {
   if (d < 1e-6) return 0;
   const behind = -(dx * Math.sin(b.yaw) + dz * Math.cos(b.yaw)) / d;
   const bend = Math.acos(Math.min(1, d / (2 * ARM_SEGMENT)));
-  return Math.max(0, Math.asin(Math.max(-1, Math.min(1, behind))) - bend - ((SHOULDER_BACK_LIMIT - LIMIT_MARGIN) * Math.PI) / 180);
+  return Math.max(0, Math.asin(Math.max(-1, Math.min(1, behind))) - bend - ((backLimit(-dy / d) - LIMIT_MARGIN) * Math.PI) / 180);
 }
 
 /** Over this much past the shoulder limit a held hand has let go. */

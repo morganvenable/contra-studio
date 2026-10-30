@@ -1,4 +1,4 @@
-import {SHOULDER_BACK_LIMIT} from './arm-limit.ts';
+import {backLimit} from './arm-limit.ts';
 import {revolvingDoorReleaseRest,revolvingDoorReleaseHand,revolvingDoorReleasePole} from './revolving-door-arm-route.ts';
 import {SwingPresentationController,type SwingPresentationStatus} from './swing-presentation.ts';
 import * as THREE from 'three';
@@ -18,17 +18,25 @@ function ellipsoid(parent:THREE.Object3D,material:THREE.Material,scale:number[],
 function cylinderBetween(mesh:THREE.Mesh,a:THREE.Vector3,b:THREE.Vector3,radius:number){mesh.position.copy(a).add(b).multiplyScalar(.5);mesh.quaternion.setFromUnitVectors(Y,b.clone().sub(a).normalize());mesh.scale.set(radius,Math.max(.02,a.distanceTo(b))/3,radius);}
 function limbMesh(parent:THREE.Object3D,material:THREE.Material){const m=new THREE.Mesh(bone,material);m.castShadow=true;parent.add(m);return m;}
 export function solveJoint(a:THREE.Vector3,b:THREE.Vector3,l1:number,l2:number,bend:THREE.Vector3){const v=b.clone().sub(a),d=Math.min(l1+l2-.003,Math.max(.01,v.length()));v.normalize();const along=(l1*l1-l2*l2+d*d)/(2*d),height=Math.sqrt(Math.max(0,l1*l1-along*along));const normal=bend.clone().addScaledVector(v,-bend.dot(v)).normalize();return a.clone().addScaledVector(v,along).addScaledVector(normal,height);}
-const SIN_BACK=Math.sin(SHOULDER_BACK_LIMIT*Math.PI/180);
+/** Sine of how far behind the shoulder an upper arm pointing this far down may go (src/arm-limit.ts). */
+const sinBack=(down:number)=>Math.sin(backLimit(down)*Math.PI/180);
 /** Radians by which the most forward elbow for this hand still points the upper arm past the limit (0 when reachable). */
-function shoulderReachExcess(s:THREE.Vector3,t:THREE.Vector3,l1=.325,l2=.325){const v=t.clone().sub(s),d=Math.min(l1+l2-.003,Math.max(.01,v.length()));v.normalize();const beta=Math.acos(Math.min(1,(l1*l1-l2*l2+d*d)/(2*d*l1))),gamma=Math.asin(Math.max(-1,Math.min(1,-v.z)));return Math.max(0,gamma-beta-SHOULDER_BACK_LIMIT*Math.PI/180);}
+function shoulderReachExcess(s:THREE.Vector3,t:THREE.Vector3,l1=.325,l2=.325){const v=t.clone().sub(s),d=Math.min(l1+l2-.003,Math.max(.01,v.length()));v.normalize();const beta=Math.acos(Math.min(1,(l1*l1-l2*l2+d*d)/(2*d*l1))),gamma=Math.asin(Math.max(-1,Math.min(1,-v.z)));return Math.max(0,gamma-beta-backLimit(-v.y)*Math.PI/180);}
 /** A hand no elbow can reach within the limit swings forward about the shoulder, keeping its distance. */
-function limitShoulderReach(s:THREE.Vector3,t:THREE.Vector3,l1=.325,l2=.325){if(shoulderReachExcess(s,t,l1,l2)<=0)return t.clone();const v=t.clone().sub(s),length=v.length(),d=Math.min(l1+l2-.003,Math.max(.01,length));const beta=Math.acos(Math.min(1,(l1*l1-l2*l2+d*d)/(2*d*l1))),gamma=Math.min(Math.PI/2,SHOULDER_BACK_LIMIT*Math.PI/180+beta)-1e-6;const p=new THREE.Vector3(v.x,v.y,0);if(p.lengthSq()<1e-12)p.set(0,-1,0);p.normalize().multiplyScalar(Math.cos(gamma));return s.clone().add(p.setZ(-Math.sin(gamma)).multiplyScalar(length));}
+function limitShoulderReach(s:THREE.Vector3,t:THREE.Vector3,l1=.325,l2=.325){if(shoulderReachExcess(s,t,l1,l2)<=0)return t.clone();const v=t.clone().sub(s),length=v.length(),d=Math.min(l1+l2-.003,Math.max(.01,length));const beta=Math.acos(Math.min(1,(l1*l1-l2*l2+d*d)/(2*d*l1))),gamma=Math.min(Math.PI/2,backLimit(-v.y/Math.max(1e-9,length))*Math.PI/180+beta)-1e-6;const p=new THREE.Vector3(v.x,v.y,0);if(p.lengthSq()<1e-12)p.set(0,-1,0);p.normalize().multiplyScalar(Math.cos(gamma));return s.clone().add(p.setZ(-Math.sin(gamma)).multiplyScalar(length));}
 /** solveJoint within the shoulder limit. An elbow that would point the upper
  * arm past the limit turns around its circle onto the limit. Just past the
  * limit it takes the nearer point, keeping the bend asked for; the further
  * past, the more it settles on the point out from the body, so it never
  * swaps sides when the bend asked for points straight back. */
 export function solveLimitedElbow(a:THREE.Vector3,b:THREE.Vector3,l1:number,l2:number,bend:THREE.Vector3,side:number){
+  // The allowance depends on how low the upper arm hangs, which bending to
+  // the limit changes: settle it over a few passes, keeping the tightest.
+  const free=solveJoint(a,b,l1,l2,bend);let s=sinBack(-(free.y-a.y)/l1),elbow=limitedElbow(a,b,l1,l2,bend,side,s);
+  for(let i=0;i<3;i++){const next=sinBack(-(elbow.y-a.y)/l1);if(next>=s-1e-6)break;s=next;elbow=limitedElbow(a,b,l1,l2,bend,side,s);}
+  return elbow;
+}
+function limitedElbow(a:THREE.Vector3,b:THREE.Vector3,l1:number,l2:number,bend:THREE.Vector3,side:number,SIN_BACK:number){
   const elbow=solveJoint(a,b,l1,l2,bend);if(-(elbow.z-a.z)<=l1*SIN_BACK)return elbow;
   const v=b.clone().sub(a),d=Math.min(l1+l2-.003,Math.max(.01,v.length()));v.normalize();const along=(l1*l1-l2*l2+d*d)/(2*d),h=Math.sqrt(Math.max(0,l1*l1-along*along)),center=a.clone().addScaledVector(v,along);
   const u1=elbow.clone().sub(center).normalize(),u2=v.clone().cross(u1),R=Math.hypot(u1.z,u2.z);if(h*R<1e-9)return elbow;
@@ -70,7 +78,7 @@ export class Avatar {
   private passSwingIngress=false;
   private centralSwingPreparation=0;
   private roryPassingGate=0;
-  /** Hold every upper arm within SHOULDER_BACK_LIMIT behind the shoulder (src/arm-limit.ts). On for the figure library's dances; the old engine's reviewed programs keep the arms their motion tests pin. */
+  /** Hold every upper arm in front of the shoulder (a low arm a little behind; src/arm-limit.ts). On for the figure library's dances; the old engine's reviewed programs keep the arms their motion tests pin. */
   armLimit=false;
   private rorySwingIngress=false;
   public dancer:Dancer;
@@ -339,8 +347,8 @@ export class Avatar {
       }
       return{arm,shoulder,target,pole,hold:Math.max(contact?.strength??0,prepared?pose.swingPreparation!.strength:0)};
     };
-    // Shoulder limit: an upper arm points at most SHOULDER_BACK_LIMIT behind
-    // the shoulder (src/arm-limit.ts). The elbow bends inside the limit to
+    // Shoulder limit: an upper arm never points behind the shoulder, a low
+    // arm only a little (src/arm-limit.ts). The elbow bends inside the limit to
     // reach a held hand; a free arm swings forward as a whole; a hand no bend
     // reaches (only while a grip is still taking hold or letting go, since
     // the engine releases holds that would need more) swings forward too.
@@ -353,10 +361,16 @@ export class Avatar {
       // all, about the shoulder; a held hand stays on its grip and the elbow
       // bends to it (below). Partly held hands share the two.
       const free=1-Math.min(1,Math.max(0,plan.hold));
-      if(free>0){const upper=solveJoint(shoulder,target,.325,.325,pole).sub(shoulder).normalize(),excess=Math.asin(Math.max(-1,Math.min(1,-upper.z)))-SHOULDER_BACK_LIMIT*Math.PI/180;
+      if(free>0){const upper=solveJoint(shoulder,target,.325,.325,pole).sub(shoulder).normalize(),excess=Math.asin(Math.max(-1,Math.min(1,-upper.z)))-backLimit(-upper.y)*Math.PI/180;
         if(excess>0){const axis=upper.clone().cross(new THREE.Vector3(0,0,1));if(axis.lengthSq()<1e-12)axis.set(arm.side,0,0);axis.normalize();target=target.clone().sub(shoulder).applyAxisAngle(axis,excess*free).add(shoulder);pole=pole.clone().applyAxisAngle(axis,excess*free);}}
       const reached=limitShoulderReach(shoulder,target);moved=Math.max(moved,reached.distanceTo(target));
-      const elbow=solveLimitedElbow(shoulder,reached,.325,.325,pole,arm.side);cylinderBetween(arm.upper,shoulder,elbow,.055);cylinderBetween(arm.lower,elbow,reached,.044);arm.elbow.position.copy(elbow);arm.hand.position.copy(reached);arm.hand.quaternion.setFromUnitVectors(Y,reached.clone().sub(elbow).normalize());
+      let elbow=solveLimitedElbow(shoulder,reached,.325,.325,pole,arm.side);
+      // Whatever is left past the allowance (a hand pulled out of reach): the
+      // whole arm turns forward about the shoulder onto the limit.
+      for(let i=0;i<3;i++){const up=elbow.clone().sub(shoulder).normalize(),ex=Math.asin(Math.max(-1,Math.min(1,-up.z)))-backLimit(-up.y)*Math.PI/180;if(ex<=1e-4)break;
+        const axis=up.clone().cross(new THREE.Vector3(0,0,1));if(axis.lengthSq()<1e-12)axis.set(arm.side,0,0);axis.normalize();
+        elbow=elbow.clone().sub(shoulder).applyAxisAngle(axis,ex).add(shoulder);reached.sub(shoulder).applyAxisAngle(axis,ex).add(shoulder);}
+      cylinderBetween(arm.upper,shoulder,elbow,.055);cylinderBetween(arm.lower,elbow,reached,.044);arm.elbow.position.copy(elbow);arm.hand.position.copy(reached);arm.hand.quaternion.setFromUnitVectors(Y,reached.clone().sub(elbow).normalize());
     }
     this.root.userData.armLimit={moved};
   }

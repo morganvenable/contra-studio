@@ -9,7 +9,9 @@ import {readFileSync,writeFileSync} from 'node:fs';
 import {Vector3} from 'three';
 import {Avatar,applyBodyContactAnchors,armLimitFor} from '../src/scene.ts';
 import {compileProof,type ProofCase} from '../src/next/proof.ts';
-import {upperArmBehind} from '../src/arm-limit.ts';
+import {upperArmAllowance,upperArmBehind} from '../src/arm-limit.ts';
+/** Degrees an arm may stray past its allowance: the solver judges the allowance from the arm before it bends to the limit. */
+export const LIMIT_SLACK=1;
 import type {StudioState} from '../src/types.ts';
 
 export interface CaseResult {id:string;move:string;family:string;worst:number;at:number;dancer:number;hand:string;holdGap:number;holdAt:number;frames:number;over:number;moved:number;elbowStep:number;elbowStepAt:number;held:number}
@@ -29,7 +31,7 @@ export function auditCase(c:ProofCase,perBeat=8):CaseResult{
     for(const a of avatars)a.update(frame.poses[a.dancer.id],frame,state,sample);
     const anchored=applyBodyContactAnchors(avatars,frame);avatars.forEach((a:any)=>a.root.updateMatrixWorld(true));
     r.frames++;let over=false;
-    for(const a of avatars)for(const arm of a.arms){const deg=upperArmBehind(arm.side,arm.elbow.position);if(deg>10+1e-6)over=true;if(deg>r.worst){r.worst=deg;r.at=beat;r.dancer=a.dancer.id;r.hand=arm.side>0?'left':'right';}}
+    for(const a of avatars)for(const arm of a.arms){const deg=upperArmBehind(arm.side,arm.elbow.position)-upperArmAllowance(arm.side,arm.elbow.position);if(deg>LIMIT_SLACK)over=true;if(deg>r.worst){r.worst=deg;r.at=beat;r.dancer=a.dancer.id;r.hand=arm.side>0?'left':'right';}}
     if(over)r.over++;
     for(const a of avatars){const l=a.root.userData.armLimit;if(l)r.moved=Math.max(r.moved,l.moved);}
     for(const a of avatars)for(const arm of a.arms){const key=a.dancer.id+':'+arm.side,e=arm.elbow.position.clone(),hd=arm.hand.position.clone(),p=lastElbow.get(key),ph=lastElbow.get(key+'h');if(p&&ph){const pop=p.distanceTo(e)-ph.distanceTo(hd);if(pop>r.elbowStep){r.elbowStep=pop;r.elbowStepAt=beat;}}lastElbow.set(key,e);lastElbow.set(key+'h',hd);}
