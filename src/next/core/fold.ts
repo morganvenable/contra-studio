@@ -13,8 +13,23 @@
  * next round when the progression comes too late in this one. Round length and how
  * many times through come from the MusicStructure.
  */
-import type { CompiledDance, Dance, Figure as LegacyFigure, Frame, Pose } from '../../types.ts';
-import { archDucks, complete, contactReach, joined, reachFade, sameHold, shoulderLimitFade } from './contacts.ts';
+import type {
+  CompiledDance,
+  Dance,
+  Figure as LegacyFigure,
+  Frame,
+  HandContact,
+  Pose,
+} from '../../types.ts';
+import {
+  archDucks,
+  complete,
+  contactReach,
+  joined,
+  reachFade,
+  sameHold,
+  shoulderLimitFade,
+} from './contacts.ts';
 import type {
   Figure,
   FigureCall,
@@ -439,6 +454,21 @@ export function compileFold(options: FoldOptions): FoldedDance {
     return { bodies, frame };
   };
 
+  // The hands held as the figure before each one ends (for seamBlend).
+  const ends = new Map<string, readonly FigureContact[]>();
+  const previousEnd = (repeat: number, index: number): readonly FigureContact[] => {
+    const at = index > 0 ? { r: repeat, i: index - 1 } : { r: repeat - 1, i: calls.length - 1 };
+    if (at.r < 0) return [];
+    const key = `${at.r}:${at.i}`;
+    let end = ends.get(key);
+    if (!end) {
+      const seg = round(at.r).segments[at.i];
+      end = seg.result.motion(seg.call.beats).contacts.filter((c) => c.strength > 0.01);
+      ends.set(key, end);
+    }
+    return end;
+  };
+
   const rawSample = (input: number): Frame => {
     let beat = Math.max(0, Number.isFinite(input) ? input : 0);
     if (Number.isFinite(lastBeat)) beat = Math.min(beat, lastBeat - 1e-6);
@@ -471,10 +501,15 @@ export function compileFold(options: FoldOptions): FoldedDance {
         activity: waiting ? 'waiting' : segment.result.kind,
       };
     });
-    const contacts = [
-      ...frame.contacts.map((c) => complete(c, bodies)),
-      ...released(segment, frame.contacts, local - segment.start).map((c) => complete(c, bodies)),
-    ].filter((c) => c.strength > 0.01);
+    const contacts = seamBlend(
+      [
+        ...frame.contacts.map((c) => complete(c, bodies)),
+        ...released(segment, frame.contacts, local - segment.start).map((c) => complete(c, bodies)),
+      ],
+      previousEnd(repeat, index),
+      local - segment.start,
+      bodies,
+    ).filter((c) => c.strength > 0.01);
     const figureProgress = clamp((local - segment.start) / segment.call.beats);
     const ducks = archDucks(contacts, bodies);
     // Tell the renderer who passes under each held arch, so the dancer going
@@ -527,6 +562,32 @@ export function compileFold(options: FoldOptions): FoldedDance {
 }
 
 /** Hands held at a figure's start that the figure does not keep fade out. */
+/** Beats over which hands blend from one figure's end into the next. */
+const SEAM_BEATS = 0.35;
+
+/**
+ * Hands across a seam between figures: over the first SEAM_BEATS of a
+ * figure, each hand eases from how strongly it was held as the figure
+ * before ended to how strongly this figure holds it, so no hand pops in
+ * or out at full strength.
+ */
+function seamBlend(
+  now: readonly HandContact[],
+  before: readonly FigureContact[],
+  local: number,
+  bodies: ReadonlyMap<number, Body>,
+): HandContact[] {
+  if (local >= SEAM_BEATS || (!now.length && !before.length)) return [...now];
+  const u = smooth(local / SEAM_BEATS);
+  const out = now.map((c) => {
+    const was = before.find((b) => sameHold(b, c))?.strength ?? 0;
+    return { ...c, strength: was + (c.strength - was) * u };
+  });
+  for (const b of before)
+    if (!now.some((c) => sameHold(b, c))) out.push({ ...complete(b, bodies), strength: b.strength * (1 - u) });
+  return out;
+}
+
 function released(
   segment: Segment,
   kept: readonly FigureContact[],

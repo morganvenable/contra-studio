@@ -53,7 +53,7 @@ const TURN_IN_BEATS = 1;
 const TURN_IN_RATE = 2.5;
 
 /** A fast circle's pace along its path (m/beat), with the short ramps of progress(t, 0.1). */
-const FAST_PACE = 1.05;
+const FAST_PACE = 1.6;
 const FAST_RAMP = 0.1;
 /** Share of the turn spent closing in, and again opening out. */
 const FAST_EDGE = 0.25;

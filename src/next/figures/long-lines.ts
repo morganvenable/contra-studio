@@ -38,10 +38,15 @@ const DEPTH = 0.5;
 const FACE_BEATS = 1;
 /** Radians a beat, at most, turning to face across. */
 const TURN_RATE = 2.5;
-/** How far each dancer closes toward the middle of the minor set's line. */
+/** Forward only: how far each dancer closes toward its minor set's middle, and the closest line-mates come. */
 const GATHER = 0.35;
-/** Closest two line-mates come as they gather. */
 const LINE_GAP = 0.75;
+/** Line-mates hold hands this far apart (m), the line closed up. */
+const LINE_HOLD = 1.5;
+/** Line-mates farther apart than this are not in the same line. */
+const LINE_REACH = 2.2;
+/** Beats to close the line up (and open it again). */
+const CLOSE_BEATS = 0.75;
 
 export const longLines: Figure<LongLinesParams> = (state, params, beats) => {
   onlyKeys('long lines', params, ['back', 'only']);
@@ -59,30 +64,36 @@ export const longLines: Figure<LongLinesParams> = (state, params, beats) => {
       if (Math.abs(Math.abs(off) - SET.halfWidth) > 0.3)
         throw new Error(`Dancer ${id} is not standing in a side line.`);
       const yaw = off > 0 ? -Math.PI / 2 : Math.PI / 2;
-      const along = middle.z - b.position.z;
-      // Line-mates already close (after a roll away) close in less, never
-      // nearer than LINE_GAP.
-      const gather = {
-        x: 0,
-        z: Math.sign(along) * Math.min(GATHER, Math.max(0, Math.abs(along) - LINE_GAP / 2)),
-      };
-      // Farther to turn (from facing out or along) takes longer, at a walking turn rate.
+      // Farther to turn (from facing out or along) takes longer.
       const turnBeats = (1.5 * Math.abs(turn(yaw, b.yaw))) / TURN_RATE;
       const face = Math.min(beats / 3, Math.max(FACE_BEATS, turnBeats));
-      return { id, start: b, yaw, side: Math.sign(off), gather, group: g, face };
+      return { id, start: b, yaw, side: Math.sign(off), gather: { x: 0, z: 0 }, face };
     });
   });
 
-  // Hands along each side line, between line-mates of the same minor set.
+  // Everyone in a side line takes hands with both neighbors: each run of
+  // the line (line-mates within LINE_REACH of the next) closes up toward its
+  // middle until neighbors stand LINE_HOLD apart, near arm's length.
   const holds: Hold[] = [];
-  for (const g of minorSets(state)) {
-    for (const side of [-1, 1]) {
-      const line = movers
-        .filter((m) => m.side === side && m.group === g)
-        .sort((a, b) => a.start.position.z - b.start.position.z);
-      for (let i = 1; i < line.length; i++) {
-        const a = line[i - 1];
-        const b = line[i];
+  for (const side of [-1, 1]) {
+    const line = movers
+      .filter((m) => m.side === side)
+      .sort((a, b) => a.start.position.z - b.start.position.z);
+    const runs: (typeof line)[] = [];
+    for (const m of line) {
+      const run = runs.at(-1);
+      if (run && m.start.position.z - run.at(-1)!.start.position.z <= LINE_REACH) run.push(m);
+      else runs.push([m]);
+    }
+    for (const run of runs) {
+      if (!params.back) continue;
+      const z = run.map((m) => m.start.position.z);
+      const mid = (z[0] + z.at(-1)!) / 2;
+      const widest = Math.max(0, ...z.slice(1).map((v, i) => v - z[i]));
+      const k = widest > LINE_HOLD ? LINE_HOLD / widest : 1;
+      for (const m of run) m.gather = { x: 0, z: (m.start.position.z - mid) * (k - 1) };
+      for (let i = 1; i < run.length; i++) {
+        const [a, b] = [run[i - 1], run[i]];
         const fa: Body = { position: a.start.position, yaw: a.yaw };
         const fb: Body = { position: b.start.position, yaw: b.yaw };
         holds.push({
@@ -95,21 +106,50 @@ export const longLines: Figure<LongLinesParams> = (state, params, beats) => {
     }
   }
 
+  // Forward only (into the middle, for what follows there): each minor
+  // set's line gathers toward its middle and holds hands within it.
+  if (!params.back) {
+    for (const m of movers) {
+      const g = minorSets(state).find((x) => x.includes(m.id))!;
+      const along = groupCenter(state, g).z - m.start.position.z;
+      m.gather = {
+        x: 0,
+        z: Math.sign(along) * Math.min(GATHER, Math.max(0, Math.abs(along) - LINE_GAP / 2)),
+      };
+    }
+    for (const g of minorSets(state))
+      for (const side of [-1, 1]) {
+        const line = movers
+          .filter((m) => m.side === side && g.includes(m.id))
+          .sort((a, b) => a.start.position.z - b.start.position.z);
+        for (let i = 1; i < line.length; i++) {
+          const [a, b] = [line[i - 1], line[i]];
+          const fa: Body = { position: a.start.position, yaw: a.yaw };
+          const fb: Body = { position: b.start.position, yaw: b.yaw };
+          holds.push({ a: a.id, handA: handToward(fa, fb.position), b: b.id, handB: handToward(fb, fa.position) });
+        }
+      }
+  }
+
   const motion = (beat: number) => {
     const t = beat / beats;
     const out = params.back ? (t < 0.5 ? progress(t * 2) : 1 - progress(t * 2 - 1)) : progress(t);
+    // The line closes up as it takes hands, and opens to the places again
+    // as the figure ends.
+    const closed = params.back
+      ? smooth(beat / CLOSE_BEATS) * smooth((beats - beat) / CLOSE_BEATS)
+      : progress(t);
     const bodies = movers.map((m) => ({
       id: m.id,
       position: add(
         m.start.position,
-        add(scale(forward(m.yaw), DEPTH * out), scale(m.gather, out)),
+        add(scale(forward(m.yaw), DEPTH * out), scale(m.gather, closed)),
       ),
       yaw: m.start.yaw + turn(m.yaw, m.start.yaw) * smooth(beat / m.face),
       lean: 0.05 * out,
     }));
     const map = bodyMap(bodies);
-    const strength = smooth(beat / 0.75) * (params.back ? smooth((beats - beat) / 0.5) : 1);
-    const contacts: FigureContact[] = holds.map((h) => withinReach(joined(h, strength), map));
+    const contacts: FigureContact[] = holds.map((h) => withinReach(joined(h, 1), map));
     return { bodies, contacts };
   };
   return {

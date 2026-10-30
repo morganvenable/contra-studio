@@ -468,7 +468,8 @@ export class DanceScene {
     this.presentationStatus=presentation?this.swingPresentationController!.status:{applied:'source',warnings:[]};
     const renderedContacts=presentation?this.swingPresentationController!.contactDots(presentation):renderedFrame.contacts;
     this.band.update(frame.beat,state.audioMode!=='off');
-    if(this.lastFigure!==frame.figureIndex||this.lastRepeat!==frame.repeat||this.selected!==state.selectedDancer){this.rebuildPaths(frame,state);this.lastFigure=frame.figureIndex;this.lastRepeat=frame.repeat;this.selected=state.selectedDancer;}
+    // Trails are rebuilt only while shown: rebuilding samples the whole figure (a dropped frame at each figure change).
+    if(state.showTrails&&(this.lastFigure!==frame.figureIndex||this.lastRepeat!==frame.repeat||this.selected!==state.selectedDancer)){this.rebuildPaths(frame,state);this.lastFigure=frame.figureIndex;this.lastRepeat=frame.repeat;this.selected=state.selectedDancer;}
     this.paths.visible=state.showTrails;
     let visibleDots=0;
     if(state.showConnections){for(const contact of renderedContacts){if(contact.strength<.6)continue;

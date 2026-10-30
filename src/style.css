@@ -76,3 +76,9 @@ a.nav-item { display: inline-flex; align-items: center; text-decoration: none; }
 .source-library-card .status-badge.status-check{color:#8a6a2a;background:#f6efdf;border-color:#eadfc4}
 .source-library-card .status-badge.status-partial{color:#8a5a43;background:#f6ebe4;border-color:#ecd9cd}
 #next-library-list{max-height:420px;overflow-y:auto}
+/* The figure strip keeps one height whatever the figure names, so the stage
+   (and the 3D view) never resizes as the dance moves from figure to figure. */
+.figure-strip{height:116px;min-height:0;flex:none;overflow:hidden}
+.teaching-mode .figure-strip{height:140px}
+.current-figure h2{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+#next-figure-title{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}

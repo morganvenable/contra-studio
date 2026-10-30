@@ -229,7 +229,7 @@ test('every couple sashays down and back: partners close in, slide a place and r
     near(body(down, id).position, { x: body(s0, id).position.x, z: body(s0, id).position.z + 1.8 });
 });
 
-test('a circle too fast even when tight is a styled quick circle: its speed is reported, not failed', () => {
+test('a fast circle (two places in two beats) moves as fast as it must and passes', () => {
   const s0 = BECKET.start(2);
   const calls = [call('circle', 2, { direction: 'left', places: 2 })];
   const beats = 2;
@@ -242,9 +242,8 @@ test('a circle too fast even when tight is a styled quick circle: its speed is r
     music: { meter: METERS['2/4'], parts: [{ name: 'A1', bars: beats / 2 }], times: 1 },
   });
   const report = physicalCheck(dance, { rounds: 1 });
-  assert.ok(!report.problems.some((p) => /m\/beat/.test(p)), report.problems.join('; '));
-  assert.equal(report.styled[0]?.name, 'quick circle');
-  assert.ok(report.styled[0].maximumSpeed > 1.2);
+  assert.deepEqual(report.problems, []);
+  assert.ok(report.maximumSpeed > 1.2, 'faster than an easy walk');
 });
 
 test('display size: a formation shows its own couple count unless one is asked for', async () => {
