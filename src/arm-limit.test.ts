@@ -2,7 +2,8 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import {auditCase} from '../qa/arm-limit-audit.ts';
-import {SHOULDER_BACK_LIMIT,upperArmBehind} from './arm-limit.ts';
+import {backLimit,upperArmBehind} from './arm-limit.ts';
+import {LIMIT_SLACK} from '../qa/arm-limit-audit.ts';
 import type {ProofCase} from './next/proof.ts';
 
 const cases:ProofCase[]=JSON.parse(readFileSync(new URL('./next/proof-cases.json',import.meta.url),'utf8')).filter((c:ProofCase)=>!c.error);
@@ -11,7 +12,10 @@ const cases:ProofCase[]=JSON.parse(readFileSync(new URL('./next/proof-cases.json
  * limit (the figure puts the pair farther apart than two arms reach). The
  * limit may not widen them by more than this much. */
 const UNMET_HOLDS:Record<string,number>={
-  'trio-turn {"hand":"right"}':.38,'trio-turn {"hand":"left"}':.40,'trio-basket':.43,
+  'trio-turn {"hand":"right"}':.41,'trio-turn {"hand":"left"}':.41,'trio-basket':.43,
+  // Arms no longer go behind the shoulder unless low (2026-10-30): a left
+  // star around holds 4 cm short for a moment rather than reach back.
+  'star-around {"hand":"left"}':.04,
   'whole-circle {"direction":"left"}':.64,'whole-circle {"direction":"right"}':.64,'place-swing':.83,
   'role-star {"hand":"left"}':.81,'role-star {"hand":"right"}':.81,'role-star {"end":"places","hand":"left"}':.81,
   'role-star {"end":"places","hand":"right"}':.81,'role-star {"end":"center","hand":"right"}':.79,
@@ -27,12 +31,19 @@ test('the upper arm angle behind the shoulder is measured in the torso frame',()
   assert.equal(upperArmBehind(1,{x:.235,y:1.355,z:.325}),0);
 });
 
-test(`no figure in the gallery swings an upper arm more than ${SHOULDER_BACK_LIMIT} degrees behind the shoulder, and held hands still meet`,()=>{
+test('an upper arm goes behind the shoulder only hanging low, then at most 10 degrees',()=>{
+  const down=(deg:number)=>Math.sin(deg*Math.PI/180);
+  for(const d of [-90,-30,0,30,40])assert.equal(backLimit(down(d)),0,`${d} degrees down`);
+  assert.ok(backLimit(down(45))>4&&backLimit(down(45))<6,'easing in round 45 degrees down');
+  for(const d of [50,70,90])assert.ok(Math.abs(backLimit(down(d))-10)<1e-9,`${d} degrees down`);
+});
+
+test(`no figure in the gallery swings an upper arm behind the shoulder past its allowance (none unless low), and held hands still meet`,()=>{
   const over:string[]=[],apart:string[]=[];
   // 30 samples a beat: every frame at 60 frames a second and 120 beats a minute.
   for(const c of cases){
     const r=auditCase(c,30);
-    if(r.worst>SHOULDER_BACK_LIMIT+1e-6)over.push(`${c.id}: ${r.worst.toFixed(2)} deg at beat ${r.at.toFixed(2)} (dancer ${r.dancer}, ${r.hand})`);
+    if(r.worst>LIMIT_SLACK)over.push(`${c.id}: ${r.worst.toFixed(2)} deg past the allowance at beat ${r.at.toFixed(2)} (dancer ${r.dancer}, ${r.hand})`);
     const allowed=UNMET_HOLDS[c.id]??.01;
     if(r.holdGap>allowed)apart.push(`${c.id}: hands ${r.holdGap.toFixed(3)} m apart at beat ${r.holdAt.toFixed(2)}`);
   }
