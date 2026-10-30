@@ -21,7 +21,15 @@ import type {
   HandContact,
   Pose,
 } from '../../types.ts';
-import { archDucks, complete, contactReach, joined, reachFade, sameHold } from './contacts.ts';
+import {
+  archDucks,
+  complete,
+  contactReach,
+  joined,
+  reachFade,
+  sameHold,
+  shoulderLimitFade,
+} from './contacts.ts';
 import type {
   Figure,
   FigureCall,
@@ -532,7 +540,7 @@ export function compileFold(options: FoldOptions): FoldedDance {
     const raw = rawSample(beat);
     const bodies = new Map(raw.poses.map((p) => [p.id, p]));
     const contacts = raw.contacts
-      .map((c) => ({ ...c, strength: c.strength * reachFade(contactReach(c, bodies)) }))
+      .map((c) => ({ ...c, strength: c.strength * reachFade(contactReach(c, bodies)) * shoulderLimitFade(c, bodies) }))
       .filter((c) => c.strength > 0.01);
     return { ...raw, contacts };
   };

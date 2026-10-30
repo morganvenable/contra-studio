@@ -292,7 +292,10 @@ function frameContacts(
 ): HandContact[] {
   const mid = mix(pa.position, pb.position, 0.5);
   const v = sub(pb.position, pa.position);
-  const joinedAt = add(mid, scale(rotate(v, -Math.PI / 2), 0.25));
+  // The joined hands are held out to the side, far enough from both
+  // shoulders for each elbow to bend down in front rather than behind the
+  // back (the shoulder limit, src/arm-limit.ts).
+  const joinedAt = add(mid, scale(rotate(v, -Math.PI / 2), 0.55));
   const back = {
     x: pb.position.x - Math.sin(pb.yaw) * 0.13 + Math.cos(pb.yaw) * 0.13,
     y: 1.28,

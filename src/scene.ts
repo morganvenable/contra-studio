@@ -1,3 +1,4 @@
+import {SHOULDER_BACK_LIMIT} from './arm-limit.ts';
 import {revolvingDoorReleaseRest,revolvingDoorReleaseHand,revolvingDoorReleasePole} from './revolving-door-arm-route.ts';
 import {SwingPresentationController,type SwingPresentationStatus} from './swing-presentation.ts';
 import * as THREE from 'three';
@@ -16,7 +17,37 @@ const hairColors=['#2c251f','#5a3b27','#bd8b4c','#282426','#4b392c','#98948c'];
 function ellipsoid(parent:THREE.Object3D,material:THREE.Material,scale:number[],pos:number[]){const m=new THREE.Mesh(sphere,material);m.scale.set(...scale as [number,number,number]);m.position.set(...pos as [number,number,number]);m.castShadow=true;parent.add(m);return m;}
 function cylinderBetween(mesh:THREE.Mesh,a:THREE.Vector3,b:THREE.Vector3,radius:number){mesh.position.copy(a).add(b).multiplyScalar(.5);mesh.quaternion.setFromUnitVectors(Y,b.clone().sub(a).normalize());mesh.scale.set(radius,Math.max(.02,a.distanceTo(b))/3,radius);}
 function limbMesh(parent:THREE.Object3D,material:THREE.Material){const m=new THREE.Mesh(bone,material);m.castShadow=true;parent.add(m);return m;}
-function solveJoint(a:THREE.Vector3,b:THREE.Vector3,l1:number,l2:number,bend:THREE.Vector3){const v=b.clone().sub(a),d=Math.min(l1+l2-.003,Math.max(.01,v.length()));v.normalize();const along=(l1*l1-l2*l2+d*d)/(2*d),height=Math.sqrt(Math.max(0,l1*l1-along*along));const normal=bend.clone().addScaledVector(v,-bend.dot(v)).normalize();return a.clone().addScaledVector(v,along).addScaledVector(normal,height);}
+export function solveJoint(a:THREE.Vector3,b:THREE.Vector3,l1:number,l2:number,bend:THREE.Vector3){const v=b.clone().sub(a),d=Math.min(l1+l2-.003,Math.max(.01,v.length()));v.normalize();const along=(l1*l1-l2*l2+d*d)/(2*d),height=Math.sqrt(Math.max(0,l1*l1-along*along));const normal=bend.clone().addScaledVector(v,-bend.dot(v)).normalize();return a.clone().addScaledVector(v,along).addScaledVector(normal,height);}
+const SIN_BACK=Math.sin(SHOULDER_BACK_LIMIT*Math.PI/180);
+/** Radians by which the most forward elbow for this hand still points the upper arm past the limit (0 when reachable). */
+function shoulderReachExcess(s:THREE.Vector3,t:THREE.Vector3,l1=.325,l2=.325){const v=t.clone().sub(s),d=Math.min(l1+l2-.003,Math.max(.01,v.length()));v.normalize();const beta=Math.acos(Math.min(1,(l1*l1-l2*l2+d*d)/(2*d*l1))),gamma=Math.asin(Math.max(-1,Math.min(1,-v.z)));return Math.max(0,gamma-beta-SHOULDER_BACK_LIMIT*Math.PI/180);}
+/** A hand no elbow can reach within the limit swings forward about the shoulder, keeping its distance. */
+function limitShoulderReach(s:THREE.Vector3,t:THREE.Vector3,l1=.325,l2=.325){if(shoulderReachExcess(s,t,l1,l2)<=0)return t.clone();const v=t.clone().sub(s),length=v.length(),d=Math.min(l1+l2-.003,Math.max(.01,length));const beta=Math.acos(Math.min(1,(l1*l1-l2*l2+d*d)/(2*d*l1))),gamma=Math.min(Math.PI/2,SHOULDER_BACK_LIMIT*Math.PI/180+beta)-1e-6;const p=new THREE.Vector3(v.x,v.y,0);if(p.lengthSq()<1e-12)p.set(0,-1,0);p.normalize().multiplyScalar(Math.cos(gamma));return s.clone().add(p.setZ(-Math.sin(gamma)).multiplyScalar(length));}
+/** solveJoint within the shoulder limit. An elbow that would point the upper
+ * arm past the limit turns around its circle onto the limit. Just past the
+ * limit it takes the nearer point, keeping the bend asked for; the further
+ * past, the more it settles on the point out from the body, so it never
+ * swaps sides when the bend asked for points straight back. */
+export function solveLimitedElbow(a:THREE.Vector3,b:THREE.Vector3,l1:number,l2:number,bend:THREE.Vector3,side:number){
+  const elbow=solveJoint(a,b,l1,l2,bend);if(-(elbow.z-a.z)<=l1*SIN_BACK)return elbow;
+  const v=b.clone().sub(a),d=Math.min(l1+l2-.003,Math.max(.01,v.length()));v.normalize();const along=(l1*l1-l2*l2+d*d)/(2*d),h=Math.sqrt(Math.max(0,l1*l1-along*along)),center=a.clone().addScaledVector(v,along);
+  const u1=elbow.clone().sub(center).normalize(),u2=v.clone().cross(u1),R=Math.hypot(u1.z,u2.z);if(h*R<1e-9)return elbow;
+  const need=(-l1*SIN_BACK+1e-9-along*v.z)/(h*R),star=Math.atan2(u2.z,u1.z);
+  let phi=star;
+  if(need<1){
+    const w=Math.acos(Math.max(-1,need))-1e-6,o0=Math.atan2(Math.sin(-star),Math.cos(-star)),nearest=Math.sign(o0||1)*w;
+    const outward=(o:number)=>side*(u1.x*Math.cos(star+o)+u2.x*Math.sin(star+o)),out=outward(w)>=outward(-w)?w:-w;
+    const t=Math.max(0,Math.min(1,(need-Math.cos(o0))/ELBOW_SETTLE)),settle=t*t*(3-2*t);
+    phi=star+nearest+(out-nearest)*settle;
+  }
+  return center.addScaledVector(u1,h*Math.cos(phi)).addScaledVector(u2,h*Math.sin(phi));
+}
+/** How far past the limit (in the circle's cosine) a bend settles fully on the outer point. */
+const ELBOW_SETTLE=.8;
+/** The shoulder limit applies to dances drawn by the figure library (src/next). */
+export const armLimitFor=(compiled:CompiledDance)=>(compiled as {engine?:string}).engine==='next';
+/** How far out a held arm's elbow is drawn: the bend direction's outward part grows by this with the grip (the closed swing frame keeps its own, lower elbows). */
+const HELD_ELBOW_OUT=2;
 function makeLabel(text:string,color='#24463e'){
   const canvas=document.createElement('canvas');canvas.width=256;canvas.height=96;const ctx=canvas.getContext('2d')!;
   ctx.fillStyle='#faf9f4';ctx.beginPath();ctx.roundRect(4,10,248,70,24);ctx.fill();ctx.strokeStyle='#dfdfd5';ctx.lineWidth=2;ctx.stroke();ctx.fillStyle=color;ctx.font='600 31px system-ui';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(text,128,46);
@@ -39,6 +70,8 @@ export class Avatar {
   private passSwingIngress=false;
   private centralSwingPreparation=0;
   private roryPassingGate=0;
+  /** Hold every upper arm within SHOULDER_BACK_LIMIT behind the shoulder (src/arm-limit.ts). On for the figure library's dances; the old engine's reviewed programs keep the arms their motion tests pin. */
+  armLimit=false;
   private rorySwingIngress=false;
   public dancer:Dancer;
   constructor(dancer:Dancer){
@@ -206,7 +239,7 @@ export class Avatar {
     const bodyEase=(x:number)=>{const t=Math.max(0,Math.min(1,x));return t*t*(3-2*t);};
     const chainCue=pose.chainCourtesyPreparation,chainProgress=chainCue?.progress??0,chainBack=chainCue?.waistHand??'right',chainFront=chainBack==='right'?'left':'right',chainGate=chainCue?bodyEase((chainProgress-.4)/.08)*bodyEase((1-chainProgress)/.08):0;
     const balance=pose.balance,ringFrameIngress=balance?.handRoute==='released-ring-to-swing',balancePoseGate=bodyEase(frame.figureProgress/.12)*bodyEase((1-frame.figureProgress)/.12),phase=frame.beat*Math.PI,walk=this.rorySwingIngress&&this.centralSwingPreparation>0?0:pose.stride;
-    for(const arm of this.arms){const hand:Hand=arm.side<0?'right':'left';// local +x is the dancer’s left when facing +z
+    const plan=(arm:Avatar['arms'][number])=>{const hand:Hand=arm.side<0?'right':'left';// local +x is the dancer’s left when facing +z
       const shoulder=new THREE.Vector3(arm.side*.235,1.355,0),passing=pose.activity==='hey'||pose.activity==='ricochet-hey'||pose.activity==='pass-through'||pose.activity==='cross-trails',passGate=passing?bodyEase(frame.figureProgress/.12)*bodyEase((1-frame.figureProgress)/.12):this.roryPassingGate,rightLeft=pose.activity==='right-left-through'||!!chainCue,rltGate=chainCue?chainGate:rightLeft?bodyEase(frame.figureProgress/.06)*bodyEase((1-frame.figureProgress)/.06):0,rltBehind=hand===(chainCue?chainBack:'right')?(chainCue?bodyEase((chainProgress-.4)/.12)*bodyEase((.98-chainProgress)/.08):rightLeft?bodyEase((frame.figureProgress-.34)/.05)*bodyEase((.98-frame.figureProgress)/.06):0):0,rltOffer=chainCue||hand==='right'?rltBehind:rightLeft?bodyEase((frame.figureProgress-.3)/.08):0,swing=Math.sin(phase+(arm.side>0?0:Math.PI))*walk;
       const archRelease=pose.activity==='box-the-gnat'&&hand==='right'&&pose.arch&&'releaseRouting' in pose.arch&&pose.arch.releaseRouting==='wide-exit'&&pose.arch.underId!==pose.id,archQ=pose.arch?.progress??0,archStage=archRelease?bodyEase((archQ-.52)/.12):0,archReturn=archRelease?bodyEase((archQ-.85)/.15):0;
       // Free hands hang at the sides, swinging a little as the dancer walks; a
@@ -273,7 +306,7 @@ export class Avatar {
       // return, keep the right bend behind, and settle its elbow before the
       // left. Do not reuse RLT's joined-hand pole for the outgoing ring edge.
       // The outward pole arc avoids a near-cancelling projected bend direction.
-      const pole=new THREE.Vector3(arm.side*(.3+.5*poleStrength),-1,-.3);pole.lerp(new THREE.Vector3(0,-1,-.5),passGate);if(rightLeft){const staged=new THREE.Vector3(arm.side*.6*Math.sin(Math.PI*rltBehind),-1,1-2.1*rltBehind);if(chainCue){if(hand===chainBack&&chainProgress>.52)staged.z=-1.1;const raised=bodyEase((chainProgress-.52)/.06);staged.lerp(new THREE.Vector3(0,-1,-.5),1-raised);if(hand===chainFront)staged.x+=(chainFront==='left'?1:-1)*.35*Math.sin(Math.PI*raised);}if(contact?.kind==='joined'&&!chainCue)staged.lerp(new THREE.Vector3(0,0,1),contact.strength);
+      const pole=new THREE.Vector3(arm.side*(.3+(!this.armLimit||contact?.kind==='swing-frame'||prepared?.kind==='swing-frame'?.5:HELD_ELBOW_OUT)*poleStrength),-1,-.3);pole.lerp(new THREE.Vector3(0,-1,-.5),passGate);if(rightLeft){const staged=new THREE.Vector3(arm.side*.6*Math.sin(Math.PI*rltBehind),-1,1-2.1*rltBehind);if(chainCue){if(hand===chainBack&&chainProgress>.52)staged.z=-1.1;const raised=bodyEase((chainProgress-.52)/.06);staged.lerp(new THREE.Vector3(0,-1,-.5),1-raised);if(hand===chainFront)staged.x+=(chainFront==='left'?1:-1)*.35*Math.sin(Math.PI*raised);}if(contact?.kind==='joined'&&!chainCue)staged.lerp(new THREE.Vector3(0,0,1),contact.strength);
       // A hand at the waist or below (a low pull-by, a free hand) hangs from a low elbow.
       if(!chainCue)staged.lerp(new THREE.Vector3(arm.side*.3,-1,-.3),bodyEase((1.12-target.y)/.08)*(1-rltOffer)*(contact?.kind==='courtesy'?1-contact.strength:1));
       // The hand offered forward for the courtesy turn hangs from an elbow down and out.
@@ -304,8 +337,28 @@ export class Avatar {
         const held=contact?.kind==='courtesy'?{point:new THREE.Vector3(contact.point.x-pose.position.x,contact.point.y,contact.point.z-pose.position.z).applyAxisAngle(Y,-pose.yaw).sub(this.body.position).applyQuaternion(this.body.quaternion.clone().invert()),strength:contact.strength}:undefined;
         pole.copy(revolvingDoorReleasePole(shoulder,target,ordinaryDoorRest,waistRelease.settle,held));
       }
-      const elbow=solveJoint(shoulder,target,.325,.325,pole);cylinderBetween(arm.upper,shoulder,elbow,.055);cylinderBetween(arm.lower,elbow,target,.044);arm.elbow.position.copy(elbow);arm.hand.position.copy(target);arm.hand.quaternion.setFromUnitVectors(Y,target.clone().sub(elbow).normalize());
+      return{arm,shoulder,target,pole,hold:Math.max(contact?.strength??0,prepared?pose.swingPreparation!.strength:0)};
+    };
+    // Shoulder limit: an upper arm points at most SHOULDER_BACK_LIMIT behind
+    // the shoulder (src/arm-limit.ts). The elbow bends inside the limit to
+    // reach a held hand; a free arm swings forward as a whole; a hand no bend
+    // reaches (only while a grip is still taking hold or letting go, since
+    // the engine releases holds that would need more) swings forward too.
+    const plans=this.arms.map(plan);
+    let moved=0;
+    for(const plan of plans){
+      const {arm,shoulder}=plan;let {target,pole}=plan;
+      if(!this.armLimit){const elbow=solveJoint(shoulder,target,.325,.325,pole);cylinderBetween(arm.upper,shoulder,elbow,.055);cylinderBetween(arm.lower,elbow,target,.044);arm.elbow.position.copy(elbow);arm.hand.position.copy(target);arm.hand.quaternion.setFromUnitVectors(Y,target.clone().sub(elbow).normalize());continue;}
+      // A free arm swung past the limit swings forward as a whole, hand and
+      // all, about the shoulder; a held hand stays on its grip and the elbow
+      // bends to it (below). Partly held hands share the two.
+      const free=1-Math.min(1,Math.max(0,plan.hold));
+      if(free>0){const upper=solveJoint(shoulder,target,.325,.325,pole).sub(shoulder).normalize(),excess=Math.asin(Math.max(-1,Math.min(1,-upper.z)))-SHOULDER_BACK_LIMIT*Math.PI/180;
+        if(excess>0){const axis=upper.clone().cross(new THREE.Vector3(0,0,1));if(axis.lengthSq()<1e-12)axis.set(arm.side,0,0);axis.normalize();target=target.clone().sub(shoulder).applyAxisAngle(axis,excess*free).add(shoulder);pole=pole.clone().applyAxisAngle(axis,excess*free);}}
+      const reached=limitShoulderReach(shoulder,target);moved=Math.max(moved,reached.distanceTo(target));
+      const elbow=solveLimitedElbow(shoulder,reached,.325,.325,pole,arm.side);cylinderBetween(arm.upper,shoulder,elbow,.055);cylinderBetween(arm.lower,elbow,reached,.044);arm.elbow.position.copy(elbow);arm.hand.position.copy(reached);arm.hand.quaternion.setFromUnitVectors(Y,reached.clone().sub(elbow).normalize());
     }
+    this.root.userData.armLimit={moved};
   }
   dispose(){
     const geometries=new Set<THREE.BufferGeometry>(),materials=new Set<THREE.Material>(),textures=new Set<THREE.Texture>();
@@ -379,7 +432,7 @@ export class DanceScene {
   }
   setDance(compiled:CompiledDance){
     this.swingPresentationController?.dispose();this.swingPresentationController=undefined;this.presentationStatus={applied:'source',warnings:[]};
-    this.compiled=compiled;for(const a of this.avatars){this.scene.remove(a.root);a.dispose();}this.avatars=compiled.dancers.map(d=>new Avatar(d));for(const a of this.avatars)this.scene.add(a.root);this.lastFigure=-1;this.lastRepeat=-1;
+    this.compiled=compiled;for(const a of this.avatars){this.scene.remove(a.root);a.dispose();}this.avatars=compiled.dancers.map(d=>new Avatar(d));const limit=armLimitFor(compiled);for(const a of this.avatars){a.armLimit=limit;this.scene.add(a.root);}this.lastFigure=-1;this.lastRepeat=-1;
     for(const obj of this.paths.children){const line=obj as THREE.Line;line.geometry.dispose();(line.material as THREE.Material).dispose();}this.paths.clear();
     this.danceBounds.copy(choreographyBounds(compiled));
     this.band.setFloorBounds(this.danceBounds);this.visualBounds.copy(this.danceBounds).union(this.band.bounds().expandByScalar(.25));
@@ -406,7 +459,7 @@ export class DanceScene {
     if(this.mode!==state.camera)this.setCamera(state.camera);
     const requested=state.swingPresentation?.kind==='reciprocal-blade-preview';
     if(!requested&&this.swingPresentationController){this.swingPresentationController.dispose();this.swingPresentationController=undefined;}
-    if(requested&&!this.swingPresentationController)this.swingPresentationController=new SwingPresentationController(this.compiled,this.avatars,{createAvatar:d=>new Avatar(d),applyBodyContactAnchors});
+    if(requested&&!this.swingPresentationController)this.swingPresentationController=new SwingPresentationController(this.compiled,this.avatars,{createAvatar:d=>{const a=new Avatar(d);a.armLimit=armLimitFor(this.compiled);return a;},applyBodyContactAnchors});
     this.swingPresentationController?.prepareBaseline();
     const footSamples=new Map<number,Frame>();const sample=(beat:number)=>{if(!footSamples.has(beat))footSamples.set(beat,this.compiled.sample(beat));return footSamples.get(beat)!;};
     for(let i=0;i<this.avatars.length;i++)this.avatars[i].update(frame.poses[i],frame,state,sample);
