@@ -4,34 +4,34 @@
  "catalogue": 2422,
  "stored": 2422,
  "counts": {
-  "ok": 960,
-  "check": 417,
-  "partial": 1045,
+  "ok": 973,
+  "check": 361,
+  "partial": 1088,
   "unsupported": 0
  },
  "formations": [
   {
    "formation": "improper",
    "dances": 1189,
-   "ok": 600,
-   "check": 154,
-   "partial": 435,
+   "ok": 608,
+   "check": 122,
+   "partial": 459,
    "unsupported": 0
   },
   {
    "formation": "becket",
    "dances": 655,
-   "ok": 203,
-   "check": 172,
-   "partial": 280,
+   "ok": 207,
+   "check": 157,
+   "partial": 291,
    "unsupported": 0
   },
   {
    "formation": "becket ccw",
    "dances": 169,
-   "ok": 44,
-   "check": 48,
-   "partial": 77,
+   "ok": 45,
+   "check": 40,
+   "partial": 84,
    "unsupported": 0
   },
   {
@@ -46,8 +46,8 @@
    "formation": "four face four",
    "dances": 38,
    "ok": 7,
-   "check": 0,
-   "partial": 31,
+   "check": 1,
+   "partial": 30,
    "unsupported": 0
   },
   {
@@ -214,8 +214,8 @@
    "formation": "improper, double progression",
    "dances": 3,
    "ok": 0,
-   "check": 1,
-   "partial": 2,
+   "check": 0,
+   "partial": 3,
    "unsupported": 0
   },
   {
@@ -470,8 +470,8 @@
    "formation": "becket mixer",
    "dances": 1,
    "ok": 0,
-   "check": 1,
-   "partial": 0,
+   "check": 0,
+   "partial": 1,
    "unsupported": 0
   },
   {
@@ -2381,23 +2381,23 @@
   "figuresThatCannotStart": [
    {
     "name": "progression or other",
-    "unlocks": 129
+    "unlocks": 151
    },
    {
     "name": "swing variant",
-    "unlocks": 68
+    "unlocks": 78
    },
    {
     "name": "ocean wave / long wave",
-    "unlocks": 50
-   },
-   {
-    "name": "diagonal chain / right left through",
-    "unlocks": 28
+    "unlocks": 53
    },
    {
     "name": "circle variant",
-    "unlocks": 25
+    "unlocks": 31
+   },
+   {
+    "name": "diagonal chain / right left through",
+    "unlocks": 27
    },
    {
     "name": "rory o'more",
@@ -2405,22 +2405,26 @@
    },
    {
     "name": "star variant",
-    "unlocks": 15
+    "unlocks": 17
+   },
+   {
+    "name": "allemande variant",
+    "unlocks": 14
    },
    {
     "name": "pull by / pass by",
-    "unlocks": 14
+    "unlocks": 13
    },
    {
     "name": "roll away",
     "unlocks": 13
    },
    {
-    "name": "allemande variant",
+    "name": "do-si-do variant",
     "unlocks": 11
    },
    {
-    "name": "do-si-do variant",
+    "name": "arch & dive",
     "unlocks": 11
    },
    {
@@ -2428,12 +2432,12 @@
     "unlocks": 10
    },
    {
-    "name": "arch & dive",
-    "unlocks": 10
-   },
-   {
     "name": "hey (other)",
     "unlocks": 9
+   },
+   {
+    "name": "chain variant",
+    "unlocks": 8
    },
    {
     "name": "petronella",
@@ -2445,14 +2449,6 @@
    },
    {
     "name": "balance variant",
-    "unlocks": 6
-   },
-   {
-    "name": "chain variant",
-    "unlocks": 6
-   },
-   {
-    "name": "slide along set",
     "unlocks": 6
    },
    {
@@ -2488,7 +2484,7 @@
     "unlocks": 3
    },
    {
-    "name": "slice",
+    "name": "slide along set",
     "unlocks": 3
    },
    {
@@ -2509,6 +2505,10 @@
    },
    {
     "name": "orbit allemande",
+    "unlocks": 2
+   },
+   {
+    "name": "slice",
     "unlocks": 2
    },
    {
@@ -2571,23 +2571,23 @@
   "checkFailures": [
    {
     "name": "Couples don't end the round where the progression puts them.",
-    "unlocks": 134
+    "unlocks": 122
    },
    {
     "name": "allemande variant",
-    "unlocks": 40
-   },
-   {
-    "name": "swing variant",
-    "unlocks": 35
+    "unlocks": 31
    },
    {
     "name": "ocean wave / long wave",
-    "unlocks": 34
+    "unlocks": 26
    },
    {
     "name": "diagonal chain / right left through",
     "unlocks": 21
+   },
+   {
+    "name": "swing variant",
+    "unlocks": 18
    },
    {
     "name": "hey (other)",
@@ -2595,30 +2595,22 @@
    },
    {
     "name": "star promenade",
-    "unlocks": 10
-   },
-   {
-    "name": "rory o'more",
-    "unlocks": 7
+    "unlocks": 9
    },
    {
     "name": "diagonal hey",
     "unlocks": 7
    },
    {
-    "name": "gyre",
-    "unlocks": 6
+    "name": "take hands (wave/line set-up)",
+    "unlocks": 5
    },
    {
     "name": "pull by / pass by",
     "unlocks": 5
    },
    {
-    "name": "box circulate",
-    "unlocks": 5
-   },
-   {
-    "name": "chain variant",
+    "name": "rory o'more",
     "unlocks": 5
    },
    {
@@ -2626,27 +2618,31 @@
     "unlocks": 5
    },
    {
-    "name": "circle variant",
+    "name": "other: pass through",
     "unlocks": 5
-   },
-   {
-    "name": "roll away",
-    "unlocks": 4
    },
    {
     "name": "into the middle / forward & back",
     "unlocks": 4
    },
    {
-    "name": "slide along set",
+    "name": "gyre",
     "unlocks": 4
    },
    {
-    "name": "california twirl",
+    "name": "petronella",
     "unlocks": 4
    },
    {
-    "name": "take hands (wave/line set-up)",
+    "name": "mad robin",
+    "unlocks": 4
+   },
+   {
+    "name": "chain variant",
+    "unlocks": 4
+   },
+   {
+    "name": "balance variant",
     "unlocks": 3
    },
    {
@@ -2666,19 +2662,11 @@
     "unlocks": 3
    },
    {
-    "name": "petronella",
-    "unlocks": 3
-   },
-   {
     "name": "promenade",
     "unlocks": 3
    },
    {
-    "name": "mad robin",
-    "unlocks": 3
-   },
-   {
-    "name": "down/up the hall",
+    "name": "california twirl",
     "unlocks": 3
    },
    {
@@ -2686,7 +2674,15 @@
     "unlocks": 2
    },
    {
+    "name": "box circulate",
+    "unlocks": 2
+   },
+   {
     "name": "The next time through can't start from where the dancers end: Playback is limited to one round: the next round cannot start (Couple 1 must stand side by side to find new neighbors.).",
+    "unlocks": 2
+   },
+   {
+    "name": "The next time through can't start from where the dancers end: Playback is limited to one round: the next round cannot start (slice starts before a waiting couple finishes crossing.).",
     "unlocks": 2
    },
    {
@@ -2698,11 +2694,15 @@
     "unlocks": 2
    },
    {
-    "name": "balance variant",
+    "name": "down/up the hall",
     "unlocks": 2
    },
    {
-    "name": "other: pass through",
+    "name": "circle variant",
+    "unlocks": 2
+   },
+   {
+    "name": "slide along set",
     "unlocks": 2
    },
    {
@@ -2710,7 +2710,7 @@
     "unlocks": 2
    },
    {
-    "name": "The next time through can't start from where the dancers end: A swing that ends facing across must start nearer one side.).",
+    "name": "The next time through can't start from where the dancers end: A star of 4 needs the dancers spaced around a ring.).",
     "unlocks": 1
    },
    {
@@ -2726,7 +2726,15 @@
     "unlocks": 1
    },
    {
+    "name": "The next time through can't start from where the dancers end: A right and left through needs two dancers on each side.).",
+    "unlocks": 1
+   },
+   {
     "name": "turn alone / as a couple",
+    "unlocks": 1
+   },
+   {
+    "name": "roll away",
     "unlocks": 1
    },
    {
@@ -2734,11 +2742,11 @@
     "unlocks": 1
    },
    {
-    "name": "The next time through can't start from where the dancers end: Dancers 0 and 4 are too far apart to turn by the hand.).",
+    "name": "The next time through can't start from where the dancers end: Dancers 1 and 5 are too far apart to do-si-do.).",
     "unlocks": 1
    },
    {
-    "name": "The next time through can't start from where the dancers end: A star of 4 needs the dancers spaced around a ring.).",
+    "name": "The next time through can't start from where the dancers end: Dancers 0 and 4 are too far apart to turn by the hand.).",
     "unlocks": 1
    },
    {
@@ -2755,10 +2763,6 @@
    },
    {
     "name": "The next time through can't start from where the dancers end: Dancers 1 and 5 are too far apart to turn by the hand.).",
-    "unlocks": 1
-   },
-   {
-    "name": "The next time through can't start from where the dancers end: An oval needs everyone a slot apart around the set.).",
     "unlocks": 1
    },
    {
@@ -2795,10 +2799,6 @@
    },
    {
     "name": "The next time through can't start from where the dancers end: Both ends would take the same end of the wave; the hands named do not fit how the dancers face.).",
-    "unlocks": 1
-   },
-   {
-    "name": "The next time through can't start from where the dancers end: A hey needs a group of four.).",
     "unlocks": 1
    },
    {

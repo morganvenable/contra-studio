@@ -25,7 +25,13 @@ import type {
 } from './figure.ts';
 import { clamp, distance, progress, rotate, smooth, sub, add, turn } from './math.ts';
 import { beatsPerTime, type MusicStructure } from './music.ts';
-import { NoOneMeets, rebindInWaves, rebindMeeting, type Progression } from './progression.ts';
+import {
+  NoOneMeets,
+  rebindByFacing,
+  rebindInWaves,
+  rebindMeeting,
+  type Progression,
+} from './progression.ts';
 import { body, type Body, type DanceState, withChanges } from './state.ts';
 import { hold } from '../figures/hold.ts';
 import { ghostCopies, ghostTurn, withGhosts } from './ghosts.ts';
@@ -123,15 +129,19 @@ export function foldRound(
         // end of the round.
         const more = !last && !calls[index + 1]?.progression;
         const waved =
-          error instanceof NoOneMeets && !last && call.move === 'walk-forward'
-            ? rebindInWaves(exit)
+          error instanceof NoOneMeets && !last
+            ? ((call.move === 'walk-forward' ? rebindInWaves(exit) : undefined) ??
+              rebindByFacing(exit))
             : undefined;
         if (waved) {
-          // Mid-round, couples that walked forward into a new wave meet in it.
+          // Mid-round, couples that walked forward into a new wave, or that
+          // face their new neighbors, meet them.
           exit = waved;
           late = undefined;
-        } else if (error instanceof NoOneMeets && !late) {
-          // Nobody meets anyone: everyone waits out (as the rebind says).
+        } else if (error instanceof NoOneMeets && !late && !more) {
+          // Nobody meets anyone, and no later row to meet at: everyone waits
+          // out (as the rebind says). Mid-round, a mark before the couples
+          // pass waits for a later row, as below.
           exit = error.state;
         } else if (due && !late && more) late = { index, error };
         else if (late && !due && more) {

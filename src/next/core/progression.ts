@@ -262,6 +262,67 @@ export function rebindInWaves(state: DanceState): DanceState | undefined {
   });
 }
 
+/**
+ * New neighbors by who faces whom, for a progression that meets no one the
+ * usual way (couples do not stand side by side facing another couple: out
+ * of a gyre, a half hey, a diagonal pass). Each dancer's new neighbor is the
+ * nearest dancer of the other role it faces, a couple of steps away at most,
+ * who faces it back and is neither its partner nor its neighbor until now;
+ * two couples become neighbors when both of their pairs agree. Undefined
+ * when no couples meet so.
+ */
+export function rebindByFacing(state: DanceState): DanceState | undefined {
+  const old = state.relations.get('neighbor');
+  const faced = (id: number): number | undefined => {
+    const me = body(state, id);
+    const f = forward(me.yaw);
+    let best: number | undefined;
+    let bestD = FACING_REACH;
+    for (const d of state.dancers) {
+      if (d.role === state.dancers[id].role || d.id === partnerOf(state, id) || old?.get(id) === d.id)
+        continue;
+      const o = body(state, d.id);
+      const gap = sub(o.position, me.position);
+      const n = Math.hypot(gap.x, gap.z);
+      if (n < 0.3 || n > bestD) continue;
+      if (dot(f, gap) < FACING_COS * n || dot(forward(o.yaw), gap) > -FACING_COS * n) continue;
+      best = d.id;
+      bestD = n;
+    }
+    return best;
+  };
+  const couples = coupleSpots(state);
+  const coupleOf = (id: number) => state.dancers[id].couple;
+  const neighbor = new Map<number, number>();
+  const groups: number[][] = [];
+  for (const [c, me] of couples) {
+    const l = faced(me.lark);
+    const r = faced(me.robin);
+    if (l === undefined || r === undefined || faced(l) !== me.lark || faced(r) !== me.robin) continue;
+    const k = coupleOf(l);
+    if (k === c || coupleOf(r) !== k || k < c) continue;
+    const other = couples.get(k)!;
+    neighbor.set(me.lark, l).set(l, me.lark).set(me.robin, r).set(r, me.robin);
+    groups.push([me.lark, me.robin, other.lark, other.robin]);
+  }
+  if (!groups.length) return undefined;
+  const previous = new Map(state.waiting.map((w) => [w.couple, w]));
+  const waiting: WaitingCouple[] = [...couples.keys()]
+    .filter((c) => !neighbor.has(couples.get(c)!.lark))
+    .map((c) => previous.get(c) ?? { couple: c, crossed: false });
+  return withChanges(state, {
+    relations: withNeighbors(state, neighbor),
+    groups,
+    waiting,
+    epoch: state.epoch + 1,
+  });
+}
+
+/** Farthest a new neighbor stands, faced (m). */
+const FACING_REACH = 2.7;
+/** Facing within about 50 degrees. */
+const FACING_COS = 0.64;
+
 /** Minor-set rebind by where couples stand, for partners not facing alike. */
 function rebindByPlace(state: DanceState, couples: Map<number, CoupleSpot>): DanceState {
   const axis = new Map<number, Vec2>();
