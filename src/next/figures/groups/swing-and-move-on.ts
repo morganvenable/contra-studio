@@ -28,7 +28,7 @@ const ORBIT = 0.31;
 /** Beats to close in to swing, and to open out. */
 const EDGE = 2;
 /** A swing's pace, meters per beat round the orbit. */
-const PACE = 0.85;
+const PACE = 1.0;
 
 export const swingAndMoveOn: Figure<SwingAndMoveOnParams> = (state, params, beats) => {
   onlyKeys('swing and move on', params, []);

@@ -5,8 +5,8 @@
  "stored": 2422,
  "counts": {
   "ok": 1014,
-  "check": 328,
-  "partial": 1080,
+  "check": 326,
+  "partial": 1082,
   "unsupported": 0
  },
  "formations": [
@@ -21,17 +21,17 @@
   {
    "formation": "becket",
    "dances": 655,
-   "ok": 223,
+   "ok": 222,
    "check": 145,
-   "partial": 287,
+   "partial": 288,
    "unsupported": 0
   },
   {
    "formation": "becket ccw",
    "dances": 169,
    "ok": 52,
-   "check": 33,
-   "partial": 84,
+   "check": 32,
+   "partial": 85,
    "unsupported": 0
   },
   {
@@ -445,8 +445,8 @@
   {
    "formation": "becket ccw indecent1",
    "dances": 1,
-   "ok": 0,
-   "check": 1,
+   "ok": 1,
+   "check": 0,
    "partial": 0,
    "unsupported": 0
   },
@@ -2381,11 +2381,11 @@
   "figuresThatCannotStart": [
    {
     "name": "progression or other",
-    "unlocks": 150
+    "unlocks": 148
    },
    {
     "name": "swing variant",
-    "unlocks": 73
+    "unlocks": 71
    },
    {
     "name": "ocean wave / long wave",
@@ -2393,11 +2393,11 @@
    },
    {
     "name": "circle variant",
-    "unlocks": 31
+    "unlocks": 32
    },
    {
     "name": "diagonal chain / right left through",
-    "unlocks": 27
+    "unlocks": 28
    },
    {
     "name": "rory o'more",
@@ -2416,6 +2416,10 @@
     "unlocks": 13
    },
    {
+    "name": "promenade",
+    "unlocks": 13
+   },
+   {
     "name": "roll away",
     "unlocks": 13
    },
@@ -2428,10 +2432,6 @@
     "unlocks": 11
    },
    {
-    "name": "promenade",
-    "unlocks": 10
-   },
-   {
     "name": "hey (other)",
     "unlocks": 9
    },
@@ -2440,11 +2440,11 @@
     "unlocks": 8
    },
    {
-    "name": "into the middle / forward & back",
-    "unlocks": 7
+    "name": "petronella",
+    "unlocks": 8
    },
    {
-    "name": "petronella",
+    "name": "into the middle / forward & back",
     "unlocks": 7
    },
    {
@@ -2571,27 +2571,27 @@
   "checkFailures": [
    {
     "name": "Couples don't end the round where the progression puts them.",
-    "unlocks": 140
+    "unlocks": 139
    },
    {
     "name": "ocean wave / long wave",
-    "unlocks": 25
+    "unlocks": 22
+   },
+   {
+    "name": "swing variant",
+    "unlocks": 22
    },
    {
     "name": "diagonal chain / right left through",
     "unlocks": 21
    },
    {
-    "name": "swing variant",
-    "unlocks": 21
-   },
-   {
     "name": "allemande variant",
-    "unlocks": 15
+    "unlocks": 16
    },
    {
     "name": "hey (other)",
-    "unlocks": 10
+    "unlocks": 9
    },
    {
     "name": "star promenade",
@@ -2622,15 +2622,15 @@
     "unlocks": 4
    },
    {
-    "name": "balance variant",
-    "unlocks": 3
-   },
-   {
     "name": "The next time through can't start from where the dancers end: A ring balance of 4 needs the dancers spaced around a ring.).",
     "unlocks": 3
    },
    {
     "name": "gyre",
+    "unlocks": 3
+   },
+   {
+    "name": "The next time through can't start from where the dancers end: Playback is limited to one round: the next round cannot start (Couple 1 must stand side by side to find new neighbors.).",
     "unlocks": 3
    },
    {
@@ -2642,15 +2642,15 @@
     "unlocks": 3
    },
    {
+    "name": "slide along set",
+    "unlocks": 3
+   },
+   {
     "name": "The next time through can't start from where the dancers end: Playback is limited to one round: the next round cannot start (slide starts before a waiting couple finishes crossing.).",
     "unlocks": 2
    },
    {
     "name": "box circulate",
-    "unlocks": 2
-   },
-   {
-    "name": "The next time through can't start from where the dancers end: Playback is limited to one round: the next round cannot start (Couple 1 must stand side by side to find new neighbors.).",
     "unlocks": 2
    },
    {
@@ -2682,12 +2682,16 @@
     "unlocks": 2
    },
    {
-    "name": "slide along set",
+    "name": "balance variant",
     "unlocks": 2
    },
    {
     "name": "chain variant",
     "unlocks": 2
+   },
+   {
+    "name": "The next time through can't start from where the dancers end: Playback is limited to one round: the next round cannot start (Couples 1 and 3 have not passed each other yet.).",
+    "unlocks": 1
    },
    {
     "name": "The next time through can't start from where the dancers end: A star of 4 needs the dancers spaced around a ring.).",
@@ -2718,10 +2722,6 @@
     "unlocks": 1
    },
    {
-    "name": "The next time through can't start from where the dancers end: Dancer 3 (couple 2) must stand on a side line.).",
-    "unlocks": 1
-   },
-   {
     "name": "other: pass through across the set",
     "unlocks": 1
    },
@@ -2734,7 +2734,7 @@
     "unlocks": 1
    },
    {
-    "name": "The next time through can't start from where the dancers end: A mad ricochet needs two dancers on each side line, one above the other.).",
+    "name": "The next time through can't start from where the dancers end: Both larks cannot go in front in this layout.).",
     "unlocks": 1
    },
    {

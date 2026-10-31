@@ -74,6 +74,8 @@ export function meltdownRoundBeats(beats: number): number {
 }
 
 const RADIUS = 0.31;
+/** Clearance (m) pairs swinging side by side keep between them. */
+const PAIR_CLEAR = 0.55;
 /** How far off the middle a pair must start to know which side it ends on. */
 const SIDE_MARGIN = 0.5;
 /** Share of the swing over which the pair drifts to where it ends. */
@@ -107,10 +109,29 @@ export const swing: Figure<SwingParams> = (state, params, beats) => {
     throw new Error('swing meltdown must be true or false.');
   const who = oneOf('swing', 'who', params.who, PAIR_NAMES);
   if (beats < 4) throw new Error('A swing needs at least four beats.');
-  const turns = Math.max(1, Math.floor(beats / 4 - 0.5));
   const pairs = minorSets(state).flatMap((g) => pairsIn(state, g, who));
   const round = params.meltdown ? meltdownRoundBeats(beats) : 0;
-  const plans = pairs.map(([a, b]) => planPair(state, a, b, turns, beats, round, end));
+  // A swing turns about once every two beats of swinging (less the walk in
+  // and out, and a meltdown's walk round first).
+  const turns = Math.max(1, Math.floor((beats - round) / 2 - 1));
+  const mid = (a: number, b: number) => mean([body(state, a).position, body(state, b).position]);
+  const plans = pairs.map(([a, b], i) => {
+    const m = mid(a, b);
+    const near = Math.min(
+      Infinity,
+      ...pairs.filter((_, j) => j !== i).map(([c, d]) => length(sub(mid(c, d), m))),
+    );
+    // Two pairs swinging round the same middle (across a small square, on
+    // its diagonals) stay a quarter turn apart: they swing a little wider so
+    // the four keep clear.
+    // Pairs beside each other (round a square) swing a little tighter, never
+    // so tight the two in a pair crowd each other.
+    const tight =
+      near < 0.3
+        ? Math.max(1, PAIR_CLEAR / Math.SQRT2 / RADIUS)
+        : Math.max(0.84, Math.min(1, (near - PAIR_CLEAR) / (2 * RADIUS)));
+    return planPair(state, a, b, turns, beats, round, end, tight);
+  });
 
   const motion = (beat: number) => {
     const t = beat / beats;
@@ -130,6 +151,7 @@ function planPair(
   beats: number,
   roundBeats: number,
   end: 'across' | 'down' | 'up',
+  tight = 1,
 ) {
   // A meltdown closes to round distance in a beat and starts orbiting at once.
   // A pair starting far apart (the two ends of a line of four) takes longer
@@ -140,6 +162,9 @@ function planPair(
     0.4,
     Math.max(roundBeats > 0 ? ROUND_GATHER_BEATS / beats : LEAD, closing / beats),
   );
+  // Fewer turns for a pair that spends longer walking in: about one every
+  // two beats of what is left.
+  turns = Math.max(1, Math.min(turns, Math.floor((beats * (1 - lead) - roundBeats) / 2 - 0.5)));
   // A short swing (under 8 beats) keeps its turning rate steadier: shorter
   // speed ramps, so the middle of the turn is not faster than a dancer turns.
   const ramp = roundBeats > 0 ? ROUND_RAMP_BEATS / beats : beats < 8 ? SHORT_RAMP : undefined;
@@ -148,7 +173,7 @@ function planPair(
   const melted = (t: number) =>
     roundBeats > 0 ? smooth((t * beats - roundBeats + MELT_BEATS / 2) / MELT_BEATS) : 1;
   const frameAngle = (t: number) => FRAME * melted(t);
-  const orbit = (t: number) => ROUND_RADIUS + (RADIUS - ROUND_RADIUS) * melted(t);
+  const orbit = (t: number) => ROUND_RADIUS + (RADIUS * tight - ROUND_RADIUS) * melted(t);
   const lark = roleOf(state, a) === 'lark' ? a : b;
   const robin = lark === a ? b : a;
   if (roleOf(state, robin) !== 'robin') throw new Error('A swing pairs a lark with a robin.');
@@ -235,7 +260,10 @@ function planPair(
   // Whole turns plus the leftover angle to the exit, rounded to the nearer
   // whole number of turns so a short swing never spins much faster.
   const net = TAU * turns + offset - (offset > Math.PI ? TAU : 0);
-  const spin = (t: number) => net * progress((t - lead) / (1 - lead), ramp);
+  // The turning is all but done as the pair opens out (it does not sweep
+  // wide while still spinning fast).
+  const spinEnd = 1 - RELEASE * 0.6;
+  const spin = (t: number) => net * progress((t - lead) / (spinEnd - lead), ramp);
   // The pair drifts to where it ends early on, clearing the middle for others.
   const centerAt = (t: number) => mix(center0, exitCenter, smooth(t / CENTER_DRIFT));
 
