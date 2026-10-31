@@ -5,6 +5,7 @@ import {compileWithEngine,isNextCompiled} from './next/switch.ts';
 import {DanceScene} from './scene';
 import {OverheadScene} from './fallback';
 import {StudioAudioTransport} from './audio';
+import {musicUrl} from './hosting';
 import {createUI} from './ui';
 import type {Dance, StudioActions, StudioState} from './types';
 
@@ -43,6 +44,7 @@ const actions:StudioActions={
  setAudioMode(mode){run(()=>audio.setMode(mode));if(audio.snapshot().playing&&mode!=='off')void startPlaying();},
  setVolume(value){run(()=>audio.setVolume(value));},
  toggleMute(){run(()=>audio.setMuted(!audio.info().muted));},
+ async loadTrack(id){try{controlError=undefined;const meta=await (await fetch(`${musicUrl}${id}.json`)).json();const loaded=await audio.loadTrack({name:`${meta.title} (${meta.performers}, ${meta.recorded})`,url:`${musicUrl}${meta.audio}`,bpm:meta.bpm,firstDownbeat:meta.firstDownbeat,beats:meta.beats});if(loaded){loopFigure=false;configureBounds();}syncClock();return loaded;}catch(error){failed(error);throw error;}},
  async loadRecording(file){try{controlError=undefined;const loaded=await audio.loadRecording(file);if(loaded){loopFigure=false;configureBounds();}syncClock();return loaded;}catch(error){failed(error);throw error;}},
  setRecordingGrid(bpm,offsetSeconds){run(()=>audio.setRecordingGrid(bpm,offsetSeconds));},
  setCamera(mode){state.camera=fallback?'overhead':mode;scene?.setCamera(state.camera);},resetCamera(){state.camera=fallback?'overhead':'perspective';scene?.resetCamera();},

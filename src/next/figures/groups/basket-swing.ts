@@ -33,7 +33,7 @@ const RADIUS = 0.55;
 /** Beats to close in, and to open out. */
 const EDGE = 2;
 /** A swing's pace round the basket, meters per beat. */
-const PACE = 0.85;
+const PACE = 1.0;
 
 const at = (c: Vec2, a: number, r: number): Vec2 => ({ x: c.x + r * Math.cos(a), z: c.z + r * Math.sin(a) });
 

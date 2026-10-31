@@ -1,5 +1,5 @@
 import {audioPresentationTime} from './audio-presentation.ts';
-import {BeatTransport,recordingBeatLimit,recordingPosition} from './transport.ts';
+import {BeatTransport,recordingBeatAt,recordingBeatLimit,recordingPosition} from './transport.ts';
 import type {BeatLoop,RecordingGrid,TransportSnapshot} from './transport.ts';
 import {REEL_BEATS,REEL_BPM,synthesizePracticeReel} from './music.ts';
 import type {AudioMode} from './types.ts';
@@ -8,6 +8,8 @@ import type {LocalRecordingFile,RecordingMetadata} from './recording.ts';
 
 export interface AudioInfo {audioMode:AudioMode;volume:number;muted:boolean;audioStatus:'idle'|'ready'|'loading'|'error';audioError?:string;recordingName?:string;recordingDuration?:number;recordingBpm:number;recordingOffsetSeconds:number;}
 export interface SourcePlan {offset:number;rate:number;loop:boolean;loopStart:number;loopEnd:number;}
+/** A recording shipped with the studio, and its tracked beats (public/music/*.json). */
+export interface MusicTrack {name:string;url:string;bpm:number;firstDownbeat:number;beats:readonly number[];}
 const modulo=(x:number,n:number)=>((x%n)+n)%n;
 /** Source positions are derived from the same beat clock as the dancers, not a
  * second animation-frame timer. Recording beat 0 is its manually chosen downbeat. */
@@ -87,7 +89,7 @@ export class StudioAudioTransport {
   if(!['off','reel','recording'].includes(mode))throw new Error('Choose a supported music source.');
   if(mode==='recording'&&!this.recording)throw new Error('Choose a local recording first.');
   if(mode==='recording'&&this.recording&&this.clock.getLoop())audioSourcePlan(this.clock.snapshot(),'recording',this.grid,this.clock.getLoop(),this.recording.duration);
-  if(this.loadingRecording){++this.loadRequest;this.loadingRecording=false;}this.mode=mode;this.updateStop();this.clearError();this.reschedule();
+  if(this.loadingRecording){++this.loadRequest;this.loadingRecording=false;}this.mode=mode;this.syncWarp();this.updateStop();this.clearError();this.reschedule();
  }
  setVolume(value:number){if(!Number.isFinite(value)||value<0||value>1)throw new Error('Volume must be between 0 and 1.');this.volume=value;if(this.master&&this.context){const time=this.context.currentTime;this.master.gain.cancelScheduledValues(time);if(this.muted)this.master.gain.setValueAtTime(0,time);else this.master.gain.setTargetAtTime(value,time,.012);}}
  /** Mute the common output, including already-playing/retiring voices, without
@@ -95,9 +97,26 @@ export class StudioAudioTransport {
  setMuted(muted:boolean){this.muted=muted;if(this.master&&this.context){const time=this.context.currentTime;this.master.gain.cancelScheduledValues(time);this.master.gain.setValueAtTime(muted?0:this.volume,time);}}
  setMetronome(enabled:boolean){this.metronome=enabled;this.reschedule();}
  setRecordingGrid(bpm:number,offsetSeconds:number){
-  const grid={bpm,offsetSeconds};recordingPosition(0,grid);if(this.recording)recordingBeatLimit(this.recording.duration,grid);
+  const grid={bpm,offsetSeconds,...(this.grid.beatTimes?{beatTimes:this.grid.beatTimes}:{})};recordingPosition(0,grid);if(this.recording)recordingBeatLimit(this.recording.duration,grid);
   if(this.recording&&this.mode==='recording'&&this.clock.getLoop())audioSourcePlan(this.clock.snapshot(),'recording',grid,this.clock.getLoop(),this.recording.duration);
-  this.grid=grid;this.clock.setTempo(bpm,this.clock.snapshot().speed);this.updateStop();this.clearError();this.reschedule();
+  this.grid=grid;this.clock.setTempo(bpm,this.clock.snapshot().speed);this.syncWarp();this.updateStop();this.clearError();this.reschedule();
+ }
+ /** The dance clock follows the recording's beat map while it plays the music. */
+ private syncWarp(){
+  const grid=this.grid;
+  this.clock.setWarp(this.mode==='recording'&&this.recording&&grid.beatTimes?{bpm:grid.bpm,toSeconds:b=>recordingPosition(b,grid),toBeat:s=>recordingBeatAt(s,grid)}:null);
+ }
+ /**
+  * A recording that ships with the studio (public/music): fetched, decoded
+  * like a local recording, with its tracked beats so the dance follows the
+  * player's tempo, and dance beat 0 on the tune's first downbeat.
+  */
+ async loadTrack(track:MusicTrack):Promise<boolean>{
+  const response=await fetch(track.url);if(!response.ok)throw new Error(`The recording could not be fetched (${response.status}).`);
+  const blob=await response.blob(),file=new File([blob],track.name,{type:blob.type||'audio/mpeg'});
+  const loaded=await this.loadRecording(file);if(!loaded)return false;
+  this.grid={bpm:track.bpm,offsetSeconds:track.beats[track.firstDownbeat],beatTimes:track.beats};
+  this.clock.setTempo(track.bpm,this.clock.snapshot().speed);this.syncWarp();this.clock.seek(0);this.updateStop();this.clearError();return true;
  }
  async loadRecording(file:LocalRecordingFile):Promise<boolean>{
   if(!Number.isFinite(file.size)||file.size<=0||file.size>RECORDING_MAX_FILE_BYTES)throw new Error('Choose a recording smaller than 32 MB.');
@@ -111,7 +130,7 @@ export class StudioAudioTransport {
    assertRecordingBudget({duration:decoded.duration,channels:decoded.numberOfChannels},decoded.sampleRate);
    if(decoded.length*decoded.numberOfChannels*4>RECORDING_MAX_PCM_BYTES)throw new Error('Decoded audio exceeds the 64 MB memory budget. Choose a shorter excerpt.');
    if(decoded.numberOfChannels!==metadata.channels)throw new Error('Decoded channels differ from the preflight header. Use a standard mono or stereo excerpt.');
-   this.recording=decoded;this.name=file.name;this.grid={bpm:this.clock.snapshot().bpm,offsetSeconds:0};this.mode='recording';this.clock.setLoop(null);this.clock.seek(0);this.updateStop();this.loadingRecording=false;this.clearError();return true;
+   this.recording=decoded;this.name=file.name;this.grid={bpm:this.clock.snapshot().bpm,offsetSeconds:0};this.mode='recording';this.syncWarp();this.clock.setLoop(null);this.clock.seek(0);this.updateStop();this.loadingRecording=false;this.clearError();return true;
   }catch(error){if(request===this.loadRequest){this.loadingRecording=false;this.fail(error);}throw error;}
  }
  private reelBuffer(){if(!this.reel){const pcm=synthesizePracticeReel();const buffer=this.context!.createBuffer(2,pcm.channels[0].length,pcm.sampleRate);pcm.channels.forEach((channel,index)=>buffer.getChannelData(index).set(channel));this.reel=buffer;}return this.reel;}
@@ -127,7 +146,11 @@ export class StudioAudioTransport {
   source.onended=()=>{source.disconnect();gain.disconnect();this.voices.delete(voice);};source.start(time,plan.offset);
   let end=this.stopBeat;
   if(this.mode==='recording'&&this.recording){const limit=recordingBeatLimit(this.recording.duration,this.grid);end=end===null?limit:Math.min(end,limit);}
-  if(!this.clock.getLoop()&&end!==null)source.stop(time+Math.max(0,(end-snapshot.beat)*60/(snapshot.bpm*snapshot.speed)));
+  if(!this.clock.getLoop()&&end!==null){
+   // A recording stops where its own clock puts the end (its tempo may wander).
+   const seconds=buffer===this.recording?(recordingPosition(end,this.grid)-plan.offset)/plan.rate:(end-snapshot.beat)*60/(snapshot.bpm*snapshot.speed);
+   source.stop(time+Math.max(0,seconds));
+  }
  }
  private reschedule(){try{
   this.retireVoices();if(!this.clock.snapshot().playing)return;

@@ -21,7 +21,9 @@ const UNMET_HOLDS:Record<string,number>={
   'role-star {"end":"places","hand":"right"}':.81,'role-star {"end":"center","hand":"right"}':.79,
   'star-wheel {"hand":"left"}':.39,'star-wheel {"hand":"right"}':.39,'star-wheel {"center":"robins","hand":"left"}':.39,
   'star-wheel {"center":"robins","hand":"right"}':.39,'star-wheel {"backing":true,"center":"larks","hand":"left"}':.54,
-  'star-whirl':.39,'swing-out':.62,
+  'star-whirl':.39,
+  // Swing out turns faster since swings turn once every two beats (2026-10-31).
+  'swing-out':.69,
 };
 
 test('the upper arm angle behind the shoulder is measured in the torso frame',()=>{

@@ -67,7 +67,7 @@ test('meltdown swing: a right-shoulder round, facing, then the swing', () => {
     const b = at(beat, 3).position;
     return Math.atan2(a.z - b.z, a.x - b.x);
   };
-  assert.ok(Math.sin(mid(3.2) - mid(2)) > 0.3, 'clockwise from above');
+  assert.ok(Math.sin(mid(2.6) - mid(2)) > 0.3, 'clockwise from above');
   // Then the swing frame, and the same exit as an ordinary swing.
   assert.ok(r.motion(8).contacts.some((c) => c.kind === 'swing-frame' && c.strength > 0.9));
   for (const id of [0, 1, 2, 3]) near(pos(r.exit, id), pos(plain.exit, id));

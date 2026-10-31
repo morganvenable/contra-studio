@@ -31,9 +31,9 @@ export interface SwingAtRandomParams {
 /** Swing orbit radius (as in swing.ts). */
 const ORBIT = 0.31;
 /** A swing's pace round the orbit, meters per beat. */
-const PACE = 0.6;
+const PACE = 1.0;
 /** Beats to meet and close in, and to open out. */
-const EDGE = 3;
+const EDGE = 2;
 /** Share of the figure the couples take to reach their places. */
 const TRAVEL = 0.6;
 

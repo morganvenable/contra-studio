@@ -98,8 +98,14 @@ function across(move: string, state: DanceState, params: Record<string, unknown>
   const local = withChanges(state, { bodies });
   const result = inner(local, params, beats);
   const meet = Math.min(MEET, beats * 0.8);
+  // A swing starts once the two have nearly met (walking together while
+  // already spinning would sweep them through each other); its turns fit
+  // the beats left.
+  const wait = move === 'swing' ? meet * 0.8 : 0;
+  const innerBeat = (beat: number) =>
+    wait ? (Math.max(0, beat - wait) * beats) / (beats - wait) : beat;
   const motion = (beat: number) => {
-    const frame = result.motion(beat);
+    const frame = result.motion(innerBeat(beat));
     const k = 1 - progress(beat / meet);
     const turnK = 1 - smooth(beat / meet);
     const moved = new Set(frame.bodies.map((b) => b.id));

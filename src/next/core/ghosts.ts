@@ -52,7 +52,7 @@ const PLACE = 0.05;
  * radians a beat): faster than this, it does something simpler instead.
  * Not the physical sanity bounds (config.ts LIMITS).
  */
-const COMFORT_SPEED = 1.2;
+const COMFORT_SPEED = 2.4;
 const COMFORT_TURN = 4;
 
 /** Beats a copy takes to turn to face as its template does. */

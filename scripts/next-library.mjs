@@ -129,7 +129,8 @@ for (const record of catalogue.records) {
 
 // Check in parallel.
 const started = Date.now();
-const threads = Math.max(1, Math.min(cpus().length - 1, 24, imported.length));
+// LIBRARY_THREADS caps the workers (default half the cores, so the machine stays usable).
+const threads = Math.max(1, Math.min(Number(process.env.LIBRARY_THREADS) || Math.floor(cpus().length / 2), 24, imported.length));
 const results = new Map();
 await Promise.all(
   Array.from({ length: threads }, (_, t) => {

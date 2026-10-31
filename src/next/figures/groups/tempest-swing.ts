@@ -25,8 +25,8 @@ import { lineSpots, sideSpots } from './tempest-units.ts';
 export type TempestSwingParams = Record<string, never>;
 
 const ORBIT = 0.31;
-const PACE = 0.5;
-const EDGE = 2.5;
+const PACE = 1.0;
+const EDGE = 1.5;
 /** Share of the figure the 1s take to reach the line below. */
 const TRAVEL = 0.85;
 /** Share of the figure spent moving across first. */
