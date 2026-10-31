@@ -4,6 +4,8 @@ import json, subprocess, sys
 import numpy as np
 
 src = sys.argv[1]
+# Optional tempo search range (bpm): a hornpipe's dotted rhythm can lock on 2/3 tempo.
+LO, HI = (float(sys.argv[2]), float(sys.argv[3])) if len(sys.argv) > 3 else (80, 170)
 SR, HOP, NFFT = 22050, 256, 1024
 raw = subprocess.run(['ffmpeg', '-v', 'error', '-i', src, '-ac', '1', '-ar', str(SR), '-f', 'f32le', '-'],
                      capture_output=True, check=True).stdout
@@ -29,7 +31,7 @@ fps = SR / HOP
 ac = np.correlate(onset, onset, mode='full')[len(onset) - 1:]
 lags = np.arange(len(ac))
 bpm = 60 * fps / np.maximum(lags, 1)
-ok = (bpm > 80) & (bpm < 170)
+ok = (bpm > LO) & (bpm < HI)
 weight = np.exp(-0.5 * (np.log2(bpm / 120) / 0.6) ** 2)
 score = np.where(ok, ac * weight, 0)
 period = int(np.argmax(score))

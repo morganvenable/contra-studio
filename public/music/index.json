@@ -1,0 +1,93 @@
+{
+ "note": "Recordings shipped with Contra Studio: public domain or CC0. Each <id>.json carries its source, license and tracked beats.",
+ "tracks": [
+  {
+   "id": "arkansaw-traveler",
+   "title": "Arkansaw Traveler",
+   "performers": "Henry C. Gilliland and Eck Robertson",
+   "recorded": "1922",
+   "rhythm": "reel",
+   "bpm": 114.84
+  },
+  {
+   "id": "mcdonalds-reel",
+   "title": "McDonald's Reel",
+   "performers": "Jasper Bisbee, fiddle; Beulah Bisbee-Schuler, piano",
+   "recorded": "1923",
+   "rhythm": "reel",
+   "bpm": 117.45
+  },
+  {
+   "id": "college-hornpipe",
+   "title": "College Hornpipe",
+   "performers": "Jep Bisbee, fiddle; Beulah Bisbee-Schuler, piano (Edison 51382)",
+   "recorded": "1923",
+   "rhythm": "hornpipe",
+   "bpm": 112.35
+  },
+  {
+   "id": "durang-hornpipe",
+   "title": "Durang Hornpipe Medley",
+   "performers": "John Baltzell, fiddle; John F. Burckhardt, piano (Edison 51236)",
+   "recorded": "1923",
+   "rhythm": "hornpipe",
+   "bpm": 132.51
+  },
+  {
+   "id": "fishers-opera-reel",
+   "title": "Fisher's Hornpipe and Opera Reel",
+   "performers": "William B. Houchens, fiddle (Gennett)",
+   "recorded": "1924",
+   "rhythm": "reel",
+   "bpm": 129.2
+  },
+  {
+   "id": "bag-of-potatoes",
+   "title": "Bag of Potatoes, Templehouse Reel",
+   "performers": "Tom Ennis, pipes; James Morrison, fiddle",
+   "recorded": "1922",
+   "rhythm": "reel",
+   "bpm": 120.19
+  },
+  {
+   "id": "irish-jig-medley",
+   "title": "Irish Jig Medley",
+   "performers": "Tom Ennis, James Morrison, John Muller",
+   "recorded": "1922",
+   "rhythm": "jig",
+   "bpm": 136.0
+  },
+  {
+   "id": "money-musk",
+   "title": "Money Musk #1 and #2",
+   "performers": "Victor Military Band",
+   "recorded": "1918",
+   "rhythm": "reel",
+   "bpm": 117.45
+  },
+  {
+   "id": "soldiers-joy",
+   "title": "Soldier's Joy",
+   "performers": "Victor Band (Emma Howells Burchenal)",
+   "recorded": "1917",
+   "rhythm": "reel",
+   "bpm": 129.2
+  },
+  {
+   "id": "fishers-hornpipe-fife",
+   "title": "Fisher's Hornpipe",
+   "performers": "The United States Army Old Guard Fife and Drum Corps",
+   "recorded": "2011",
+   "rhythm": "hornpipe",
+   "bpm": 136.0
+  },
+  {
+   "id": "irish-washerwoman",
+   "title": "The Irish Washerwoman",
+   "performers": "Prince's Orchestra",
+   "recorded": "",
+   "rhythm": "jig",
+   "bpm": 129.2
+  }
+ ]
+}
