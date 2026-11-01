@@ -103,6 +103,12 @@ a.nav-item { display: inline-flex; align-items: center; text-decoration: none; }
 .write-options small{font-size:10px}
 .write-option{border:1px solid #dfe5db;border-radius:999px;background:#fafbf5;padding:2px 8px;font-size:11px;color:inherit}
 .write-option:hover{background:var(--green-light)}
+.write-state{grid-column:2/-1;display:block;color:var(--muted);font-size:11px;line-height:1.35}
+.write-state b{font-weight:600}
+.write-line.is-start{grid-template-columns:1fr}
+.write-line.is-start .write-state{grid-column:1}
+.write-line.is-current{padding-left:9px;background:var(--green-light);box-shadow:inset 3px 0 0 var(--green);border-radius:4px}
+.write-line.is-current .write-state{color:inherit}
 /* Write a dance: editor beside its guide. */
 .write-layout{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(260px,1fr);gap:22px;align-items:start}
 .write-guide{border-left:1px solid var(--line);padding-left:18px;max-height:70vh;overflow:auto;font-size:12px}

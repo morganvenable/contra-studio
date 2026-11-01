@@ -137,3 +137,18 @@ test('a California twirl reads with partners, and offers the neighbor figure tha
   // A line that reads as typed is taken at its word.
   assert.equal(readOneShot('partners balance & California twirl').lines[0].options, undefined);
 });
+
+test('where everyone stands coming out of each line, in words', async () => {
+  const { describeState } = await import('../state-note.ts');
+  const { stored } = readOneShot(['neighbors balance & swing', 'circle left 3 places', 'pass through to next neighbors'].join('\n'));
+  const segments = (compileNext(stored, 4) as unknown as { round(r: number): { segments: { entry: never; result: { exit: never } }[] } }).round(0).segments;
+  // Improper: the 1s face down to their neighbors, partners side by side.
+  const start = describeState(segments[0].entry)!;
+  assert.equal(start.views[0], '1s lark faces down to neighbor · partner on the right');
+  // Out of the neighbor swing: long lines, facing partner across, neighbor beside.
+  const swung = describeState(segments[1].result.exit)!;
+  assert.equal(swung.shape, 'long lines');
+  assert.match(swung.views[0], /^1s lark faces across to partner · .*neighbor on the right/);
+  assert.equal(describeState(segments[2].result.exit)!.shape, 'a ring');
+  assert.match(describeState(segments[3].result.exit)!.views[0], /faces down to next neighbor/);
+});
