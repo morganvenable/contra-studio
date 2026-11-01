@@ -314,9 +314,11 @@ export class Avatar {
       // return, keep the right bend behind, and settle its elbow before the
       // left. Do not reuse RLT's joined-hand pole for the outgoing ring edge.
       // The outward pole arc avoids a near-cancelling projected bend direction.
-      // A joined hand bends its elbow down, forearm rising to the hand ("W"
-      // hands); figures with their own arm routes steer it from there.
-      const pole=new THREE.Vector3(arm.side*(.3+(!this.armLimit||contact?.kind==='swing-frame'||prepared?.kind==='swing-frame'?.5:HELD_ELBOW_OUT)*poleStrength),-1,-.3);if(contact?.kind==='joined')pole.lerp(new THREE.Vector3(arm.side*.6,-1,.15),Math.min(1,contact.strength*2));pole.lerp(new THREE.Vector3(0,-1,-.5),passGate);if(rightLeft){const staged=new THREE.Vector3(arm.side*.6*Math.sin(Math.PI*rltBehind),-1,1-2.1*rltBehind);if(chainCue){if(hand===chainBack&&chainProgress>.52)staged.z=-1.1;const raised=bodyEase((chainProgress-.52)/.06);staged.lerp(new THREE.Vector3(0,-1,-.5),1-raised);if(hand===chainFront)staged.x+=(chainFront==='left'?1:-1)*.35*Math.sin(Math.PI*raised);}if(contact?.kind==='joined'&&!chainCue)staged.lerp(new THREE.Vector3(0,0,1),contact.strength);
+      // A held hand bends its elbow down, forearm rising to the hand ("W"
+      // hands), easing off as the hand rises into an arch (by its height, so
+      // a hand turning from joined to arch does not flip the elbow); figures
+      // with their own arm routes steer it from there.
+      const pole=new THREE.Vector3(arm.side*(.3+(!this.armLimit||contact?.kind==='swing-frame'||prepared?.kind==='swing-frame'?.5:HELD_ELBOW_OUT)*poleStrength),-1,-.3);if(contact&&(contact.kind==='joined'||contact.kind==='arch'))pole.lerp(new THREE.Vector3(arm.side*.6,-1,.15),Math.min(1,contact.strength*2)*Math.min(1,Math.max(0,(1.6-contact.point.y)/.3)));pole.lerp(new THREE.Vector3(0,-1,-.5),passGate);if(rightLeft){const staged=new THREE.Vector3(arm.side*.6*Math.sin(Math.PI*rltBehind),-1,1-2.1*rltBehind);if(chainCue){if(hand===chainBack&&chainProgress>.52)staged.z=-1.1;const raised=bodyEase((chainProgress-.52)/.06);staged.lerp(new THREE.Vector3(0,-1,-.5),1-raised);if(hand===chainFront)staged.x+=(chainFront==='left'?1:-1)*.35*Math.sin(Math.PI*raised);}if(contact?.kind==='joined'&&!chainCue)staged.lerp(new THREE.Vector3(0,0,1),contact.strength);
       // A hand at the waist or below (a low pull-by, a free hand) hangs from a low elbow.
       if(!chainCue)staged.lerp(new THREE.Vector3(arm.side*.3,-1,-.3),bodyEase((1.12-target.y)/.08)*(1-rltOffer)*(contact?.kind==='courtesy'?1-contact.strength:1));
       // The hand offered forward for the courtesy turn hangs from an elbow down and out.
