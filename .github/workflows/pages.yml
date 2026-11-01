@@ -3,7 +3,7 @@ name: Verify and publish Pages
 on:
   push:
     branches: [main]
-  pull_request:
+  # Pull requests merge straight away (scripts/ship.mjs); main's run is the one that counts.
   workflow_dispatch:
     inputs:
       deploy:
@@ -64,7 +64,7 @@ jobs:
           path: dist
 
   # Every push to main publishes as soon as the build verifies (about a minute).
-  # The motion tests run alongside and report; they are run locally before a push.
+  # The motion tests run alongside and report; a red run is fixed forward.
   deploy:
     if: github.ref == 'refs/heads/main' && (github.event_name == 'push' || inputs.deploy)
     needs: [verify]
