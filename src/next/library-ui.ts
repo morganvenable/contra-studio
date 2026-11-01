@@ -3,6 +3,7 @@
  * (public/dances/index.json) is fetched when the library opens, and each
  * dance's JSON only when it is opened, so none of them are in the bundle.
  */
+import type { FlowHabits } from "./flow.ts";
 import type { Dance } from "../types.ts";
 import { FORMATIONS } from "./core/formation.ts";
 import {
@@ -35,6 +36,15 @@ export const STATUS_LABEL: Readonly<Record<DanceStatus, string>> = {
 };
 
 let index: Promise<LibraryEntry[]> | undefined;
+let habits: Promise<FlowHabits | undefined> | undefined;
+
+/** How often choreographers follow one figure with another (scripts/flow-habits.ts); undefined if unavailable. */
+export function loadFlowHabits(): Promise<FlowHabits | undefined> {
+  habits ??= fetch(url("flow-habits.json"), { credentials: "omit" })
+    .then((r) => (r.ok ? (r.json() as Promise<FlowHabits>) : undefined))
+    .catch(() => undefined);
+  return habits;
+}
 
 export function loadLibraryIndex(): Promise<LibraryEntry[]> {
   index ??= fetch(url("index.json"), { credentials: "omit" })

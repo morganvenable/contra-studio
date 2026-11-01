@@ -142,3 +142,9 @@ a.nav-item { display: inline-flex; align-items: center; text-decoration: none; }
 .write-next-awkward{border-color:#ecd7a6;background:#fbf6e8}
 .write-next-stuck{opacity:.65;cursor:default}
 .write-chip small{display:block;color:var(--muted);font-size:10px;margin-top:1px}
+/* Write a dance: flow into each line, and habit counts in the explorer. */
+.write-flow{display:block;font-size:11px;margin-top:2px;line-height:1.4}
+.write-flow.is-common{color:var(--green)}
+.write-flow.is-seen{color:var(--muted)}
+.write-flow.is-rare{color:#9a6a1d}
+.write-count{font-weight:600;color:var(--muted);font-size:10px}

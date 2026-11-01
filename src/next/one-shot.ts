@@ -24,6 +24,7 @@
 import type { StoredDance } from './dance.ts';
 import { importRows } from './import.ts';
 import { parseRow, type SourceRow } from './core/parse.ts';
+import { flowBetween, habit, habitKey, type FlowHabits, type FlowSegment } from './flow.ts';
 
 export interface OneShotLine {
   /** The line as typed. */
@@ -266,6 +267,34 @@ export interface NextMove {
   /** The line carries the 1s past their 2s (on), or back above them (back). */
   readonly progress?: 'on' | 'back';
   readonly beats: number;
+  /** How often the library follows the figure before with this one. */
+  readonly habit?: { readonly count: number; readonly of: number };
+  /** A counter-turn into it that choreographers rarely write. */
+  readonly turn?: string;
+}
+
+/** Fewer follows than this in the library is rare. */
+export const RARE = 3;
+
+/**
+ * The flow into figure `index` of `stored`: how often the library follows
+ * the figure before with it, and a counter-turn when that pairing is rare.
+ */
+export function joinFlow(
+  stored: StoredDance,
+  segments: readonly FlowSegment[] | undefined,
+  index: number,
+  habits: FlowHabits | undefined,
+): Pick<NextMove, 'habit' | 'turn'> {
+  const before = stored.figures[index - 1], after = stored.figures[index];
+  if (!before || !after) return {};
+  const h = habits ? habit(habits, habitKey(before), habitKey(after)) : undefined;
+  let turn: string | undefined;
+  if ((!h || h.count < RARE) && segments?.[index - 1] && segments[index]) {
+    const note = flowBetween(segments[index - 1], segments[index], [0, 1, 2, 3])[0];
+    turn = note ? `${note.who} ${note.text}` : undefined;
+  }
+  return { ...(h ? { habit: h } : {}), ...(turn ? { turn } : {}) };
 }
 
 /**
@@ -281,6 +310,7 @@ export function tryNext(
   formation: string | undefined,
   compile: (s: StoredDance) => unknown,
   check: (dance: unknown) => { problems: readonly string[] },
+  habits?: FlowHabits,
 ): NextMove {
   const before = readOneShot(text, formation).stored;
   const start = before.figures.reduce((n, f) => n + f.beats, 0);
@@ -307,6 +337,14 @@ export function tryNext(
   } catch {
     progress = undefined;
   }
+  let flow: Pick<NextMove, 'habit' | 'turn'> = {};
+  try {
+    const first = read.stored.figures.findIndex((f) => f.row === row);
+    const segments = (dance as { round(r: number): { segments: readonly FlowSegment[] } }).round(0).segments;
+    flow = joinFlow(read.stored, segments, first, habits);
+  } catch {
+    flow = {};
+  }
   // Physical trouble inside the new line only.
   const issue = check(dance).problems.find((p) => {
     const beat = Number(p.match(/^beat ([\d.]+)/)?.[1] ?? -1);
@@ -318,7 +356,7 @@ export function tryNext(
     .replace(/(\d+-\d+ )?(\w+)\/(\w+) hand reach ([\d.]+) m/, 'a hand has to reach $4 m')
     .replace(/dancer \d+ moves ([\d.]+) m\/beat/, 'a dancer has to cover $1 m in a beat')
     .replace(/dancer \d+ turns ([\d.]+) rad\/beat/, 'a dancer has to spin $1 radians a beat');
-  return { phrase, fit: issue ? 'awkward' : 'flows', ...(plain ? { why: plain } : {}), ...(progress ? { progress } : {}), beats };
+  return { phrase, fit: issue ? 'awkward' : 'flows', ...(plain ? { why: plain } : {}), ...(progress ? { progress } : {}), beats, ...flow };
 }
 
 const PARTS = ['A1', 'A2', 'B1', 'B2'];
