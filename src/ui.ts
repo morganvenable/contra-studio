@@ -19,6 +19,7 @@ import {squareThroughDescription} from './source-square-through.ts';
 import {CONVENTIONAL_RING_TWIRL,RING_TWIRL_CHOICE_DESCRIPTION} from './ring-twirl-policy.ts';
 import {READY_LIBRARY} from './ready-library.ts';
 import {readOneShot} from './next/one-shot.ts';
+import {WRITE_EXAMPLES,WRITE_FIGURES,WRITE_FORMAT,WRITE_WHO} from './next/one-shot-guide.ts';
 import {registerNextDance} from './next/dance.ts';
 import {checkDance} from './next/status.ts';
 import {STATUS_LABEL,STATUS_ORDER,countByStatus,danceFromStored,fetchStoredDance,filterLibrary,loadLibraryIndex} from './next/library-ui.ts';
@@ -686,15 +687,31 @@ B2  8  long lines forward & back
   function showWriteDance(){
     const formations=[['improper','Improper duple'],['becket','Becket'],['becket ccw','Becket, counterclockwise'],['proper','Proper duple'],['triplet','Triplet'],['triple minor','Triple minor'],['square','Square'],['circle mixer','Circle mixer'],['sicilian circle','Sicilian circle']];
     const chosen=storeGet(WRITE_FORMATION)??'improper';
-    openDialog('Write a dance','ONE SHOT',`<p class="dialog-intro">Type (or dictate) the figures, one per line, and dance them. Start a line with its part (A1, A2, B1, B2) and beats if you like; a line without beats takes the figure's usual length (shown with a ?). Plain names like “allemande” or “hey” are read the usual way, shown below. Anything not understood stands still.</p><label class="write-formation">Formation <select id="write-formation">${formations.map(([v,l])=>`<option value="${esc(v)}"${v===chosen?' selected':''}>${esc(l)}</option>`).join('')}</select></label><textarea id="write-text" data-dictate rows="12" spellcheck="false" aria-label="The dance, one figure per line" placeholder="${esc(WRITE_EXAMPLE)}"></textarea><div class="write-actions"><button type="button" class="button button-primary" data-action="write-go">${icon('play')}<span>Dance it</span></button><span id="write-summary" class="field-help"></span></div><ol id="write-preview" class="write-preview"></ol>`,true);
+    const guide=`<aside class="write-guide" aria-label="How to write a dance"><h3>How to write it</h3><dl class="write-format">${WRITE_FORMAT.map(([what,eg])=>`<dt>${esc(what)}</dt><dd><code>${esc(eg)}</code></dd>`).join('')}</dl><p class="write-who">${esc(WRITE_WHO)}</p><h3>Figures it reads <small>click to add</small></h3>${WRITE_FIGURES.map(g=>`<details class="write-group"${g.title==='Swings and balances'?' open':''}><summary>${esc(g.title)}</summary>${g.note?`<p class="field-help">${esc(g.note)}</p>`:''}<div class="write-chips">${g.phrases.map(ph=>`<button type="button" class="write-chip" data-insert="${esc(ph)}">${esc(ph)}</button>`).join('')}</div></details>`).join('')}<h3>Start from an example</h3><div class="write-chips">${WRITE_EXAMPLES.map((x,i)=>`<button type="button" class="write-chip write-example" data-example="${i}">${esc(x.name)}</button>`).join('')}</div><p class="field-help">An example replaces the text; Ctrl+Z brings yours back.</p></aside>`;
+    openDialog('Write a dance','ONE SHOT',`<div class="write-layout"><div class="write-editor"><p class="dialog-intro">Type (or dictate) the figures, one per line, and dance them. The list under the box shows how each line was read; anything not understood stands still.</p><label class="write-formation">Formation <select id="write-formation">${formations.map(([v,l])=>`<option value="${esc(v)}"${v===chosen?' selected':''}>${esc(l)}</option>`).join('')}</select></label><textarea id="write-text" data-dictate rows="12" spellcheck="false" aria-label="The dance, one figure per line" placeholder="${esc(WRITE_EXAMPLE)}"></textarea><div class="write-actions"><button type="button" class="button button-primary" data-action="write-go">${icon('play')}<span>Dance it</span></button><span id="write-summary" class="field-help"></span></div><ol id="write-preview" class="write-preview"></ol></div>${guide}</div>`,true);
     const field=$<HTMLTextAreaElement>('#write-text'),formation=$<HTMLSelectElement>('#write-formation');
     field.value=storeGet(WRITE_DRAFT)??'';
     let timer=0;
     const preview=()=>{window.clearTimeout(timer);timer=window.setTimeout(()=>renderWritePreview(field.value,formation.value),250);};
     field.addEventListener('input',()=>{storeSet(WRITE_DRAFT,field.value);preview();});
     formation.addEventListener('change',()=>{storeSet(WRITE_FORMATION,formation.value);preview();});
-    // Clicking Dance it leaves focus (and any dictation) in the text box.
-    $('[data-action="write-go"]').addEventListener('mousedown',e=>e.preventDefault());
+    // Clicking Dance it, a figure or an example leaves focus (and any dictation) in the text box.
+    content.querySelectorAll('[data-action="write-go"],[data-insert],[data-example]').forEach(b=>b.addEventListener('mousedown',e=>e.preventDefault()));
+    // A figure goes in as a line of its own at the cursor.
+    content.querySelectorAll<HTMLButtonElement>('[data-insert]').forEach(b=>b.addEventListener('click',()=>{
+      const NL='\n',at=field.selectionStart,before=field.value.slice(0,at),lineStart=!before||before.endsWith(NL);
+      const after=field.value.slice(field.selectionEnd),needsBreak=after&&!after.startsWith(NL);
+      field.focus();field.setRangeText(`${lineStart?'':NL}${b.dataset.insert}${needsBreak?NL:''}`,at,field.selectionEnd,'end');
+      field.dispatchEvent(new Event('input'));
+    }));
+    // An example replaces the text, undoably (Ctrl+Z).
+    content.querySelectorAll<HTMLButtonElement>('[data-example]').forEach(b=>b.addEventListener('click',()=>{
+      const example=WRITE_EXAMPLES[Number(b.dataset.example)];if(!example)return;
+      field.focus();field.select();
+      if(!document.execCommand('insertText',false,example.text))field.value=example.text;
+      field.dispatchEvent(new Event('input'));
+      const formationLine=example.text.match(/^Formation:\s*(.+)$/im);formation.value=formationLine?formationLine[1].trim().toLowerCase():'improper';formation.dispatchEvent(new Event('change'));
+    }));
     renderWritePreview(field.value,formation.value);
     field.focus();field.setSelectionRange(field.value.length,field.value.length);
   }
