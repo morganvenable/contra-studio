@@ -152,3 +152,20 @@ test('where everyone stands coming out of each line, in words', async () => {
   assert.equal(describeState(segments[2].result.exit)!.shape, 'a ring');
   assert.match(describeState(segments[3].result.exit)!.views[0], /faces down to next neighbor/);
 });
+
+test('a twirl is suggested with whoever the lark faces or stands beside as the line starts', async () => {
+  const { around } = await import('../state-note.ts');
+  const { twirlFit } = await import('../one-shot.ts');
+  const { stored } = readOneShot(['neighbors balance & swing', 'partners swing'].join('\n'));
+  const segments = (compileNext(stored, 4) as unknown as { round(r: number): { segments: { result: { exit: never } }[] } }).round(0).segments;
+  // Out of the neighbor swing the lark faces their partner across the set: a box the gnat with partners fits.
+  const afterNeighbors = around(segments[1].result.exit, 0);
+  assert.deepEqual(
+    twirlFit('partners balance and California twirl', afterNeighbors)?.map((o) => o.text),
+    ['partners balance & box the gnat', 'partners balance & swat the flea', 'neighbors balance & California twirl'].filter((t) => readOneShot(t).stored.unparsed.length === 0),
+  );
+  assert.deepEqual(twirlFit('partners balance & box the gnat', afterNeighbors), []);
+  // Out of the partner swing the partner is beside the lark: the California twirl fits.
+  assert.deepEqual(twirlFit('partners balance & California twirl', around(segments[2].result.exit, 0)), []);
+  assert.equal(twirlFit('circle left 3 places', afterNeighbors), undefined);
+});

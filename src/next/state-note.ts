@@ -90,28 +90,59 @@ export function describeState(state: DanceState): StateNote | undefined {
   }
 
   const views = [0, 1].map((me) => {
-    const b = state.bodies.get(me)!, f = ahead(me), r = rightOf(b.yaw);
-    const near = [...state.bodies.keys()]
-      .filter((o) => o !== me)
-      .map((o) => {
-        const q = pos(o), dx = q.x - b.position.x, dz = q.z - b.position.z, d = Math.hypot(dx, dz);
-        return { o, d, front: (f.x * dx + f.z * dz) / (d || 1), right: (r.x * dx + r.z * dz) / (d || 1) };
-      })
-      .filter((n) => n.d < NEAR)
-      .sort((a, c) => a.d - c.d)
-      .slice(0, 3);
     let faces = '';
     const others: string[] = [];
-    for (const n of near) {
-      const who = name(me, n.o);
-      if (n.d < 0.75 && n.front > 0.5) faces = ` close with ${who}`;
-      else if (!ring && n.front > 0.75 && !faces) faces = ` to ${who}`;
-      else if (ring && n.front > 0.9) others.push(`${who} across the ring`);
-      else if (n.front < -0.75) others.push(`${who} behind`);
-      else others.push(`${who} on the ${n.right > 0 ? 'right' : 'left'}`);
+    for (const n of around(state, me, ring)) {
+      if (n.where === 'close') faces = ` close with ${n.who}`;
+      else if (n.where === 'facing') faces = ` to ${n.who}`;
+      else others.push(`${n.who} ${n.where === 'behind' || n.where === 'across the ring' ? n.where : `on the ${n.where}`}`);
     }
-    const facing = ring ? 'in' : facingWord(f, cx - b.position.x);
+    const facing = ring ? 'in' : facingWord(ahead(me), cx - pos(me).x);
     return `1s ${role(me)} faces ${facing}${faces}${others.length ? ` · ${others.join(' · ')}` : ''}`;
   });
   return { shape, views };
+}
+
+export interface Nearby {
+  /** partner, neighbor, next neighbor, shadow, or e.g. "2s robin". */
+  readonly who: string;
+  readonly where: 'close' | 'facing' | 'behind' | 'right' | 'left' | 'across the ring';
+}
+
+/** The (up to three) dancers nearest one dancer, by relation, and where they stand from that dancer. */
+export function around(state: DanceState, me: number, ring = false): Nearby[] {
+  const b = state.bodies.get(me);
+  if (!b) return [];
+  const f = forward(b.yaw), r = rightOf(b.yaw);
+  const named = new Map<number, string>();
+  for (const rel of RELATIONS) {
+    try {
+      const other = relationMap(state, rel).get(me);
+      if (other !== undefined && !named.has(other)) named.set(other, rel.replace('-', ' '));
+    } catch {
+      /* not every relation is known everywhere */
+    }
+  }
+  const near = [...state.bodies.keys()]
+    .filter((o) => o !== me)
+    .map((o) => {
+      const q = state.bodies.get(o)!.position, dx = q.x - b.position.x, dz = q.z - b.position.z, d = Math.hypot(dx, dz);
+      return { o, d, front: (f.x * dx + f.z * dz) / (d || 1), right: (r.x * dx + r.z * dz) / (d || 1) };
+    })
+    .filter((n) => n.d < NEAR)
+    .sort((a, c) => a.d - c.d)
+    .slice(0, 3);
+  let facing = false;
+  return near.map((n) => {
+    const d = state.dancers[n.o];
+    const who = named.get(n.o) ?? `${d.couple % 2 ? '2s' : '1s'} ${d.role === 'lark' ? 'lark' : 'robin'}`;
+    let where: Nearby['where'];
+    if (n.d < 0.75 && n.front > 0.5) where = 'close';
+    else if (!ring && n.front > 0.75 && !facing) where = 'facing';
+    else if (ring && n.front > 0.9) where = 'across the ring';
+    else if (n.front < -0.75) where = 'behind';
+    else where = n.right > 0 ? 'right' : 'left';
+    if (where === 'close' || where === 'facing') facing = true;
+    return { who, where };
+  });
 }
