@@ -123,6 +123,36 @@ const OPTIONS: readonly ((t: string) => readonly { text: string; why: string }[]
 ];
 const optionsFor = (text: string) => OPTIONS.flatMap((o) => o(text)).filter((o) => reads(o.text));
 
+/** Who stands where around the 1s' lark as a line starts (state-note.ts around). */
+type Around = readonly { readonly who: string; readonly where: string }[];
+const plural = (who: string) => (/s$/.test(who) ? who : `${who}s`);
+
+/**
+ * A twirl that fits where the dancers are: box the gnat or swat the flea with
+ * whoever the lark faces, a California twirl with whoever stands at the
+ * lark's right (the robin's left), the inside hands. Empty when the line
+ * already fits; undefined when the line is not a twirl or nobody is near.
+ */
+export function twirlFit(text: string, near: Around): { text: string; why: string }[] | undefined {
+  const m = text.match(/^(?:(\w+(?: neighbou?rs?)?) )?(?:(?:right|left) hand )?(balance (?:&|and) )?(california twirl|box the gnat|swat the flea)\b/i);
+  if (!m || !near.length) return undefined;
+  const typed = (m[1] ?? '').toLowerCase().replace(/s$/, '');
+  const facing = near.find((n) => n.where === 'facing')?.who;
+  const beside = near.find((n) => n.where === 'right')?.who;
+  const california = /california/i.test(m[3]);
+  if (california ? beside === typed : facing === typed) return [];
+  const balance = m[2] ? 'balance & ' : '';
+  const out: { text: string; why: string }[] = [];
+  if (facing && !/^[12]s /.test(facing))
+    out.push(
+      { text: `${plural(facing)} ${balance}box the gnat`, why: `you face your ${facing} here: right hands, robin turns under` },
+      { text: `${plural(facing)} ${balance}swat the flea`, why: `you face your ${facing} here: left hands` },
+    );
+  if (beside && !/^[12]s /.test(beside))
+    out.push({ text: `${plural(beside)} ${balance}California twirl`, why: `your ${beside} is beside you here: inside hands` });
+  return out.filter((o) => o.text.toLowerCase() !== text.toLowerCase() && reads(o.text));
+}
+
 /** How long a figure usually takes, for a line typed without beats. */
 const USUAL: readonly [RegExp, number][] = [
   [/contra corners/i, 16],

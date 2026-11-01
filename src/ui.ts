@@ -18,14 +18,14 @@ import {CONVENTIONAL_MAD_ROBIN_POLICY,MAD_ROBIN_ROW_CHOICE_DESCRIPTION,MAD_ROBIN
 import {squareThroughDescription} from './source-square-through.ts';
 import {CONVENTIONAL_RING_TWIRL,RING_TWIRL_CHOICE_DESCRIPTION} from './ring-twirl-policy.ts';
 import {READY_LIBRARY} from './ready-library.ts';
-import {joinFlow,nextLine,RARE,readOneShot,traceProgression,tryNext,type NextMove} from './next/one-shot.ts';
+import {joinFlow,nextLine,RARE,readOneShot,traceProgression,tryNext,twirlFit,type NextMove} from './next/one-shot.ts';
 import {physicalCheck} from './next/core/check.ts';
 import {WRITE_EXAMPLES,WRITE_FIGURES,WRITE_FORMAT,WRITE_WHO} from './next/one-shot-guide.ts';
 import {compileNext,registerNextDance} from './next/dance.ts';
 import {checkDance} from './next/status.ts';
 import {STATUS_LABEL,STATUS_ORDER,countByStatus,danceFromStored,fetchStoredDance,filterLibrary,loadFlowHabits,loadLibraryIndex} from './next/library-ui.ts';
 import type {FlowHabits} from './next/flow.ts';
-import {describeState,type StateNote} from './next/state-note.ts';
+import {around,describeState,type Nearby,type StateNote} from './next/state-note.ts';
 import {FIGURE_GROUPS,STYLE_LABEL,emptyFilter,facetCounts,figuresOf,formationLabel as layoutLabel,isFilterActive,matchesFilter,type DanceStyle} from './next/library-filters.ts';
 import type {DanceStatus,LibraryEntry} from './next/dance.ts';
 import {CONVENTIONAL_DIAGONAL_HEY,DIAGONAL_HEY_CHOICE_DESCRIPTION} from './source-diagonal-hey.ts';
@@ -762,8 +762,10 @@ B2  8  long lines forward & back
     // The flow into each line: how usual the pairing is, and a rare counter-turn.
     let segments;try{segments=stored.figures.length?(compileNext(stored,4) as unknown as {round(r:number):{segments:Parameters<typeof joinFlow>[1]}}).round(0).segments:undefined;}catch{segments=undefined;}
     // Where everyone stands coming out of each line: the shape, and who is beside and facing the 1s.
-    const states=new Map<number,StateNote>();let start:StateNote|undefined;
-    try{const segs=(segments??[]) as unknown as readonly {call:{row?:number};entry:Parameters<typeof describeState>[0];result:{exit:Parameters<typeof describeState>[0]}}[];start=segs[0]&&describeState(segs[0].entry);for(const s of segs){const n=s.call.row!==undefined&&describeState(s.result.exit);if(n)states.set(s.call.row!,n);}}catch{/* a note is extra */}
+    const states=new Map<number,StateNote>(),nearAt=new Map<number,Nearby[]>();let start:StateNote|undefined;
+    try{const segs=(segments??[]) as unknown as readonly {call:{row?:number};entry:Parameters<typeof describeState>[0];result:{exit:Parameters<typeof describeState>[0]}}[];start=segs[0]&&describeState(segs[0].entry);for(const s of segs){const n=s.call.row!==undefined&&describeState(s.result.exit);if(n)states.set(s.call.row!,n);if(s.call.row!==undefined&&!nearAt.has(s.call.row))nearAt.set(s.call.row,around(s.entry,0));}}catch{/* a note is extra */}
+    // Suggestions that fit where the dancers are as the line starts (a twirl with whoever you face or stand beside), else the typed reading's.
+    const optionsFor=(l:(typeof lines)[number],r:number)=>{const near=nearAt.get(r);const fit=near&&l.row?twirlFit(l.row.readAs??l.row.text,near):undefined;return fit??l.options;};
     const stateNote=(n:StateNote|undefined,label:string)=>n?`<small class="write-state"><b>${label}</b> ${esc(n.shape)}. ${n.views.map(v=>esc(v)).join('. ')}.</small>`:'';
     const progress=$('#write-progress');if(progress){progress.hidden=!trace;progress.textContent=trace?.summary??'';progress.classList.toggle('is-ok',!!trace?.summary.startsWith('Progression works'));}
     list.innerHTML=(start?`<li class="write-line is-start">${stateNote(start,'Start:')}</li>`:'')+lines.map(l=>{
@@ -771,7 +773,7 @@ B2  8  long lines forward & back
       row++;const calls=stored.figures.filter(f=>f.row===row),miss=stored.unparsed.find(u=>u.row===row);const from=at+1;at+=l.row.beats;
       const who=(c:{params:Record<string,unknown>})=>typeof c.params.who==='string'?` · ${c.params.who}`:'';
       const what=miss?`<span class="write-miss">Not understood: ${esc(miss.why)}</span>`:`<span class="write-read">${esc(calls.map(c=>`${c.move.replace(/-/g,' ')}${who(c)} (${c.beats})`).join(' · '))}${l.row.readAs?`<small class="write-as">read as “${esc(l.row.readAs)}”</small>`:''}${trace?.passed.has(row)?'<small class="write-pass">1s now below their 2s ↓</small>':trace?.back.has(row)?'<small class="write-back">1s back above their 2s ↑</small>':''}${(()=>{const i=stored.figures.findIndex(f=>f.row===row);return i>0?flowLabel(joinFlow(stored,segments,i,flowHabits),stored.figures[i-1].move.replace(/-/g,' ')):'';})()}</span>`;
-      return `<li class="write-line${miss?' is-miss':''}" data-at="${l.at}"><span class="write-where">${esc(l.row.section??'')} · ${l.row.beats}${l.row.guessed?'?':''}<small>${from}–${at}</small></span><code>${esc(l.row.text)}</code>${what}${l.options?`<span class="write-options">${l.row.readAs?'Or':'Did you mean'}: ${l.options.map(o=>`<span><button type="button" class="write-option" data-option="${esc(o.text)}" data-at="${l.at}" data-from="${esc(l.row!.text)}">${esc(o.text)}</button> <small>${esc(o.why)}</small></span>`).join('')}</span>`:''}${stateNote(states.get(row),'Ends:')}</li>`;
+      return `<li class="write-line${miss?' is-miss':''}" data-at="${l.at}"><span class="write-where">${esc(l.row.section??'')} · ${l.row.beats}${l.row.guessed?'?':''}<small>${from}–${at}</small></span><code>${esc(l.row.text)}</code>${what}${(()=>{const options=optionsFor(l,row);return options?.length?`<span class="write-options">${miss?'Did you mean':'Fits here better'}: ${options.map(o=>`<span><button type="button" class="write-option" data-option="${esc(o.text)}" data-at="${l.at}" data-from="${esc(l.row!.text)}">${esc(o.text)}</button> <small>${esc(o.why)}</small></span>`).join('')}</span>`:'';})()}${stateNote(states.get(row),'Ends:')}</li>`;
     }).join('');
     markWriteLine();
     const total=stored.figures.reduce((n,f)=>n+f.beats,0);
