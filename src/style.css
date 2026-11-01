@@ -120,3 +120,8 @@ a.nav-item { display: inline-flex; align-items: center; text-decoration: none; }
 .write-format{grid-template-columns:1fr;gap:1px}
 .write-format dd{margin:0 0 6px}
 .write-format code{background:#f3f5ee;border-radius:4px;padding:1px 5px}
+.write-progress{margin:4px 0 8px;padding:7px 10px;border-radius:6px;background:#f6ebe4;color:#7a4a35;font-size:12px;line-height:1.45}
+.write-progress.is-ok{background:var(--green-light);color:var(--green)}
+.write-pass,.write-back{display:block;font-size:11px;margin-top:2px}
+.write-pass{color:var(--green)}
+.write-back{color:#a4553a}

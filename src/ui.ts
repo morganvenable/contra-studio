@@ -18,9 +18,9 @@ import {CONVENTIONAL_MAD_ROBIN_POLICY,MAD_ROBIN_ROW_CHOICE_DESCRIPTION,MAD_ROBIN
 import {squareThroughDescription} from './source-square-through.ts';
 import {CONVENTIONAL_RING_TWIRL,RING_TWIRL_CHOICE_DESCRIPTION} from './ring-twirl-policy.ts';
 import {READY_LIBRARY} from './ready-library.ts';
-import {readOneShot} from './next/one-shot.ts';
+import {readOneShot,traceProgression} from './next/one-shot.ts';
 import {WRITE_EXAMPLES,WRITE_FIGURES,WRITE_FORMAT,WRITE_WHO} from './next/one-shot-guide.ts';
-import {registerNextDance} from './next/dance.ts';
+import {compileNext,registerNextDance} from './next/dance.ts';
 import {checkDance} from './next/status.ts';
 import {STATUS_LABEL,STATUS_ORDER,countByStatus,danceFromStored,fetchStoredDance,filterLibrary,loadLibraryIndex} from './next/library-ui.ts';
 import {FIGURE_GROUPS,STYLE_LABEL,emptyFilter,facetCounts,figuresOf,formationLabel as layoutLabel,isFilterActive,matchesFilter,type DanceStyle} from './next/library-filters.ts';
@@ -688,7 +688,7 @@ B2  8  long lines forward & back
     const formations=[['improper','Improper duple'],['becket','Becket'],['becket ccw','Becket, counterclockwise'],['proper','Proper duple'],['triplet','Triplet'],['triple minor','Triple minor'],['square','Square'],['circle mixer','Circle mixer'],['sicilian circle','Sicilian circle']];
     const chosen=storeGet(WRITE_FORMATION)??'improper';
     const guide=`<aside class="write-guide" aria-label="How to write a dance"><h3>How to write it</h3><dl class="write-format">${WRITE_FORMAT.map(([what,eg])=>`<dt>${esc(what)}</dt><dd><code>${esc(eg)}</code></dd>`).join('')}</dl><p class="write-who">${esc(WRITE_WHO)}</p><h3>Figures it reads <small>click to add</small></h3>${WRITE_FIGURES.map(g=>`<details class="write-group"${g.title==='Swings and balances'?' open':''}><summary>${esc(g.title)}</summary>${g.note?`<p class="field-help">${esc(g.note)}</p>`:''}<div class="write-chips">${g.phrases.map(ph=>`<button type="button" class="write-chip" data-insert="${esc(ph)}">${esc(ph)}</button>`).join('')}</div></details>`).join('')}<h3>Start from an example</h3><div class="write-chips">${WRITE_EXAMPLES.map((x,i)=>`<button type="button" class="write-chip write-example" data-example="${i}">${esc(x.name)}</button>`).join('')}</div><p class="field-help">An example replaces the text; Ctrl+Z brings yours back.</p></aside>`;
-    openDialog('Write a dance','ONE SHOT',`<div class="write-layout"><div class="write-editor"><p class="dialog-intro">Type (or dictate) the figures, one per line, and dance them. The list under the box shows how each line was read; anything not understood stands still.</p><label class="write-formation">Formation <select id="write-formation">${formations.map(([v,l])=>`<option value="${esc(v)}"${v===chosen?' selected':''}>${esc(l)}</option>`).join('')}</select></label><textarea id="write-text" data-dictate rows="12" spellcheck="false" aria-label="The dance, one figure per line" placeholder="${esc(WRITE_EXAMPLE)}"></textarea><div class="write-actions"><button type="button" class="button button-primary" data-action="write-go">${icon('play')}<span>Dance it</span></button><span id="write-summary" class="field-help"></span></div><ol id="write-preview" class="write-preview"></ol></div>${guide}</div>`,true);
+    openDialog('Write a dance','ONE SHOT',`<div class="write-layout"><div class="write-editor"><p class="dialog-intro">Type (or dictate) the figures, one per line, and dance them. The list under the box shows how each line was read; anything not understood stands still.</p><label class="write-formation">Formation <select id="write-formation">${formations.map(([v,l])=>`<option value="${esc(v)}"${v===chosen?' selected':''}>${esc(l)}</option>`).join('')}</select></label><textarea id="write-text" data-dictate rows="12" spellcheck="false" aria-label="The dance, one figure per line" placeholder="${esc(WRITE_EXAMPLE)}"></textarea><div class="write-actions"><button type="button" class="button button-primary" data-action="write-go">${icon('play')}<span>Dance it</span></button><span id="write-summary" class="field-help"></span></div><p id="write-progress" class="write-progress" hidden></p><ol id="write-preview" class="write-preview"></ol></div>${guide}</div>`,true);
     const field=$<HTMLTextAreaElement>('#write-text'),formation=$<HTMLSelectElement>('#write-formation');
     field.value=storeGet(WRITE_DRAFT)??'';
     let timer=0;
@@ -721,11 +721,14 @@ B2  8  long lines forward & back
     if(!text.trim()){list.innerHTML='';summary.textContent='';return;}
     let read;try{read=readOneShot(text,formation);}catch(error){summary.textContent=error instanceof Error?error.message:'This text could not be read.';list.innerHTML='';return;}
     const {stored,lines}=read;let row=0;
+    // Where the 1s stand against their 2s, line by line (duple dances).
+    let trace;try{trace=stored.figures.length?traceProgression(stored,s=>compileNext(s,4)):undefined;}catch{trace=undefined;}
+    const progress=$('#write-progress');if(progress){progress.hidden=!trace;progress.textContent=trace?.summary??'';progress.classList.toggle('is-ok',!!trace?.summary.startsWith('Progression works'));}
     list.innerHTML=lines.map(l=>{
       if(!l.row)return `<li class="write-line is-header"><code>${esc(l.typed.trim())}</code></li>`;
       row++;const calls=stored.figures.filter(f=>f.row===row),miss=stored.unparsed.find(u=>u.row===row);
       const who=(c:{params:Record<string,unknown>})=>typeof c.params.who==='string'?` · ${c.params.who}`:'';
-      const what=miss?`<span class="write-miss">Not understood: ${esc(miss.why)}</span>`:`<span class="write-read">${esc(calls.map(c=>`${c.move.replace(/-/g,' ')}${who(c)} (${c.beats})`).join(' · '))}${l.row.readAs?`<small class="write-as">read as “${esc(l.row.readAs)}”</small>`:''}</span>`;
+      const what=miss?`<span class="write-miss">Not understood: ${esc(miss.why)}</span>`:`<span class="write-read">${esc(calls.map(c=>`${c.move.replace(/-/g,' ')}${who(c)} (${c.beats})`).join(' · '))}${l.row.readAs?`<small class="write-as">read as “${esc(l.row.readAs)}”</small>`:''}${trace?.passed.has(row)?'<small class="write-pass">1s now below their 2s ↓</small>':trace?.back.has(row)?'<small class="write-back">1s back above their 2s ↑</small>':''}</span>`;
       return `<li class="write-line${miss?' is-miss':''}"><span class="write-where">${esc(l.row.section??'')} · ${l.row.beats}${l.row.guessed?'?':''}</span><code>${esc(l.row.text)}</code>${what}</li>`;
     }).join('');
     const total=stored.figures.reduce((n,f)=>n+f.beats,0);
@@ -741,7 +744,9 @@ B2  8  long lines forward & back
       try{const check=checkDance(stored);Object.assign(stored,{status:check.status,problems:check.problems});}catch{/* Danced anyway, rows held still where they cannot start. */}
       registerNextDance(stored);closeDialog();actions.loadDance(danceFromStored(stored));
       const missed=stored.unparsed.length;
-      notify(missed?`Dancing it. ${missed} line${missed>1?'s':''} not understood stand${missed>1?'':'s'} still: reopen Write a dance to see why.`:stored.problems.length?`Dancing it. ${stored.problems[0]}`:'Dancing it.');
+      let trace;try{trace=traceProgression(stored,s=>compileNext(s,4));}catch{trace=undefined;}
+      const progressNote=trace&&!trace.summary.startsWith('Progression works')?` ${trace.summary}`:stored.problems.length?` ${stored.problems[0]}`:'';
+      notify(missed?`Dancing it. ${missed} line${missed>1?'s':''} not understood stand${missed>1?'':'s'} still: reopen Write a dance to see why.`:`Dancing it.${progressNote}`);
     };
     // Dictation still landing: stop it and wait for the text before dancing.
     const state=field.dataset.dictateState;

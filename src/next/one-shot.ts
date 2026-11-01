@@ -197,3 +197,62 @@ export function readOneShot(text: string, formationChoice?: string): OneShot {
     ),
   };
 }
+
+/** Where a duple dance's 1s stand against their first 2s after each row, and what that means. */
+export interface ProgressionTrace {
+  /** Rows (1-based) after which the 1s have just passed below their 2s, or come back above them. */
+  readonly passed: ReadonlySet<number>;
+  readonly back: ReadonlySet<number>;
+  /** Plain words: whether the time through moves the 1s on, and where it went wrong. */
+  readonly summary: string;
+}
+
+/**
+ * Follow the first 1s couple and the 2s it starts with through one time
+ * through (duple formations only): a contra moves each couple one place a
+ * time through, the 1s ending below the 2s they started with.
+ */
+export function traceProgression(stored: StoredDance, compile: (s: StoredDance) => { round(r: number): { segments: readonly { call: { row?: number; text?: string }; result: { exit: { bodies: ReadonlyMap<number, { position: { z: number } }>; relations: ReadonlyMap<string, ReadonlyMap<number, number>> } }; entry: { bodies: ReadonlyMap<number, { position: { z: number } }>; relations: ReadonlyMap<string, ReadonlyMap<number, number>> } }[] } }): ProgressionTrace | undefined {
+  if (!stored.progression?.startsWith('duple-minor')) return undefined;
+  let round;
+  try {
+    round = compile(stored).round(0);
+  } catch {
+    return undefined;
+  }
+  const first = round.segments[0]?.entry;
+  if (!first) return undefined;
+  // The 1s are couple 0 (dancers 0 and 1); their 2s, the couple of dancer 0's neighbor.
+  const other = first.relations.get('neighbor')?.get(0);
+  if (other === undefined) return undefined;
+  const twos = [other - (other % 2), other - (other % 2) + 1];
+  const below = (bodies: ReadonlyMap<number, { position: { z: number } }>) => {
+    const z = (ids: number[]) => ids.reduce((n, id) => n + bodies.get(id)!.position.z, 0) / ids.length;
+    return z([0, 1]) > z(twos) + 0.3 ? true : z([0, 1]) < z(twos) - 0.3 ? false : undefined;
+  };
+  const passed = new Set<number>(), back = new Set<number>();
+  let was = below(first.bodies) ?? false;
+  const start = was;
+  let lastPass: { row: number; text: string } | undefined, lastBack: { row: number; text: string } | undefined;
+  for (const s of round.segments) {
+    const now = below(s.result.exit.bodies);
+    if (now === undefined || now === was) continue;
+    const row = s.call.row ?? 0, text = (s.call.text ?? '').split(' · ')[0];
+    if (now !== start) {
+      passed.add(row);
+      lastPass = { row, text };
+    } else {
+      back.add(row);
+      lastBack = { row, text };
+    }
+    was = now;
+  }
+  const quote = (r: { row: number; text: string }) => `line ${r.row}, “${r.text}”`;
+  const summary =
+    was !== start
+      ? `Progression works: the 1s end below their 2s (from ${quote(lastPass!)}), so everyone moves on one place each time through.`
+      : lastPass && lastBack
+        ? `No progression: the 1s pass their 2s at ${quote(lastPass)}, but ${quote(lastBack)} takes them back past the same 2s. “Neighbors” means the couple you are dancing with until the dance moves on.`
+        : 'No progression: the 1s never pass the 2s they start with. A contra usually moves on with a figure that carries the 1s down past their 2s (a swing or circle that ends with them below, a pass through to next neighbors).';
+  return { passed, back, summary };
+}

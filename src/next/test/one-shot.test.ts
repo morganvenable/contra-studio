@@ -75,3 +75,16 @@ test('the Write a dance guide only lists what reads, and its examples dance clea
     assert.equal(check.status, 'ok', `${example.name}: ${check.problems[0] ?? ''}`);
   }
 });
+
+test('the progression trace says where the 1s pass their 2s, and where a line takes them back', async () => {
+  const { traceProgression } = await import('../one-shot.ts');
+  const { WRITE_EXAMPLES } = await import('../one-shot-guide.ts');
+  const back = readOneShot(
+    ['neighbors balance & swing', 'neighbors allemande left 1½', 'circle left 3 places', 'balance & petronella', 'larks roll away partners', 'neighbors pull by right'].join('\n'),
+  ).stored;
+  const t = traceProgression(back, (s) => compileNext(s, 4))!;
+  assert.ok(t.passed.has(4) && t.back.has(6), 'passed at the petronella, back at the pull by');
+  assert.match(t.summary, /^No progression: .*line 4.*line 6/);
+  const ok = traceProgression(readOneShot(WRITE_EXAMPLES[0].text).stored, (s) => compileNext(s, 4))!;
+  assert.match(ok.summary, /^Progression works/);
+});
