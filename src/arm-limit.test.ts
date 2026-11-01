@@ -17,7 +17,9 @@ const UNMET_HOLDS:Record<string,number>={
   // star around holds 4 cm short for a moment rather than reach back.
   'star-around {"hand":"left"}':.04,
   // Held hands stay at hand height when the shoulders are close, so elbows
-  // stay below the hands (2026-11-01).
+  // stay below the hands (2026-11-01). Hands near shoulder height ("W" hands):
+  // a backing star holds 1 cm short for a moment.
+  'star {"backing":"robins","hand":"left"}':.02,
   'whole-circle {"direction":"left"}':.64,'whole-circle {"direction":"right"}':.64,'place-swing':.83,
   'role-star {"hand":"left"}':.81,'role-star {"hand":"right"}':.81,'role-star {"end":"places","hand":"left"}':.81,
   'role-star {"end":"places","hand":"right"}':.81,'role-star {"end":"center","hand":"right"}':.79,
