@@ -99,6 +99,10 @@ a.nav-item { display: inline-flex; align-items: center; text-decoration: none; }
 .write-miss{color:#a4553a}
 @media (max-width:640px){.write-line{grid-template-columns:52px minmax(0,1fr)}.write-line .write-read,.write-line .write-miss{grid-column:2}}
 .write-as{display:block;color:var(--muted);font-size:11px;margin-top:2px}
+.write-options{grid-column:2/-1;display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 12px;font-size:11px;color:var(--muted)}
+.write-options small{font-size:10px}
+.write-option{border:1px solid #dfe5db;border-radius:999px;background:#fafbf5;padding:2px 8px;font-size:11px;color:inherit}
+.write-option:hover{background:var(--green-light)}
 /* Write a dance: editor beside its guide. */
 .write-layout{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(260px,1fr);gap:22px;align-items:start}
 .write-guide{border-left:1px solid var(--line);padding-left:18px;max-height:70vh;overflow:auto;font-size:12px}

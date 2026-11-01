@@ -714,6 +714,17 @@ B2  8  long lines forward & back
       field.dispatchEvent(new Event('input'));
       const formationLine=example.text.match(/^Formation:\s*(.+)$/im);formation.value=formationLine?formationLine[1].trim().toLowerCase():'improper';formation.dispatchEvent(new Event('change'));
     }));
+    // A suggested figure replaces what its line says, keeping the part and beats (Ctrl+Z undoes it).
+    const previewList=$('#write-preview');
+    previewList?.addEventListener('mousedown',e=>{if((e.target as Element).closest('[data-option]'))e.preventDefault();});
+    previewList?.addEventListener('click',e=>{
+      const b=(e.target as Element).closest<HTMLButtonElement>('[data-option]');if(!b)return;
+      const at=Number(b.dataset.at),lines=field.value.split('\n'),line=lines[at]??'',i=line.indexOf(b.dataset.from??'');if(i<0)return;
+      const start=lines.slice(0,at).reduce((n,l)=>n+l.length+1,0)+i;
+      field.focus();field.setSelectionRange(start,start+b.dataset.from!.length);
+      if(!document.execCommand('insertText',false,b.dataset.option!))field.setRangeText(b.dataset.option!,start,start+b.dataset.from!.length,'end');
+      field.dispatchEvent(new Event('input'));
+    });
     renderWritePreview(field.value,formation.value);
     field.focus();field.setSelectionRange(field.value.length,field.value.length);
   }
@@ -743,7 +754,7 @@ B2  8  long lines forward & back
       row++;const calls=stored.figures.filter(f=>f.row===row),miss=stored.unparsed.find(u=>u.row===row);const from=at+1;at+=l.row.beats;
       const who=(c:{params:Record<string,unknown>})=>typeof c.params.who==='string'?` · ${c.params.who}`:'';
       const what=miss?`<span class="write-miss">Not understood: ${esc(miss.why)}</span>`:`<span class="write-read">${esc(calls.map(c=>`${c.move.replace(/-/g,' ')}${who(c)} (${c.beats})`).join(' · '))}${l.row.readAs?`<small class="write-as">read as “${esc(l.row.readAs)}”</small>`:''}${trace?.passed.has(row)?'<small class="write-pass">1s now below their 2s ↓</small>':trace?.back.has(row)?'<small class="write-back">1s back above their 2s ↑</small>':''}${(()=>{const i=stored.figures.findIndex(f=>f.row===row);return i>0?flowLabel(joinFlow(stored,segments,i,flowHabits),stored.figures[i-1].move.replace(/-/g,' ')):'';})()}</span>`;
-      return `<li class="write-line${miss?' is-miss':''}"><span class="write-where">${esc(l.row.section??'')} · ${l.row.beats}${l.row.guessed?'?':''}<small>${from}–${at}</small></span><code>${esc(l.row.text)}</code>${what}</li>`;
+      return `<li class="write-line${miss?' is-miss':''}"><span class="write-where">${esc(l.row.section??'')} · ${l.row.beats}${l.row.guessed?'?':''}<small>${from}–${at}</small></span><code>${esc(l.row.text)}</code>${what}${l.options?`<span class="write-options">${l.row.readAs?'Or':'Did you mean'}: ${l.options.map(o=>`<span><button type="button" class="write-option" data-option="${esc(o.text)}" data-at="${l.at}" data-from="${esc(l.row!.text)}">${esc(o.text)}</button> <small>${esc(o.why)}</small></span>`).join('')}</span>`:''}</li>`;
     }).join('');
     const total=stored.figures.reduce((n,f)=>n+f.beats,0);
     // The parts, each against its 16 beats.
