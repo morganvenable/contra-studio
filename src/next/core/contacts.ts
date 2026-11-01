@@ -20,22 +20,16 @@ export function shoulder(b: Body, hand: Hand): Vec3 {
 }
 
 /**
- * Joined hands meet halfway between the two shoulders, at hand height. When
- * the shoulders are close the hands hang lower, so each arm still reaches
- * HOLD_REACH from its shoulder: a hand tucked up beside the shoulder could
- * only be held with the elbow behind the back, past the shoulder limit
- * (src/arm-limit.ts).
+ * Joined hands meet halfway between the two shoulders, at hand height, even
+ * when the shoulders are close (an allemande, a pull by): the elbows bend
+ * down below the hands, forearms up, the way people hold hands. Lowering
+ * close hands instead left no room for the elbow below them.
  */
 export function holdPoint(a: Body, handA: Hand, b: Body, handB: Hand): Vec3 {
   const sa = shoulder(a, handA);
   const sb = shoulder(b, handB);
-  const half = Math.hypot(sa.x - sb.x, sa.z - sb.z) / 2;
-  const y = Math.min(BODY.handHeight, BODY.shoulderHeight - Math.sqrt(Math.max(0, HOLD_REACH ** 2 - half ** 2)));
-  return { x: (sa.x + sb.x) / 2, y, z: (sa.z + sb.z) / 2 };
+  return { x: (sa.x + sb.x) / 2, y: BODY.handHeight, z: (sa.z + sb.z) / 2 };
 }
-
-/** Shoulder-to-hand distance a joined hand keeps when the shoulders are close. */
-export const HOLD_REACH = 0.5;
 
 /** Straight-line shoulder-to-hand distance. */
 export function reach(b: Body, hand: Hand, point: Vec3): number {

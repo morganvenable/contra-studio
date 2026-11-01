@@ -16,6 +16,7 @@ import { oneOf, onlyKeys, settle } from '../../core/figure.ts';
 import { dot, rightOf, smooth, sub, turn } from '../../core/math.ts';
 import { activeIds, body } from '../../core/state.ts';
 import { allemande } from '../allemande.ts';
+import { complete, contactReach, reachFade } from '../../core/contacts.ts';
 import { onPairs } from './common.ts';
 
 export interface TrioTurnParams {
@@ -55,13 +56,16 @@ export const trioTurn: Figure<TrioTurnParams> = (state, params, beats) => {
     const frame = turned.motion(beat);
     const k = smooth((beat - (beats - settleBeats)) / settleBeats);
     if (k <= 0) return frame;
-    return {
-      ...frame,
-      bodies: frame.bodies.map((b) => {
-        const start = body(state, b.id).yaw;
-        return { ...b, yaw: b.yaw + turn(start, b.yaw) * k };
-      }),
-    };
+    const bodies = frame.bodies.map((b) => {
+      const start = body(state, b.id).yaw;
+      return { ...b, yaw: b.yaw + turn(start, b.yaw) * k };
+    });
+    // Facing the line again moves the shoulders: let a hand go as it leaves reach.
+    const where = new Map(bodies.map((b) => [b.id, { position: b.position, yaw: b.yaw }]));
+    const contacts = frame.contacts.map((c) =>
+      where.has(c.a) && where.has(c.b) ? { ...c, strength: Math.min(c.strength, reachFade(contactReach(complete(c, where), where))) } : c,
+    );
+    return { ...frame, bodies, contacts };
   };
   return { ...turned, motion, exit: settle(turned.exit, motion, beats) };
 };
