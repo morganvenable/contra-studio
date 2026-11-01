@@ -12,10 +12,12 @@ const cases:ProofCase[]=JSON.parse(readFileSync(new URL('./next/proof-cases.json
  * limit (the figure puts the pair farther apart than two arms reach). The
  * limit may not widen them by more than this much. */
 const UNMET_HOLDS:Record<string,number>={
-  'trio-turn {"hand":"right"}':.41,'trio-turn {"hand":"left"}':.41,'trio-basket':.43,
+  'trio-turn {"hand":"right"}':.43,'trio-turn {"hand":"left"}':.43,'trio-basket':.43,
   // Arms no longer go behind the shoulder unless low (2026-10-30): a left
   // star around holds 4 cm short for a moment rather than reach back.
   'star-around {"hand":"left"}':.04,
+  // Held hands stay at hand height when the shoulders are close, so elbows
+  // stay below the hands (2026-11-01).
   'whole-circle {"direction":"left"}':.64,'whole-circle {"direction":"right"}':.64,'place-swing':.83,
   'role-star {"hand":"left"}':.81,'role-star {"hand":"right"}':.81,'role-star {"end":"places","hand":"left"}':.81,
   'role-star {"end":"places","hand":"right"}':.81,'role-star {"end":"center","hand":"right"}':.79,

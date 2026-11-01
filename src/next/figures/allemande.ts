@@ -18,7 +18,7 @@ import type { Role } from '../../types.ts';
 import { linesTurn } from './sets/lines-turn.ts';
 import type { Figure, FigureContact } from '../core/figure.ts';
 import { oneOf, onlyKeys, settle } from '../core/figure.ts';
-import { joined, sameHold } from '../core/contacts.ts';
+import { complete, contactReach, joined, reachFade, sameHold } from '../core/contacts.ts';
 import { inHeldLine } from '../core/held-line.ts';
 import { findWave, lineHolds, middleRole } from '../core/lines.ts';
 import { PAIR_NAMES, type PairName } from '../core/relations.ts';
@@ -256,15 +256,11 @@ export const allemande: Figure<AllemandeParams> = (state, params, beats) => {
         yaw: st.from.yaw + turn(st.to.yaw, st.from.yaw) * smooth(t / 0.6),
       });
     }
-    const contacts: FigureContact[] = holds.map((h) => {
-      const held = state.hands.some((s) => sameHold(s, h));
-      const { g, out } = at.get(h.a)!;
-      // Hands join once the pair has closed in enough to reach, and both
-      // have turned most of the way to face round.
-      const turned = Math.min(at.get(h.a)!.faced, at.get(h.b)!.faced);
-      const join = held ? 1 : smooth((g - 0.5) / 0.5) * smooth((turned - 0.4) / 0.4);
-      return joined(h, join * (1 - smooth(out / 0.5)));
-    });
+    // An allemande is a turn by the hand: the hands join as soon as the
+    // arms can reach (reaching while the pair turns to face round) and stay
+    // joined until they cannot.
+    const where = new Map(bodies.map((b) => [b.id, { position: b.position, yaw: b.yaw }]));
+    const contacts: FigureContact[] = holds.map((h) => joined(h, reachFade(contactReach(complete(joined(h, 1), where), where))));
     if (waveHolds.length) {
       const strength = smooth((beat - (beats - 0.25)) / 0.25);
       contacts.push(...waveHolds.map((h) => joined(h, strength)));

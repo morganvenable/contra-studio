@@ -58,6 +58,8 @@ export type FigureRegistry = Readonly<Record<string, Figure<any>>>;
 /** Beats a waiting couple takes to cross the set. */
 export const CROSS_BEATS = 8;
 const RELEASE_BEATS = 0.25;
+/** A carried hand starts to ease off this far (metres) inside arm's reach. */
+const CARRY_EASE = 0.08;
 const SEAM = 1e-6;
 
 interface Crossing {
@@ -469,6 +471,72 @@ export function compileFold(options: FoldOptions): FoldedDance {
     return end;
   };
 
+  // Each figure's firmly held hands: when each is first and last held.
+  const uses = new Map<string, { beats: number; held: Map<string, { first: number; last: number; hold: FigureContact }> } | undefined>();
+  const holdKey = (c: FigureContact) => (c.a < c.b ? `${c.a}${c.handA}-${c.b}${c.handB}` : `${c.b}${c.handB}-${c.a}${c.handA}`);
+  const usesOf = (repeat: number, index: number) => {
+    const key = `${repeat}:${index}`;
+    if (!uses.has(key)) {
+      let found: { beats: number; held: Map<string, { first: number; last: number; hold: FigureContact }> } | undefined;
+      try {
+        const seg = round(repeat).segments[index];
+        const held = new Map<string, { first: number; last: number; hold: FigureContact }>();
+        for (let t = 0; t <= seg.call.beats + 1e-9; t += 0.25)
+          for (const c of seg.result.motion(Math.min(t, seg.call.beats)).contacts) {
+            if (c.strength < 0.5 || (c.kind !== 'joined' && c.kind !== 'arch')) continue;
+            const k = holdKey(c), u = held.get(k);
+            held.set(k, u ? { ...u, last: t } : { first: t, last: t, hold: c });
+          }
+        found = { beats: seg.call.beats, held };
+      } catch {
+        // That round cannot start: nothing carries into it.
+        found = undefined;
+      }
+      uses.set(key, found);
+    }
+    return uses.get(key);
+  };
+  interface Carry {
+    readonly hold: FigureContact;
+    readonly from: number;
+    readonly to: number;
+  }
+  /**
+   * A hand used for one figure and again for the next stays joined between
+   * them: from its last firm hold in the figure before (in that figure's
+   * second half) to its first in the figure after (in that figure's first
+   * half), for as long as the two can reach: nobody is moved to make it
+   * fit, and past arm's reach it fades as any hand does.
+   */
+  const carries = new Map<string, readonly Carry[]>();
+  const carriesInto = (repeat: number, index: number): readonly Carry[] => {
+    const key = `${repeat}:${index}`;
+    let found = carries.get(key);
+    if (found) return found;
+    found = [];
+    // Within a time through only: the renderer still lets go at the end of one.
+    const prev = { r: repeat, i: index - 1 };
+    const here = index > 0 ? usesOf(repeat, index) : undefined, before = index > 0 ? usesOf(prev.r, prev.i) : undefined;
+    if (here && before) {
+      const seam = repeat * totalBeats + starts[index];
+      const out: Carry[] = [];
+      for (const [k, u] of here.held) {
+        const b = before.held.get(k);
+        if (!b || u.first > here.beats / 2 || b.last < before.beats / 2) continue;
+        const from = seam - before.beats + b.last, to = seam + u.first;
+        if (to - from >= 0.3) out.push({ hold: u.hold, from, to });
+      }
+      found = out;
+    }
+    carries.set(key, found);
+    return found;
+  };
+  /** The carries under way at `beat` (counted from the start of the dance), round the seams either side of a figure. */
+  const carriesAt = (repeat: number, index: number, beat: number): Carry[] => {
+    const next = index + 1 < calls.length ? { r: repeat, i: index + 1 } : { r: repeat + 1, i: 0 };
+    return [...carriesInto(repeat, index), ...carriesInto(next.r, next.i)].filter((c) => beat >= c.from && beat < c.to);
+  };
+
   const rawSample = (input: number): Frame => {
     let beat = Math.max(0, Number.isFinite(input) ? input : 0);
     if (Number.isFinite(lastBeat)) beat = Math.min(beat, lastBeat - 1e-6);
@@ -481,6 +549,8 @@ export function compileFold(options: FoldOptions): FoldedDance {
     );
     const segment = r.segments[index];
     const { bodies, frame } = bodiesAt(r, segment, local);
+    // Hands carried from one figure into the next (no one moved to fit).
+    const carrying = carriesAt(repeat, index, repeat * totalBeats + local);
     const later = bodiesAt(r, segment, Math.min(local + 0.02, segment.start + segment.call.beats));
     const dt = Math.max(1e-6, Math.min(0.02, segment.start + segment.call.beats - local));
     const leans = new Map(frame.bodies.map((b) => [b.id, b.lean]));
@@ -501,7 +571,7 @@ export function compileFold(options: FoldOptions): FoldedDance {
         activity: waiting ? 'waiting' : segment.result.kind,
       };
     });
-    const contacts = seamBlend(
+    const blended = seamBlend(
       [
         ...frame.contacts.map((c) => complete(c, bodies)),
         ...released(segment, frame.contacts, local - segment.start).map((c) => complete(c, bodies)),
@@ -509,7 +579,17 @@ export function compileFold(options: FoldOptions): FoldedDance {
       previousEnd(repeat, index),
       local - segment.start,
       bodies,
-    ).filter((c) => c.strength > 0.01);
+    );
+    for (const c of carrying) {
+      // Where the hands meet now, not where they met when last held.
+      const held = complete({ ...c.hold, point: undefined, strength: 1 }, bodies);
+      // Full grip only comfortably inside reach; it eases off before the limit.
+      const strength = reachFade(contactReach(held, bodies) + CARRY_EASE);
+      const i = blended.findIndex((o) => sameHold(o, c.hold));
+      if (i >= 0) blended[i] = { ...blended[i], strength: Math.max(blended[i].strength, strength) };
+      else blended.push({ ...held, strength });
+    }
+    const contacts = blended.filter((c) => c.strength > 0.01);
     const figureProgress = clamp((local - segment.start) / segment.call.beats);
     const ducks = archDucks(contacts, bodies);
     // Tell the renderer who passes under each held arch, so the dancer going
