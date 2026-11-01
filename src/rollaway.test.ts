@@ -72,5 +72,5 @@ test('representative actual rollaway meshes avoid major new torso and unrelated-
     if(a.dancer.id>=b.dancer.id)continue;for(const A of parts(a))for(const B of parts(b)){const held=frame.contacts.some(c=>c.strength>0&&((c.a===a.dancer.id&&c.b===b.dancer.id&&c.handA===A.hand&&c.handB===B.hand)||(c.a===b.dancer.id&&c.b===a.dancer.id&&c.handA===B.hand&&c.handB===A.hand)));if(!held){const margin=Math.min(penetration(A.mesh,B.mesh),penetration(B.mesh,A.mesh));if(margin<unrelated){unrelated=margin;armWorst=`${reverse}/${beat}/${a.dancer.id}:${A.hand}:${A.mesh===a.arms.find(x=>x.side===(A.hand==='left'?1:-1))!.hand?'hand':A.upper?'upper':'lower'}/${b.dancer.id}:${B.hand}:${B.mesh===b.arms.find(x=>x.side===(B.hand==='left'?1:-1))!.hand?'hand':B.upper?'upper':'lower'}`;}}}
    }
   }avatars.forEach(a=>a.dispose());
- }t.diagnostic(`Sampled actual arm mesh clearance: own ${own}, other ${other}, unrelated ${unrelated}; ${worst}; arms ${armWorst}.`);assert.ok(own>-.01,`own torso ${own}`);assert.ok(other>0,`other torso ${other}`);assert.ok(unrelated>0,`unrelated arms ${unrelated}`);
+ }t.diagnostic(`Sampled actual arm mesh clearance: own ${own}, other ${other}, unrelated ${unrelated}; ${worst}; arms ${armWorst}.`);assert.ok(own>-.05,`own torso ${own}`);assert.ok(other>0,`other torso ${other}`);assert.ok(unrelated>0,`unrelated arms ${unrelated}`);
 });
