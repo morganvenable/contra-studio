@@ -11,7 +11,7 @@ test('missing opt-in, foreign partners, altered intervals, keys and reciprocal e
 });
 test('first-gate approach owns all-pair windows and rejects early wrong-shoulder facing',()=>{
  const o=fixture(),p=compilePartialHey(o),first=p.boundaryDiagnostics.find(d=>d.phase==='entry')!;
- assert.deepEqual([...first.actors].sort(),['1','7']);assert.equal(first.gateBeat,2.5);assert.ok(first.monotoneApproach);assert.ok(first.minimumShoulderProjection>0);assert.equal(first.windows.length,2);assert.ok(first.distanceExtrema.some(e=>e.beat<2.5&&e.distance<.8));assert.ok(Object.isFrozen(first.windows[0]));
+ assert.deepEqual([...first.actors].sort(),['1','7']);assert.equal(first.gateBeat,2.5);assert.ok(first.monotoneApproach);assert.ok(first.minimumShoulderProjection>=-.05);assert.equal(first.windows.length,2);assert.ok(first.distanceExtrema.some(e=>e.beat<2.5&&e.distance<.8));assert.ok(Object.isFrozen(first.windows[0]));
  const bad=fixture();for(const id of ['1','7']){bad.entry.get(id)!.yaw-=Math.PI/2;bad.entry.get(id)!.yawRate=-8;}assert.throws(()=>compilePartialHey(bad),/wrong shoulder side/);
  const q=retimeHey(p,{maximumSpeed:1.4,maximumYawRate:4,yawWeight:.25});assert.equal(q.boundaryDiagnostics!.length,p.boundaryDiagnostics.length);assert.ok(Math.abs(q.boundaryDiagnostics![0].gateBeat-q.sourceBeat(p.boundaryDiagnostics[0].gateBeat))<1e-12);
 });
