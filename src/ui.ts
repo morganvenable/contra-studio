@@ -18,12 +18,13 @@ import {CONVENTIONAL_MAD_ROBIN_POLICY,MAD_ROBIN_ROW_CHOICE_DESCRIPTION,MAD_ROBIN
 import {squareThroughDescription} from './source-square-through.ts';
 import {CONVENTIONAL_RING_TWIRL,RING_TWIRL_CHOICE_DESCRIPTION} from './ring-twirl-policy.ts';
 import {READY_LIBRARY} from './ready-library.ts';
-import {nextLine,readOneShot,traceProgression,tryNext,type NextMove} from './next/one-shot.ts';
+import {joinFlow,nextLine,RARE,readOneShot,traceProgression,tryNext,type NextMove} from './next/one-shot.ts';
 import {physicalCheck} from './next/core/check.ts';
 import {WRITE_EXAMPLES,WRITE_FIGURES,WRITE_FORMAT,WRITE_WHO} from './next/one-shot-guide.ts';
 import {compileNext,registerNextDance} from './next/dance.ts';
 import {checkDance} from './next/status.ts';
-import {STATUS_LABEL,STATUS_ORDER,countByStatus,danceFromStored,fetchStoredDance,filterLibrary,loadLibraryIndex} from './next/library-ui.ts';
+import {STATUS_LABEL,STATUS_ORDER,countByStatus,danceFromStored,fetchStoredDance,filterLibrary,loadFlowHabits,loadLibraryIndex} from './next/library-ui.ts';
+import type {FlowHabits} from './next/flow.ts';
 import {FIGURE_GROUPS,STYLE_LABEL,emptyFilter,facetCounts,figuresOf,formationLabel as layoutLabel,isFilterActive,matchesFilter,type DanceStyle} from './next/library-filters.ts';
 import type {DanceStatus,LibraryEntry} from './next/dance.ts';
 import {CONVENTIONAL_DIAGONAL_HEY,DIAGONAL_HEY_CHOICE_DESCRIPTION} from './source-diagonal-hey.ts';
@@ -717,19 +718,31 @@ B2  8  long lines forward & back
     field.focus();field.setSelectionRange(field.value.length,field.value.length);
   }
   /** How each typed line was read: its part, beats and figures, or why not. */
+  /** How often choreographers follow one figure with another; loaded the first time Write a dance needs it. */
+  let flowHabits:FlowHabits|undefined,flowHabitsAsked=false;
+  /** Common, sometimes, or rare: how usual a pairing of figures is in the library. */
+  const habitTier=(h:{count:number;of:number}|undefined)=>!h?undefined:h.count>=10&&h.count/h.of>=0.04?'common':h.count>=RARE?'seen':'rare';
+  function flowLabel(flow:Pick<NextMove,'habit'|'turn'>,before:string){
+    const tier=habitTier(flow.habit);if(!tier)return '';
+    const words=tier==='common'?`a usual follow for ${before} (${flow.habit!.count} of ${flow.habit!.of} in the library)`:tier==='seen'?`sometimes follows ${before} (${flow.habit!.count} of ${flow.habit!.of})`:`rarely follows ${before} (${flow.habit!.count} of ${flow.habit!.of})`;
+    return `<small class="write-flow is-${tier}">${esc(words)}${flow.turn?`<br>↺ ${esc(flow.turn)}`:''}</small>`;
+  }
   function renderWritePreview(text:string,formation:string){
+    if(!flowHabitsAsked){flowHabitsAsked=true;void loadFlowHabits().then(h=>{flowHabits=h;const f=$<HTMLTextAreaElement>('#write-text'),fm=$<HTMLSelectElement>('#write-formation');if(h&&f&&fm)renderWritePreview(f.value,fm.value);});}
     const list=$('#write-preview'),summary=$('#write-summary');if(!list)return;
     if(!text.trim()){list.innerHTML='';summary.textContent='';return;}
     let read;try{read=readOneShot(text,formation);}catch(error){summary.textContent=error instanceof Error?error.message:'This text could not be read.';list.innerHTML='';return;}
     const {stored,lines}=read;let row=0,at=0;
     // Where the 1s stand against their 2s, line by line (duple dances).
     let trace;try{trace=stored.figures.length?traceProgression(stored,s=>compileNext(s,4)):undefined;}catch{trace=undefined;}
+    // The flow into each line: how usual the pairing is, and a rare counter-turn.
+    let segments;try{segments=stored.figures.length>1?(compileNext(stored,4) as unknown as {round(r:number):{segments:Parameters<typeof joinFlow>[1]}}).round(0).segments:undefined;}catch{segments=undefined;}
     const progress=$('#write-progress');if(progress){progress.hidden=!trace;progress.textContent=trace?.summary??'';progress.classList.toggle('is-ok',!!trace?.summary.startsWith('Progression works'));}
     list.innerHTML=lines.map(l=>{
       if(!l.row)return `<li class="write-line is-header"><code>${esc(l.typed.trim())}</code></li>`;
       row++;const calls=stored.figures.filter(f=>f.row===row),miss=stored.unparsed.find(u=>u.row===row);const from=at+1;at+=l.row.beats;
       const who=(c:{params:Record<string,unknown>})=>typeof c.params.who==='string'?` · ${c.params.who}`:'';
-      const what=miss?`<span class="write-miss">Not understood: ${esc(miss.why)}</span>`:`<span class="write-read">${esc(calls.map(c=>`${c.move.replace(/-/g,' ')}${who(c)} (${c.beats})`).join(' · '))}${l.row.readAs?`<small class="write-as">read as “${esc(l.row.readAs)}”</small>`:''}${trace?.passed.has(row)?'<small class="write-pass">1s now below their 2s ↓</small>':trace?.back.has(row)?'<small class="write-back">1s back above their 2s ↑</small>':''}</span>`;
+      const what=miss?`<span class="write-miss">Not understood: ${esc(miss.why)}</span>`:`<span class="write-read">${esc(calls.map(c=>`${c.move.replace(/-/g,' ')}${who(c)} (${c.beats})`).join(' · '))}${l.row.readAs?`<small class="write-as">read as “${esc(l.row.readAs)}”</small>`:''}${trace?.passed.has(row)?'<small class="write-pass">1s now below their 2s ↓</small>':trace?.back.has(row)?'<small class="write-back">1s back above their 2s ↑</small>':''}${(()=>{const i=stored.figures.findIndex(f=>f.row===row);return i>0?flowLabel(joinFlow(stored,segments,i,flowHabits),stored.figures[i-1].move.replace(/-/g,' ')):'';})()}</span>`;
       return `<li class="write-line${miss?' is-miss':''}"><span class="write-where">${esc(l.row.section??'')} · ${l.row.beats}${l.row.guessed?'?':''}<small>${from}–${at}</small></span><code>${esc(l.row.text)}</code>${what}</li>`;
     }).join('');
     const total=stored.figures.reduce((n,f)=>n+f.beats,0);
@@ -747,12 +760,16 @@ B2  8  long lines forward & back
     const phrases=WRITE_FIGURES.flatMap(g=>g.phrases),results:NextMove[]=[];
     const compile=(s:Parameters<typeof compileNext>[0])=>compileNext(s,4,undefined,{lenient:false});
     const check=(d:unknown)=>physicalCheck(d as never,{rounds:1});
+    const lastMove=readOneShot(text,formation.value).stored.figures.at(-1)?.move.replace(/-/g,' ')??'the start';
     const draw=()=>{
       const tag=(m:NextMove)=>m.progress==='on'?' ↓':m.progress==='back'?' ↑':'';
-      const chips=(fit:NextMove['fit'])=>results.filter(m=>m.fit===fit).map(m=>`<button type="button" class="write-chip write-next-${fit}" data-next="${esc(m.phrase)}"${m.why?` title="${esc(m.why)}"`:''}${fit==='stuck'?' disabled':''}>${esc(m.phrase)}${tag(m)}${fit!=='flows'&&m.why?`<small>${esc(m.why)}</small>`:''}</button>`).join('');
-      const count=(fit:NextMove['fit'])=>results.filter(m=>m.fit===fit).length;
-      out.innerHTML=`<p class="field-help">${results.length<phrases.length?`Trying ${results.length+1} of ${phrases.length}…`:`From the end of your dance (beat ${readOneShot(text,formation.value).stored.figures.reduce((n,f)=>n+f.beats,0)}): ↓ moves the 1s past their 2s, ↑ brings them back.`}</p>`
-        +`<h4>Flows (${count('flows')})</h4><div class="write-chips">${chips('flows')}</div>`
+      const chip=(m:NextMove)=>`<button type="button" class="write-chip write-next-${m.fit}" data-next="${esc(m.phrase)}"${m.why?` title="${esc(m.why)}"`:''}${m.fit==='stuck'?' disabled':''}>${esc(m.phrase)}${tag(m)}${m.habit?` <b class="write-count">×${m.habit.count}</b>`:''}${m.fit!=='flows'&&m.why?`<small>${esc(m.why)}</small>`:''}${m.turn?`<small>↺ ${esc(m.turn)}</small>`:''}</button>`;
+      const pick=(fit:NextMove['fit'],tier?:string)=>results.filter(m=>m.fit===fit&&(tier===undefined||(habitTier(m.habit)??'rare')===tier)).sort((a,b)=>(b.habit?.count??0)-(a.habit?.count??0));
+      const chips=(fit:NextMove['fit'],tier?:string)=>pick(fit,tier).map(chip).join('');
+      const count=(fit:NextMove['fit'],tier?:string)=>pick(fit,tier).length;
+      const flows=flowHabits?[['common',`Usual after a ${lastMove}`],['seen','Sometimes'],['rare','Rare or new: worth a look']].filter(([t])=>count('flows',t)).map(([t,h])=>`<h4>${esc(h)} (${count('flows',t)})</h4><div class="write-chips">${chips('flows',t)}</div>`).join(''):`<h4>Flows (${count('flows')})</h4><div class="write-chips">${chips('flows')}</div>`;
+      out.innerHTML=`<p class="field-help">${results.length<phrases.length?`Trying ${results.length+1} of ${phrases.length}…`:`From the end of your dance (beat ${readOneShot(text,formation.value).stored.figures.reduce((n,f)=>n+f.beats,0)}): ×n is how often choreographers follow a ${lastMove} with it in the library; ↺ a counter-turn they rarely write; ↓ moves the 1s past their 2s, ↑ brings them back.`}</p>`
+        +flows
         +(count('awkward')?`<h4>Awkward (${count('awkward')})</h4><div class="write-chips">${chips('awkward')}</div>`:'')
         +(count('stuck')?`<details><summary>Can't start here (${count('stuck')})</summary><div class="write-chips">${chips('stuck')}</div></details>`:'');
       out.querySelectorAll<HTMLButtonElement>('[data-next]').forEach(b=>{b.addEventListener('mousedown',e=>e.preventDefault());b.addEventListener('click',()=>{
@@ -762,10 +779,11 @@ B2  8  long lines forward & back
     // One candidate a tick, so the page stays responsive while results fill in.
     const step=(i:number)=>{
       if(run!==exploreRun||i>=phrases.length)return;
-      try{results.push(tryNext(text,phrases[i],formation.value,compile,check));}catch(error){results.push({phrase:phrases[i],fit:'stuck',why:error instanceof Error?error.message:String(error),beats:0});}
+      try{results.push(tryNext(text,phrases[i],formation.value,compile,check,flowHabits));}catch(error){results.push({phrase:phrases[i],fit:'stuck',why:error instanceof Error?error.message:String(error),beats:0});}
       draw();window.setTimeout(()=>step(i+1),0);
     };
-    draw();step(0);
+    // Habits first (cached after once), then the candidates.
+    void loadFlowHabits().then(h=>{flowHabits=h;if(run===exploreRun){draw();step(0);}});
   }
   /** Dance the typed text now: registered with the engine like a library dance. */
   function danceWritten(){

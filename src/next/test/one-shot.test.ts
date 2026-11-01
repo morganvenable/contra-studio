@@ -108,3 +108,16 @@ test('a line added from the explorer opens the next part when the last one is fu
   assert.equal(nextLine('A1 16 neighbors balance & swing', 'robins chain'), 'A2 robins chain');
   assert.equal(nextLine('A1 16 neighbors balance & swing\nA2 8 robins chain', 'star left'), 'star left');
 });
+
+test('flow: a figure turns one way through its middle, and a rare counter-turn is noted', async () => {
+  const { mainSpin, flowBetween, habit, habitKey } = await import('../flow.ts');
+  const { stored } = readOneShot('neighbors allemande right once\nneighbors allemande left once\npartners swing');
+  const segments = (compileNext(stored, 4) as unknown as { round(r: number): { segments: Parameters<typeof flowBetween>[0][] } }).round(0).segments;
+  assert.ok(mainSpin(segments[0], 0) < -0.35, 'allemande right turns clockwise');
+  assert.ok(mainSpin(segments[1], 0) > 0.35, 'allemande left turns counter-clockwise');
+  assert.ok(mainSpin(segments[2], 0) < -0.35, 'a swing turns clockwise');
+  assert.equal(flowBetween(segments[0], segments[1], [0, 1, 2, 3])[0]?.kind, 'counter-turn');
+  assert.equal(habitKey(stored.figures[0]), 'allemande:right');
+  const habits = { dances: 1, after: { 'allemande:right': { 'allemande:left': 4, swing: 1 } } };
+  assert.deepEqual(habit(habits, 'allemande:right', 'allemande:left'), { count: 4, of: 5 });
+});

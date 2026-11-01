@@ -40,6 +40,7 @@ const changed = [
 const engine = changed.some((f) => /^src\/next\/(core|figures)\/|^src\/next\/(dance|import|import-travel|status)\.ts$/.test(f));
 if (engine || process.argv.includes('--library')) {
   run('dance library', 'node scripts/next-library.mjs');
+  run('flow habits', 'node scripts/flow-habits.ts');
   const list = (j) => (Array.isArray(j) ? j : (j.dances ?? Object.values(j)));
   const before = new Map(list(JSON.parse(git('show origin/main:public/dances/index.json'))).map((d) => [d.id, d.status]));
   const rank = { ok: 2, check: 1, partial: 0 };
