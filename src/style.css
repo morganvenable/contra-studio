@@ -125,3 +125,20 @@ a.nav-item { display: inline-flex; align-items: center; text-decoration: none; }
 .write-pass,.write-back{display:block;font-size:11px;margin-top:2px}
 .write-pass{color:var(--green)}
 .write-back{color:#a4553a}
+/* Write a dance: beat counter and the next-move explorer. */
+.write-where small{display:block;color:var(--muted);font-size:10px}
+.write-parts{display:flex;flex-wrap:wrap;gap:6px;margin:4px 0 8px}
+.write-part{position:relative;overflow:hidden;border:1px solid var(--line);border-radius:6px;padding:3px 8px 5px;font-size:11px;color:var(--muted);min-width:78px}
+.write-part b{color:var(--ink);margin-right:3px}
+.write-part i{position:absolute;left:0;bottom:0;height:3px;background:#c9b48a}
+.write-part.is-full i{background:var(--green)}
+.write-part.is-over{border-color:#e4c2b2;color:#a4553a}
+.write-part.is-over i{background:#a4553a;width:100%!important}
+.write-explore{margin-top:14px;border-top:1px solid var(--line);padding-top:10px}
+.write-explore-head{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.write-explore h3{font-size:13px;margin:0}
+.write-explore h4{font-size:11px;margin:10px 0 4px;color:var(--muted);font-weight:600}
+.write-next-flows{border-color:#cfe0c9}
+.write-next-awkward{border-color:#ecd7a6;background:#fbf6e8}
+.write-next-stuck{opacity:.65;cursor:default}
+.write-chip small{display:block;color:var(--muted);font-size:10px;margin-top:1px}

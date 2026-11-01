@@ -256,3 +256,79 @@ export function traceProgression(stored: StoredDance, compile: (s: StoredDance) 
         : 'No progression: the 1s never pass the 2s they start with. A contra usually moves on with a figure that carries the 1s down past their 2s (a swing or circle that ends with them below, a pass through to next neighbors).';
   return { passed, back, summary };
 }
+
+/** What a candidate next line does from where the typed dance leaves off. */
+export interface NextMove {
+  readonly phrase: string;
+  /** flows: starts and moves cleanly; awkward: starts, but something is off; stuck: cannot start here. */
+  readonly fit: 'flows' | 'awkward' | 'stuck';
+  readonly why?: string;
+  /** The line carries the 1s past their 2s (on), or back above them (back). */
+  readonly progress?: 'on' | 'back';
+  readonly beats: number;
+}
+
+/**
+ * Try `phrase` as the next line after `text`: whether the dancers can start
+ * it from where they stand, whether anything in it is physically off
+ * (dancers too close, a hand out of reach, too fast for anyone), and
+ * whether it moves the 1s on or back. `compile` is the strict compiler
+ * (compileNext without leniency); `check` the physical check.
+ */
+export function tryNext(
+  text: string,
+  phrase: string,
+  formation: string | undefined,
+  compile: (s: StoredDance) => unknown,
+  check: (dance: unknown) => { problems: readonly string[] },
+): NextMove {
+  const before = readOneShot(text, formation).stored;
+  const start = before.figures.reduce((n, f) => n + f.beats, 0);
+  const read = readOneShot(`${text.replace(/\s+$/, '')}\n${nextLine(text, phrase, formation)}`, formation);
+  const row = read.lines.filter((l) => l.row).length;
+  const beats = read.lines.filter((l) => l.row).at(-1)?.row?.beats ?? 8;
+  const miss = read.stored.unparsed.find((u) => u.row === row);
+  if (miss) return { phrase, fit: 'stuck', why: miss.why, beats };
+  let dance: unknown;
+  try {
+    dance = compile(read.stored);
+  } catch (error) {
+    const why = error instanceof Error ? error.message : String(error);
+    // Only a failure of the new line counts against it.
+    const at = why.match(/Figure (\d+) \(/);
+    const index = at ? Number(at[1]) - 1 : -1;
+    const ours = index >= before.figures.length;
+    return { phrase, fit: ours ? 'stuck' : 'flows', ...(ours ? { why: why.replace(/^.*?Figure \d+ \(.*?\): /, '') } : {}), beats };
+  }
+  let progress: NextMove['progress'];
+  try {
+    const trace = traceProgression(read.stored, compile as never);
+    progress = trace?.passed.has(row) ? 'on' : trace?.back.has(row) ? 'back' : undefined;
+  } catch {
+    progress = undefined;
+  }
+  // Physical trouble inside the new line only.
+  const issue = check(dance).problems.find((p) => {
+    const beat = Number(p.match(/^beat ([\d.]+)/)?.[1] ?? -1);
+    return beat >= start && beat <= start + beats;
+  });
+  const plain = issue
+    ?.replace(/^beat [\d.]+: /, '')
+    .replace(/dancers \d+ and \d+ are ([\d.]+) m apart/, 'two dancers come $1 m apart')
+    .replace(/(\d+-\d+ )?(\w+)\/(\w+) hand reach ([\d.]+) m/, 'a hand has to reach $4 m')
+    .replace(/dancer \d+ moves ([\d.]+) m\/beat/, 'a dancer has to cover $1 m in a beat')
+    .replace(/dancer \d+ turns ([\d.]+) rad\/beat/, 'a dancer has to spin $1 radians a beat');
+  return { phrase, fit: issue ? 'awkward' : 'flows', ...(plain ? { why: plain } : {}), ...(progress ? { progress } : {}), beats };
+}
+
+const PARTS = ['A1', 'A2', 'B1', 'B2'];
+
+/** `phrase` as the next line of `text`: it opens the next part (A2, B1, B2) when the last part is full. */
+export function nextLine(text: string, phrase: string, formation?: string): string {
+  const rows = readOneShot(text, formation).lines.flatMap((l) => (l.row ? [l.row] : []));
+  const last = rows.at(-1)?.section;
+  if (!rows.length) return `A1 ${phrase}`;
+  const filled = rows.filter((r) => r.section === last).reduce((n, r) => n + r.beats, 0);
+  const next = PARTS[PARTS.indexOf(last ?? '') + 1];
+  return filled >= 16 && next ? `${next} ${phrase}` : phrase;
+}

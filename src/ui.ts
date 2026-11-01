@@ -18,7 +18,8 @@ import {CONVENTIONAL_MAD_ROBIN_POLICY,MAD_ROBIN_ROW_CHOICE_DESCRIPTION,MAD_ROBIN
 import {squareThroughDescription} from './source-square-through.ts';
 import {CONVENTIONAL_RING_TWIRL,RING_TWIRL_CHOICE_DESCRIPTION} from './ring-twirl-policy.ts';
 import {READY_LIBRARY} from './ready-library.ts';
-import {readOneShot,traceProgression} from './next/one-shot.ts';
+import {nextLine,readOneShot,traceProgression,tryNext,type NextMove} from './next/one-shot.ts';
+import {physicalCheck} from './next/core/check.ts';
 import {WRITE_EXAMPLES,WRITE_FIGURES,WRITE_FORMAT,WRITE_WHO} from './next/one-shot-guide.ts';
 import {compileNext,registerNextDance} from './next/dance.ts';
 import {checkDance} from './next/status.ts';
@@ -688,7 +689,7 @@ B2  8  long lines forward & back
     const formations=[['improper','Improper duple'],['becket','Becket'],['becket ccw','Becket, counterclockwise'],['proper','Proper duple'],['triplet','Triplet'],['triple minor','Triple minor'],['square','Square'],['circle mixer','Circle mixer'],['sicilian circle','Sicilian circle']];
     const chosen=storeGet(WRITE_FORMATION)??'improper';
     const guide=`<aside class="write-guide" aria-label="How to write a dance"><h3>How to write it</h3><dl class="write-format">${WRITE_FORMAT.map(([what,eg])=>`<dt>${esc(what)}</dt><dd><code>${esc(eg)}</code></dd>`).join('')}</dl><p class="write-who">${esc(WRITE_WHO)}</p><h3>Figures it reads <small>click to add</small></h3>${WRITE_FIGURES.map(g=>`<details class="write-group"${g.title==='Swings and balances'?' open':''}><summary>${esc(g.title)}</summary>${g.note?`<p class="field-help">${esc(g.note)}</p>`:''}<div class="write-chips">${g.phrases.map(ph=>`<button type="button" class="write-chip" data-insert="${esc(ph)}">${esc(ph)}</button>`).join('')}</div></details>`).join('')}<h3>Start from an example</h3><div class="write-chips">${WRITE_EXAMPLES.map((x,i)=>`<button type="button" class="write-chip write-example" data-example="${i}">${esc(x.name)}</button>`).join('')}</div><p class="field-help">An example replaces the text; Ctrl+Z brings yours back.</p></aside>`;
-    openDialog('Write a dance','ONE SHOT',`<div class="write-layout"><div class="write-editor"><p class="dialog-intro">Type (or dictate) the figures, one per line, and dance them. The list under the box shows how each line was read; anything not understood stands still.</p><label class="write-formation">Formation <select id="write-formation">${formations.map(([v,l])=>`<option value="${esc(v)}"${v===chosen?' selected':''}>${esc(l)}</option>`).join('')}</select></label><textarea id="write-text" data-dictate rows="12" spellcheck="false" aria-label="The dance, one figure per line" placeholder="${esc(WRITE_EXAMPLE)}"></textarea><div class="write-actions"><button type="button" class="button button-primary" data-action="write-go">${icon('play')}<span>Dance it</span></button><span id="write-summary" class="field-help"></span></div><p id="write-progress" class="write-progress" hidden></p><ol id="write-preview" class="write-preview"></ol></div>${guide}</div>`,true);
+    openDialog('Write a dance','ONE SHOT',`<div class="write-layout"><div class="write-editor"><p class="dialog-intro">Type (or dictate) the figures, one per line, and dance them. The list under the box shows how each line was read; anything not understood stands still.</p><label class="write-formation">Formation <select id="write-formation">${formations.map(([v,l])=>`<option value="${esc(v)}"${v===chosen?' selected':''}>${esc(l)}</option>`).join('')}</select></label><textarea id="write-text" data-dictate rows="12" spellcheck="false" aria-label="The dance, one figure per line" placeholder="${esc(WRITE_EXAMPLE)}"></textarea><div class="write-actions"><button type="button" class="button button-primary" data-action="write-go">${icon('play')}<span>Dance it</span></button><span id="write-summary" class="field-help"></span></div><p id="write-progress" class="write-progress" hidden></p><div id="write-parts" class="write-parts"></div><ol id="write-preview" class="write-preview"></ol><section class="write-explore"><div class="write-explore-head"><h3>What could come next</h3><button type="button" class="button button-secondary" data-action="write-explore">${icon('search')}<span>Explore from the end</span></button></div><p class="field-help">Tries every figure in the guide as your next line, from where the dancers are at the end. Click one to add it and explore again from there; each path down is a branch of the tree. Awkward is not wrong: some of the best dances have a moment like that.</p><div id="write-next"></div></section></div>${guide}</div>`,true);
     const field=$<HTMLTextAreaElement>('#write-text'),formation=$<HTMLSelectElement>('#write-formation');
     field.value=storeGet(WRITE_DRAFT)??'';
     let timer=0;
@@ -696,7 +697,7 @@ B2  8  long lines forward & back
     field.addEventListener('input',()=>{storeSet(WRITE_DRAFT,field.value);preview();});
     formation.addEventListener('change',()=>{storeSet(WRITE_FORMATION,formation.value);preview();});
     // Clicking Dance it, a figure or an example leaves focus (and any dictation) in the text box.
-    content.querySelectorAll('[data-action="write-go"],[data-insert],[data-example]').forEach(b=>b.addEventListener('mousedown',e=>e.preventDefault()));
+    content.querySelectorAll('[data-action="write-go"],[data-action="write-explore"],[data-insert],[data-example]').forEach(b=>b.addEventListener('mousedown',e=>e.preventDefault()));
     // A figure goes in as a line of its own at the cursor.
     content.querySelectorAll<HTMLButtonElement>('[data-insert]').forEach(b=>b.addEventListener('click',()=>{
       const NL='\n',at=field.selectionStart,before=field.value.slice(0,at),lineStart=!before||before.endsWith(NL);
@@ -720,19 +721,51 @@ B2  8  long lines forward & back
     const list=$('#write-preview'),summary=$('#write-summary');if(!list)return;
     if(!text.trim()){list.innerHTML='';summary.textContent='';return;}
     let read;try{read=readOneShot(text,formation);}catch(error){summary.textContent=error instanceof Error?error.message:'This text could not be read.';list.innerHTML='';return;}
-    const {stored,lines}=read;let row=0;
+    const {stored,lines}=read;let row=0,at=0;
     // Where the 1s stand against their 2s, line by line (duple dances).
     let trace;try{trace=stored.figures.length?traceProgression(stored,s=>compileNext(s,4)):undefined;}catch{trace=undefined;}
     const progress=$('#write-progress');if(progress){progress.hidden=!trace;progress.textContent=trace?.summary??'';progress.classList.toggle('is-ok',!!trace?.summary.startsWith('Progression works'));}
     list.innerHTML=lines.map(l=>{
       if(!l.row)return `<li class="write-line is-header"><code>${esc(l.typed.trim())}</code></li>`;
-      row++;const calls=stored.figures.filter(f=>f.row===row),miss=stored.unparsed.find(u=>u.row===row);
+      row++;const calls=stored.figures.filter(f=>f.row===row),miss=stored.unparsed.find(u=>u.row===row);const from=at+1;at+=l.row.beats;
       const who=(c:{params:Record<string,unknown>})=>typeof c.params.who==='string'?` · ${c.params.who}`:'';
       const what=miss?`<span class="write-miss">Not understood: ${esc(miss.why)}</span>`:`<span class="write-read">${esc(calls.map(c=>`${c.move.replace(/-/g,' ')}${who(c)} (${c.beats})`).join(' · '))}${l.row.readAs?`<small class="write-as">read as “${esc(l.row.readAs)}”</small>`:''}${trace?.passed.has(row)?'<small class="write-pass">1s now below their 2s ↓</small>':trace?.back.has(row)?'<small class="write-back">1s back above their 2s ↑</small>':''}</span>`;
-      return `<li class="write-line${miss?' is-miss':''}"><span class="write-where">${esc(l.row.section??'')} · ${l.row.beats}${l.row.guessed?'?':''}</span><code>${esc(l.row.text)}</code>${what}</li>`;
+      return `<li class="write-line${miss?' is-miss':''}"><span class="write-where">${esc(l.row.section??'')} · ${l.row.beats}${l.row.guessed?'?':''}<small>${from}–${at}</small></span><code>${esc(l.row.text)}</code>${what}</li>`;
     }).join('');
     const total=stored.figures.reduce((n,f)=>n+f.beats,0);
+    // The parts, each against its 16 beats.
+    const parts=new Map<string,number>();for(const l of lines)if(l.row)parts.set(l.row.section??'',(parts.get(l.row.section??'')??0)+l.row.beats);
+    const partsEl=$('#write-parts');if(partsEl)partsEl.innerHTML=['A1','A2','B1','B2',...[...parts.keys()].filter(k=>!['A1','A2','B1','B2'].includes(k))].map(k=>{const n=parts.get(k)??0,state=n===16?'is-full':n>16?'is-over':n?'is-short':'is-empty';return `<span class="write-part ${state}" title="${n} of 16 beats"><b>${esc(k)}</b> ${n}/16${n===16?' ✓':n>16?` (${n-16} over)`:''}<i style="width:${Math.min(100,n/16*100)}%"></i></span>`;}).join('');
     summary.textContent=`${row-stored.unparsed.length} of ${row} lines understood · ${total} beats${total%64?' (a contra is usually 64)':''}`;
+  }
+  /** What could come next: every guide figure tried after the typed dance, shown as results arrive. */
+  let exploreRun=0;
+  function exploreNext(){
+    const field=$<HTMLTextAreaElement>('#write-text'),formation=$<HTMLSelectElement>('#write-formation'),out=$('#write-next');if(!field||!out)return;
+    const text=field.value,run=++exploreRun;
+    if(!text.trim()){out.innerHTML='<p class="field-help">Write a line or two first.</p>';return;}
+    const phrases=WRITE_FIGURES.flatMap(g=>g.phrases),results:NextMove[]=[];
+    const compile=(s:Parameters<typeof compileNext>[0])=>compileNext(s,4,undefined,{lenient:false});
+    const check=(d:unknown)=>physicalCheck(d as never,{rounds:1});
+    const draw=()=>{
+      const tag=(m:NextMove)=>m.progress==='on'?' ↓':m.progress==='back'?' ↑':'';
+      const chips=(fit:NextMove['fit'])=>results.filter(m=>m.fit===fit).map(m=>`<button type="button" class="write-chip write-next-${fit}" data-next="${esc(m.phrase)}"${m.why?` title="${esc(m.why)}"`:''}${fit==='stuck'?' disabled':''}>${esc(m.phrase)}${tag(m)}${fit!=='flows'&&m.why?`<small>${esc(m.why)}</small>`:''}</button>`).join('');
+      const count=(fit:NextMove['fit'])=>results.filter(m=>m.fit===fit).length;
+      out.innerHTML=`<p class="field-help">${results.length<phrases.length?`Trying ${results.length+1} of ${phrases.length}…`:`From the end of your dance (beat ${readOneShot(text,formation.value).stored.figures.reduce((n,f)=>n+f.beats,0)}): ↓ moves the 1s past their 2s, ↑ brings them back.`}</p>`
+        +`<h4>Flows (${count('flows')})</h4><div class="write-chips">${chips('flows')}</div>`
+        +(count('awkward')?`<h4>Awkward (${count('awkward')})</h4><div class="write-chips">${chips('awkward')}</div>`:'')
+        +(count('stuck')?`<details><summary>Can't start here (${count('stuck')})</summary><div class="write-chips">${chips('stuck')}</div></details>`:'');
+      out.querySelectorAll<HTMLButtonElement>('[data-next]').forEach(b=>{b.addEventListener('mousedown',e=>e.preventDefault());b.addEventListener('click',()=>{
+        field.value=`${field.value.replace(/\s+$/,'')}\n${nextLine(field.value,b.dataset.next??'',formation.value)}`;field.dispatchEvent(new Event('input'));exploreNext();
+      });});
+    };
+    // One candidate a tick, so the page stays responsive while results fill in.
+    const step=(i:number)=>{
+      if(run!==exploreRun||i>=phrases.length)return;
+      try{results.push(tryNext(text,phrases[i],formation.value,compile,check));}catch(error){results.push({phrase:phrases[i],fit:'stuck',why:error instanceof Error?error.message:String(error),beats:0});}
+      draw();window.setTimeout(()=>step(i+1),0);
+    };
+    draw();step(0);
   }
   /** Dance the typed text now: registered with the engine like a library dance. */
   function danceWritten(){
@@ -809,6 +842,7 @@ B2  8  long lines forward & back
       case 'import': showImport(); break;
       case 'write-dance': showWriteDance(); break;
       case 'write-go': danceWritten(); break;
+      case 'write-explore': exploreNext(); break;
       case 'source': showSource(); break;
       case 'review-current-source': {const archive=(state.dance as Dance & {sourceText?:string}).sourceText||sourceText.get(state.dance.id);if(archive){showImport();$<HTMLTextAreaElement>('#import-text').value=archive;parseImport();}break;}
       case 'guide': showGuide(); break;

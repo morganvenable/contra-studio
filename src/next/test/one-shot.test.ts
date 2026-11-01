@@ -88,3 +88,23 @@ test('the progression trace says where the 1s pass their 2s, and where a line ta
   const ok = traceProgression(readOneShot(WRITE_EXAMPLES[0].text).stored, (s) => compileNext(s, 4))!;
   assert.match(ok.summary, /^Progression works/);
 });
+
+test('what could come next: a figure that starts here flows, one that cannot start says why', async () => {
+  const { tryNext } = await import('../one-shot.ts');
+  const { physicalCheck } = await import('../core/check.ts');
+  const text = 'A1 16 neighbors balance & swing\nA2 8 neighbors allemande left 1½\nA2 8 circle left 3 places';
+  const compile = (s: Parameters<typeof compileNext>[0]) => compileNext(s, 4, undefined, { lenient: false });
+  const check = (d: unknown) => physicalCheck(d as never, { rounds: 1 });
+  assert.equal(tryNext(text, 'partners swing', undefined, compile, check).fit, 'flows');
+  const wave = tryNext(text, 'balance the wave', undefined, compile, check);
+  assert.equal(wave.fit, 'stuck');
+  assert.match(wave.why!, /straight line/);
+  assert.equal(tryNext(text, 'balance & petronella', undefined, compile, check).progress, 'on');
+});
+
+test('a line added from the explorer opens the next part when the last one is full', async () => {
+  const { nextLine } = await import('../one-shot.ts');
+  assert.equal(nextLine('', 'partners swing'), 'A1 partners swing');
+  assert.equal(nextLine('A1 16 neighbors balance & swing', 'robins chain'), 'A2 robins chain');
+  assert.equal(nextLine('A1 16 neighbors balance & swing\nA2 8 robins chain', 'star left'), 'star left');
+});
