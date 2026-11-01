@@ -25,6 +25,7 @@ import {compileNext,registerNextDance} from './next/dance.ts';
 import {checkDance} from './next/status.ts';
 import {STATUS_LABEL,STATUS_ORDER,countByStatus,danceFromStored,fetchStoredDance,filterLibrary,loadFlowHabits,loadLibraryIndex} from './next/library-ui.ts';
 import type {FlowHabits} from './next/flow.ts';
+import {describeState,type StateNote} from './next/state-note.ts';
 import {FIGURE_GROUPS,STYLE_LABEL,emptyFilter,facetCounts,figuresOf,formationLabel as layoutLabel,isFilterActive,matchesFilter,type DanceStyle} from './next/library-filters.ts';
 import type {DanceStatus,LibraryEntry} from './next/dance.ts';
 import {CONVENTIONAL_DIAGONAL_HEY,DIAGONAL_HEY_CHOICE_DESCRIPTION} from './source-diagonal-hey.ts';
@@ -725,8 +726,20 @@ B2  8  long lines forward & back
       if(!document.execCommand('insertText',false,b.dataset.option!))field.setRangeText(b.dataset.option!,start,start+b.dataset.from!.length,'end');
       field.dispatchEvent(new Event('input'));
     });
+    // The line being edited is marked in the list, with where it leaves everyone.
+    for(const type of ['keyup','click','focus','select'])field.addEventListener(type,markWriteLine);
+    document.addEventListener('selectionchange',markWriteLine);
     renderWritePreview(field.value,formation.value);
-    field.focus();field.setSelectionRange(field.value.length,field.value.length);
+    field.focus();field.setSelectionRange(field.value.length,field.value.length);markWriteLine();
+  }
+  /** Mark the preview row of the line the cursor is on, the previous one when it sits on a blank line. */
+  function markWriteLine(){
+    const field=$<HTMLTextAreaElement>('#write-text'),list=$('#write-preview');if(!field||!list)return;
+    const lineAt=field.value.slice(0,field.selectionStart).split('\n').length-1;
+    const rows=[...list.querySelectorAll<HTMLElement>('li[data-at]')];
+    const current=rows.filter(r=>Number(r.dataset.at)<=lineAt).pop();
+    for(const r of rows)r.classList.toggle('is-current',r===current&&document.activeElement===field);
+    if(current&&document.activeElement===field)current.scrollIntoView({block:'nearest'});
   }
   /** How each typed line was read: its part, beats and figures, or why not. */
   /** How often choreographers follow one figure with another; loaded the first time Write a dance needs it. */
@@ -747,15 +760,20 @@ B2  8  long lines forward & back
     // Where the 1s stand against their 2s, line by line (duple dances).
     let trace;try{trace=stored.figures.length?traceProgression(stored,s=>compileNext(s,4)):undefined;}catch{trace=undefined;}
     // The flow into each line: how usual the pairing is, and a rare counter-turn.
-    let segments;try{segments=stored.figures.length>1?(compileNext(stored,4) as unknown as {round(r:number):{segments:Parameters<typeof joinFlow>[1]}}).round(0).segments:undefined;}catch{segments=undefined;}
+    let segments;try{segments=stored.figures.length?(compileNext(stored,4) as unknown as {round(r:number):{segments:Parameters<typeof joinFlow>[1]}}).round(0).segments:undefined;}catch{segments=undefined;}
+    // Where everyone stands coming out of each line: the shape, and who is beside and facing the 1s.
+    const states=new Map<number,StateNote>();let start:StateNote|undefined;
+    try{const segs=(segments??[]) as unknown as readonly {call:{row?:number};entry:Parameters<typeof describeState>[0];result:{exit:Parameters<typeof describeState>[0]}}[];start=segs[0]&&describeState(segs[0].entry);for(const s of segs){const n=s.call.row!==undefined&&describeState(s.result.exit);if(n)states.set(s.call.row!,n);}}catch{/* a note is extra */}
+    const stateNote=(n:StateNote|undefined,label:string)=>n?`<small class="write-state"><b>${label}</b> ${esc(n.shape)}. ${n.views.map(v=>esc(v)).join('. ')}.</small>`:'';
     const progress=$('#write-progress');if(progress){progress.hidden=!trace;progress.textContent=trace?.summary??'';progress.classList.toggle('is-ok',!!trace?.summary.startsWith('Progression works'));}
-    list.innerHTML=lines.map(l=>{
-      if(!l.row)return `<li class="write-line is-header"><code>${esc(l.typed.trim())}</code></li>`;
+    list.innerHTML=(start?`<li class="write-line is-start">${stateNote(start,'Start:')}</li>`:'')+lines.map(l=>{
+      if(!l.row)return `<li class="write-line is-header" data-at="${l.at}"><code>${esc(l.typed.trim())}</code></li>`;
       row++;const calls=stored.figures.filter(f=>f.row===row),miss=stored.unparsed.find(u=>u.row===row);const from=at+1;at+=l.row.beats;
       const who=(c:{params:Record<string,unknown>})=>typeof c.params.who==='string'?` · ${c.params.who}`:'';
       const what=miss?`<span class="write-miss">Not understood: ${esc(miss.why)}</span>`:`<span class="write-read">${esc(calls.map(c=>`${c.move.replace(/-/g,' ')}${who(c)} (${c.beats})`).join(' · '))}${l.row.readAs?`<small class="write-as">read as “${esc(l.row.readAs)}”</small>`:''}${trace?.passed.has(row)?'<small class="write-pass">1s now below their 2s ↓</small>':trace?.back.has(row)?'<small class="write-back">1s back above their 2s ↑</small>':''}${(()=>{const i=stored.figures.findIndex(f=>f.row===row);return i>0?flowLabel(joinFlow(stored,segments,i,flowHabits),stored.figures[i-1].move.replace(/-/g,' ')):'';})()}</span>`;
-      return `<li class="write-line${miss?' is-miss':''}"><span class="write-where">${esc(l.row.section??'')} · ${l.row.beats}${l.row.guessed?'?':''}<small>${from}–${at}</small></span><code>${esc(l.row.text)}</code>${what}${l.options?`<span class="write-options">${l.row.readAs?'Or':'Did you mean'}: ${l.options.map(o=>`<span><button type="button" class="write-option" data-option="${esc(o.text)}" data-at="${l.at}" data-from="${esc(l.row!.text)}">${esc(o.text)}</button> <small>${esc(o.why)}</small></span>`).join('')}</span>`:''}</li>`;
+      return `<li class="write-line${miss?' is-miss':''}" data-at="${l.at}"><span class="write-where">${esc(l.row.section??'')} · ${l.row.beats}${l.row.guessed?'?':''}<small>${from}–${at}</small></span><code>${esc(l.row.text)}</code>${what}${l.options?`<span class="write-options">${l.row.readAs?'Or':'Did you mean'}: ${l.options.map(o=>`<span><button type="button" class="write-option" data-option="${esc(o.text)}" data-at="${l.at}" data-from="${esc(l.row!.text)}">${esc(o.text)}</button> <small>${esc(o.why)}</small></span>`).join('')}</span>`:''}${stateNote(states.get(row),'Ends:')}</li>`;
     }).join('');
+    markWriteLine();
     const total=stored.figures.reduce((n,f)=>n+f.beats,0);
     // The parts, each against its 16 beats.
     const parts=new Map<string,number>();for(const l of lines)if(l.row)parts.set(l.row.section??'',(parts.get(l.row.section??'')??0)+l.row.beats);
