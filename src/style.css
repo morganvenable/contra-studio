@@ -98,3 +98,4 @@ a.nav-item { display: inline-flex; align-items: center; text-decoration: none; }
 .write-read{color:var(--green)}
 .write-miss{color:#a4553a}
 @media (max-width:640px){.write-line{grid-template-columns:52px minmax(0,1fr)}.write-line .write-read,.write-line .write-miss{grid-column:2}}
+.write-as{display:block;color:var(--muted);font-size:11px;margin-top:2px}
