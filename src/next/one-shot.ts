@@ -13,20 +13,23 @@
  *
  * - A part name (A1, A2, B1, B2 ...) at the start of a line starts that part.
  * - A beat count: a number at the start of the line, or at its end in
- *   parentheses or with "beats". Lines without one share what is left of
- *   their 16-beat part; with no parts named at all, 8 beats each.
+ *   parentheses or with "beats". Lines without one take the figure's usual
+ *   length (a balance and swing 16, an allemande 8, a pull by 2).
+ * - Plain figure names read the usual way: "allemande" is neighbors
+ *   allemande right once, "swing" a neighbor swing, "hey" a full hey with
+ *   the robins starting. The preview says what each was read as.
  * - "Title:", "By:" and "Formation:" lines name the dance; the formation is
  *   improper unless one is named (the dialog's choice, else this line).
  */
 import type { StoredDance } from './dance.ts';
 import { importRows } from './import.ts';
-import type { SourceRow } from './core/parse.ts';
+import { parseRow, type SourceRow } from './core/parse.ts';
 
 export interface OneShotLine {
   /** The line as typed. */
   readonly typed: string;
   /** The figure text read from it, its part and beats. */
-  readonly row?: SourceRow & { readonly guessed: boolean };
+  readonly row?: SourceRow & { readonly guessed: boolean; readonly readAs?: string };
 }
 
 export interface OneShot {
@@ -38,6 +41,70 @@ const PART = /^\s*\(?((?:A|B|C)\d?)\)?\s*[:.)\-–]?\s+/i;
 const LEADING_BEATS = /^\s*\(?(\d{1,2})\)?\s*(?:beats?|counts?|b)?\s*[:.)\-–]?\s+/i;
 const TRAILING_BEATS = /\s*(?:\((\d{1,2})\s*(?:beats?|counts?|b)?\)|[-–,]\s*(\d{1,2})\s*(?:beats?|counts?|b)?|\s(\d{1,2})\s*(?:beats?|counts?))\s*$/i;
 const HEADER = /^\s*(title|name|by|author|choreographer|formation)\s*:\s*(.*)$/i;
+
+/** Who a figure names, if it names anyone. */
+const WHO = /\b(?:neighbou?rs?|partners?|shadows?|larks|robins|ladies|gents|gentlespoons|ladles|ones|twos|1s|2s|corners?|everyone|all|centers|ends)\b/i;
+
+/**
+ * Plain figure names read the usual way (a typed "allemande" is neighbors
+ * allemande right once): each rewrite is tried in turn when the text as
+ * typed does not read, and the preview says what it was read as.
+ */
+const REWRITES: readonly ((t: string) => string | undefined)[] = [
+  (t) => {
+    const m = t.match(/^(?:(\w+) start (?:a |the )?)?(full |half )?hey(?: for four)?$/i);
+    return m ? `${m[1] ?? 'robins'} start a ${(m[2] ?? 'full ').trim()} hey - rights on ends, lefts in center` : undefined;
+  },
+  (t) => (/^(?:balance (?:&|and) )?box circulate$/i.test(t) ? 'balance & box circulate - robins cross while larks loop right' : undefined),
+  (t) => (/^long lines$/i.test(t) ? 'long lines forward & back' : undefined),
+  (t) => (/^mad robins?$/i.test(t) ? 'mad robins, robins in front' : undefined),
+  (t) => (/^(?:ladies |robins )?chain$/i.test(t) ? 'robins chain' : undefined),
+  (t) => {
+    const m = t.match(/^(?:(\w+) )?give (?:&|and) take(?: (partners?|neighbou?rs?))?$/i);
+    return m ? `${m[1] ?? 'larks'} give & take ${m[2] ?? 'partners'}` : undefined;
+  },
+  (t) => (/^promenade\b/i.test(t) && !WHO.test(t) ? `partners ${t}` : undefined),
+  // Someone to dance it with: neighbors, unless the line names someone.
+  (t) => (WHO.test(t) ? undefined : `neighbors ${t}`),
+];
+/** Fill in a hand and an amount: allemandes and gyres go once around, by the right. */
+const COMPLETE: readonly ((t: string) => string)[] = [
+  (t) => (/\ballemande\b/i.test(t) && !/\b(?:left|right)\b/i.test(t) ? t.replace(/\ballemande\b/i, 'allemande right') : t),
+  (t) => (/\b(?:allemande|gyre)\b/i.test(t) && !/\b(?:once|twice|\d|½|¼|¾|half|quarter|three|one)\b/i.test(t) ? `${t} once` : t),
+];
+const reads = (text: string) => {
+  try {
+    parseRow({ text, beats: 8 });
+    return true;
+  } catch {
+    return false;
+  }
+};
+/** The text as typed if it reads, else the first usual reading that does. */
+function readable(text: string): string | undefined {
+  if (reads(text)) return undefined;
+  const filled = COMPLETE.reduce((t, f) => f(t), text);
+  const tries = [filled, ...REWRITES.map((r) => r(filled)), ...REWRITES.map((r) => r(text))].filter(
+    (t): t is string => !!t && t !== text,
+  );
+  for (const t of tries) {
+    if (reads(t)) return t;
+    const more = REWRITES.map((r) => r(t)).find((u) => u && reads(u));
+    if (more) return more;
+  }
+  return undefined;
+}
+
+/** How long a figure usually takes, for a line typed without beats. */
+const USUAL: readonly [RegExp, number][] = [
+  [/balance (?:&|and) swing/i, 16],
+  [/half hey/i, 8],
+  [/\bhey\b/i, 16],
+  [/balance (?:&|and) (?:box circulate|rory|petronella|box the gnat|swat|california|twirl)/i, 8],
+  [/\b(?:pull|pass) by\b|\bpass through\b/i, 2],
+  [/box the gnat|swat the flea|california twirl|\btwirl\b|\brory\b|box circulate|\bbalance\b/i, 4],
+];
+const usualBeats = (text: string) => USUAL.find(([re]) => re.test(text))?.[1] ?? 8;
 
 /** Read typed text into rows and a stored dance. */
 export function readOneShot(text: string, formationChoice?: string): OneShot {
@@ -79,22 +146,15 @@ export function readOneShot(text: string, formationChoice?: string): OneShot {
     lines.push({ typed, text: line, part, beats });
   }
 
-  // Beats not given: what is left of the line's 16-beat part, shared out.
+  // Beats not given: how long the figure usually takes.
   const figures = lines.filter((l) => l.text);
-  const parts = new Map<string, typeof figures>();
-  for (const l of figures) {
-    const key = l.part ?? '';
-    if (!parts.has(key)) parts.set(key, []);
-    parts.get(key)!.push(l);
-  }
   const guessed = new Set<(typeof figures)[number]>();
-  for (const [key, group] of parts) {
-    const missing = group.filter((l) => l.beats === undefined);
-    if (!missing.length) continue;
-    const known = group.reduce((n, l) => n + (l.beats ?? 0), 0);
-    const share = key && known < 16 ? (16 - known) / missing.length : 8;
-    for (const l of missing) {
-      l.beats = Math.max(2, Math.round(share / 2) * 2);
+  const readAs = new Map<(typeof figures)[number], string>();
+  for (const l of figures) {
+    const as = readable(l.text!);
+    if (as) readAs.set(l, as);
+    if (l.beats === undefined) {
+      l.beats = usualBeats(as ?? l.text!);
       guessed.add(l);
     }
   }
@@ -105,7 +165,7 @@ export function readOneShot(text: string, formationChoice?: string): OneShot {
     beat += l.beats!;
   }
 
-  const rows: SourceRow[] = figures.map((l) => ({ section: l.part, beats: l.beats!, text: l.text! }));
+  const rows: SourceRow[] = figures.map((l) => ({ section: l.part, beats: l.beats!, text: readAs.get(l) ?? l.text! }));
   const formation = (formationChoice || headers.formation || 'improper').trim();
   const hash = [...text].reduce((h, c) => (Math.imul(h, 31) + c.charCodeAt(0)) | 0, 7);
   const id = `typed-${(hash >>> 0).toString(36)}`;
@@ -121,7 +181,16 @@ export function readOneShot(text: string, formationChoice?: string): OneShot {
     stored,
     lines: lines.map((l) =>
       l.text
-        ? { typed: l.typed, row: { section: l.part, beats: l.beats!, text: l.text, guessed: guessed.has(l as never) } }
+        ? {
+            typed: l.typed,
+            row: {
+              section: l.part,
+              beats: l.beats!,
+              text: l.text,
+              guessed: guessed.has(l as never),
+              ...(readAs.has(l as never) ? { readAs: readAs.get(l as never) } : {}),
+            },
+          }
         : { typed: l.typed },
     ),
   };

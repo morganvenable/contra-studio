@@ -686,7 +686,7 @@ B2  8  long lines forward & back
   function showWriteDance(){
     const formations=[['improper','Improper duple'],['becket','Becket'],['becket ccw','Becket, counterclockwise'],['proper','Proper duple'],['triplet','Triplet'],['triple minor','Triple minor'],['square','Square'],['circle mixer','Circle mixer'],['sicilian circle','Sicilian circle']];
     const chosen=storeGet(WRITE_FORMATION)??'improper';
-    openDialog('Write a dance','ONE SHOT',`<p class="dialog-intro">Type (or dictate) the figures, one per line, and dance them. Start a line with its part (A1, A2, B1, B2) and beats if you like; lines without beats share what is left of their 16-beat part. Anything not understood stands still and is listed below.</p><label class="write-formation">Formation <select id="write-formation">${formations.map(([v,l])=>`<option value="${esc(v)}"${v===chosen?' selected':''}>${esc(l)}</option>`).join('')}</select></label><textarea id="write-text" data-dictate rows="12" spellcheck="false" aria-label="The dance, one figure per line" placeholder="${esc(WRITE_EXAMPLE)}"></textarea><div class="write-actions"><button type="button" class="button button-primary" data-action="write-go">${icon('play')}<span>Dance it</span></button><span id="write-summary" class="field-help"></span></div><ol id="write-preview" class="write-preview"></ol>`,true);
+    openDialog('Write a dance','ONE SHOT',`<p class="dialog-intro">Type (or dictate) the figures, one per line, and dance them. Start a line with its part (A1, A2, B1, B2) and beats if you like; a line without beats takes the figure's usual length (shown with a ?). Plain names like “allemande” or “hey” are read the usual way, shown below. Anything not understood stands still.</p><label class="write-formation">Formation <select id="write-formation">${formations.map(([v,l])=>`<option value="${esc(v)}"${v===chosen?' selected':''}>${esc(l)}</option>`).join('')}</select></label><textarea id="write-text" data-dictate rows="12" spellcheck="false" aria-label="The dance, one figure per line" placeholder="${esc(WRITE_EXAMPLE)}"></textarea><div class="write-actions"><button type="button" class="button button-primary" data-action="write-go">${icon('play')}<span>Dance it</span></button><span id="write-summary" class="field-help"></span></div><ol id="write-preview" class="write-preview"></ol>`,true);
     const field=$<HTMLTextAreaElement>('#write-text'),formation=$<HTMLSelectElement>('#write-formation');
     field.value=storeGet(WRITE_DRAFT)??'';
     let timer=0;
@@ -707,7 +707,8 @@ B2  8  long lines forward & back
     list.innerHTML=lines.map(l=>{
       if(!l.row)return `<li class="write-line is-header"><code>${esc(l.typed.trim())}</code></li>`;
       row++;const calls=stored.figures.filter(f=>f.row===row),miss=stored.unparsed.find(u=>u.row===row);
-      const what=miss?`<span class="write-miss">Not understood: ${esc(miss.why)}</span>`:`<span class="write-read">${esc(calls.map(c=>`${c.move.replace(/-/g,' ')} (${c.beats})`).join(' · '))}</span>`;
+      const who=(c:{params:Record<string,unknown>})=>typeof c.params.who==='string'?` · ${c.params.who}`:'';
+      const what=miss?`<span class="write-miss">Not understood: ${esc(miss.why)}</span>`:`<span class="write-read">${esc(calls.map(c=>`${c.move.replace(/-/g,' ')}${who(c)} (${c.beats})`).join(' · '))}${l.row.readAs?`<small class="write-as">read as “${esc(l.row.readAs)}”</small>`:''}</span>`;
       return `<li class="write-line${miss?' is-miss':''}"><span class="write-where">${esc(l.row.section??'')} · ${l.row.beats}${l.row.guessed?'?':''}</span><code>${esc(l.row.text)}</code>${what}</li>`;
     }).join('');
     const total=stored.figures.reduce((n,f)=>n+f.beats,0);
