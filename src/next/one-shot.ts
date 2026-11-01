@@ -31,6 +31,10 @@ export interface OneShotLine {
   readonly typed: string;
   /** The figure text read from it, its part and beats. */
   readonly row?: SourceRow & { readonly guessed: boolean; readonly readAs?: string };
+  /** Its line number in the text (0-based). */
+  readonly at: number;
+  /** Other figures that may be what was meant, each with why. */
+  readonly options?: readonly { readonly text: string; readonly why: string }[];
 }
 
 export interface OneShot {
@@ -65,6 +69,8 @@ const REWRITES: readonly ((t: string) => string | undefined)[] = [
     return m ? `${m[1] ?? 'larks'} give & take ${m[2] ?? 'partners'}` : undefined;
   },
   (t) => (/^promenade\b/i.test(t) && !WHO.test(t) ? `partners ${t}` : undefined),
+  // A California twirl is a partner figure, side by side with inside hands joined.
+  (t) => (/california twirl/i.test(t) && !WHO.test(t) ? `partners ${t}` : undefined),
   // Someone to dance it with: neighbors, unless the line names someone.
   (t) => (WHO.test(t) ? undefined : `neighbors ${t}`),
 ];
@@ -96,6 +102,27 @@ function readable(text: string): string | undefined {
   return undefined;
 }
 
+/**
+ * The matching figure for another pair: a California twirl is danced side by
+ * side with partners; facing a neighbor, the same joined-hand balance and
+ * swap (the robin turning under) is a box the gnat by the right hand or a
+ * swat the flea by the left.
+ */
+const OPTIONS: readonly ((t: string) => readonly { text: string; why: string }[])[] = [
+  (t) => {
+    const m = t.match(/^(?:(\w+) )?(?:(?:right|left) hand )?(balance (?:&|and) )?california twirl\b/i);
+    if (!m || /^partners?$/i.test(m[1] ?? '')) return [];
+    const who = m[1] ?? 'neighbors';
+    const balance = m[2] ? 'balance & ' : '';
+    return [
+      { text: `${who} ${balance}box the gnat`, why: `facing ${who}, right hands: the same swap, robin under` },
+      { text: `${who} ${balance}swat the flea`, why: `facing ${who}, left hands` },
+      ...(m[1] ? [{ text: `partners ${balance}California twirl`, why: 'side by side with partners, inside hands' }] : []),
+    ];
+  },
+];
+const optionsFor = (text: string) => OPTIONS.flatMap((o) => o(text)).filter((o) => reads(o.text));
+
 /** How long a figure usually takes, for a line typed without beats. */
 const USUAL: readonly [RegExp, number][] = [
   [/contra corners/i, 16],
@@ -112,9 +139,9 @@ const usualBeats = (text: string) => USUAL.find(([re]) => re.test(text))?.[1] ??
 /** Read typed text into rows and a stored dance. */
 export function readOneShot(text: string, formationChoice?: string): OneShot {
   const headers: Record<string, string> = {};
-  const lines: { typed: string; text?: string; part?: string; beats?: number }[] = [];
+  const lines: { typed: string; at: number; text?: string; part?: string; beats?: number }[] = [];
   let part: string | undefined;
-  for (const raw of text.split(/\r?\n/)) {
+  for (const [at, raw] of text.split(/\r?\n/).entries()) {
     const typed = raw.replace(/\s+$/, '');
     let line = typed.replace(/^\s*(?:[-*•]|\d+[.)])\s+/, '').trim();
     if (!line) continue;
@@ -122,7 +149,7 @@ export function readOneShot(text: string, formationChoice?: string): OneShot {
     if (header) {
       const key = header[1].toLowerCase();
       headers[key === 'name' ? 'title' : key === 'author' || key === 'choreographer' ? 'by' : key] = header[2].trim();
-      lines.push({ typed });
+      lines.push({ typed, at });
       continue;
     }
     const named = line.match(PART);
@@ -131,7 +158,7 @@ export function readOneShot(text: string, formationChoice?: string): OneShot {
       line = line.slice(named[0].length).trim();
     } else if (/^(?:A|B|C)\d?$/i.test(line)) {
       part = line.toUpperCase();
-      lines.push({ typed });
+      lines.push({ typed, at });
       continue;
     }
     let beats: number | undefined;
@@ -146,7 +173,7 @@ export function readOneShot(text: string, formationChoice?: string): OneShot {
         line = line.slice(0, trail.index).trim();
       }
     }
-    lines.push({ typed, text: line, part, beats });
+    lines.push({ typed, at, text: line, part, beats });
   }
 
   // Beats not given: how long the figure usually takes.
@@ -186,6 +213,9 @@ export function readOneShot(text: string, formationChoice?: string): OneShot {
       l.text
         ? {
             typed: l.typed,
+            at: l.at,
+            // Only for a line that does not read as typed: one that does is taken at its word.
+            ...(!reads(l.text) && optionsFor(l.text).length ? { options: optionsFor(l.text) } : {}),
             row: {
               section: l.part,
               beats: l.beats!,
@@ -194,7 +224,7 @@ export function readOneShot(text: string, formationChoice?: string): OneShot {
               ...(readAs.has(l as never) ? { readAs: readAs.get(l as never) } : {}),
             },
           }
-        : { typed: l.typed },
+        : { typed: l.typed, at: l.at },
     ),
   };
 }

@@ -121,3 +121,19 @@ test('flow: a figure turns one way through its middle, and a rare counter-turn i
   const habits = { dances: 1, after: { 'allemande:right': { 'allemande:left': 4, swing: 1 } } };
   assert.deepEqual(habit(habits, 'allemande:right', 'allemande:left'), { count: 4, of: 5 });
 });
+
+test('a California twirl reads with partners, and offers the neighbor figure that matches it', () => {
+  const plain = readOneShot('balance and California twirl');
+  assert.equal(plain.lines[0].row?.readAs, 'partners balance and California twirl');
+  assert.equal(plain.stored.unparsed.length, 0);
+  assert.deepEqual(plain.lines[0].options?.map((o) => o.text), ['neighbors balance & box the gnat', 'neighbors balance & swat the flea']);
+  const neighbors = readOneShot('neighbors balance and California twirl');
+  assert.equal(neighbors.stored.unparsed.length, 1);
+  assert.deepEqual(neighbors.lines[0].options?.map((o) => o.text), [
+    'neighbors balance & box the gnat',
+    'neighbors balance & swat the flea',
+    'partners balance & California twirl',
+  ]);
+  // A line that reads as typed is taken at its word.
+  assert.equal(readOneShot('partners balance & California twirl').lines[0].options, undefined);
+});
