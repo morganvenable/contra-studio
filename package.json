@@ -13,6 +13,7 @@
     "build:pages": "tsc --noEmit && vite build --mode pages --base ./",
     "test:server": "node --test worker/*.test.mjs",
     "test:next": "node --experimental-strip-types --test src/next/test/*.test.ts",
+    "check": "node scripts/check.mjs",
     "test:feedback-worker": "npm --prefix worker/feedback test",
     "test:feedback-e2e": "node e2e/feedback.mjs"
   },
