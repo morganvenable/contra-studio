@@ -26,7 +26,8 @@ test('the qualified three-plus-one cue leaves ordinary four-count California bod
  // resolved hand target is owned.
  for(let i=0;i<=640;i++){const frame=pose(avatars,c,56+i/80),snapshot={contacts:frame.contacts,avatars:avatars.map(a=>{const matrices:number[][]=[];a.root.traverse(m=>{if('isMesh' in m&&m.isMesh)matrices.push(m.matrixWorld.toArray());});return{matrices,gait:a.root.userData.gait};})};hash.update(JSON.stringify(snapshot));}
  avatars.forEach(a=>a.dispose());
- assert.equal(hash.digest('hex'),'8e0b6596f77dbcdfe4cbe9d8f700d72b81bf00215990165982fc252c738fdc18');
+ // Re-pinned 2026-11-01: held hands bend the elbow down ("W" hands).
+ assert.equal(hash.digest('hex'),'67e909595ecb42c025152a53db078a322c0207695b675781b046e98308513b36');
 });
 
 test('qualified California body routing keeps fixed limbs, exact cadence and complete articulated joins',()=>{
