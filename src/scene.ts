@@ -356,7 +356,7 @@ export class Avatar {
     let moved=0;
     for(const plan of plans){
       const {arm,shoulder}=plan;let {target,pole}=plan;
-      if(!this.armLimit){let elbow=solveJoint(shoulder,target,.325,.325,pole);if(plan.joined>0&&elbow.y>target.y)elbow=solveJoint(shoulder,target,.325,.325,pole.clone().lerp(new THREE.Vector3(arm.side*.35,-1,.3),Math.min(1,plan.joined*2)));cylinderBetween(arm.upper,shoulder,elbow,.055);cylinderBetween(arm.lower,elbow,target,.044);arm.elbow.position.copy(elbow);arm.hand.position.copy(target);arm.hand.quaternion.setFromUnitVectors(Y,target.clone().sub(elbow).normalize());continue;}
+      if(!this.armLimit){let elbow=solveJoint(shoulder,target,.325,.325,pole);if(plan.joined>0)elbow=solveJoint(shoulder,target,.325,.325,pole.clone().lerp(new THREE.Vector3(arm.side*.35,-1,.3),Math.min(1,plan.joined*2)));cylinderBetween(arm.upper,shoulder,elbow,.055);cylinderBetween(arm.lower,elbow,target,.044);arm.elbow.position.copy(elbow);arm.hand.position.copy(target);arm.hand.quaternion.setFromUnitVectors(Y,target.clone().sub(elbow).normalize());continue;}
       // A free arm swung past the limit swings forward as a whole, hand and
       // all, about the shoulder; a held hand stays on its grip and the elbow
       // bends to it (below). Partly held hands share the two.
@@ -365,9 +365,9 @@ export class Avatar {
         if(excess>0){const axis=upper.clone().cross(new THREE.Vector3(0,0,1));if(axis.lengthSq()<1e-12)axis.set(arm.side,0,0);axis.normalize();target=target.clone().sub(shoulder).applyAxisAngle(axis,excess*free).add(shoulder);pole=pole.clone().applyAxisAngle(axis,excess*free);}}
       const reached=limitShoulderReach(shoulder,target);moved=Math.max(moved,reached.distanceTo(target));
       let elbow=solveLimitedElbow(shoulder,reached,.325,.325,pole,arm.side);
-      // People hold hands with the elbow below the hand: when the bend asked
-      // for lifts a joined hand's elbow above it, bend it down instead.
-      if(plan.joined>0&&elbow.y>reached.y){const down=pole.clone().lerp(new THREE.Vector3(arm.side*.35,-1,.3),Math.min(1,plan.joined*2));elbow=solveLimitedElbow(shoulder,reached,.325,.325,down,arm.side);}
+      // People hold hands with the elbow down and the forearm rising to the hand
+      // ("W" hands): a joined hand's elbow bends down, whatever bend was asked for.
+      if(plan.joined>0){const down=pole.clone().lerp(new THREE.Vector3(arm.side*.35,-1,.3),Math.min(1,plan.joined*2));elbow=solveLimitedElbow(shoulder,reached,.325,.325,down,arm.side);}
       // Whatever is left past the allowance (a hand pulled out of reach): the
       // whole arm turns forward about the shoulder onto the limit.
       for(let i=0;i<3;i++){const up=elbow.clone().sub(shoulder).normalize(),ex=Math.asin(Math.max(-1,Math.min(1,-up.z)))-backLimit(-up.y)*Math.PI/180;if(ex<=1e-4)break;

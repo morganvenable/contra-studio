@@ -15,8 +15,8 @@ export const BODY = {
   /** Shoulder offset from the body root, sideways. */
   shoulder: 0.235,
   shoulderHeight: 1.355,
-  /** Height of an ordinary joined-hand contact. */
-  handHeight: 1.2,
+  /** Height of an ordinary joined-hand contact: near shoulder height, so the elbows hang below ("W" hands). */
+  handHeight: 1.32,
 } as const;
 
 export const LIMITS = {
