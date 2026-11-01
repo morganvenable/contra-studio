@@ -99,3 +99,24 @@ a.nav-item { display: inline-flex; align-items: center; text-decoration: none; }
 .write-miss{color:#a4553a}
 @media (max-width:640px){.write-line{grid-template-columns:52px minmax(0,1fr)}.write-line .write-read,.write-line .write-miss{grid-column:2}}
 .write-as{display:block;color:var(--muted);font-size:11px;margin-top:2px}
+/* Write a dance: editor beside its guide. */
+.write-layout{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(260px,1fr);gap:22px;align-items:start}
+.write-guide{border-left:1px solid var(--line);padding-left:18px;max-height:70vh;overflow:auto;font-size:12px}
+.write-guide h3{font-size:12px;margin:14px 0 6px;color:var(--ink)}
+.write-guide h3:first-child{margin-top:0}
+.write-guide h3 small{font-weight:400;color:var(--muted);margin-left:6px}
+.write-format{display:grid;grid-template-columns:auto 1fr;gap:4px 10px;margin:0}
+.write-format dt{color:var(--muted)}
+.write-format dd{margin:0}
+.write-format code{font-size:11px}
+.write-who{color:var(--muted);margin:8px 0 0;line-height:1.45}
+.write-group{border-top:1px solid var(--line);padding:6px 0}
+.write-group summary{cursor:pointer;font-weight:600;color:var(--green)}
+.write-chips{display:flex;flex-wrap:wrap;gap:5px;margin-top:6px}
+.write-chip{border:1px solid #dfe5db;border-radius:999px;background:#fafbf5;padding:4px 9px;font-size:11px;text-align:left}
+.write-chip:hover{background:var(--green-light)}
+.write-example{font-weight:600;color:var(--green)}
+@media (max-width:860px){.write-layout{grid-template-columns:1fr}.write-guide{border-left:0;border-top:1px solid var(--line);padding:12px 0 0;max-height:none}}
+.write-format{grid-template-columns:1fr;gap:1px}
+.write-format dd{margin:0 0 6px}
+.write-format code{background:#f3f5ee;border-radius:4px;padding:1px 5px}

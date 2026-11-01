@@ -56,3 +56,22 @@ test('plain figure names are read the usual way, and the preview says how', () =
   assert.equal(as['long lines'], 'long lines forward & back');
   assert.deepEqual(stored.figures.filter((f) => f.move === 'hey').map((f) => f.beats), [16]);
 });
+
+test('the Write a dance guide only lists what reads, and its examples dance cleanly', async () => {
+  const { WRITE_FIGURES, WRITE_EXAMPLES, WRITE_FORMAT } = await import('../one-shot-guide.ts');
+  const { checkDance } = await import('../status.ts');
+  for (const group of WRITE_FIGURES)
+    for (const phrase of group.phrases) {
+      const { stored } = readOneShot(phrase);
+      assert.deepEqual(stored.unparsed, [], `"${phrase}" reads`);
+      assert.ok(stored.figures.length > 0, `"${phrase}" is a figure`);
+    }
+  for (const [, example] of WRITE_FORMAT.filter(([, e]) => !/^(?:Title|Formation):/.test(e)))
+    assert.deepEqual(readOneShot(example).stored.unparsed, [], `format example "${example}" reads`);
+  for (const example of WRITE_EXAMPLES) {
+    const { stored } = readOneShot(example.text);
+    assert.equal(stored.figures.reduce((n, f) => n + f.beats, 0), 64, `${example.name}: 64 beats`);
+    const check = checkDance(stored);
+    assert.equal(check.status, 'ok', `${example.name}: ${check.problems[0] ?? ''}`);
+  }
+});

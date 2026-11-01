@@ -97,12 +97,14 @@ function readable(text: string): string | undefined {
 
 /** How long a figure usually takes, for a line typed without beats. */
 const USUAL: readonly [RegExp, number][] = [
+  [/contra corners/i, 16],
   [/balance (?:&|and) swing/i, 16],
   [/half hey/i, 8],
   [/\bhey\b/i, 16],
-  [/balance (?:&|and) (?:box circulate|rory|petronella|box the gnat|swat|california|twirl)/i, 8],
-  [/\b(?:pull|pass) by\b|\bpass through\b/i, 2],
-  [/box the gnat|swat the flea|california twirl|\btwirl\b|\brory\b|box circulate|\bbalance\b/i, 4],
+  [/\b(?:down|up) the hall\b.*\b(?:and back|and return|turn)/i, 16],
+  [/balance (?:&|and) (?:box circulate|rory|petronella|box the gnat|swat|california|twirl)|ocean wave (?:&|and) balance/i, 8],
+  [/^(?:\w+ )?(?:pull|pass) by\b(?!.*\b(?:and|&)\b)|^pass through(?: to [\w ]+)?$/i, 2],
+  [/box the gnat|swat the flea|california twirl|\btwirl\b|\brory\b|box circulate|\bpetronella\b|\bbalance\b/i, 4],
 ];
 const usualBeats = (text: string) => USUAL.find(([re]) => re.test(text))?.[1] ?? 8;
 
