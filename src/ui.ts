@@ -18,6 +18,9 @@ import {CONVENTIONAL_MAD_ROBIN_POLICY,MAD_ROBIN_ROW_CHOICE_DESCRIPTION,MAD_ROBIN
 import {squareThroughDescription} from './source-square-through.ts';
 import {CONVENTIONAL_RING_TWIRL,RING_TWIRL_CHOICE_DESCRIPTION} from './ring-twirl-policy.ts';
 import {READY_LIBRARY} from './ready-library.ts';
+import {readOneShot} from './next/one-shot.ts';
+import {registerNextDance} from './next/dance.ts';
+import {checkDance} from './next/status.ts';
 import {STATUS_LABEL,STATUS_ORDER,countByStatus,danceFromStored,fetchStoredDance,filterLibrary,loadLibraryIndex} from './next/library-ui.ts';
 import {FIGURE_GROUPS,STYLE_LABEL,emptyFilter,facetCounts,figuresOf,formationLabel as layoutLabel,isFilterActive,matchesFilter,type DanceStyle} from './next/library-filters.ts';
 import type {DanceStatus,LibraryEntry} from './next/dance.ts';
@@ -40,6 +43,7 @@ import { mountEditor, type EditorHandle } from './editor';
 import { mountFeedback } from './feedback/index.ts';
 
 const icons: Record<string, string> = {
+  edit: '<path d="M4 20h4L19 9l-4-4L4 16z"/><path d="M14 6l4 4"/>',
   play: '<path d="m8 5 11 7-11 7Z" fill="currentColor" stroke="none"/>',
   pause: '<path d="M8 5v14M16 5v14" stroke-width="4"/>',
   reset: '<path d="M4 10a8 8 0 1 1 1 7M4 4v6h6"/>',
@@ -231,7 +235,7 @@ export function createUI(root: HTMLElement, actions: StudioActions, initial: Stu
     <header class="app-header">
       <a class="brand" href="#" aria-label="Contra Studio home"><span class="brand-mark"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M10 8c-9 0-9 16 0 16s3-16 12-16 9 16 0 16" fill="none" stroke="currentColor" stroke-width="2.3"/><circle cx="10" cy="8" r="3" fill="currentColor"/><circle cx="22" cy="24" r="3" fill="currentColor"/></svg></span><span>contra<span class="brand-light">studio</span></span></a>
       <nav class="main-nav" aria-label="Main navigation"><button class="nav-item active" data-action="studio">Studio</button><button class="nav-item" data-action="library">Dance library</button><button class="nav-item" data-action="guide">How it works</button><a class="nav-item" href="./figures.html">Figures</a><a class="nav-item" href="./timing-lab.html">Timing lab</a></nav>
-      <div class="header-actions">${buttons('import', 'plus', 'Import dance', 'class="button button-primary"')}</div>
+      <div class="header-actions">${buttons('write-dance', 'edit', 'Write a dance', 'class="button button-secondary"')}${buttons('import', 'plus', 'Import dance', 'class="button button-primary"')}</div>
     </header>
     <div class="dance-header"><div class="dance-heading"><div class="title-line"><h1 id="dance-title"></h1><button class="title-switch" data-action="library" aria-label="Choose another dance">${icon('chevron')}</button></div><p class="dance-byline" id="dance-byline"></p></div><div class="dance-meta"><span class="meta-pill">${icon('people')}<span id="formation-label">Duple improper</span></span><span class="meta-pill beats-pill">${icon('music')}<span id="dance-beat-count">64 beats</span></span><button class="source-link" data-action="source">Source & notes ${icon('external')}</button></div></div>
     <main class="workspace">
@@ -664,6 +668,68 @@ export function createUI(root: HTMLElement, actions: StudioActions, initial: Stu
   function showGuide(limitsOnly = false) {
     openDialog('How it works', '', `${!limitsOnly ? `<div class="guide-steps"><div><span>01</span><section><p>Play a complete sequence, or click a figure in the score to jump straight to it. Slow down without losing your place.</p></section></div><div><span>02</span><section><p>Choose a dancer below the floor. Switch to overhead for the path, or dancer view for an eye-level perspective. Turn on paths, hands, and labels as needed. Set the floor to 2–12 couples to study waiting and reentry at the ends. Changing set size pauses and restarts the same interpretation; the saved dance is unchanged.</p></section></div><div><span>03</span><section><p>Import a card or Caller’s Box JSON record.</p></section></div></div><div class="shortcut-list"><span><kbd>Space</kbd> Play / pause</span><span><kbd>←</kbd><kbd>→</kbd> One beat</span><span><kbd>Shift</kbd> + arrows · Figure</span><span><kbd>Home</kbd> Restart</span></div>` : ''}<div class="guide-links"><a href="https://www.ibiblio.org/contradance/thecallersbox/index.php" target="_blank" rel="noopener noreferrer">The Caller’s Box ${icon('external')}</a><a href="https://www.libraryofdance.org/dances/contra/alr/" target="_blank" rel="noopener noreferrer">Figure demonstrations ${icon('external')}</a></div>`);
   }
+  /**
+   * Write a dance: figures as plain text, one per line, danced at once
+   * (next/one-shot.ts). Each line shows how it was read as you type; the
+   * draft survives reloads; the text box takes dictation (data-dictate).
+   */
+  const WRITE_DRAFT='contra-write-draft',WRITE_FORMATION='contra-write-formation';
+  const WRITE_EXAMPLE=`Title: My first dance
+A1  8  neighbors balance & swing
+A2  8  circle left 3 places
+    8  pass through to next neighbors
+B1 16  partners balance & swing
+B2  8  long lines forward & back
+    8  robins chain`;
+  const storeGet=(key:string)=>{try{return sessionStorage.getItem(key);}catch{return null;}};
+  const storeSet=(key:string,value:string)=>{try{sessionStorage.setItem(key,value);}catch{/* Private mode. */}};
+  function showWriteDance(){
+    const formations=[['improper','Improper duple'],['becket','Becket'],['becket ccw','Becket, counterclockwise'],['proper','Proper duple'],['triplet','Triplet'],['triple minor','Triple minor'],['square','Square'],['circle mixer','Circle mixer'],['sicilian circle','Sicilian circle']];
+    const chosen=storeGet(WRITE_FORMATION)??'improper';
+    openDialog('Write a dance','ONE SHOT',`<p class="dialog-intro">Type (or dictate) the figures, one per line, and dance them. Start a line with its part (A1, A2, B1, B2) and beats if you like; lines without beats share what is left of their 16-beat part. Anything not understood stands still and is listed below.</p><label class="write-formation">Formation <select id="write-formation">${formations.map(([v,l])=>`<option value="${esc(v)}"${v===chosen?' selected':''}>${esc(l)}</option>`).join('')}</select></label><textarea id="write-text" data-dictate rows="12" spellcheck="false" aria-label="The dance, one figure per line" placeholder="${esc(WRITE_EXAMPLE)}"></textarea><div class="write-actions"><button type="button" class="button button-primary" data-action="write-go">${icon('play')}<span>Dance it</span></button><span id="write-summary" class="field-help"></span></div><ol id="write-preview" class="write-preview"></ol>`,true);
+    const field=$<HTMLTextAreaElement>('#write-text'),formation=$<HTMLSelectElement>('#write-formation');
+    field.value=storeGet(WRITE_DRAFT)??'';
+    let timer=0;
+    const preview=()=>{window.clearTimeout(timer);timer=window.setTimeout(()=>renderWritePreview(field.value,formation.value),250);};
+    field.addEventListener('input',()=>{storeSet(WRITE_DRAFT,field.value);preview();});
+    formation.addEventListener('change',()=>{storeSet(WRITE_FORMATION,formation.value);preview();});
+    // Clicking Dance it leaves focus (and any dictation) in the text box.
+    $('[data-action="write-go"]').addEventListener('mousedown',e=>e.preventDefault());
+    renderWritePreview(field.value,formation.value);
+    field.focus();field.setSelectionRange(field.value.length,field.value.length);
+  }
+  /** How each typed line was read: its part, beats and figures, or why not. */
+  function renderWritePreview(text:string,formation:string){
+    const list=$('#write-preview'),summary=$('#write-summary');if(!list)return;
+    if(!text.trim()){list.innerHTML='';summary.textContent='';return;}
+    let read;try{read=readOneShot(text,formation);}catch(error){summary.textContent=error instanceof Error?error.message:'This text could not be read.';list.innerHTML='';return;}
+    const {stored,lines}=read;let row=0;
+    list.innerHTML=lines.map(l=>{
+      if(!l.row)return `<li class="write-line is-header"><code>${esc(l.typed.trim())}</code></li>`;
+      row++;const calls=stored.figures.filter(f=>f.row===row),miss=stored.unparsed.find(u=>u.row===row);
+      const what=miss?`<span class="write-miss">Not understood: ${esc(miss.why)}</span>`:`<span class="write-read">${esc(calls.map(c=>`${c.move.replace(/-/g,' ')} (${c.beats})`).join(' · '))}</span>`;
+      return `<li class="write-line${miss?' is-miss':''}"><span class="write-where">${esc(l.row.section??'')} · ${l.row.beats}${l.row.guessed?'?':''}</span><code>${esc(l.row.text)}</code>${what}</li>`;
+    }).join('');
+    const total=stored.figures.reduce((n,f)=>n+f.beats,0);
+    summary.textContent=`${row-stored.unparsed.length} of ${row} lines understood · ${total} beats${total%64?' (a contra is usually 64)':''}`;
+  }
+  /** Dance the typed text now: registered with the engine like a library dance. */
+  function danceWritten(){
+    const field=$<HTMLTextAreaElement>('#write-text'),formation=$<HTMLSelectElement>('#write-formation');if(!field)return;
+    const go=()=>{
+      const text=field.value;if(!text.trim()){notify('Type a figure or two first.');return;}
+      let read;try{read=readOneShot(text,formation.value);}catch(error){notify(error instanceof Error?error.message:'This text could not be read.');return;}
+      const stored=read.stored;
+      try{const check=checkDance(stored);Object.assign(stored,{status:check.status,problems:check.problems});}catch{/* Danced anyway, rows held still where they cannot start. */}
+      registerNextDance(stored);closeDialog();actions.loadDance(danceFromStored(stored));
+      const missed=stored.unparsed.length;
+      notify(missed?`Dancing it. ${missed} line${missed>1?'s':''} not understood stand${missed>1?'':'s'} still: reopen Write a dance to see why.`:stored.problems.length?`Dancing it. ${stored.problems[0]}`:'Dancing it.');
+    };
+    // Dictation still landing: stop it and wait for the text before dancing.
+    const state=field.dataset.dictateState;
+    if(state==='starting'||state==='listening'||state==='landing'){field.addEventListener('dictate:landed',()=>go(),{once:true});if(state!=='landing')field.dispatchEvent(new CustomEvent('dictate:stop'));return;}
+    go();
+  }
   function notify(message: string) { const el = $('#studio-toast'); el.textContent = message; el.hidden = false; window.setTimeout(() => { el.hidden = true; }, 3500); }
   function toggleTeaching() { teaching = !teaching; root.classList.toggle('teaching-mode', teaching); const el = $('[data-action="teach"]'); el.setAttribute('aria-label', teaching ? 'Exit teaching view' : 'Enter teaching view'); el.setAttribute('title', teaching ? 'Exit teaching view (Escape)' : 'Teaching view'); el.setAttribute('aria-pressed', String(teaching)); }
 
@@ -718,6 +784,8 @@ export function createUI(root: HTMLElement, actions: StudioActions, initial: Stu
       case 'figure-loop': figureLoop = !figureLoop; actions.setLoopFigure(figureLoop); pressed('.transport-bottom [data-action="figure-loop"]', figureLoop); if (dialog.open) closeDialog(); break;
       case 'library': showLibrary(); break;
       case 'import': showImport(); break;
+      case 'write-dance': showWriteDance(); break;
+      case 'write-go': danceWritten(); break;
       case 'source': showSource(); break;
       case 'review-current-source': {const archive=(state.dance as Dance & {sourceText?:string}).sourceText||sourceText.get(state.dance.id);if(archive){showImport();$<HTMLTextAreaElement>('#import-text').value=archive;parseImport();}break;}
       case 'guide': showGuide(); break;

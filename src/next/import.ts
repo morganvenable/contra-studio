@@ -547,11 +547,11 @@ function startInWave(parsed: (StoredCall[] | Error)[]) {
  * in, or a short wave by the hands named (robins in the middle by the left
  * unless the notes name the middles).
  */
-function startAsTold(parsed: (StoredCall[] | Error)[], html: string) {
+function startAsTold(parsed: (StoredCall[] | Error)[], preamble: string) {
   const first = Array.isArray(parsed[0]) ? parsed[0][0] : undefined;
   if (!first || first.move !== 'balance') return;
   if (first.params.formation !== 'wave' && first.params.formation !== 'current') return;
-  const note = text(html, /dance-show-preamble">([\s\S]*?)<\/div>/).toLowerCase();
+  const note = preamble.toLowerCase();
   const role = (word: string | undefined) =>
     word === undefined
       ? undefined
@@ -714,7 +714,40 @@ function namedProgression(figures: StoredCall[], shape: Shape | undefined) {
 export function importDance(id: string, snapshot: ContraDbSnapshot, sha256: string): StoredDance {
   const html = snapshot.html;
   const meta = contraDbMeta(html);
-  const rows = contraDbRows(html);
+  return importRows({
+    id,
+    title: meta.title,
+    author: meta.author,
+    formation: meta.formation,
+    rows: contraDbRows(html),
+    preamble: text(html, /dance-show-preamble">([\s\S]*?)<\/div>/),
+    source: {
+      url: snapshot.sourceUrl,
+      formation: meta.formation,
+      ...(snapshot.retrievedAt ? { retrievedAt: snapshot.retrievedAt } : {}),
+      sha256,
+      ...(html.includes('sketchbook') ? { status: 'sketchbook' } : {}),
+    },
+  });
+}
+
+/** A dance's rows as written, wherever they come from (a ContraDB page, typed text). */
+export interface RowsInput {
+  readonly id: string;
+  readonly title: string;
+  readonly author: string;
+  /** The formation as written ("improper", "Becket ccw" ...). */
+  readonly formation: string;
+  readonly rows: readonly SourceRow[];
+  /** Notes before the figures (who starts where). */
+  readonly preamble?: string;
+  readonly source: StoredDance['source'];
+}
+
+/** The stored dance for rows as written: each row parsed, joined and read as the importer does. */
+export function importRows(input: RowsInput): StoredDance {
+  const meta = { title: input.title, author: input.author, formation: input.formation };
+  const rows = input.rows;
   const shape = wholeSetShape(rows, shapeOf(meta.formation)) as Shape | undefined;
   const figures: StoredCall[] = [];
   const unparsed: UnparsedRow[] = [];
@@ -736,7 +769,7 @@ export function importDance(id: string, snapshot: ContraDbSnapshot, sha256: stri
   joinTravelRows(rows, parsed, shape?.formation);
   joinLeadIns(parsed);
   longWavesToBalance(rows, parsed);
-  startAsTold(parsed, html);
+  startAsTold(parsed, input.preamble ?? '');
   rows.forEach((row, i) => {
     const number = i + 1;
     const beats = beatsOf(row.beats);
@@ -799,19 +832,13 @@ export function importDance(id: string, snapshot: ContraDbSnapshot, sha256: stri
   return {
     schema: 'contra-studio/next-dance',
     version: 2,
-    id,
+    id: input.id,
     title: meta.title,
     author: meta.author,
     formation: shape?.formation ?? null,
     progression: progressionOf(shape, figures),
     music: { meter: '2/4', parts, times: 'repeat' },
-    source: {
-      url: snapshot.sourceUrl,
-      formation: meta.formation,
-      ...(snapshot.retrievedAt ? { retrievedAt: snapshot.retrievedAt } : {}),
-      sha256,
-      ...(html.includes('sketchbook') ? { status: 'sketchbook' } : {}),
-    },
+    source: input.source,
     status: 'unchecked',
     problems: [],
     unparsed,

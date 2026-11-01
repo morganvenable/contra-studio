@@ -85,3 +85,16 @@ a.nav-item { display: inline-flex; align-items: center; text-decoration: none; }
 /* The page's music menu, beside the speed control (also in the Music dialog). */
 .music-select select{border:1px solid #e3e8d9;border-radius:6px;background:#fafbf5;color:#5d6b4f;font-size:10px;padding:7px 9px;max-width:230px;text-overflow:ellipsis}
 @media (max-width:760px){.music-select select{max-width:140px;font-size:9px}}
+/* Write a dance: the text box and how each line was read. */
+.write-formation{display:flex;gap:8px;align-items:center;font-size:12px;margin:10px 0 8px}
+.write-formation select{border:1px solid #e3e8d9;border-radius:6px;background:#fafbf5;padding:6px 8px;font-size:12px}
+#write-text{width:100%;min-height:200px;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px;line-height:1.5;border:1px solid #dfe5db;border-radius:8px;padding:10px 12px;background:#fffefa;resize:vertical}
+.write-actions{display:flex;gap:12px;align-items:center;margin:10px 0}
+.write-preview{list-style:none;padding:0;margin:0;max-height:260px;overflow:auto;font-size:12px}
+.write-line{display:grid;grid-template-columns:70px minmax(0,1fr) minmax(0,1.2fr);gap:10px;padding:5px 2px;border-bottom:1px solid var(--line)}
+.write-line.is-header{grid-template-columns:1fr;color:var(--muted)}
+.write-line code{font-size:12px;overflow-wrap:anywhere}
+.write-where{color:var(--muted);font-variant-numeric:tabular-nums}
+.write-read{color:var(--green)}
+.write-miss{color:#a4553a}
+@media (max-width:640px){.write-line{grid-template-columns:52px minmax(0,1fr)}.write-line .write-read,.write-line .write-miss{grid-column:2}}
