@@ -239,7 +239,7 @@ export function createUI(root: HTMLElement, actions: StudioActions, initial: Stu
     <header class="app-header">
       <a class="brand" href="#" aria-label="Contra Studio home"><span class="brand-mark"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M10 8c-9 0-9 16 0 16s3-16 12-16 9 16 0 16" fill="none" stroke="currentColor" stroke-width="2.3"/><circle cx="10" cy="8" r="3" fill="currentColor"/><circle cx="22" cy="24" r="3" fill="currentColor"/></svg></span><span>contra<span class="brand-light">studio</span></span></a>
       <nav class="main-nav" aria-label="Main navigation"><button class="nav-item active" data-action="studio">Studio</button><button class="nav-item" data-action="library">Dance library</button><button class="nav-item" data-action="guide">How it works</button><a class="nav-item" href="./figures.html">Figures</a><a class="nav-item" href="./timing-lab.html">Timing lab</a></nav>
-      <div class="header-actions">${buttons('write-dance', 'edit', 'Write a dance', 'class="button button-secondary"')}${buttons('import', 'plus', 'Import dance', 'class="button button-primary"')}</div>
+      <div class="header-actions">${buttons('write-dance', 'edit', 'Draft', 'class="button button-secondary"')}${buttons('import', 'plus', 'Import dance', 'class="button button-primary"')}</div>
     </header>
     <div class="dance-header"><div class="dance-heading"><div class="title-line"><h1 id="dance-title"></h1><button class="title-switch" data-action="library" aria-label="Choose another dance">${icon('chevron')}</button></div><p class="dance-byline" id="dance-byline"></p></div><div class="dance-meta"><span class="meta-pill">${icon('people')}<span id="formation-label">Duple improper</span></span><span class="meta-pill beats-pill">${icon('music')}<span id="dance-beat-count">64 beats</span></span><button class="source-link" data-action="source">Source & notes ${icon('external')}</button></div></div>
     <main class="workspace">
@@ -685,21 +685,23 @@ A2  8  circle left 3 places
 B1 16  partners balance & swing
 B2  8  long lines forward & back
     8  robins chain`;
-  const storeGet=(key:string)=>{try{return sessionStorage.getItem(key);}catch{return null;}};
-  const storeSet=(key:string,value:string)=>{try{sessionStorage.setItem(key,value);}catch{/* Private mode. */}};
+  // The draft stays in this browser (across reloads and visits) until cleared.
+  const storeGet=(key:string)=>{try{return localStorage.getItem(key)??sessionStorage.getItem(key);}catch{return null;}};
+  const storeSet=(key:string,value:string)=>{try{localStorage.setItem(key,value);}catch{/* Private mode. */}};
   function showWriteDance(){
     const formations=[['improper','Improper duple'],['becket','Becket'],['becket ccw','Becket, counterclockwise'],['proper','Proper duple'],['triplet','Triplet'],['triple minor','Triple minor'],['square','Square'],['circle mixer','Circle mixer'],['sicilian circle','Sicilian circle']];
     const chosen=storeGet(WRITE_FORMATION)??'improper';
     const guide=`<aside class="write-guide" aria-label="How to write a dance"><h3>How to write it</h3><dl class="write-format">${WRITE_FORMAT.map(([what,eg])=>`<dt>${esc(what)}</dt><dd><code>${esc(eg)}</code></dd>`).join('')}</dl><p class="write-who">${esc(WRITE_WHO)}</p><h3>Figures it reads <small>click to add</small></h3>${WRITE_FIGURES.map(g=>`<details class="write-group"${g.title==='Swings and balances'?' open':''}><summary>${esc(g.title)}</summary>${g.note?`<p class="field-help">${esc(g.note)}</p>`:''}<div class="write-chips">${g.phrases.map(ph=>`<button type="button" class="write-chip" data-insert="${esc(ph)}">${esc(ph)}</button>`).join('')}</div></details>`).join('')}<h3>Start from an example</h3><div class="write-chips">${WRITE_EXAMPLES.map((x,i)=>`<button type="button" class="write-chip write-example" data-example="${i}">${esc(x.name)}</button>`).join('')}</div><p class="field-help">An example replaces the text; Ctrl+Z brings yours back.</p></aside>`;
-    openDialog('Write a dance','ONE SHOT',`<div class="write-layout"><div class="write-editor"><p class="dialog-intro">Type (or dictate) the figures, one per line, and dance them. The list under the box shows how each line was read; anything not understood stands still.</p><label class="write-formation">Formation <select id="write-formation">${formations.map(([v,l])=>`<option value="${esc(v)}"${v===chosen?' selected':''}>${esc(l)}</option>`).join('')}</select></label><textarea id="write-text" data-dictate rows="12" spellcheck="false" aria-label="The dance, one figure per line" placeholder="${esc(WRITE_EXAMPLE)}"></textarea><div class="write-actions"><button type="button" class="button button-primary" data-action="write-go">${icon('play')}<span>Dance it</span></button><span id="write-summary" class="field-help"></span></div><p id="write-progress" class="write-progress" hidden></p><div id="write-parts" class="write-parts"></div><ol id="write-preview" class="write-preview"></ol><section class="write-explore"><div class="write-explore-head"><h3>What could come next</h3><button type="button" class="button button-secondary" data-action="write-explore">${icon('search')}<span>Explore from the end</span></button></div><p class="field-help">Tries every figure in the guide as your next line, from where the dancers are at the end. Click one to add it and explore again from there; each path down is a branch of the tree. Awkward is not wrong: some of the best dances have a moment like that.</p><div id="write-next"></div></section></div>${guide}</div>`,true);
+    openDialog('Draft','',`<div class="write-layout"><div class="write-editor"><label class="write-formation">Formation <select id="write-formation">${formations.map(([v,l])=>`<option value="${esc(v)}"${v===chosen?' selected':''}>${esc(l)}</option>`).join('')}</select></label><textarea id="write-text" data-dictate rows="12" spellcheck="false" aria-label="The dance, one figure per line" placeholder="${esc(WRITE_EXAMPLE)}"></textarea><div class="write-actions"><button type="button" class="button button-primary" data-action="write-go">${icon('play')}<span>Play</span></button><span id="write-summary" class="field-help"></span><span class="write-saved field-help">Kept in this browser · <button type="button" class="text-button" data-action="write-clear">Clear</button></span></div><p id="write-progress" class="write-progress" hidden></p><div id="write-parts" class="write-parts"></div><ol id="write-preview" class="write-preview"></ol><section class="write-explore"><h3>Next line</h3><div id="write-next"></div></section></div>${guide}</div>`,true);
     const field=$<HTMLTextAreaElement>('#write-text'),formation=$<HTMLSelectElement>('#write-formation');
     field.value=storeGet(WRITE_DRAFT)??'';
-    let timer=0;
-    const preview=()=>{window.clearTimeout(timer);timer=window.setTimeout(()=>renderWritePreview(field.value,formation.value),250);};
+    let timer=0,nextTimer=0;
+    // The preview follows the text at once; the next-line options once the typing pauses.
+    const preview=()=>{window.clearTimeout(timer);timer=window.setTimeout(()=>renderWritePreview(field.value,formation.value),250);exploreRun++;window.clearTimeout(nextTimer);nextTimer=window.setTimeout(exploreNext,1200);};
     field.addEventListener('input',()=>{storeSet(WRITE_DRAFT,field.value);preview();});
     formation.addEventListener('change',()=>{storeSet(WRITE_FORMATION,formation.value);preview();});
-    // Clicking Dance it, a figure or an example leaves focus (and any dictation) in the text box.
-    content.querySelectorAll('[data-action="write-go"],[data-action="write-explore"],[data-insert],[data-example]').forEach(b=>b.addEventListener('mousedown',e=>e.preventDefault()));
+    // Clicking Play, a figure or an example leaves focus (and any dictation) in the text box.
+    content.querySelectorAll('[data-action="write-go"],[data-action="write-clear"],[data-insert],[data-example]').forEach(b=>b.addEventListener('mousedown',e=>e.preventDefault()));
     // A figure goes in as a line of its own at the cursor.
     content.querySelectorAll<HTMLButtonElement>('[data-insert]').forEach(b=>b.addEventListener('click',()=>{
       const NL='\n',at=field.selectionStart,before=field.value.slice(0,at),lineStart=!before||before.endsWith(NL);
@@ -730,6 +732,7 @@ B2  8  long lines forward & back
     for(const type of ['keyup','click','focus','select'])field.addEventListener(type,markWriteLine);
     document.addEventListener('selectionchange',markWriteLine);
     renderWritePreview(field.value,formation.value);
+    if(field.value.trim())nextTimer=window.setTimeout(exploreNext,400);
     field.focus();field.setSelectionRange(field.value.length,field.value.length);markWriteLine();
   }
   /** Mark the preview row of the line the cursor is on, the previous one when it sits on a blank line. */
@@ -788,7 +791,7 @@ B2  8  long lines forward & back
   function exploreNext(){
     const field=$<HTMLTextAreaElement>('#write-text'),formation=$<HTMLSelectElement>('#write-formation'),out=$('#write-next');if(!field||!out)return;
     const text=field.value,run=++exploreRun;
-    if(!text.trim()){out.innerHTML='<p class="field-help">Write a line or two first.</p>';return;}
+    if(!text.trim()){out.innerHTML='';return;}
     const phrases=WRITE_FIGURES.flatMap(g=>g.phrases),results:NextMove[]=[];
     const compile=(s:Parameters<typeof compileNext>[0])=>compileNext(s,4,undefined,{lenient:false});
     const check=(d:unknown)=>physicalCheck(d as never,{rounds:1});
@@ -800,7 +803,7 @@ B2  8  long lines forward & back
       const chips=(fit:NextMove['fit'],tier?:string)=>pick(fit,tier).map(chip).join('');
       const count=(fit:NextMove['fit'],tier?:string)=>pick(fit,tier).length;
       const flows=flowHabits?[['common',`Usual after a ${lastMove}`],['seen','Sometimes'],['rare','Rare or new: worth a look']].filter(([t])=>count('flows',t)).map(([t,h])=>`<h4>${esc(h)} (${count('flows',t)})</h4><div class="write-chips">${chips('flows',t)}</div>`).join(''):`<h4>Flows (${count('flows')})</h4><div class="write-chips">${chips('flows')}</div>`;
-      out.innerHTML=`<p class="field-help">${results.length<phrases.length?`Trying ${results.length+1} of ${phrases.length}…`:`From the end of your dance (beat ${readOneShot(text,formation.value).stored.figures.reduce((n,f)=>n+f.beats,0)}): ×n is how often choreographers follow a ${lastMove} with it in the library; ↺ a counter-turn they rarely write; ↓ moves the 1s past their 2s, ↑ brings them back.`}</p>`
+      out.innerHTML=`<p class="field-help">${results.length<phrases.length?`Trying ${results.length+1} of ${phrases.length}…`:`After beat ${readOneShot(text,formation.value).stored.figures.reduce((n,f)=>n+f.beats,0)} · ×n library dances that follow a ${lastMove} with it · ↓ ↑ 1s past / back above their 2s · ↺ rare counter-turn`}</p>`
         +flows
         +(count('awkward')?`<h4>Awkward (${count('awkward')})</h4><div class="write-chips">${chips('awkward')}</div>`:'')
         +(count('stuck')?`<details><summary>Can't start here (${count('stuck')})</summary><div class="write-chips">${chips('stuck')}</div></details>`:'');
@@ -829,7 +832,8 @@ B2  8  long lines forward & back
       const missed=stored.unparsed.length;
       let trace;try{trace=traceProgression(stored,s=>compileNext(s,4));}catch{trace=undefined;}
       const progressNote=trace&&!trace.summary.startsWith('Progression works')?` ${trace.summary}`:stored.problems.length?` ${stored.problems[0]}`:'';
-      notify(missed?`Dancing it. ${missed} line${missed>1?'s':''} not understood stand${missed>1?'':'s'} still: reopen Write a dance to see why.`:`Dancing it.${progressNote}`);
+      const message=missed?`${missed} line${missed>1?'s':''} not understood stand${missed>1?'':'s'} still; the Draft shows why.`:progressNote.trim();
+      if(message)notify(message);
     };
     // Dictation still landing: stop it and wait for the text before dancing.
     const state=field.dataset.dictateState;
@@ -892,7 +896,7 @@ B2  8  long lines forward & back
       case 'import': showImport(); break;
       case 'write-dance': showWriteDance(); break;
       case 'write-go': danceWritten(); break;
-      case 'write-explore': exploreNext(); break;
+      case 'write-clear': {const f=$<HTMLTextAreaElement>('#write-text');if(f){f.focus();f.select();if(!document.execCommand('insertText',false,''))f.value='';f.dispatchEvent(new Event('input'));}break;}
       case 'source': showSource(); break;
       case 'review-current-source': {const archive=(state.dance as Dance & {sourceText?:string}).sourceText||sourceText.get(state.dance.id);if(archive){showImport();$<HTMLTextAreaElement>('#import-text').value=archive;parseImport();}break;}
       case 'guide': showGuide(); break;

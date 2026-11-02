@@ -145,7 +145,8 @@ a.nav-item { display: inline-flex; align-items: center; text-decoration: none; }
 .write-part.is-over{border-color:#e4c2b2;color:#a4553a}
 .write-part.is-over i{background:#a4553a;width:100%!important}
 .write-explore{margin-top:14px;border-top:1px solid var(--line);padding-top:10px}
-.write-explore-head{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.write-saved{margin-left:auto}
+.write-saved .text-button{font-size:inherit;padding:0;text-decoration:underline}
 .write-explore h3{font-size:13px;margin:0}
 .write-explore h4{font-size:11px;margin:10px 0 4px;color:var(--muted);font-weight:600}
 .write-next-flows{border-color:#cfe0c9}
