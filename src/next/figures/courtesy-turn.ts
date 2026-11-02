@@ -64,9 +64,8 @@ export const courtesyTurn: Figure<CourtesyTurnParams> = (state, params, beats) =
 
   const plans = minorSets(state).flatMap((g) =>
     pairsIn(state, g, who).map(([a, b]) => {
-      const [t, f] = roleOf(state, a) === turnerRole ? [a, b] : [b, a];
-      if (roleOf(state, t) === roleOf(state, f))
-        throw new Error('A courtesy turn pairs a lark with a robin.');
+      // Two of one role: the first turns the other.
+      const [t, f] = roleOf(state, a) === turnerRole || roleOf(state, a) === roleOf(state, b) ? [a, b] : [b, a];
       const pt = body(state, t);
       const pf = body(state, f);
       const span = length(sub(pf.position, pt.position));

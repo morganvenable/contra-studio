@@ -4,8 +4,8 @@
  "catalogue": 2422,
  "stored": 2422,
  "counts": {
-  "ok": 1014,
-  "check": 326,
+  "ok": 1013,
+  "check": 327,
   "partial": 1082,
   "unsupported": 0
  },
@@ -21,8 +21,8 @@
   {
    "formation": "becket",
    "dances": 655,
-   "ok": 222,
-   "check": 145,
+   "ok": 221,
+   "check": 146,
    "partial": 288,
    "unsupported": 0
   },
@@ -2433,7 +2433,7 @@
    },
    {
     "name": "hey (other)",
-    "unlocks": 9
+    "unlocks": 10
    },
    {
     "name": "chain variant",
@@ -2544,10 +2544,6 @@
     "unlocks": 1
    },
    {
-    "name": "california twirl",
-    "unlocks": 1
-   },
-   {
     "name": "other: bottom couple sashay down to end of set",
     "unlocks": 1
    },
@@ -2650,6 +2646,10 @@
     "unlocks": 2
    },
    {
+    "name": "california twirl",
+    "unlocks": 2
+   },
+   {
     "name": "box circulate",
     "unlocks": 2
    },
@@ -2691,10 +2691,6 @@
    },
    {
     "name": "The next time through can't start from where the dancers end: A star of 4 needs the dancers spaced around a ring.).",
-    "unlocks": 1
-   },
-   {
-    "name": "california twirl",
     "unlocks": 1
    },
    {

@@ -174,9 +174,9 @@ function planPair(
     roundBeats > 0 ? smooth((t * beats - roundBeats + MELT_BEATS / 2) / MELT_BEATS) : 1;
   const frameAngle = (t: number) => FRAME * melted(t);
   const orbit = (t: number) => ROUND_RADIUS + (RADIUS * tight - ROUND_RADIUS) * melted(t);
-  const lark = roleOf(state, a) === 'lark' ? a : b;
+  // Two of one role swing too: the first takes the lark's part.
+  const lark = roleOf(state, a) === roleOf(state, b) || roleOf(state, a) === 'lark' ? a : b;
   const robin = lark === a ? b : a;
-  if (roleOf(state, robin) !== 'robin') throw new Error('A swing pairs a lark with a robin.');
   const start = new Map([lark, robin].map((id) => [id, body(state, id)]));
   const center0 = mean([...start.values()].map((s) => s.position));
   const group = groupOf(state, a);
