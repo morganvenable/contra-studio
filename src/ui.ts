@@ -742,7 +742,6 @@ B2  8  long lines forward & back
     const rows=[...list.querySelectorAll<HTMLElement>('li[data-at]')];
     const current=rows.filter(r=>Number(r.dataset.at)<=lineAt).pop();
     for(const r of rows)r.classList.toggle('is-current',r===current&&document.activeElement===field);
-    if(current&&document.activeElement===field)current.scrollIntoView({block:'nearest'});
   }
   /** How each typed line was read: its part, beats and figures, or why not. */
   /** How often choreographers follow one figure with another; loaded the first time Write a dance needs it. */
