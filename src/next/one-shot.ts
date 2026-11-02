@@ -60,6 +60,17 @@ const REWRITES: readonly ((t: string, earlier: Earlier) => string | undefined)[]
     const m = t.match(/^(?:(\w+) start (?:a |the )?)?(full |half )?hey(?: for four)?$/i);
     return m ? `${m[1] ?? 'robins'} start a ${(m[2] ?? 'full ').trim()} hey - rights on ends, lefts in center` : undefined;
   },
+  // "hey for four, larks pass left shoulders": the larks start, by that shoulder in the center.
+  (t) => {
+    const m = t.match(/^(?:(full|half) )?hey(?: for four)?,? (\w+) (?:pass|start(?: passing)?) (?:by )?(left|right)(?: shoulders?)?$/i);
+    if (!m) return undefined;
+    const other = m[3].toLowerCase() === 'left' ? 'right' : 'left';
+    return `${m[2]} start a ${(m[1] ?? 'full').toLowerCase()} hey - ${m[3].toLowerCase()}s in center, ${other}s on ends`;
+  },
+  // "neighbors two hand balance & swing": the balance takes both hands anyway.
+  (t) => (/\btwo[- ]hand(?:ed)? balance (?:&|and) swing\b/i.test(t) ? t.replace(/two[- ]hand(?:ed)? balance/i, 'balance') : undefined),
+  // "next neighbors ...": the neighbors (after the progression, the next ones).
+  (t) => (/^next neighbou?rs\b/i.test(t) ? t.replace(/^next neighbou?rs/i, 'neighbors') : undefined),
   (t) => (/^(?:balance (?:&|and) )?box circulate$/i.test(t) ? 'balance & box circulate - robins cross while larks loop right' : undefined),
   (t) => (/^long lines$/i.test(t) ? 'long lines forward & back' : undefined),
   (t) => (/^mad robins?$/i.test(t) ? 'mad robins, robins in front' : undefined),
@@ -77,7 +88,9 @@ const REWRITES: readonly ((t: string, earlier: Earlier) => string | undefined)[]
 /** Fill in a hand and an amount: allemandes and gyres go once around, by the right. */
 const COMPLETE: readonly ((t: string) => string)[] = [
   (t) => (/\ballemande\b/i.test(t) && !/\b(?:left|right)\b/i.test(t) ? t.replace(/\ballemande\b/i, 'allemande right') : t),
-  (t) => (/\b(?:allemande|gyre)\b/i.test(t) && !/\b(?:once|twice|\d|½|¼|¾|half|quarter|three|one)\b/i.test(t) ? `${t} once` : t),
+  // "partners left shoulder gyre": the shoulder after the figure.
+  (t) => t.replace(/^(\w+) (left|right) shoulder (gyre|do si do|see saw)$/i, '$1 $3 $2 shoulder'),
+  (t) => (/\b(?:allemande|gyre|do si do|see saw)\b/i.test(t) && !/\b(?:once|twice|\d|½|¼|¾|half|quarter|three|one)\b/i.test(t) ? `${t} once` : t),
   // "circle left (with new neighbors) all the way around": four places.
   (t) => t.replace(/^circle (left|right)(.*?),? (?:all the way|once) around$/i, 'circle $1 4 places$2'),
 ];
@@ -165,7 +178,7 @@ const optionsFor = (text: string) => OPTIONS.flatMap((o) => o(text)).filter((o) 
 
 /** Who a line may name instead of the one filled in: dancers in pairs, or a role. */
 const WHO_CHOICES = [
-  ['partners', 'neighbors', 'shadows', 'next neighbors'],
+  ['partners', 'neighbors', 'shadows'],
   ['larks', 'robins'],
 ];
 /**
