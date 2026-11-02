@@ -4,8 +4,8 @@
  "catalogue": 2422,
  "stored": 2422,
  "counts": {
-  "ok": 1013,
-  "check": 327,
+  "ok": 1017,
+  "check": 323,
   "partial": 1082,
   "unsupported": 0
  },
@@ -13,8 +13,8 @@
   {
    "formation": "improper",
    "dances": 1189,
-   "ok": 624,
-   "check": 110,
+   "ok": 627,
+   "check": 107,
    "partial": 455,
    "unsupported": 0
   },
@@ -157,8 +157,8 @@
   {
    "formation": "progressed improper",
    "dances": 4,
-   "ok": 1,
-   "check": 3,
+   "ok": 2,
+   "check": 2,
    "partial": 0,
    "unsupported": 0
   },
@@ -2567,11 +2567,7 @@
   "checkFailures": [
    {
     "name": "Couples don't end the round where the progression puts them.",
-    "unlocks": 138
-   },
-   {
-    "name": "ocean wave / long wave",
-    "unlocks": 22
+    "unlocks": 145
    },
    {
     "name": "swing variant",
@@ -2582,16 +2578,20 @@
     "unlocks": 21
    },
    {
-    "name": "allemande variant",
-    "unlocks": 16
+    "name": "ocean wave / long wave",
+    "unlocks": 19
    },
    {
-    "name": "hey (other)",
-    "unlocks": 9
+    "name": "allemande variant",
+    "unlocks": 12
    },
    {
     "name": "star promenade",
     "unlocks": 9
+   },
+   {
+    "name": "hey (other)",
+    "unlocks": 8
    },
    {
     "name": "take hands (wave/line set-up)",
@@ -2606,15 +2606,15 @@
     "unlocks": 5
    },
    {
-    "name": "other: pass through",
-    "unlocks": 5
-   },
-   {
     "name": "into the middle / forward & back",
     "unlocks": 4
    },
    {
     "name": "diagonal hey",
+    "unlocks": 4
+   },
+   {
+    "name": "other: pass through",
     "unlocks": 4
    },
    {
@@ -2631,10 +2631,6 @@
    },
    {
     "name": "pull by / pass by",
-    "unlocks": 3
-   },
-   {
-    "name": "do-si-do variant",
     "unlocks": 3
    },
    {
@@ -2667,6 +2663,10 @@
    },
    {
     "name": "The next time through can't start from where the dancers end: Playback is limited to one round: the next round cannot start (slice starts before a waiting couple finishes crossing.).",
+    "unlocks": 2
+   },
+   {
+    "name": "do-si-do variant",
     "unlocks": 2
    },
    {
@@ -2715,10 +2715,6 @@
    },
    {
     "name": "The next time through can't start from where the dancers end: Dancers 0 and 4 are too far apart to turn by the hand.).",
-    "unlocks": 1
-   },
-   {
-    "name": "other: pass through across the set",
     "unlocks": 1
    },
    {
