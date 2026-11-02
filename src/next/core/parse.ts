@@ -280,21 +280,26 @@ const PATTERNS: readonly (readonly [RegExp, Build])[] = [
     (m, b) => {
       const style = m[3] === 'box the gnat' ? 'box-the-gnat' : 'swat-the-flea';
       const hand = m[2] ?? (style === 'box-the-gnat' ? 'right' : 'left');
+      // The hand the balance takes is the hand the twirl goes under (said only when not the usual one).
+      const usual = style === 'box-the-gnat' ? 'right' : 'left';
       return [
         call('balance', 4, { formation: 'pair', who: who(m[1]), hand }),
-        call('twirl', b - 4, { style, who: who(m[1]) }),
+        call('twirl', b - 4, { style, who: who(m[1]), ...(hand !== usual ? { hand } : {}) }),
       ];
     },
   ],
   [
-    /^((?:next |new )?\w+) (box the gnat|swat the flea|california twirl)$/,
+    // Any pair, by either hand: "partners box the gnat", "shadows California twirl left".
+    /^((?:next |new )?\w+) (?:(right|left) hand )?(box the gnat|swat the flea|california twirl)(?:,? (?:by the |with (?:the )?)?(right|left)(?: hands?)?)?$/,
     (m, b) => {
       const styles: Record<string, string> = {
         'box the gnat': 'box-the-gnat',
         'swat the flea': 'swat-the-flea',
         'california twirl': 'california',
       };
-      return [call('twirl', b, { style: styles[m[2]], who: who(m[1]) })];
+      const hand = m[2] ?? m[4];
+      const usual = m[3] === 'swat the flea' ? 'left' : 'right';
+      return [call('twirl', b, { style: styles[m[3]], who: who(m[1]), ...(hand && hand !== usual ? { hand } : {}) })];
     },
   ],
   [

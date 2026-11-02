@@ -36,7 +36,8 @@ export interface ChainParams {
    */
   hand?: 'right' | 'left';
   /** Who courtesy turns the chainers, as the source names it (checked). */
-  to?: 'partner' | 'neighbor';
+  /** Whom they chain to: whoever stands to turn them, whatever they are (partner, neighbor, shadow ...). */
+  to?: string;
 }
 
 /** Share of the figure spent crossing; the courtesy turn takes the rest. */
@@ -65,7 +66,6 @@ export const chain: Figure<ChainParams> = (state, params, beats) => {
 
 const rightHandChain: Figure<Omit<ChainParams, 'hand'>> = (state, params, beats) => {
   const who = oneOf('chain', 'who', params.who, ['robins', 'larks'] as const);
-  if (params.to !== undefined) oneOf('chain', 'to', params.to, ['partner', 'neighbor'] as const);
   const role = roleOfGroup(who)!;
 
   const plans = minorSets(state).flatMap((g) => {

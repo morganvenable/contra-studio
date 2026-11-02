@@ -52,7 +52,8 @@ import {
   turn,
 } from '../core/math.ts';
 import { findRing, ringHolds } from '../core/ring.ts';
-import { PAIR_NAMES, relationMap, type PairName } from '../core/relations.ts';
+import { PAIR_NAMES, type PairName } from '../core/relations.ts';
+import { besidePairs } from '../core/beside.ts';
 import { roleOfGroup } from '../core/roles.ts';
 import {
   activeIds,
@@ -179,38 +180,6 @@ const ringed = (state: Parameters<typeof balance>[0]) =>
 const BESIDE_STEP = 0.2;
 /** How far apart a side-by-side pair stands to hold inside hands (meters, shoulder to shoulder about). */
 const BESIDE_GAP = 1.0;
-
-/**
- * Each dancer's nearest dancer standing beside them, facing much the same way
- * (in a ring, the one on either side), when that is mutual; the one the line
- * names (`who`) first when they stand beside.
- */
-function besidePairs(state: Parameters<typeof balance>[0], who?: string): [number, number][] {
-  const ids = activeIds(state);
-  let named: ReadonlyMap<number, number> | undefined;
-  try {
-    named = who ? relationMap(state, who) : undefined;
-  } catch {
-    named = undefined;
-  }
-  const nearest = new Map<number, number>();
-  for (const a of ids) {
-    const pa = body(state, a);
-    let best: [number, number] | undefined;
-    for (const b of ids) {
-      if (b === a) continue;
-      const pb = body(state, b), d = length(sub(pb.position, pa.position));
-      const same = dot(forward(pa.yaw), forward(pb.yaw));
-      const ahead = dot(forward(pa.yaw), scale(sub(pb.position, pa.position), 1 / d));
-      const rank = named?.get(a) === b ? d - 10 : d;
-      if (same > -0.2 && Math.abs(ahead) < 0.75 && d < 2 && (!best || rank < best[1])) best = [b, rank];
-    }
-    if (best) nearest.set(a, best[0]);
-  }
-  const pairs = ids.filter((a) => nearest.get(nearest.get(a)!) === a && a < nearest.get(a)!).map((a) => [a, nearest.get(a)!] as [number, number]);
-  if (!pairs.length) throw new Error('Nobody stands side by side to balance.');
-  return pairs;
-}
 
 function besideBalance(state: Parameters<typeof balance>[0], beats: number, who?: string) {
   const plans = besidePairs(state, who).map(([a, b]) => {

@@ -55,7 +55,7 @@ export interface RollAwayParams {
    * Whom they roll across in front of them. A shadow is the dancer of the
    * other role beside them who is neither partner nor neighbor.
    */
-  whom: 'partner' | 'neighbor' | 'shadow';
+  whom: 'partner' | 'neighbor' | 'shadow' | 'next-neighbor' | 'larks' | 'robins';
   /** The way the rolled dancer crosses, when the row says. */
   axis?: 'across' | 'along';
 }
@@ -72,15 +72,19 @@ export const rollAway: Figure<RollAwayParams> = (state, params, beats) => {
       ? undefined
       : oneOf('roll away', 'axis', params.axis, ['across', 'along'] as const);
   const who = oneOf('roll away', 'who', params.who, ['larks', 'robins'] as const);
-  const whom = oneOf('roll away', 'whom', params.whom, ['partner', 'neighbor', 'shadow'] as const);
+  const whom = oneOf('roll away', 'whom', params.whom, ['partner', 'neighbor', 'shadow', 'next-neighbor', 'larks', 'robins'] as const);
   const active = minorSets(state).flat();
   const beside = (id: number) => {
     const me = body(state, id);
     let best: number | undefined;
     let bestD = 2.2;
     for (const o of active) {
-      if (roleOf(state, o) === roleOf(state, id)) continue;
-      if (o === related(state, 'partner', id) || o === related(state, 'neighbor', id)) continue;
+      // A shadow is the other role beside you, neither partner nor neighbor;
+      // a role ("robins roll away larks") is whoever of that role is beside you.
+      if (whom === 'larks' || whom === 'robins') {
+        if (roleOf(state, o) !== (whom === 'larks' ? 'lark' : 'robin')) continue;
+      } else if (roleOf(state, o) === roleOf(state, id)) continue;
+      if (whom === 'shadow' && (o === related(state, 'partner', id) || o === related(state, 'neighbor', id))) continue;
       const d = Math.hypot(
         body(state, o).position.x - me.position.x,
         body(state, o).position.z - me.position.z,
@@ -98,8 +102,10 @@ export const rollAway: Figure<RollAwayParams> = (state, params, beats) => {
     return g
       .filter((id) => roleOf(state, id) === role)
       .flatMap((roller) => {
-        const rolled = whom === 'shadow' ? beside(roller) : related(state, whom, roller);
-        if (rolled === undefined || (whom !== 'shadow' && !g.includes(rolled)))
+        // The named dancer when they stand here, else whoever is beside.
+        const named = whom === 'partner' || whom === 'neighbor' ? related(state, whom, roller) : undefined;
+        const rolled = named !== undefined && g.includes(named) ? named : beside(roller);
+        if (rolled === undefined)
           throw new Error(`Dancer ${roller} has no ${whom} here to roll away.`);
         const a = body(state, roller);
         const b = body(state, rolled);

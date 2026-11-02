@@ -39,10 +39,17 @@ import {
   turn,
 } from '../core/math.ts';
 import { body, minorSets, pairsIn, roleOf, withChanges } from '../core/state.ts';
+import { besidePairs } from '../core/beside.ts';
 
 export interface TwirlParams {
   style: 'box-the-gnat' | 'swat-the-flea' | 'california';
   who: PairName;
+  /**
+   * The arch hand: right unless the line says left. A box the gnat by the
+   * left hand is a swat the flea; a California twirl by the left hand is its
+   * mirror, the dancer on the left going under.
+   */
+  hand?: 'right' | 'left';
 }
 
 /**
@@ -57,16 +64,35 @@ const EDGE = 0.5;
 const TWIRL_FROM = 0.25;
 
 export const twirl: Figure<TwirlParams> = (state, params, beats) => {
-  onlyKeys('twirl', params, ['style', 'who']);
-  const style = oneOf('twirl', 'style', params.style, [
+  onlyKeys('twirl', params, ['style', 'who', 'hand']);
+  const named = oneOf('twirl', 'style', params.style, [
     'box-the-gnat',
     'swat-the-flea',
     'california',
   ] as const);
   const who = oneOf('twirl', 'who', params.who, PAIR_NAMES);
+  const hand = oneOf('twirl', 'hand', params.hand ?? (named === 'swat-the-flea' ? 'left' : 'right'), ['right', 'left'] as const);
+  // Facing, the hand names the figure: a left-hand box the gnat is a swat the flea.
+  const style = named === 'california' ? named : hand === 'left' ? 'swat-the-flea' : 'box-the-gnat';
   // Right-hand arches trade places clockwise from above (positive in rotate()).
-  const sweep = style === 'swat-the-flea' ? -Math.PI : Math.PI;
-  const pairs = minorSets(state).flatMap((g) => pairsIn(state, g, who));
+  const sweep = hand === 'left' ? -Math.PI : Math.PI;
+  // The named pair, when they stand within reach of each other; otherwise, side
+  // by side, whoever stands beside you (the relation names someone else by now).
+  const inReach = (ps: [number, number][]) =>
+    ps.length > 0 && ps.every(([a, b]) => length(sub(body(state, a).position, body(state, b).position)) <= 2.8);
+  let pairs: [number, number][] = [];
+  try {
+    pairs = minorSets(state).flatMap((g) => pairsIn(state, g, who));
+  } catch {
+    pairs = [];
+  }
+  if (style === 'california' && !inReach(pairs)) {
+    try {
+      pairs = besidePairs(state, who);
+    } catch {
+      // Nobody beside anyone: the named pairs as they are (and the reach check below says why not).
+    }
+  }
   const plans = pairs.map(([a, b]) => {
     const pa = body(state, a);
     const pb = body(state, b);
@@ -74,20 +100,29 @@ export const twirl: Figure<TwirlParams> = (state, params, beats) => {
     const half = length(sub(pa.position, pb.position)) / 2;
     if (half < 0.25 || half > 1.4)
       throw new Error(`Dancers ${a} and ${b} are too far apart to twirl.`);
-    let under =
-      roleOf(state, a) === roleOf(state, b) ? undefined : roleOf(state, a) === 'robin' ? a : b;
+    const robin = roleOf(state, a) === roleOf(state, b) ? undefined : roleOf(state, a) === 'robin' ? a : b;
+    let under: number;
+    let pairSweep = sweep;
+    let archHand: 'right' | 'left' = hand;
+    let underHand: 'right' | 'left' = hand;
     if (style === 'california') {
-      // Side by side: the one on the right goes under.
+      // Side by side, on inside hands. The robin goes under wherever she
+      // stands (of two of one role, the one on the right), unless the line
+      // names the hand: a right-hand arch is the left dancer's right hand.
       const facing = mix(rightOf(pa.yaw), rightOf(pb.yaw), 0.5);
       const right = dot(sub(pb.position, pa.position), facing) > 0 ? b : a;
-      if (under === undefined) under = right;
+      const left = right === a ? b : a;
+      under = params.hand ? (hand === 'right' ? right : left) : (robin ?? right);
+      const onRight = under === right;
+      // Under from the right trades places clockwise from above, from the left the other way.
+      pairSweep = onRight ? Math.PI : -Math.PI;
+      archHand = onRight ? 'right' : 'left';
+      underHand = onRight ? 'left' : 'right';
     } else {
-      under ??= b;
+      // Facing: the robin turns under (of two of one role, the second).
+      under = robin ?? b;
     }
     const over = under === a ? b : a;
-    // The arch hand: right for box the gnat and the lark's right in a California twirl.
-    const archHand = style === 'swat-the-flea' ? 'left' : 'right';
-    const underHand = style === 'california' ? 'left' : archHand;
     // Side by side, the two square up to face the way they stand together
     // (out of a ring, straight up or down the set), and end facing the other way.
     const across = sub(pb.position, pa.position);
@@ -98,7 +133,7 @@ export const twirl: Figure<TwirlParams> = (state, params, beats) => {
       const s = body(state, id);
       const rel = sub(s.position, center);
       // Under the arch turns left with a clockwise trade, right otherwise.
-      const spin = (id === under ? 1 : -1) * Math.sign(sweep) * Math.PI;
+      const spin = (id === under ? 1 : -1) * Math.sign(pairSweep) * Math.PI;
       const face =
         style === 'california' ? s.yaw + turn(together, s.yaw) : heading(s.position, id === a ? pb.position : pa.position);
       // Turning to face the partner first takes longer the farther it turns.
@@ -117,7 +152,7 @@ export const twirl: Figure<TwirlParams> = (state, params, beats) => {
       underId: under,
       strength: 1,
     };
-    return { center, half, ids, contact, under };
+    return { center, half, ids, contact, under, sweep: pairSweep };
   });
 
   const motion = (beat: number) => {
@@ -127,7 +162,7 @@ export const twirl: Figure<TwirlParams> = (state, params, beats) => {
     const bodies = plans.flatMap((p) =>
       p.ids.map((d) => {
         const r = p.half + (d.mid - p.half) * close;
-        const position = add(p.center, rotate(scale(d.rel, r / p.half), sweep * q));
+        const position = add(p.center, rotate(scale(d.rel, r / p.half), p.sweep * q));
         const into = d.s.yaw + turn(d.face, d.s.yaw) * smooth(beat / d.faceBeats);
         // The one going under twirls while beneath the raised hands; the
         // other turns steadily as they walk around.

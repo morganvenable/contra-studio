@@ -9,6 +9,10 @@ import type { FigureCall } from './figure.ts';
 import { call, type Pattern } from './parse-more.ts';
 import { parseRow } from './parse.ts';
 
+/** The pair a word names, for a figure any two may dance. */
+const pairOf = (w: string) =>
+  /^next/.test(w) ? 'next-neighbor' : /^p/.test(w) ? 'partner' : /^s/.test(w) ? 'shadow' : /^(larks|robins)$/.test(w) ? w : 'neighbor';
+
 /** Read a row again in its ordinary wording. */
 const again = (text: string, beats: number): FigureCall[] => parseRow({ text, beats });
 
@@ -59,7 +63,7 @@ export const SETS_PATTERNS: readonly Pattern[] = [
   ],
   [
     // An elbow swing is a hand turn holding elbows ("neighbor right elbow").
-    /^(partners?|neighbors?) (right|left) elbow(?: swing| turn)?(?: (once|1|1½|1 1\/2|½|1\/2|twice))?$/,
+    /^(partners?|neighbou?rs?|shadows?|next neighbou?rs?|larks|robins) (right|left) elbow(?: swing| turn)?(?: (once|1|1½|1 1\/2|½|1\/2|twice))?$/,
     (m, b) =>
       again(`${m[1].replace(/s?$/, 's')} allemande ${m[2]}${m[3] ? ` ${m[3]}` : ''}`, b),
   ],
@@ -95,15 +99,15 @@ export const SETS_PATTERNS: readonly Pattern[] = [
   [
     // "partners balance and California twirl": balance side by side the way they face, then twirl.
     // Neighbors or shadows side by side twirl the same way.
-    /^(partners?|neighbou?rs?|shadows?) balance (?:&|and) california twirl(?: to face (?:a )?new (?:line|neighbou?rs))?$/,
+    /^(partners?|neighbou?rs?|shadows?|next neighbou?rs?|larks|robins) balance (?:&|and) california twirl(?: to face (?:a )?new (?:line|neighbou?rs))?$/,
     (m, b) => {
-      const who = /^p/.test(m[1]) ? 'partner' : /^s/.test(m[1]) ? 'shadow' : 'neighbor';
+      const who = pairOf(m[1]);
       return [call('balance', 4, { formation: 'beside', who }), call('twirl', b - 4, { style: 'california', who })];
     },
   ],
   [
-    /^(partners?) california twirl(?:,? (?:to )?face (?:a )?(?:new|next) line(?: of (?:four|4))?)$/,
-    (_m, b) => [call('twirl', b, { style: 'california', who: 'partner' })],
+    /^(partners?|neighbou?rs?|shadows?|next neighbou?rs?|larks|robins) california twirl(?:,? (?:to )?face (?:a )?(?:new|next) (?:line(?: of (?:four|4))?|neighbou?rs))$/,
+    (m, b) => [call('twirl', b, { style: 'california', who: pairOf(m[1]) })],
   ],
   [
     // A swing that ends facing out of the minor set, toward the next couple or line.

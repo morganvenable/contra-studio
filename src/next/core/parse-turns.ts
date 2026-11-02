@@ -137,7 +137,7 @@ export const TURN_PATTERNS: readonly (readonly [RegExp, Build])[] = [
   [
     // "partners Nevada twirl (robins twirl the larks to swap & face next
     // neighbors)": a California twirl, the lark going under.
-    /^(partners|neighbors) nevada twirl(?:,? \(?(?:\w+ )?twirls? (?:the )?\w+ to swap\b.*)?$/,
+    /^((?:next )?\w+) nevada twirl(?:,? \(?(?:\w+ )?twirls? (?:the )?\w+ to swap\b.*)?$/,
     (m, b) => [call('twirl', b, { style: 'california', who: who(m[1]) })],
   ],
   [

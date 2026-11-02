@@ -36,9 +36,11 @@ import {
   turn,
 } from '../core/math.ts';
 import { body, groupCenter, minorSets, pairsIn, withChanges } from '../core/state.ts';
+import { PAIR_NAMES, type PairName } from '../core/relations.ts';
 
 export interface PromenadeParams {
-  who: 'partner' | 'neighbor';
+  /** Any pair standing on opposite sides of the set (partners, neighbors, shadows ...). */
+  who: PairName;
 }
 
 /** Share of the figure spent crossing; the wheel takes the rest. */
@@ -54,7 +56,7 @@ const LANE_RUN = 0.45;
 
 export const promenade: Figure<PromenadeParams> = (state, params, beats) => {
   onlyKeys('promenade', params, ['who']);
-  const who = oneOf('promenade', 'who', params.who, ['partner', 'neighbor'] as const);
+  const who = oneOf('promenade', 'who', params.who, PAIR_NAMES);
   const plans = minorSets(state).flatMap((g) => {
     const middle = groupCenter(state, g);
     const side = (id: number) => Math.sign(body(state, id).position.x - middle.x);
