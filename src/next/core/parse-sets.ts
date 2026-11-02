@@ -93,12 +93,13 @@ export const SETS_PATTERNS: readonly Pattern[] = [
     (_m, b) => [call('right-left-through', b, {})],
   ],
   [
-    // "partners balance and California twirl": balance where they stand, then twirl.
-    /^(partners?) balance (?:&|and) california twirl(?: to face (?:a )?new line)?$/,
-    (_m, b) => [
-      call('balance', 4, { formation: 'current' }),
-      call('twirl', b - 4, { style: 'california', who: 'partner' }),
-    ],
+    // "partners balance and California twirl": balance side by side the way they face, then twirl.
+    // Neighbors or shadows side by side twirl the same way.
+    /^(partners?|neighbou?rs?|shadows?) balance (?:&|and) california twirl(?: to face (?:a )?new (?:line|neighbou?rs))?$/,
+    (m, b) => {
+      const who = /^p/.test(m[1]) ? 'partner' : /^s/.test(m[1]) ? 'shadow' : 'neighbor';
+      return [call('balance', 4, { formation: 'beside', who }), call('twirl', b - 4, { style: 'california', who })];
+    },
   ],
   [
     /^(partners?) california twirl(?:,? (?:to )?face (?:a )?(?:new|next) line(?: of (?:four|4))?)$/,

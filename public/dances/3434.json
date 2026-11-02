@@ -6,7 +6,7 @@
   {"move":"star","beats":8,"params":{"hand":"left","places":4,"among":["middle"]},"text":"center 4 star left 1","section":"A2","row":4},
   {"move":"lines-swing","beats":16,"params":{"who":"partner","meltdown":true},"text":"partners meltdown swing","section":"B1","row":5},
   {"move":"lines-circle","beats":8,"params":{"direction":"left","places":4},"text":"circle left 4 places","section":"B2","row":6},
-  {"move":"balance","beats":4,"params":{"formation":"current"},"text":"partners balance and California twirl · balance","section":"B2","row":7},
+  {"move":"balance","beats":4,"params":{"formation":"beside","who":"partner"},"text":"partners balance and California twirl · balance","section":"B2","row":7},
   {"move":"twirl","beats":4,"params":{"style":"california","who":"partner"},"text":"partners balance and California twirl · twirl","progression":true,"section":"B2","row":7}
  ]
 }

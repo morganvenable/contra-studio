@@ -14,6 +14,10 @@
  * - pair: two dancers (partners, neighbors, ...) face each other and step in
  *   toward each other and back ("neighbors balance", "right hand balance"),
  *   ending where they started. Hands join while they are close enough.
+ * - beside: everyone standing side by side with someone facing the same
+ *   way (before a California twirl) squares up with them, takes inside
+ *   hands, and steps forward and back the way they face. Pairs are whoever
+ *   stands beside whom, whatever they are to each other.
  * - solo ("balance yourself"): everyone balances right and left alone, in
  *   place, holding no one.
  * - long-waves: everyone on the side lines takes hands along their line,
@@ -48,7 +52,7 @@ import {
   turn,
 } from '../core/math.ts';
 import { findRing, ringHolds } from '../core/ring.ts';
-import { PAIR_NAMES, type PairName } from '../core/relations.ts';
+import { PAIR_NAMES, relationMap, type PairName } from '../core/relations.ts';
 import { roleOfGroup } from '../core/roles.ts';
 import {
   activeIds,
@@ -64,7 +68,7 @@ import {
 
 export interface BalanceParams {
   /** 'current': a wave if the group holds one, otherwise its ring. */
-  formation: 'wave' | 'ring' | 'pair' | 'current' | 'long-waves' | 'solo';
+  formation: 'wave' | 'ring' | 'pair' | 'current' | 'long-waves' | 'solo' | 'beside';
   /** Long waves: the role that faces in across the set. */
   in?: 'larks' | 'robins';
   /** A pair balance straight into a swing with the same pair (dance.ts). */
@@ -118,6 +122,7 @@ const fourBeatBalance: Figure<BalanceParams> = (state, params, beats) => {
     'current',
     'long-waves',
     'solo',
+    'beside',
   ] as const);
   if (params.in !== undefined && formation !== 'long-waves')
     throw new Error('Only long waves name who faces in.');
@@ -149,6 +154,14 @@ const fourBeatBalance: Figure<BalanceParams> = (state, params, beats) => {
   if (formation === 'ring') return ringBalance(state, params, beats);
   if (formation === 'long-waves') return longWaveBalance(state, params, beats);
   if (formation === 'solo') return heldBalance(state, beats, activeIds(state));
+  if (formation === 'beside') {
+    try {
+      return besideBalance(state, beats, params.who);
+    } catch {
+      // Nobody side by side: balance what they hold, as a plain balance.
+      return fourBeatBalance(state, { formation: 'current' }, beats);
+    }
+  }
   return pairBalance(state, params, beats);
 };
 
@@ -161,6 +174,86 @@ const ringed = (state: Parameters<typeof balance>[0]) =>
       return false;
     }
   });
+
+/** How far a side-by-side pair steps forward. */
+const BESIDE_STEP = 0.2;
+/** How far apart a side-by-side pair stands to hold inside hands (meters, shoulder to shoulder about). */
+const BESIDE_GAP = 1.0;
+
+/**
+ * Each dancer's nearest dancer standing beside them, facing much the same way
+ * (in a ring, the one on either side), when that is mutual; the one the line
+ * names (`who`) first when they stand beside.
+ */
+function besidePairs(state: Parameters<typeof balance>[0], who?: string): [number, number][] {
+  const ids = activeIds(state);
+  let named: ReadonlyMap<number, number> | undefined;
+  try {
+    named = who ? relationMap(state, who) : undefined;
+  } catch {
+    named = undefined;
+  }
+  const nearest = new Map<number, number>();
+  for (const a of ids) {
+    const pa = body(state, a);
+    let best: [number, number] | undefined;
+    for (const b of ids) {
+      if (b === a) continue;
+      const pb = body(state, b), d = length(sub(pb.position, pa.position));
+      const same = dot(forward(pa.yaw), forward(pb.yaw));
+      const ahead = dot(forward(pa.yaw), scale(sub(pb.position, pa.position), 1 / d));
+      const rank = named?.get(a) === b ? d - 10 : d;
+      if (same > -0.2 && Math.abs(ahead) < 0.75 && d < 2 && (!best || rank < best[1])) best = [b, rank];
+    }
+    if (best) nearest.set(a, best[0]);
+  }
+  const pairs = ids.filter((a) => nearest.get(nearest.get(a)!) === a && a < nearest.get(a)!).map((a) => [a, nearest.get(a)!] as [number, number]);
+  if (!pairs.length) throw new Error('Nobody stands side by side to balance.');
+  return pairs;
+}
+
+function besideBalance(state: Parameters<typeof balance>[0], beats: number, who?: string) {
+  const plans = besidePairs(state, who).map(([a, b]) => {
+    const pa = body(state, a), pb = body(state, b);
+    const across = sub(pb.position, pa.position);
+    const square = { x: -across.z, z: across.x };
+    const ahead = mix(forward(pa.yaw), forward(pb.yaw), 0.5);
+    const face = dot(square, ahead) >= 0 ? square : scale(square, -1);
+    const yaw = heading({ x: 0, z: 0 }, face);
+    // The one on the left gives a right hand, the one on the right a left: inside hands.
+    const [left, right] = dot(rightOf(yaw), across) > 0 ? [a, b] : [b, a];
+    const hold: Hold = { a: left, handA: 'right', b: right, handB: 'left' };
+    // Standing a place apart, they step in toward each other to take hands, and back out.
+    const gap = length(across);
+    const inward = Math.max(0, (gap - BESIDE_GAP) / 2);
+    const toward = new Map([
+      [a, scale(across, inward / gap)],
+      [b, scale(across, -inward / gap)],
+    ]);
+    return { ids: [a, b], yaw, face: scale(face, 1 / length(face)), hold, toward };
+  });
+  const motion = (beat: number) => {
+    const t = beat / beats;
+    const step = BESIDE_STEP * Math.sin(Math.PI * Math.min(1, t * 2)) * (t < 0.5 ? 1 : 0);
+    const close = smooth(t / 0.3) * smooth((1 - t) / 0.3);
+    const bodies = plans.flatMap((p) =>
+      p.ids.map((id) => {
+        const s = body(state, id);
+        return {
+          id,
+          position: add(add(s.position, scale(p.face, step)), scale(p.toward.get(id)!, close)),
+          yaw: s.yaw + turn(p.yaw, s.yaw) * smooth(beat / 1),
+        };
+      }),
+    );
+    const map = bodyMap(bodies);
+    return {
+      bodies,
+      contacts: plans.map((p) => withinReach(joined(p.hold, smooth(beat / 0.5) * smooth((beats - beat) / 0.25)), map)),
+    };
+  };
+  return { kind: 'wave-balance' as const, motion, exit: settle(state, motion, beats) };
+}
 
 /** How far a line steps in toward the line it faces. */
 const LINE_STEP = 0.3;

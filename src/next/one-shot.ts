@@ -55,7 +55,7 @@ const WHO = /\b(?:neighbou?rs?|partners?|shadows?|larks|robins|ladies|gents|gent
  * allemande right once): each rewrite is tried in turn when the text as
  * typed does not read, and the preview says what it was read as.
  */
-const REWRITES: readonly ((t: string) => string | undefined)[] = [
+const REWRITES: readonly ((t: string, earlier: Earlier) => string | undefined)[] = [
   (t) => {
     const m = t.match(/^(?:(\w+) start (?:a |the )?)?(full |half )?hey(?: for four)?$/i);
     return m ? `${m[1] ?? 'robins'} start a ${(m[2] ?? 'full ').trim()} hey - rights on ends, lefts in center` : undefined;
@@ -69,8 +69,8 @@ const REWRITES: readonly ((t: string) => string | undefined)[] = [
     return m ? `${m[1] ?? 'larks'} give & take ${m[2] ?? 'partners'}` : undefined;
   },
   (t) => (/^promenade\b/i.test(t) && !WHO.test(t) ? `partners ${t}` : undefined),
-  // A California twirl is a partner figure, side by side with inside hands joined.
-  (t) => (/california twirl/i.test(t) && !WHO.test(t) ? `partners ${t}` : undefined),
+  // A twirl naming no one is with whoever the last twirl was (twirling back), else partners.
+  (t, earlier) => (/california twirl/i.test(t) && !WHO.test(t) ? `${earlier.twirl ?? 'partners'} ${t}` : undefined),
   // Someone to dance it with: neighbors, unless the line names someone.
   (t) => (WHO.test(t) ? undefined : `neighbors ${t}`),
 ];
@@ -78,7 +78,44 @@ const REWRITES: readonly ((t: string) => string | undefined)[] = [
 const COMPLETE: readonly ((t: string) => string)[] = [
   (t) => (/\ballemande\b/i.test(t) && !/\b(?:left|right)\b/i.test(t) ? t.replace(/\ballemande\b/i, 'allemande right') : t),
   (t) => (/\b(?:allemande|gyre)\b/i.test(t) && !/\b(?:once|twice|\d|½|¼|¾|half|quarter|three|one)\b/i.test(t) ? `${t} once` : t),
+  // "circle left (with new neighbors) all the way around": four places.
+  (t) => t.replace(/^circle (left|right)(.*?),? (?:all the way|once) around$/i, 'circle $1 4 places$2'),
 ];
+/** What earlier lines said, for a line that leaves it out. */
+interface Earlier {
+  /** Who the last twirl was with ("neighbors"). */
+  readonly twirl?: string;
+}
+
+/** Words of figures, for reading a slip of the keyboard ("cirlce"). */
+const VOCABULARY = new Set(
+  ('circle left right places balance swing allemande neighbors neighbor partners partner shadows shadow california twirl ' +
+    'petronella chain robins larks ladies gents through promenade star across along around once twice half full hey ' +
+    'gnat flea long lines forward back pass pull ocean wave down hall turn alone gyre mad poussette roll away ' +
+    'circulate contra corners next new original slide')
+    .split(' '),
+);
+/** Words that are not figure words but sit near one ("start" is not "star"). */
+const COMMON = new Set('start stars that this with then them they from face faces hands lines into over under while'.split(' '));
+/** One letter out, in or wrong, or two swapped. */
+function near(a: string, b: string) {
+  if (Math.abs(a.length - b.length) > 1) return false;
+  if (a.length === b.length) {
+    const diff = [...a].map((c, i) => (c === b[i] ? -1 : i)).filter((i) => i >= 0);
+    return diff.length === 1 || (diff.length === 2 && diff[1] === diff[0] + 1 && a[diff[0]] === b[diff[1]] && a[diff[1]] === b[diff[0]]);
+  }
+  const [s, l] = a.length < b.length ? [a, b] : [b, a];
+  for (let i = 0; i < l.length; i++) if (l.slice(0, i) + l.slice(i + 1) === s) return true;
+  return false;
+}
+/** The text with misspelt figure words put right. */
+function spelled(text: string) {
+  return text.replace(/[a-z]{4,}/gi, (w) => {
+    const lower = w.toLowerCase();
+    if (VOCABULARY.has(lower) || COMMON.has(lower)) return w;
+    return [...VOCABULARY].find((v) => v.length >= 4 && near(lower, v)) ?? w;
+  });
+}
 const reads = (text: string) => {
   try {
     parseRow({ text, beats: 8 });
@@ -88,16 +125,19 @@ const reads = (text: string) => {
   }
 };
 /** The text as typed if it reads, else the first usual reading that does. */
-function readable(text: string): string | undefined {
-  if (reads(text)) return undefined;
-  const filled = COMPLETE.reduce((t, f) => f(t), text);
-  const tries = [filled, ...REWRITES.map((r) => r(filled)), ...REWRITES.map((r) => r(text))].filter(
-    (t): t is string => !!t && t !== text,
-  );
-  for (const t of tries) {
-    if (reads(t)) return t;
-    const more = REWRITES.map((r) => r(t)).find((u) => u && reads(u));
-    if (more) return more;
+function readable(typed: string, earlier: Earlier = {}): string | undefined {
+  if (reads(typed)) return undefined;
+  // As typed first; only then with slips of the keyboard put right.
+  for (const text of [typed, spelled(typed)]) {
+    const filled = COMPLETE.reduce((t, f) => f(t), text);
+    const tries = [text, filled, ...REWRITES.map((r) => r(filled, earlier)), ...REWRITES.map((r) => r(text, earlier))].filter(
+      (t): t is string => !!t && t !== typed,
+    );
+    for (const t of tries) {
+      if (reads(t)) return t;
+      const more = REWRITES.map((r) => r(t, earlier)).find((u) => u && reads(u));
+      if (more) return more;
+    }
   }
   return undefined;
 }
@@ -122,6 +162,39 @@ const OPTIONS: readonly ((t: string) => readonly { text: string; why: string }[]
   },
 ];
 const optionsFor = (text: string) => OPTIONS.flatMap((o) => o(text)).filter((o) => reads(o.text));
+
+/** Who a line may name instead of the one filled in: dancers in pairs, or a role. */
+const WHO_CHOICES = [
+  ['partners', 'neighbors', 'shadows', 'next neighbors'],
+  ['larks', 'robins'],
+];
+/**
+ * For a line that left out who or which hand (and was read with the usual
+ * one filled in), the other readings as choices; for a line not understood,
+ * the matching figures (OPTIONS).
+ */
+function choices(typed: string, readAs: string | undefined): { text: string; why: string }[] {
+  if (reads(typed)) return [];
+  const out = readAs ? [] : optionsFor(typed);
+  if (readAs) {
+    const who = !WHO.test(typed) && readAs.match(/^(next neighbors|partners|neighbors|shadows|larks|robins)\b/i);
+    // Read with nobody named (an allemande is the neighbors'): any pair may dance it.
+    if (!WHO.test(typed) && !WHO.test(readAs))
+      for (const other of WHO_CHOICES[0]) out.push({ text: `${other} ${readAs}`, why: `with ${other}` });
+    if (who) {
+      const set = WHO_CHOICES.find((s) => s.includes(who[1].toLowerCase())) ?? [];
+      for (const other of set)
+        if (other !== who[1].toLowerCase()) out.push({ text: `${other}${readAs.slice(who[1].length)}`, why: `with ${other}` });
+    }
+    const hand = !/\b(?:left|right)\b/i.test(typed) && readAs.match(/\b(left|right)\b/i);
+    if (hand) {
+      const other = hand[1].toLowerCase() === 'right' ? 'left' : 'right';
+      out.push({ text: readAs.replace(/\b(?:left|right)\b/i, other), why: `${other} hand` });
+    }
+    out.push(...optionsFor(typed).filter((o) => !out.some((p) => p.text === o.text)));
+  }
+  return out.filter((o) => o.text.toLowerCase() !== (readAs ?? typed).toLowerCase() && reads(o.text));
+}
 
 /** Who stands where around the 1s' lark as a line starts (state-note.ts around). */
 type Around = readonly { readonly who: string; readonly where: string }[];
@@ -210,9 +283,12 @@ export function readOneShot(text: string, formationChoice?: string): OneShot {
   const figures = lines.filter((l) => l.text);
   const guessed = new Set<(typeof figures)[number]>();
   const readAs = new Map<(typeof figures)[number], string>();
+  let earlier: Earlier = {};
   for (const l of figures) {
-    const as = readable(l.text!);
+    const as = readable(l.text!, earlier);
     if (as) readAs.set(l, as);
+    const twirl = (as ?? l.text!).match(/^(\w+(?: neighbou?rs?)?) (?:balance (?:&|and) )?california twirl/i);
+    if (twirl) earlier = { ...earlier, twirl: /s$/i.test(twirl[1]) ? twirl[1] : `${twirl[1]}s` };
     if (l.beats === undefined) {
       l.beats = usualBeats(as ?? l.text!);
       guessed.add(l);
@@ -245,7 +321,7 @@ export function readOneShot(text: string, formationChoice?: string): OneShot {
             typed: l.typed,
             at: l.at,
             // Only for a line that does not read as typed: one that does is taken at its word.
-            ...(!reads(l.text) && optionsFor(l.text).length ? { options: optionsFor(l.text) } : {}),
+            ...((o) => (o.length ? { options: o } : {}))(choices(l.text, readAs.get(l as never))),
             row: {
               section: l.part,
               beats: l.beats!,

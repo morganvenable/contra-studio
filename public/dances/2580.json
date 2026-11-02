@@ -6,7 +6,7 @@
   {"move":"swing","beats":8,"params":{"who":"neighbor"},"text":"neighbors swing","section":"A2","row":4},
   {"move":"circle","beats":8,"params":{"direction":"left","places":4},"text":"circle left 4 places","section":"B1","row":5},
   {"move":"poussette","beats":8,"params":{"who":"robins","pair":"partner","then":"left","amount":0.5},"text":"half poussette - robins pull partners back then left","section":"B1","row":6,"progression":true},
-  {"move":"circle","beats":8,"params":{"direction":"right","places":3},"text":"circle right 3 places with new neighbors","section":"B2","row":7},
+  {"move":"circle","beats":8,"params":{"direction":"right","places":3,"rings":"facing"},"text":"circle right 3 places with new neighbors","section":"B2","row":7},
   {"move":"swing","beats":8,"params":{"who":"partner"},"text":"partners swing","section":"B2","row":8}
  ]
 }

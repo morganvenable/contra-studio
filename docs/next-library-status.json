@@ -14,8 +14,8 @@
    "formation": "improper",
    "dances": 1189,
    "ok": 624,
-   "check": 109,
-   "partial": 456,
+   "check": 110,
+   "partial": 455,
    "unsupported": 0
   },
   {
@@ -62,8 +62,8 @@
    "formation": "becket cw",
    "dances": 30,
    "ok": 5,
-   "check": 3,
-   "partial": 22,
+   "check": 2,
+   "partial": 23,
    "unsupported": 0
   },
   {
@@ -2381,7 +2381,7 @@
   "figuresThatCannotStart": [
    {
     "name": "progression or other",
-    "unlocks": 148
+    "unlocks": 147
    },
    {
     "name": "swing variant",
@@ -2408,12 +2408,12 @@
     "unlocks": 17
    },
    {
-    "name": "allemande variant",
+    "name": "pull by / pass by",
     "unlocks": 14
    },
    {
-    "name": "pull by / pass by",
-    "unlocks": 13
+    "name": "allemande variant",
+    "unlocks": 14
    },
    {
     "name": "promenade",
@@ -2571,7 +2571,7 @@
   "checkFailures": [
    {
     "name": "Couples don't end the round where the progression puts them.",
-    "unlocks": 139
+    "unlocks": 138
    },
    {
     "name": "ocean wave / long wave",
@@ -2678,10 +2678,6 @@
     "unlocks": 2
    },
    {
-    "name": "The next time through can't start from where the dancers end: The dancers in the middle of a hey must start on opposite sides of the set.).",
-    "unlocks": 2
-   },
-   {
     "name": "balance variant",
     "unlocks": 2
    },
@@ -2695,6 +2691,10 @@
    },
    {
     "name": "The next time through can't start from where the dancers end: A star of 4 needs the dancers spaced around a ring.).",
+    "unlocks": 1
+   },
+   {
+    "name": "california twirl",
     "unlocks": 1
    },
    {
@@ -2742,6 +2742,10 @@
     "unlocks": 1
    },
    {
+    "name": "The next time through can't start from where the dancers end: The dancers in the middle of a hey must start on opposite sides of the set.).",
+    "unlocks": 1
+   },
+   {
     "name": "down/up the hall",
     "unlocks": 1
    },
@@ -2767,6 +2771,10 @@
    },
    {
     "name": "The next time through can't start from where the dancers end: Both ends would take the same end of the wave; the hands named do not fit how the dancers face.).",
+    "unlocks": 1
+   },
+   {
+    "name": "The next time through can't start from where the dancers end: Playback is limited to one round: the next round cannot start (chain starts before a waiting couple finishes crossing.).",
     "unlocks": 1
    }
   ],
