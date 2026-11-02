@@ -126,16 +126,32 @@ test('a California twirl reads with partners, and offers the neighbor figure tha
   const plain = readOneShot('balance and California twirl');
   assert.equal(plain.lines[0].row?.readAs, 'partners balance and California twirl');
   assert.equal(plain.stored.unparsed.length, 0);
-  assert.deepEqual(plain.lines[0].options?.map((o) => o.text), ['neighbors balance & box the gnat', 'neighbors balance & swat the flea']);
+  // Who it is with is a choice: the other pairs, and the facing figures for neighbors.
+  const offered = plain.lines[0].options?.map((o) => o.text) ?? [];
+  for (const o of ['neighbors balance and California twirl', 'neighbors balance & box the gnat', 'neighbors balance & swat the flea'])
+    assert.ok(offered.includes(o), o);
+  // Any pair standing side by side may twirl: neighbors read as typed, and a line read as typed is taken at its word.
   const neighbors = readOneShot('neighbors balance and California twirl');
-  assert.equal(neighbors.stored.unparsed.length, 1);
-  assert.deepEqual(neighbors.lines[0].options?.map((o) => o.text), [
-    'neighbors balance & box the gnat',
-    'neighbors balance & swat the flea',
-    'partners balance & California twirl',
-  ]);
-  // A line that reads as typed is taken at its word.
+  assert.equal(neighbors.stored.unparsed.length, 0);
+  assert.equal(neighbors.lines[0].options, undefined);
   assert.equal(readOneShot('partners balance & California twirl').lines[0].options, undefined);
+});
+
+test('a twirl to face new neighbors, a circle with them, and a twirl back', () => {
+  const { stored, lines } = readOneShot(
+    ['neighbor balance & swing', 'cirlce left three places', 'neighbor balance and California twirl', 'circle left with new neighbors all the way around', 'balance and california twirl'].join('\n'),
+  );
+  assert.equal(stored.unparsed.length, 0);
+  assert.equal(lines[1].row?.readAs, 'circle left three places', 'a slip of the keyboard put right');
+  assert.equal(lines[3].row?.readAs, 'circle left 4 places with new neighbors');
+  assert.equal(lines[4].row?.readAs, 'neighbors balance and california twirl', 'twirling back with the same pair');
+  const segments = (compileNext(stored, 6, undefined, { lenient: false }) as unknown as { round(r: number): { segments: { call: { move: string; params: Record<string, unknown> }; result: { exit: { bodies: ReadonlyMap<number, { position: { z: number }; yaw: number }> } } }[] } }).round(0).segments;
+  const facing = (s: (typeof segments)[number], id: number) => Math.round(Math.cos(s.result.exit.bodies.get(id)!.yaw));
+  // Out of the first twirl the 1s' robin and her neighbor face down the set to new neighbors; twirling back, up again.
+  const twirls = segments.filter((s) => s.call.move === 'twirl');
+  assert.equal(facing(twirls[0], 1), 1);
+  assert.equal(facing(twirls[1], 1), -1);
+  assert.equal(segments.find((s) => s.call.move === 'circle' && s.call.params.rings === 'facing') !== undefined, true);
 });
 
 test('where everyone stands coming out of each line, in words', async () => {

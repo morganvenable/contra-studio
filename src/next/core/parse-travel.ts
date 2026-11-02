@@ -236,6 +236,11 @@ const PATTERNS: readonly (readonly [RegExp, Build])[] = [
 
   // ---- Circles ----
   [
+    // With the pair you now face (out of a twirl to face new neighbors): a ring of those two-and-two.
+    /^(circle (?:left|right) \w+ places?) with (?:new|next) neighbou?rs?$/,
+    (m, b) => again(m[1], b).map((c) => (c.move === 'circle' ? { ...c, params: { ...c.params, rings: 'facing' } } : c)),
+  ],
+  [
     // Who is in the ring, and how it is held: the circle of the minor set.
     /^(circle (?:left|right) (?:\w+ places?|[^ ]+))(?: -|,)? (?:with (?:couple \d|neighbors?|partners?(?: and original hands four)?|right-hand couple|couple below|new neighbors ready to start dance again!?|n\d)|hands free zombie walk|hold the ring|follow your left hand|(?:robins|larks) lead|until (?:across from partners|on side of the set with neighbors)|to form,? with current neighbors,?|to face neighbor up and down set|and smush|i\.e\. ½ way|1\/2|2\/2|finish the circle .*|with next neighbors, circle r halfway|minor set|all six|larks are already going ccw|dance starts with same coupe larks lead out|join right hand with neighbor in allemande hold|whole circle set circle left|¹ and look away from this set|face partner up & down|hands six, circle halfway|end becket indecent with shadow|no hands, eyes on partner)$/,
     as('$1'),
@@ -522,7 +527,7 @@ function way(named: string | undefined) {
 }
 
 /** Rows read here before any other table (others would drop words that add motion). */
-const FIRST = /right hand high,? left hand low|^top (?:2|two) couples form (?:a )?line of (?:4|four)/;
+const FIRST = /right hand high,? left hand low|^top (?:2|two) couples form (?:a )?line of (?:4|four)|^circle (?:left|right) \w+ places? with (?:new|next) neighbou?rs?$/;
 
 /** The calls for a row this table reads first, or undefined. */
 export function travelFirst(text: string, beats: number): FigureCall[] | undefined {

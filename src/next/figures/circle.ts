@@ -42,6 +42,11 @@ export interface CircleParams {
    * the one ahead, and turns back in to face the center at the end.
    */
   singleFile?: boolean;
+  /**
+   * "With new neighbors": the rings are the two-and-two who face each other
+   * as they stand (side-by-side pairs facing another pair), not the minor sets.
+   */
+  rings?: 'facing';
 }
 
 const TIGHTEN = 0.32;
@@ -146,8 +151,54 @@ function settleOnPlaces(
   return [...drift.values()].some((d) => Math.hypot(d.x, d.z) > 1e-6) ? drift : none;
 }
 
+/**
+ * Rings of four made from where the dancers stand: each dancer with the one
+ * beside them (facing the same way, an arm's length or so apart) and the
+ * pair they face. Dancers with nobody to face (at the ends) stay out, and
+ * so do couples waiting out at the ends.
+ */
+export function facingRings(state: DanceState): number[][] {
+  const ids = [...state.bodies.keys()].filter((id) => !state.waiting.some((w) => state.dancers[id].couple === w.couple));
+  const fwd = (id: number) => {
+    const y = body(state, id).yaw;
+    return { x: Math.sin(y), z: Math.cos(y) };
+  };
+  const link = new Map<number, number>(ids.map((id) => [id, id]));
+  const root = (id: number): number => (link.get(id) === id ? id : root(link.get(id)!));
+  const join = (a: number, b: number) => link.set(root(a), root(b));
+  for (const a of ids) {
+    const pa = body(state, a).position, fa = fwd(a);
+    let beside: [number, number] | undefined, facing: [number, number] | undefined;
+    for (const b of ids) {
+      if (b === a) continue;
+      const pb = body(state, b).position, fb = fwd(b), d = distance(pa, pb);
+      const to = { x: (pb.x - pa.x) / d, z: (pb.z - pa.z) / d };
+      const same = fa.x * fb.x + fa.z * fb.z;
+      const ahead = fa.x * to.x + fa.z * to.z;
+      if (same > 0.7 && Math.abs(ahead) < 0.5 && d < 1.9 && (!beside || d < beside[1])) beside = [b, d];
+      if (same < -0.7 && ahead > 0.7 && d < 2.9 && (!facing || d < facing[1])) facing = [b, d];
+    }
+    if (beside) join(a, beside[0]);
+    if (facing) join(a, facing[0]);
+  }
+  const rings = new Map<number, number[]>();
+  for (const id of ids) rings.set(root(id), [...(rings.get(root(id)) ?? []), id]);
+  // Nobody to face (a short set, everyone facing out to the ends): nobody circles; they wait.
+  return [...rings.values()].filter((r) => r.length === 4);
+}
+
+/** Most of a group facing away from its own middle. */
+function facesAway(state: DanceState, group: readonly number[]) {
+  const mid = group.reduce((m, id) => add(m, scale(body(state, id).position, 1 / group.length)), { x: 0, z: 0 });
+  const away = group.filter((id) => {
+    const b = body(state, id), to = sub(mid, b.position);
+    return Math.sin(b.yaw) * to.x + Math.cos(b.yaw) * to.z < 0;
+  });
+  return away.length > group.length / 2;
+}
+
 export const circle: Figure<CircleParams> = (state, params, beats) => {
-  onlyKeys('circle', params, ['direction', 'places', 'amount', 'singleFile']);
+  onlyKeys('circle', params, ['direction', 'places', 'amount', 'singleFile', 'rings']);
   const single = params.singleFile === true;
   const direction = oneOf('circle', 'direction', params.direction, ['left', 'right'] as const);
   if ((params.places === undefined) === (params.amount === undefined)) {
@@ -162,7 +213,10 @@ export const circle: Figure<CircleParams> = (state, params, beats) => {
   if (state.hands.length) throw new Error('A circle starts with free hands.');
   const sign = direction === 'left' ? 1 : -1;
 
-  const rings = minorSets(state).map((group) => {
+  // "With new neighbors" after a progression is the minor set they face already; only a set
+  // turned away from itself (twirled out to face the next couple) rings up with those it faces.
+  const groups = params.rings === 'facing' && minorSets(state).some((g) => facesAway(state, g)) ? facingRings(state) : minorSets(state);
+  const rings = groups.map((group) => {
     const n = group.length;
     const { center, order } = findRing(state, group, 'circle');
     if (params.places !== undefined && params.places > 2 * n)

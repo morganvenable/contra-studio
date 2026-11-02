@@ -2,7 +2,7 @@
  "figures": [
   {"move":"chain","beats":8,"params":{"who":"robins","diagonal":"left"},"text":"left diagonal robins chain to new neighbor","section":"A1","row":1,"progression":true},
   {"move":"allemande","beats":8,"params":{"who":"larks","hand":"left","amount":1.5,"diagonal":"left"},"text":"larks allemande left 1½ with new neighbor on left diagonal to partner","section":"A1","row":2},
-  {"move":"circle","beats":8,"params":{"direction":"right","places":3},"text":"circle right 3 places with next neighbors","section":"A2","row":3},
+  {"move":"circle","beats":8,"params":{"direction":"right","places":3,"rings":"facing"},"text":"circle right 3 places with next neighbors","section":"A2","row":3},
   {"move":"swing","beats":8,"params":{"who":"neighbor"},"text":"neighbors swing","section":"A2","row":4},
   {"move":"long-lines","beats":8,"params":{"back":true},"text":"long lines forward & back","section":"B1","row":5},
   {"move":"orbit","beats":8,"params":{"center":"do-si-do","who":"robins","shoulder":"right","amount":1.5,"direction":"counterclockwise","around":1},"text":"robins do si do 1½ in the middle while larks orbit counterclockwise once around","section":"B1","row":6},

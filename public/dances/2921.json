@@ -7,7 +7,7 @@
   {"move":"gate","beats":4,"params":{"who":"2s","whom":"1s","face":"in"},"text":"twos gate ones to face into the set","section":"A2","row":4},
   {"move":"figure-eight","beats":8,"params":{"who":"1s"},"text":"ones half figure 8","section":"B1","row":5},
   {"move":"swing","beats":8,"params":{"who":"1s","end":"down"},"text":"ones swing and face down to new twos","progression":true,"section":"B1","row":6},
-  {"move":"circle","beats":8,"params":{"direction":"left","places":4},"text":"circle left 4 places with next neighbors","section":"B2","row":7},
+  {"move":"circle","beats":8,"params":{"direction":"left","places":4,"rings":"facing"},"text":"circle left 4 places with next neighbors","section":"B2","row":7},
   {"move":"swing","beats":8,"params":{"who":"2s","end":"up"},"text":"twos swing","section":"B2","row":8}
  ]
 }

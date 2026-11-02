@@ -3,7 +3,7 @@
   {"move":"swing","beats":8,"params":{"who":"1s","end":"down"},"text":"ones swing","section":"A1","row":1},
   {"move":"allemande","beats":8,"params":{"who":"neighbor","hand":"left","amount":1.5},"text":"neighbors allemande left 1½","section":"A1","row":2},
   {"move":"hold","beats":16,"params":{"reason":"unparsed"},"text":"robins start a full hey - rights in center, lefts on ends - ending with ones below the twos","section":"A2","row":3,"progression":true},
-  {"move":"circle","beats":8,"params":{"direction":"left","places":4},"text":"circle left 4 places with next neighbors","section":"B1","row":4},
+  {"move":"circle","beats":8,"params":{"direction":"left","places":4,"rings":"facing"},"text":"circle left 4 places with next neighbors","section":"B1","row":4},
   {"move":"figure-eight","beats":8,"params":{"who":"1s","around":"below"},"text":"ones half figure 8 below","section":"B1","row":5},
   {"move":"contra-corners","beats":16,"params":{"who":"1s"},"text":"ones contra corners","section":"B2","row":6}
  ]

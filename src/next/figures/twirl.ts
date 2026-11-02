@@ -26,6 +26,7 @@ import {
   add,
   dot,
   ease,
+  forward,
   heading,
   length,
   mix,
@@ -87,13 +88,19 @@ export const twirl: Figure<TwirlParams> = (state, params, beats) => {
     // The arch hand: right for box the gnat and the lark's right in a California twirl.
     const archHand = style === 'swat-the-flea' ? 'left' : 'right';
     const underHand = style === 'california' ? 'left' : archHand;
+    // Side by side, the two square up to face the way they stand together
+    // (out of a ring, straight up or down the set), and end facing the other way.
+    const across = sub(pb.position, pa.position);
+    const ahead = mix(forward(pa.yaw), forward(pb.yaw), 0.5);
+    const square = { x: -across.z, z: across.x };
+    const together = heading({ x: 0, z: 0 }, dot(square, ahead) >= 0 ? square : scale(square, -1));
     const ids = [a, b].map((id) => {
       const s = body(state, id);
       const rel = sub(s.position, center);
       // Under the arch turns left with a clockwise trade, right otherwise.
       const spin = (id === under ? 1 : -1) * Math.sign(sweep) * Math.PI;
       const face =
-        style === 'california' ? s.yaw : heading(s.position, id === a ? pb.position : pa.position);
+        style === 'california' ? s.yaw + turn(together, s.yaw) : heading(s.position, id === a ? pb.position : pa.position);
       // Turning to face the partner first takes longer the farther it turns.
       const faceBeats = Math.min(beats / 2, Math.max(0.75, Math.abs(turn(face, s.yaw)) / 2));
       // The one going under closes in; the other keeps (or steps out to) a
