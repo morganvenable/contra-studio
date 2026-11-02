@@ -185,3 +185,12 @@ test('a twirl is suggested with whoever the lark faces or stands beside as the l
   assert.deepEqual(twirlFit('partners balance & California twirl', around(segments[2].result.exit, 0)), []);
   assert.equal(twirlFit('circle left 3 places', afterNeighbors), undefined);
 });
+
+test('everyday wordings of a hey, a gyre, a see saw and a balance & swing read', () => {
+  const read = (t: string) => readOneShot(t).lines[0].row?.readAs;
+  assert.equal(read('hey for four, larks pass left shoulders'), 'larks start a full hey - lefts in center, rights on ends');
+  assert.equal(read('partners left shoulder gyre'), 'partners gyre left shoulder once');
+  assert.equal(read('shadows see saw'), 'shadows see saw once');
+  assert.equal(read('neighbors two hand balance & swing'), 'neighbors balance & swing');
+  assert.equal(read('next neighbors balance right hands'), 'neighbors balance right hands');
+});

@@ -9,9 +9,9 @@ import type { FigureCall } from './figure.ts';
 import { call, type Pattern } from './parse-more.ts';
 import { parseRow } from './parse.ts';
 
-/** The pair a word names, for a figure any two may dance. */
+/** The pair a word names, for a figure any two may dance ("next neighbors" are the neighbors, as in parse.ts who()). */
 const pairOf = (w: string) =>
-  /^next/.test(w) ? 'next-neighbor' : /^p/.test(w) ? 'partner' : /^s/.test(w) ? 'shadow' : /^(larks|robins)$/.test(w) ? w : 'neighbor';
+  /^p/.test(w) ? 'partner' : /^s/.test(w) ? 'shadow' : /^(larks|robins)$/.test(w) ? w : 'neighbor';
 
 /** Read a row again in its ordinary wording. */
 const again = (text: string, beats: number): FigureCall[] => parseRow({ text, beats });
