@@ -51,6 +51,9 @@ export function physicalCheck(
   options: CheckOptions = {},
 ): PhysicalReport {
   const limits = { ...LIMITS, ...options.limits };
+  // Real dancers differ by more than this (arm length, height, step): anything
+  // under 5 cm past a limit is ignored.
+  const SLACK = 0.05;
   const rounds = options.rounds ?? 2;
   const step = 1 / (options.samplesPerBeat ?? 20);
   const end = dance.totalBeats * rounds;
@@ -79,7 +82,7 @@ export function physicalCheck(
       for (let b = a + 1; b < poses.length; b++) {
         const d = apart(poses[a], poses[b]);
         minimumClearance = Math.min(minimumClearance, d);
-        if (d < limits.minimumClearance)
+        if (d < limits.minimumClearance - SLACK)
           note(beat, `dancers ${a} and ${b} are ${d.toFixed(2)} m apart`);
       }
     }
@@ -131,7 +134,7 @@ export function physicalCheck(
       }
       const r = contactReach(c, near);
       maximumReach = Math.max(maximumReach, r);
-      if (r > limits.armReach + limits.reachFade) {
+      if (r > limits.armReach + limits.reachFade + SLACK) {
         note(beat, `${c.a}-${c.b} ${c.handA}/${c.handB} hand reach ${r.toFixed(2)} m`);
       }
     }
